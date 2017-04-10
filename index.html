@@ -1,12 +1,287 @@
-<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<HTML>
-   <HEAD>
-      <TITLE>
-         A Small Hello
-      </TITLE>
-   </HEAD>
-<BODY>
-   <H1>Hi</H1>
-   <P>This is very minimal "hello world" HTML document.</P>
-</BODY>
-</HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" ><title>help (xeo)</title>
+<link rel="stylesheet" href="formato.css" type="text/css" ></head>
+<body>
+
+<a name="xeo"><h1>xeo</h1></a>
+
+<h3>Open Project Management for Nanostructures</h3>
+<h3><font size="-1">By Daniel Gonz&aacute;lez Trabada</font></h3>
+<hr>
+<h2><a name="subtitle" id="subtitle"></a>Table of contents</h2>
+
+<ul>
+<h6>
+<li><a href="#type">Type of projects</a></li>
+<li><a href="#xeoBabel">xeoBabel</a></li>
+<li><a href="#open">Open a new project</a></li>
+<li><a href="#menu">Visual options</a></li>
+<li>Utilities
+<ul>
+<li><a href="#tabla">Table of positions</a></li>
+<li><a href="#calc_xyz">rotate and rescale</a></li>
+<li><a href="dinamic">dynamic</a></li>
+<li><a href="">STM</a></li> (help : Utilities -> STM -> help)
+<!--<li><a href="#STM">STM</a></li>  -->
+<li><a href="#Kpoints">Kpoints</a></li>
+<li><a href="#Bulk">Bulk modulus</a></li>
+<li><a href="#Script">Script</a></li>
+<li><a href="#comando">line of commands</a></li>
+</ul>
+</li>
+<li><a href="povray.html">Pov Ray</a></li>
+<li><a href="#language">Select language</a></li>
+</h6>
+</ul>
+<hr>
+<a name="type"><h2>Type of projects</h2></a> 
+<br>
+<h4> <!-- empieza -->
+The types of projects are defined in xeoBabel, you can see then if you write "java -jar xeoBabel.jar -H" <br>
+also you can see in the menu of xeo (Export -> xeoBabel).<br>
+Diferents types of projects:
+<UL>
+<LI><a href="http://en.wikipedia.org/wiki/XYZ_file_format">xyz</a> read and write (preview)
+<LI><a href="http://www.abinit.org">abinit</a> on process
+<LI><a href="http://en.wikipedia.org/wiki/CASTEP">castep</a> read and write (POSITIONS_ABS,LATTICE_CART)
+<LI><a href="http://fireball-dft.org/pubwiki/index.php/Fireball_File_Formats">fireball</a> read and write
+<LI><a href="http://fireball-dft.org/pubwiki/index.php/Fireball_File_Formats">fireball_TG</a> read and write
+<LI><a href="http://fireball-dft.org/pubwiki/index.php/Fireball_File_Formats">bas</a> read ans write
+<LI><a href="http://cms.mpi.univie.ac.at/vasp/">vasp</a> on process
+<LI><a href="https://sourceforge.net/projects/xeo/">xeo</a> read and write
+</UL>
+</h4>
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="xeoBabel"><h2>xeoBabel</h2></a>
+<h4>
+xeo used xeoBabel as a plugin to read the diferent formats.<br>
+For more information <a href="xeoBabel/index.html">xeoBabel</a> <br>
+</h4>
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="open"><h2>Open a new project</h2></a> 
+<br>
+<h4>
+<li>File -> open project (F4) </li>
+<li>(on principal manager) press button left of the mouse -> open project (F4)</li>
+</h4>
+<img src="imagenes/open.jpg" >
+<br>
+<h4>
+if you use <input type="radio" name="xeoBabel" checked> xeoBabel, then the type of project is automatic selected. <br>
+if you use <input type="radio" name="babel" checked> Babel, then you must to select the type of project. <br>
+You can open directories and keep in this way the path.
+</h4>
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="menu"><h2>Visual options</h2></a> 
+<br>
+<li><h4>Options -> Visual options </h4></li>
+<img src="imagenes/menu.jpg" >
+<br>
+<h4>
+If you use the option (use icons for the atoms) the icons of the atoms are load from external files.<br>
+If you want to change the icons, you have to repaint this files. <br>
+The localization of this files are in the folder ".xeorc". <br>
+A easy way to found this folder is press "info" in the jTree menu (press left button of the mouse) <br>
+<img src="imagenes/menuT.jpg" > <br>
+In the information:<br>
+<img src="imagenes/menuT1.jpg" ><br>
+In the folder .xeorc/iconos the are some examples:<br>
+C.gif
+<img src="imagenes/C.gif"  width="30" height="30" ><br>
+Si.gif
+<img src="imagenes/Si.gif" width="30" height="30" ><br>
+H.gif
+<img src="imagenes/H.gif" width="30" height="30" ><br>
+You can use as icon what ever you want...<br>
+<img src="imagenes/ico.jpg" > <br>
+You can change and edit new icons, when a new installation is doing, if the folder .xeorc exist <br>
+the installation does not change this folder. And your options and icons should be conserve.<br>
+<br>
+If you use the option (use icons for the atoms) the color of the bonds are the same as the color of the Axis <br>
+</h4>
+
+<img src="imagenes/try.jpg" ><br>
+<img src="imagenes/xyzt.jpg" >
+
+
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="tabla"><h2>Table of positions</h2></a>
+<img src="imagenes/tabla.jpg" >
+
+<div align="center">[<a href="index.html">up</a>]</div><hr>
+
+<a name="calc_xyz"><h2>rotate and rescale </h2></a>
+<h4>
+<img src="imagenes/calculator.jpg" ><br>
+Example of rescale<br>
+<img src="imagenes/rescale.jpg" ><br>
+Example of rotate <br>
+<img src="imagenes/rotate.jpg" ><br>
+<br>
+Rotate using the positions of the atoms <br>
+<img src="imagenes/rotPos.jpg" ><br>
+<ol>
+	<li>In this case, the 5 atom will be the 0 0 0, the 12 atoms will be de 0 0 Z, and the 4 will be oriented in the X direction</li>
+	<li>Press (Load positions)</li>
+	<li>Press (rotate atoms and lvs)</li>
+</ol>
+<br>
+Rotate using directios<br>
+<img src="imagenes/rotDir.jpg" ><br>
+<ol>
+	<li>This case represent a rotations to the (1, 1, 1)</li>
+	<li>Press (Load positions)</li>
+	<li>Press (rotate atoms and lvs)</li>
+</ol>
+<br>
+<!-- <hr>
+<a name="STM"><h2>java-STM-AFM (structure) </h2></a>
+<img src="imagenes/STM.jpg" >
+<br> -->
+</h4>
+<div align="center">[<a href="index.html">up</a>]</div><hr>
+
+<a name="dinamic"><h2>dynamic </h2></a>
+<img src="imagenes/calc_xyz.jpg" >
+<br>
+<h4>    
+x[1] = is X for atom 1 <br>
+.<br>
+.<br>
+x[i] = is X for atom i (X[i] is the average)<br>
+y[i] = is Y for atom i (Y[i] is the average)<br>
+z[i] = is Z for atom i (Z[i] is the average)<br>
+<br>
+d[1][2] is the distance for atoms 1 to 2<br>
+d[i][j] is the distance for atoms i to j (D[i][j] is the average)<br>
+<br>
+a[1][2][3] is the angle for atoms 1 to 2 and 3 <br>
+a[i][j][k] is the angle for atoms i to j and k (A[i][j][k] is the average)<br>
+<br>
+//-----EXAMPLE----- <br>
+x[1]<br>
+z[3] <br>
+d[1][2]-y[3]<br>
+//-----------------<br>
+this plot 3 columns, <br>
+the firt is de X of the atom 1<br>
+the second is the Z of atoms 3<br>
+and the last is the diference betwen de distance of <br>
+atom 1 to 2 minus de Y of the atom 3 <br>
+<br>
+<br>
+for the functions of the calculator see <br>
+the help of the calculator. 
+</h4>
+<br>
+
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="Kpoints"><h2>Kpoints </h2></a>
+<img src="imagenes/kpts1.jpg" >
+<br>
+<img src="imagenes/kpts2.jpg" >
+<br>
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="Bulk"><h2>Bulk modulus</h2></a>
+<br>
+<h4>
+input : energy (eV) vis latice parameter (Angstrons) <br>
+output : Bulk modulus (GPa) <br>
+[Birch ecuation] Eleni Ziambaras and ElsebethSchroder, Phys. Rev B. 68, 064112 (2003)<br>
+</h4>
+
+<img src="imagenes/bulk.jpg" >
+
+<div align="center">[<a href="index.html">up</a>]</div><hr>
+
+<a name="Script"><h2>Script </h2></a>
+<img src="imagenes/script.jpg" >
+<h4>To change the labels of buttons press labels.conf (right MousePressed)</h4>
+<img src="imagenes/scriptlabel.jpg" >
+<h4>To change the script press [...]</h4>
+<img src="imagenes/scriptedit.jpg" >
+<h4>If you change the script, when you make a new instal, your scripts don't change </h4>
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="comando"><h2>Line of commands</h2></a>
+<!--<img src="imagenes/comando.jpg" >-->
+<h5>
+$xeo -help <br>
+xeo -version  <br>
+xeo -Calc 4+8  <br>
+xeo -Aver file [ col ]  <br>
+xeo -xyz file.xyz output.dat timeStep d[2][9]*2-1.8 N d[1][2] // use N to separe columns  <br>
+xeo -aver_xyz file.xyz                  (for all)   <br>
+xeo -aver_xyz file.xyz -i initial_step final_step   <br>
+xeo -Bulk file [ bcc fcc zincblende ]  <br>
+xeo -editor file    <br>
+xeo -plotNY  file1 file2 ...   <br>
+xeo -plotXNY [visible] file    <br>
+xeo -plotXNY-AjY [visible] Yini Yfin file  <br>
+                [visible] = false, true   <br>
+ <br>
+ <br>
+ xeo is a free (GPLv3) open project management for nanostructures using Java   <br>
+ Copyright (C) 2009 by Daniel González Trabada <br>
+
+ This program comes with ABSOLUTELY NO WARRANTY; for details type `xeo show w'. <br>
+ This is free software, and you are welcome to redistribute it  <br>
+ under certain conditions; type `xeo show c' for details. <br>
+ <br>
+ <br>
+xeo show w  <br>
+xeo show c  <br>
+$xeo -version <br>
+xeo 2.0  <br>
+$xeo -Calc 3*8 <br>
+24.0 <br>
+
+</h5>
+<h4>
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+
+<a name="language"><h2>Select language</h2></a> 
+<br>
+You can select the language (Options -> language) and then (Options -> save options)
+<br> 
+<img src="imagenes/language1.jpg" >
+<br>
+<img src="imagenes/language12.jpg" >
+<br>
+Some languages are not suported, for example (chinese)
+<br>
+<img src="imagenes/language2.jpg" >
+<br>
+You can download the Font, (*.ttf) and (Options -> Font) then load from file. finaly (Options -> save options)
+<br>
+<img src="imagenes/font.jpg" >
+<br>
+<img src="imagenes/language3.jpg" >
+<br>
+<img src="imagenes/language4.jpg" >
+
+<div align="center">[<a href="#xeo">up</a>]</div><hr>
+</h4>
+
+</body></html>
+<!--
+<h1> Esto es h1</h1><br>
+<h2> Esto es h2</h2><br>
+<h3> Esto es h3</h3><br>
+<h4> Esto es h4</h4><br>
+<h5> Esto es h5</h5><br>
+<h6> Esto es h6</h6><br>
+-->
