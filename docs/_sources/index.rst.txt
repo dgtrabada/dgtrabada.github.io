@@ -3,18 +3,37 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to dgtrabada's documentation!
-=====================================
+.. Welcome to dgtrabada's documentation!
+.. =====================================
+
+
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth:2
+   
 
-
-
-Indices and tables
+Índice
 ==================
+  * :ref:`genindex`
+  * :ref:`modindex`
+  * :ref:`search`
+  * :ref:`Sistema Operativo`
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
+..   :glob:
+
+..   so/*
+
+..  include:: SO/so.rst
+
+.. * :ref:`foo`
+.. * :ref:`test`
+.. * :ref:`<so/so.rst>`
+
+.. * :ref:`SO`
+
+.. so.rst
+.. :ref:`my-reference-label`
+
+.. :doc:`my document <SO/so.rst>`
+
