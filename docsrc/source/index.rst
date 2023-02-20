@@ -24,7 +24,6 @@
 
 ..   so/*
 
-..  include:: SO/so.rst
 
 .. * :ref:`foo`
 .. * :ref:`test`
