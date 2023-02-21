@@ -6,18 +6,19 @@
 .. Welcome to dgtrabada's documentation!
 .. =====================================
 
-
-
 .. toctree::
-   :maxdepth:2
-   
+   :maxdepth: 2
 
 Índice
 ==================
-  * :ref:`genindex`
-  * :ref:`modindex`
-  * :ref:`search`
   * :ref:`Sistema Operativo`
+  * :ref:`Hardware`
+  * :ref:`Redes`
+
+..  * :ref:`genindex`
+..  * :ref:`modindex`
+..  * :ref:`search`
+
 
 
 ..   :glob:
