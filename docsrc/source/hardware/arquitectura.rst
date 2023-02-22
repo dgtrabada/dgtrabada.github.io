@@ -29,12 +29,8 @@ Instrucciones para hacer los cuestionarios.
 
 Funcionamiento:
 
-* `VonNewmann.pdf <arquitectura/VonNewmann.pdf>`_
-* `Contador + decodificador</arquitectura/VonNewmann.pdf>`_
-* [Sumador con acarreo](ALU.sim1)
-* [CPU sin direccionamiento](arquitectura/ALU.sim1)
-
-
-
-                     CPU.sim1               
-contador+decodificador.sim1          
+* `VonNewmann.pdf <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/VonNewmann.pdf>`_
+* `Contador + decodificador <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/contador%2Bdecodificador.sim1>`_
+* `Sumador con acarreo <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/ALU.sim1>`_
+* `CPU sin direccionamiento <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/CPU.sim1>`_
+         
