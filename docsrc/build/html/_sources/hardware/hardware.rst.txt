@@ -26,8 +26,8 @@ Hardware
 * Encapsulados
 * Ventilación
 * Memoria RAM
-* Puertas lógicas
-* Arquitectura del ordenador
+* :ref:`Puertas lógicas`
+* :ref:`Arquitectura del ordenador`
 * Conceptos eléctricos - electrónicos y elementos básicos.
 * Fuentes de Alimentación
 * Cableado y conectores de potencia.
