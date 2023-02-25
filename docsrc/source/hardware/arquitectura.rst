@@ -3,9 +3,10 @@ Arquitectura del ordenador
 **************************
 
 .. image:: arquitectura/VN1.png
-
+  :width: 600
 
 .. image:: arquitectura/VN2.png
+  :width: 400
 
 Las computadoras con arquitectura Von Neumann se refiere a las arquitecturas de computadoras que utilizan el mismo dispositivo de almacenamiento tanto para las instrucciones como para los datos (a diferencia de la arquitectura Harvard).
 
@@ -16,12 +17,12 @@ Ejemplo:
 .. image:: arquitectura/VN_sencillo.gif
 
 
-Paso a paso pdf
+`Paso a paso pdf <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/VN_sencillo.pdf>`_
 
 Instrucciones para hacer los cuestionarios.
+===========================================
 
-* En el caso de que quieras practicar puedes descárgate la hoja de ejercicios desde aquí.
-* Como ejemplo vamos a realizar el siguiente ejercicio:
+En el caso de que quieras practicar puedes descárgate la hoja de ejercicios desde `aquí <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/arquitectura/VN_template.pdf>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
 
 .. image:: arquitectura/Ejemplo_enunciado.png
 

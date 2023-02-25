@@ -32,7 +32,7 @@ Hardware
 * Fuentes de Alimentación
 * Cableado y conectores de potencia.
 * Sistemas de alimentación interrumpida.
-* La carcasa
+* :ref:`La carcasa`
 * La placa base, el “chipset”, la EPROM.
 * Conectores y buses externos
 * Tarjetas de expansión
