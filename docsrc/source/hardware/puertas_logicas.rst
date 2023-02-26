@@ -28,8 +28,7 @@ Dentro de la variada gama de circuitos combinacionales, tenemos los denominados 
 
   .. image:: puertas/decodificador.png
     :width: 300
-
-
+\
   .. image:: puertas/dec2.jpeg
     :width: 400
 

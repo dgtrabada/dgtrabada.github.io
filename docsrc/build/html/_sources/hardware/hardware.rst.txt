@@ -33,9 +33,9 @@ Hardware
 * Cableado y conectores de potencia.
 * Sistemas de alimentación interrumpida.
 * :ref:`La carcasa`
-* La placa base, el “chipset”, la EPROM.
-* Conectores y buses externos
-* Tarjetas de expansión
+* :ref:`La placa base, el “chipset”, la EPROM`
+* :ref:`Conectores y buses externos`
+* :ref:`Tarjetas de expansión`
 * Periféricos
 * Centro de Proceso de Datos (CPD)
 * Herramientas de diagnostico
