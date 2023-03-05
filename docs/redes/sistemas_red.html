@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Sistemas en red &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="sistemas-en-red">
+<h1>Sistemas en red<a class="headerlink" href="#sistemas-en-red" title="Enlace permanente a este encabezado">¶</a></h1>
+<p>Los sistemas en red son un medio de comunicación común a través el cual todos los dispositivos pueden compartir información, recursos, etc, independientemente del lugar físico donde se encuentre el usuario o el dispositivo.</p>
+<p>Podemos ver una red como algo abstracto que ofrece un determinado servicio en los puntos de terminación de red (ptr)</p>
+<img alt="../_images/sred1.png" src="../_images/sred1.png" />
+<p>algunos de los parámetros más característicos de una red son:</p>
+<ul class="simple">
+<li><p><strong>Cadencia efectiva (Cef)</strong> “Throughput o caudal” Cantidad de bps que se pueden introducir en la red en el punto de terminación de la red. no confundir con la capacidad nominal de enlace Cef &lt; C</p></li>
+<li><p><strong>Retardo de transito (T)</strong>. Tiempo dado que la red recoge un bit en el punto de terminación de origen hasta que se recibe en el (ptr) de destino. T&gt;propagación de señal. Cef.T = Memoria de la red, es la información que ha salido del origen, pero no ha llegado a su destino</p></li>
+<li><p><strong>Tasa de fallos.</strong> Probabilidad de que un bit no llegue a correctamente a su destino.</p></li>
+<li><p><strong>Disponibilidad</strong> del servicio y cobertura</p></li>
+</ul>
+<section id="tipos-redes">
+<h2>TIPOS REDES<a class="headerlink" href="#tipos-redes" title="Enlace permanente a este encabezado">¶</a></h2>
+<ul>
+<li><p><strong>Medios de transmisión</strong></p>
+<ul class="simple">
+<li><p>Ondas electromagnéticas no guiadas</p>
+<ul>
+<li><p>Radio</p></li>
+<li><p>Infrarrojos</p></li>
+</ul>
+</li>
+<li><p>Ondas electromagnéticas guiadas</p>
+<ul>
+<li><p>Luz, por fibra óptica</p></li>
+</ul>
+</li>
+<li><p>Impulsos eléctricos</p>
+<ul>
+<li><p>Siempre por un cable</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Propietarios de la red</strong></p>
+<ul class="simple">
+<li><p><strong>Red privada</strong></p>
+<ul>
+<li><p>Los medios de transmisión y ordenadores son de una misma entidad (organización, empresa,…)</p></li>
+<li><p>Existe una alta confidencialidad</p></li>
+</ul>
+</li>
+<li><p><strong>Red pública</strong></p>
+<ul>
+<li><p>Los medios de transmisión se alquilan a otras empresas: ADSL, 3G,…</p></li>
+<li><p>La información enviada puede ser visible a terceros</p></li>
+</ul>
+</li>
+<li><p><strong>VPN</strong></p>
+<ul>
+<li><p>Los medios de transmisión se alquilan a otras empresas</p></li>
+<li><p>La información se encripta antes de enviarse</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Cobertura</strong></p>
+<ul>
+<li><p><strong>PAM</strong> : Red de área personal, es una red de ordenadores usada para la comunicación entre los dispositivos del ordenador cerca de una persona</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&lt;10 m</p></li>
+<li><p>Bluetooth, RFID</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>LAN</strong> : red de área local, es una red que se limita a un área especial, relativamente pequeña, tal como un cuarto, un aula, un solo edificio, una nave, o un barco.</p>
+<ul class="simple">
+<li><p>&lt; 2-4 km</p></li>
+<li><p>Ethernet</p></li>
+</ul>
+</li>
+<li><p><strong>MAN</strong> : red de área metropolitana</p>
+<ul class="simple">
+<li><p>&lt; 10 km, con muchos ordenadores</p></li>
+<li><p>FTTH, ADSL</p></li>
+</ul>
+</li>
+<li><p><strong>WAN</strong> : red de área extensa</p>
+<ul class="simple">
+<li><p>Extensión mundial</p></li>
+<li><p>Fibra óptica</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tipos-de-conexion-a-la-red">
+<h2>Tipos de conexión a la Red<a class="headerlink" href="#tipos-de-conexion-a-la-red" title="Enlace permanente a este encabezado">¶</a></h2>
+<ul class="simple">
+<li><p>La red telefónica básica o red telefónica conmutada ( RTB o RTC ) permite que hablemos por teléfono, pero si utilizamos un módem podemos transmitir datos a baja velocidad.</p></li>
+<li><p>La Red Digital de Servicios Integrados, comúnmente llamada RDSI. divide la línea telefónica en tres canales: dos B o portadores, por los que circula la información a la velocidad de 64 kbps, y un canal D, de 16 kbps, que sirve para gestionar la conexión. Se pueden utilizar los dos canales B de manera independiente (es posible hablar por teléfono por uno de ellos y navegar por Internet simultáneamente), o bien utilizarlos de manera conjunta, lo que proporciona una velocidad de transmisión de 128 kbps.</p></li>
+<li><p>El bucle de abonado digital asimétrico , más conocido como ADSL , la operadoras de telefonía ofrecen la posibilidad de utilizar una línea de datos independiente de la línea de teléfono, aprovechando el ancho de banda disponible por encima del requerido por el servicio telefónico hasta el límite permitido por la propia línea.</p></li>
+<li><p>En el servicio ADSL el envío y recepción de los datos se establece desde el ordenador del usuario a través de un módem ADSL. Estos datos pasan por un filtro (splitter), que permite la utilización simultánea del servicio telefónico básico (RTC) y del servicio ADSL. Es decir, el usuario puede hablar por teléfono a la vez que está navegando por Internet, para ello se establecen tres canales independientes sobre la línea telefónica estándar:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Dos canales de alta velocidad (uno de recepción de datos y otro de envío de datos).</p></li>
+<li><p>Un tercer canal para la comunicación normal de voz (servicio telefónico básico).</p></li>
+</ul>
+<blockquote>
+<div><img alt="../_images/banda.png" src="../_images/banda.png" />
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p>Telefonía móvil mediante UMTS o telefonía 3G , Sistema Universal de Telecomunicaciones Móviles UMTS, proporcionan la posibilidad de transferir tanto voz y datos (una llamada telefónica o una videollamada) y datos no-voz (como la descarga de programas, intercambio de correo electrónico, y mensajería instantánea).</p></li>
+<li><p>La 4G está basada completamente en el protocolo IP, siendo un sistema y una red, que se alcanza gracias a la convergencia entre las redes cableadas e inalámbricas. La principal diferencia con las generaciones predecesoras será la capacidad para proveer velocidades de acceso mayores de 100 Mbit/s en movimiento y 1 Gbit/s en reposo.</p></li>
+<li><p>La 5G mejora la velocidad de la 4G mediante el uso de ondas de radio de altas frecuencias, que pueden superar 10 (Gbit/s).</p></li>
+<li><p>Internet por cable , usando cable módem o enrutadores, las redes de cable ofrecen la posibilidad de utilizar cable de fibra óptica combinado con cable coaxial, para dar una alta velocidad en el acceso a Internet.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/redes/sistemas_red.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
