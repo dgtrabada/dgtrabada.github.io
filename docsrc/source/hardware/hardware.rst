@@ -3,13 +3,17 @@ Hardware
 ********
  
 * Teoría
+
  * :ref:`Sistema analógico & digital`
- * Medida de la información
- * Representación de la información
- * Sistemas de numeración
- * Cambio de base con decimales
- * Sistemas de codificación
- * Imagen digital
+ 
+ * :ref:`Medida de la información`
+ 
+ * :ref:`Representación de la información`
+ 
+   * :ref:`Sistemas de numeración`
+   * :ref:`Cambio de base con decimales`
+   * :ref:`Sistemas de codificación`
+   * :ref:`Imagen digital`
 
 * Mantenimiento de sistemas informáticos
  * BIOS
