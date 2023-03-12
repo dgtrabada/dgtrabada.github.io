@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Herramientas de diagnostico &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="herramientas-de-diagnostico">
+<h1>Herramientas de diagnostico<a class="headerlink" href="#herramientas-de-diagnostico" title="Enlace permanente a este encabezado">¶</a></h1>
+<img alt="../_images/diagnostico.png" src="../_images/diagnostico.png" />
+<section id="comandos-generales">
+<h2>Comandos generales:<a class="headerlink" href="#comandos-generales" title="Enlace permanente a este encabezado">¶</a></h2>
+<ul class="simple">
+<li><p><strong>ls</strong> listar contenido</p></li>
+<li><p><strong>mkdir &lt;carpeta&gt;</strong> crear la carpeta</p></li>
+<li><p><strong>cd &lt;carpeta&gt;</strong> entrar dentro de la carpeta</p></li>
+<li><p><strong>cd ..</strong> subir un nivel</p></li>
+<li><p><strong>pwd</strong> ver donde nos encontramos</p></li>
+<li><p><strong>rm -fr &lt;carpeta&gt;</strong> borra archivo/carpeta</p></li>
+<li><p><strong>mv &lt;carpeta1&gt; &lt;carpeta2&gt;</strong> cambia el nombre de la carpeta1 por carpeta2</p></li>
+<li><p><strong>ln</strong> crear links simbólicos</p></li>
+<li><p><strong>find</strong> buscar archivos y carpetas</p></li>
+<li><p><strong>setxkbmap -layout es</strong> cambiar la configuración del teclado</p></li>
+<li><p><strong>sudo su</strong> ser adminsitrador</p></li>
+<li><p><strong>hardinfo</strong> es una herramienta de información y de benchmarking para GNU/Linux. Permite obtener información acerca del hardware de tu ordenador</p></li>
+</ul>
+<section id="discos-duros">
+<h3>Discos duros<a class="headerlink" href="#discos-duros" title="Enlace permanente a este encabezado">¶</a></h3>
+<ul class="simple">
+<li><p><strong>GParted</strong> es un editor de particiones para el entorno de escritorio GNOME</p></li>
+<li><p><strong>Clonezilla</strong> utilidad para la clonación y copia de seguridad de disco.</p></li>
+<li><p><strong>mount &lt;device&gt; &lt;punto de montaje&gt;</strong> montar los dispositivos, discos duros, isos, etc …</p></li>
+<li><p><strong>umount &lt;punto de montaje&gt;</strong> desmonta</p></li>
+<li><p><strong>df -h</strong> particiones que están montadas y espacio utilizado</p></li>
+<li><p><strong>dd</strong> permite copiar y convertir datos de archivos a bajo nivel</p></li>
+<li><p><strong>fdisk -l</strong> particiones que están montadas y espacio utilizado</p></li>
+<li><p><strong>hdparm</strong> utilidad puede ajustar parámetros del disco</p>
+<ul>
+<li><p>hdparm -t /dev/sda # ver la velocidad de transferencia</p></li>
+</ul>
+</li>
+<li><p><strong>smartctl -i /dev/sda</strong> para conocer el modelo de disco duro, y saber si soporta SMART</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>smartctl -s on /dev/sda # habilitar soporte SMART</p></li>
+<li><p>smartctl -H /dev/sda # chequear el estado del SMART</p></li>
+<li><p>Modo gráfico : gsmartcontrol</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>badblocks*</strong></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>badblocks -s -v /dev/sda -o salida.txt # Para saber si el disco duro tiene sectores defectuosos ejecutamos</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Hddtemp-0.3</strong></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>hddtemp /dev/sda # obtenemos la temperatura del primer disco</p></li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p><strong>Palimpsest</strong></p>
+<img alt="../_images/palimpsest.png" src="../_images/palimpsest.png" />
+</li>
+<li><p><strong>TestDisk</strong>: (testdisk) Nos permite hacer recuperación de particiones y sectores de arranque para distintos formatos.</p></li>
+<li><p><strong>PhotoRec</strong> : (photorec) Es un software de recuperación de datos, diseñado para recuperar archivos perdidos, incluyendo vídeos, documentos, archivos de discos duros, CD-ROM, y las imágenes borradas de las tarjetas de memorias de las cámara digitales (de ahí el nombre). PhotoRec ignora el sistema de archivos, y hace una búsqueda profunda de los datos, funcionando incluso si dicho sistema de archivos está muy dañado o ha sido formateado.</p></li>
+<li><p><strong>Foremost</strong> : Es un software de recuperación de datos</p></li>
+<li><p><strong>RAID:</strong></p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>mknod #creación del RAID</p></li>
+<li><p>mdadm #administrar discos del raid</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="bios">
+<h3>BIOS<a class="headerlink" href="#bios" title="Enlace permanente a este encabezado">¶</a></h3>
+<ul class="simple">
+<li><p><strong>dmidecode</strong> nos da información sobre la BIOS el tipo de hardware soportado, marca y modelo de la placa, tipo de socket, tamaño máximo memoria por slot…</p></li>
+</ul>
+</section>
+<section id="cpu">
+<h3>CPU<a class="headerlink" href="#cpu" title="Enlace permanente a este encabezado">¶</a></h3>
+<ul>
+<li><p><strong>cat /proc/cpuinfo</strong></p></li>
+<li><p><strong>hardinfo</strong></p>
+<img alt="../_images/hardinfo.png" src="../_images/hardinfo.png" />
+</li>
+</ul>
+</section>
+<section id="memoria">
+<h3>Memoria<a class="headerlink" href="#memoria" title="Enlace permanente a este encabezado">¶</a></h3>
+<ul>
+<li><p><strong>cat /proc/meminfo</strong></p></li>
+<li><p><strong>free -m</strong></p>
+<p>Para ver el uso en tiempo real utilizamos:   watch -n 1 free -m</p>
+</li>
+</ul>
+<p>Como se puede observar hay una gran cantidad de memoria en el caché, de la cual aproximadamente la mitad está siendo utilizada por las aplicaciones abiertas. Para liberar páginas guardadas en el caché, inodos y entradas de directorio basta con ejecutar el comando:    sudo sync ;   sudo sysctl -w vm.drop_caches=3</p>
+<ul>
+<li><p><strong>Memtest86+</strong></p>
+<img alt="../_images/memtest.png" src="../_images/memtest.png" />
+</li>
+</ul>
+</section>
+<section id="dispositivos">
+<h3>Dispositivos<a class="headerlink" href="#dispositivos" title="Enlace permanente a este encabezado">¶</a></h3>
+<ul class="simple">
+<li><p><strong>lshal</strong> nos informa de todos los dispositivos reconocidos por nuestro sistema operativo.
+Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando
+* lshal | grep info.product | cut -d# -f2 | sort</p></li>
+<li><p><strong>lspci</strong> nos informa sobre los dispositivos PCI</p></li>
+<li><p><strong>lsusb</strong> para ver los dispositivos USB
+Si queremos ver solamente los dispositivos activos
+lsusb | grep -v 0000:0000</p></li>
+</ul>
+<p>Otros:</p>
+<ul class="simple">
+<li><p>Install | I-Nex</p></li>
+<li><p>Bonnie++ es un programa utilizado para comprobar el rendimiento de discos duros y sistemas de archivos. Permite la creación de tests de lectura, escritura y borrado de archivos de diversos tamaños, etc.</p></li>
+<li><p>Ide-smart</p></li>
+<li><p>Lm_sensors.</p></li>
+<li><p>IOzone</p></li>
+<li><p>Dbench.</p></li>
+<li><p>Bonnie.</p></li>
+<li><p>IO Bench.(tiotest is a file system benchmark especially designed to test I/O performance with multiple running threads.)</p></li>
+<li><p>Nhfsstone.</p></li>
+</ul>
+<p>Links:</p>
+<blockquote>
+<div><p><a class="reference external" href="http://blog.desdelinux.net/linux-al-rescate-algunas-distros-para-volver-del-desastre/">http://blog.desdelinux.net/linux-al-rescate-algunas-distros-para-volver-del-desastre/</a></p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/hardware/diagnostico.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

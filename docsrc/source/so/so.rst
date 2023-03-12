@@ -2,21 +2,23 @@
 Sistema Operativo
 *****************
 
-* Teoría
+* Medida y representación de la información
 
  * :ref:`Sistema analógico & digital`
- * Medida de la información
- * Representación de la información
- * Sistemas de numeración
- * Cambio de base con decimales
- * Sistemas de codificación
- * Imagen digital
+ 
+ * :ref:`Medida de la información`
+ 
+ * :ref:`Representación de la información`
+ 
+   * :ref:`Sistemas de numeración`
+   * :ref:`Cambio de base con decimales`
+   * :ref:`Sistemas de codificación`
+   * :ref:`Imagen digital`
  
 * Fundamentos Sistemas Operaticos
 
  * :ref:`Evolución del Sistema Operativo`
  * :ref:`Tipos software y licencias`
- * Tipos software y licencias
  * Sistemas operativos
  * Gestión de procesos
  * Gestión de memoria
@@ -43,18 +45,16 @@ Sistema Operativo
   * LDAP
   * Rocky Linux
 
-* Windows
+* :ref:`Windows`
 
-  * Ejercicio Instalación Windows
-  * Configuración Windows
-  * Usuarios y grupos Windows
+  * :ref:`Configuración Windows`
+  * :ref:`Usuarios y grupos Windows`
   * Ejercicios de usuarios de Windows
   * Comandos DOS
   * BAT
   * PowerShell
   * Scripting
   * Arranque de Windows
-
 
 
 

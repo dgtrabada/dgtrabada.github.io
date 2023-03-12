@@ -1,21 +1,18 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<html lang="es">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Transporte de datos y equipos de interconexión &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script type="text/javascript" src="../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
    
@@ -31,23 +28,22 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="transporte-de-datos-y-equipos-de-interconexion">
-<h1>Transporte de datos y equipos de interconexión<a class="headerlink" href="#transporte-de-datos-y-equipos-de-interconexion" title="Enlazar permanentemente con este título">¶</a></h1>
+  <section id="transporte-de-datos-y-equipos-de-interconexion">
+<h1>Transporte de datos y equipos de interconexión<a class="headerlink" href="#transporte-de-datos-y-equipos-de-interconexion" title="Enlace permanente a este encabezado">¶</a></h1>
 <p>La arquitectura TCP/IP transfiere los datos mediante su embalaje en paquetes. Cada capa va añadiendo bits de control al bloque que le llega antes de pasarlo a la capa siguiente. En la recepción el proceso es el contrario.</p>
 <img alt="../_images/arquitectura_TCP_IP.png" src="../_images/arquitectura_TCP_IP.png" />
 <p>Para realizar la interconexión de redes, necesitamos diferentes elementos dependiendo de la longitud, número de nodos, situación etc…</p>
 <ul>
-<li><p class="first"><strong>Repetidores</strong> (nivel físico) . La señal de la red se va atenuando debido a la resistencia del cable, los repetidores regeneran la señal en ambas direcciones sin hacer ningún tipo de filtrado (nivel físico)</p>
+<li><p><strong>Repetidores</strong> (nivel físico) . La señal de la red se va atenuando debido a la resistencia del cable, los repetidores regeneran la señal en ambas direcciones sin hacer ningún tipo de filtrado (nivel físico)</p>
 <img alt="../_images/repetidores.png" src="../_images/repetidores.png" />
 </li>
-<li><p class="first"><strong>Concentradores o hub</strong>  (nivel físico).</p>
+<li><p><strong>Concentradores o hub</strong>  (nivel físico).</p>
 <img alt="../_images/hubico.png" src="../_images/hubico.png" />
 <p>El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos, es decir además regenera la señal. Para conectar un Hub-Hub lo hacemos con cable cruzado.</p>
 <a class="reference internal image-reference" href="../_images/hub.png"><img alt="../_images/hub.png" src="../_images/hub.png" style="width: 300px;" /></a>
 </li>
-<li><p class="first"><strong>Bridge</strong> (puente)(nivel 2 enlace) «tramas». Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red</p>
-</li>
-<li><p class="first"><strong>Switch</strong> (conmutador) (nivel 2).</p>
+<li><p><strong>Bridge</strong> (puente)(nivel 2 enlace) «tramas». Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red</p></li>
+<li><p><strong>Switch</strong> (conmutador) (nivel 2).</p>
 <blockquote>
 <div><img alt="../_images/switchico.png" src="../_images/switchico.png" />
 </div></blockquote>
@@ -55,17 +51,16 @@
 <img alt="../_images/schitch.png" src="../_images/schitch.png" />
 <a class="reference internal image-reference" href="../_images/hub_switch.png"><img alt="../_images/hub_switch.png" src="../_images/hub_switch.png" style="width: 300px;" /></a>
 </li>
-<li><p class="first"><strong>El router</strong> (encaminador) (nivel 3 Red)</p>
+<li><p><strong>El router</strong> (encaminador) (nivel 3 Red)</p>
 <blockquote>
 <div><img alt="../_images/routerico.png" src="../_images/routerico.png" />
 </div></blockquote>
 <p>Se ocupan del encaminamiento de los paquetes entre sus distintos puertos, para ello utilizamos tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas y proporcionan seguridad y reducir la congestión de la red.</p>
 <img alt="../_images/router.png" src="../_images/router.png" />
 </li>
-<li><p class="first"><strong>Pasarela o Gateway</strong> (nivel 4 de transporte)  Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red</p>
-</li>
+<li><p><strong>Pasarela o Gateway</strong> (nivel 4 de transporte)  Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red</p></li>
 </ul>
-</div>
+</section>
 
 
           </div>
@@ -92,17 +87,15 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Búsqueda rápida</h3>
+  <h3 id="searchlabel">Búsqueda rápida</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Ir a" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -111,7 +104,7 @@
       &copy;2023, dgtrabada.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |

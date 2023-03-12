@@ -2,7 +2,7 @@
 Hardware
 ********
  
-* Teoría
+* Medida y representación de la información
 
  * :ref:`Sistema analógico & digital`
  
@@ -14,7 +14,7 @@ Hardware
    * :ref:`Cambio de base con decimales`
    * :ref:`Sistemas de codificación`
    * :ref:`Imagen digital`
-
+   
 * Mantenimiento de sistemas informáticos
  * BIOS
  * UEFI
@@ -40,6 +40,6 @@ Hardware
 * :ref:`La placa base, el “chipset”, la EPROM`
 * :ref:`Conectores y buses externos`
 * :ref:`Tarjetas de expansión`
-* Periféricos
-* Centro de Proceso de Datos (CPD)
-* Herramientas de diagnostico
+* :ref:`Periféricos`
+* :ref:`Centro de Proceso de Datos (CPD)`
+* :ref:`Herramientas de diagnostico`

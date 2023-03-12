@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Comandos básicos GNU/Linux &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="comandos-basicos-gnu-linux">
+<h1>Comandos básicos GNU/Linux<a class="headerlink" href="#comandos-basicos-gnu-linux" title="Enlace permanente a este encabezado">¶</a></h1>
+<section id="control-de-procesos">
+<h2>Control de procesos<a class="headerlink" href="#control-de-procesos" title="Enlace permanente a este encabezado">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps<span class="w">            </span><span class="c1"># ver procesos ps -ef</span>
+top,<span class="w"> </span>htop<span class="w">     </span><span class="c1"># monitorización de procesos</span>
+<span class="w">     </span><span class="o">[</span>Espacio<span class="o">]</span><span class="w"> </span>Realiza<span class="w"> </span>un<span class="w"> </span>refresco<span class="w"> </span>de<span class="w"> </span>la<span class="w"> </span>pantalla
+<span class="w">     </span><span class="o">[</span>h<span class="o">]</span><span class="w"> </span>Muestra<span class="w"> </span>la<span class="w"> </span>pantalla<span class="w"> </span>de<span class="w"> </span>ayuda
+<span class="w">     </span><span class="o">[</span>k<span class="o">]</span><span class="w"> </span>Mata<span class="w"> </span>un<span class="w"> </span>proceso.<span class="w"> </span>Se<span class="w"> </span>le<span class="w"> </span>pedirá<span class="w"> </span>que<span class="w"> </span>introduzca<span class="w"> </span>el<span class="w"> </span>ID<span class="w"> </span>del<span class="w"> </span>proceso<span class="w"> </span>así<span class="w"> </span>como<span class="w"> </span>la<span class="w"> </span>señal<span class="w"> </span>que<span class="w"> </span>hay<span class="w"> </span>que<span class="w"> </span>enviarle.
+<span class="w">     </span><span class="o">[</span>n<span class="o">]</span><span class="w"> </span>Cambia<span class="w"> </span>el<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>procesos<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>muestran<span class="w"> </span>en<span class="w"> </span>pantalla.<span class="w"> </span>Se<span class="w"> </span>le<span class="w"> </span>pedirá<span class="w"> </span>que<span class="w"> </span>introduzca<span class="w"> </span>un<span class="w"> </span>número.
+<span class="w">     </span><span class="o">[</span>u<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>usuario.
+<span class="w">     </span><span class="o">[</span>M<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>uso<span class="w"> </span>de<span class="w"> </span>memoria.
+<span class="w">     </span><span class="o">[</span>P<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>uso<span class="w"> </span>del<span class="w"> </span>CPU.
+nice<span class="w">          </span><span class="c1"># Ejecuta un comando con una prioridad determinada, o modifica la prioridad a de un proceso</span>
+<span class="nb">kill</span><span class="w">          </span><span class="c1"># mata procesos</span>
+pstree<span class="w">        </span><span class="c1"># Muestra en vista de árbol (de forma jerárquica) una lista de los procesos en ejecución.</span>
+nohup<span class="w">         </span><span class="c1"># permite mantener la ejecución de un comando (el cual le pasamos como un argumento) pese a salir de la terminal</span>
+jobs,<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%2,<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>%1,<span class="w"> </span>ctrol+c,<span class="w"> </span>ctrol+z
+<span class="w">     </span>sleep<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="c1"># Ponemos tarea en segundo plano añadiendo &amp; al final del comando.</span>
+<span class="w">     </span><span class="nb">fg</span><span class="w"> </span>%1<span class="w">      </span><span class="c1"># Ponerlo en primer plano</span>
+<span class="w">     </span><span class="nb">bg</span><span class="w"> </span>%1
+<span class="w">     </span>Ctrl+Z<span class="w">     </span><span class="c1"># para  detener una tarea en primer plano</span>
+<span class="w">     </span>Ctrl+C<span class="w">     </span><span class="c1"># para cancelar una tarea en primer plano</span>
+</pre></div>
+</div>
+<p>dddd</p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/so/GNULinux_comandos_basicos.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
