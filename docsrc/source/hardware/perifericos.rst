@@ -25,19 +25,19 @@ Teclado
 
 El teclado estándar en español corresponde al diseño llamado QWERTY.
 
-.. image:: perifericos/teclado1.png
+.. image:: imagenes/perifericos/teclado1.png
 
 
 Se han sugerido distintas alternativas a la disposición de este teclado, indicando ventajas tales como mayores velocidades de tecleado. La alternativa más famosa es el Teclado Simplificado Dvorak.
 
-.. image:: perifericos/teclado2.png
+.. image:: imagenes/perifericos/teclado2.png
 
 
 **Cómo funciona**
 
 Cada vez que se presiona una tecla, una señal específica se transmite al equipo. El teclado a su vez, utiliza una red de barras cruzadas para identificar cada tecla en función de su fila y columna
 
-.. image:: perifericos/teclado3.png
+.. image:: imagenes/perifericos/teclado3.png
 
 
 Al presionarse una tecla, se produce un contacto eléctrico entre la fila y la columna. Las señales eléctricas son transmitidas a un microcontrolador, que envía un código (BCD, ASCII o Unicode) al equipo describiendo el carácter que corresponde a dicha tecla.
@@ -50,20 +50,20 @@ Los cuatro tipos de teclados para PC más importantes son:
 * El teclado de 83 teclas (PC/XT)
 
 
-  .. image:: perifericos/teclado4.png
+  .. image:: imagenes/perifericos/teclado4.png
 
 
 * El teclado de 84 teclas (PC/AT)
     
-  .. image:: perifericos/teclado5.png
+  .. image:: imagenes/perifericos/teclado5.png
     
 * El teclado de 102 teclas, llamado teclado extendido
     
-  .. image:: perifericos/teclado6.png
+  .. image:: imagenes/perifericos/teclado6.png
     
 * El teclado de 105 teclas es compatible con Microsoft Windows 95.
 
-  .. image:: perifericos/teclado7.png
+  .. image:: imagenes/perifericos/teclado7.png
   
 Mouse
 =====
@@ -75,7 +75,7 @@ El DSP es capaz de detectar patrones en las imágenes y ver como estos patrones 
 Monitor
 -------
 
-.. image:: perifericos/monitor.png
+.. image:: imagenes/perifericos/monitor.png
 
 * Pantalla de cristal líquido o **LCD** (Liquid Crystal Display). Están formadas por cinco filtros. Dos de ellos son filtros polarizantes con filas de cristales líquidos alineadas perpendicularmente entre sí, de forma que al aplicar o dejar de aplicar corriente eléctrica a los filtros, se consigue que la luz pase o no pase a través de ellos, dependiendo de si el segundo filtro bloquea o no el paso de la luz que ha atravesado el primero. Los otros tres filtros (RGB) se utilizan para la obtención de la gama de colores, mediante la aplicación de variaciones de voltaje sobre ellos producen distintos brillos intermedios entre presencia o ausencia de luz
 
@@ -100,11 +100,11 @@ Pantallas táctiles
 
 * **Resistivas**: Son más baratas y no les afectan el polvo ni el agua y, además de ser más precisas, pueden ser usadas con un puntero o con el dedo o guante genérico. Sin embargo, tienen hasta un 25% menos de brillo y son más gruesas, por lo que están siendo sustituidas por otras en los dispositivos móviles que precisan un tamaño y un peso ajustados y mayor brillo en la pantalla por la posibilidad de estar expuestos a la luz directa del sol.
 
-  .. image:: perifericos/resistivas.png
+  .. image:: imagenes/perifericos/resistivas.png
 
 * **Capacitivas**: Basadas en sensores capacitivos, consisten en una capa de aislamiento eléctrico, como el cristal, recubierto con un conductor transparente. Como el cuerpo humano es también un conductor eléctrico, tocando la superficie de la pantalla resulta una distorsión del campo electrostático de la pantalla, la cual es medida por el cambio de capacitancia (capacidad eléctrica). Diferentes tecnologías pueden ser usadas para determinar en qué posición de la pantalla fue hecho el toque.
 
-  .. image:: perifericos/capacitivas.png
+  .. image:: imagenes/perifericos/capacitivas.png
 
 Impresora
 =========
@@ -113,12 +113,12 @@ Las más comunes son:
 
 * **La impresora de inyección** de tinta. Utilizan inyectores que producen una pequeña burbuja que sale eyectada como una gota muy fina. La inyección de tinta se realiza de dos formas distintas: método térmico y método piezoeléctrico.
 
-  .. image:: perifericos/impresora1.png
+  .. image:: imagenes/perifericos/impresora1.png
     :width: 200
 
 * **La impresora láser**. Un rodillo carga positivamente las hojas. El láser carga positivamente ciertos puntos del tambor gracias a un espejo giratorio. Luego se deposita la tinta con carga negativa en forma de polvo (tóner) en las distintas partes del tambor que el láser cargó previamente.
 
-  .. image:: perifericos/impresora2.jpeg
+  .. image:: imagenes/perifericos/impresora2.jpeg
     
 **Ventajas**:
     
@@ -157,7 +157,7 @@ Scanner
 
 Se utiliza para introducir imágenes de papel, libros, negativos o diapositivas. Una de las características más relevantes de la calidad de un escáner es la resolución, medida en píxeles por pulgada (ppp). Los fabricantes de escáneres en vez de referirse a la resolución óptica real del escáner, prefieren hacer referencia a la resolución interpolada, que es mucho mayor gracias a la interpolación software. La mayoría de los escáneres económicos pueden capturar internamente imágenes con 30 bits (1.000'000.000 de colores) o 36 bits (68.000'000.000), pero las imágenes son luego almacenadas solamente con 24 bits. Los escáneres más costosos almacenan la imagen con 30 y 36 bits.
 
-.. image:: perifericos/scanner.png
+.. image:: imagenes/perifericos/scanner.png
 
 Tarjetas de TV
 ==============
@@ -171,7 +171,7 @@ Tarjetas de TV
 Webcam
 ======
 
-.. image:: perifericos/webcam.png
+.. image:: imagenes/perifericos/webcam.png
 
 Es una pequeña cámara digital conectada a una computadora la cual puede capturar imágenes.
 
@@ -192,15 +192,15 @@ Proyector de vídeo
 
 * **Proyector LCD**: este es el sistema más simple, por lo que es uno de los más comunes y asequibles para cine en casa y el uso del negocio. Su problema más común es el efecto pixelado, a pesar de los avances recientes han reducido la gravedad de este efecto.
 
-.. image:: perifericos/proyectorLCD.png
+.. image:: imagenes/perifericos/proyectorLCD.png
 
 * **Proyector DLP** (Digital Light Processing) contiene una matriz rectangular de hasta 2 millones de espejos microscópicos pivotantes y cada uno de esos microespejos mide menos de una quinta parte del ancho de un cabello humano. Los espejos pueden reflejar una imagen digital en una pantalla u otra superficie.
 
-.. image:: perifericos/proyectorDLP.png
+.. image:: imagenes/perifericos/proyectorDLP.png
 
 * **Proyectores de LED** utilizan una de las tecnologías antes mencionadas para la creación de imagen, con la diferencia de que utilizan una matriz de diodos emisores de luz como fuente de luz, eliminando la necesidad de cambiar la lámpara.
 
-.. image:: perifericos/proyectorLED.png
+.. image:: imagenes/perifericos/proyectorLED.png
 
 Sistemas biométricos.
 =====================
@@ -211,39 +211,39 @@ Cada individuo posee una información biológica que lo diferencia de los demás
 
 * Rostro
 
-  .. image:: perifericos/biometrico1.png
+  .. image:: imagenes/perifericos/biometrico1.png
   
 * Termo grama del rostro
 
-  .. image:: perifericos/biometrico2.png
+  .. image:: imagenes/perifericos/biometrico2.png
   
 * Huellas dactilares
 
-  .. image:: perifericos/biometrico3.png
+  .. image:: imagenes/perifericos/biometrico3.png
   
 * Geometría de la mano
 
-  .. image:: perifericos/biometrico4.png
+  .. image:: imagenes/perifericos/biometrico4.png
   
 * Venas de las manos
 
-  .. image:: perifericos/biometrico5.png
+  .. image:: imagenes/perifericos/biometrico5.png
   
 * Patrones de la retina
 
-  .. image:: perifericos/biometrico6.png
+  .. image:: imagenes/perifericos/biometrico6.png
   
 * Iris
 
-  .. image:: perifericos/biometrico7.png
+  .. image:: imagenes/perifericos/biometrico7.png
   
 * Voz
 
-  .. image:: perifericos/biometrico8.png
+  .. image:: imagenes/perifericos/biometrico8.png
 
 *  Firma
 
-  .. image:: perifericos/biometrico9.png
+  .. image:: imagenes/perifericos/biometrico9.png
 
 Controlador de Dispositivo o Drivers
 ------------------------------------

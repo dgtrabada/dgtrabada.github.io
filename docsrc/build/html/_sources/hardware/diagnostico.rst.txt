@@ -2,7 +2,7 @@
 Herramientas de diagnostico
 ***************************
 
-.. image:: diagnostico/diagnostico.png
+.. image:: imagenes/diagnostico/diagnostico.png
 
 Comandos generales:
 -------------------
@@ -66,7 +66,7 @@ Discos duros
 
 * **Palimpsest**
 
-  .. image:: diagnostico/palimpsest.png
+  .. image:: imagenes/diagnostico/palimpsest.png
 
 * **TestDisk**: (testdisk) Nos permite hacer recuperación de particiones y sectores de arranque para distintos formatos.
 
@@ -93,7 +93,7 @@ CPU
 
 * **hardinfo**
 
-  .. image:: diagnostico/hardinfo.png
+  .. image:: imagenes/diagnostico/hardinfo.png
 
 Memoria
 =======
@@ -107,7 +107,7 @@ Como se puede observar hay una gran cantidad de memoria en el caché, de la cual
 
 * **Memtest86+**
   
-  .. image:: diagnostico/memtest.png
+  .. image:: imagenes/diagnostico/memtest.png
 
 Dispositivos
 ============

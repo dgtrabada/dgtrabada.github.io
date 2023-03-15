@@ -15,7 +15,7 @@ Partes:
 * **La ranuras traseras** (a la izquierda) por donde se mostrarán al exterior las conexiones de las diversas placas electrónicas que se instalen en la placa base.
 * **Las bahías** (a la derecha) donde se colocarán las unidades de almacenamiento (unidades de cd, dvd 5 ¼, discos duros 3½ ).
 
-.. image:: carcasa/carcasa1.jpg
+.. image:: imagenes/carcasa/carcasa1.jpg
 
 Funciones
 #########
@@ -23,7 +23,7 @@ Funciones
 * **Protección** de los componentes electrónicos internos.
 * **Ventilación**, esencial por las altas temperaturas que pueden alcanzar los diferentes componentes electrónicos en funcionamientos, por lo cual será conveniente la utilización de los ventiladores internos y de las rejillas de respiración.
 
-.. image:: carcasa/carcasa2.png
+.. image:: imagenes/carcasa/carcasa2.png
 
 Tamaños
 #######
@@ -32,35 +32,35 @@ Tamaños
 
 Minitorre: 1 o 2 bahías de 5 ¼ y 2 o 3 de 3 ½, Su calentamiento es normal y no tiene el problema de los barebone.
 
-.. image:: carcasa/barebone.png
+.. image:: imagenes/carcasa/barebone.png
 
 * **Sobremesa**: No se diferencian mucho de las minitorres, a excepción de que en lugar de estar en vertical se colocan en horizontal sobre el escritorio.
 
-.. image:: carcasa/sobremesa.png
+.. image:: imagenes/carcasa/sobremesa.png
 
 * **Mediatorre** o semitorre: Normalmente son de 4 bahías de 5 ¼ y 4 de 3 ½. La diferencia de ésta es que aumenta su tamaño para poder colocar más dispositivos.
 
-.. image:: carcasa/mediatorre.png
+.. image:: imagenes/carcasa/mediatorre.png
 
 * **Torre**: Es el más grande. Puedes colocar una gran cantidad de dispositivos y es usado cuando se precisa una gran cantidad de dispositivos.
 
-.. image:: carcasa/torre.png
+.. image:: imagenes/carcasa/torre.png
 
 * **Servidor**: Su diseño está basado en la eficiencia donde los periféricos no es la mayor prioridad sino el rendimiento y la ventilación.
 
-.. image:: carcasa/servidor.png
+.. image:: imagenes/carcasa/servidor.png
 
 * **Rack**: Los servidores rack se atornillan a un mueble, este tipo de servidores suele colocarse en salas climatizadas debido a la temperatura que alcanza.
 
-.. image:: carcasa/rack.png
+.. image:: imagenes/carcasa/rack.png
 
 * **Modding**: El modding es un tipo de gabinete que es totalmente estético incluso se podría decir en algunos casos que son poco funcionales.
 
-.. image:: carcasa/modding.png
+.. image:: imagenes/carcasa/modding.png
 
 `vídeo (ver en casa) <http://www.youtube.com/watch?v=SFyZxM1up4Q&feature=related>`_
 
 
 * **Portátiles**: El tamaño suele depender del monitor que trae incorporado.
 
-.. image:: carcasa/portatiles.png
+.. image:: imagenes/carcasa/portatiles.png

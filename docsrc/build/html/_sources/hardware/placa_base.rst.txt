@@ -31,9 +31,9 @@ El factor de forma son unos estándares que definen algunas características fí
   
   * **nano-ITX** (12.0 x 12.0 mm).
 
-.. image:: placa_base/placa_base.jpeg
+.. image:: imagenes/placa_base/placa_base.jpeg
 
-.. image:: placa_base/tamaño_placa_base.png
+.. image:: imagenes/placa_base/tamaño_placa_base.png
 
 Componentes integrados
 ======================
@@ -43,8 +43,8 @@ El chipset
 
 El chipset es un conjunto de circuitos integrados cuya función consiste en coordinar la transferencia de datos entre los distintos componentes del ordenador.
 
-.. image:: placa_base/micro2.png
-.. image:: placa_base/micro.png
+.. image:: imagenes/placa_base/micro2.png
+.. image:: imagenes/placa_base/micro.png
 
 El reloj, la pila, CMOS, ROM y EPROM
 ------------------------------------
@@ -53,51 +53,51 @@ El reloj, la pila, CMOS, ROM y EPROM
 
 **La memoria CMOS** conserva algunos datos del sistema, como la hora, la fecha del sistema y algunas configuraciones esenciales del sistema, cuando se apaga el ordenador. La memoria CMOS se alimenta de manera continua gracias a una pila (tipo botón).
 
-.. image:: placa_base/pila.png
+.. image:: imagenes/placa_base/pila.png
 
 Para borrar los datos del CMOS hay que cortocircuitar dos patillas en el lugar indicado en la placa base (para ello cambiamos el jumper de posición)
 
-.. image:: placa_base/pila3.png
-.. image:: placa_base/pila2.png
+.. image:: imagenes/placa_base/pila3.png
+.. image:: imagenes/placa_base/pila2.png
 
 
 La BIOS se encuentra en la memoria ROM, EPROM o FLASH EPROM.
 La memoria ROM es una memoria que solo se puede leer Read-Only Memory.
 EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable y borrable).
 
-.. image:: placa_base/eprom.png
+.. image:: imagenes/placa_base/eprom.png
 
 La botonera
 -----------
 
 Salvo los botones (Power SW y Reset) el resto tienen posición, hay que conectar en el pin + el cable que NO es masa (suele ser de color negro o blanco). Algunas placas traen un adaptador que a modo de plantilla nos facilita la conexión.
 
-.. image:: placa_base/botonera1.png
+.. image:: imagenes/placa_base/botonera1.png
   :width: 200
-.. image:: placa_base/botonera2.png
+.. image:: imagenes/placa_base/botonera2.png
   :width: 200
 \
 
-.. image:: placa_base/botonera3.png
+.. image:: imagenes/placa_base/botonera3.png
   :width: 200
-.. image:: placa_base/botonera4.jpeg
+.. image:: imagenes/placa_base/botonera4.jpeg
 
-.. image:: placa_base/botonera5.jpeg
+.. image:: imagenes/placa_base/botonera5.jpeg
 
 Socket del procesador
 ---------------------
 
 La placa base posee una ranura, en la cual se inserta el procesador y que se denomina socket del procesador.
 
-.. image:: placa_base/socket_micro2.png
-.. image:: placa_base/socket_micro.jpeg
+.. image:: imagenes/placa_base/socket_micro2.png
+.. image:: imagenes/placa_base/socket_micro.jpeg
   :width: 200
 
 Conectores de la RAM
 --------------------
 
-.. image:: placa_base/ram2.png
-.. image:: placa_base/ram1.jpeg
+.. image:: imagenes/placa_base/ram2.png
+.. image:: imagenes/placa_base/ram1.jpeg
   :width: 300
 
 
@@ -106,14 +106,14 @@ Ranura AGP
 
 AGP "Accelerated Graphics port", es una interfaz gráfica, su tasa de transferencia va desde los 300 MB/s hasta los 2GB/s
 
-.. image:: placa_base/agp.jpeg
+.. image:: imagenes/placa_base/agp.jpeg
 
 Ranura PCI
 ----------
 
 PCI "Peripheral Component Interconnect " con una tasa de transferencia máxima de 133 MB/s en el bus de 32 bits y 266 MB/s en el bus de 64bits
 
-.. image:: placa_base/pci.jpeg
+.. image:: imagenes/placa_base/pci.jpeg
 
 Ranura PCIe
 -----------
@@ -126,19 +126,19 @@ Las ranuras PCIe (PCI-Express) nacen en como respuesta a la necesidad de un bus 
 
 - PCIe 1.0 x16: 4GB/s (250MB/s x 16)
 
-.. image:: placa_base/pcie2.png
+.. image:: imagenes/placa_base/pcie2.png
 
-.. image:: placa_base/pcie.jpeg
+.. image:: imagenes/placa_base/pcie.jpeg
 
 
 Entre sus ventajas cuenta la de poder instalar dos tarjetas gráficas en paralelo, es decir conectar dos o más tarjetas de vídeo y que produzcan una sola señal de salida (sistemas SLI o CrossFire) o la de poder utilizar memoria compartida, es decir utilizar la memoria RAM como parte de la memoria gráfica (sistemas TurboCaché o HyperMemory).
 
-.. image:: placa_base/sli.jpeg
+.. image:: imagenes/placa_base/sli.jpeg
 
 
 Este tipo de ranuras no debemos confundirlas con las PCIX, ya que mientras que éstas son una extensión del estándar PCI, las PCIe tienen un desarrollo totalmente diferente.
 
-.. image:: placa_base/pcix.jpeg
+.. image:: imagenes/placa_base/pcix.jpeg
 
 
 TPM
@@ -148,47 +148,47 @@ TPM es Trusted Platform Module o, lo que es lo mismo, tecnología de módulo de 
 
 puede venir soldado a la placa base o:
 
-.. image:: placa_base/tpm_esq.png
-.. image:: placa_base/tpm.png
+.. image:: imagenes/placa_base/tpm_esq.png
+.. image:: imagenes/placa_base/tpm.png
 
 Conectores ATX, ATX12V
 ----------------------
 
-.. image:: placa_base/atx.png
-.. image:: placa_base/atx2.png
+.. image:: imagenes/placa_base/atx.png
+.. image:: imagenes/placa_base/atx2.png
 
-.. image:: placa_base/eatx12.jpeg
+.. image:: imagenes/placa_base/eatx12.jpeg
 
 
 Ventilación
 -----------
 
-.. image:: placa_base/sys.png
-.. image:: placa_base/sysf.png
+.. image:: imagenes/placa_base/sys.png
+.. image:: imagenes/placa_base/sysf.png
   :width: 100
 
 USB2
 ----
 
-.. image:: placa_base/usb2.png
-.. image:: placa_base/usb2_2.jpeg
+.. image:: imagenes/placa_base/usb2.png
+.. image:: imagenes/placa_base/usb2_2.jpeg
   :width: 200
-.. image:: placa_base/usb2_3.jpeg
+.. image:: imagenes/placa_base/usb2_3.jpeg
   :width: 200
   
 USB3
 ----
 
-.. image:: placa_base/usb3_1.png
-.. image:: placa_base/usb3_2.jpeg
+.. image:: imagenes/placa_base/usb3_1.png
+.. image:: imagenes/placa_base/usb3_2.jpeg
   :width: 200
 
 F_AUDIO
 -------
 
-.. image:: placa_base/faudio2.png
-.. image:: placa_base/faudio.png
-.. image:: placa_base/fauidio3.jpeg
+.. image:: imagenes/placa_base/faudio2.png
+.. image:: imagenes/placa_base/faudio.png
+.. image:: imagenes/placa_base/fauidio3.jpeg
   :width: 200
 
 COM (serie)
@@ -196,30 +196,30 @@ COM (serie)
 
 El puerto COM se usa a menudo para la comunicación de datos de bajo nivel, como la configuración de BIOS, la depuración de hardware y la programación de microcontroladore
 
-.. image:: placa_base/com.png
-.. image:: placa_base/com2.png
+.. image:: imagenes/placa_base/com.png
+.. image:: imagenes/placa_base/com2.png
 
 
 SATA
 ----
 
-.. image:: placa_base/sata.png
-.. image:: placa_base/satag.png
-.. image:: placa_base/sataf.jpeg
+.. image:: imagenes/placa_base/sata.png
+.. image:: imagenes/placa_base/satag.png
+.. image:: imagenes/placa_base/sataf.jpeg
   :width: 200
 
 M.2
 ----
 
-.. image:: placa_base/m2.jpeg
-.. image:: placa_base/m2f.jpeg
+.. image:: imagenes/placa_base/m2.jpeg
+.. image:: imagenes/placa_base/m2f.jpeg
 
 SPDIF
 -----
 
 transmisión de señales de audio digital utilizada para conectar dispositivos de audio, como reproductores de CD, reproductores de DVD
 
-.. image:: placa_base/spidf.jpeg
+.. image:: imagenes/placa_base/spidf.jpeg
 
 
 

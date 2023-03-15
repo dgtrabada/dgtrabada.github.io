@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>BIOS &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="bios">
+<h1>BIOS<a class="headerlink" href="#bios" title="Enlace permanente a este encabezado">¶</a></h1>
+<p><strong>La BIOS</strong>, Sistema básico de entradas y salidas, del inglés «Basic Input/Output System» es un componente esencial que se usa para controlar el hardware.</p>
+<p>Es un pequeño programa que está grabada en un pequeño chip de memoria llamados CMOS  situado en la placa base, se puede modificar a través del setup.</p>
+<p>CMOS es una especie de memoria RAM, en ella se guardan los datos de configuración de la BIOS permitiendo modificarlos, puesto que es una memoria RAM, para evitar que estos datos se pierdan, se alimenta de una pila.</p>
+<p>Como fabricantes de BIOS destacan <a class="reference external" href="https://www.award.com/">Award</a>, <a class="reference external" href="https://www.ami.com/">AMI</a> y <a class="reference external" href="https://www.phoenix.com/">Phoenix</a>.</p>
+<p>Este programa está almacenado en una memoria localizada en la placa base, antiguamente la memoria era de tipo EPROM (ROM Erased PROgramable), actualmente se almacenan en memorias flash  EEPROM (ELECTRICALLY ERASABLE PROGRAMMABLE READ-ONLY MEMORY) y la mas usada actualmente  FLASH ROM, la cual puede ser regrabada sin el empleo de dispositivos de borrado. Consecuentemente, es posible actualizarla de fácilmente</p>
+<a class="reference internal image-reference" href="../_images/pila1.png"><img alt="../_images/pila1.png" src="../_images/pila1.png" style="height: 150px;" /></a>
+<a class="reference internal image-reference" href="../_images/clear.png"><img alt="../_images/clear.png" src="../_images/clear.png" style="height: 150px;" /></a>
+<a class="reference internal image-reference" href="../_images/cmos.png"><img alt="../_images/cmos.png" src="../_images/cmos.png" style="height: 150px;" /></a>
+<section id="post">
+<h2>POST<a class="headerlink" href="#post" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Procedimientos de POST (Power-On Self Test). Verificaciones básicas.</p>
+<p>Cuando se enciende o se restablece un sistema informático, la BIOS realiza un inventario del hardware conectado al ordenador y efectúa un diagnóstico llamado Prueba automática en el encendido (POST, Power-On Self Test) para comprobar que el equipo funciona correctamente.</p>
+<p>La secuencia del POST pueden varíar segun el fabricante, la placa base y la versión. A continuación vemos una posible secuencia del POST:</p>
+<ol class="arabic simple">
+<li><p>Test al controlador del teclado para verificar que está disponible</p></li>
+<li><p>Arranca la actividad del chipset</p></li>
+<li><p>Efectuar una prueba del procesador (CPU)</p></li>
+<li><p>Verificar el BIOS</p></li>
+<li><p>Verificar la configuración del CMOS</p></li>
+<li><p>Inicializar el temporizador (reloj interno)</p></li>
+<li><p>Inicializar el controlador de DMA</p></li>
+<li><p>Verificar la memoria RAM y la memoria caché</p></li>
+<li><p>Instalar todas las funciones del BIOS</p></li>
+<li><p>Verificar todas las configuraciones (unidades de disco y discos rígidos)</p></li>
+</ol>
+<blockquote>
+<div><a class="reference internal image-reference" href="../_images/post.jpg"><img alt="../_images/post.jpg" src="../_images/post.jpg" style="width: 400px;" /></a>
+</div></blockquote>
+<p>Si en algún momento el POST encuentra un error, intentará continuar con el inicio del ordenador. Sin embargo, si el error es serio, el BIOS detendrá la carga del sistema y:</p>
+<ul>
+<li><p>De ser posible, mostrará un mensaje en la pantalla (porque el dispositivo puede no haber sido inicializado o puede presentar fallas);</p></li>
+<li><p>Emitirá una secuencia de sonidos que permite diagnosticar el origen del error. Esta secuencia pueden variar según el modelo de BIOS que esté instalado, un ejemplo</p>
+<ul class="simple">
+<li><p>1 corto: error de refresco en la DRAM.</p></li>
+<li><p>2 cortos: error de paridad de la memoria RAM</p></li>
+<li><p>3 cortos: error en los primeros 64 KB de la memoria RAM.</p></li>
+<li><p>4 cortos: error de reloj.</p></li>
+<li><p>5 cortos: error del procesador.</p></li>
+<li><p>6 cortos: error de teclado.</p></li>
+<li><p>8 cortos: error en tarjeta gráfica.</p></li>
+<li><p>1 pitido ni largo ni corto: como bien he dicho al inicio, este pitido indica que el POST ha concluido con éxito. La BIOS comenzará a buscar una unidad con un sistema operativo o con el instalador del mismo y lo iniciará.</p></li>
+</ul>
+</li>
+<li><p>Zumbador de la placa base.</p>
+<a class="reference internal image-reference" href="../_images/zumbador.png"><img alt="../_images/zumbador.png" src="../_images/zumbador.png" style="width: 200px;" /></a>
+</li>
+<li><p>Otra forma es con un código (denominado código POST) al puerto serial del ordenador, que puede recuperarse a través de hardware especial de diagnósticos. La tarjeta de diagnóstico POST:</p>
+<a class="reference internal image-reference" href="../_images/diagnostico_post.png"><img alt="../_images/diagnostico_post.png" src="../_images/diagnostico_post.png" style="width: 250px;" /></a>
+<ul class="simple">
+<li><p>Cuando se encienda el ordenador comenzaran a aparecer combinaciones de teclas y números. Cada combinación indica que se está probando algún componente del equipo.</p></li>
+<li><p>Si no hay problemas en el display de la tarjeta aparecerá el código «00» o «FF», que significa que la computadora se encuentra lista para buscar el sistema operativo.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="el-setup">
+<h2>EL SETUP<a class="headerlink" href="#el-setup" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>El SETUP es un programa configuración de la BIOS, que permite acceder a los parámetros de configuración básica que están almacenados en la memoria CMOS.</p>
+<p>El SETUP se activa en la mayoria de los casos pulsando la tecla DEL,SUPR, F2…</p>
+<a class="reference internal image-reference" href="../_images/setup.png"><img alt="../_images/setup.png" src="../_images/setup.png" style="width: 400px;" /></a>
+<p>Un análisis de la pantalla de inicio para entrar al SETUP obtenemos que:</p>
+<div class="line-block">
+<div class="line">Award Medallion BIOS v6.0, An Energy Star Ally</div>
+<div class="line">Intel(R) Celeron(TM) 433 MHz Processor</div>
+<div class="line">Memory Test : 196608K OK</div>
+<div class="line">Pres DEL to enter SETUP</div>
+</div>
+<p>Es una BIOS (AWARD), el número de versión es la 6, y cumple Energy Star
+Este es el procesador instalado en la placa base
+Memoria DRAM instalada
+Pulsado la tecla &lt;Supr&gt; se entra en el SETUP</p>
+<p><strong>Energy Star</strong> es un programa de la Agencia de Protección Ambiental de los Estados Unidos para promover los productos eléctricos con consumo eficiente de electricidad, reduciendo de esta forma la emisión de gas de efecto invernadero por parte de las centrales eléctricas.</p>
+<p>A través del menú principal del Setup puedes acceder a los diferentes submenús mediante los que llevarás a cabo la configuración de la BIOS</p>
+<a class="reference internal image-reference" href="../_images/cmos_setup.png"><img alt="../_images/cmos_setup.png" src="../_images/cmos_setup.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p><strong>Standard CMOS Setup</strong>: desde esta pantalla accederemos a la configuración de nuestros discos y disqueteras, así como la hora y fecha del sistema.</p></li>
+<li><p><strong>Advanced CMOS Setup</strong>: (Configuraciones Avanzadas de la BIOS) puedes, por ejemplo, escoger si, al encender el ordenador, se lleva a cabo una autocompro bación rápida o profunda. O determinar cuál es la secuencia de arranque, el orden en el que la BIOS debe buscar el sistema operativo en las distintas unidades de disco.</p></li>
+<li><p><strong>Advanced Chipset Setup</strong>: , o Configuraciones Avanzadas del chispset. A través de él podrás, entre otras cosas, determinar la velocidad a la que se puede acceder a la RAM.</p></li>
+<li><p><strong>Integrated Peripherals</strong> (Periféricos Integrados) puedes configurar todos los puertos y dispositivos que forman parte de la placa base, como las conexiones del disco duro, los puertos USB, o las tarjetas gráficas, de red o sonido integradas.</p></li>
+<li><p><strong>Power Management Setup</strong>: la gestión de energía es uno de los apartados más importantes en los modernos PCs. Desde este menú controlamos todas sus opciones.</p></li>
+<li><p><strong>PCI / Plug and Play Setup</strong>: puedes determinar si los componentes independientes de tu ordenador, es decir, las tarjetas de expansión, deben configurarse desde laBIOS o desde el sistema operativo</p></li>
+<li><p><strong>Fail-Safe Defaults</strong>, prueba a cargar los Valores Optimizados, u Optimized Defaults.Esta configuración es la que el fabricante de la placa base considera como la mejor en la mayor parte de los casos (ten en cuenta que los componentes conectados a la placa pueden ser muy diferentes, por lo que existe la posibilidad de que esta opción no sea siempre la óptima)</p></li>
+<li><p><strong>Set User Password</strong>, Supervisor Password, o Contraseña de Administrador</p></li>
+<li><p><strong>Change Language Setting</strong>: en determinadas BIOS muy concretas nos permite seleccionar un idioma distinto al inglés. Así, muy pronto veremos BIOS en castellano.</p></li>
+<li><p><strong>Auto Configuration</strong> with Optimal Settings: tendremos la posibilidad de reconfigurar todas las opciones a los valores teóricamente más óptimos, es decir, con los que el equipo debería obtener las mejores prestaciones. Esta es, sin embargo, una opción arriesgada, dada la inmensa variedad de configuraciones existentes. .</p></li>
+<li><p><strong>Auto Configuration</strong> with Fail Safe Settings: desde aquí lograremos algo parecido al caso anterior, aunque colocándose los valores en los ajustes de fábrica. Resulta perfecto para solucionar errores o problemas de configuración si modificamos varios valores y no sabemos cuál de ellos falla.</p></li>
+<li><p><strong>Save Settings and Exit</strong>: grabar los valores modificados y salir es tan sencillo como pulsar Enter sobre esta opción.</p></li>
+<li><p><strong>Exit Without Saving</strong>: seleccionado esta función saldremos de la utilidad de configuración de la BIOS, aunque sin grabar ninguno de los cambios que hayamos realizado.</p></li>
+<li><p><strong>Load Optimized Defaults</strong>; Cargar los valores por defecto</p></li>
+<li><p><strong>Cómo saltarse la password de la BIOS</strong>. Qué hacer si sufre una repentina amnesia o si la BIOS trae una password ya introducida. Mediante un jumper en la placa base: en algunas, no todas, existe un jumper que al cerrarse (al conectarse ambas patillas), y tras unos minutos de espera, permite borrar la BIOS limpiamente, en el caso de que no exista el jumper desconecte la pila</p></li>
+</ul>
+</section>
+<section id="standard-cmos-features">
+<h2>Standard CMOS Features<a class="headerlink" href="#standard-cmos-features" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>utilizaremos este menú para configurar la hora del sistema y fecha, ver las unidades de discos detectados, decidir qué tipos de errores harán que el sistema se detenga y no inicie.</p>
+<a class="reference internal image-reference" href="../_images/standar_cmos.png"><img alt="../_images/standar_cmos.png" src="../_images/standar_cmos.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/standar_cmos2.png"><img alt="../_images/standar_cmos2.png" src="../_images/standar_cmos2.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p>Fecha del sistema</p></li>
+<li><p>Hora del sistema</p></li>
+<li><p>Los parámetros del disco duro (IDE Primary Master: vigila si se produce alguna operación de entrada/salida en el disco primario del primer canal IDE)</p></li>
+<li><p>La disquetera instalada</p></li>
+<li><p>El tipo de video</p></li>
+<li><p>Como debe comportarse el sistema en caso de error</p></li>
+<li><p>RAM instalada</p></li>
+</ul>
+</section>
+<section id="advanced-bios-features-configuracion-avanzada-de-la-bios">
+<h2>Advanced BIOS Features (Configuración avanzada de la BIOS)<a class="headerlink" href="#advanced-bios-features-configuracion-avanzada-de-la-bios" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Utilice este menú para configurar la secuencia de arranque de los dispositivos, opciones avanzadas disponibles en la CPU (Cool&amp;Quiet, etc.), cuando queremos que nos pida contraseña (Setup=entrar en la BIOS, System=Al arrancar y para entrar en la BIOS), si queremos mostrar el LOGO (pantalla que oculta el POST), elegir el adaptador de pantalla principal (PCI, PCIe,…)</p>
+<a class="reference internal image-reference" href="../_images/advanced_bios_features1.png"><img alt="../_images/advanced_bios_features1.png" src="../_images/advanced_bios_features1.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/advanced_bios_features2.png"><img alt="../_images/advanced_bios_features2.png" src="../_images/advanced_bios_features2.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/advanced_bios_features3.png"><img alt="../_images/advanced_bios_features3.png" src="../_images/advanced_bios_features3.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/advanced_bios_features4.png"><img alt="../_images/advanced_bios_features4.png" src="../_images/advanced_bios_features4.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p><strong>Boot Sequence</strong>: Mediante esta opción estableceremos el orden en el que el ordenador intentará cargar un sistema operativo desde las distintas unidades.
+* <strong>1st Boot Device</strong>: desde aquí indicaremos cuál es la primera unidad que se utilizará para buscar un sistema de arranque.
+* <strong>2st Boot Device</strong>: indicaremos cuál será la segunda unidad en la que se buscará un sistema de arranque en caso de que la primera falle.
+* <strong>3st Boot Device</strong>: en último caso siempre podremos indicar que busque el sistema en un tercer soporte, a elegir entre discos duros, disquetera, CD-ROM, LS-120 o SCSI.
+* <strong>PXE Boot to LAN</strong> nos permite arrancar sistemas operativos a través de una red</p></li>
+<li><p><strong>Anti-Virus Protection</strong> Si activas la protección antivirus, la BIOS sólo evita, sinpreguntar, que se pueda sobrescribir en el sector MBR.</p></li>
+<li><p><strong>CPU Internal Cache / CPU External Cache</strong>. Sirven para activar o desactivar las memoria temporales (cachés) que incorpora el procesador, las denominadas cachés de nivel 1, o caché L1, y de segundo nivel o L2.</p></li>
+<li><p><strong>S.M.A.R.T. For Hard Disks</strong>: activa o desactiva la característica SMART de predicción de fallos en los discos duros que lo soporten.</p></li>
+<li><p><strong>BootUp Num-Lock</strong>: si la colocamos en Enabled, nuestra BIOS activará automáticamente el teclado numérico durante el arranque.</p></li>
+</ul>
+</section>
+<section id="advanced-chipset-features-configuracion-avanzada-y-del-chipset">
+<h2>Advanced Chipset Features (configuración avanzada y del chipset)<a class="headerlink" href="#advanced-chipset-features-configuracion-avanzada-y-del-chipset" title="Enlace permanente a este encabezado">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/advanced_chiset_featuress.png"><img alt="../_images/advanced_chiset_featuress.png" src="../_images/advanced_chiset_featuress.png" style="width: 400px;" /></a>
+<p>Esta parte de la BIOS afecta a partes críticas del sistema como el procesador, la RAM, los buses AGP, PCI, etc. Entre sus opciones nos permite habilitar los puertos USB, habilitar el soporte para teclado USB, el tipo de bus AGP,…</p>
+<p>Las últimas placas bases permiten ajustar la frecuencia del procesador mediante la BIOS en vez de usando los típicos jumpers. Normalmente dicha configuración se encuentra en este apartado de la BIOS. Entre ellas destacan la posibilidad de cambiar el FSB de la placa base o el multiplicador del procesador.</p>
+<p>CAS ( Column Address Strobe ), nos referimos a una señal enviada a la RAM que asigna una determinada posición de memoria con una columna de direcciones. El otro parámetro, íntimamente ligado a CAS es RAS ( R o w A d d r e s s S t r o b e) y es igualmente una señal encargada de asignar una determinada posición de memoria a  una fila de direcciones.</p>
+</section>
+<section id="power-managment-setup">
+<h2>Power Managment Setup<a class="headerlink" href="#power-managment-setup" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Habilitar y deshabilitar desde que dispositivos queremos que el sistema se inicie tras hibernar o apagar el equipo. Elegir que queremos que ocurra si la electricidad vuelve tras un corte de suministro. Programar una fecha y una hora para que el sistema autoarranque. Elegir el funcionamiento del botón de apagado el sistema se apague inmediatamente o preferimos tener que esperar 4 segundos.</p>
+<a class="reference internal image-reference" href="../_images/power_managment_setup.png"><img alt="../_images/power_managment_setup.png" src="../_images/power_managment_setup.png" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="../_images/power_managment_setup1.png"><img alt="../_images/power_managment_setup1.png" src="../_images/power_managment_setup1.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p><strong>Power Management</strong>: En este apartado activaremos o desactivaremos la función de ahorro de energía</p></li>
+<li><p><strong>ACPI Suspend Mode</strong> (Modo Suspendido ACPI) puedes especificar cómo trabaja el PC en el modo de ahorro de energía ACPI.</p></li>
+<li><p><strong>Suspend Mode</strong> configuras cuánto tiempo debe transcurrir para que la BIOS ponga al ordenador en el modo suspendido</p></li>
+<li><p><strong>Wake on LAN</strong>  podrás depertatar el ordenador mediante la tarjeta de red</p></li>
+<li><p><strong>PM control by APM</strong>: Esta opción deberá estar activada para los sistemas operativos compatibles con la gestión de energía APM (Advanced Power Management) sean capaces de apagar o suspender el equipo.</p></li>
+<li><p><strong>Video Off Method</strong>: Aquí estableceremos el modo en el que el sistema de vídeo ahorrará energía. La opción más recomendable es DPMS, pero no todos los monitores y tarjetas gráficas son compatibles con esta función.</p></li>
+<li><p><strong>CPU Fan Off in Suspend</strong>: Determina si el ventilador del procesador se apaga en caso del que el sistema entre en estado de ahorro de energía.</p></li>
+<li><p><strong>HDD Power Down</strong>: gracias a esta opción podemos indicar el tiempo que transcurrirá desde que el ordenador deje de trabajar hasta que el disco duro se desconecte, dejando de consumir energía y alargando la vida útil del mismo. Sin embargo, este parámetro debe ser tratado con cuidado. Un tiempo demasiado corto puede suponer que nuestro disco se esté desconectando/reconectando continuamente, lo que significa una pérdida de tiempo, dado que el disco tarda unos segundos en arrancar.</p></li>
+</ul>
+</section>
+<section id="integrated-peripherals">
+<h2>Integrated Peripherals<a class="headerlink" href="#integrated-peripherals" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Nos permite habilitar, deshabilitar y configurar los componentes integrados de la placa base, controladoras de disco, audio, LAN, USB, etc.</p>
+<a class="reference internal image-reference" href="../_images/interated_perifericals.png"><img alt="../_images/interated_perifericals.png" src="../_images/interated_perifericals.png" style="width: 400px;" /></a>
+</section>
+<section id="pc-health-status">
+<h2>PC Health Status<a class="headerlink" href="#pc-health-status" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Muestra los voltajes suministrados por la fuente de alimentación, temperaturas de CPU y Placa Base, así como el número de revoluciones a las que giran los distintos ventiladores. Podemos habilitar/deshabilitar distintas alarmas y sistemas que minimizan el ruido producido por los ventiladores.</p>
+<a class="reference internal image-reference" href="../_images/pc_health_status.png"><img alt="../_images/pc_health_status.png" src="../_images/pc_health_status.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/pc_health_status2.png"><img alt="../_images/pc_health_status2.png" src="../_images/pc_health_status2.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p><strong>CPU Temperature</strong>: esta opción muestra la temperatura actual de nuestra CPU.</p></li>
+<li><p><strong>CPU Overheat Warning</strong>: con este apartado podremos elegir si desea mos que el sistema nos avise en caso de que se produzca una subida excesiva de la temperatura de la CPU del sistema.</p></li>
+<li><p><strong>CPU Overheat Warning Temperature</strong>: especifica la temperatura a la que saltará la alarma en caso de haber activado la opción anterior.</p></li>
+<li><p><strong>CPU / Chasis / Termal Control Fan</strong>: indica la revoluciones de cada uno de los posibles ventiladores instalados en nuestro sistema, como son el del procesador o los de la carcasa.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/bios_setup_utility_1.png"><img alt="../_images/bios_setup_utility_1.png" src="../_images/bios_setup_utility_1.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/bios_setup_utility_2.png"><img alt="../_images/bios_setup_utility_2.png" src="../_images/bios_setup_utility_2.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/bios_setup_utility_3.png"><img alt="../_images/bios_setup_utility_3.png" src="../_images/bios_setup_utility_3.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/bios_setup_utility_4.png"><img alt="../_images/bios_setup_utility_4.png" src="../_images/bios_setup_utility_4.png" style="width: 400px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference internal image-reference" href="../_images/bios_setup_utility_5.png"><img alt="../_images/bios_setup_utility_5.png" src="../_images/bios_setup_utility_5.png" style="width: 400px;" /></a>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/hardware/bios.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -110,7 +110,7 @@ Infraestructura física
 
   Vemos en la siguiente tabla, según el estándar TIA-942, la separación que debe tener el circuito eléctrico y el circuito de datos para minimizar las interferencias.
 
-  .. image:: CPD/DC_separacion_cables.png 
+  .. image:: imagenes/CPD/DC_separacion_cables.png 
 
   En el caso de que los cables no tengan apantallamiento, la distancia se duplicara. En el caso de que los cables se instalen en la misma bandeja, los cables de corriente tendrán que estar separados por la parte de abajo con una bandeja de metal con toma de tierra NEMA VE 2-2001. 
   
@@ -168,7 +168,7 @@ Infraestructura física
 
   Los pasillos de aire caliente y frío: Dado que la mayoría de los dispositivos del CPD toman el aire por su parte frontal, y lo expulsan caliente por la parte trasera, el alternar su orientación facilitará de forma natural el flujo del aire. Con esto se generan pasillos fríos y calientes (HA/CA) que distribuyen este flujo de una forma eficaz. Además pueden utilizarse otros dispositivos para mejorar la circulación, por ejemplo, chimeneas, conductos, armarios climatizados, etc...
 
-  .. image:: CPD/circulacion.png
+  .. image:: imagenes/CPD/circulacion.png
 
   La norma TIA 942 especifica la forma en que puede ser fomentada esta forma de refrigeración, utilizando la refrigeración adecuada para los dipositivos, así como piso técnico perforado en los pasillos fríos, para una mejor circulación del aire y situar los armarios enfrentados en los pasillos fríos (front to front) y dispuestos de forma contraria en los pasillos calientes (rear to rear). Todo ello combinado con un detallado estudio de la separación de los armarios, de las características propias de los equipos utilizados, lo que ayuda a predecir el comportamiento de la temperatura y por tanto de la circulación del aire; para evitar mezclar flujos de aire en un mismo pasillo.
 
@@ -180,9 +180,9 @@ Infraestructura física
     
   * Regular, en lo posible la temperatura en toda la longitud del pasillo frío
     
-    .. image:: CPD/pasillos.jpeg
+    .. image:: imagenes/CPD/pasillos.jpeg
 
-    .. image:: CPD/armarios.jpeg
+    .. image:: imagenes/CPD/armarios.jpeg
         :width: 300
 
   * **Sistema de cerramiento modular adaptable**: Este sistema optimiza la eficacia del sistema, mediante el empleo, entre otras características, de puertas automáticas y elementos para evitar la recirculación del aire y con ello:
@@ -191,14 +191,14 @@ Infraestructura física
     
   * La forma y tamaño de los conductos de refrigeración, así como la dirección y caudal del flujo, influyen directamente sobre la cantidad real de aire frío que se entrega a las zonas más críticas de cada rack
     
-    .. image:: CPD/armario2.png
+    .. image:: imagenes/CPD/armario2.png
       :width: 280
       
-    .. image:: CPD/armario3.png
+    .. image:: imagenes/CPD/armario3.png
       
   Ejemplos de diseños CPD, anexo H, estandar TIA-942
       
-  .. image:: CPD/pasillos2.jpeg
+  .. image:: imagenes/CPD/pasillos2.jpeg
       
 
   * **Seguridad física**
@@ -217,36 +217,36 @@ Instalación de racks
 
 Un armario o rack es un bastidor dedicado a alojar equipos informáticos y electrónica de red en un CPD.
 
-.. image:: CPD/rack.png
+.. image:: imagenes/CPD/rack.png
 
 En la imagen siguiente se puede ver las unidad de un rack, también conocida como *U*, que define la unidad mínima en altura de un dispositivo. Cada "U" equivale a 1,75 pulgadas (44.45 mm) de alto , Los armarios rack se suelen fabricar con alturas comprendidas entre 12U y 47U, pero podemos encontrar murales rack en alturas menores, de 6U en adelante
 
-.. image:: CPD/U.png
+.. image:: imagenes/CPD/U.png
 
 Tienen una anchura estándar de 600, 800 mm y un fondo de 600, 800, 900, 1000 y 1200mm.  Se suelen fabricar  con  alturas comprendidas entre 12U y 47U, aunque pueden existir medidas mas pequeñas.
 
 Las especificaciones de una rack estándar se encuentran bajo las normas equivalentes DIN 41494 parte 1 y 7, UNE-20539 parte 1 y parte 2 e IEC 297 parte 1 y 2, EIA 310-D
 
-.. image:: CPD/rack1.png
-.. image:: CPD/rack2.png
+.. image:: imagenes/CPD/rack1.png
+.. image:: imagenes/CPD/rack2.png
 
 El peinado de Rack de datos o maquillado es una actividad que organiza los cables de datos y de datos al rack o armario de datos con el que cuenta la compañía.
 
-.. image:: CPD/rackcables.png
+.. image:: imagenes/CPD/rackcables.png
 
 Según el estadnar TIA-942 un mínimo de 1 m de espacio libre delante serán proporcionados para la instalación de los equipos. Un mínimo de 0,6 m de espacio libre en la parte trasera deberá ser proporcionada para el acceso de servicio en la parte posterior de los racks y armarios. Además la  altura máxima del armario rack será de 2,4 m.
 
 El cableado utilizando suele ser Ethernet a 1 Gbps, a 10 Gbps ó, en algunos casos, utilizando fibra óptica.
 
-.. image:: CPD/switch2.png
+.. image:: imagenes/CPD/switch2.png
 
-.. image:: CPD/switch.png
+.. image:: imagenes/CPD/switch.png
 
 Aunque no es un dispositivo como tal, a la hora de montar un servidor en rack en un CPD, se utiliza lo que se conoce como patch panel como punto donde terminan todos los cables de red de todos los hosts conectados a dicho CPD. De esta manera, cualquier equipo o servidor de la red tendrá una conexión en un puerto de un patch panel.
 
 El objetivo de un patch panel no es otro que el ofrecer una mayor comodidad y flexibilidad en la forma en que se conectan los servidores con los hosts de la red, haciendo que no sea necesario "tocar" los cables que van desde el CPD hasta las estaciones de trabajo, sino que simplemente conectado o desconectado los latiguillos de red podamos modificar la conectividad de una zona concreta de la red, añadir un nuevo host o desconectar temporalmente uno ya existente.
 
-.. image:: CPD/ppanel.png
+.. image:: imagenes/CPD/ppanel.png
 
 * **Cableado horizontal**
 
@@ -264,9 +264,9 @@ De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los
   Básicamente consiste en tener disponible un dispositivo igual al principal, que sólo entrará en funcionamiento en caso de fallo del primero. Además, hay que garantizar que la entrada en funcionamiento en caso de fallo será inmediata y no necesitará de atención humana para hacerlo, al menos en la medida de lo posible.
  Fuente de alimentación redundante
 
-  .. image:: CPD/fuente_redundante.png
+  .. image:: imagenes/CPD/fuente_redundante.png
 
-  .. image:: CPD/raid.png
+  .. image:: imagenes/CPD/raid.png
     :width: 300
 
 * **Arquitecturas de servidor**
@@ -275,9 +275,9 @@ De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los
 
   Además, en cuanto al aspecto físico de estos equipos, se busca reducir el espacio. Es por eso que se diseñan en cajas específicas para ser ubicadas en racks, y aprovechar así el espacio destinado a ubicar el equipamiento informático.
 
-  .. image:: CPD/server1.png
+  .. image:: imagenes/CPD/server1.png
 
-  .. image:: CPD/server2.png
+  .. image:: imagenes/CPD/server2.png
 
 
 Software en un CPD
@@ -305,7 +305,7 @@ Software en un CPD
 
   Herramientas como Nagio,s ganglia, etc permiten monitorizar todo el equipamiento informático de una manera automática y gráfica, de manera que en caso de fallo es la propia aplicación quién avisa a los técnicos del equipo que ha fallado y por qué.
 
-  .. image:: CPD/monitorizacion1.png
+  .. image:: imagenes/CPD/monitorizacion1.png
 
 
 * **Inventariado del Hardware**

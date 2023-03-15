@@ -1,3 +1,6 @@
+#Guia markdown
+#https://guia-de-restructuredtext.readthedocs.io/es/latest/ch_rst.html
+
 # Minimal makefile for Sphinx documentation
 #
 

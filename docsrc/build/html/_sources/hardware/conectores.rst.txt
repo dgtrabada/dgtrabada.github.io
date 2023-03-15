@@ -4,30 +4,30 @@ Conectores y buses externos
 
 Como podemos ver en la placa base encontramos un cierto número de conectores de entrada/salida ubicados en el "panel trasero".
 
-.. image:: conectores/conectores1.png
+.. image:: imagenes/conectores/conectores1.png
 
-.. image:: conectores/conectores2.jpeg
+.. image:: imagenes/conectores/conectores2.jpeg
 
 La **transmisión de datos en serie** consiste en enviar datos mediante un solo hilo: los bits se envían uno detrás del otro
 
 
-.. image:: conectores/serie.png
+.. image:: imagenes/conectores/serie.png
 
 La **transmisión de datos paralela** consiste en enviar datos en forma simultánea por varios canales (hilos).
 
-.. image:: conectores/paralelo.png
+.. image:: imagenes/conectores/paralelo.png
 
 Puerto de serie
 
-.. image:: conectores/pserie.pn
+.. image:: imagenes/conectores/pserie.pn
 
 Puerto de paralelo
 
-.. image:: conectores/pparalelo.png
+.. image:: imagenes/conectores/pparalelo.png
 
 Puerto PS/2, Se utiliza principalmente para conectar teclados y ratones a los equipos.
 
-.. image:: conectores/pps2.png
+.. image:: imagenes/conectores/pps2.png
 
 Audio (visto en las tarjetas de expansión)
 
@@ -39,21 +39,21 @@ Puertos USB (Bus de serie universal)
 
 * Conectores "Tipo B", que tienen forma cuadrada y se utilizan generalmente para dispositivos con altos requisitos de ancho de banda (como discos rígidos externos)
 
-.. image:: conectores/usb.png
+.. image:: imagenes/conectores/usb.png
 
 Conector FireWire, es un puerto que se encuentra en algunos equipos para conectar dispositivos periféricos.
 
-.. image:: conectores/firewire.png
+.. image:: imagenes/conectores/firewire.png
 
-.. image:: conectores/ieee1394.png
+.. image:: imagenes/conectores/ieee1394.png
 
 Conector RJ45 (Puerto LAN o Puerto Ethernet)
 
-.. image:: conectores/rj45.png
+.. image:: imagenes/conectores/rj45.png
 
 Conector eSATA
 
-.. image:: conectores/esata.png
+.. image:: imagenes/conectores/esata.png
 
 
 Velocidades
@@ -76,48 +76,48 @@ Velocidades
 
 Ejemplo (ROG STRIX X299-E GAMING II):
 
-.. image:: conectores/rogs.jpeg
+.. image:: imagenes/conectores/rogs.jpeg
 
 USB 2.0
 
-.. image:: conectores/usb2.png
+.. image:: imagenes/conectores/usb2.png
 
 USB 3.2
 
-.. image:: conectores/usb3.png
+.. image:: imagenes/conectores/usb3.png
 
 BIOS FlashBackTM button
 
-.. image:: conectores/bios.png
+.. image:: imagenes/conectores/bios.png
 
 intel® LAN
 
-.. image:: conectores/lan.png
+.. image:: imagenes/conectores/lan.png
 
-.. image:: conectores/lan_led.jpeg
+.. image:: imagenes/conectores/lan_led.jpeg
 
 Realtek® 2.5G LAN
 
-.. image:: conectores/lan2.png
+.. image:: imagenes/conectores/lan2.png
 
-.. image:: conectores/lan_led2.jpeg
+.. image:: imagenes/conectores/lan_led2.jpeg
 
 Wi-Fi 802.11 (Antena MMCX)
 
-.. image:: conectores/wifi.png
+.. image:: imagenes/conectores/wifi.png
 
 Optical S/PDIF Out
 
-.. image:: conectores/spdif.png
+.. image:: imagenes/conectores/spdif.png
 \
 
-.. image:: conectores/colors.png
+.. image:: imagenes/conectores/colors.png
 
-.. image:: conectores/speaker1.jpeg
-.. image:: conectores/speaker2.jpeg
-.. image:: conectores/speaker3.jpeg
-.. image:: conectores/speaker4.jpeg
-.. image:: conectores/speaker5.jpeg
+.. image:: imagenes/conectores/speaker1.jpeg
+.. image:: imagenes/conectores/speaker2.jpeg
+.. image:: imagenes/conectores/speaker3.jpeg
+.. image:: imagenes/conectores/speaker4.jpeg
+.. image:: imagenes/conectores/speaker5.jpeg
 
 
 

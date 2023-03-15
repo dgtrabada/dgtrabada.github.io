@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Dispositivos de almacenamiento &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="dispositivos-de-almacenamiento">
+<h1>Dispositivos de almacenamiento<a class="headerlink" href="#dispositivos-de-almacenamiento" title="Enlace permanente a este encabezado">¶</a></h1>
+<section id="disco-duro-hdd">
+<h2>Disco duro (HDD)<a class="headerlink" href="#disco-duro-hdd" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>El disco rígido (hdd) hard disk drive, es el componente utilizado para almacenar los datos de manera permanente. El disco no está compuesto por un solo disco, sino por varios discos rígidos apilados muy juntos entre sí y llamados platos.</p>
+<p>Los cabezales de lectura están ubicados a ambos lados de los platos. Estos cabezales son electroimanes que suben y bajan para leer la información o bien escribirla. El mecanismo completo de precisión se encuentra dentro de una caja totalmente hermética, debido a que la más mínima partícula puede degradar la superficie del disco.</p>
+<p>Los cabezales comienzan a escribir datos comenzando desde el borde del disco (pista 0) y avanzando hacia el centro. Los datos se organizan en círculos concéntricos denominados «pistas», creadas por un formateo de bajo nivel.</p>
+<img alt="../_images/discos.png" src="../_images/discos.png" />
+<p>Para leer, los cabezales terminan en una espira, cuando los platos giran se genera un campo magnético debido al spin, esto induce una intensidad en la espira, dependiendo del signo es 0 o 1. Para escribir se hace pasar una corriente por la espira que induce un campo magnético que a su vez induce una polarización magnética, dependiendo del signo de la corriente escribiremos 0 o 1.</p>
+</section>
+<section id="propiedades-de-los-discos">
+<h2>Propiedades de los discos<a class="headerlink" href="#propiedades-de-los-discos" title="Enlace permanente a este encabezado">¶</a></h2>
+<ul>
+<li><p><strong>La caché de disco</strong>: (Disk cache o Cache buffer en inglés) es una porción de memoria RAM asociada a un disco con la utilidad de almacenar los datos recientemente leídos y por lo tanto agilizar la carga de los mismos en caso de que estos vuelvan a ser solicitados</p></li>
+<li><p><strong>Tamaño</strong> : 2,5 pulgadas ~7 x 10 cm o 3,5 pulgadas ~ 10 x 15 cm</p></li>
+<li><p><strong>Capacidad</strong>: Cantidad de datos que pueden almacenarse en un disco rígido.</p></li>
+<li><p><strong>Tasa de transferencia</strong>: Cantidad de datos que pueden leerse o escribirse desde el disco por unidad de tiempo. Se expresa en bits por segundo.</p></li>
+<li><p><strong>Velocidad de rotación</strong>: La velocidad a la cual giran los platos. Se expresa en revoluciones por minuto (rpm, su acrónimo en inglés). Las velocidades de los discos rígidos se encuentran en el orden de 7200 a 15000 rpm.</p></li>
+<li><p><strong>Latencia</strong> (también llamada demora de rotación): El lapso de tiempo que transcurre entre el momento en que el disco encuentra la pista y el momento en que encuentra los datos.</p></li>
+<li><p><strong>Interfaz</strong>: Se refiere a las conexiones utilizadas por el disco rígido. Las principales interfaces del disco rígido son:</p>
+<ul class="simple">
+<li><p>IDE/ATA (PATA)</p></li>
+</ul>
+<img alt="../_images/ide.png" src="../_images/ide.png" />
+<ul class="simple">
+<li><p>SATA</p></li>
+</ul>
+<img alt="../_images/sata1.png" src="../_images/sata1.png" />
+<img alt="../_images/sata2.png" src="../_images/sata2.png" />
+<ul class="simple">
+<li><p>SAS (Serial Attached SCSI)</p></li>
+</ul>
+<img alt="../_images/scsi2.png" src="../_images/scsi2.png" />
+<ul class="simple">
+<li><p>Existen carcasas externas que se utilizan para conectar discos rígidos con puertos USB o FireWire.</p></li>
+<li><p>mSATA, La interfaz mSATA, también conocida como mini-SATA, apareció brevemente durante una generación de placas base y portátiles. Los dispositivos SSD mSATA siguen la especificación SATA, por lo que ofrecen un rendimiento máximo teórico de 600MB/s</p></li>
+</ul>
+<img alt="../_images/msata.png" src="../_images/msata.png" />
+<p>El sector de arranque (<strong>MBR, Master Boot Record</strong>) es el primer sector de todo disco duro (cabeza 0, cilindro 0, sector 1). En él se almacena la tabla de particiones y un pequeño programa master de inicialización, llamado también Master Boot. Este programa es el encargado de leer la tabla de particiones y ceder el control al sector de arranque de la partición activa.</p>
+</li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=dD7yqEYcKps">Como funciona el disco duro de un ordenador</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=NtPc0jI21i0">How a Hard Disk Drive Works</a></p></li>
+</ul>
+</section>
+<section id="discos-de-estado-solido">
+<h2>Discos de estado sólido<a class="headerlink" href="#discos-de-estado-solido" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Los discos duros SSD utilizan memoria flash (similables a las utilizadas en la RAM), pero a diferencia de ellas están basada en puertas NAND que no borran los datos cada vez que dejan de recibir corriente.</p>
+<p>Los SSD no pueden sobrescribir directamente los datos en páginas individuales. Solo pueden escribir datos en páginas vacías de un bloque.</p>
+<p>Un SSD completamente nuevo está cargado completamente de bloques con páginas en blanco. Cuando recibe datos nuevos en la SSD se escriben a velocidades vertiginosas. Sin embargo, a medida que se escriben más y más datos, las páginas en blanco se agotan y la unidad se queda con páginas aleatorias sin usar diseminadas por todos los bloques, como consecuencia, uno de los inconvenientes teóricos es que la memoria flash solo puede mantener un número finito de escrituras antes de finalizar su vida útil. Cuando se usa una SSD, las cargas eléctricas dentro de cada una de sus celdas de datos deben reiniciarse periódicamente. Desafortunadamente, la resistencia eléctrica de cada celda aumenta ligeramente con cada restablecimiento, lo que aumenta el voltaje necesario para escribir en esa celda. Eventualmente, el voltaje requerido llega a ser tan alto que la celda particular se vuelve imposible de escribir.</p>
+<p>Esto no quiere decir que una SSD obligatoriamente dure menos que un disco duro. Aunque los bloques de memoria en un SSD tienen un número limitado de operaciones de escritura, las nuevas generaciones han mejorado muchísimo en fiabilidad. Todas las SSD incluyen células de memoria adicionales libres para cuando las otras fallen no perder capacidad, reasignando sectores dañados.</p>
+<p>TBW o Total terabytes written,  es la cantidad de terabytes que podrían ser escritos en el disco duro durante toda su vida útil, por ejemplo un SSD Crucial MX500 de 1 TB de capacidad. Según el fabricante, este dispositivo soporta 365 TBW y tiene una garantía de cinco años, así que según esta fórmula tendríamos que su durabilidad es de (365TBW/365días) 1TB escritos al día todos los días durante 1 año.</p>
+<img alt="../_images/ssd.png" src="../_images/ssd.png" />
+<p>Interface:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>PCIe</p></li>
+</ul>
+<img alt="../_images/pcie.png" src="../_images/pcie.png" />
+<ul class="simple">
+<li><p>M.2</p></li>
+</ul>
+<img alt="../_images/m21.png" src="../_images/m21.png" />
+<ul class="simple">
+<li><p>SATA</p></li>
+</ul>
+<img alt="../_images/sata1.png" src="../_images/sata1.png" />
+<ul class="simple">
+<li><p>Thunderbolt</p></li>
+</ul>
+<img alt="../_images/tunder.png" src="../_images/tunder.png" />
+<ul class="simple">
+<li><p>USB</p></li>
+</ul>
+<img alt="../_images/usb1.png" src="../_images/usb1.png" />
+</div></blockquote>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=L2BSo8sPyaQ">Cómo se fabrican los Discos SSD</a></p></li>
+</ul>
+</section>
+<section id="utilidades">
+<h2>Utilidades<a class="headerlink" href="#utilidades" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>La tecnología <strong>SMART</strong> (siglas de Self Monitoring Analysis and Reporting Technology), consiste en la capacidad de detección de fallos del disco duro. 1​La detección con anticipación de los fallos en la superficie permite al usuario el poder realizar una copia de su contenido, o reemplazar el disco, antes de que se produzca una pérdida de datos irrecuperable.</p>
+<p>Este tipo de tecnología tiene que ser compatible con el BIOS del equipo, estar activada y además que el propio disco duro sea compatible.</p>
+<p>Podemos hacer las pruebas de velocidad y  del smart con  <a class="reference external" href="https://wiki.gnome.org/Apps/Disks">gnome-disk-utility</a></p>
+<img alt="../_images/gnombe_disk_utility.png" src="../_images/gnombe_disk_utility.png" />
+<img alt="../_images/gnombe_disk_utility2.png" src="../_images/gnombe_disk_utility2.png" />
+<p>También podemos utilizar (smartctl and smartd)
+Para conocer el modelo de disco duro, y saber si soporta SMART ejecutamos: smartctl -i /dev/sda</p>
+<img alt="../_images/smartctl.png" src="../_images/smartctl.png" />
+<p>En el caso de que el soporte SMART este deshabilitado lo intentamos habilitar: smartctl -s on /dev/sda
+Para chequear el estado del SMART ejecutamos: smartctl -H /dev/sda</p>
+<img alt="../_images/smartctl2.png" src="../_images/smartctl2.png" />
+<p>Con la técnología Load/Unload cada vez más extendida, sobre todo en discos duros de portátil. Consiste en que el cabezal de lectura/escritura, en vez de estar permanentemente volando sobre el disco, se aparca frecuentemente, lo que teóricamente permite una  mayor duración del disco, menor consumo y mayor protección contra golpes. En Load_Cycle_Count vemos los ciclos que lleva el disco utilizado. Para ver este y otros atributos, como por ejemplo la temperatura ejecutamos: smartctl -a /dev/sda</p>
+<p><strong>Otros comandos útiles:</strong></p>
+<ul class="simple">
+<li><p><strong>badblocks -s -v /dev/sda -o salida.dat</strong> para saber si el disco duro tiene sectores defectuosos</p></li>
+<li><p><strong>hdparm /dev/sda</strong> para conocer el numero de sectores que tiene nuestros discos duros</p></li>
+<li><p><strong>hdparm -t /dev/sda</strong> Para conocer la velocidad de transferencia (buffered)</p></li>
+<li><p><strong>TestDisk</strong>: Nos permite hacer recuperación de particiones y sectores de arranquepara distintos formatos</p></li>
+</ul>
+<img alt="../_images/testdisk.png" src="../_images/testdisk.png" />
+<ul class="simple">
+<li><p><strong>PhotoRec</strong> : Es un software de recuperación de datos, diseñado para recuperar archivos perdidos, incluyendo vídeos, documentos, archivos de discos duros, CD-ROM, y las imágenes borradas de las tarjetas de memorias de las cámara digitales (de ahí el nombre).  PhotoRec ignora el sistema de archivos, y hace una búsqueda profunda de los datos, funcionando incluso si dicho sistema de archivos está muy dañado o ha sido formateado</p></li>
+<li><p><strong>Foremost y Scalpel</strong> son utilizados en la recuperación de datos</p></li>
+<li><p><strong>Redo Rescue</strong> es un CD en vivo basado en Ubuntu que presenta programas para respaldo, restauración y para recuperación en desastres. Se centra alrededor de un programa gráfico fácil de usar para correr respaldos directos y recuperaciones de particiones de discos duros así como en discos duros externos.. El CD también incluye varios programas populares de recuperación de datos y un navegador de red.</p></li>
+</ul>
+<img alt="../_images/redo.png" src="../_images/redo.png" />
+<ul class="simple">
+<li><p><strong>Clonezilla Live</strong> es un CD en vivo basado en Debian que contiene a Clonezilla, un programa de particionamiento y conlonación d ediscos similar a Norton Ghost. Guarda y restaura sólo los bloques usados en el disco duro. Con Clonezilla, uno puede clonar un sistema de 5 GB para 40 clientes en unos 10 min.</p></li>
+</ul>
+<img alt="../_images/clonecizilla.png" src="../_images/clonecizilla.png" />
+<ul class="simple">
+<li><p><strong>DRBL</strong> (Diskless Remote Boot in Linux: Inicio Remoto sin Disco en Línux) es software de servidor para arrancar y operar clientes de escritorio remotos. El prgrama DRBL permite a máquinas cliente correr como computadoras cliente ligeras sin estado administradas por el servidor DRBL. DRBL en vivo, es una distribución en discos en vivo basada en Debian del programa para servidor DRBL, el cual puede correr desde una USB o CD/DVD. Incluye un ambiente de escritorio para asistir a los usuarios a configurar el servidor.</p></li>
+</ul>
+<img alt="../_images/drbl.png" src="../_images/drbl.png" />
+</section>
+<section id="memoria-flash">
+<h2>Memoria flash<a class="headerlink" href="#memoria-flash" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>La memoria flash utilizan una tecnología muy parecida a los SSD, la principal diferencia es que son más baratas, más lentas y menos fiables.</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=MhUZcLpDbhM">Como se fabrica memorias Flash</a></p>
+</section>
+<section id="cd-dvd-blu-ray">
+<h2>CD,DVD, Blu-ray<a class="headerlink" href="#cd-dvd-blu-ray" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>El CD, DVD, Blu-ray es un disco óptico de almacenamiento de datos</p>
+<img alt="../_images/dvd.png" src="../_images/dvd.png" />
+<p><a class="reference external" href="https://www.youtube.com/watch?v=ESpL4a08kVE">How a CD ROM Works Animation</a></p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/hardware/dispositivos_alamacenamiento.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

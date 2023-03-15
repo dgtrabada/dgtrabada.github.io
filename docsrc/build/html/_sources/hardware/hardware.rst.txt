@@ -2,33 +2,19 @@
 Hardware
 ********
  
-* Medida y representación de la información
-
- * :ref:`Sistema analógico & digital`
- 
- * :ref:`Medida de la información`
- 
- * :ref:`Representación de la información`
- 
-   * :ref:`Sistemas de numeración`
-   * :ref:`Cambio de base con decimales`
-   * :ref:`Sistemas de codificación`
-   * :ref:`Imagen digital`
-   
-* Mantenimiento de sistemas informáticos
- * BIOS
- * UEFI
- * Diccionario de la BIOS/UEFI
-
-* Dispositivos de almacenamiento
- * Particionado del disco
- * Buses y conectores de datos.
- * RAID
-
-* Breve historia del procesador
-* Microprocesadores
-* Encapsulados
-* Ventilación
+* :ref:`Medida y representación de la información`
+* :ref:`Mantenimiento de sistemas informáticos`
+* :ref:`BIOS`
+* :ref:`UEFI`
+* :ref:`Diccionario de la BIOS/UEFI`
+* :ref:`Dispositivos de almacenamiento`
+* :ref:`Particiones`
+* :ref:`Buses y conectores de datos`
+* :ref:`RAID`
+* :ref:`Breve historia del procesador`
+* :ref:`Microprocesadores`
+* :ref:`Encapsulados`
+* :ref:`Ventilación`
 * Memoria RAM
 * :ref:`Puertas lógicas`
 * :ref:`Arquitectura del ordenador`

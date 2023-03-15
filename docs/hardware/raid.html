@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>RAID &#8212; documentación de dgtrabada - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="raid">
+<h1>RAID<a class="headerlink" href="#raid" title="Enlace permanente a este encabezado">¶</a></h1>
+<p>La tecnología RAID (sigla que significa Redundant Array of Inexpensive Disks, conjunto redundante de discos de bajo costo, o en algunos casos Redundant Array of Independent Disks, conjunto redundante de discos independientes) permite al usuario formar una unidad de almacenamiento a partir de varios discos rígidos
+Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gibson y Katz) en la Universidad de California (Berkeley). Desde 1992, la junta consultiva para el uso de sistemas RAID (RAID Advisory Board) ha administrado estas especificaciones. Estas consisten en la formación de una unidad con gran capacidad (y por lo tanto costosa) a partir de unidades más pequeñas y económicas (es decir, unidades en las que el MTBF, Mean Time Between Failure [tiempo medio entre fallos], sea corto).</p>
+<p>Con la tecnología RAID, los discos unidos pueden utilizarse de maneras diferentes, denominadas niveles RAID</p>
+<a class="reference internal image-reference" href="../_images/server.jpeg"><img alt="../_images/server.jpeg" src="../_images/server.jpeg" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="../_images/server1.jpeg"><img alt="../_images/server1.jpeg" src="../_images/server1.jpeg" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="../_images/server2.jpeg"><img alt="../_images/server2.jpeg" src="../_images/server2.jpeg" style="width: 400px;" /></a>
+<section id="nivel-0">
+<h2>Nivel 0<a class="headerlink" href="#nivel-0" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Denominado configuración en bandas (striping). Consiste en almacenar datos distribuyéndolos en todas las unidades. Es utilizado para fusionar todos los discos duros en un sólo disco para aumentar la capacidad de almacenamiento y el rendimiento. Disminuye la fiabilidad.</p>
+<a class="reference internal image-reference" href="../_images/raid0.png"><img alt="../_images/raid0.png" src="../_images/raid0.png" style="width: 150px;" /></a>
+<p>Por ejemplo, cuatro unidades de disco duro 120 GB en una matriz RAID 0 aparecerá como una sola unidad de disco duro 480 GB para el Sistema operativo.</p>
+</section>
+<section id="nivel-1">
+<h2>Nivel 1<a class="headerlink" href="#nivel-1" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Denominado réplica (mirroring), crea una copia exacta (o espejo) de un conjunto de datos en dos o más discos. Es utilizado para garantizar la integridad de los datos.</p>
+<a class="reference internal image-reference" href="../_images/raid1.png"><img alt="../_images/raid1.png" src="../_images/raid1.png" style="width: 150px;" /></a>
+<p>Por ejemplo, dos unidades de disco duro 120 GB en una matriz RAID 1 aparecerá como una sola unidad de disco duro 120 GB para el Sistema operativo</p>
+</section>
+<section id="nivel-2">
+<h2>Nivel 2<a class="headerlink" href="#nivel-2" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>(Obsoleto) Es como el RAID 0 pero hace Striping con bits y utiliza un código de corrección Hamming.</p>
+</section>
+<section id="nivel-3">
+<h2>Nivel 3<a class="headerlink" href="#nivel-3" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>(Striping + paridad). Denominado conjunto de discos con datos entrelazados en bits. Divide los datos a nivel de bytes en lugar de a nivel de bloques . Los discos son sincronizados por la controladora para funcionar al unísono. Éste es el único nivel RAID original que actualmente no se usa. Permite tasas de transferencias extremadamente altas.</p>
+<a class="reference internal image-reference" href="../_images/raid3.png"><img alt="../_images/raid3.png" src="../_images/raid3.png" style="width: 250px;" /></a>
+</section>
+<section id="nivel-4">
+<h2>Nivel 4<a class="headerlink" href="#nivel-4" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>El RAID 4 es parecido al RAID 3 excepto porque divide a nivel de bloques en lugar de a nivel de bytes (bloques ~ 512 KB</p>
+</section>
+<section id="nivel-5">
+<h2>Nivel 5<a class="headerlink" href="#nivel-5" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>(Strinping + Paridad distribuida) Denominado conjunto de discos con paridad distribuida de entrelazado de bloques. Es una división de datos a nivel de bloques distribuyendo la información de paridad entre todos los discos miembros del conjunto. El RAID 5 ha logrado popularidad gracias a su bajo coste de redundancia. Generalmente, el RAID 5 se implementa con soporte hardware para el cálculo de la paridad. RAID 5 necesitará un mínimo de 3 discos para ser implementado.</p>
+<a class="reference internal image-reference" href="../_images/raid5.png"><img alt="../_images/raid5.png" src="../_images/raid5.png" style="width: 250px;" /></a>
+<p>Por ejemplo, cuatro unidades de disco duro 120 GB en una matriz RAID 5 apariencia similar a una unidad de disco duro 360GB para el Sistema operativo.</p>
+</section>
+<section id="nivel-6">
+<h2>Nivel 6<a class="headerlink" href="#nivel-6" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Se trata de una evolución del Raid 5, donde se busca ampliar la tolerancia frente a fallos, este aumento de tolerancia se consigue usando una doble banda de paridad (que también se distribuye entre todos los discos) y aumentando a 4 el número mínimo de discos necesarios para un Raid.</p>
+<a class="reference internal image-reference" href="../_images/raid6.png"><img alt="../_images/raid6.png" src="../_images/raid6.png" style="width: 300px;" /></a>
+<p>Como resultado de las modificaciones introducidas los Raid 6, toleran el fallo de dos discos (incluso durante la reconstrucción de uno de ellos), sin pérdida de datos.</p>
+</section>
+<section id="niveles-raid-anidados">
+<h2>Niveles RAID anidados<a class="headerlink" href="#niveles-raid-anidados" title="Enlace permanente a este encabezado">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/raid01.png"><img alt="../_images/raid01.png" src="../_images/raid01.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="../_images/raid10.png"><img alt="../_images/raid10.png" src="../_images/raid10.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="../_images/raid50.png"><img alt="../_images/raid50.png" src="../_images/raid50.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="../_images/raid51.png"><img alt="../_images/raid51.png" src="../_images/raid51.png" style="width: 300px;" /></a>
+</section>
+<section id="raid-100">
+<h2>RAID 100<a class="headerlink" href="#raid-100" title="Enlace permanente a este encabezado">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/raid100.png"><img alt="../_images/raid100.png" src="../_images/raid100.png" style="width: 500px;" /></a>
+</section>
+<section id="raid-50">
+<h2>RAID 50<a class="headerlink" href="#raid-50" title="Enlace permanente a este encabezado">¶</a></h2>
+<a class="reference internal image-reference" href="../_images/raid50_3.png"><img alt="../_images/raid50_3.png" src="../_images/raid50_3.png" style="width: 500px;" /></a>
+</section>
+<section id="ejemplo-crear-un-raid-0">
+<h2>Ejemplo: Crear un RAID 0<a class="headerlink" href="#ejemplo-crear-un-raid-0" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Antes de crear la RAID 0 podemos ver en el fichero /proc/mdstat por si al algún otro raid:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/proc/mdstat
+</pre></div>
+</div>
+<p>Proseguimos a la creación del md en el que crearemos la RAID. Para ello utilizaremos el comando mknod :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mknod<span class="w"> </span>/dev/md0<span class="w"> </span>b<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Si ya tuviéramos algún otro raid llamado md0, podemos crear un md diferente: md1, md2, …
+Procedemos ahora a crear finalmente la RAID 0.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--create<span class="w"> </span>/dev/md0<span class="w"> </span>--level<span class="o">=</span>raid0<span class="w"> </span>--raid-devices<span class="o">=</span><span class="m">2</span><span class="w"> </span>/dev/sda<span class="w"> </span>/dev/sdb
+</pre></div>
+</div>
+<p>Para formatear la RAID utilizaremos el comando</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs:<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/md0
+</pre></div>
+</div>
+<p>Podemos montarla en /mnt : mount /dev/md0 /mnt/</p>
+<p>Para montar la RAID de forma automática cuando se inicia el ordenador, añadimos la siguiente línea al fichero /etc/fstab :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dev/md0<span class="w"> </span>/punto_de_montaje<span class="w"> </span>sistema_de_archivos<span class="w"> </span>defaults,user<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Para cambiar un disco duro defectuoso:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mdadm<span class="w"> </span>--remove<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1
+</pre></div>
+</div>
+<p>En el caso de que ya no este conectado, desde drbl se vería en cat /proc/mdstat como removed</p>
+<p>usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfdisk<span class="w"> </span>-d<span class="w"> </span>/dev/sdc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sfdisk<span class="w"> </span>/dev/sda
+mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/md127
+rm<span class="w"> </span>/mdadm/mdadm.conf
+mdadm<span class="w"> </span>--assemble<span class="w"> </span>--scan
+mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># añadimos el nuevo</span>
+watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>
+</pre></div>
+</div>
+</section>
+<section id="lvm">
+<h2>LVM<a class="headerlink" href="#lvm" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>LVM es una implementación de un administrador de volúmenes lógicos para sistemas GNU/Linux</p>
+<a class="reference internal image-reference" href="../_images/lvm.png"><img alt="../_images/lvm.png" src="../_images/lvm.png" style="width: 400px;" /></a>
+<ul class="simple">
+<li><p><strong>PV</strong> (Phisical Volume): son los volúmenes físicos, es decir, discos duros o particiones de un equipo.</p></li>
+<li><p><strong>VG</strong> (Volume Group): grupo volumen, es el área donde se juntan los PVs y VLs.</p></li>
+<li><p><strong>LV</strong> (Logical Volume): volúmenes lógicos o dispositivos donde se pueden crear sistemas de ficheros o FS</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pvcreate<span class="w"> </span>/dev/sdb2<span class="w"> </span><span class="c1"># Crear volumen físico</span>
+pvremove<span class="w"> </span>/dev/sdc1<span class="w"> </span><span class="c1"># Borrado de volúmen físico</span>
+pvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
+vgcreate<span class="w"> </span>DatosLVM<span class="w"> </span>/dev/sdb2<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># Crear grupo de volúmenes</span>
+vgremove<span class="w"> </span>DatosLVM<span class="w"> </span><span class="c1"># Borrado de grupo de volúmenes</span>
+vgdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
+lvcreate<span class="w"> </span>--name<span class="w"> </span>ruta<span class="w"> </span>--size<span class="w"> </span>500M<span class="w"> </span>DatosLVM<span class="w"> </span><span class="c1"># Crear volumen lógico</span>
+lvremove<span class="w"> </span>/dev/DatosLVM/ruta<span class="w"> </span><span class="c1"># Borrado de grupo de volúmenes</span>
+lvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
+</pre></div>
+</div>
+</section>
+<section id="nas">
+<h2>NAS<a class="headerlink" href="#nas" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Un «NAS» (Network Attached Storage,es un dispositivo de almacenamiento conectado a una red que permite a varios usuarios acceder a los datos almacenados en él. Estos dispositivos suelen ser fáciles de configurar y administrar, y son ideales para su uso en pequeñas redes. El NAS se utiliza generalmente para compartir archivos, copias de seguridad, almacenamiento multimedia y otros datos.</p>
+<img alt="../_images/nas.png" src="../_images/nas.png" />
+</section>
+<section id="san">
+<h2>SAN<a class="headerlink" href="#san" title="Enlace permanente a este encabezado">¶</a></h2>
+<p>Una red de área de almacenamiento, en inglés SAN (Storage Area Network), es una red de almacenamiento dedicada que conecta varios servidores y dispositivos de almacenamiento en una sola red. El SAN se utiliza principalmente para aplicaciones empresariales que requieren un alto rendimiento y una gran capacidad de almacenamiento. A diferencia de los NAS, los SAN suelen ser más complejos de configurar y administrar y están diseñados para satisfacer las necesidades de almacenamiento de grandes empresas.</p>
+<img alt="../_images/san.png" src="../_images/san.png" />
+<p>En resumen, un NAS es una solución de almacenamiento en red simple y económica, ideal para pequeñas y medianas empresas, mientras que un SAN es una solución de almacenamiento de alto rendimiento y escalable diseñada para satisfacer las necesidades de grandes empresas.</p>
+</section>
+</section>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, dgtrabada.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/hardware/raid.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
