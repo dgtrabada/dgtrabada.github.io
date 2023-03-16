@@ -1,18 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>PowerShell &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
    
@@ -28,18 +31,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="powershell">
-<h1>PowerShell<a class="headerlink" href="#powershell" title="Enlace permanente a este encabezado">¶</a></h1>
+  <div class="section" id="powershell">
+<h1>PowerShell<a class="headerlink" href="#powershell" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la licencia MIT, que es una licencia de software libre y de código abierto</p>
-<section id="control-de-procesos-y-servicios">
-<h2>Control de procesos y servicios<a class="headerlink" href="#control-de-procesos-y-servicios" title="Enlace permanente a este encabezado">¶</a></h2>
+<div class="section" id="control-de-procesos-y-servicios">
+<h2>Control de procesos y servicios<a class="headerlink" href="#control-de-procesos-y-servicios" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>ps -&gt; Get-Process</strong> ver procesos</p></li>
-<li><p><strong>kill -&gt; Stop-Process</strong> mata procesos</p></li>
-<li><p><strong>Get-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Stop-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Start-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Suspend-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+<li><strong>ps -&gt; Get-Process</strong> ver procesos</li>
+<li><strong>kill -&gt; Stop-Process</strong> mata procesos</li>
+<li><strong>Get-Service -ProcessName &lt;servicio&gt;</strong></li>
+<li><strong>Stop-Service -ProcessName &lt;servicio&gt;</strong></li>
+<li><strong>Start-Service -ProcessName &lt;servicio&gt;</strong></li>
+<li><strong>Suspend-Service -ProcessName &lt;servicio&gt;</strong></li>
 </ul>
 <p>Ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
@@ -49,118 +52,118 @@
 <span class="nb">Stop-Process</span> <span class="n">-Id</span> <span class="n">2828</span>
 </pre></div>
 </div>
-</section>
-<section id="caracteres-especiales">
-<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="caracteres-especiales">
+<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p>* ? « &gt; &gt;&gt; |</p></li>
+<li>* ? » &gt; &gt;&gt; |</li>
 </ul>
-</section>
-<section id="ficheros-y-directorios">
-<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="ficheros-y-directorios">
+<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
-<li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
-<li><p><strong>rm -&gt; Remove-Item</strong> borrar</p></li>
-<li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
-<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p></li>
-<li><p><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</p></li>
-<li><p><strong>echo</strong> repetir salida estándar</p></li>
-<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> es parecido al comando find</p></li>
-<li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
-<li><p><strong>select -&gt; Select-Object</strong></p></li>
-<li><p><strong>cat archivo.dat | select -Last 2</strong></p></li>
-<li><p><strong>cat archivo.dat -Head 12 | select -Last 1</strong></p></li>
-<li><p><strong>cat archivo.dat | select -First 10</strong></p></li>
-<li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
+<li><strong>cp -r -&gt; Copy-Item</strong> copiar</li>
+<li><strong>mv -&gt; Move-Item</strong> mover, renombrar</li>
+<li><strong>rm -&gt; Remove-Item</strong> borrar</li>
+<li><strong>mkdir</strong> crear directorio</li>
+<li><strong>pwd -&gt; Get-Location</strong> donde te encuentras</li>
+<li><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</li>
+<li><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</li>
+<li><strong>echo</strong> repetir salida estándar</li>
+<li><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> es parecido al comando find</li>
+<li><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</li>
+<li><strong>select -&gt; Select-Object</strong></li>
+<li><strong>cat archivo.dat | select -Last 2</strong></li>
+<li><strong>cat archivo.dat -Head 12 | select -Last 1</strong></li>
+<li><strong>cat archivo.dat | select -First 10</strong></li>
+<li><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</li>
 </ul>
-</section>
-<section id="visualizadores-de-archivos">
-<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="visualizadores-de-archivos">
+<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
-<li><p><strong>Get-Content archivo.dat -head 10</strong> Get-Content archivo.dat | select -First 10  # head</p></li>
-<li><p><strong>Get-Content archivo.dat -tail 10</strong> es como el comando tail en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat | %{ $_ -replace “A”, “B” }</strong> reemplazar</p></li>
-<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
+<li><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</li>
+<li><strong>Get-Content archivo.dat -head 10</strong> Get-Content archivo.dat | select -First 10  # head</li>
+<li><strong>Get-Content archivo.dat -tail 10</strong> es como el comando tail en GNULinux</li>
+<li><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</li>
+<li><strong>Get-Content archivo.dat | %{ $_ -replace “A”, “B” }</strong> reemplazar</li>
+<li><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</li>
 </ul>
-</section>
-<section id="filtros-y-busqueda-informacion">
-<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="filtros-y-busqueda-informacion">
+<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
-<li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
-<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada
-echo $(Select-String -Pattern «texto» archivo.dat| Measure-Object -Character).Characters, es como el comando grep -c GNULinux</p></li>
-<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
-Get-Service | Format-Table -Property Name, DependentServices</p></li>
+<li><strong>sort -&gt; Sort-Object</strong> ordenar</li>
+<li><strong>sls -&gt; Select-String = grep</strong> filtrar,</li>
+<li><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada
+echo $(Select-String -Pattern «texto» archivo.dat| Measure-Object -Character).Characters, es como el comando grep -c GNULinux</li>
+<li><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
+Get-Service | Format-Table -Property Name, DependentServices</li>
 </ul>
-</section>
-<section id="alias">
-<h2>Alias<a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="alias">
+<h2>Alias<a class="headerlink" href="#alias" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
-<li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
+<li><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></li>
+<li><strong>Get-Alias</strong> ver los alias que hay en el sistema</li>
 </ul>
-</section>
-<section id="gestion-de-usuarios">
-<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="gestion-de-usuarios">
+<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para hacerte administrador: <strong>start-process powershell -verb runas*</strong></p>
 <ul>
-<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
+<li><p class="first"><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
 <ul class="simple">
-<li><p>Get-LocalUser</p></li>
-<li><p>Get-LocalGroup</p></li>
-<li><p>Get-LocalGroupMember -Name nombre_grupo</p></li>
+<li>Get-LocalUser</li>
+<li>Get-LocalGroup</li>
+<li>Get-LocalGroupMember -Name nombre_grupo</li>
 </ul>
 </li>
-<li><p><strong>Crear un usuario con contraseña</strong></p>
+<li><p class="first"><strong>Crear un usuario con contraseña</strong></p>
 <ul class="simple">
-<li><p>$Password = Read-Host –AsSecureString</p></li>
-<li><p><strong>New-LocalUser -Name nombre_usuario -Password $Password</strong></p></li>
-<li><p>Sin que pregunte: $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force</p></li>
+<li>$Password = Read-Host –AsSecureString</li>
+<li><strong>New-LocalUser -Name nombre_usuario -Password $Password</strong></li>
+<li>Sin que pregunte: $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force</li>
 </ul>
 </li>
-<li><p><strong>Crear un usuario sin contraseña</strong></p>
+<li><p class="first"><strong>Crear un usuario sin contraseña</strong></p>
 <ul class="simple">
-<li><p>New-LocalUser -Name nombre_usuario -NoPassword</p></li>
+<li>New-LocalUser -Name nombre_usuario -NoPassword</li>
 </ul>
 <blockquote>
 <div><p>Se la podemos asignar después: Set-LocalUser -Name nombre_usuario -Password $Password</p>
 </div></blockquote>
 </li>
-<li><p><strong>Asignar usuario a un grupo</strong></p>
+<li><p class="first"><strong>Asignar usuario a un grupo</strong></p>
 <ul class="simple">
-<li><p>Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario</p></li>
+<li>Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario</li>
 </ul>
 </li>
-<li><p><strong>Eliminar un usuario</strong></p>
+<li><p class="first"><strong>Eliminar un usuario</strong></p>
 <ul class="simple">
-<li><p>Remove-LocalUser -Name nombre_usuario</p></li>
+<li>Remove-LocalUser -Name nombre_usuario</li>
 </ul>
 </li>
-<li><p><strong>Crear y borrar un grupo</strong></p>
+<li><p class="first"><strong>Crear y borrar un grupo</strong></p>
 <ul class="simple">
-<li><p>New-LocalGroup -Name nombre_grupo</p></li>
-<li><p>Remove-LocalGroup -Name nombre_grupo</p></li>
+<li>New-LocalGroup -Name nombre_grupo</li>
+<li>Remove-LocalGroup -Name nombre_grupo</li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="configuracion-de-windows">
-<h2>Configuración de Windows<a class="headerlink" href="#configuracion-de-windows" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="configuracion-de-windows">
+<h2>Configuración de Windows<a class="headerlink" href="#configuracion-de-windows" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p><strong>shutdown /r</strong> reiniciamos, si añadimos /f lo hace de forma forzosa</p></li>
-<li><p><strong>shutdown /s</strong> apagar</p></li>
-<li><p><strong>Cambiar IP</strong> netsh interface ip set address name=»Ethernet» source=static addr=10.4.104.100 mask=255.0.0.0 gateway=10.0.0.2</p></li>
-<li><p><strong>ipconfig</strong> consultar ip</p></li>
-<li><p><strong>Cambiar el DNS</strong> netsh interface ip set dnsserver «Ethernet» static 8.8.8.8 primary</p></li>
-<li><p><strong>ipconfig /all</strong> consultar dns</p></li>
-<li><p><strong>Rename-Computer -NewName «WS19tunombre»</strong> cambiar el nombre del equipo</p></li>
-<li><p><strong>Habilitar ping</strong> netsh advfirewall firewall add rule name=»Habilitar respuesta ICMP IPv4» protocol=icmpv4:8,any dir=in action=allow</p></li>
-<li><p><strong>Instalar el servidor ssh</strong></p></li>
+<li><strong>shutdown /r</strong> reiniciamos, si añadimos /f lo hace de forma forzosa</li>
+<li><strong>shutdown /s</strong> apagar</li>
+<li><strong>Cambiar IP</strong> netsh interface ip set address name=»Ethernet» source=static addr=10.4.104.100 mask=255.0.0.0 gateway=10.0.0.2</li>
+<li><strong>ipconfig</strong> consultar ip</li>
+<li><strong>Cambiar el DNS</strong> netsh interface ip set dnsserver «Ethernet» static 8.8.8.8 primary</li>
+<li><strong>ipconfig /all</strong> consultar dns</li>
+<li><strong>Rename-Computer -NewName «WS19tunombre»</strong> cambiar el nombre del equipo</li>
+<li><strong>Habilitar ping</strong> netsh advfirewall firewall add rule name=»Habilitar respuesta ICMP IPv4» protocol=icmpv4:8,any dir=in action=allow</li>
+<li><strong>Instalar el servidor ssh</strong></li>
 </ul>
 <blockquote>
 <div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
@@ -173,8 +176,8 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
 </div>
 <p>Para conectarse sin contraseña <strong>ssh -X Administrador&#64;IP</strong>: Copia tu clave publica .ssh/id_rsa.pub a IP:C:UsersAdministrador.sshauthorized_keys</p>
 </div></blockquote>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -201,15 +204,17 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Búsqueda rápida</h3>
+  <h3>Búsqueda rápida</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -218,7 +223,7 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
       &copy;2023, dgtrabada.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |

@@ -1,18 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>PowerShell Scripting &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
    
@@ -28,11 +31,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="powershell-scripting">
-<h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Enlace permanente a este encabezado">¶</a></h1>
+  <div class="section" id="powershell-scripting">
+<h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Habilitar ejecución de scripts : <strong>Set-ExecutionPolicy Unrestricted</strong></p>
-<section id="variables-y-cadenas">
-<h2>Variables y cadenas<a class="headerlink" href="#variables-y-cadenas" title="Enlace permanente a este encabezado">¶</a></h2>
+<div class="section" id="variables-y-cadenas">
+<h2>Variables y cadenas<a class="headerlink" href="#variables-y-cadenas" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">5</span>
 <span class="nb">echo </span><span class="n">a</span> <span class="c">#obtenemos a</span>
 <span class="nb">echo </span><span class="nv">$a</span> <span class="c">#obtenemos 5</span>
@@ -80,9 +83,9 @@
 <span class="p">&amp;</span><span class="nv">$a</span> <span class="c"># &amp; Permiten ejecutar un texto como si fuese un comando</span>
 </pre></div>
 </div>
-</section>
-<section id="operadores">
-<h2>Operadores<a class="headerlink" href="#operadores" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="operadores">
+<h2>Operadores<a class="headerlink" href="#operadores" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">11</span>
 <span class="nv">$b</span><span class="p">=</span><span class="n">5</span>
 <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">-</span><span class="nv">$b</span>
@@ -97,9 +100,9 @@
 <span class="nb">echo </span><span class="nv">$c</span> <span class="c">#1 resto o modulo</span>
 </pre></div>
 </div>
-</section>
-<section id="operadores-de-asignacion">
-<h2>Operadores de asignación<a class="headerlink" href="#operadores-de-asignacion" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="operadores-de-asignacion">
+<h2>Operadores de asignación<a class="headerlink" href="#operadores-de-asignacion" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">6</span>
 <span class="nv">$a</span><span class="p">+=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 8, es lo mismo que $a=$a+2</span>
 <span class="nv">$a</span><span class="p">-=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 6, es lo mismo que $a=$a-2</span>
@@ -110,9 +113,9 @@
 <span class="nv">$a</span><span class="p">%=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 0, es lo mismo que $a=$a%3</span>
 </pre></div>
 </div>
-</section>
-<section id="argumentos-de-entrada">
-<h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="argumentos-de-entrada">
+<h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;dame un entero&quot;</span>  <span class="c">#ponemos &quot; para que aparezca en la misma linea</span>
 <span class="nv">$Name</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="c">#lo interpreta como cadenas</span>
 <span class="c">#si queremos pasar Name a un entero:</span>
@@ -129,14 +132,14 @@
 <span class="n">4</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
-<span class="nb">echo </span><span class="s2">&quot;tenemos $args parámetros de entrada&quot;</span>
-<span class="nb">echo </span><span class="s2">&quot;El argumento 0: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&quot;</span>
-<span class="nb">echo </span><span class="s2">&quot;El argumento 1: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">&quot;</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span>
-<span class="n">tenemos</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span> <span class="n">parámetros</span> <span class="n">de</span> <span class="n">entrada</span>
-<span class="n">El</span> <span class="n">argumento</span> <span class="n">0</span><span class="p">:</span> <span class="n">1</span>
-<span class="n">El</span> <span class="n">argumento</span> <span class="n">1</span><span class="p">:</span> <span class="n">2</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span>PS&gt; cat .\argst.ps1
+echo &quot;tenemos $args parámetros de entrada&quot;
+echo &quot;El argumento 0: $($args[0])&quot;
+echo &quot;El argumento 1: $($args[1])&quot;
+PS&gt; .\argst.ps1 1 2 3
+tenemos 1 2 3 parámetros de entrada
+El argumento 0: 1
+El argumento 1: 2
 </pre></div>
 </div>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
@@ -148,17 +151,17 @@
 <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
 </pre></div>
 </div>
-</section>
-<section id="evaluacion-de-condiciones">
-<h2>Evaluación de condiciones<a class="headerlink" href="#evaluacion-de-condiciones" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="evaluacion-de-condiciones">
+<h2>Evaluación de condiciones<a class="headerlink" href="#evaluacion-de-condiciones" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">7</span> <span class="o">-eq</span> <span class="n">7</span> <span class="c">#True</span>
 <span class="n">7</span> <span class="o">-eq</span> <span class="n">8</span> <span class="c">#False</span>
 <span class="n">3</span> <span class="o">-gt</span> <span class="n">2</span> <span class="c">#True</span>
 </pre></div>
 </div>
-</section>
-<section id="operadores-logicos">
-<h2>Operadores lógicos<a class="headerlink" href="#operadores-logicos" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="operadores-logicos">
+<h2>Operadores lógicos<a class="headerlink" href="#operadores-logicos" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
 <span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
 <span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-Or</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>    <span class="c">#True</span>
@@ -166,18 +169,17 @@
 <span class="o">-Not</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>             <span class="c">#True</span>
 </pre></div>
 </div>
-</section>
-<section id="comparacion-de-cadenas">
-<h2>Comparación de cadenas<a class="headerlink" href="#comparacion-de-cadenas" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="comparacion-de-cadenas">
+<h2>Comparación de cadenas<a class="headerlink" href="#comparacion-de-cadenas" title="Enlazar permanentemente con este título">¶</a></h2>
 <blockquote>
-<div><p>«hola» -eq «hola»    #True
+<div>«hola» -eq «hola»    #True
 «hola» -eq «hoa»     #False
 «hola» -ne «hoa»     #True
-«hola» -ne «hola»    #False</p>
-</div></blockquote>
-</section>
-<section id="estructuras-condicionales-con-if">
-<h2>Estructuras condicionales con if<a class="headerlink" href="#estructuras-condicionales-con-if" title="Enlace permanente a este encabezado">¶</a></h2>
+«hola» -ne «hola»    #False</div></blockquote>
+</div>
+<div class="section" id="estructuras-condicionales-con-if">
+<h2>Estructuras condicionales con if<a class="headerlink" href="#estructuras-condicionales-con-if" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero</span> <span class="p">=</span> <span class="p">-</span><span class="n">10</span>
 <span class="k">If</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
   <span class="nb">echo </span><span class="s2">&quot;$numero es mayor que 0&quot;</span>
@@ -189,17 +191,17 @@
   <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="bucles-con-for">
-<h2>Bucles con for<a class="headerlink" href="#bucles-con-for" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="bucles-con-for">
+<h2>Bucles con for<a class="headerlink" href="#bucles-con-for" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
   <span class="nb">echo </span><span class="nv">$i</span>
   <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="bucles-con-while">
-<h2>Bucles con While<a class="headerlink" href="#bucles-con-while" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="bucles-con-while">
+<h2>Bucles con While<a class="headerlink" href="#bucles-con-while" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span>
 <span class="k">While</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-le</span> <span class="n">10</span><span class="p">)</span> <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$i</span>
@@ -207,9 +209,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="bucles-con-until">
-<h2>Bucles con Until<a class="headerlink" href="#bucles-con-until" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="bucles-con-until">
+<h2>Bucles con Until<a class="headerlink" href="#bucles-con-until" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span><span class="p">;</span>
 <span class="k">do</span> <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$i</span>
@@ -218,17 +220,17 @@
 <span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-gt</span> <span class="n">10</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="bucles-con-foreach">
-<h2>Bucles con Foreach<a class="headerlink" href="#bucles-con-foreach" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="bucles-con-foreach">
+<h2>Bucles con Foreach<a class="headerlink" href="#bucles-con-foreach" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$num</span> <span class="k">in</span> <span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s2">&quot;hola&quot;</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="n">5</span><span class="p">)</span> <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$num</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="archivos">
-<h2>Archivos<a class="headerlink" href="#archivos" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="archivos">
+<h2>Archivos<a class="headerlink" href="#archivos" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;usuario,grupo&quot;</span> <span class="p">&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
 <span class="nb">echo </span><span class="s2">&quot;user01,group01&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
 <span class="nb">echo </span><span class="s2">&quot;user02,group02&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
@@ -251,9 +253,9 @@
   <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="funciones">
-<h2>Funciones<a class="headerlink" href="#funciones" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="n">foo</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">)</span> <span class="p">{</span>
   <span class="s2">&quot;a: $a; b: $b; c: $c&quot;</span>
   <span class="p">}</span>
@@ -261,14 +263,14 @@
 <span class="c"># a: 1; b: 3; c: 5</span>
 </pre></div>
 </div>
-</section>
-<section id="windows-powershell-ise">
-<h2>Windows PowerShell ISE<a class="headerlink" href="#windows-powershell-ise" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="windows-powershell-ise">
+<h2>Windows PowerShell ISE<a class="headerlink" href="#windows-powershell-ise" title="Enlazar permanentemente con este título">¶</a></h2>
 <img alt="../../_images/powersheelISE.png" src="../../_images/powersheelISE.png" />
 <img alt="../../_images/powersheelISE1.png" src="../../_images/powersheelISE1.png" />
 <img alt="../../_images/powersheelISE2.png" src="../../_images/powersheelISE2.png" />
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -295,15 +297,17 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Búsqueda rápida</h3>
+  <h3>Búsqueda rápida</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -312,7 +316,7 @@
       &copy;2023, dgtrabada.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |

@@ -1,18 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Direccionamiento IP &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/translations.js"></script>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
    
@@ -28,54 +31,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="direccionamiento-ip">
-<h1>Direccionamiento IP<a class="headerlink" href="#direccionamiento-ip" title="Enlace permanente a este encabezado">¶</a></h1>
+  <div class="section" id="direccionamiento-ip">
+<h1>Direccionamiento IP<a class="headerlink" href="#direccionamiento-ip" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>El direccionamiento IP es la parte encargada de asignar de forma correcta a cada equipo una dirección IP, de forma que los equipos puedan comunicarse correctamente entre sí</p>
 <p>Las direcciones IPV4 se expresan mediante un número binario de 32 bits permitiendo un espacio de direcciones de hasta 4.294.967.296 (2<sup>32</sup>) direcciones posibles.</p>
 <p>Se reservaron ciertos rangos de direcciones IP de las clases A, B y C para permitir su uso interno o privado en redes de área local (LAN) como por ejemplo las de una casa o una oficina.</p>
 <img alt="../_images/clasesIP.png" src="../_images/clasesIP.png" />
 <img alt="../_images/ip_clases.png" src="../_images/ip_clases.png" />
 <p>Dirección red (Network)  es aquella en la que todos los bits de la porción de host están a cero, se obtiene Dirección IP (Addres) and Máscara de red(Network), veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Address</span><span class="p">:</span>   <span class="mf">128.192.224.240</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11110000</span>
-<span class="n">Netmask</span><span class="p">:</span>   <span class="mf">255.255.255.0</span> <span class="o">=</span> <span class="mi">24</span>   <span class="mf">11111111.11111111.11111111</span><span class="o">.</span> <span class="mi">00000000</span>
-<span class="n">Network</span><span class="p">:</span>   <span class="mf">128.192.224.0</span><span class="o">/</span><span class="mi">24</span>     <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">00000000</span>
-<span class="n">HostMin</span><span class="p">:</span>   <span class="mf">128.192.224.1</span>        <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">00000001</span>
-<span class="n">HostMax</span><span class="p">:</span>   <span class="mf">128.192.224.254</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11111110</span>
-</pre></div>
-</div>
 <p>La dirección de broadcast es aquella en la que todos los bits de la porción de host están a 1, los mensajes se dirigen a todas las computadoras en una red</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Broadcast</span><span class="p">:</span> <span class="mf">128.192.224.255</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11111111</span>
-<span class="n">Hosts</span><span class="o">/</span><span class="n">Net</span><span class="p">:</span> <span class="mi">2</span><span class="o">^</span><span class="mi">8</span><span class="o">-</span><span class="mi">2</span> <span class="o">=</span> <span class="mi">254</span>          <span class="n">Class</span> <span class="n">B</span>
-</pre></div>
-</div>
 <p>En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 224 - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10000000</span> <span class="o">=</span> <span class="mi">128</span>
-<span class="mi">11000000</span> <span class="o">=</span> <span class="mi">192</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span>
-<span class="mi">11100000</span> <span class="o">=</span> <span class="mi">224</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span>
-<span class="mi">11110000</span> <span class="o">=</span> <span class="mi">240</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span>
-<span class="mi">11111000</span> <span class="o">=</span> <span class="mi">248</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span>
-<span class="mi">11111100</span> <span class="o">=</span> <span class="mi">252</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span>
-<span class="mi">11111110</span> <span class="o">=</span> <span class="mi">254</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span>
-<span class="mi">11111111</span> <span class="o">=</span> <span class="mi">255</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
 <p>Ahora podemos hacernos una pregunta simple ¿que parte de la dirección 165.57.57.89 es la red y qué la dirección de host? Para eso se crearon las máscaras de red. Una máscara de red no es más que un número binario de 32 bits que contiene unos «1» en todos los bits de la dirección que identifica a la red, y ceros «0» en las posiciones de la dirección que corresponden al host.</p>
 <p>Las redes privadas son bastante comunes en esquemas de redes de área local (LAN) de oficinas, empresas y ámbito doméstico, debido a que no tienen la necesidad de usar direcciones IP públicas en sus dispositivos (PC, impresora, etcétera), compartiendo todos los dispositivos de la red privada la misma dirección pública, habitualmente la del módem del enrutador.</p>
 <p>Las direcciones de Internet privadas son:</p>
 <img alt="../_images/ip_privadas.png" src="../_images/ip_privadas.png" />
 <p>Esta última red de clase B queda reservada para equipos que tienen activa la configuración de la tarjeta de red automática (para que un servidor DHCP les responda y les ofrezca su configuración) y ningún servidor DHCP les responda (habitualmente este servidor está configurado en el enrutador), en ese caso estos equipos cogen aleatoriamente una ip de este rango de IP privadas para poder comunicarse con otros equipos de la red a los que tampoco les haya respondido el servidor DHCP.</p>
-<section id="el-subnetting-ip">
-<h2>El subnetting IP<a class="headerlink" href="#el-subnetting-ip" title="Enlace permanente a este encabezado">¶</a></h2>
+<div class="section" id="el-subnetting-ip">
+<h2>El subnetting IP<a class="headerlink" href="#el-subnetting-ip" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Tras la expansión en el uso del sistema de direccionamiento IP, surgió la necesidad de cosas como  disponer de espacios de redes mayores de 256 para clase C o menores de 16.384 para clase B por ejemplo. Con el juego de los bits de máscara podemos definir redes IP diferentes a las clases estándares.
 Por ejemplo, sabemos que la red 172.17.0.0 es una red de tipo B y le corresponde de manera natural la máscara 255.255.0.0.</p>
 <p>Por tanto si tengo por ejemplo la dirección de host 172.17.12.95 ya sabemos que es de clase B y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.</p>
 <p>Ahora bien ¿Y si queremos disponer de redes más pequeñas que pertenezcan al espacio de direccionamiento 172.17.x.x?</p>
 <p>Nada impide hacer lo siguiente:</p>
 <ul class="simple">
-<li><p>172.17.1.0 255.255.255.0</p></li>
-<li><p>172.17.2.0 255.255.255.0</p></li>
-<li><p>172.17.3.0 255.255.255.0</p></li>
-<li><p>..etcétera.</p></li>
+<li>172.17.1.0 255.255.255.0</li>
+<li>172.17.2.0 255.255.255.0</li>
+<li>172.17.3.0 255.255.255.0</li>
+<li>..etcétera.</li>
 </ul>
 <p>Pero claro la red 172.17.1.0 255.255.255.0 no es en realidad una red de clase C, sino que con la máscara hemos definido una subred (subnet) de tipo C dentro de la red 172.17.0.0 que es una red tipo B y mucho más amplia.</p>
 <p>Así pues este subnetting permite tener redes más pequeñas dentro de una red estándar mayor.
@@ -83,17 +65,16 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <p>Además del subnetting, este juego con los bits de máscara permite hacer lo contrario que el subnetting y se llamó sumarizacion de redes IP.</p>
 <p>Si tenemos redes de tipo C como por ejemplo:</p>
 <ul class="simple">
-<li><p>189.34.1.0</p></li>
-<li><p>189.34.2.0</p></li>
-<li><p>189.34.3.0</p></li>
+<li>189.34.1.0</li>
+<li>189.34.2.0</li>
+<li>189.34.3.0</li>
 </ul>
 <blockquote>
-<div><p>… etc.</p>
-</div></blockquote>
+<div>… etc.</div></blockquote>
 <p>podrían ser sumarizadas en una red 189.34.0.0 con máscara 255.255.0.0 que en realidad no es una red de tipo B. Este tipo de cosas se ha utilizado especialmente en enrutamiento IP.</p>
-</section>
-<section id="cidr">
-<h2>CIDR<a class="headerlink" href="#cidr" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="cidr">
+<h2>CIDR<a class="headerlink" href="#cidr" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>CIDR, en esencia, aplica lo mismo que el subnetting pero ampliando el concepto. En CIDR no existen clases A, B o C. El valor de la dirección IP no implica ninguna máscara implícita, como sucedía antes con los primeros bits de la dirección. Toda definición de una red IP debe ser acompañada de una definición de máscara que concreta la red.</p>
 <p>Por ejemplo, cuando hablamos en términos de CIDR no podemos decir que la dirección 172.17.25.12 pertenezca a la red 172.17.0.0 a menos que se especifique como 172.16.25.12/16.</p>
 <p>En CIDR ya no se utiliza el término «clase de una red», ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red, utiliza la nomenclatura de barra invertida, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).</p>
@@ -103,22 +84,11 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <img alt="../_images/cdir.png" src="../_images/cdir.png" />
 <p>La dirección de red sigue siendo la que tiene todos los bits del host a 0, y la de broadcast a 1, se utiliza una máscara de red, realizando la operación AND con la dirección IP para encontrar la dirección de red, por ejemplo:</p>
 <p>La dirección IP es 192.168.20.100/26</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Address</span><span class="p">:</span>   <span class="mf">192.168.20.100</span>       <span class="mf">11000000.10101000.00010100.01</span> <span class="mi">100100</span>
-<span class="n">Netmask</span><span class="p">:</span>   <span class="mf">255.255.255.192</span> <span class="o">=</span> <span class="mi">26</span> <span class="mf">11111111.11111111.11111111.11</span> <span class="mi">000000</span>
-                     <span class="n">AND</span>     <span class="o">---------------------------------------</span>
-<span class="n">Network</span><span class="p">:</span>   <span class="mf">192.168.20.64</span><span class="o">/</span><span class="mi">26</span>     <span class="mf">11000000.10101000.00010100.01</span> <span class="mi">000000</span>
-
-<span class="n">HostMin</span><span class="p">:</span>   <span class="mf">192.168.20.65</span>        <span class="mf">11000000.10101000.00010100.01</span> <span class="mi">000001</span>
-<span class="n">HostMax</span><span class="p">:</span>   <span class="mf">192.168.20.126</span>       <span class="mf">11000000.10101000.00010100.01</span> <span class="mi">111110</span>
-<span class="n">Broadcast</span><span class="p">:</span> <span class="mf">192.168.20.127</span>       <span class="mf">11000000.10101000.00010100.01</span> <span class="mi">111111</span>
-<span class="n">Hosts</span><span class="o">/</span><span class="n">Net</span><span class="p">:</span> <span class="mi">62</span>                    <span class="n">Class</span> <span class="n">C</span><span class="p">,</span> <span class="n">Private</span> <span class="n">Internet</span>
-</pre></div>
-</div>
 <p>En el estándar CIDR se reserva la primera y última red de cada partición</p>
 <p>Por ejemplo, al dividir la red de clase C 192.168.20.0/24 en 4 redes (pasando a máscara /26), las redes 192.168.20.0/26 y 192.168.20.192/26 quedan reservadas</p>
 <p>La mayoría de routers e implementaciones de IP pueden trabajar con ellas, pero es mejor no utilizarlas para no tener problemas con equipos antiguos o quisquillosos.</p>
-<section id="ejemplos">
-<h3>Ejemplos<a class="headerlink" href="#ejemplos" title="Enlace permanente a este encabezado">¶</a></h3>
+<div class="section" id="ejemplos">
+<h3>Ejemplos<a class="headerlink" href="#ejemplos" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Ejemplo de subneting clásico</p>
 <p>¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?</p>
 <p>2<sup>n</sup> ≥ 16 , es decir n ≥ 4</p>
@@ -138,27 +108,27 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <p>Vamos hacer sugneting con las 3 ultimas redes, tomaremos n=1,2,3</p>
 <img alt="../_images/subred5.png" src="../_images/subred5.png" />
 <img alt="../_images/subneting.png" src="../_images/subneting.png" />
-</section>
-</section>
-<section id="tablas-encaminamiento">
-<h2>Tablas encaminamiento<a class="headerlink" href="#tablas-encaminamiento" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+</div>
+<div class="section" id="tablas-encaminamiento">
+<h2>Tablas encaminamiento<a class="headerlink" href="#tablas-encaminamiento" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Los routers confeccionan una tabla de encaminamiento en donde registran qué nodos y redes son alcanzables, estas rutas pueden ser estáticos (las programa el administrador de la red) o dinámicos (hacen de forma dinámica las de encaminamiento)</p>
 <ul class="simple">
-<li><p>Cada nodo decide a que nodo (dirección de red) mandará cada paquete, para ello contiene pares, dirección IP destino y dirección del siguiente salto.</p></li>
-<li><p>Para direccionar un único equipo (no una red) , se usa una máscara 255.255.255.255 (/32)</p></li>
-<li><p>Para establecer una ruta por defecto (dónde ir si no se encuentra destino), se usa una dirección 0.0.0.0/0 (izquierda)</p></li>
-<li><p>Si la red es directamente alcanzable, dirección del siguiente salto es una Interface del router, se indica por 0.0.0.0 (derecha)</p></li>
-<li><p>Dirección de red la obtiene tomando la «dirección IP AND máscara»</p></li>
-<li><p>Si tienen la misma dirección de red «Dir_Red_1 XOR Dir_Red_2 = 0», los dos host están en la misma red.</p></li>
-<li><p>Dirección de Broadcast es «Dir_red OR NOT máscara», es siempre la última dirección de una red/subred.</p></li>
-<li><p>El router necesita una dirección IP en cada subred a la que esté conectado y solo enrutará si el destino</p></li>
+<li>Cada nodo decide a que nodo (dirección de red) mandará cada paquete, para ello contiene pares, dirección IP destino y dirección del siguiente salto.</li>
+<li>Para direccionar un único equipo (no una red) , se usa una máscara 255.255.255.255 (/32)</li>
+<li>Para establecer una ruta por defecto (dónde ir si no se encuentra destino), se usa una dirección 0.0.0.0/0 (izquierda)</li>
+<li>Si la red es directamente alcanzable, dirección del siguiente salto es una Interface del router, se indica por 0.0.0.0 (derecha)</li>
+<li>Dirección de red la obtiene tomando la «dirección IP AND máscara»</li>
+<li>Si tienen la misma dirección de red «Dir_Red_1 XOR Dir_Red_2 = 0», los dos host están en la misma red.</li>
+<li>Dirección de Broadcast es «Dir_red OR NOT máscara», es siempre la última dirección de una red/subred.</li>
+<li>El router necesita una dirección IP en cada subred a la que esté conectado y solo enrutará si el destino</li>
 </ul>
 <p>está en otra subred, si no puede resolver siguiente nodo manda de vuelta mensaje ICMP, destino inalcanzable</p>
 <img alt="../_images/tabla_encaminamiento.png" src="../_images/tabla_encaminamiento.png" />
 <img alt="../_images/encaminamiento.png" src="../_images/encaminamiento.png" />
 <img alt="../_images/encaminamiento2.png" src="../_images/encaminamiento2.png" />
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -185,15 +155,17 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Búsqueda rápida</h3>
+  <h3>Búsqueda rápida</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -202,7 +174,7 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
       &copy;2023, dgtrabada.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |

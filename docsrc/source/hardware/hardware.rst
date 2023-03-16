@@ -15,10 +15,10 @@ Hardware
 * :ref:`Microprocesadores`
 * :ref:`Encapsulados`
 * :ref:`Ventilación`
-* Memoria RAM
+* :ref:`Memoria RAM`
 * :ref:`Puertas lógicas`
 * :ref:`Arquitectura del ordenador`
-* Conceptos eléctricos - electrónicos y elementos básicos.
+* :ref:`Conceptos eléctricos - electrónicos y elementos básicos`
 * Fuentes de Alimentación
 * Cableado y conectores de potencia.
 * Sistemas de alimentación interrumpida.

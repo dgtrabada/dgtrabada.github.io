@@ -1,18 +1,21 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="es">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Arranque de Windows &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/translations.js"></script>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
    
@@ -28,8 +31,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="arranque-de-windows">
-<h1>Arranque de Windows<a class="headerlink" href="#arranque-de-windows" title="Enlace permanente a este encabezado">¶</a></h1>
+  <div class="section" id="arranque-de-windows">
+<h1>Arranque de Windows<a class="headerlink" href="#arranque-de-windows" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>lo primero que se va a cargar son los ajustes del firmware, por lo que se comprueba que el sistema de disco es válido para llevar a cabo el inicio del PC, y en el caso de que el sistema esté listo se pasa a la siguiente fase. Por tanto, si el equipo tiene un MBR válido, lo que se traduce a un registro de arranque maestro, el proceso de arranque carga el conocido como “Administrador de arranque de Windows”, para a continuación pasar a la segunda fase.</p>
 <p>Tras esto entra en juego el administrador de arranque de Windows, lo que sirve para determinar si en ese equipo disponemos de varios sistemas operativos instalados, o tan solo de uno. En el caso de que sean varios los sistemas que pueden arrancar el PC, en pantalla se muestra un menú con los nombres de estos para que podamos seleccionar el que más nos interesa en ese momento, todo con el fin de que se realice el arranque en base a nuestras necesidades.</p>
 <p>inicio de windows
@@ -37,21 +40,20 @@ Por tanto, al elegir Windows 10, que es el que nos ocupa en este caso, se pone e
 <p>Y para terminar os vamos a hablar de la última fase, que es en la que se recoge la configuración del Registro de Windows, así como el resto controladores adicionales, entre otros elementos necesarios para el correcto funcionamiento del sistema operativo.</p>
 <p>or lo tanto, una vez se carga esto, el control en ese momento lo toma el proceso de gestión del sistema, con lo que a continuación se carga la interfaz de usuario, además del resto del hardware y el software instalado. Por tanto, finalizado este paso, en pantalla aparece la habitual interfaz de inicio de sesión de Windows 10 para que podamos introducir las correspondientes credenciales de acceso.</p>
 <p>Eso sí también merece la pena saber que cuando iniciamos Windows 10 en un ordenador que tiene soporte UEFI, la función llamada “Trusted Boot” protege el equipo desde el mismo momento en el que comienza el inicio del mismo. Así, lo primero que hace es localizar el gestor de arranque del sistema operativo, mientras que los PCs sin arranque seguro ejecutan cualquier gestor de arranque que encuentren en el disco duro, pero con UEFI, en primer lugar se verifica que el firmware esté firmado digitalmente para que todo el proceso se lleve a cabo con mayor seguridad y fiabilidad.</p>
-<section id="msconfig">
-<h2>msconfig<a class="headerlink" href="#msconfig" title="Enlace permanente a este encabezado">¶</a></h2>
+<div class="section" id="msconfig">
+<h2>msconfig<a class="headerlink" href="#msconfig" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Es una utilidad del sistema operativo cuya función inicial era la de corregir problemas asociados con el inicio de Windows, pero la cual poco a poco ha tomado más fuerza gracias a sus diversas alternativas de uso. Gracias a msconfig será posible ejecutar tareas como:</p>
 <blockquote>
-<div><p>Facilidad para configurar la forma de inicio de Windows.
+<div>Facilidad para configurar la forma de inicio de Windows.
 Cambiar el procedimiento de inicio.
-Seleccionar los servicios de inicio y programas que serán cargados junto con el sistema y muchas acciones más.</p>
-</div></blockquote>
+Seleccionar los servicios de inicio y programas que serán cargados junto con el sistema y muchas acciones más.</div></blockquote>
 <p>Acceder a msconfig en Windows 10: Ejecutar el comando msconfig</p>
 <img alt="../../_images/configuracion_arranque.png" src="../../_images/configuracion_arranque.png" />
 <p>Como vemos, la utilidad msconfig nos brinda una serie de opciones a elegir, estas son:</p>
 <ul class="simple">
-<li><p><strong>Inicio normal</strong>. Es la opción por defecto e indica que Windows 10 cargara todos los elementos, controladores y servicios de inicio que han sido instalados, únicamente cuando se han realizado cambios en los controladores, servicios o aplicaciones que se cargan durante el arranque podemos seleccionar una opción adicional.</p></li>
-<li><p><strong>Inicio con diagnóstic</strong>. Su uso es similar al inicio en modo seguro ya conocido por todos, al seleccionar esta opción solo se ejecutarán los servicios y controladores de Windows 10, adicional a ello, el inicio de Diagnóstico está en la capacidad de ejecutar servicios de red o servicios aplicaciones de terceros, que son de un alto impacto para la seguridad del sistema tal como el antivirus, firewall, etc. Por lo general podemos iniciar Windows 10 con esta opción para comprobar si los servicios de Windows están afectando algún parámetro de uso del sistema y así descartar estas opciones.</p></li>
-<li><p><strong>Inicio selectivo</strong>. Al seleccionar esta opción, Windows 10 iniciará solo con los servicios y controladores básicos, también con esta opción será posible seleccionar otros servicios y elementos de inicio a ejecutar directamente desde las pestañas Servicios y Inicio.</p></li>
+<li><strong>Inicio normal</strong>. Es la opción por defecto e indica que Windows 10 cargara todos los elementos, controladores y servicios de inicio que han sido instalados, únicamente cuando se han realizado cambios en los controladores, servicios o aplicaciones que se cargan durante el arranque podemos seleccionar una opción adicional.</li>
+<li><strong>Inicio con diagnóstic</strong>. Su uso es similar al inicio en modo seguro ya conocido por todos, al seleccionar esta opción solo se ejecutarán los servicios y controladores de Windows 10, adicional a ello, el inicio de Diagnóstico está en la capacidad de ejecutar servicios de red o servicios aplicaciones de terceros, que son de un alto impacto para la seguridad del sistema tal como el antivirus, firewall, etc. Por lo general podemos iniciar Windows 10 con esta opción para comprobar si los servicios de Windows están afectando algún parámetro de uso del sistema y así descartar estas opciones.</li>
+<li><strong>Inicio selectivo</strong>. Al seleccionar esta opción, Windows 10 iniciará solo con los servicios y controladores básicos, también con esta opción será posible seleccionar otros servicios y elementos de inicio a ejecutar directamente desde las pestañas Servicios y Inicio.</li>
 </ul>
 <p>Hoy en día es normal, para muchos usuarios, contar con modo de arranque dual el cual nos permite tener dos sistemas operativos instalados en el disco duro aprovechando así todos los recursos de hardware, en caso de contar con más de un sistema operativo instalado, la herramienta msconfig nos da la opción de elegir cuál de ellos será la opción predeterminada.</p>
 <img alt="../../_images/configuracion_sistema.png" src="../../_images/configuracion_sistema.png" />
@@ -63,17 +65,17 @@ Seleccionar los servicios de inicio y programas que serán cargados junto con el
 <p>En el campo “Configuración global de depuración”, esta opción esta deshabilitada por defecto y esta función se encarga de especificar la configuración de conexión del depurador en el equipo local con el fin de que un depurador de kernel pueda comunicarse con un host depurador, la conexión del depurador entre los equipos host y de destino puede ser de tipo Serie, IEEE 1394 o USB 2.0, en el puerto de depuración se especifica qué tipo de puerto será usado como tipo de conexión y puerto serie, el valor predeterminado es COM 1, finalmente la velocidad en baudios indica la velocidad en baudios que se usará al momento de seleccionar el puerto de depuración y el tipo de conexión de depuración, esta configuración es opcional y los valores válidos son 9600, 19.200, 38.400, 57.600 y 115.200. El valor predeterminado es 115.200 bps.</p>
 <p>Para configurar este arranque en modo seguro, desde la pestaña Arranque, activaremos la casilla “Arranque a prueba de errores” y allí seleccionar alguna de las opciones disponibles que son la siguientes:</p>
 <ul class="simple">
-<li><p><strong>Mínimo</strong>.  Con esta opción el arranque seguro se ejecuta de forma normal, con una interfaz de usuario y sin servicios de red habilitados.</p></li>
-<li><p><strong>Shell alterno</strong>. Esta opción abre el símbolo del sistema en modo a prueba de errores. Los servicios de red y la interfaz gráfica de usuario están deshabilitados por defecto.</p></li>
-<li><p><strong>Reparar Active Directory</strong>. Es un inicio seguro normal que ejecuta los servicios y características de Active Directory, útil para equipos en un dominio.</p></li>
-<li><p><strong>Red</strong>. Ejecuta el inicio seguro normal con servicios de red habilitados.</p></li>
+<li><strong>Mínimo</strong>.  Con esta opción el arranque seguro se ejecuta de forma normal, con una interfaz de usuario y sin servicios de red habilitados.</li>
+<li><strong>Shell alterno</strong>. Esta opción abre el símbolo del sistema en modo a prueba de errores. Los servicios de red y la interfaz gráfica de usuario están deshabilitados por defecto.</li>
+<li><strong>Reparar Active Directory</strong>. Es un inicio seguro normal que ejecuta los servicios y características de Active Directory, útil para equipos en un dominio.</li>
+<li><strong>Red</strong>. Ejecuta el inicio seguro normal con servicios de red habilitados.</li>
 </ul>
 <p>Para deshabilitar opciones de arranque Windows 10, En la misma pestaña de arranque, encontramos en la parte inferior derecha una serie de opciones para aplicar a los procedimientos de arranque estándar y en modo seguro, estas opciones son.</p>
 <ul class="simple">
-<li><p><strong>Sin arranque de GUI</strong>. Al seleccionar esta opción, durante el arranque, no se mostrará la pantalla de carga habitual, tan solo una pantalla negra sin información con el fin de mejorar la velocidad de arranque.</p></li>
-<li><p><strong>Registro de arranque</strong>. En el proceso de inicio, Windows 10 escribe un registro completo detallando toda la información sobre el proceso de inicio, por defecto esta información está en la ruta C:WindowsNtbtlog.txt.</p></li>
-<li><p><strong>Vídeo base</strong>. Al seleccionar esta opción, ejecutamos un inicio de Windows estándar, en el cual solo serán cargados los controladores de vídeo estándar que vienen con el sistema operativo por defecto, en lugar de los específicos de la tarjeta de vídeo.</p></li>
-<li><p><strong>Información de arranque del SO</strong>. Si usamos esta opción, también debemos activar la opción Sin arranque de GUI. Con estas opciones, la pantalla de carga de Windows habitual se verá reemplazada por una pantalla negra, donde veremos información completa sobre los controladores que son cargados durante el proceso de inicio, así, en caso de que Windows se bloquee en el proceso de arranque, este modo de visualización puede ser útil para encontrar el controlador que causa el bloqueo y así facilitar las tareas de soporte.</p></li>
+<li><strong>Sin arranque de GUI</strong>. Al seleccionar esta opción, durante el arranque, no se mostrará la pantalla de carga habitual, tan solo una pantalla negra sin información con el fin de mejorar la velocidad de arranque.</li>
+<li><strong>Registro de arranque</strong>. En el proceso de inicio, Windows 10 escribe un registro completo detallando toda la información sobre el proceso de inicio, por defecto esta información está en la ruta C:WindowsNtbtlog.txt.</li>
+<li><strong>Vídeo base</strong>. Al seleccionar esta opción, ejecutamos un inicio de Windows estándar, en el cual solo serán cargados los controladores de vídeo estándar que vienen con el sistema operativo por defecto, en lugar de los específicos de la tarjeta de vídeo.</li>
+<li><strong>Información de arranque del SO</strong>. Si usamos esta opción, también debemos activar la opción Sin arranque de GUI. Con estas opciones, la pantalla de carga de Windows habitual se verá reemplazada por una pantalla negra, donde veremos información completa sobre los controladores que son cargados durante el proceso de inicio, así, en caso de que Windows se bloquee en el proceso de arranque, este modo de visualización puede ser útil para encontrar el controlador que causa el bloqueo y así facilitar las tareas de soporte.</li>
 </ul>
 <p><strong>Nota:</strong> En caso de que sea necesario que los cambios que hemos realizado sean constantes, debemos activar la casilla “Convertir en permanente toda la configuración de arranque”, o para volver al inicio normal utilizar otra vez el comando msconfig</p>
 <p>Podemos también definir los servicios que serán cargados en el arranque Windows 10. En la pestaña «Servicios»  será posible activar los servicios que serán ejecutados al inicio y desmarcar los que no lo serán, en caso de desear ver solo los servicios de terceros instalados por las aplicaciones, debemos activar la casilla “Ocultar todos los servicios de Microsoft”. Es aconsejable tener conocimiento sobre qué servicios han de deshabilitarse ya que si deshabilitamos algún servicio de Microsoft podemos causar anomalías en el sistema.
@@ -85,34 +87,34 @@ Es normal que los programa y aplicaciones que instalamos en Windows 10, cuenten 
 Dar clic derecho sobre él y seleccionar la opción “Deshabilitar”.
 Seleccionarlo y pulsar en el botón “Deshabilitar” ubicado en la parte inferior</p>
 <p>Finalmente, en la pestaña “Herramientas” de msconfig, disponemos de un conjunto de herramientas del sistema como Información del sistema, Editor del registro, Visor de eventos, Monitor de rendimiento y más, las cuales nos permiten realizar una tarea mucho más completa. Podemos ver que cada herramienta tiene asociado un comando de ejecución.</p>
-</section>
-<section id="gestion-de-servicios-powershell">
-<h2>Gestión de servicios (PowerShell)<a class="headerlink" href="#gestion-de-servicios-powershell" title="Enlace permanente a este encabezado">¶</a></h2>
+</div>
+<div class="section" id="gestion-de-servicios-powershell">
+<h2>Gestión de servicios (PowerShell)<a class="headerlink" href="#gestion-de-servicios-powershell" title="Enlazar permanentemente con este título">¶</a></h2>
 <ul class="simple">
-<li><p>Get-Service</p></li>
-<li><p>New-Service</p></li>
-<li><p>Restart-Service</p></li>
-<li><p>Resume-Service</p></li>
-<li><p>Set-Service</p></li>
-<li><p>Start-Service</p></li>
-<li><p>Stop-Service</p></li>
-<li><p>Suspend-Service</p></li>
+<li>Get-Service</li>
+<li>New-Service</li>
+<li>Restart-Service</li>
+<li>Resume-Service</li>
+<li>Set-Service</li>
+<li>Start-Service</li>
+<li>Stop-Service</li>
+<li>Suspend-Service</li>
 </ul>
 <p>Ejemplo de uso:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">alumno</span><span class="p">&gt;</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span>PS C:\Users\alumno&gt; Get-Service -Name Spooler
 
-<span class="n">Status</span>   <span class="n">Name</span>               <span class="n">DisplayName</span>
-<span class="p">------</span>   <span class="p">----</span>               <span class="p">-----------</span>
-<span class="n">Running</span>  <span class="n">Spooler</span>            <span class="n">Cola</span> <span class="n">de</span> <span class="n">impresión</span>
+Status   Name               DisplayName
+------   ----               -----------
+Running  Spooler            Cola de impresión
 
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">alumno</span><span class="p">&gt;</span> <span class="nb">Restart-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
-<span class="n">ADVERTENCIA</span><span class="p">:</span> <span class="n">Esperando</span> <span class="n">a</span> <span class="n">que</span> <span class="n">se</span> <span class="n">inicie</span> <span class="n">el</span> <span class="n">servicio</span> <span class="s1">&#39;Cola de</span>
-<span class="s1">impresión (Spooler)&#39;</span><span class="p">...</span>
+PS C:\Users\alumno&gt; Restart-Service -Name Spooler
+ADVERTENCIA: Esperando a que se inicie el servicio &#39;Cola de
+impresión (Spooler)&#39;...
 </pre></div>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -139,15 +141,17 @@ Seleccionarlo y pulsar en el botón “Deshabilitar” ubicado en la parte infer
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Búsqueda rápida</h3>
+  <h3>Búsqueda rápida</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" />
       <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -156,7 +160,7 @@ Seleccionarlo y pulsar en el botón “Deshabilitar” ubicado en la parte infer
       &copy;2023, dgtrabada.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
