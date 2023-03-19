@@ -1,6 +1,6 @@
-************
-Comandos DOS
-************
+***************
+Comandos ms-dos
+***************
 
 Desde el directorio raíz se accede al archivo mediante una ruta de acceso absoluta
 Si se accede al archivo desde el directorio actual, la ruta es una ruta de acceso relativa
@@ -31,12 +31,12 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 
 * **md, mkdir** crea directorios
 
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani> mkdir TEST
-    C:\Users\dani\TEST> cd TEST
-    C:\Users\dani\TEST>mkdir A B C
-    C:\Users\dani\TEST>dir
+    C:\> mkdir TEST
+    C:\TEST> cd TEST
+    C:\TEST>mkdir A B C
+    C:\TEST>dir
     15/03/2023  10:14    <DIR>          .
     15/03/2023  10:14    <DIR>          ..
     15/03/2023  10:14    <DIR>          A
@@ -52,10 +52,10 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **attrib +h** hacerlo oculto
   * **/s** directorio actual y en todos los subdirectorio
  
-  .. code-block:: msdos
+  .. code-block:: shell
     
-    C:\Users\dani\TEST>attrib +h A
-    C:\Users\dani\TEST>dir
+    C:\TEST>attrib +h A
+    C:\>dir
     15/03/2023  10:14    <DIR>          .
     15/03/2023  10:14    <DIR>          ..
     15/03/2023  10:14    <DIR>          B
@@ -63,7 +63,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
                    0 archivos              0 bytes
                    4 dirs  607.209.717.760 bytes libres
 
-    C:\Users\dani\TEST>dir /ah
+    C:\TEST>dir /ah
     15/03/2023  10:14    <DIR>          A
                    0 archivos              0 bytes
                    1 dirs  607.209.672.704 bytes libres
@@ -74,18 +74,18 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **/q** modo silencioso
   * **/S** elimina subdirectorios
   
-  .. code-block:: msdos
+  .. code-block:: shell
   
-    C:\Users\dani\TEST>dir
+    C:\TEST>dir
     15/03/2023  10:27    <DIR>          .
     15/03/2023  10:27    <DIR>          ..
     15/03/2023  10:27    <DIR>          A
     15/03/2023  10:14    <DIR>          B
     15/03/2023  10:14    <DIR>          C
     
-    C:\Users\dani\TEST>rd A 
+    C:\TEST>rd A 
 
-    C:\Users\dani\TEST>dir
+    C:\TEST>dir
     15/03/2023  10:27    <DIR>          .
     15/03/2023  10:27    <DIR>          ..
     15/03/2023  10:14    <DIR>          B
@@ -95,12 +95,12 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
                
 * **move** mueve o renombra un directorio o archivos. **/Y** sustituye los archivos sin pedir confirmación
 
-  .. code-block:: msdos
+  .. code-block:: shell
   
-    C:\Users\dani\TEST>move B G
+    C:\TEST>move B G
     Se ha(n) movido         1 directorio(s).
 
-    C:\Users\dani\TEST>dir
+    C:\TEST>dir
     15/03/2023  10:30    <DIR>          .
     15/03/2023  10:30    <DIR>          ..
     15/03/2023  10:14    <DIR>          C
@@ -110,11 +110,11 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 
 * **ren** cambia el nombre de uno o más ficheros
 
-  .. code-block:: msdos
+  .. code-block:: shell
   
-    C:\Users\dani\TEST>ren G A
+    C:\TEST>ren G A
     
-    C:\Users\dani\TEST>dir
+    C:\TEST>dir
     15/03/2023  10:32    <DIR>          .
     15/03/2023  10:32    <DIR>          ..
     15/03/2023  10:14    <DIR>          A
@@ -125,9 +125,9 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 
 * **tree/deltree** lista/Borra un directorio con todos sus contenidos.
 
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani\TEST>tree
+    C:\TEST>tree
     Listado de rutas de carpetas
     El número de serie del volumen es 203A-19E6
     C:.
@@ -147,15 +147,15 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
     * /C: Continúa copiando, incluso si ocurren errores.
     * /K: Copia los atributos de los archivos, como la fecha y hora de creación y modificación.
 
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani\TEST>xcopy A B /E /H /C /K
+    C:\TEST>xcopy A B /E /H /C /K
     ¿B especifica un archivo
     o un directorio como destino
     (F = archivo, D = directorio)? D
     0 archivo(s) copiado(s)
 
-    C:\Users\dani\TEST>tree
+    C:\TEST>tree
     C:.
     ├───A
     │   ├───A1
@@ -194,109 +194,250 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **%USERNAME%** nombre de usuario que corresponde a la cuenta actual.
   * **%USERPROFILE%** ubicación del perfil de usuario de la cuenta actual.
   * **%WINDIR%** directorio del sistema
+  
+* **set** - Muestra, establece o quita variables de entorno
 
 * **Redireccionamiento** Envía la salida a un archivo o dispositivo (si no existe lo crea)
 
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani\TEST>echo hola > salida.txt
+    C:\TEST>echo hola > salida.txt
     
-    C:\Users\dani\TEST>echo adios >> salida.txt
+    C:\TEST>echo adios >> salida.txt
 
 * **type** - Muestra el contenido de un fichero.
 
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani\TEST>type salida.txt
+    C:\TEST>type salida.txt
     hola
     adios
-  
+
+* **more** presenta información de salida pantalla por pantalla
+
 * **copy** copiar un archivos, **/Y** sustituye los archivos sin pedir confirmación
   
-  .. code-block:: msdos
+  .. code-block:: shell
 
-    C:\Users\dani\TEST>copy salida.txt salida2.txt
+    C:\TEST>copy salida.txt salida2.txt
     
     
-* **del** elimina archivos
-
-  * **del /f** permite eliminar archivos con el atributo solo de lectura
-  * **del /q** modo silencioso
-  
-
-  
 * **fc** compara archivos.
 
-  .. code-block:: msdos
+  .. code-block:: shell
   
-    C:\Users\dani\PAPELERA>type a1.dat
+    C:\TEST>echo 1 >> salida2.txt
+    
+    C:\TEST>fc salida.txt salida2.txt
+    Comparando archivos salida.txt y SALIDA2.TXT
+    ***** salida.txt
+    ***** SALIDA2.TXT
     1
-    2
-    3
-    
-    C:\Users\dani\PAPELERA>copy a1.dat a2.dat /Y
-            1 archivo(s) copiado(s).
-    
-    C:\Users\dani\PAPELERA>fc  a1.dat a2.dat
-    Comparando archivos a1.dat y A2.DAT
-    FC: no se han encontrado diferencias
-    
-    
-    C:\Users\dani\PAPELERA>echo 4 >> a2.dat
-
-    C:\Users\dani\PAPELERA>fc  a1.dat a2.dat
-    Comparando archivos a1.dat y A2.DAT
-    ***** a1.dat
-    ***** A2.DAT
-    4
     *****
 
 * **find** - Busca una cadena de texto específica en un archivo o en varios archivos
 
-  * FIND [/V] [/C] [/N] [/I] "cadena" [[unidad:][ruta]nombrearchivo[...]]
-  * [/V]: Presenta todas las líneas que no contengan la cadena especificada.
-  * [/C]: Solamente presenta un número que indica cuántas líneas contienen la cadena especificada.
-  * [/N]: Precede cada línea con el número de línea del archivo.
-  * [/I]: Especifica que no se haga la distinción entre mayúsculas y minúsculas en la búsqueda.
-  * “cadena”: Especifica el grupo de caracteres que se buscarán.
-  * nombe_archivo: Especifica el nombre del archivo en el cual se realizará la búsqueda.
-  
+  .. code-block:: shell
+    
+   C:\TEST>find /?
+   Busca una cadena de texto en uno o más archivos.
+   
+   FIND [/V] [/C] [/N] [/I] [/OFF[LINE]] "cadena" [[unidad:][ruta]archivo[ ...]]
+   
+     /V          Muestra todas las líneas que no tengan la cadena especificada.
+     /C          Muestra solo el número de líneas que contienen la cadena.
+     /N          Muestra el número de línea de cada línea.
+     /I          Omite mayúsculas/minúsculas al buscar una cadena.
+     /OFF[LINE]  No omite archivos con el atributo "sin conexión" establecido.
+     "cadena"    Especifica el texto que se desea buscar.
+     [unidad:][ruta]archivo
+                 Especifica el o los archivos a buscar.
+    Si no se especifica una ruta, FIND busca el texto que se escriba en el símbolo
+   del sistema o que se canalice desde otro comando.
+ 
+   C:\TEST>find "hola" salida.txt  
+ 
+   ---------- SALIDA.TXT
+   hola
+    C:\TEST>find /V "hola" salida.txt
+ 
+   ---------- SALIDA.TXT
+   adios
+   
+   C:\TEST>find /N "hola" salida.txt
+   
+   ---------- SALIDA.TXT
+   [1]hola
+ 
+* **del** elimina archivos
 
+  .. code-block:: shell
 
-* **more** presenta información de salida pantalla por pantalla
+    C:\TEST>del salida2.txt
+
 
 * **ping** se utiliza para medir la latencia o tiempo que tardan en comunicarse dos puntos remotos
 
+  .. code-block:: shell
+  
+   C:\TEST>ping 8.8.8.8
+   
+   Haciendo ping a 8.8.8.8 con 32 bytes de datos:
+   Respuesta desde 8.8.8.8: bytes=32 tiempo=4ms TTL=115
+   Respuesta desde 8.8.8.8: bytes=32 tiempo=4ms TTL=115
+   Respuesta desde 8.8.8.8: bytes=32 tiempo=7ms TTL=115
+   Respuesta desde 8.8.8.8: bytes=32 tiempo=9ms TTL=115
+   
+   Estadísticas de ping para 8.8.8.8:
+       Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+       (0% perdidos),
+   Tiempos aproximados de ida y vuelta en milisegundos:
+       Mínimo = 4ms, Máximo = 9ms, Media = 6ms
+
 * **ipconfig** muestra los valores de configuración de red de TCP/IP
-  
 
-* **start** - iniciar aplicación, podemos ejecutarlos sin abrir la consola
+  .. code-block:: shell
+  
+   C:\TEST>ipconfig
+   
+   Configuración IP de Windows
+   
+   Adaptador de Ethernet vEthernet (WSL):
+   
+      Sufijo DNS específico para la conexión. . :
+      Vínculo: dirección IPv6 local. . . : fe80::a32:a5ec:1b5a:7617%40
+      Dirección IPv4. . . . . . . . . . . . . . : 192.168.0.1
+      Máscara de subred . . . . . . . . . . . . : 255.255.240.0
+      Puerta de enlace predeterminada . . . . . :
 
-  * cmd /K ipfongig /all  (deja abierta la ventana del cmd)
-  * cmd /C start http://google.com (cierra la ventana)
-  
-* **set** - Muestra, establece o quita variables de entorno
-  set n1=2
-  set n2=3
-  set /A s = %n1% + %n2%
-  echo %s%
-  operadores (+ - * / %)
-  
 * **sort** (Ordenar): Lee información de entrada, ordena datos y escribe los resultados en la pantalla, en un archivo o en otro dispositivo.
 
-  * sort [/R] [/+n] [<] [unidad1:][ruta1] nombre_archivo1 [>]
-  * [[unidad2:][ruta2] nombre_archivo2] ó también[comando |] SORT [/R] [/+n] [> [unidad2:][ruta2] nombre_archivo2]
-  * [/R]: Invierte el orden de clasificación, es decir, ordena de Z a A y de 9 a 0.
-  * [/+n]: Ordena el contenido del archivo de acuerdo al carácter de la columna ‘n’. Si se omite este
+  .. code-block:: shell
   
-
-
-
-  * /A Indica al comando TREE que utilice caracteres de texto en lugar de caracteres gráficos
-  * /Y No confirma la eliminación del directorio.
+   C:\TEST>sort salida.txt
+   adios
+   hola
   
 * **ver** - Muestra la versión del Sistema Operativo.
 
+  .. code-block:: shell
+
+   C:\TEST>ver
+  
+   Microsoft Windows [Versión 10.0.19044.2486]
+  
+ 
 * **vol** - Muestra la etiqueta del disco duro y su volumen (si lo tiene).
 
+  .. code-block:: shell
 
+   C:\TEST>vol
+    El volumen de la unidad C no tiene etiqueta.
+    El número de serie del volumen es: 203A-19E6
+    
+**************
+Scripting .bat
+**************
+
+Un archivo o programa de procesamiento por lotes es un archivo de texto sin formato que contiene uno o más comandos de MS-DOS y que tiene asignado una extensión BAT.
+
+Cuando se escribe el nombre del programa de procesamiento por lotes en la línea de comandos, los comandos se ejecutan como un grupo.
+
+* **pause**: suspende la ejecución de un programa de procesamiento por lotes y muestra un mensaje indicando al usuario que presione cualquier tecla para continuar.
+
+* **rem** permite que se incluyan comentarios
+
+* **echo [texto]** muestra el texto por pantalla @(on/off) para presentar los comandos por pantalla en un script
+  
+  Ejemplo:
+
+  .. code-block:: shell
+  
+   C:\>type hola.bat
+   @echo off
+   rem Esto es un comentario
+   rem @echo on se presentaran los comandos por pantalla
+   echo Hola Mundo
+   pause
+   C:\>hola.bat
+   Hola Mundo
+   Presione una tecla para continuar . . .
+
+* **for** (repite un comando)
+
+  FOR %%variable IN (conjunto) DO comando [parametros_del_comando]
+
+  Ejemplo:  
+  
+  .. code-block:: shell
+  
+   C:>type for.bat 
+   @echo off 
+   echo -------------------------------
+   echo cuenta hasta 10 de 2 en 2
+   for /L %%j in (1,2,10) do echo hola %%j
+   
+   C:\>for.bat      
+   ------------------------------- 
+   cuena hasta 10 de 2 en 2
+   hola 1
+   hola 3
+   hola 5
+   hola 7
+   hola 9
+   
+  Ejemplo con el parámetro /R ejecuta el comando recursivamente:
+  
+  .. code-block:: shell
+  
+   for /R %x in (*) do @echo %x
+   
+  Visualizamos todas las dll que empiecen por a de C:\Windows\System32 
+    
+  .. code-block:: shell
+  
+   for /R C:\Windows\System32 %x in (A*.dll) do @echo %xde C:\WINNT
+
+* **Parámetros de entrada**, los valores suministrados al ejecutar el archivo .bat se les llaman argumentos y se denotan %0, %1, ..., %9.
+
+* **shift** cambia los valores de los parámetros reemplazables %0 a %9 copiando cada parámetro en el anterior, es decir, el valor de %1 es copiado en %0, el valor de %2 es copiado en %1 y así sucesivamente.
+
+* **if** (condicional)
+
+  .. code-block:: shell
+     
+   C:\>type if.bat
+   @echo off 
+   set a=%1
+   set b=%2
+   echo a = %a% ; b = %b%
+   if %a% equ %b% echo %b% y %b% son iguales
+   if %a% neq %b% echo %b% y %b% son distintos
+   if %a% leq %b% echo %b% es menor o igual que %b%
+   if %a% geq %b% echo %b% es mayor o igual que %b%
+   if %a% lss %b% echo %b% es menor que %b%
+   if %a% gtr %b% echo %b% es mayor que %b%
+   echo -------------------------------------
+
+   C:\> if.bat 3 3 
+   a = 3 ; b = 3 
+   3 y 3 son iguales
+   3 es menor o igual que 3 
+   3 es mayor o igual que 3
+   -------------------------------------
+
+   C:\> if.bat 3 5 
+   a = 3 ; b = 5 
+   5 y 5 son distintos
+   5 es menor o igual que 5
+   5 es menor que 5
+   -------------------------------------
+
+   C:\> if.bat 3 1 
+   a = 3 ; b = 1 
+   1 y 1 son distintos
+   1 es mayor o igual que 1
+   1 es mayor que 1
+   -------------------------------------
+      
+* **goto** se va a una línea marcada por una etiqueta especificada por el usuario dentro de un programa de procesamiento por lotes.

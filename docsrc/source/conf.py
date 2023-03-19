@@ -86,7 +86,10 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+
+html_theme = 'sphinx_book_theme'
+#html_theme = 'sphinx_rtd_theme'
+#html_theme = 'alabaster'
 #html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -94,6 +97,9 @@ html_theme = 'alabaster'
 # documentation.
 #
 # html_theme_options = {}
+
+
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -151,7 +157,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'dgtrabada', 'dgtrabada Documentation',
+    (master_doc, 'dgtrabada', 'Apuntes de dgtrabada',
      [author], 1)
 ]
 
@@ -162,7 +168,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'dgtrabada', 'dgtrabada Documentation',
+    (master_doc, 'dgtrabada', 'Apuntes de dgtrabada',
      author, 'dgtrabada', 'One line description of project.',
      'Miscellaneous'),
 ]

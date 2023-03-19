@@ -1,7 +1,7 @@
 **********************
 Sistemas de numeración
 **********************
-
+ 
 Un sistema de numeración es un conjunto de reglas y convenciones utilizadas para representar cantidades numéricas mediante símbolos.
 
 * El **sistema decimal** es un sistema de numeración que utiliza diez símbolos diferentes para representar cantidades numéricas: 0, 1, 2, 3, 4, 5, 6, 7, 8 y 9.

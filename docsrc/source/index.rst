@@ -7,34 +7,9 @@
 .. =====================================
 
 .. toctree::
-   :maxdepth: 2
-
-Índice
-==================
-  * :ref:`Sistema Operativo`
-  * :ref:`Hardware`
-  * :ref:`Redes`
-
-..  * :ref:`genindex`
-..  * :ref:`modindex`
-..  * :ref:`search`
-..  * :ref:`search`
-
-
-
-..   :glob:
-
-..   so/*
-
-
-.. * :ref:`foo`
-.. * :ref:`test`
-.. * :ref:`<so/so.rst>`
-
-.. * :ref:`SO`
-
-.. so.rst
-.. :ref:`my-reference-label`
-
-.. :doc:`my document <SO/so.rst>`
-
+   :maxdepth: 3
+   :caption: Apuntes:
+   
+   hardware/hardware
+   so/so
+   redes/redes

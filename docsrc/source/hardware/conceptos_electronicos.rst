@@ -235,30 +235,6 @@ Componentes electrónicos
 
   Los multímetros tienen diferentes escalas, en caso de no conocer el valor de la medición, se debe seleccionar la escala más grande a partir de ella se va reduciendo hasta tener una escala adecuada para hacer la medición.
   
-Fuente de Alimentación.
 
-
-.. image:: imagenes/conceptos_electronicos/fuente_alimentacion.png
-
-Los componentes internos del sistema van a estar alimentados por una corriente continua con valores entre -12V y 12V. Sin embargo la tensión que obtenemos de la red eléctrica es alterna con un valor de 230 V y una frecuencia de 50 Hz.
-Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación .
-
-
-**Funcionamiento:**
-
-.. image:: imagenes/conceptos_electronicos/fuente_alimentacion_circuito.png
-
-* **Transformación** : Se disminuye la corriente alterna de entrada (230 V 50 Hz)
-* **Rectificación** : Con la ayuda de diodos se consigue que la corriente siempre sea positiva.
-* **Filtración** : Se utiliza un condensador para corregir las caídas de tensión.
-* **Regulación** : se corrigen lo picos que quedan en la señal.
-
-Fuente Simple (con rectificación simple, no corregimos la señal negativa)
-
-.. image:: imagenes/conceptos_electronicos/fuente_simple_alimentacion_circuito.png
-
-(rectificación de la señal negativa)
-
-.. image:: imagenes/conceptos_electronicos/fuente_rectificacion_alimentacion_circuito.png
 
 

@@ -42,17 +42,24 @@ Ficheros y directorios
 * **echo** repetir salida estándar
 * **Get-ChildItem -Recurse -Filter '*.txt'** es parecido al comando find
 * **Get-Help -Name Get-ChildItem** obtener ayuda
-* **select -> Select-Object**
-* **cat archivo.dat | select -Last 2**
-* **cat archivo.dat -Head 12 | select -Last 1**
-* **cat archivo.dat | select -First 10**
 * **Test-Path -Path <archivo>** nos dice si exite el archivo o carpeta
+* **select -> Select-Object**
+
+  cat archivo.dat | select -Last 2
+  
+  cat archivo.dat -Head 12 | select -Last 1
+  
+  cat archivo.dat | select -First 10
+
 
 Visualizadores de archivos
 ==========================
 
 * **cat -> Get-Content** visualizar el contenido archivo
-* **Get-Content archivo.dat -head 10** Get-Content archivo.dat | select -First 10  # head
+* **Get-Content archivo.dat -head 10** 
+
+  Get-Content archivo.dat | select -First 10  # head
+  
 * **Get-Content archivo.dat -tail 10** es como el comando tail en GNULinux
 * **Get-Content archivo.dat -tail 10 -wait** es como el comando tail -f en GNULinux
 * **Get-Content archivo.dat | %{ $_ -replace 'A', 'B' }** reemplazar

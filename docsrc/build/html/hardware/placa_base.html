@@ -1,74 +1,350 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>La placa base, el “chipset”, la EPROM &#8212; documentación de dgtrabada - 1.0</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script type="text/javascript" src="../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hardware/placa_base';</script>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  </head><body>
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
   
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">documentación de dgtrabada - 1.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../so/so.html">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redes/redes.html">Redes</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/hardware/placa_base.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>La placa base, el “chipset”, la EPROM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-  <div class="section" id="la-placa-base-el-chipset-la-eprom">
-<h1>La placa base, el “chipset”, la EPROM<a class="headerlink" href="#la-placa-base-el-chipset-la-eprom" title="Enlazar permanentemente con este título">¶</a></h1>
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-factor-de-forma">El factor de forma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-integrados">Componentes integrados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-chipset">El chipset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-reloj-la-pila-cmos-rom-y-eprom">El reloj, la pila, CMOS, ROM y EPROM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-botonera">La botonera</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#socket-del-procesador">Socket del procesador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conectores-de-la-ram">Conectores de la RAM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-agp">Ranura AGP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-pci">Ranura PCI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-pcie">Ranura PCIe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tpm">TPM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conectores-atx-atx12v">Conectores ATX, ATX12V</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ventilacion">Ventilación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb2">USB2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb3">USB3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-audio">F_AUDIO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#com-serie">COM (serie)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sata">SATA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#m-2">M.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spdif">SPDIF</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="la-placa-base-el-chipset-la-eprom">
+<h1>La placa base, el “chipset”, la EPROM<a class="headerlink" href="#la-placa-base-el-chipset-la-eprom" title="Enlace permanente a este encabezado">#</a></h1>
 <p><strong>La placa base</strong>, también denominada motherboard «placa madre», es una placa de circuito impreso en la que conectamos todos los componentes y periféricos de un equipo microinformático.</p>
-<div class="section" id="el-factor-de-forma">
-<h2>El factor de forma<a class="headerlink" href="#el-factor-de-forma" title="Enlazar permanentemente con este título">¶</a></h2>
+<section id="el-factor-de-forma">
+<h2>El factor de forma<a class="headerlink" href="#el-factor-de-forma" title="Enlace permanente a este encabezado">#</a></h2>
 <p>El factor de forma son unos estándares que definen algunas características físicas de la placa base. Referencia como es la geometría, las dimensiones, la disposición y los requisitos eléctricos de la placa base. Los factores de forma más habituales son los siguientes</p>
 <ul class="simple">
-<li><strong>ATX</strong> «Advanced Technology Extended» es una actualización del AT miniatura.<ul>
-<li><strong>ATX</strong> estándar (30.5 x 24.4 cm).</li>
-<li><strong>Micro-ATX</strong> (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es identico. Por esta razón, las placas micor-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente</li>
-<li><strong>Flex-ATX</strong> es una expansión del microATX</li>
+<li><p><strong>ATX</strong> «Advanced Technology Extended» es una actualización del AT miniatura.</p>
+<ul>
+<li><p><strong>ATX</strong> estándar (30.5 x 24.4 cm).</p></li>
+<li><p><strong>Micro-ATX</strong> (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es identico. Por esta razón, las placas micor-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente</p></li>
+<li><p><strong>Flex-ATX</strong> es una expansión del microATX</p></li>
 </ul>
 </li>
-<li><strong>BTX</strong> «Tecnología Balanceada Extendida» es un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco. El cable de alimentación del BTX es el mismo que el de la fuente de alimentación del ATX, pero en la práctica son factores de forma incompatibles. Existen además factores de forma derivados de BTX más pequeños<ul>
-<li><strong>BTX</strong> estándar (32.5 x 26.7 cm).</li>
-<li><strong>Micro-BTX</strong> (26.4 x 26.7 cm).</li>
-<li><strong>Pico-BTX</strong> (20.3 x 26.7 cm).</li>
+<li><p><strong>BTX</strong> «Tecnología Balanceada Extendida» es un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco. El cable de alimentación del BTX es el mismo que el de la fuente de alimentación del ATX, pero en la práctica son factores de forma incompatibles. Existen además factores de forma derivados de BTX más pequeños</p>
+<ul>
+<li><p><strong>BTX</strong> estándar (32.5 x 26.7 cm).</p></li>
+<li><p><strong>Micro-BTX</strong> (26.4 x 26.7 cm).</p></li>
+<li><p><strong>Pico-BTX</strong> (20.3 x 26.7 cm).</p></li>
 </ul>
 </li>
-<li><strong>TX</strong> «Tecnología de Información Extendida», es un formato muy compacto diseñado para configuraciones en miniatura. Los formatos ITX principales:<ul>
-<li><strong>mini-ITX</strong> (17.0 x 17.0 mm).</li>
-<li><strong>nano-ITX</strong> (12.0 x 12.0 mm).</li>
+<li><p><strong>TX</strong> «Tecnología de Información Extendida», es un formato muy compacto diseñado para configuraciones en miniatura. Los formatos ITX principales:</p>
+<ul>
+<li><p><strong>mini-ITX</strong> (17.0 x 17.0 mm).</p></li>
+<li><p><strong>nano-ITX</strong> (12.0 x 12.0 mm).</p></li>
 </ul>
 </li>
 </ul>
 <img alt="../_images/placa_base.jpeg" src="../_images/placa_base.jpeg" />
-<img alt="../_images/tamaño_placa_base.png" src="../_images/tamaño_placa_base.png" />
-</div>
-<div class="section" id="componentes-integrados">
-<h2>Componentes integrados<a class="headerlink" href="#componentes-integrados" title="Enlazar permanentemente con este título">¶</a></h2>
-<div class="section" id="el-chipset">
-<h3>El chipset<a class="headerlink" href="#el-chipset" title="Enlazar permanentemente con este título">¶</a></h3>
+<img alt="../_images/tama%C3%B1o_placa_base.png" src="../_images/tama%C3%B1o_placa_base.png" />
+</section>
+<section id="componentes-integrados">
+<h2>Componentes integrados<a class="headerlink" href="#componentes-integrados" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="el-chipset">
+<h3>El chipset<a class="headerlink" href="#el-chipset" title="Enlace permanente a este encabezado">#</a></h3>
 <p>El chipset es un conjunto de circuitos integrados cuya función consiste en coordinar la transferencia de datos entre los distintos componentes del ordenador.</p>
 <img alt="../_images/micro21.png" src="../_images/micro21.png" />
 <img alt="../_images/micro.png" src="../_images/micro.png" />
-</div>
-<div class="section" id="el-reloj-la-pila-cmos-rom-y-eprom">
-<h3>El reloj, la pila, CMOS, ROM y EPROM<a class="headerlink" href="#el-reloj-la-pila-cmos-rom-y-eprom" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="el-reloj-la-pila-cmos-rom-y-eprom">
+<h3>El reloj, la pila, CMOS, ROM y EPROM<a class="headerlink" href="#el-reloj-la-pila-cmos-rom-y-eprom" title="Enlace permanente a este encabezado">#</a></h3>
 <p><strong>El reloj</strong> está constituido por un cristal que, cuando vibra, emite pulsos. La frecuencia del temporizador (expresada en MHz) no es más que el número de veces que el cristal vibra por segundo, es decir, el número de pulsos de temporizador por segundo.</p>
 <p><strong>La memoria CMOS</strong> conserva algunos datos del sistema, como la hora, la fecha del sistema y algunas configuraciones esenciales del sistema, cuando se apaga el ordenador. La memoria CMOS se alimenta de manera continua gracias a una pila (tipo botón).</p>
 <img alt="../_images/pila.png" src="../_images/pila.png" />
@@ -79,9 +355,9 @@
 La memoria ROM es una memoria que solo se puede leer Read-Only Memory.
 EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable y borrable).</p>
 <img alt="../_images/eprom.png" src="../_images/eprom.png" />
-</div>
-<div class="section" id="la-botonera">
-<h3>La botonera<a class="headerlink" href="#la-botonera" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="la-botonera">
+<h3>La botonera<a class="headerlink" href="#la-botonera" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Salvo los botones (Power SW y Reset) el resto tienen posición, hay que conectar en el pin + el cable que NO es masa (suele ser de color negro o blanco). Algunas placas traen un adaptador que a modo de plantilla nos facilita la conexión.</p>
 <a class="reference internal image-reference" href="../_images/botonera1.png"><img alt="../_images/botonera1.png" src="../_images/botonera1.png" style="width: 200px;" /></a>
 <a class="reference internal image-reference" href="../_images/botonera2.png"><img alt="../_images/botonera2.png" src="../_images/botonera2.png" style="width: 200px;" /></a>
@@ -89,35 +365,35 @@ EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable 
 <a class="reference internal image-reference" href="../_images/botonera3.png"><img alt="../_images/botonera3.png" src="../_images/botonera3.png" style="width: 200px;" /></a>
 <img alt="../_images/botonera4.jpeg" src="../_images/botonera4.jpeg" />
 <img alt="../_images/botonera5.jpeg" src="../_images/botonera5.jpeg" />
-</div>
-<div class="section" id="socket-del-procesador">
-<h3>Socket del procesador<a class="headerlink" href="#socket-del-procesador" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="socket-del-procesador">
+<h3>Socket del procesador<a class="headerlink" href="#socket-del-procesador" title="Enlace permanente a este encabezado">#</a></h3>
 <p>La placa base posee una ranura, en la cual se inserta el procesador y que se denomina socket del procesador.</p>
 <img alt="../_images/socket_micro2.png" src="../_images/socket_micro2.png" />
 <a class="reference internal image-reference" href="../_images/socket_micro.jpeg"><img alt="../_images/socket_micro.jpeg" src="../_images/socket_micro.jpeg" style="width: 200px;" /></a>
-</div>
-<div class="section" id="conectores-de-la-ram">
-<h3>Conectores de la RAM<a class="headerlink" href="#conectores-de-la-ram" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="conectores-de-la-ram">
+<h3>Conectores de la RAM<a class="headerlink" href="#conectores-de-la-ram" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/ram2.png" src="../_images/ram2.png" />
 <a class="reference internal image-reference" href="../_images/ram1.jpeg"><img alt="../_images/ram1.jpeg" src="../_images/ram1.jpeg" style="width: 300px;" /></a>
-</div>
-<div class="section" id="ranura-agp">
-<h3>Ranura AGP<a class="headerlink" href="#ranura-agp" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="ranura-agp">
+<h3>Ranura AGP<a class="headerlink" href="#ranura-agp" title="Enlace permanente a este encabezado">#</a></h3>
 <p>AGP «Accelerated Graphics port», es una interfaz gráfica, su tasa de transferencia va desde los 300 MB/s hasta los 2GB/s</p>
 <img alt="../_images/agp.jpeg" src="../_images/agp.jpeg" />
-</div>
-<div class="section" id="ranura-pci">
-<h3>Ranura PCI<a class="headerlink" href="#ranura-pci" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="ranura-pci">
+<h3>Ranura PCI<a class="headerlink" href="#ranura-pci" title="Enlace permanente a este encabezado">#</a></h3>
 <p>PCI «Peripheral Component Interconnect » con una tasa de transferencia máxima de 133 MB/s en el bus de 32 bits y 266 MB/s en el bus de 64bits</p>
 <img alt="../_images/pci.jpeg" src="../_images/pci.jpeg" />
-</div>
-<div class="section" id="ranura-pcie">
-<h3>Ranura PCIe<a class="headerlink" href="#ranura-pcie" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="ranura-pcie">
+<h3>Ranura PCIe<a class="headerlink" href="#ranura-pcie" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Las ranuras PCIe (PCI-Express) nacen en como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso).</p>
 <ul class="simple">
-<li>PCIe 1.0 x1: 250MB/s</li>
-<li>PCIe 1.0 x4: 1GB/s (250MB/s x 4)</li>
-<li>PCIe 1.0 x16: 4GB/s (250MB/s x 16)</li>
+<li><p>PCIe 1.0 x1: 250MB/s</p></li>
+<li><p>PCIe 1.0 x4: 1GB/s (250MB/s x 4)</p></li>
+<li><p>PCIe 1.0 x16: 4GB/s (250MB/s x 16)</p></li>
 </ul>
 <img alt="../_images/pcie2.png" src="../_images/pcie2.png" />
 <img alt="../_images/pcie.jpeg" src="../_images/pcie.jpeg" />
@@ -125,121 +401,164 @@ EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable 
 <img alt="../_images/sli.jpeg" src="../_images/sli.jpeg" />
 <p>Este tipo de ranuras no debemos confundirlas con las PCIX, ya que mientras que éstas son una extensión del estándar PCI, las PCIe tienen un desarrollo totalmente diferente.</p>
 <img alt="../_images/pcix.jpeg" src="../_images/pcix.jpeg" />
-</div>
-<div class="section" id="tpm">
-<h3>TPM<a class="headerlink" href="#tpm" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="tpm">
+<h3>TPM<a class="headerlink" href="#tpm" title="Enlace permanente a este encabezado">#</a></h3>
 <p>TPM es Trusted Platform Module o, lo que es lo mismo, tecnología de módulo de plataforma segura. Un chip hardware que incluye varios mecanismos de seguridad física que permite que se proteja el equipo. El chip es un procesador de criptografía seguro “diseñado para realizar operaciones criptográficas”</p>
 <p>puede venir soldado a la placa base o:</p>
 <img alt="../_images/tpm_esq.png" src="../_images/tpm_esq.png" />
 <img alt="../_images/tpm.png" src="../_images/tpm.png" />
-</div>
-<div class="section" id="conectores-atx-atx12v">
-<h3>Conectores ATX, ATX12V<a class="headerlink" href="#conectores-atx-atx12v" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="conectores-atx-atx12v">
+<h3>Conectores ATX, ATX12V<a class="headerlink" href="#conectores-atx-atx12v" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/atx.png" src="../_images/atx.png" />
-<img alt="../_images/atx2.png" src="../_images/atx2.png" />
+<img alt="../_images/atx21.png" src="../_images/atx21.png" />
 <img alt="../_images/eatx12.jpeg" src="../_images/eatx12.jpeg" />
-</div>
-<div class="section" id="ventilacion">
-<h3>Ventilación<a class="headerlink" href="#ventilacion" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="ventilacion">
+<h3>Ventilación<a class="headerlink" href="#ventilacion" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/sys.png" src="../_images/sys.png" />
 <a class="reference internal image-reference" href="../_images/sysf.png"><img alt="../_images/sysf.png" src="../_images/sysf.png" style="width: 100px;" /></a>
-</div>
-<div class="section" id="usb2">
-<h3>USB2<a class="headerlink" href="#usb2" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="usb2">
+<h3>USB2<a class="headerlink" href="#usb2" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/usb21.png" src="../_images/usb21.png" />
 <a class="reference internal image-reference" href="../_images/usb2_2.jpeg"><img alt="../_images/usb2_2.jpeg" src="../_images/usb2_2.jpeg" style="width: 200px;" /></a>
 <a class="reference internal image-reference" href="../_images/usb2_3.jpeg"><img alt="../_images/usb2_3.jpeg" src="../_images/usb2_3.jpeg" style="width: 200px;" /></a>
-</div>
-<div class="section" id="usb3">
-<h3>USB3<a class="headerlink" href="#usb3" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="usb3">
+<h3>USB3<a class="headerlink" href="#usb3" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/usb3_1.png" src="../_images/usb3_1.png" />
 <a class="reference internal image-reference" href="../_images/usb3_2.jpeg"><img alt="../_images/usb3_2.jpeg" src="../_images/usb3_2.jpeg" style="width: 200px;" /></a>
-</div>
-<div class="section" id="f-audio">
-<h3>F_AUDIO<a class="headerlink" href="#f-audio" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="f-audio">
+<h3>F_AUDIO<a class="headerlink" href="#f-audio" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/faudio2.png" src="../_images/faudio2.png" />
 <img alt="../_images/faudio.png" src="../_images/faudio.png" />
 <a class="reference internal image-reference" href="../_images/fauidio3.jpeg"><img alt="../_images/fauidio3.jpeg" src="../_images/fauidio3.jpeg" style="width: 200px;" /></a>
-</div>
-<div class="section" id="com-serie">
-<h3>COM (serie)<a class="headerlink" href="#com-serie" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="com-serie">
+<h3>COM (serie)<a class="headerlink" href="#com-serie" title="Enlace permanente a este encabezado">#</a></h3>
 <p>El puerto COM se usa a menudo para la comunicación de datos de bajo nivel, como la configuración de BIOS, la depuración de hardware y la programación de microcontroladore</p>
 <img alt="../_images/com.png" src="../_images/com.png" />
 <img alt="../_images/com2.png" src="../_images/com2.png" />
-</div>
-<div class="section" id="sata">
-<h3>SATA<a class="headerlink" href="#sata" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="sata">
+<h3>SATA<a class="headerlink" href="#sata" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/sata3.png" src="../_images/sata3.png" />
 <img alt="../_images/satag.png" src="../_images/satag.png" />
 <a class="reference internal image-reference" href="../_images/sataf.jpeg"><img alt="../_images/sataf.jpeg" src="../_images/sataf.jpeg" style="width: 200px;" /></a>
-</div>
-<div class="section" id="m-2">
-<h3>M.2<a class="headerlink" href="#m-2" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="m-2">
+<h3>M.2<a class="headerlink" href="#m-2" title="Enlace permanente a este encabezado">#</a></h3>
 <img alt="../_images/m2.jpeg" src="../_images/m2.jpeg" />
 <img alt="../_images/m2f.jpeg" src="../_images/m2f.jpeg" />
-</div>
-<div class="section" id="spdif">
-<h3>SPDIF<a class="headerlink" href="#spdif" title="Enlazar permanentemente con este título">¶</a></h3>
+</section>
+<section id="spdif">
+<h3>SPDIF<a class="headerlink" href="#spdif" title="Enlace permanente a este encabezado">#</a></h3>
 <p>transmisión de señales de audio digital utilizada para conectar dispositivos de audio, como reproductores de CD, reproductores de DVD</p>
 <img alt="../_images/spidf.jpeg" src="../_images/spidf.jpeg" />
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
 </div>
-</div>
-</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
-          </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">dgtrabada</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navegación</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  </ul></li>
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-factor-de-forma">El factor de forma</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-integrados">Componentes integrados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-chipset">El chipset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-reloj-la-pila-cmos-rom-y-eprom">El reloj, la pila, CMOS, ROM y EPROM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-botonera">La botonera</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#socket-del-procesador">Socket del procesador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conectores-de-la-ram">Conectores de la RAM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-agp">Ranura AGP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-pci">Ranura PCI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranura-pcie">Ranura PCIe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tpm">TPM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conectores-atx-atx12v">Conectores ATX, ATX12V</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ventilacion">Ventilación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb2">USB2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usb3">USB3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-audio">F_AUDIO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#com-serie">COM (serie)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sata">SATA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#m-2">M.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spdif">SPDIF</a></li>
 </ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Búsqueda rápida</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Ir a" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2023, dgtrabada.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
-      
-      |
-      <a href="../_sources/hardware/placa_base.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
+</li>
+</ul>
+  </nav></div>
 
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
     
+<p class="component-author">
+Por dgtrabada
+</p>
 
+  </div>
+  
+  <div class="footer-item">
     
+  <p class="copyright">
+    
+      © Copyright 2023, dgtrabada.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

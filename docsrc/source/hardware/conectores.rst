@@ -19,7 +19,7 @@ La **transmisión de datos paralela** consiste en enviar datos en forma simultá
 
 Puerto de serie
 
-.. image:: imagenes/conectores/pserie.pn
+.. image:: imagenes/conectores/pserie.png
 
 Puerto de paralelo
 
@@ -109,16 +109,18 @@ Wi-Fi 802.11 (Antena MMCX)
 Optical S/PDIF Out
 
 .. image:: imagenes/conectores/spdif.png
-\
 
 .. image:: imagenes/conectores/colors.png
 
 .. image:: imagenes/conectores/speaker1.jpeg
-.. image:: imagenes/conectores/speaker2.jpeg
-.. image:: imagenes/conectores/speaker3.jpeg
-.. image:: imagenes/conectores/speaker4.jpeg
-.. image:: imagenes/conectores/speaker5.jpeg
 
+.. image:: imagenes/conectores/speaker2.jpeg
+
+.. image:: imagenes/conectores/speaker3.jpeg
+
+.. image:: imagenes/conectores/speaker4.jpeg
+
+.. image:: imagenes/conectores/speaker5.jpeg
 
 
 
