@@ -271,15 +271,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows">Configuración de Windows</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -312,15 +316,9 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="caracteres-especiales">
-<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p>* ? » &gt; &gt;&gt; |</p></li>
-</ul>
-</section>
 <section id="ficheros-y-directorios">
 <h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">#</a></h2>
-<ul>
+<ul class="simple">
 <li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
 <li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
 <li><p><strong>rm -&gt; Remove-Item</strong> borrar</p></li>
@@ -329,38 +327,10 @@ document.write(`
 <li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p></li>
 <li><p><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</p></li>
 <li><p><strong>echo</strong> repetir salida estándar</p></li>
-<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> es parecido al comando find</p></li>
+<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> busca todos los archivos <a href="#id1"><span class="problematic" id="id2">*</span></a>.txt</p></li>
 <li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
 <li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
-<li><p><strong>select -&gt; Select-Object</strong></p>
-<p>cat archivo.dat | select -Last 2</p>
-<p>cat archivo.dat -Head 12 | select -Last 1</p>
-<p>cat archivo.dat | select -First 10</p>
-</li>
-</ul>
-</section>
-<section id="visualizadores-de-archivos">
-<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
-<ul>
-<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
-<li><p><strong>Get-Content archivo.dat -head 10</strong></p>
-<p>Get-Content archivo.dat | select -First 10  # head</p>
-</li>
-<li><p><strong>Get-Content archivo.dat -tail 10</strong> es como el comando tail en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat | %{ $_ -replace “A”, “B” }</strong> reemplazar</p></li>
-<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
-</ul>
-</section>
-<section id="filtros-y-busqueda-informacion">
-<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
-<li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
-<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada
-echo $(Select-String -Pattern «texto» archivo.dat| Measure-Object -Character).Characters, es como el comando grep -c GNULinux</p></li>
-<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
-Get-Service | Format-Table -Property Name, DependentServices</p></li>
+<li><p><strong>select -&gt; Select-Object</strong></p></li>
 </ul>
 </section>
 <section id="alias">
@@ -370,75 +340,181 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
 <li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
 </ul>
 </section>
-<section id="gestion-de-usuarios">
-<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Para hacerte administrador: <strong>start-process powershell -verb runas*</strong></p>
-<ul>
-<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
+<section id="caracteres-especiales">
+<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
-<li><p>Get-LocalUser</p></li>
-<li><p>Get-LocalGroup</p></li>
-<li><p>Get-LocalGroupMember -Name nombre_grupo</p></li>
-</ul>
-</li>
-<li><p><strong>Crear un usuario con contraseña</strong></p>
-<ul class="simple">
-<li><p>$Password = Read-Host –AsSecureString</p></li>
-<li><p><strong>New-LocalUser -Name nombre_usuario -Password $Password</strong></p></li>
-<li><p>Sin que pregunte: $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force</p></li>
-</ul>
-</li>
-<li><p><strong>Crear un usuario sin contraseña</strong></p>
-<ul class="simple">
-<li><p>New-LocalUser -Name nombre_usuario -NoPassword</p></li>
-</ul>
-<blockquote>
-<div><p>Se la podemos asignar después: Set-LocalUser -Name nombre_usuario -Password $Password</p>
-</div></blockquote>
-</li>
-<li><p><strong>Asignar usuario a un grupo</strong></p>
-<ul class="simple">
-<li><p>Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario</p></li>
-</ul>
-</li>
-<li><p><strong>Eliminar un usuario</strong></p>
-<ul class="simple">
-<li><p>Remove-LocalUser -Name nombre_usuario</p></li>
-</ul>
-</li>
-<li><p><strong>Crear y borrar un grupo</strong></p>
-<ul class="simple">
-<li><p>New-LocalGroup -Name nombre_grupo</p></li>
-<li><p>Remove-LocalGroup -Name nombre_grupo</p></li>
-</ul>
-</li>
+<li><p>* ? » &gt; &gt;&gt; |</p></li>
 </ul>
 </section>
-<section id="configuracion-de-windows">
-<h2>Configuración de Windows<a class="headerlink" href="#configuracion-de-windows" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="visualizadores-de-archivos">
+<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
-<li><p><strong>shutdown /r</strong> reiniciamos, si añadimos /f lo hace de forma forzosa</p></li>
-<li><p><strong>shutdown /s</strong> apagar</p></li>
-<li><p><strong>Cambiar IP</strong> netsh interface ip set address name=»Ethernet» source=static addr=10.4.104.100 mask=255.0.0.0 gateway=10.0.0.2</p></li>
-<li><p><strong>ipconfig</strong> consultar ip</p></li>
-<li><p><strong>Cambiar el DNS</strong> netsh interface ip set dnsserver «Ethernet» static 8.8.8.8 primary</p></li>
-<li><p><strong>ipconfig /all</strong> consultar dns</p></li>
-<li><p><strong>Rename-Computer -NewName «WS19tunombre»</strong> cambiar el nombre del equipo</p></li>
-<li><p><strong>Habilitar ping</strong> netsh advfirewall firewall add rule name=»Habilitar respuesta ICMP IPv4» protocol=icmpv4:8,any dir=in action=allow</p></li>
-<li><p><strong>Instalar el servidor ssh</strong></p></li>
+<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
+<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
+<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
 </ul>
-<blockquote>
-<div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
-<span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="n">OpenSSH</span><span class="p">.</span><span class="n">Server</span><span class="p">~~~~</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">0</span>
-<span class="c">#Iniciar el servicio ssh :</span>
-<span class="nb">Start-Service</span> <span class="n">sshd</span>
-<span class="c">#Para iniciar el servicio ssh durante el arranque de forma automática:</span>
-<span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">sshd</span> <span class="n">-StartupType</span> <span class="s1">&#39;Automatic&#39;</span>
+</section>
+<section id="filtros-y-busqueda-informacion">
+<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
+<li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
+<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada</p></li>
+<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
+Get-Service | Format-Table -Property Name, DependentServices</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Alias</span> <span class="n">-Name</span> <span class="nb">cat</span>
+
+<span class="n">CommandType</span>     <span class="n">Name</span>
+<span class="p">-----------</span>     <span class="p">----</span>
+<span class="k">Alias</span>           <span class="nb">cat </span><span class="p">-&gt;</span> <span class="nb">Get-Content</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">1</span> <span class="p">&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">2</span> <span class="p">&gt;&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Test-Path</span> <span class="n">-Path</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">True</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">1</span>
+<span class="n">2</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span>
+<span class="n">1</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-Last</span> <span class="n">1</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">2</span>
+<span class="n">1</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
+<span class="n">1</span>
+<span class="n">B</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">sort</span>
+<span class="n">1</span>
+<span class="n">3</span>
+<span class="n">B</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">2</span><span class="p">:</span><span class="n">2</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">5</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="n">True</span>
 </pre></div>
 </div>
-<p>Para conectarse sin contraseña <strong>ssh -X Administrador&#64;IP</strong>: Copia tu clave publica .ssh/id_rsa.pub a IP:C:UsersAdministrador.sshauthorized_keys</p>
-</div></blockquote>
 </section>
+<section id="gestion-de-usuarios">
+<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Para ser administrador</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">start-process</span> <span class="n">powershell</span> <span class="n">-verb</span> <span class="n">runas</span>
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-LocalUser</span>
+<span class="nb">Get-LocalGroup</span>
+<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario con contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span>$Password = Read-Host -AsSecureString
+New-LocalUser -Name nombre_usuario -Password $Password
+
+#Sin que pida confirmación
+$Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario sin contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-NoPassword</span>
+
+<span class="c">#Se la podemos asignar después:</span>
+<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Asignar usuario a un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">nombre_grupo</span> <span class="n">-Member</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Eliminar un usuario</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear y borrar un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="configuracion-de-windows-powershell">
+<h1>Configuración de Windows (PowerShell)<a class="headerlink" href="#configuracion-de-windows-powershell" title="Enlace permanente a este encabezado">#</a></h1>
+<ul>
+<li><p><strong>Reiniciar</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="nb">r</span>
+<span class="n">shutdown</span> <span class="p">/</span><span class="n">f</span> <span class="c">#de forma forzosa</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Apagar</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="n">s</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Consultar IP</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">ipconfig</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Cambiar IP</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">interface</span> <span class="n">ip</span> <span class="nb">set </span><span class="n">address</span> <span class="n">name</span><span class="p">=</span><span class="s2">&quot;Ethernet&quot;</span> <span class="n">source</span><span class="p">=</span><span class="n">static</span> <span class="n">addr</span><span class="p">=</span><span class="n">10</span><span class="p">.</span><span class="n">4</span><span class="p">.</span><span class="n">104</span><span class="p">.</span><span class="n">100</span> <span class="n">mask</span><span class="p">=</span><span class="n">255</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span> <span class="n">gateway</span><span class="p">=</span><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">2</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Cambiar y consultar el DNS</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">ipconfig</span> <span class="p">/</span><span class="n">all</span> <span class="c">#consultar dns</span>
+<span class="n">netsh</span> <span class="n">interface</span> <span class="n">ip</span> <span class="nb">set </span><span class="n">dnsserver</span> <span class="s2">&quot;Ethernet&quot;</span> <span class="n">static</span> <span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span> <span class="n">primary</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Renombrar el nombre</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Rename-Computer</span> <span class="n">-NewName</span> <span class="s2">&quot;WS19tunombre&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Habilitar ping</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">advfirewall</span> <span class="n">firewall</span> <span class="n">add</span> <span class="n">rule</span> <span class="n">name</span><span class="p">=</span><span class="s2">&quot;Habilitar respuesta ICMP IPv4&quot;</span> <span class="n">protocol</span><span class="p">=</span><span class="n">icmpv4</span><span class="p">:</span><span class="n">8</span><span class="p">,</span><span class="n">any</span> <span class="n">dir</span><span class="p">=</span><span class="k">in</span> <span class="n">action</span><span class="p">=</span><span class="n">allow</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Instalar el servidor ssh</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
+<span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="n">OpenSSH</span><span class="p">.</span><span class="n">Server</span><span class="p">~~~~</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">0</span>
+
+<span class="c">#Iniciar el servicio ssh :</span>
+<span class="nb">Start-Service</span> <span class="n">sshd</span>
+
+<span class="c">#Para iniciar el servicio ssh durante el arranque de forma automática:</span>
+<span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">sshd</span> <span class="n">-StartupType</span> <span class="s1">&#39;Automatic&#39;</span>
+
+<span class="c">#Para conectarse sin contraseña primero copia tu</span>
+<span class="c">#clave publica .ssh/id_rsa.pub a IP:C:\Users\Administrador\.ssh\authorized_keys</span>
+<span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </section>
 
 
@@ -465,15 +541,19 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows">Configuración de Windows</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>

@@ -2,16 +2,17 @@
 GNU/Linux
 *********
 
-  * :ref:`Comandos básicos GNU/Linux`
-  * Permisos en GNU/Linux
-  * Usuarios y grupos GNU/Linux
-  * Comandos avanzados
-  * Shell Scripting
-  * Automatización de tareas y servicios
-  * NIS
-  * NFS
-  * Slurm
-  * Environment modules
-  * Ansible
-  * LDAP
-  * Rocky Linux
+* :ref:`Historia GNU/Linux`
+* :ref:`Comandos básicos GNU/Linux`
+* :ref:`Permisos en GNU/Linux`
+* :ref:`Usuarios y grupos GNU/Linux`
+* :ref:`Comandos avanzados`
+* Shell Scripting
+* Automatización de tareas y servicios
+* NIS
+* NFS
+* Slurm
+* Environment modules
+* Ansible
+* :ref:`LDAP`
+* Rocky Linux

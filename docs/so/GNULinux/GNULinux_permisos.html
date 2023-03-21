@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Permisos en GNU/Linux &#8212; documentación de dgtrabada - 1.0</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/GNULinux_permisos';</script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">documentación de dgtrabada - 1.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/hardware.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../so.html">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redes/redes.html">Redes</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/GNULinux_permisos.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Permisos en GNU/Linux</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-especiales-setuid-setgid-sticky-bit">Permisos especiales (setuid, setgid, sticky bit)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="permisos-en-gnu-linux">
+<h1>Permisos en GNU/Linux<a class="headerlink" href="#permisos-en-gnu-linux" title="Enlace permanente a este encabezado">#</a></h1>
+<p>El sistema de permisos en Linux se basa en un esquema de usuarios/grupos. A estos usuarios y grupos se les asignan distintos derechos sobre los archivos y directorios. Todos los archivos y directorios en Linux tienen permisos que verifican quien puede hacer o no alguna acción con él. Copia en tu cuaderno el siguiente esquema de permisos:</p>
+<ul class="simple">
+<li><p>Existen <strong>tres tipos</strong> diferentes de <strong>permisos</strong>:</p>
+<ul>
+<li><p><strong>r</strong>: read (lectura)</p></li>
+<li><p><strong>w</strong>: write (escritura)</p></li>
+<li><p><strong>x</strong>: execute (ejecución)</p></li>
+</ul>
+</li>
+<li><p>Existen <strong>tres tipos</strong> diferentes de <strong>identidades</strong>:</p>
+<ul>
+<li><p><strong>u</strong>: usuario propietarios del archivo</p></li>
+<li><p><strong>g</strong>: grupo al que pertenece</p></li>
+<li><p><strong>o</strong>: otros usuarios</p></li>
+<li><p><strong>a</strong>: todos los usuarios</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>fecha.sh
+
+-<span class="w"> </span>rw-<span class="w"> </span>rw-<span class="w"> </span>r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>alumno<span class="w"> </span>alumno<span class="w"> </span><span class="m">5</span><span class="w"> </span>ene<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">19</span>:02<span class="w"> </span>fecha.sh
+↑<span class="w"> </span>↑<span class="w">   </span>↑<span class="w">   </span>↑<span class="w">   </span>↑<span class="w"> </span>↑<span class="w">      </span>↑<span class="w">      </span>↑<span class="w"> </span>↑<span class="w">           </span>↑
+<span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">   </span><span class="m">3</span><span class="w">   </span><span class="m">4</span><span class="w">   </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w">      </span><span class="m">7</span><span class="w">      </span><span class="m">8</span><span class="w"> </span><span class="m">9</span><span class="w">           </span><span class="m">10</span>
+<span class="m">1</span><span class="w"> </span>:<span class="w"> </span>Tipo<span class="w"> </span>de<span class="w"> </span><span class="nv">archivo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-<span class="w"> </span>es<span class="w"> </span>un<span class="w"> </span>archivo<span class="w"> </span>regular<span class="w"> </span><span class="o">[</span><span class="nv">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>directorio<span class="p">;</span><span class="w"> </span><span class="nv">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>enlace<span class="w"> </span>simbólico<span class="p">;</span><span class="w"> </span>...<span class="o">]</span>
+<span class="m">2</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>los<span class="w"> </span>permisos<span class="w"> </span>para<span class="w"> </span>el<span class="w"> </span>propietario<span class="w"> </span>son<span class="w"> </span>de<span class="w"> </span>lectura<span class="w"> </span>y<span class="w"> </span>escritura
+<span class="m">3</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>tiene<span class="w"> </span>permiso<span class="w"> </span>de<span class="w"> </span>sólo<span class="w"> </span>lectura
+<span class="m">4</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>los<span class="w"> </span>otros<span class="w"> </span>usuarios<span class="w"> </span>tienen<span class="w"> </span>el<span class="w"> </span>permiso<span class="w"> </span>de<span class="w"> </span>sólo<span class="w"> </span>lectura
+<span class="m">5</span><span class="w"> </span>:<span class="w"> </span>Enlace<span class="w"> </span><span class="nv">Físico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>tiene<span class="w"> </span>un<span class="w"> </span>enlace<span class="w"> </span>físico
+<span class="m">6</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Propietario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>alumno<span class="w"> </span>es<span class="w"> </span>el<span class="w"> </span>propietario<span class="w"> </span>de<span class="w"> </span>este<span class="w"> </span>archivo
+<span class="m">7</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>este<span class="w"> </span>archivo<span class="w"> </span>pertenece<span class="w"> </span>al<span class="w"> </span>grupo<span class="w"> </span>alumno
+<span class="m">8</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Tamaño</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>su<span class="w"> </span>tamaño<span class="w"> </span>es<span class="w"> </span>de<span class="w"> </span><span class="m">246417</span><span class="w"> </span>bytes
+<span class="m">9</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Fecha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>fecha<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>que<span class="w"> </span>fue<span class="w"> </span>creado
+<span class="m">10</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>archivo<span class="w"> </span>se<span class="w"> </span>llama<span class="w"> </span>fecha.sh
+</pre></div>
+</div>
+<ul>
+<li><p><strong>chmod</strong> cambia los permisos de lectura, escritura y ejecución del archivo o directorio</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>a+x<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># damos permisos de ejecución a todos</span>
+chmod<span class="w"> </span>u+rw<span class="w"> </span>fecha.dat<span class="w">   </span><span class="c1"># damos permisos de lectura y escritura a usuarios propietario</span>
+chmod<span class="w"> </span>o-r<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># quitamos permisos de lectura a otros usuarios</span>
+chmod<span class="w"> </span>o+w<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># damos permisos de escritura a los usuarios del grupo</span>
+chmod<span class="w"> </span>-R<span class="w"> </span>a+rwx<span class="w"> </span>carpeta<span class="w"> </span><span class="c1"># -R cambiar los permisos de forma recursiva</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Notación binaria</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Octal<span class="w"> </span>Binario<span class="w"> </span>Permisos<span class="w"> </span>efectivos
+<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>-<span class="w"> </span>-<span class="w"> </span>-
+<span class="w">  </span><span class="m">1</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>-<span class="w"> </span>-<span class="w"> </span>x
+<span class="w">  </span><span class="m">2</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>-<span class="w"> </span>w<span class="w"> </span>-
+<span class="w">  </span><span class="m">3</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>-<span class="w"> </span>w<span class="w"> </span>x
+<span class="w">  </span><span class="m">4</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>r<span class="w"> </span>-<span class="w"> </span>-
+<span class="w">  </span><span class="m">5</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>r<span class="w"> </span>-<span class="w"> </span>x
+<span class="w">  </span><span class="m">6</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>r<span class="w"> </span>w<span class="w"> </span>-
+<span class="w">  </span><span class="m">7</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>r<span class="w"> </span>w<span class="w"> </span>x
+
+<span class="w"> </span>r<span class="w">  </span>:<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>w<span class="w">  </span>:<span class="w"> </span><span class="nv">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">010</span>
+<span class="w"> </span>x<span class="w">  </span>:<span class="w"> </span><span class="nv">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">001</span>
+
+<span class="w"> </span><span class="nv">rwx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>+<span class="w"> </span><span class="m">010</span><span class="w"> </span>+<span class="w"> </span><span class="nv">001</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">111</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>+2+1<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
+<span class="w"> </span>r-x<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>+<span class="w"> </span><span class="nv">001</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">101</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>+1<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
+
+<span class="w"> </span>chmod<span class="w"> </span>a+rwx<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span>
+<span class="w"> </span>chmod<span class="w"> </span>a-rwx<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">000</span>
+<span class="w"> </span>chmod<span class="w"> </span>a+rw<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span>
+
+<span class="w"> </span>rwxr-x---<span class="w"> </span><span class="o">(</span><span class="m">750</span><span class="o">)</span>
+<span class="w"> </span>r–x<span class="w"> </span>r--r--<span class="w"> </span><span class="o">(</span><span class="m">544</span><span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>chown</strong> cambia el propietario y el grupo del archivo o directorio</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>alumno2:GB<span class="w"> </span>foto.jpg
+</pre></div>
+</div>
+</li>
+<li><p><strong>chgrp</strong> cambia el grupo del archivo o directorio</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp<span class="w"> </span>smr2<span class="w"> </span>foto.jpg
+</pre></div>
+</div>
+</li>
+<li><p><strong>umask</strong> cambia el valor por defecto de los permisos que se definen para un nuevo archivo.</p></li>
+</ul>
+<section id="permisos-especiales-setuid-setgid-sticky-bit">
+<h2>Permisos especiales (setuid, setgid, sticky bit)<a class="headerlink" href="#permisos-especiales-setuid-setgid-sticky-bit" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="line-block">
+<div class="line">Bit setuid –&gt; 4000</div>
+<div class="line">Bit setgid –&gt; 2000</div>
+<div class="line">Sticky bit –&gt; 1000</div>
+</div>
+<ul>
+<li><p><strong>setuid</strong> permite que un fichero ejecutable se ejecute con los permisos del propietario del fichero</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>u+s<span class="w"> </span>/bin/su
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/bin/su
+<span class="w"> </span>-rwsr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">40128</span><span class="w"> </span>mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">11</span>:25<span class="w"> </span>/bin/su
+
+$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/usr/bin/passwd
+<span class="w"> </span>-rwsr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">54256</span><span class="w"> </span>mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">11</span>:25<span class="w"> </span>/usr/bin/passwd
+</pre></div>
+</div>
+</li>
+<li><p><strong>setgid</strong> permite que un fichero ejecutable se ejecute con los permisos del grupo al que pertenece el fichero, por ejemplo asignamos el bit setgid la carpeta /compartido, le asignamos permisos totales para el propietario y el grupo (770) y el bit segid (2):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-la
+drwxrwx---<span class="w">  </span><span class="m">6</span><span class="w"> </span>usuario1<span class="w"> </span>GA<span class="w">      </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:37<span class="w"> </span>carpetaGA
+
+$<span class="w"> </span>chmod<span class="w"> </span>g+s<span class="w"> </span>carpetaGA/
+drwxrws---<span class="w">  </span><span class="m">2</span><span class="w"> </span>usuario1<span class="w"> </span>GA<span class="w">      </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:46<span class="w"> </span>carpetaGA
+
+$<span class="w"> </span>su
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>carpetaGA/
+$<span class="w"> </span>touch<span class="w"> </span><span class="nb">test</span>
+$<span class="w"> </span>ls<span class="w"> </span>-la
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w">     </span>GA<span class="w">      </span><span class="m">0</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:47<span class="w"> </span><span class="nb">test</span>
+
+$<span class="w"> </span>whoami
+root
+</pre></div>
+</div>
+</li>
+<li><p><strong>sticky</strong> permite que cualquier usuario pueda modificar un archivo o directorio, pero solo su propietario pueda borrarlo, este bit se asigna siempre en /tmp y /var/tmp</p>
+<p>/tmp tiene permisos 777, el bit sticky se asignaría del siguiente modo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">1777</span><span class="w"> </span>/tmp
+
+<span class="c1">#otra forma:</span>
+chmod<span class="w"> </span>o+t<span class="w"> </span>/tmp
+
+<span class="c1">#Si hacemos un ls veremos la “t” asignada:</span>
+<span class="nv">$ls</span><span class="w"> </span>-la<span class="w"> </span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tmp
+drwxrwxrwt<span class="w">  </span><span class="m">13</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">4096</span><span class="w"> </span><span class="m">2011</span>-04-24<span class="w"> </span><span class="m">20</span>:55<span class="w"> </span>tmp
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-especiales-setuid-setgid-sticky-bit">Permisos especiales (setuid, setgid, sticky bit)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, dgtrabada.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -299,121 +299,169 @@ document.write(`
                   
   <section id="powershell-scripting">
 <h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Enlace permanente a este encabezado">#</a></h1>
-<p>Habilitar ejecución de scripts : <strong>Set-ExecutionPolicy Unrestricted</strong></p>
+<p>Habilitar ejecución de scripts</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Unrestricted</span>
+</pre></div>
+</div>
 <section id="variables-y-cadenas">
 <h2>Variables y cadenas<a class="headerlink" href="#variables-y-cadenas" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">5</span>
-<span class="nb">echo </span><span class="n">a</span> <span class="c">#obtenemos a</span>
-<span class="nb">echo </span><span class="nv">$a</span> <span class="c">#obtenemos 5</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">5</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">a</span>
+<span class="n">a</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span>
+<span class="n">5</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">2</span>
-<span class="nv">$b</span><span class="p">=</span><span class="n">3</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$b</span><span class="p">+</span><span class="nv">$a</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#obtenemos 5</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$b</span><span class="p">=</span><span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$b</span><span class="p">+</span><span class="nv">$a</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">5</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;cadena&quot;</span>
-<span class="nb">echo </span><span class="nv">$a</span> <span class="c">#cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;CC&quot;</span><span class="p">)</span> <span class="c">#CCdena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-<span class="c">#c</span>
-<span class="c">#den</span>
-<span class="c">#</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="n">0</span><span class="p">]</span>
-<span class="c">#c</span>
-<span class="nb">echo </span><span class="nv">$a</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>      <span class="c">#dena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>         <span class="c">#ca</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>       <span class="c">#True</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>        <span class="c">#1</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;Ca&quot;</span><span class="p">)</span>  <span class="c">#Cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s2">&quot;cadena&quot;</span><span class="p">)</span>    <span class="c">#True</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Length</span>              <span class="c">#6</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;an&quot;</span><span class="p">)</span>      <span class="c">#False</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span>           <span class="c">#cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span>           <span class="c">#CADENA</span>
-<span class="c">#....</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;cadena&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;CC&quot;</span><span class="p">)</span>
+<span class="n">CCdena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">c</span>
+<span class="n">den</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="n">0</span><span class="p">]</span>
+<span class="n">c</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>
+<span class="n">dena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>
+<span class="n">ca</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">1</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;Ca&quot;</span><span class="p">)</span>
+<span class="n">Cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s2">&quot;cadena&quot;</span><span class="p">)</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Length</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;an&quot;</span><span class="p">)</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span>
+<span class="n">CADENA</span>
 </pre></div>
 </div>
+<ul>
+<li><p><strong>Números aleatorios</strong></p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Random</span> <span class="c"># numero aletorio</span>
 <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">10</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="no">[Convert]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$decimal</span><span class="p">,</span> <span class="n">2</span><span class="p">)</span> <span class="c">#pasar a binario</span>
+</li>
+<li><p><strong>Conversiones</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#si queremos pasar la cadena $Name a un entero:</span>
+<span class="nv">$a</span> <span class="p">=</span> <span class="nv">$Name</span> <span class="o">-as</span> <span class="no">[int]</span>
+<span class="c"># otra forma:</span>
+<span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
+
+<span class="c">#pasar a binario</span>
+<span class="no">[Convert]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$decimal</span><span class="p">,</span> <span class="n">2</span><span class="p">)</span>
+
 <span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;$pwd&quot;</span> <span class="c">#obtenemos la salida del comando pwd, no es lo mismo que $a=$(pwd)</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="nv">$a</span>
+
+<span class="c">#Podemos ejecutar un texto como si fuese un comando &amp;</span>
 <span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;notepad&quot;</span>
-<span class="p">&amp;</span><span class="nv">$a</span> <span class="c"># &amp; Permiten ejecutar un texto como si fuese un comando</span>
+<span class="p">&amp;</span><span class="nv">$a</span>
 </pre></div>
 </div>
+</li>
+</ul>
 </section>
 <section id="operadores">
 <h2>Operadores<a class="headerlink" href="#operadores" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">11</span>
-<span class="nv">$b</span><span class="p">=</span><span class="n">5</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">-</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c"># 6 resta</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">+</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#16 suma</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#55 multiplicación</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">/</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#2,2 división</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">%</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#1 resto o modulo</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">11</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$b</span><span class="p">=</span><span class="n">5</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">-</span><span class="nv">$b</span>     <span class="c"># resta</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">+</span><span class="nv">$b</span>     <span class="c"># suma</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">16</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$b</span>     <span class="c"># multiplicación</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">55</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">/</span><span class="nv">$b</span>     <span class="c"># división</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">2</span><span class="p">,</span><span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">%</span><span class="nv">$b</span>     <span class="c"># resto o modulo</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">1</span>
 </pre></div>
 </div>
 </section>
 <section id="operadores-de-asignacion">
 <h2>Operadores de asignación<a class="headerlink" href="#operadores-de-asignacion" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">6</span>
-<span class="nv">$a</span><span class="p">+=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 8, es lo mismo que $a=$a+2</span>
-<span class="nv">$a</span><span class="p">-=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 6, es lo mismo que $a=$a-2</span>
-<span class="nv">$a</span><span class="p">++</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 7, es lo mismo que $a=$a+1</span>
-<span class="nv">$a</span><span class="p">--</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 6, es lo mismo que $a=$a-1</span>
-<span class="nv">$a</span><span class="p">/=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 3, es lo mismo que $a=$a/2</span>
-<span class="nv">$a</span><span class="p">*=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 9, es lo mismo que $a=$a*3</span>
-<span class="nv">$a</span><span class="p">%=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 0, es lo mismo que $a=$a%3</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">+=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a+2</span>
+<span class="n">8</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">-=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a-2</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">++</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a+1</span>
+<span class="n">7</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">--</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a-1</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">/=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a/2</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">*=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a*3</span>
+<span class="n">9</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">%=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a%3</span>
+<span class="n">0</span>
 </pre></div>
 </div>
 </section>
 <section id="argumentos-de-entrada">
 <h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;dame un entero&quot;</span>  <span class="c">#ponemos &quot; para que aparezca en la misma linea</span>
-<span class="nv">$Name</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="c">#lo interpreta como cadenas</span>
-<span class="c">#si queremos pasar Name a un entero:</span>
-<span class="nv">$a</span> <span class="p">=</span> <span class="nv">$Name</span> <span class="o">-as</span> <span class="no">[int]</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">read_host</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">echo </span><span class="s2">&quot;Dame un entero&quot;</span>
+<span class="nv">$Name</span><span class="p">=</span><span class="nb">Read-Host</span>
+<span class="nb">echo </span><span class="s2">&quot;Sin pasar a int ($Name*$Name) = &quot;</span>
+<span class="nb">echo </span><span class="p">$(</span><span class="nv">$Name</span><span class="p">*</span><span class="nv">$Name</span><span class="p">)</span>
+<span class="nb">echo </span><span class="s2">&quot;&quot;</span>
 <span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$Name</span><span class="p">=</span><span class="nb">Read-Host</span>
+<span class="nb">echo </span><span class="s2">&quot;Pasando a int ($Name*$Name) = &quot;</span>
+<span class="nb">echo </span><span class="p">$(</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$a</span><span class="p">)</span>
+<span class="nb">echo </span><span class="s2">&quot;&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">read_host</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Dame</span> <span class="n">un</span> <span class="n">entero</span>
 <span class="n">2</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nb">echo </span><span class="p">$(</span><span class="nv">$Name</span><span class="p">*</span><span class="nv">$Name</span><span class="p">)</span>
+<span class="n">Sin</span> <span class="n">pasar</span> <span class="n">a</span> <span class="n">int</span> <span class="p">(</span><span class="n">2</span><span class="p">*</span><span class="n">2</span><span class="p">)</span> <span class="p">=</span>
 <span class="n">22</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nb">echo </span><span class="p">$(</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$a</span><span class="p">)</span>
+
+<span class="n">Pasando</span> <span class="n">a</span> <span class="n">int</span> <span class="p">(</span><span class="n">2</span><span class="p">*</span><span class="n">2</span><span class="p">)</span> <span class="p">=</span>
 <span class="n">4</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
 <span class="nb">echo </span><span class="s2">&quot;tenemos $args parámetros de entrada&quot;</span>
 <span class="nb">echo </span><span class="s2">&quot;El argumento 0: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&quot;</span>
 <span class="nb">echo </span><span class="s2">&quot;El argumento 1: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">&quot;</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span>
 <span class="n">tenemos</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span> <span class="n">parámetros</span> <span class="n">de</span> <span class="n">entrada</span>
 <span class="n">El</span> <span class="n">argumento</span> <span class="n">0</span><span class="p">:</span> <span class="n">1</span>
 <span class="n">El</span> <span class="n">argumento</span> <span class="n">1</span><span class="p">:</span> <span class="n">2</span>
 </pre></div>
 </div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nv">$args</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$i</span>
 <span class="p">}</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
 <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
 </pre></div>
 </div>
@@ -438,12 +486,12 @@ document.write(`
 </section>
 <section id="comparacion-de-cadenas">
 <h2>Comparación de cadenas<a class="headerlink" href="#comparacion-de-cadenas" title="Enlace permanente a este encabezado">#</a></h2>
-<blockquote>
-<div><p>«hola» -eq «hola»    #True
-«hola» -eq «hoa»     #False
-«hola» -ne «hoa»     #True
-«hola» -ne «hola»    #False</p>
-</div></blockquote>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;hola&quot;</span> <span class="o">-eq</span> <span class="s2">&quot;hola&quot;</span>    <span class="c">#True</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-eq</span> <span class="s2">&quot;hoa&quot;</span>     <span class="c">#False</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-ne</span> <span class="s2">&quot;hoa&quot;</span>     <span class="c">#True</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-ne</span> <span class="s2">&quot;hola&quot;</span>    <span class="c">#False</span>
+</pre></div>
+</div>
 </section>
 <section id="estructuras-condicionales-con-if">
 <h2>Estructuras condicionales con if<a class="headerlink" href="#estructuras-condicionales-con-if" title="Enlace permanente a este encabezado">#</a></h2>

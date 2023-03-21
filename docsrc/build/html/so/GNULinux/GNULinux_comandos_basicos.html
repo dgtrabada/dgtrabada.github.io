@@ -272,6 +272,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos">Control de procesos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editores-y-visualizadores-de-archivos">Editores y visualizadores de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compresion">Compresión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-software">Instalar software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-la-red">Configuración de la red</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">virtualBox</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-particiones">Gestión de particiones</a></li>
 </ul>
             </nav>
         </div>
@@ -287,28 +294,286 @@ document.write(`
 <h1>Comandos básicos GNU/Linux<a class="headerlink" href="#comandos-basicos-gnu-linux" title="Enlace permanente a este encabezado">#</a></h1>
 <section id="control-de-procesos">
 <h2>Control de procesos<a class="headerlink" href="#control-de-procesos" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps<span class="w">            </span><span class="c1"># ver procesos ps -ef</span>
-top,<span class="w"> </span>htop<span class="w">     </span><span class="c1"># monitorización de procesos</span>
-<span class="w">     </span><span class="o">[</span>Espacio<span class="o">]</span><span class="w"> </span>Realiza<span class="w"> </span>un<span class="w"> </span>refresco<span class="w"> </span>de<span class="w"> </span>la<span class="w"> </span>pantalla
-<span class="w">     </span><span class="o">[</span>h<span class="o">]</span><span class="w"> </span>Muestra<span class="w"> </span>la<span class="w"> </span>pantalla<span class="w"> </span>de<span class="w"> </span>ayuda
-<span class="w">     </span><span class="o">[</span>k<span class="o">]</span><span class="w"> </span>Mata<span class="w"> </span>un<span class="w"> </span>proceso.<span class="w"> </span>Se<span class="w"> </span>le<span class="w"> </span>pedirá<span class="w"> </span>que<span class="w"> </span>introduzca<span class="w"> </span>el<span class="w"> </span>ID<span class="w"> </span>del<span class="w"> </span>proceso<span class="w"> </span>así<span class="w"> </span>como<span class="w"> </span>la<span class="w"> </span>señal<span class="w"> </span>que<span class="w"> </span>hay<span class="w"> </span>que<span class="w"> </span>enviarle.
-<span class="w">     </span><span class="o">[</span>n<span class="o">]</span><span class="w"> </span>Cambia<span class="w"> </span>el<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>procesos<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>muestran<span class="w"> </span>en<span class="w"> </span>pantalla.<span class="w"> </span>Se<span class="w"> </span>le<span class="w"> </span>pedirá<span class="w"> </span>que<span class="w"> </span>introduzca<span class="w"> </span>un<span class="w"> </span>número.
-<span class="w">     </span><span class="o">[</span>u<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>usuario.
-<span class="w">     </span><span class="o">[</span>M<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>uso<span class="w"> </span>de<span class="w"> </span>memoria.
-<span class="w">     </span><span class="o">[</span>P<span class="o">]</span><span class="w"> </span>Ordena<span class="w"> </span>por<span class="w"> </span>uso<span class="w"> </span>del<span class="w"> </span>CPU.
-nice<span class="w">          </span><span class="c1"># Ejecuta un comando con una prioridad determinada, o modifica la prioridad a de un proceso</span>
-<span class="nb">kill</span><span class="w">          </span><span class="c1"># mata procesos</span>
-pstree<span class="w">        </span><span class="c1"># Muestra en vista de árbol (de forma jerárquica) una lista de los procesos en ejecución.</span>
-nohup<span class="w">         </span><span class="c1"># permite mantener la ejecución de un comando (el cual le pasamos como un argumento) pese a salir de la terminal</span>
-jobs,<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%2,<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>%1,<span class="w"> </span>ctrol+c,<span class="w"> </span>ctrol+z
-<span class="w">     </span>sleep<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="c1"># Ponemos tarea en segundo plano añadiendo &amp; al final del comando.</span>
-<span class="w">     </span><span class="nb">fg</span><span class="w"> </span>%1<span class="w">      </span><span class="c1"># Ponerlo en primer plano</span>
-<span class="w">     </span><span class="nb">bg</span><span class="w"> </span>%1
-<span class="w">     </span>Ctrl+Z<span class="w">     </span><span class="c1"># para  detener una tarea en primer plano</span>
-<span class="w">     </span>Ctrl+C<span class="w">     </span><span class="c1"># para cancelar una tarea en primer plano</span>
+<ul class="simple">
+<li><p><strong>ps</strong> ver procesos ps -ef</p></li>
+<li><p><strong>top, htop</strong> monitorización de procesos</p>
+<ul>
+<li><p>[Espacio] Realiza un refresco de la pantalla</p></li>
+<li><p>[h] Muestra la pantalla de ayuda</p></li>
+<li><p>[k] Mata un proceso, pedirá la ID del proceso y la señal que hay que enviarle.</p></li>
+<li><p>[n] Cambia el número de procesos que se muestran en pantalla.</p></li>
+<li><p>[u] Ordena por usuario.</p></li>
+<li><p>[M] Ordena por uso de memoria.</p></li>
+<li><p>[P] Ordena por uso del CPU.</p></li>
+</ul>
+</li>
+<li><p><strong>nice</strong> ejecuta un comando con una prioridad determinada, o modifica la prioridad a de un proceso</p></li>
+<li><p><strong>kill</strong> mata procesos</p></li>
+<li><p><strong>pstree</strong> muestra en vista de árbol (de forma jerárquica) una lista de los procesos en ejecución.</p></li>
+<li><p><strong>nohup</strong> permite mantener la ejecución de un comando pese a salir de la terminal</p></li>
+<li><p><strong>jobs, fg %2, bg %1, ctrol+c, ctrol+z</strong></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span><span class="w">    </span><span class="c1">#mandamos al segundo plano añadiendo &amp; al final</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">7768</span>
+$<span class="w"> </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">7770</span>
+$<span class="w"> </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span><span class="m">7771</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%1<span class="w">         </span><span class="c1">#lo traemos al primer plano, bloquea la terminal</span>
+sleep<span class="w"> </span>10m<span class="w">       </span><span class="c1">#para desbloquear terminal y no matar el proceso Ctrol+z</span>
+^Z
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>sleep<span class="w"> </span>10m
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>sleep<span class="w"> </span>10m
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w">   </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">bg</span><span class="w"> </span>%1<span class="w">         </span><span class="c1">#lo volvemos a mandar al segundo plano</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span>+<span class="w"> </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>%1<span class="w">      </span><span class="c1">#matamos el proceso 1</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Terminado<span class="w">               </span>sleep<span class="w"> </span>10m
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%2<span class="w">        </span><span class="c1">#mandamos el proceso 2 al segundo plano</span>
+sleep<span class="w"> </span>10m<span class="w">      </span><span class="c1">#para desbloquear terminal y matar el proceso Ctrol+c</span>
+^C
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Ejecutando<span class="w">              </span>sleep<span class="w"> </span>10m<span class="w"> </span><span class="p">&amp;</span>
+
+
+sleep<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="c1"># Ponemos tarea en segundo plano añadiendo &amp; al final del comando.</span>
+<span class="nb">fg</span><span class="w"> </span>%1<span class="w">      </span><span class="c1"># Ponerlo en primer plano</span>
+<span class="nb">bg</span><span class="w"> </span>%1
+Ctrl+Z<span class="w">     </span><span class="c1"># para  detener una tarea en primer plano</span>
+Ctrl+C<span class="w">     </span><span class="c1"># para cancelar una tarea en primer plano</span>
 </pre></div>
 </div>
-<p>dddd</p>
+</section>
+<section id="ficheros-y-directorios">
+<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>ls</strong> listar archivos y carpetas</p>
+<ul>
+<li><p>ls -la para ver ocultos</p></li>
+<li><p>ls -ai para ver lo inodos</p></li>
+</ul>
+</li>
+<li><p><strong>stat</strong> muestra información del inodo</p></li>
+<li><p><strong>ln -s</strong> hacer links simbólicos -P son links duros sobre archivos</p></li>
+<li><p><strong>cp -r</strong> copiar</p></li>
+<li><p><strong>mv</strong> mover, renombrar</p></li>
+<li><p><strong>rm -fr</strong> borrar</p></li>
+<li><p><strong>mkdir</strong> crear directorio</p></li>
+<li><p><strong>rmdir</strong> borrar directorio</p></li>
+<li><p><strong>cd</strong> cambiar directorio</p></li>
+<li><p><strong>pwd</strong> print working directory, se utiliza para imprimir el nombre del directorio actual</p></li>
+<li><p><strong>find</strong> find -name nombre_archivo #busca el fichero dentro del directorio</p></li>
+<li><p><strong>locate</strong> fichero  #busca el fichero</p></li>
+</ul>
+</section>
+<section id="editores-y-visualizadores-de-archivos">
+<h2>Editores y visualizadores de archivos<a class="headerlink" href="#editores-y-visualizadores-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>cat</strong> visualizar el contenido archivo</p></li>
+<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
+<li><p><strong>vi hola.dat</strong> abrir y editar el archivo hola.dat</p>
+<ul class="simple">
+<li><p>i -&gt; modo insertar</p></li>
+<li><p>&lt;esc&gt; -&gt; modo comandos</p></li>
+<li><p>:w -&gt; guardar</p></li>
+<li><p>:q -&gt; salir</p></li>
+<li><p>:wq -&gt; guardar y salir</p></li>
+<li><p>:q! -&gt; salir sin guardar</p></li>
+<li><p>/cadena -&gt; buscar cadena</p></li>
+<li><p>N yy -&gt; copiar N lineas</p></li>
+<li><p>N dd -&gt; borrar N lineas</p></li>
+<li><p>p -&gt; pegar</p></li>
+<li><p>u -&gt; undo</p></li>
+<li><p>:%s/cadena1/cadena2/g -&gt; sustituir una cadena</p></li>
+<li><p>G -&gt; ir al final del archivo</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">EDITOR</span><span class="o">=</span>/usr/bin/vim
+cat<span class="w"> </span>~/.vimrc
+filetype<span class="w"> </span>indent<span class="w"> </span>off
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="compresion">
+<h2>Compresión<a class="headerlink" href="#compresion" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>tar</strong> se utiliza para comprimir una colección de archivos y carpetas</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>-cf<span class="w"> </span>new.tar<span class="w"> </span>archivo
+tar<span class="w"> </span>-xvf<span class="w"> </span>new.tar
+</pre></div>
+</div>
+</li>
+<li><p><strong>gzip, gunzip, zip</strong></p></li>
+</ul>
+</section>
+<section id="instalar-software">
+<h2>Instalar software<a class="headerlink" href="#instalar-software" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>apt-get update</strong> actualiza la lista de paquetes disponibles</p></li>
+<li><p><strong>apt-get upgrade</strong> actualiza el paquete indicado si existe versión nueva en repositorio.</p></li>
+<li><p><strong>apt-get install</strong> instala un paquete y sus dependencias (+install -remove)</p>
+<ul>
+<li><p>con la opción –reinstall reinstala el paquete.</p></li>
+</ul>
+</li>
+<li><p><strong>apt-get remove</strong> desinstala un paquete instalado (+install -remove)</p></li>
+<li><p><strong>apt-get purge</strong> desinstala eliminando ficheros de configuración.</p></li>
+<li><p><strong>apt-get install -f</strong> resuelve las dependencias de paquetes rotos instalando lo necesario.</p></li>
+<li><p><strong>dpkg –configure -a</strong> intenta reconfigurar todos los paquetes desplegados no configurados</p></li>
+<li><p><strong>dpkg -i</strong> instalación manual</p></li>
+</ul>
+</section>
+<section id="configuracion-de-la-red">
+<h2>Configuración de la red<a class="headerlink" href="#configuracion-de-la-red" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>Optener IP local</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>a
+</pre></div>
+</div>
+</li>
+<li><p><strong>Reiniciar tarjeta de red</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>service<span class="w"> </span>networking<span class="w"> </span>restart
+</pre></div>
+</div>
+</li>
+<li><p><strong>Activar/desactivar tajeta red</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>enp0s3<span class="w"> </span>down/up
+</pre></div>
+</div>
+</li>
+<li><p><strong>NetPlan</strong> es la nueva utilidad para configurar la red, el antiguo /etc/network/interfaces ya no funciona. Debemos configurar <strong>/etc/netplan/01-*.yaml</strong>, por ejemplo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>network:
+<span class="w">  </span>ethernets:
+<span class="w">    </span>enp0s3:
+<span class="w">      </span>addresses:
+<span class="w">      </span>-<span class="w"> </span><span class="m">10</span>.4.105.100/8
+<span class="w">      </span>routes:
+<span class="w">      </span>-<span class="w"> </span>to:<span class="w"> </span>default
+<span class="w">        </span>via:<span class="w"> </span><span class="m">10</span>.0.0.2
+<span class="w">      </span>nameservers:
+<span class="w">        </span>addresses:<span class="w"> </span><span class="o">[</span><span class="m">8</span>.8.8.8<span class="o">]</span>
+<span class="w">  </span>version:<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Probar NetPlan</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>--debug<span class="w"> </span>apply
+</pre></div>
+</div>
+</li>
+<li><p><strong>Aplicar NetPlan</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>netplan<span class="w"> </span>apply
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="virtualbox">
+<h2>virtualBox<a class="headerlink" href="#virtualbox" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
+VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
+VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;ubuntu-server&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
+VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="s1">&#39;ubuntu-server&#39;</span><span class="w"> </span>savestate
+</pre></div>
+</div>
+</section>
+<section id="gestion-de-particiones">
+<h2>Gestión de particiones<a class="headerlink" href="#gestion-de-particiones" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>fdisk -l</strong> permite crear particiones en el disco duro</p></li>
+<li><p><strong>cfdisk</strong> similar a fdisk, pero con una interfaz diferente</p></li>
+<li><p><strong>gparted</strong> editor de particiones para el entorno de escritorio GNOME</p></li>
+<li><p><strong>df -h</strong> muestra el estado actual de las particiones montadas</p></li>
+<li><p><strong>du -skh</strong> tamaño de archivos</p></li>
+<li><p><strong>mount</strong> Montar particiones</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/media/carpeta1
+mount<span class="w"> </span>-t<span class="w"> </span>ext3<span class="w"> </span>/dev/sdb3<span class="w"> </span>/home
+mount<span class="w"> </span>/dev/sdaX<span class="w"> </span>/punto_de_montaje
+</pre></div>
+</div>
+</li>
+<li><p><strong>umount</strong> desmontar particiones</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>umount<span class="w"> </span>punto<span class="w"> </span>de<span class="w"> </span>montaje
+umount<span class="w"> </span>/media/carpeta1
+</pre></div>
+</div>
+</li>
+<li><p><strong>mkfs</strong> construir un sistema de ficheros de Linux sobre un dispositivo</p></li>
+<li><p><strong>fsck</strong> Utilidad para detectar, verificar y corregir los errores del sistema de archivo</p></li>
+<li><p><strong>mkswap</strong> para convertir un fichero vacío al formato SWAP</p></li>
+<li><p><strong>mkswapon</strong> activan particiones de swap</p></li>
+<li><p><strong>mkswapoff</strong> desactivan particiones de swap</p></li>
+<li><p><strong>lsblk -a</strong> nos muestra información de todos los dispositivos de bloque</p></li>
+<li><p><strong>file</strong> sirve para determinar el tipo archivo</p></li>
+<li><p><strong>dd</strong> copia y clona datos discos y particiones.
+Podemos usarlo para limpiar nuestro MBR y la tabla de particiones</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sda<span class="w"> </span><span class="nv">bs</span><span class="o">=</span><span class="m">512</span><span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>/etc/fstab</strong> # contiene información sobre sistemas de archivos del sistema y sus puntos de montaje y opciones, las distribuciones recientes, se implementa un sistema de automontaje automático.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/fstab
+<span class="c1"># /etc/fstab: static file system information.</span>
+<span class="c1">#</span>
+<span class="c1"># Use &#39;blkid&#39; to print the universally unique identifier for a</span>
+<span class="c1"># device; this may be used with UUID= as a more robust way to name devices</span>
+<span class="c1"># that works even if disks are added and removed. See fstab(5).</span>
+<span class="c1">#</span>
+<span class="c1"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+<span class="c1"># / was on /dev/sda2 during curtin installation</span>
+/dev/disk/by-uuid/4609be84-f57c-4ee0-b876-3839f95d628c<span class="w"> </span>/<span class="w"> </span>ext4<span class="w"> </span>defaults<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+/dev/disk/by-uuid/f7832f7d-90b0-4c39-9145-4d5dfaaf5d47<span class="w"> </span>none<span class="w"> </span>swap<span class="w"> </span>sw<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="c1"># /home was on /dev/sdb during curtin installation</span>
+/dev/disk/by-uuid/093e58be-28c0-4620-87cc-c77e3cb03b8c<span class="w"> </span>/home<span class="w"> </span>ext4<span class="w"> </span>defaults<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+/swap.img<span class="w">    </span>none<span class="w">    </span>swap<span class="w">    </span>sw<span class="w">      </span><span class="m">0</span><span class="w">       </span><span class="m">0</span>
+
+$<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span>-Ls<span class="w"> </span>/dev/sdb
+/dev/sdb:<span class="w"> </span>Linux<span class="w"> </span>rev<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>ext4<span class="w"> </span>filesystem<span class="w"> </span>data,<span class="w"> </span><span class="nv">UUID</span><span class="o">=</span>093e58be-28c0-4620-87cc-c77e3cb03b8c<span class="w"> </span><span class="o">(</span>needs<span class="w"> </span>journal<span class="w">    </span>recovery<span class="o">)</span><span class="w"> </span><span class="o">(</span>extents<span class="o">)</span><span class="w"> </span><span class="o">(</span>64bit<span class="o">)</span><span class="w"> </span><span class="o">(</span>large<span class="w"> </span>files<span class="o">)</span><span class="w"> </span><span class="o">(</span>huge<span class="w"> </span>files<span class="o">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores</p>
+<p><strong>&lt;dispositivo&gt; &lt;punto_de_montaje&gt; &lt;sistema_de_archivos&gt; &lt;opciones&gt; &lt;dump-freq&gt; &lt;pass-num&gt;</strong></p>
+<ul>
+<li><p><strong>&lt;dispositivo&gt;</strong> es el directorio lógico que hace referencia a una partición o recurso. Nombre del dispositivo o etiqueta, podríamos sustituir la segunda linea por:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dev/sdb1<span class="w">        </span>/HOME<span class="w">           </span>ext4<span class="w">    </span>defaults<span class="w">        </span><span class="m">0</span><span class="w">       </span><span class="m">2</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>&lt;punto_de_montaje&gt;</strong> es la carpeta en que se proyectarán los datos del sistema de archivos, en la liea anterior /HOME</p></li>
+<li><p><strong>&lt;sistema de archivos&gt;</strong> es el algoritmo que se utilizará para interpretarlo.</p></li>
+<li><p><strong>&lt;opciones&gt;</strong> es el lugar donde se especifican los parámetros que mount utilizará para montar el dispositivo, deben estar separadas por comas. Las opciones de montaje son numerosas. Las más usadas se listan a continuación:</p>
+<ul class="simple">
+<li><p><strong>auto</strong> : indica que el dispositivo se monta siempre que se inicie el sistema. La opuesta es noauto.</p></li>
+<li><p><strong>rw</strong>: indica que el dispositivo se monta con permisos de lectura y escritura.</p></li>
+<li><p><strong>ro</strong>: indica que el dispositivo se monta con permisos de lectura solamente.</p></li>
+<li><p><strong>owner</strong>: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).</p></li>
+<li><p><strong>user</strong> : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.</p></li>
+<li><p><strong>suid</strong> : indica que el permiso <a href="#id1"><span class="problematic" id="id2">``</span></a>s”” tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)</p></li>
+<li><p><strong>exec</strong> : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.</p></li>
+<li><p><strong>async</strong> : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.</p></li>
+<li><p><strong>dev</strong> : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.</p></li>
+<li><p><strong>defaults</strong> : es una opción equivalente a la unión de rw, suid, dev, exec, auto, nouser y async.</p></li>
+</ul>
+</li>
+<li><p><strong>&lt;dump-freq&gt;</strong> es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.</p></li>
+<li><p><strong>&lt;pass-num&gt;</strong> indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​</p></li>
+</ul>
 </section>
 </section>
 
@@ -337,6 +602,13 @@ jobs,<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos">Control de procesos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editores-y-visualizadores-de-archivos">Editores y visualizadores de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compresion">Compresión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-software">Instalar software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-la-red">Configuración de la red</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">virtualBox</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-particiones">Gestión de particiones</a></li>
 </ul>
   </nav></div>
 

@@ -2,137 +2,182 @@
 PowerShell Scripting
 ********************
 
-Habilitar ejecución de scripts : **Set-ExecutionPolicy Unrestricted**
+Habilitar ejecución de scripts 
+
+.. code-block:: powershell
+ 
+ Set-ExecutionPolicy Unrestricted
 
 Variables y cadenas
 ===================
 
 .. code-block:: powershell
 
- $a=5
- echo a #obtenemos a
- echo $a #obtenemos 5
+ PS C:\> $a=5  
+ PS C:\> echo a 
+ a        
+ PS C:\> echo $a 
+ 5 
  
 .. code-block:: powershell 
 
- $a=2
- $b=3
- $c=$b+$a
- echo $c #obtenemos 5
+ PS C:\> $a=2 
+ PS C:\> $b=3
+ PS C:\> $c=$b+$a 
+ PS C:\> echo $c
+ 5
  
 .. code-block:: powershell
 
- $a="cadena"
- echo $a #cadena
- echo $a.Replace("ca","CC") #CCdena
- echo $a.split("a")
- #c
- #den
- #
- echo $a.Split("a")[0]
- #c
- echo $a
- echo $a.Substring(2,4)      #dena
- echo $a.Remove(2,4)         #ca
- echo $a.Contains("a")       #True
- echo $a.IndexOf("a")        #1
- echo $a.Replace("ca","Ca")  #Cadena
- echo $a.Equals("cadena")    #True
- echo $a.Length              #6
- echo $a.Contains("an")      #False
- echo $a.ToLower()           #cadena
- echo $a.ToUpper()           #CADENA
- #....
+ PS C:\> $a="cadena"
+ PS C:\> echo $a
+ cadena
+ PS C:\> echo $a.Replace("ca","CC")
+ CCdena
+ PS C:\> echo $a.split("a")
+ c
+ den
  
-.. code-block:: powershell
+ PS C:\> echo $a.Split("a")[0]
+ c
+ PS C:\> echo $a
+ cadena
+ PS C:\> echo $a.Substring(2,4)
+ dena
+ PS C:\> echo $a.Remove(2,4)
+ ca
+ PS C:\> echo $a.Contains("a")
+ True
+ PS C:\> echo $a.IndexOf("a")
+ 1
+ PS C:\> echo $a.Replace("ca","Ca")
+ Cadena
+ PS C:\> echo $a.Equals("cadena")
+ True
+ PS C:\> echo $a.Length
+ 6
+ PS C:\> echo $a.Contains("an")
+ False
+ PS C:\> echo $a.ToLower() 
+ cadena
+ PS C:\> echo $a.ToUpper()
+ CADENA
 
- Get-Random # numero aletorio
- Get-Random -Minimum 1 -Maximum 10
+* **Números aleatorios**
+
+  .. code-block:: powershell
+
+   Get-Random # numero aletorio
+   Get-Random -Minimum 1 -Maximum 10
+
+* **Conversiones**
+
+  .. code-block:: powershell
+
+   #si queremos pasar la cadena $Name a un entero:
+   $a = $Name -as [int]
+   # otra forma:
+   $a = [int] $Name
  
-.. code-block:: powershell
-
- [Convert]::ToString($decimal, 2) #pasar a binario
- $a="$pwd" #obtenemos la salida del comando pwd, no es lo mismo que $a=$(pwd)
-
-.. code-block:: powershell
-
- echo $a
- $a="notepad"
- &$a # & Permiten ejecutar un texto como si fuese un comando
+   #pasar a binario
+   [Convert]::ToString($decimal, 2) 
+   
+   $a="$pwd" #obtenemos la salida del comando pwd, no es lo mismo que $a=$(pwd)
+    
+   #Podemos ejecutar un texto como si fuese un comando &
+   $a="notepad"
+   &$a 
 
 Operadores
 ==========
 
 .. code-block:: powershell
 
- $a=11
- $b=5
- $c=$a-$b
- echo $c # 6 resta
- $c=$a+$b
- echo $c #16 suma
- $c=$a*$b
- echo $c #55 multiplicación
- $c=$a/$b
- echo $c #2,2 división
- $c=$a%$b
- echo $c #1 resto o modulo
+ PS C:\> $a=11
+ PS C:\> $b=5
+ PS C:\> $c=$a-$b     # resta
+ PS C:\> echo $c 
+ 6
+ PS C:\> $c=$a+$b     # suma
+ PS C:\> echo $c 
+ 16
+ PS C:\> $c=$a*$b     # multiplicación
+ PS C:\> echo $c
+ 55
+ PS C:\> $c=$a/$b     # división
+ PS C:\> echo $c 
+ 2,2
+ PS C:\> $c=$a%$b     # resto o modulo
+ PS C:\> echo $c
+ 1
 
 Operadores de asignación
 ========================
 
 .. code-block:: powershell
 
- $a=6
- $a+=2 ; echo $a # 8, es lo mismo que $a=$a+2
- $a-=2 ; echo $a # 6, es lo mismo que $a=$a-2
- $a++  ; echo $a # 7, es lo mismo que $a=$a+1
- $a--  ; echo $a # 6, es lo mismo que $a=$a-1
- $a/=2 ; echo $a # 3, es lo mismo que $a=$a/2
- $a*=3 ; echo $a # 9, es lo mismo que $a=$a*3
- $a%=3 ; echo $a # 0, es lo mismo que $a=$a%3
+ PS C:\> $a=6
+ PS C:\> $a+=2 ; echo $a   # $a=$a+2
+ 8
+ PS C:\> $a-=2 ; echo $a   # $a=$a-2
+ 6
+ PS C:\> $a++  ; echo $a   # $a=$a+1
+ 7
+ PS C:\> $a--  ; echo $a   # $a=$a-1
+ 6
+ PS C:\> $a/=2 ; echo $a   # $a=$a/2
+ 3
+ PS C:\> $a*=3 ; echo $a   # $a=$a*3
+ 9
+ PS C:\> $a%=3 ; echo $a   # $a=$a%3
+ 0
+
 
 Argumentos de entrada
 =====================
 
 .. code-block:: powershell
 
- echo "dame un entero"  #ponemos " para que aparezca en la misma linea
- $Name = Read-Host #lo interpreta como cadenas
- #si queremos pasar Name a un entero:
- $a = $Name -as [int]
+ PS C:\> cat read_host.ps1   
+ echo "Dame un entero"
+ $Name=Read-Host
+ echo "Sin pasar a int ($Name*$Name) = "
+ echo $($Name*$Name)
+ echo ""
  $a = [int] $Name
-
-
-.. code-block:: powershell
-
- PS> $Name=Read-Host
- 2
- PS> echo $($Name*$Name)
+ echo "Pasando a int ($Name*$Name) = "
+ echo $($a*$a)
+ echo ""
+ PS C:\> .\read_host.ps1
+ Dame un entero 
+ 2 
+ Sin pasar a int (2*2) =  
  22
- PS> $a = [int] $Name
- PS> echo $($a*$a)
+ 
+ Pasando a int (2*2) =
  4
 
 .. code-block:: powershell
 
- PS> cat .\argst.ps1
+ PS C:\> cat .\argst.ps1
  echo "tenemos $args parámetros de entrada"
  echo "El argumento 0: $($args[0])"
  echo "El argumento 1: $($args[1])"
- PS> .\argst.ps1 1 2 3
+ 
+ PS C:\> .\argst.ps1 1 2 3
  tenemos 1 2 3 parámetros de entrada
  El argumento 0: 1
  El argumento 1: 2
 
 .. code-block:: powershell
 
- PS> cat .\argst.ps1
+ PS C:\> cat .\argst.ps1
  foreach ($i in $args)
  {
  echo $i
  }
- PS> .\argst.ps1
+ 
+ PS C:\> .\argst.ps1
  1 dos tres 1 dos tres
  
 Evaluación de condiciones   
@@ -157,6 +202,8 @@ Operadores lógicos
  
 Comparación de cadenas
 ======================
+
+.. code-block:: powershell
  
  "hola" -eq "hola"    #True
  "hola" -eq "hoa"     #False
