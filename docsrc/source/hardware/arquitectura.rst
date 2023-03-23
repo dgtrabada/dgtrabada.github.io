@@ -4,11 +4,11 @@ Arquitectura del ordenador
 
 Fíjate en el siguiente ordeandor:
 
-    * `zx80 sinclair anuncio pag1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80advert.jpg>`_
-    * `zx80 sinclair anuncio pag2 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_advert.jpg>`_
-    * `zx80 sinclair <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair.jpg>`_
-    * `zx80 inside <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair2.jpg>`_
-    * `zx80 circuit diagram <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_circuit.gif>`_
+* `zx80 sinclair anuncio pag1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80advert.jpg>`_
+* `zx80 sinclair anuncio pag2 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_advert.jpg>`_
+* `zx80 sinclair <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair.jpg>`_
+* `zx80 inside <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair2.jpg>`_
+* `zx80 circuit diagram <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_circuit.gif>`_
 
 
 
