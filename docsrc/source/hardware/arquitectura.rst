@@ -35,7 +35,7 @@ Ejemplo:
 Instrucciones para hacer los cuestionarios.
 ===========================================
 
-En el caso de que quieras practicar utilizando un papel como haremos en el examén, puedes descárgate la hoja de ejercicios desde `aquí <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VN_template.pdf>`_ si lo prefires puedes decargartelo para prácticar utilizando el LibreOffice desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/docsrc/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
+En el caso de que quieras practicar utilizando un papel como haremos en el examén, puedes descárgate la hoja de ejercicios desde `aquí <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VN_template.pdf>`_ si lo prefires puedes decargartelo para prácticar utilizando el LibreOffice desde `aquí <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
 
 .. image:: imagenes/arquitectura/Ejemplo_enunciado.png
 
