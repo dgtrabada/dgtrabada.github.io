@@ -210,7 +210,7 @@ Configuración de Windows (PowerShell)
    ipconfig /all #consultar dns
    netsh interface ip set dnsserver "Ethernet" static 8.8.8.8 primary
 
-* **Renombrar el nombre**
+* **Cambiar el nombre del equipo**
 
   .. code-block:: PowerShell
   

@@ -148,6 +148,7 @@ Argumentos de entrada
  echo "Pasando a int ($Name*$Name) = "
  echo $($a*$a)
  echo ""
+ 
  PS C:\> .\read_host.ps1
  Dame un entero 
  2 
