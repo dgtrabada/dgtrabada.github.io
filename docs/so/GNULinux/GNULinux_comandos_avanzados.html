@@ -277,32 +277,60 @@ document.write(`
 <h1>Comandos avanzados<a class="headerlink" href="#comandos-avanzados" title="Enlace permanente a este encabezado">#</a></h1>
 <ul>
 <li><p>Dar permisos de ejecución a un script</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>script.sh
 </pre></div>
 </div>
-<p>$ chmod +x script.sh</p>
-</div></blockquote>
 </li>
-<li><p>Caracteres especiales ( <a href="#id1"><span class="problematic" id="id2">*</span></a>, ?, , «, &gt; )</p></li>
-<li><p>Operadores &lt;, &gt;, &gt;&gt;, &lt;&lt;, 2&gt;, &amp;&gt;, …</p></li>
-<li><p>Pipes, tuberías |</p></li>
-<li><p>Variables y cadenas</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">5</span>
+<li><p>Caracteres especiales ( <a href="#id1"><span class="problematic" id="id2">*</span></a>, ?, , «, “ )</p></li>
+<li><p>Operadores &lt;,  &lt;&lt;, 2&gt;, &amp;&gt;, …</p></li>
+<li><p><strong>echo</strong> muestra el valor de una variable o repite la salida estándar</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>Hola<span class="w"> </span>Mundo
+Hola<span class="w"> </span>Mundo
+
+$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">5</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>a
 a
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
 <span class="m">5</span>
-
-$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">2</span>
-$<span class="w"> </span><span class="nv">b</span><span class="o">=</span><span class="m">3</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a+b<span class="k">))</span><span class="w">   </span><span class="c1"># $((hacer operación))</span>
-<span class="m">5</span>
-$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span><span class="w">     </span><span class="c1"># $(evaluar comando)</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;a = $a&#39;</span>
+<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$a</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Operaciones</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+$<span class="w"> </span><span class="nv">b</span><span class="o">=</span><span class="m">4</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a+b<span class="k">))</span>
+<span class="m">14</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a*b<span class="k">))</span>
+<span class="m">40</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a/b<span class="k">))</span><span class="w"> </span><span class="c1">#solo nº enteros</span>
+<span class="m">2</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a-b<span class="k">))</span>
+<span class="m">6</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a%b<span class="k">))</span><span class="w"> </span><span class="c1">#modulo o resto</span>
+<span class="m">2</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Evaluación de comandos</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
 dani
 
-$<span class="w"> </span><span class="nv">a</span><span class="o">=</span>www.fsf.org
+$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="nv">$RANDOM</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
+<span class="m">805</span>
+$<span class="w"> </span><span class="nv">b</span><span class="o">=</span><span class="k">$((</span>a%2<span class="k">))</span><span class="w"> </span><span class="c1">#obtenemos 0 o 1</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$b</span>
+<span class="m">1</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tratamiento de candenas</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span>www.fsf.org
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
 .fsf.org
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">::</span><span class="nv">3</span><span class="si">}</span>
@@ -320,53 +348,225 @@ www.fsf.
 </pre></div>
 </div>
 </li>
-<li><p>Editores y visualizadores de archivos</p>
-<ul class="simple">
-<li><p><strong>head -n 10</strong> mostrar las primeras 10 lineas</p></li>
-<li><p><strong>tail -4</strong>  mostrar las 4 ultimas lineas</p></li>
-</ul>
+<li><p><strong>Redireccionamiento «&gt;» «&gt;&gt;»</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea<span class="w"> </span>&gt;<span class="w"> </span>linea.dat
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea<span class="w"> </span>&gt;&gt;<span class="w"> </span>linea.dat
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea<span class="w"> </span>&gt;&gt;<span class="w"> </span>linea.dat
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>a<span class="w"> </span><span class="m">4</span><span class="w"> </span>linea<span class="w"> </span>&gt;&gt;<span class="w"> </span>linea.dat
+$<span class="w"> </span>cat<span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>linea
+</pre></div>
+</div>
 </li>
-<li><p>Filtros y búsqueda información</p>
-<ul class="simple">
-<li><p><a href="#id3"><span class="problematic" id="id4">**</span></a>sort        # ordenar</p></li>
-<li><dl class="simple">
-<dt><a href="#id5"><span class="problematic" id="id6">**</span></a>grep        # filtrar texto de un archivo</dt><dd><p># grep -c muestra solamente el total de líneas que coinciden,
-# -n muestra el numero de linea
-# -v selecciona las líneas que no coinciden</p>
-</dd>
-</dl>
+<li><p><strong>head y tail</strong> head muestra las primeras lineas y tail las ultimas, por defecto muestran 10 lineas</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+$<span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>linea
+</pre></div>
+</div>
 </li>
-<li><p><a href="#id7"><span class="problematic" id="id8">**</span></a>egrep       # OR : egrep “a|b”</p></li>
-<li><p><a href="#id9"><span class="problematic" id="id10">**</span></a>wc          # nº lineas</p></li>
-<li><p><a href="#id11"><span class="problematic" id="id12">**</span></a>find        # encontrar;  find -name <a href="#id13"><span class="problematic" id="id14">*</span></a>dat ; find -not -name <a href="#id15"><span class="problematic" id="id16">*</span></a>dat</p></li>
-<li><p><a href="#id17"><span class="problematic" id="id18">**</span></a>locate      # encontrar</p></li>
-<li><p><a href="#id19"><span class="problematic" id="id20">**</span></a>whereis     # encontrar donde esta el comando</p></li>
-<li><dl class="simple">
-<dt><a href="#id21"><span class="problematic" id="id22">**</span></a>uniq        # quitar lineas duplicadas</dt><dd><p># uniq -c precede a las líneas con el número de ocurrencias</p>
-</dd>
-</dl>
+<li><p><strong>Pipes, tuberías «|»</strong> la salida del primer comando se toma como la entrada del siguiente.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+
+<span class="c1">#El comando bc se utiliza como calculadora</span>
+<span class="nv">$echo</span><span class="w"> </span><span class="m">4</span>/5<span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l
+.80000000000000000000
+</pre></div>
+</div>
 </li>
-<li><p><a href="#id23"><span class="problematic" id="id24">**</span></a>diff        # diferencias entre ficheros y directorios (-r)</p></li>
-<li><p><a href="#id25"><span class="problematic" id="id26">**</span></a>tr          # sustituir (tr -s “ “)</p></li>
-<li><p><a href="#id27"><span class="problematic" id="id28">**</span></a>cut         # cortar columnas, cut -d” “ -f1</p></li>
-<li><p><a href="#id29"><span class="problematic" id="id30">**</span></a>paste       # pegar archivos</p></li>
-<li><p><a href="#id31"><span class="problematic" id="id32">**</span></a>join        # parecido a paste pero no duplica los campos</p></li>
-<li><p><a href="#id33"><span class="problematic" id="id34">**</span></a>echo        # repetir salida estándar</p></li>
-<li><dl class="simple">
-<dt><a href="#id35"><span class="problematic" id="id36">**</span></a>sed         # reemplazar cadenas, etc ….</dt><dd><p># sed “s/cadena1/cadena2/g” # Remplaza cadena1 por cadena2
-# sed -n “1000p” # Listar la línea 1000°
-# sed -n “10,20p” # Listar de la linea 10 a la 20</p>
-</dd>
-<dt>Otros</dt><dd><p>bc                # calculadora echo $(echo 4/5 | bc -l)
-$RANDOM           # numero aletorio
-%                 # modulo echo echo $((15%2)), solo nº enteros +-<a href="#id37"><span class="problematic" id="id38">*</span></a>/
-read              # leer variable
+<li><p><strong>cut</strong> corta columnas (-f) usando como delimitador (-d)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>linea.dat
+c
+c
+a
+a
+$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1,3<span class="w"> </span>linea.dat
+c<span class="w"> </span>linea
+c<span class="w"> </span>linea
+a<span class="w"> </span>linea
+a<span class="w"> </span>linea
+</pre></div>
+</div>
+</li>
+<li><p><strong>sort</strong> ordena</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sort<span class="w"> </span>linea.dat
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+</pre></div>
+</div>
+</li>
+<li><p><strong>uniq</strong> quita las lineas duplicadas, con la opción (-c) precede a las líneas con el número de ocurrencias</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+a
+a
+c
+c
+$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+a
+c
+$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+<span class="m">2</span><span class="w"> </span>a
+<span class="m">2</span><span class="w"> </span>c
+</pre></div>
+</div>
+</li>
+<li><p><strong>wc</strong> te dice el nº de lineas, palabras y caracteres que tiene el archivo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>wc<span class="w"> </span>linea.dat
+<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">40</span><span class="w"> </span>linea.dat
+$<span class="w"> </span>wc<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2
+<span class="m">4</span>
+$<span class="w"> </span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$nlineas</span>
+<span class="m">4</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>grep</strong> filtra texto de un archivo, con la opción c muestra solo el nº de lineas que coinciden, con la opción -n muestra el número de lineas y con -v selecciona las lineas que no coinciden</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grep<span class="w"> </span>c<span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+$<span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span>c<span class="w"> </span>linea.dat
+<span class="m">2</span>
+$<span class="w"> </span>grep<span class="w"> </span>c<span class="w"> </span>linea.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">1</span>
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+</pre></div>
+</div>
+</li>
+<li><p><strong>egrep</strong> es el comando gerp extendido, este comando permite el uso de expreiones regulares más complejas que grep</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>egrep<span class="w"> </span><span class="s1">&#39;c|1&#39;</span><span class="w"> </span>linea.dat<span class="w"> </span><span class="c1">#OR</span>
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+
+$<span class="w"> </span>egrep<span class="w"> </span>-i<span class="w"> </span>Linea<span class="w"> </span>linea.dat<span class="w">  </span><span class="c1">#-i no distingue entre mayúscular y minúsculas</span>
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>linea
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>linea
+</pre></div>
+</div>
+</li>
+<li><p><strong>tr</strong> sustituye caracteres, con la opción -s quita los caracteres duplicados (tr -s “ “)</p>
+<blockquote>
+<div><p>$ cat linea.dat | tr “a” “A”
+c 1 lineA
+c 2 lineA
+A 3 lineA
+A 4 lineA
+$ cat linea.dat | tr “linea” “LINEA”
+c 1 LINEA
+c 2 LINEA
+A 3 LINEA
+A 4 LINEA</p>
+<p>$ cat linea_copia.dat | tr -s “ “
+c       linea
+c linea
+a    linea
+a      linea</p>
+<p>$ cat linea_copia.dat | cut -d” “ -f2</p>
+<p>linea</p>
+<p>$ cat linea_copia.dat | tr -s “ “
+c linea
+c linea
+a linea
+a linea
+$ cat linea_copia.dat | tr -s “ “  | cut -d” “ -f2
+linea
+linea
+linea
+linea</p>
+</div></blockquote>
+</li>
+<li><p><strong>sed</strong> stream editor, realiza operaciones de edición de texto en archivos de texto, de manera automatizada y en línea.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;2,3p&#39;</span><span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>linea
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+$<span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;3p&#39;</span><span class="w"> </span>linea.dat
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>linea
+
+$<span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/linea/LINEA/g&#39;</span><span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>LINEA
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>LINEA
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>LINEA
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>LINEA
+
+<span class="c1">#si utilizamos la opción -i el archivo original se editará en su lugar</span>
+$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/linea/LINEA/g&#39;</span><span class="w"> </span>linea.dat
+$<span class="w"> </span>cat<span class="w"> </span>linea.dat
+c<span class="w"> </span><span class="m">1</span><span class="w"> </span>LINEA
+c<span class="w"> </span><span class="m">2</span><span class="w"> </span>LINEA
+a<span class="w"> </span><span class="m">3</span><span class="w"> </span>LINEA
+a<span class="w"> </span><span class="m">4</span><span class="w"> </span>LINEA
+
+<span class="c1">#eliminar lineas en blanco de un archivo</span>
+sed<span class="w"> </span><span class="s1">&#39;/^$/d&#39;</span><span class="w"> </span>archivo.txt
+</pre></div>
+</div>
+</li>
+<li><p><strong>paste</strong> muestra por pantalla el contenido de dos archivos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+usuario1<span class="w"> </span>u1
+usuario2<span class="w"> </span>u2
+usuario3<span class="w"> </span>u3
+usuario4<span class="w"> </span>u4
+
+$<span class="w"> </span>cat<span class="w"> </span>edad.dat
+usuario1<span class="w"> </span><span class="m">20</span>
+usuario2<span class="w"> </span><span class="m">21</span>
+usuario3<span class="w"> </span><span class="m">20</span>
+usuario4<span class="w"> </span><span class="m">22</span>
+
+$<span class="w"> </span>paste<span class="w"> </span>login.dat<span class="w"> </span>edad.dat
+usuario1<span class="w"> </span>u1<span class="w">     </span>usuario1<span class="w"> </span><span class="m">20</span>
+usuario2<span class="w"> </span>u2<span class="w">     </span>usuario2<span class="w"> </span><span class="m">21</span>
+usuario3<span class="w"> </span>u3<span class="w">     </span>usuario3<span class="w"> </span><span class="m">20</span>
+usuario4<span class="w"> </span>u4<span class="w">     </span>usuario4<span class="w"> </span><span class="m">22</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>join</strong> mezcla el contenido de dos archivos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>join<span class="w"> </span>login.dat<span class="w"> </span>edad.dat
+usuario1<span class="w"> </span>u1<span class="w"> </span><span class="m">20</span>
+usuario2<span class="w"> </span>u2<span class="w"> </span><span class="m">21</span>
+usuario3<span class="w"> </span>u3<span class="w"> </span><span class="m">20</span>
+usuario4<span class="w"> </span>u4<span class="w"> </span><span class="m">22</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>diff</strong> obtiene la diferencia entre dos archivos</p>
+<blockquote>
+<div><p>$ sed “s/u3/U3/g” login.dat &gt; login2.dat</p>
+<p>$ diff login.dat login2.dat
+3c3
+&lt; usuario3 u3
+—
+&gt; usuario3 U3</p>
+<p>#-y muestra dos columnas
+#-W numero de columnas, 130 por defecto
+$ diff -yW60  login.dat login2.dat
+usuario1 u1                     usuario1 u1
+usuario2 u2                     usuario2 u2
+usuario3 u3                  |  usuario3 U3
+usuario4 u4                     usuario4 u4</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Otros</dt><dd><p>read              # leer variable
 orden1 &amp;&amp; orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0
 orden1 || orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida distinto de 0</p>
 </dd>
 </dl>
-</li>
-</ul>
+</div></blockquote>
+</div></blockquote>
 </li>
 </ul>
 </section>

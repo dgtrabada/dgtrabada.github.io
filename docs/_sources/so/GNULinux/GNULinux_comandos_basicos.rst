@@ -83,8 +83,9 @@ Ficheros y directorios
 * **mkdir** crear directorio
 * **rmdir** borrar directorio
 * **cd** cambiar directorio
+* **whereis** muestra donde esta el comando
 * **pwd** print working directory, se utiliza para imprimir el nombre del directorio actual
-* **find** find -name nombre_archivo #busca el fichero dentro del directorio
+* **find** buscar; find -name *dat ; find -not -name *dat
 * **locate** fichero  #busca el fichero
 
 Editores y visualizadores de archivos
