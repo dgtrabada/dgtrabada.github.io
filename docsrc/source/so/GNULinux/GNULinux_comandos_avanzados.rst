@@ -182,12 +182,12 @@ Comandos avanzados
    
   .. code-block:: bash
 
- $ sort login.dat
-admin      : nombre1
-empleado   : nombre4
-empleado   : nombre5
-gerente    : nombre2
-supervisor : nombre3
+   $ sort login.dat
+   admin      : nombre1
+   empleado   : nombre4
+   empleado   : nombre5
+   gerente    : nombre2
+   supervisor : nombre3
 
 
 * **wc** te dice el nº de lineas, palabras y caracteres que tiene el archivo
@@ -336,7 +336,7 @@ supervisor : nombre3
 
 * **diff** obtiene la diferencia entre dos archivos
 
-.. code-block:: bash
+  .. code-block:: bash
 
    $ sed 's/u3/U3/g' login.dat > login2.dat
    $ diff login.dat  login2.dat 
