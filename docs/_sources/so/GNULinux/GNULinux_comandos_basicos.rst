@@ -72,11 +72,36 @@ Ficheros y directorios
 
 * **ls** listar archivos y carpetas
 
-  * ls -la para ver ocultos
-  * ls -ai para ver lo inodos
+  .. code-block:: bash
+
+   ls -la     #ver archivos ocultos
+   ls -ai     #ver inodos
+   ls *dat    #ver los archvios acabados en dat
+   ls *T*     #ver archivos que contienen T
+   ls ???.dat #ver archivos que tienen 3 caracteres y termian en .dat
   
-* **stat** muestra información del inodo
 * **ln -s** hacer links simbólicos -P son links duros sobre archivos
+
+  .. code-block:: bash
+
+   $ ln -s date.dat links
+   $ ln  date.dat linkh
+   $ ls -la
+   -rw-r--r--. 2 dani profesores 31 mar 29 09:40 date.dat
+   -rw-r--r--. 2 dani profesores 31 mar 29 09:40 linkh
+   lrwxrwxrwx. 1 dani profesores  8 mar 29 09:40 links -> date.dat
+   $ ls -ai
+   238052 date.dat  238052 linkh  238053 links
+   $ rm -fr date.dat
+   $ ls -la
+   $ head link*
+   ==> linkh <==
+   mié mar 29 09:40:27 CEST 2023
+   head: no se puede abrir 'links' para lectura: No such file or directory
+
+
+* **stat** muestra información del inodo
+
 * **cp -r** copiar
 * **mv** mover, renombrar
 * **rm -fr** borrar
@@ -258,7 +283,8 @@ Gestión de particiones
    /swap.img	none	swap	sw	0	0
    
    $ sudo file -Ls /dev/sdb 
-   /dev/sdb: Linux rev 1.0 ext4 filesystem data, UUID=093e58be-28c0-4620-87cc-c77e3cb03b8c (needs journal    recovery) (extents) (64bit) (large files) (huge files)
+   /dev/sdb: Linux rev 1.0 ext4 filesystem data, UUID=093e58be-28c0-4620-87cc-c77e3cb03b8c 
+   (needs journal    recovery) (extents) (64bit) (large files) (huge files)
 
 
 La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores

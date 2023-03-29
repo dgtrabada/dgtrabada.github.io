@@ -8,7 +8,7 @@ Comandos avanzados
 
    $ chmod +x script.sh
 
-* Caracteres especiales ( *, ?, \, ", ' )
+* Caracteres especiales (  \, ", ' )
 * Operadores <,  <<, 2>, &>, ...
 
 * **echo** muestra el valor de una variable o repite la salida estándar
@@ -81,39 +81,58 @@ Comandos avanzados
    $ echo ${a::$((${#a}-3))}
    www.fsf. 
   
-* **Redireccionamiento ">" ">>"**
+* **Redireccionamiento > , >> , > , &> , <**
 
   .. code-block:: bash
+  
+   $ echo 'admin      : nombre1 ' > login.dat 
+   $ echo 'gerente    : nombre2 ' >> login.dat
+   $ echo 'supervisor : nombre3 ' >> login.dat
+   $ echo 'empleado   : nombre4 ' >> login.dat
+   $ echo 'empleado   : nombre5 ' >> login.dat
 
-   $ echo c 1 linea > linea.dat
-   $ echo c 2 linea >> linea.dat
-   $ echo a 3 linea >> linea.dat
-   $ echo a 4 linea >> linea.dat
-   $ cat linea.dat 
-   c 1 linea
-   c 2 linea
-   a 3 linea
-   a 4 linea
+   $ cat login.dat
+   admin      : nombre1
+   gerente    : nombre2
+   supervisor : nombre3
+   empleado   : nombre4
+   empleado   : nombre5
+
    
+   $ cat test.dat
+   cat: test.dat: No such file or directory
+   
+   $ cat test.dat > new.dat
+   cat: test.dat: No such file or directory
+   
+   $ cat new.dat
+   
+   $ cat test.dat 2> new.dat
+   $ cat new.dat
+   cat: test.dat: No such file or directory
+ 
+  "&>" combina los operadores "2>" (redirigir stderr) y ">" (redirigir stdout) en uno solo.
+
 * **head y tail** head muestra las primeras lineas y tail las ultimas, por defecto muestran 10 lineas
 
   .. code-block:: bash
 
-   $ head -n 3 linea.dat 
-   c 1 linea
-   c 2 linea
-   a 3 linea
-   $ tail -n 3 linea.dat 
-   c 2 linea
-   a 3 linea
-   a 4 linea
+   $ head -n 3 login.dat
+   admin      : nombre1
+   gerente    : nombre2
+   supervisor : nombre3
    
+   $ tail -n 3 login.dat
+   supervisor : nombre3
+   empleado   : nombre4
+   empleado   : nombre5
+
 * **Pipes, tuberías "|"** la salida del primer comando se toma como la entrada del siguiente.
    
   .. code-block:: bash
 
-   $ head -n 3 linea.dat | tail -n 1
-   a 3 linea
+   $ head -n 3 login.dat | tail -n 1
+   supervisor : nombre3
    
    #El comando bc se utiliza como calculadora
    $echo 4/5 | bc -l
@@ -123,140 +142,163 @@ Comandos avanzados
 
   .. code-block:: bash
 
-   $ cut -d' ' -f1 linea.dat 
-   c
-   c
-   a
-   a
-   $ cut -d' ' -f1,3 linea.dat 
-   c linea
-   c linea
-   a linea
-   a linea
+   $ cut -d ' ' -f1 login.dat
+   admin
+   gerente
+   supervisor
+   empleado
+   empleado
 
-* **sort** ordena
    
-  .. code-block:: bash
-
-   $ sort linea.dat 
-   a 3 linea
-   a 4 linea
-   c 1 linea
-   c 2 linea
+   $ cut -d ' ' -f2 login.dat
+   
+   
+   :
+   
+   
+   $ cut -d ':' -f2 login.dat
+   nombre1
+   nombre2
+   nombre3
+   nombre4
+   nombre5
 
 
 * **uniq** quita las lineas duplicadas, con la opción (-c) precede a las líneas con el número de ocurrencias
 
   .. code-block:: bash
 
-   $ cut -d' ' -f1 linea.dat | sort
-   a
-   a
-   c
-   c
-   $ cut -d' ' -f1 linea.dat | sort | uniq
-   a
-   c
-   $ cut -d' ' -f1 linea.dat | sort | uniq -c
-   2 a
-   2 c
+   $ grep emple login.dat | cut -d' ' -f1
+   empleado
+   empleado
+   $ grep emple login.dat | cut -d' ' -f1 | uniq
+   empleado
+   $ grep emple login.dat | cut -d' ' -f1 | uniq -c
+   2 empleado
+
+
+
+* **sort** ordena
    
+  .. code-block:: bash
+
+ $ sort login.dat
+admin      : nombre1
+empleado   : nombre4
+empleado   : nombre5
+gerente    : nombre2
+supervisor : nombre3
+
+
 * **wc** te dice el nº de lineas, palabras y caracteres que tiene el archivo
 
   .. code-block:: bash
 
-   $ wc linea.dat 
-    4 12 40 linea.dat
-   $ wc linea.dat | cut -d' ' -f2
-   4
-   $ nlineas=$(wc linea.dat | cut -d' ' -f2)
+   $ wc login.dat 
+    5 15 110 login.dat
+   $ wc login.dat | cut -d' ' -f2
+   5
+   $ nlineas=$(wc login.dat | cut -d' ' -f2)
    $ echo $nlineas 
-   4
+   5
 
 * **grep** filtra texto de un archivo, con la opción c muestra solo el nº de lineas que coinciden, con la opción -n muestra el número de lineas y con -v selecciona las lineas que no coinciden
 
   .. code-block:: bash
 
-   $ grep c linea.dat 
-   c 1 linea
-   c 2 linea
-   $ grep -c c linea.dat    
-   2   
-   $ grep c linea.dat | grep 1
-   c 1 linea
+   $ wc login.dat 
+   5  15 110 login.dat
+  
+   $ grep empleado login.dat 
+   empleado   : nombre4 
+   empleado   : nombre5 
+   
+   $ grep  empleado login.dat | grep 5 #AND
+   empleado   : nombre5
+
    
 * **egrep** es el comando gerp extendido, este comando permite el uso de expreiones regulares más complejas que grep
 
   .. code-block:: bash
 
-   $ egrep 'c|1' linea.dat #OR
-   c 1 linea
-   c 2 linea
+   $ egrep  'empleado|admin' login.dat #OR
+   admin      : nombre1 
+   empleado   : nombre4 
+   empleado   : nombre5 
 
-   $ egrep -i Linea linea.dat  #-i no distingue entre mayúscular y minúsculas
-   c 1 linea
-   c 2 linea
-   a 3 linea
-   a 4 linea
-
+   $ egrep  -i EM login.dat 
+   empleado   : nombre4 
+   empleado   : nombre5 
+   
 * **tr** sustituye caracteres, con la opción -s quita los caracteres duplicados (tr -s ' ')
 
-   $ cat linea.dat | tr 'a' 'A'
-   c 1 lineA
-   c 2 lineA
-   A 3 lineA
-   A 4 lineA
-   $ cat linea.dat | tr 'linea' 'LINEA'
-   c 1 LINEA
-   c 2 LINEA
-   A 3 LINEA
-   A 4 LINEA
-
-   $ cat linea_copia.dat | tr -s ' ' 
-   c       linea
-   c linea
-   a    linea
-   a      linea
+  .. code-block:: bas
+  
+   $ cat login.dat | tr 'a' 'A'
+   Admin      : nombre1 
+   gerente    : nombre2 
+   supervisor : nombre3 
+   empleAdo   : nombre4 
+   empleAdo   : nombre5 
    
-   $ cat linea_copia.dat | cut -d' ' -f2
+   $ cat login.dat | tr 'admin' 'ADMIN'
+   ADMIN      : NoMbre1 
+   gereNte    : NoMbre2 
+   supervIsor : NoMbre3 
+   eMpleADo   : NoMbre4 
+   eMpleADo   : NoMbre5 
+   $ cut -d' ' -f3 login.dat 
+   
+   
+   nombre3
+   
+   
+   $ cat login.dat | tr -s ' ' 
+   admin : nombre1 
+   gerente : nombre2 
+   supervisor : nombre3 
+   empleado : nombre4 
+   empleado : nombre5 
 
-   linea
-
-
-   $ cat linea_copia.dat | tr -s ' ' 
-   c linea
-   c linea
-   a linea
-   a linea
-   $ cat linea_copia.dat | tr -s ' '  | cut -d' ' -f2
-   linea
-   linea
-   linea
-   linea
+   $ cat login.dat | tr -s ' ' | cut -d' ' -f3 login.dat
+   
+   
+   nombre3
+   
+   
+   $ cat login.dat | tr -s ' ' | cut -d' ' -f3 
+   nombre1
+   nombre2
+   nombre3
+   nombre4
+   nombre5
 
 * **sed** stream editor, realiza operaciones de edición de texto en archivos de texto, de manera automatizada y en línea.
 
   .. code-block:: bash
 
-   $ sed -n '2,3p' linea.dat   
-   c 2 linea
-   a 3 linea
-   $ sed -n '3p' linea.dat 
-   a 3 linea
+   $ sed -n '2,3p' login.dat  
+   gerente    : nombre2 
+   supervisor : nombre3 
+   
+   $ sed -n '3p' login.dat
+   supervisor : nombre3
 
-   $ sed 's/linea/LINEA/g' linea.dat 
-   c 1 LINEA
-   c 2 LINEA
-   a 3 LINEA
-   a 4 LINEA
+   $ sed 's/admin/ADMIN/g' login.dat 
+   ADMIN      : nombre1 
+   gerente    : nombre2 
+   supervisor : nombre3 
+   empleado   : nombre4 
+   empleado   : nombre5
    
    #si utilizamos la opción -i el archivo original se editará en su lugar
-   $ sed -i 's/linea/LINEA/g' linea.dat
+   $ sed -i 's/admin/ADMIN/g' login.dat
    $ cat linea.dat
-   c 1 LINEA  
-   c 2 LINEA
-   a 3 LINEA
-   a 4 LINEA
+   ADMIN      : nombre1 
+   gerente    : nombre2 
+   supervisor : nombre3 
+   empleado   : nombre4 
+   empleado   : nombre5
   
    #eliminar lineas en blanco de un archivo
    sed '/^$/d' archivo.txt
@@ -266,58 +308,51 @@ Comandos avanzados
 
   .. code-block:: bash
 
-   $ cat login.dat
+   $ head login.dat shell.dat 
+   ==> login.dat <==
    usuario1 u1
    usuario2 u2
    usuario3 u3
-   usuario4 u4
    
-   $ cat edad.dat
-   usuario1 20
-   usuario2 21
-   usuario3 20
-   usuario4 22
+   ==> shell.dat <==
+   usuario1 bash
+   usuario2 cshell
+   usuario3 bash
+ 
+   $ paste login.dat shell.dat 
+   usuario1 u1   usuario1 bash
+   usuario2 u2   usuario2 cshell
+   usuario3 u3   usuario3 bash
 
-   $ paste login.dat edad.dat
-   usuario1 u1     usuario1 20
-   usuario2 u2     usuario2 21
-   usuario3 u3     usuario3 20
-   usuario4 u4     usuario4 22
 
 * **join** mezcla el contenido de dos archivos
 
   .. code-block:: bash
 
-   $ join login.dat edad.dat
-   usuario1 u1 20
-   usuario2 u2 21
-   usuario3 u3 20
-   usuario4 u4 22
-
+   $ join login.dat shell.dat 
+   usuario1 u1 bash
+   usuario2 u2 cshell
+   usuario3 u3 bash
 
 * **diff** obtiene la diferencia entre dos archivos
 
+.. code-block:: bash
+
    $ sed 's/u3/U3/g' login.dat > login2.dat
-   
-   $ diff login.dat login2.dat
+   $ diff login.dat  login2.dat 
    3c3
    < usuario3 u3
    ---
    > usuario3 U3
-   
-   #-y muestra dos columnas
-   #-W numero de columnas, 130 por defecto
-   $ diff -yW60  login.dat login2.dat
-   usuario1 u1                     usuario1 u1
-   usuario2 u2                     usuario2 u2
-   usuario3 u3                  |  usuario3 U3
-   usuario4 u4                     usuario4 u4
+   $ diff -yW60 login.dat  login2.dat 
+   usuario1 u1            usuario1 u1
+   usuario2 u2            usuario2 u2
+   usuario3 u3         |  usuario3 U3
 
 
 
-
-    Otros
-        read              # leer variable
-        orden1 && orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0
-        orden1 || orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida distinto de 0
+Otros
+read              # leer variable
+orden1 && orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0
+orden1 || orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida distinto de 0
 
