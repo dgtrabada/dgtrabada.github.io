@@ -351,8 +351,16 @@ Comandos avanzados
 
 
 
-Otros
-read              # leer variable
-orden1 && orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0
-orden1 || orden2  # la orden2 solo se ejecuta si la orden1 devuelve un estado de salida distinto de 0
+* **read** leer variable
+
+  .. code-block:: bash
+ 
+   $ read a
+   10
+   $ echo $a
+   10
+
+* **orden1 && orden2** La orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0
+
+* **orden1 || orden2** la orden2 solo se ejecuta si la orden1 devuelve un estado de   salida distinto de 0
 
