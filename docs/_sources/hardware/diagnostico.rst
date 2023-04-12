@@ -122,19 +122,19 @@ Dispositivos
   Si queremos ver solamente los dispositivos activos
   lsusb | grep -v 0000:0000
 
-Otros:
+* Otros:
 
-* Install | I-Nex
-* Bonnie++ es un programa utilizado para comprobar el rendimiento de discos duros y sistemas de archivos. Permite la creación de tests de lectura, escritura y borrado de archivos de diversos tamaños, etc.
-* Ide-smart
-* Lm_sensors.
-* IOzone
-* Dbench.
-* Bonnie.
-* IO Bench.(tiotest is a file system benchmark especially designed to test I/O performance with multiple running threads.)
-* Nhfsstone.
+  * Install | I-Nex
+  * Bonnie++ es un programa utilizado para comprobar el rendimiento de discos duros y sistemas de archivos. Permite la creación de tests de lectura, escritura y borrado de archivos de diversos tamaños, etc.
+  * Ide-smart
+  * Lm_sensors.
+  * IOzone
+  * Dbench.
+  * Bonnie.
+  * IO Bench.(tiotest is a file system benchmark especially designed to test I/O performance with multiple  running threads.)
+  * Nhfsstone.
 
 
-Links:
+* Links:
 
   http://blog.desdelinux.net/linux-al-rescate-algunas-distros-para-volver-del-desastre/

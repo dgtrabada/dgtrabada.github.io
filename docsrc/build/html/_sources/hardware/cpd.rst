@@ -262,12 +262,14 @@ De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los
   Como se ha visto anteriormente, la redundancia de dispositivos es la forma en la que se consigue proporcionar al CPD la tolerancia a fallos. No existe manera alguna de evitar que un dispositivo (fuente de alimentación, disco duro, equipo informático, switch, . . .) falle de manera imprevista, sin aviso previo, por lo que la manera de hacer que el sistema completo siga funcionando es añadir redundancia replicando aquellos dispositivos más críticos para garantizar el funcionamiento continuo del sistema.
 
   Básicamente consiste en tener disponible un dispositivo igual al principal, que sólo entrará en funcionamiento en caso de fallo del primero. Además, hay que garantizar que la entrada en funcionamiento en caso de fallo será inmediata y no necesitará de atención humana para hacerlo, al menos en la medida de lo posible.
- Fuente de alimentación redundante
+ 
+  * **Fuente de alimentación redundante**
 
-  .. image:: imagenes/CPD/fuente_redundante.png
+    .. image:: imagenes/CPD/fuente_redundante.png
 
-  .. image:: imagenes/CPD/raid.png
-    :width: 300
+    .. image:: imagenes/CPD/raid.png
+      :width: 300
+
 
 * **Arquitecturas de servidor**
 

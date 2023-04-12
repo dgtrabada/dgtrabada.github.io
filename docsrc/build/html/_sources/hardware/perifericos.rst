@@ -122,13 +122,13 @@ Las más comunes son:
     
 **Ventajas**:
     
- * Las impresoras láser son mucho más rápidas que las de inyección de tinta.
+* Las impresoras láser son mucho más rápidas que las de inyección de tinta.
       
- * Tienen una mayor definición y el TONER es más económico que la tinta, lo que las hace más rentables para una oficina, donde se imprimen gran cantidad de documentos diariamente.
+* Tienen una mayor definición y el TONER es más económico que la tinta, lo que las hace más rentables para una oficina, donde se imprimen gran cantidad de documentos diariamente.
       
 **Desventaja principal**:
     
-  * El precio es más elevado que las impresoras de chorro de tinta.
+* El precio es más elevado que las impresoras de chorro de tinta.
 
 * **Impresora térmica**. Una impresora termica se basa en una serie de agujas calientes que van recorriendo un papel termosensible que al contacto se vuelve de color negro. Son muy usadas en los cajeros y supermercados por su bajo coste.
 
@@ -192,15 +192,15 @@ Proyector de vídeo
 
 * **Proyector LCD**: este es el sistema más simple, por lo que es uno de los más comunes y asequibles para cine en casa y el uso del negocio. Su problema más común es el efecto pixelado, a pesar de los avances recientes han reducido la gravedad de este efecto.
 
-.. image:: imagenes/perifericos/proyectorLCD.png
+  .. image:: imagenes/perifericos/proyectorLCD.png
 
 * **Proyector DLP** (Digital Light Processing) contiene una matriz rectangular de hasta 2 millones de espejos microscópicos pivotantes y cada uno de esos microespejos mide menos de una quinta parte del ancho de un cabello humano. Los espejos pueden reflejar una imagen digital en una pantalla u otra superficie.
 
-.. image:: imagenes/perifericos/proyectorDLP.png
+  .. image:: imagenes/perifericos/proyectorDLP.png
 
 * **Proyectores de LED** utilizan una de las tecnologías antes mencionadas para la creación de imagen, con la diferencia de que utilizan una matriz de diodos emisores de luz como fuente de luz, eliminando la necesidad de cambiar la lámpara.
 
-.. image:: imagenes/perifericos/proyectorLED.png
+  .. image:: imagenes/perifericos/proyectorLED.png
 
 Sistemas biométricos.
 =====================
@@ -248,7 +248,7 @@ Cada individuo posee una información biológica que lo diferencia de los demás
 Controlador de Dispositivo o Drivers
 ------------------------------------
 
-Un controlador de dispositivo (llamado normalmente controlador, o, en inglés, driver) es un programa informático que permite al sistema operativo interaccionar con un periférico, haciendo una abstracción del hardware y proporcionando una interfaz -posiblemente estandarizada- para usarlo.
+Un controlador de dispositivo (llamado normalmente controlador, o, en inglés, driver) es un programa informático que permite al sistema operativo interaccionar con un periférico, haciendo una abstracción del hardware y proporcionando una interfaz *"posiblemente estandarizada"* para usarlo.
 
 
 

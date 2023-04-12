@@ -30,37 +30,37 @@ Tamaños
 
 * **Barebone** (Mini iTX, HTPC): Son de pequeño tamaño. Los barebone tienen el problema del calentamiento. Por lo general, poseen una o dos bahías de 5 ¼ y una o dos bahías de 3 ½.
 
-Minitorre: 1 o 2 bahías de 5 ¼ y 2 o 3 de 3 ½, Su calentamiento es normal y no tiene el problema de los barebone.
+* **Minitorre**: 1 o 2 bahías de 5 ¼ y 2 o 3 de 3 ½, Su calentamiento es normal y no tiene el problema de los barebone.
 
-.. image:: imagenes/carcasa/barebone.png
+  .. image:: imagenes/carcasa/barebone.png
 
 * **Sobremesa**: No se diferencian mucho de las minitorres, a excepción de que en lugar de estar en vertical se colocan en horizontal sobre el escritorio.
 
-.. image:: imagenes/carcasa/sobremesa.png
+  .. image:: imagenes/carcasa/sobremesa.png
 
 * **Mediatorre** o semitorre: Normalmente son de 4 bahías de 5 ¼ y 4 de 3 ½. La diferencia de ésta es que aumenta su tamaño para poder colocar más dispositivos.
 
-.. image:: imagenes/carcasa/mediatorre.png
-
+  .. image:: imagenes/carcasa/mediatorre.png
+  
 * **Torre**: Es el más grande. Puedes colocar una gran cantidad de dispositivos y es usado cuando se precisa una gran cantidad de dispositivos.
 
-.. image:: imagenes/carcasa/torre.png
+  .. image:: imagenes/carcasa/torre.png
 
 * **Servidor**: Su diseño está basado en la eficiencia donde los periféricos no es la mayor prioridad sino el rendimiento y la ventilación.
 
-.. image:: imagenes/carcasa/servidor.png
+  .. image:: imagenes/carcasa/servidor.png
 
 * **Rack**: Los servidores rack se atornillan a un mueble, este tipo de servidores suele colocarse en salas climatizadas debido a la temperatura que alcanza.
 
-.. image:: imagenes/carcasa/rack.png
+  .. image:: imagenes/carcasa/rack.png
 
 * **Modding**: El modding es un tipo de gabinete que es totalmente estético incluso se podría decir en algunos casos que son poco funcionales.
 
-.. image:: imagenes/carcasa/modding.png
+  .. image:: imagenes/carcasa/modding.png
 
-`vídeo (ver en casa) <http://www.youtube.com/watch?v=SFyZxM1up4Q&feature=related>`_
+  `vídeo (ver en casa) <http://www.youtube.com/watch?v=SFyZxM1up4Q&feature=related>`_
 
 
 * **Portátiles**: El tamaño suele depender del monitor que trae incorporado.
 
-.. image:: imagenes/carcasa/portatiles.png
+  .. image:: imagenes/carcasa/portatiles.png

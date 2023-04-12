@@ -187,26 +187,3 @@ Caso red interna
    sudo systemctl status enrutar.service
 
 * Si no lo habías realizado, ejecutamos en el cliente **sudo pam-auth-update** y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
-
-* Vuelve al servidor principal, hazte usuario tunombre2, primero genera un par de claves rsa una privada y publica, para ello ejecuta el siguiente comando en tu home:
-
-  .. code-block:: bash
-
-   ssh-keygen
-    
-* Puedes comprobar que se ha generado (ls .ssh/) tendrá que aparecer las dos claves (id_rsa  id_rsa.pub), lo siguiente será exportar la clave publica al cliente, para ello ejecutamos:
-
-  .. code-block:: bash
-
-   ssh-copy-id 172.16.0.11
-     
-* Por ultimo conectate al cliente, ahora ya no te pedirá la contraseña.
-
-* Haz lo mismo en los clientes para el usuario tunombre, tunombre1 y root. En el caso del root proporcionarle una password para primero habilitarlo (sudo su y luego ejecutar el comando passwd)
-
-* Para poder loguearse por ssh, en el archivo **/etc/ssh/sshd_config** desomentar o incluir la linea : PermitRootLogin yes
-
-
-
-
-
