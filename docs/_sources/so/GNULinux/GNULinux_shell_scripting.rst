@@ -2,40 +2,15 @@
 Shell Scripting
 ***************
 
+Dar permisos de ejecución a un script:
+
 .. code-block:: bash
 
- $ # dar permisos de ejecución
  $ chmod +x script.sh
-
-* **read** leer variable
-
-  .. code-block:: bash
- 
-   $ read a
-   10
-   $ echo $a
-   10
-   
 
 
 Entrada de datos
 ****************
-
-* **read** damos valor a la variable
-
-  .. code-block:: bash
-  
-   $ cat script.sh
-   #!/bin/bash
-   
-   echo "¿Cuánto vale a?"
-   read a
-   echo "a = $a"
-
-   $ ./script.sh
-   ¿Cuánto vale a?
-   4
-   a = 4
 
 * Argumentos de entrada
 
@@ -49,13 +24,12 @@ Entrada de datos
    echo X=$X Y=$Y Z=$Z
    echo "En total hay $# argumentos : $@"
    
-   $ chmod +x args.sh
    $ ./args.sh uno dos tres
    X=uno Y=dos Z=tres
    En total hay 3 argumentos : uno dos tres
    
 
-* **Shift** desplaza los argumentos el número de veces que aparezca
+* **shift** desplaza los argumentos el número de veces que aparezca
 
   .. code-block:: bash
   
@@ -106,7 +80,7 @@ Entrada de datos
    X=hola Y=33 Z=dani
    En total hay 0 argumentos :
 
-* En el caso de que queramos que el programa se pare a preguntar por el valor de una variable utilizaremos read
+* En el caso de que queramos que el programa se pare a preguntar por el valor de una variable utilizaremos **read**
 
   .. code-block:: bash
   
@@ -159,159 +133,196 @@ Entrada de datos
    3 es menor o igual que 3
    4 es mayor que 3
    5 es mayor que 3
-   Podríamos sustituir la linea  if [ $i -gt $X ] por :
-       if [[ $i -gt $X ]]
-       if test $i -gt $X
-   Evaluación de condiciones numéricas
-       if test $i -gt $X # -gt grater than
-       if test $i -ge $X # -gt grater or equal than
-       if test $i -lt $X # -lt less than
-       if test $i -eq $X # -eq equal than
-       if test $i -ne $X # -ne not equal than
+   
+  Podríamos sustituir la linea  if [ $i -gt $X ] por :
+  
+  .. code-block:: bash
 
-Comparación de cadenas
+   if [[ $i -gt $X ]]
+   if test $i -gt $X
+    
+* Evaluación de condiciones numéricas
+  
+  .. code-block:: bash
+   
+   if test $i -gt $X # -gt grater than
+   if test $i -ge $X # -gt grater or equal than
+   if test $i -lt $X # -lt less than
+   if test $i -eq $X # -eq equal than
+   if test $i -ne $X # -ne not equal than
 
-    grep '/bin/bash' file.dat | grep -v root
-    dani:x:1001:1000:dani,,,:/home/dani:/bin/bash
-    ramon:x:1002:1000:ramon,,,:/home/ramon:/bin/bash
-    pablo:x:1003:1000:pablo,,,:/home/pablo:/bin/bash
-    alvaro:x:1004:1000:alvaro,,,:/home/alvaro:/bin/bash
-    cris:x:1005:1000:cris,,,:/home/cris:/bin/bash
-    ana:x:1006:1000:ana,,,:/home/ana:/bin/bash
-    elvira:x:1007:1000:elvira,,,:/home/elvira:/bin/bash
-    cat for2.sh
-    #!/bin/bash
-    for i in $(grep '/bin/bash' file.dat | grep -v root|cut -d':' -f1)
-    do
-    echo $i
-    done
-    ./for2.sh
+* Comparación de cadenas
 
-    dani
-    ramon
-    pablo
-    alvaro
-    cris
-    ana
-    elvira
+  .. code-block:: bash
 
-    cat for2.sh
-    #!/bin/bash
-    for i in $(grep '/bin/bash' file.dat | grep -v root|cut -d':' -f1)
-    do
-    if test $i == "dani"
-    then
-    echo $i encontrado
-    fi
-    done
+   $ grep '/bin/bash' file.dat | grep -v root
+   
+   dani:x:1001:1000:dani,,,:/home/dani:/bin/bash
+   ramon:x:1002:1000:ramon,,,:/home/ramon:/bin/bash
+   pablo:x:1003:1000:pablo,,,:/home/pablo:/bin/bash
+   alvaro:x:1004:1000:alvaro,,,:/home/alvaro:/bin/bash
+   cris:x:1005:1000:cris,,,:/home/cris:/bin/bash
+   ana:x:1006:1000:ana,,,:/home/ana:/bin/bash
+   elvira:x:1007:1000:elvira,,,:/home/elvira:/bin/bash
+   
+   $ cat for2.sh
+   #!/bin/bash
+   for i in $(grep '/bin/bash' file.dat | grep -v root|cut -d':' -f1)
+   do
+     echo $i
+   done
+   
+   $ ./for2.sh
+   dani
+   ramon
+   pablo
+   alvaro
+   cris
+   ana
+   elvira
 
-    ./for2.sh
+   $ cat for2.sh
+   #!/bin/bash
+   for i in $(grep '/bin/bash' file.dat | grep -v root|cut -d':' -f1)
+   do
+     if test $i == "dani"
+     then
+       echo $i encontrado
+     fi
+   done
+
+    $ ./for2.sh
     dani encontrado
 
-    Podríamos sustituir la linea if test $i == "dani" por:
-        if [ $i == "dani" ]
-        if [[ $i == "dani" ]]
-    Evaluación de condiciones con cadenas de caracteres:
-        Str1 == Str2 # Returns true if the strings are equal
-        Str1 != Str2 # Returns true if the strings are not equal
-        -n Str1      # Returns true if the string is not null
-        -z Str1      # Returns true if the string is null
+  Podríamos sustituir la linea if test $i == "dani" por:
+  
+  .. code-block:: bash
+   
+   if [ $i == "dani" ]
+   if [[ $i == "dani" ]]
+   
+* Evaluación de condiciones con cadenas de caracteres:
 
-Propiedades de archivos y carpetas
+  .. code-block:: bash
+  
+   Str1 == Str2 # Returns true if the strings are equal
+   Str1 != Str2 # Returns true if the strings are not equal
+   -n Str1      # Returns true if the string is not null
+   -z Str1      # Returns true if the string is null
 
-    cat file.sh
-    #!/bin/bash
-    archivo=$1
+* Propiedades de archivos y carpetas
 
-    if test -e $archivo #True si existe
-    then
-      if test -d $archivo
-      then
-        echo "La carpeta $archivo existe"
-      fi
-      if test -f $archivo
-      then
-        echo "El archivo $archivo existe" 
-      fi
-      if test -r $archivo
-      then
-        echo "tiene permisos de lectura"
-      fi
-      if test -w $archivo
-      then
-        echo "tiene permisos de escritura"
-      fi
-      if test -x $archivo
-      then
-        echo "tiene permisos de ejecución"
-      fi
-    else
-      echo $archivo" no existe "
-    fi
-    echo hola > hola.dat
-    chmod +rwx hola.dat
-    ./file.sh hola.dat
+  .. code-block:: bash
+  
+   $ cat file.sh
+   #!/bin/bash
+   archivo=$1
 
-    El archivo hola.dat existe
-    tiene permisos de lectura
-    tiene permisos de escritura
-    tiene permisos de ejecución
-    mkdir dir
-    chmod +rw dir
-    chmod -x dir
-    ./file.sh dir
-    La carpeta dir/ existe
-    tiene permisos de lectura
+   if test -e $archivo #True si existe
+   then
+     if test -d $archivo
+     then
+       echo "La carpeta $archivo existe"
+     fi
+     if test -f $archivo
+     then
+       echo "El archivo $archivo existe" 
+     fi
+     if test -r $archivo
+     then
+       echo "tiene permisos de lectura"
+     fi
+     if test -w $archivo
+     then
+       echo "tiene permisos de escritura"
+     fi
+     if test -x $archivo
+     then
+       echo "tiene permisos de ejecución"
+     fi
+   else
+     echo $archivo" no existe "
+   fi
+    
+   $ echo hola > hola.dat
+   $ chmod +rwx hola.dat    
+   $ ./file.sh hola.dat
+   El archivo hola.dat existe
+   tiene permisos de lectura
+   tiene permisos de escritura
+   tiene permisos de ejecución
+   
+   $ mkdir dir
+   $ chmod +rw dir
+   $ chmod -x dir
+   $ ./file.sh dir
+   La carpeta dir/ existe
+   tiene permisos de lectura
+   tiene permisos de escritura
+   
+* Otras forma de hacer bucles
 
-    tiene permisos de escritura
+  .. code-block:: bash
+  
+   for i in a b c
+   do
+     echo $i
+   done
+   a
+   b
+   c
+   
+   i=0
+   while [ $i -lt 4 ]
+   do
+     i=$(($i+1))
+   echo $i
+   done
+   1
+   2
+   3
+   4
+   
+   #seguirá hasta que el archivo file.dat sea creado
+   while ! test -e file.dat
+   do
+     sleep 1s
+     date
+   done
 
-Otras forma de hacer bucles
+* Funciones
 
-    for i in a b c
-    do
-      echo $i
-    done
-    a
-    b
-    c
-    i=0
-    while [ $i -lt 4 ]
-    do
-      i=$(($i+1))
-    echo $i
-    done
-    1
-    2
-    3
-    4
-    #seguirá hasta que el archivo file.dat sea creado
-    while ! test -e file.dat
-    do
-      sleep 1s
-      date
-    done
+  .. code-block:: bash
+  
+   function Suma(){
+   a=$1
+   b=$2
+   c=$((a+b))
+   echo $c
+   }
 
-Funciones
+   $ Suma 1 2
+   3
 
-    function Suma(){
-    a=$1
-    b=$2
-    c=$((a+b))
-    echo $c
-    }
-    Suma 1 2
-    3
+* Escritura de archivos
 
-Escritura de archivos
+  .. code-block:: bash
 
-    tunombre=dani
-    cat << EOF > new_file.dat
-    Mi nombre es $tunombre
-    hoy es $(date)
-    EOF
-    cat new_file.dat
-    Mi nombre es dani
-    hoy es mié 12 oct 2022 16:37:57 CEST
-    Podemos hacer lo mismo:
-    echo "Mi nombre es $tunombre
-    hoy es $(date)" >> new_file.dat
+   $ tunombre=dani
+   $ cat << EOF > new_file.dat
+   Mi nombre es $tunombre
+   hoy es $(date)
+   EOF
+   
+   $ cat new_file.dat
+   Mi nombre es dani
+   hoy es mié 12 oct 2022 16:37:57 CEST
+   
+  Podemos hacer lo mismo:
+  
+  .. code-block:: bash
+  
+   $ echo "Mi nombre es $tunombre
+   hoy es $(date)" >> new_file.dat
+   
+ 
