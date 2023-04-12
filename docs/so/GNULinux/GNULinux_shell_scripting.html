@@ -272,6 +272,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrada-de-datos">Entrada de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-y-condicionales">Bucles y condicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-archivos-y-carpetas">Propiedades de archivos y carpetas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
 </ul>
             </nav>
         </div>
@@ -370,7 +374,12 @@ Hola<span class="w"> </span>dani
 </pre></div>
 </div>
 </li>
-<li><p>Bucles y condicionales</p>
+</ul>
+</section>
+<section id="bucles-y-condicionales">
+<h2>Bucles y condicionales<a class="headerlink" href="#bucles-y-condicionales" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p>Bucles</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span><span class="k">for</span>.sh
 <span class="c1">#!/bin/bash</span>
 <span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">6</span><span class="p">;</span>i++<span class="o">))</span>
@@ -385,8 +394,11 @@ $<span class="w"> </span>./for.sh
 <span class="m">3</span>
 <span class="m">4</span>
 <span class="m">5</span>
-
-$<span class="w"> </span>cat<span class="w"> </span><span class="k">for</span>.sh
+</pre></div>
+</div>
+</li>
+<li><p>Bucles y condicionales</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span><span class="k">for</span>.sh
 <span class="c1">#!/bin/bash</span>
 <span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">6</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
@@ -477,7 +489,39 @@ Str1<span class="w"> </span>!<span class="o">=</span><span class="w"> </span>Str
 </pre></div>
 </div>
 </li>
-<li><p>Propiedades de archivos y carpetas</p>
+<li><p>Otras forma de hacer bucles</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+<span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
+<span class="k">done</span>
+a
+b
+c
+
+<span class="nv">i</span><span class="o">=</span><span class="m">0</span>
+<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">]</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">i</span><span class="o">=</span><span class="k">$((</span><span class="nv">$i</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
+<span class="k">done</span>
+<span class="m">1</span>
+<span class="m">2</span>
+<span class="m">3</span>
+<span class="m">4</span>
+
+<span class="c1">#seguirá hasta que el archivo file.dat sea creado</span>
+<span class="k">while</span><span class="w"> </span>!<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>file.dat
+<span class="k">do</span>
+<span class="w">  </span>sleep<span class="w"> </span>1s
+<span class="w">  </span>date
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="propiedades-de-archivos-y-carpetas">
+<h2>Propiedades de archivos y carpetas<a class="headerlink" href="#propiedades-de-archivos-y-carpetas" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>file.sh
 <span class="c1">#!/bin/bash</span>
 <span class="nv">archivo</span><span class="o">=</span><span class="nv">$1</span>
@@ -525,37 +569,9 @@ tiene<span class="w"> </span>permisos<span class="w"> </span>de<span class="w"> 
 tiene<span class="w"> </span>permisos<span class="w"> </span>de<span class="w"> </span>escritura
 </pre></div>
 </div>
-</li>
-<li><p>Otras forma de hacer bucles</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
-<span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
-<span class="k">done</span>
-a
-b
-c
-
-<span class="nv">i</span><span class="o">=</span><span class="m">0</span>
-<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">]</span>
-<span class="k">do</span>
-<span class="w">  </span><span class="nv">i</span><span class="o">=</span><span class="k">$((</span><span class="nv">$i</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
-<span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
-<span class="k">done</span>
-<span class="m">1</span>
-<span class="m">2</span>
-<span class="m">3</span>
-<span class="m">4</span>
-
-<span class="c1">#seguirá hasta que el archivo file.dat sea creado</span>
-<span class="k">while</span><span class="w"> </span>!<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>file.dat
-<span class="k">do</span>
-<span class="w">  </span>sleep<span class="w"> </span>1s
-<span class="w">  </span>date
-<span class="k">done</span>
-</pre></div>
-</div>
-</li>
-<li><p>Funciones</p>
+</section>
+<section id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>Suma<span class="o">(){</span>
 <span class="nv">a</span><span class="o">=</span><span class="nv">$1</span>
 <span class="nv">b</span><span class="o">=</span><span class="nv">$2</span>
@@ -567,8 +583,9 @@ $<span class="w"> </span>Suma<span class="w"> </span><span class="m">1</span><sp
 <span class="m">3</span>
 </pre></div>
 </div>
-</li>
-<li><p>Escritura de archivos</p>
+</section>
+<section id="escritura-de-archivos">
+<h2>Escritura de archivos<a class="headerlink" href="#escritura-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">tunombre</span><span class="o">=</span>dani
 $<span class="w"> </span>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; new_file.dat</span>
 <span class="s">Mi nombre es $tunombre</span>
@@ -585,8 +602,6 @@ hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span
 <span class="s2">hoy es </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>new_file.dat
 </pre></div>
 </div>
-</li>
-</ul>
 </section>
 </section>
 
@@ -615,6 +630,10 @@ hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrada-de-datos">Entrada de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-y-condicionales">Bucles y condicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-archivos-y-carpetas">Propiedades de archivos y carpetas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
 </ul>
   </nav></div>
 

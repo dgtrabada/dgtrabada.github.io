@@ -95,7 +95,10 @@ Entrada de datos
    dani
    Hola dani
 
-* Bucles y condicionales
+Bucles y condicionales
+**********************
+
+* Bucles 
 
   .. code-block:: bash
    
@@ -114,6 +117,10 @@ Entrada de datos
    4
    5
    
+* Bucles y condicionales
+
+  .. code-block:: bash
+  
    $ cat for.sh
    #!/bin/bash
    for ((i=1;i<6;i++))
@@ -210,56 +217,7 @@ Entrada de datos
    -n Str1      # Returns true if the string is not null
    -z Str1      # Returns true if the string is null
 
-* Propiedades de archivos y carpetas
 
-  .. code-block:: bash
-  
-   $ cat file.sh
-   #!/bin/bash
-   archivo=$1
-
-   if test -e $archivo #True si existe
-   then
-     if test -d $archivo
-     then
-       echo "La carpeta $archivo existe"
-     fi
-     if test -f $archivo
-     then
-       echo "El archivo $archivo existe" 
-     fi
-     if test -r $archivo
-     then
-       echo "tiene permisos de lectura"
-     fi
-     if test -w $archivo
-     then
-       echo "tiene permisos de escritura"
-     fi
-     if test -x $archivo
-     then
-       echo "tiene permisos de ejecución"
-     fi
-   else
-     echo $archivo" no existe "
-   fi
-    
-   $ echo hola > hola.dat
-   $ chmod +rwx hola.dat    
-   $ ./file.sh hola.dat
-   El archivo hola.dat existe
-   tiene permisos de lectura
-   tiene permisos de escritura
-   tiene permisos de ejecución
-   
-   $ mkdir dir
-   $ chmod +rw dir
-   $ chmod -x dir
-   $ ./file.sh dir
-   La carpeta dir/ existe
-   tiene permisos de lectura
-   tiene permisos de escritura
-   
 * Otras forma de hacer bucles
 
   .. code-block:: bash
@@ -290,39 +248,94 @@ Entrada de datos
      date
    done
 
-* Funciones
+Propiedades de archivos y carpetas
+**********************************
 
-  .. code-block:: bash
+.. code-block:: bash
+
+ $ cat file.sh
+ #!/bin/bash
+ archivo=$1
+
+ if test -e $archivo #True si existe
+ then
+   if test -d $archivo
+   then
+     echo "La carpeta $archivo existe"
+   fi
+   if test -f $archivo
+   then
+     echo "El archivo $archivo existe" 
+   fi
+   if test -r $archivo
+   then
+     echo "tiene permisos de lectura"
+   fi
+   if test -w $archivo
+   then
+     echo "tiene permisos de escritura"
+   fi
+   if test -x $archivo
+   then
+     echo "tiene permisos de ejecución"
+   fi
+ else
+   echo $archivo" no existe "
+ fi
   
-   function Suma(){
-   a=$1
-   b=$2
-   c=$((a+b))
-   echo $c
-   }
-
-   $ Suma 1 2
-   3
-
-* Escritura de archivos
-
-  .. code-block:: bash
-
-   $ tunombre=dani
-   $ cat << EOF > new_file.dat
-   Mi nombre es $tunombre
-   hoy es $(date)
-   EOF
-   
-   $ cat new_file.dat
-   Mi nombre es dani
-   hoy es mié 12 oct 2022 16:37:57 CEST
-   
-  Podemos hacer lo mismo:
+ $ echo hola > hola.dat
+ $ chmod +rwx hola.dat    
+ $ ./file.sh hola.dat
+ El archivo hola.dat existe
+ tiene permisos de lectura
+ tiene permisos de escritura
+ tiene permisos de ejecución
   
-  .. code-block:: bash
-  
-   $ echo "Mi nombre es $tunombre
-   hoy es $(date)" >> new_file.dat
+ $ mkdir dir
+ $ chmod +rw dir
+ $ chmod -x dir
+ $ ./file.sh dir
+ La carpeta dir/ existe
+ tiene permisos de lectura
+ tiene permisos de escritura
+ 
+
+
+Funciones
+*********
+
+.. code-block:: bash
+
+ function Suma(){
+ a=$1
+ b=$2
+ c=$((a+b))
+ echo $c
+ }
+
+ $ Suma 1 2
+ 3
+
+Escritura de archivos
+*********************
+
+.. code-block:: bash
+
+ $ tunombre=dani
+ $ cat << EOF > new_file.dat
+ Mi nombre es $tunombre
+ hoy es $(date)
+ EOF
+ 
+ $ cat new_file.dat
+ Mi nombre es dani
+ hoy es mié 12 oct 2022 16:37:57 CEST
    
+Podemos hacer lo mismo:
+  
+.. code-block:: bash
+  
+ $ echo "Mi nombre es $tunombre
+ hoy es $(date)" >> new_file.dat
+ 
  
