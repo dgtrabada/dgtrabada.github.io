@@ -4,7 +4,7 @@ Tipos y técnicas de transmisión de datos
 
 **Según la sincronización** del emisor y al receptor, podemos clasificar la transmisión de datos en los siguientes tipos
 
-* **Transmisión síncrona.** Utilizamos una señal periódica que indica los instantes en los que eta accesible cada dígito. Normalmente el emisor envía al receptor la señal de sincronización junto con la señal de datos. Es decir el emisor y el receptor están sincronizados
+* **Transmisión síncrona.** Utilizamos una señal periódica que indica los instantes en los que esta accesible cada dígito. Normalmente el emisor envía al receptor la señal de sincronización junto con la señal de datos. Es decir el emisor y el receptor están sincronizados
 
   .. image:: imagenes/TTT1.png
     :width: 400

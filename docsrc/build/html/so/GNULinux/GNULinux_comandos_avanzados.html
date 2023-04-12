@@ -276,26 +276,40 @@ document.write(`
   <section id="comandos-avanzados">
 <h1>Comandos avanzados<a class="headerlink" href="#comandos-avanzados" title="Enlace permanente a este encabezado">#</a></h1>
 <ul>
-<li><p>Dar permisos de ejecución a un script</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>script.sh
-</pre></div>
-</div>
-</li>
-<li><p>Caracteres especiales (  , «, “ )</p></li>
-<li><p>Operadores &lt;,  &lt;&lt;, 2&gt;, &amp;&gt;, …</p></li>
 <li><p><strong>echo</strong> muestra el valor de una variable o repite la salida estándar</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>Hola<span class="w"> </span>Mundo
+<p>Las variables se dividen en dos tipos, locales y de entorno (globales), Las variables de entorno global son visibles desde una sesión de shell y en cualquier proceso secundario que genera el shell. En cambio, las variables locales solo pueden estar disponibles en el shell en el que se crean.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hola Mundo&quot;</span><span class="w">   </span><span class="c1"># repite salida estándar</span>
 Hola<span class="w"> </span>Mundo
 
 $<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">5</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>a
 a
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span><span class="w">             </span><span class="c1"># valor de una variable local</span>
 <span class="m">5</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span>
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a = </span><span class="nv">$a</span><span class="s2">&quot;</span><span class="w">       </span><span class="c1"># utiliza &quot; para que evalue la variable</span>
 <span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;a = $a&#39;</span>
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;a = $a&#39;</span><span class="w">       </span><span class="c1"># utiliza &#39; para que no evalue la variable</span>
 <span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$a</span>
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$HOME</span><span class="w">           </span><span class="c1"># valor de una variable global</span>
+/home/dani
+</pre></div>
+</div>
+</li>
+<li><p><strong>Evaluación de comandos y operaciones</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">3</span>+4
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span><span class="w">              </span><span class="c1"># repite salida estándar</span>
+<span class="m">3</span>+4
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a<span class="k">))</span><span class="w">          </span><span class="c1"># doble parentesis realiza la operación</span>
+<span class="m">7</span>
+
+$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span><span class="w">          </span><span class="c1"># un parentesis toma el valor del comando</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
+dani
 </pre></div>
 </div>
 </li>
@@ -306,20 +320,14 @@ $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><sp
 <span class="m">14</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a*b<span class="k">))</span>
 <span class="m">40</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a/b<span class="k">))</span><span class="w"> </span><span class="c1">#solo nº enteros</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a/b<span class="k">))</span><span class="w">        </span><span class="c1"># solo nº enteros</span>
 <span class="m">2</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a-b<span class="k">))</span>
 <span class="m">6</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a%b<span class="k">))</span><span class="w"> </span><span class="c1">#modulo o resto</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>a%b<span class="k">))</span><span class="w">        </span><span class="c1"># modulo o resto</span>
 <span class="m">2</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Evaluación de comandos</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="k">$(</span>whoami<span class="k">)</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
-dani
 
+<span class="c1"># Ejemplo de modulo:</span>
 $<span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="nv">$RANDOM</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
 <span class="m">805</span>
@@ -333,16 +341,22 @@ $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><sp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">a</span><span class="o">=</span>www.fsf.org
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
 .fsf.org
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">::</span><span class="nv">3</span><span class="si">}</span>
 www
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">:</span><span class="nv">1</span><span class="p">:</span><span class="nv">3</span><span class="si">}</span>
 ww.
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">::</span><span class="nv">2</span><span class="si">}</span>
 ww
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${#</span><span class="nv">a</span><span class="si">}</span>
 <span class="m">11</span>
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">:</span><span class="k">$((</span><span class="si">${#</span><span class="nv">a</span><span class="si">}</span><span class="o">-</span><span class="m">3</span><span class="k">))</span><span class="si">}</span>
 org
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">a</span><span class="p">::</span><span class="k">$((</span><span class="si">${#</span><span class="nv">a</span><span class="si">}</span><span class="o">-</span><span class="m">3</span><span class="k">))</span><span class="si">}</span>
 www.fsf.
 </pre></div>
@@ -363,23 +377,49 @@ empleado<span class="w">   </span>:<span class="w"> </span>nombre4
 empleado<span class="w">   </span>:<span class="w"> </span>nombre5
 
 
-$<span class="w"> </span>cat<span class="w"> </span>test.dat
+$<span class="w"> </span>cat<span class="w"> </span>test.dat<span class="w">                    </span><span class="c1"># da un error al no existir el archivo</span>
 cat:<span class="w"> </span>test.dat:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
 
-$<span class="w"> </span>cat<span class="w"> </span>test.dat<span class="w"> </span>&gt;<span class="w"> </span>new.dat
+$<span class="w"> </span>cat<span class="w"> </span>test.dat<span class="w"> </span>&gt;<span class="w"> </span>new.dat<span class="w">          </span><span class="c1"># crea un archivo vacío</span>
 cat:<span class="w"> </span>test.dat:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
 
+$<span class="w"> </span>cat<span class="w"> </span>new.dat<span class="w">                     </span><span class="c1"># comprobamos que esta vacío</span>
+
+$<span class="w"> </span>cat<span class="w"> </span>test.dat<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>new.dat<span class="w">         </span><span class="c1"># 2&gt; recoge el error</span>
 $<span class="w"> </span>cat<span class="w"> </span>new.dat
-
-$<span class="w"> </span>cat<span class="w"> </span>test.dat<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>new.dat
-$<span class="w"> </span>cat<span class="w"> </span>new.dat
 cat:<span class="w"> </span>test.dat:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+
+$<span class="w"> </span><span class="nv">tunombre</span><span class="o">=</span>dani
+$<span class="w"> </span>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; new_file.dat</span>
+<span class="s">Mi nombre es $tunombre</span>
+<span class="s">hoy es $(date)</span>
+<span class="s">EOF</span>
+
+$<span class="w"> </span>cat<span class="w"> </span>new_file.dat
+Mi<span class="w"> </span>nombre<span class="w"> </span>es<span class="w"> </span>dani
+hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span><span class="m">12</span><span class="w"> </span>oct<span class="w"> </span><span class="m">2022</span><span class="w"> </span><span class="m">16</span>:37:57<span class="w"> </span>CEST
+
+<span class="c1">#Podemos hacer lo mismo:</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mi nombre es </span><span class="nv">$tunombre</span>
+<span class="s2">hoy es </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>new_file.dat
 </pre></div>
 </div>
-<p>«&amp;&gt;» combina los operadores «2&gt;» (redirigir stderr) y «&gt;» (redirigir stdout) en uno solo.</p>
+<ul class="simple">
+<li><p><strong>echo $?</strong> devuelve 0 si el comando que se acaba de ejecutar no ha dado problemas</p></li>
+<li><p><strong>&amp;&gt;</strong> combina los operadores 2&gt; (redirigir stderr) y &gt; (redirigir stdout) en uno solo.</p></li>
+<li><p><strong>orden1 &amp;&amp; orden2</strong> La orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0</p></li>
+<li><p><strong>orden1 || orden2</strong> la orden2 solo se ejecuta si la orden1 devuelve un estado de   salida distinto de 0</p></li>
+</ul>
 </li>
 <li><p><strong>head y tail</strong> head muestra las primeras lineas y tail las ultimas, por defecto muestran 10 lineas</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>login.dat
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>login.dat
 admin<span class="w">      </span>:<span class="w"> </span>nombre1
 gerente<span class="w">    </span>:<span class="w"> </span>nombre2
 supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
@@ -392,17 +432,31 @@ empleado<span class="w">   </span>:<span class="w"> </span>nombre5
 </div>
 </li>
 <li><p><strong>Pipes, tuberías «|»</strong> la salida del primer comando se toma como la entrada del siguiente.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+$<span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">3</span><span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
 supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
 
 <span class="c1">#El comando bc se utiliza como calculadora</span>
-<span class="nv">$echo</span><span class="w"> </span><span class="m">4</span>/5<span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">4</span>/5<span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l
 .80000000000000000000
 </pre></div>
 </div>
 </li>
 <li><p><strong>cut</strong> corta columnas (-f) usando como delimitador (-d)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>login.dat
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+$<span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span>login.dat
 admin
 gerente
 supervisor
@@ -425,12 +479,77 @@ nombre5
 </pre></div>
 </div>
 </li>
-<li><p><strong>uniq</strong> quita las lineas duplicadas, con la opción (-c) precede a las líneas con el número de ocurrencias</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grep<span class="w"> </span>emple<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1
+<li><p><strong>grep</strong> filtra texto de un archivo, con la opción c muestra solo el nº de lineas que coinciden,  y con -v selecciona las lineas que no coinciden</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+$<span class="w"> </span>grep<span class="w"> </span>empleado<span class="w"> </span>login.dat
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+<span class="c1"># con la opción -c muestra solo el nº de lineas</span>
+$<span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span>empleado<span class="w"> </span>login.dat
+<span class="m">2</span>
+
+<span class="c1"># con la opción -n muestra el número de lineas</span>
+$<span class="w"> </span>grep<span class="w"> </span>-n<span class="w"> </span>empleado<span class="w"> </span>login.dat<span class="w"> </span><span class="c1"># muestra solo el nº de lineas</span>
+<span class="m">4</span>:empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+<span class="m">5</span>:empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+
+<span class="c1"># con la opción -v selecciona las lineas que no coinciden</span>
+$<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>empleado<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+
+<span class="c1">#AND</span>
+$<span class="w"> </span>grep<span class="w">  </span>empleado<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">5</span>
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+</pre></div>
+</div>
+</li>
+<li><p><strong>egrep</strong> es el comando gerp extendido, este comando permite el uso de expreiones regulares más complejas que grep</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+<span class="c1"># OR</span>
+$<span class="w"> </span>egrep<span class="w">  </span><span class="s1">&#39;empleado|admin&#39;</span><span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+<span class="c1"># con la opción -i no discrimina entre Mayúsculas y Minúsculas</span>
+$<span class="w"> </span>egrep<span class="w">  </span>-i<span class="w"> </span>EM<span class="w"> </span>login.dat
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+</pre></div>
+</div>
+</li>
+<li><p><strong>uniq</strong> quita las lineas duplicadas</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
+admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w">   </span>:<span class="w"> </span>nombre4
+empleado<span class="w">   </span>:<span class="w"> </span>nombre5
+
+$<span class="w"> </span>grep<span class="w"> </span>emple<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1
 empleado
 empleado
+
 $<span class="w"> </span>grep<span class="w"> </span>emple<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
 empleado
+
+<span class="c1"># con la opción -c precede a las líneas con el número de ocurrencias</span>
 $<span class="w"> </span>grep<span class="w"> </span>emple<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
 <span class="m">2</span><span class="w"> </span>empleado
 </pre></div>
@@ -449,73 +568,54 @@ supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
 <li><p><strong>wc</strong> te dice el nº de lineas, palabras y caracteres que tiene el archivo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>wc<span class="w"> </span>login.dat
 <span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">110</span><span class="w"> </span>login.dat
+
 $<span class="w"> </span>wc<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2
 <span class="m">5</span>
+
 $<span class="w"> </span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="k">)</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$nlineas</span>
 <span class="m">5</span>
 </pre></div>
 </div>
 </li>
-<li><p><strong>grep</strong> filtra texto de un archivo, con la opción c muestra solo el nº de lineas que coinciden, con la opción -n muestra el número de lineas y con -v selecciona las lineas que no coinciden</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>wc<span class="w"> </span>login.dat
-<span class="m">5</span><span class="w">  </span><span class="m">15</span><span class="w"> </span><span class="m">110</span><span class="w"> </span>login.dat
-
-$<span class="w"> </span>grep<span class="w"> </span>empleado<span class="w"> </span>login.dat
-empleado<span class="w">   </span>:<span class="w"> </span>nombre4
-empleado<span class="w">   </span>:<span class="w"> </span>nombre5
-
-$<span class="w"> </span>grep<span class="w">  </span>empleado<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="c1">#AND</span>
-empleado<span class="w">   </span>:<span class="w"> </span>nombre5
-</pre></div>
-</div>
-</li>
-<li><p><strong>egrep</strong> es el comando gerp extendido, este comando permite el uso de expreiones regulares más complejas que grep</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>egrep<span class="w">  </span><span class="s1">&#39;empleado|admin&#39;</span><span class="w"> </span>login.dat<span class="w"> </span><span class="c1">#OR</span>
+<li><p><strong>tr</strong> sustituye caracteres</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>login.dat
 admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
 empleado<span class="w">   </span>:<span class="w"> </span>nombre4
 empleado<span class="w">   </span>:<span class="w"> </span>nombre5
 
-$<span class="w"> </span>egrep<span class="w">  </span>-i<span class="w"> </span>EM<span class="w"> </span>login.dat
-empleado<span class="w">   </span>:<span class="w"> </span>nombre4
-empleado<span class="w">   </span>:<span class="w"> </span>nombre5
-</pre></div>
-</div>
-</li>
-<li><p><strong>tr</strong> sustituye caracteres, con la opción -s quita los caracteres duplicados (tr -s “ “)</p>
-<div class="highlight-bas notranslate"><div class="highlight"><pre><span></span>$ cat login.dat | tr &#39;a&#39; &#39;A&#39;
-Admin      : nombre1
-gerente    : nombre2
-supervisor : nombre3
-empleAdo   : nombre4
-empleAdo   : nombre5
+$<span class="w"> </span>cat<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;a&#39;</span><span class="w"> </span><span class="s1">&#39;A&#39;</span>
+Admin<span class="w">      </span>:<span class="w"> </span>nombre1
+gerente<span class="w">    </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleAdo<span class="w">   </span>:<span class="w"> </span>nombre4
+empleAdo<span class="w">   </span>:<span class="w"> </span>nombre5
 
-$ cat login.dat | tr &#39;admin&#39; &#39;ADMIN&#39;
-ADMIN      : NoMbre1
-gereNte    : NoMbre2
-supervIsor : NoMbre3
-eMpleADo   : NoMbre4
-eMpleADo   : NoMbre5
-$ cut -d&#39; &#39; -f3 login.dat
+$<span class="w"> </span>cat<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;admin&#39;</span><span class="w"> </span><span class="s1">&#39;ADMIN&#39;</span>
+ADMIN<span class="w">      </span>:<span class="w"> </span>NoMbre1
+gereNte<span class="w">    </span>:<span class="w"> </span>NoMbre2
+supervIsor<span class="w"> </span>:<span class="w"> </span>NoMbre3
+eMpleADo<span class="w">   </span>:<span class="w"> </span>NoMbre4
+eMpleADo<span class="w">   </span>:<span class="w"> </span>NoMbre5
+
+$<span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span>login.dat
 
 
 nombre3
 
 
-$ cat login.dat | tr -s &#39; &#39;
-admin : nombre1
-gerente : nombre2
-supervisor : nombre3
-empleado : nombre4
-empleado : nombre5
+<span class="c1"># con la opción -s quita los caracteres duplicados (tr -s &#39; &#39;)</span>
 
-$ cat login.dat | tr -s &#39; &#39; | cut -d&#39; &#39; -f3 login.dat
+$<span class="w"> </span>cat<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span>
+admin<span class="w"> </span>:<span class="w"> </span>nombre1
+gerente<span class="w"> </span>:<span class="w"> </span>nombre2
+supervisor<span class="w"> </span>:<span class="w"> </span>nombre3
+empleado<span class="w"> </span>:<span class="w"> </span>nombre4
+empleado<span class="w"> </span>:<span class="w"> </span>nombre5
 
-
-nombre3
-
-
-$ cat login.dat | tr -s &#39; &#39; | cut -d&#39; &#39; -f3
+$<span class="w"> </span>cat<span class="w"> </span>login.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3
 nombre1
 nombre2
 nombre3
@@ -587,6 +687,7 @@ $<span class="w"> </span>diff<span class="w"> </span>login.dat<span class="w">  
 &lt;<span class="w"> </span>usuario3<span class="w"> </span>u3
 ---
 &gt;<span class="w"> </span>usuario3<span class="w"> </span>U3
+
 $<span class="w"> </span>diff<span class="w"> </span>-yW60<span class="w"> </span>login.dat<span class="w">  </span>login2.dat
 usuario1<span class="w"> </span>u1<span class="w">            </span>usuario1<span class="w"> </span>u1
 usuario2<span class="w"> </span>u2<span class="w">            </span>usuario2<span class="w"> </span>u2
@@ -594,16 +695,6 @@ usuario3<span class="w"> </span>u3<span class="w">         </span><span class="p
 </pre></div>
 </div>
 </li>
-<li><p><strong>read</strong> leer variable</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">read</span><span class="w"> </span>a
-<span class="m">10</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
-<span class="m">10</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>orden1 &amp;&amp; orden2</strong> La orden2 solo se ejecuta si la orden1 devuelve un estado de salida 0</p></li>
-<li><p><strong>orden1 || orden2</strong> la orden2 solo se ejecuta si la orden1 devuelve un estado de   salida distinto de 0</p></li>
 </ul>
 </section>
 

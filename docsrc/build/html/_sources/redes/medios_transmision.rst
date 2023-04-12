@@ -39,17 +39,19 @@ Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pare
 
 Tenemos 7 categorías diferentes, dependiendo del número de pares, el número de vueltas por metro de trenzado, materiales, etc
 
-* **Categoría 1*,  Sin trenzar, paralelo, solo voz en total 4 cables
+* **Categoría 1**,  Sin trenzar, paralelo, solo voz en total 4 cables
 
   * Conector RJ11 :
-  .. image:: imagenes/RJ11.png
+  
+    .. image:: imagenes/RJ11.png
 
 * **Categoría 2-5** son UTP desde 4 Mhz hasta 100 Mhz  y desde 4 Mbps hasta 1000 Mbps de 
 
 * **Categoría 6,7**, son STP 100 Mhz, desde 250 Mbps hasta 10000 Mbps (1Gb !)
 
   * Conector RJ45:
-  .. image:: imagenes/RJ45.png
+  
+    .. image:: imagenes/RJ45.png
   
 Cable directo
 -------------
@@ -77,12 +79,13 @@ Cable coaxial
 
 Consta de un núcleo de cobre solido rodeado por un aislante. Una malla central aisla de las interferencias (principio de la jaula de la jaula de Faraday", puede actuar como una antena conforme aumenta la distancia, emite señales que pueden ser registradas y puede recibir interferencias externas.
 
+
 .. image:: imagenes/cable_coaxial.png
 
 
 +-------------+-----------------+-------------------+
 |             | Fino (10Base-2) | Grueso (10Base-5) | 
-+-------------+-----------------+-------------------+
++=============+=================+===================+
 | Ancho Banda | ~80-400 Mhz     | ~800 Mhz          |
 +-------------+-----------------+-------------------+
 | Velocidad   | ~10Mpb          | 1Gbps             |
@@ -115,7 +118,11 @@ Su funcionamiento se basa en transmitir por el núcleo de la fibra un haz de luz
 
 .. image:: imagenes/fibra_optica1.png
 
-Este fenómeno tiene su explicación en el principio de reflexión interna total y la ley de Snell ( n1 * sin(θ1) = n2 * sin(θ2) )
+Este fenómeno tiene su explicación en el principio de reflexión interna total y la ley de Snell 
+
+.. math::
+
+  n_1 \times \sin(\theta_1) = n_2 \times \sin(\theta_2) 
 
 Tipos de conectores
 -------------------
@@ -136,7 +143,7 @@ Se denomina espectro electromagnético a la distribución energética del conjun
 
 .. image:: imagenes/frecuencias.svg
 
-El espectro visible por el ojo humano (luz) estaría entre el Infrarrojo < 3,84x1014 (Hz) y el ultravioleta > 7,89×1014  (Hz)
+El espectro visible por el ojo humano (luz) estaría entre el Infrarrojo < 3,84x10\ :sup:`14` (Hz) y el ultravioleta > 7,89×10\ :sup:`14`   (Hz)
 
 El radiotelescopio usados en radioastronomía opera en diversas bandas de frecuencia entre 2 y 90 GHz
 

@@ -7,9 +7,9 @@ GNU/Linux
 * :ref:`Permisos en GNU/Linux`
 * :ref:`Usuarios y grupos GNU/Linux`
 * :ref:`Comandos avanzados`
-* Shell Scripting
+* :ref:`Shell Scripting`
 * Automatización de tareas y servicios
-* NIS
+* :ref:`NIS`
 * NFS
 * Slurm
 * Environment modules

@@ -10,9 +10,9 @@ Podemos ver una red como algo abstracto que ofrece un determinado servicio en lo
 
 algunos de los parámetros más característicos de una red son:
 
-* **Cadencia efectiva (Cef)** 'Throughput o caudal' Cantidad de bps que se pueden introducir en la red en el punto de terminación de la red. no confundir con la capacidad nominal de enlace Cef < C
+* **Cadencia efectiva (Cef)** 'Throughput o caudal' Cantidad de bps que se pueden introducir en la red en el punto de terminación de la red, no confundir con la capacidad nominal de enlace Cef < C
 
-* **Retardo de transito (T)**. Tiempo dado que la red recoge un bit en el punto de terminación de origen hasta que se recibe en el (ptr) de destino. T>propagación de señal. Cef.T = Memoria de la red, es la información que ha salido del origen, pero no ha llegado a su destino
+* **Retardo de transito (T)**. Tiempo dado que la red recoge un bit en el punto de terminación de origen hasta que se recibe en el (ptr) de destino. T > propagación de señal. Cef.T = Memoria de la red, es la información que ha salido del origen, pero no ha llegado a su destino
 
 * **Tasa de fallos.** Probabilidad de que un bit no llegue a correctamente a su destino.
 
@@ -61,9 +61,9 @@ TIPOS REDES
 
   * **PAM** : Red de área personal, es una red de ordenadores usada para la comunicación entre los dispositivos del ordenador cerca de una persona
   
-     * <10 m
+    * <10 m
      
-     * Bluetooth, RFID
+    * Bluetooth, RFID
      
   * **LAN** : red de área local, es una red que se limita a un área especial, relativamente pequeña, tal como un cuarto, un aula, un solo edificio, una nave, o un barco.
 
@@ -92,11 +92,11 @@ Tipos de conexión a la Red
 
 * El bucle de abonado digital asimétrico , más conocido como ADSL , la operadoras de telefonía ofrecen la posibilidad de utilizar una línea de datos independiente de la línea de teléfono, aprovechando el ancho de banda disponible por encima del requerido por el servicio telefónico hasta el límite permitido por la propia línea.
 
-* En el servicio ADSL el envío y recepción de los datos se establece desde el ordenador del usuario a través de un módem ADSL. Estos datos pasan por un filtro (splitter), que permite la utilización simultánea del servicio telefónico básico (RTC) y del servicio ADSL. Es decir, el usuario puede hablar por teléfono a la vez que está navegando por Internet, para ello se establecen tres canales independientes sobre la línea telefónica estándar:
+  En el servicio ADSL el envío y recepción de los datos se establece desde el ordenador del usuario a través de un módem ADSL. Estos datos pasan por un filtro (splitter), que permite la utilización simultánea del servicio telefónico básico (RTC) y del servicio ADSL. Es decir, el usuario puede hablar por teléfono a la vez que está navegando por Internet, para ello se establecen tres canales independientes sobre la línea telefónica estándar:
 
- * Dos canales de alta velocidad (uno de recepción de datos y otro de envío de datos).
+  Dos canales de alta velocidad (uno de recepción de datos y otro de envío de datos).
 
- * Un tercer canal para la comunicación normal de voz (servicio telefónico básico).
+  Un tercer canal para la comunicación normal de voz (servicio telefónico básico).
   
   .. image:: imagenes/banda.png
  

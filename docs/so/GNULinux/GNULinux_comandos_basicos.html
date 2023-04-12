@@ -392,7 +392,6 @@ head:<span class="w"> </span>no<span class="w"> </span>se<span class="w"> </span
 <li><p><strong>mv</strong> mover, renombrar</p></li>
 <li><p><strong>rm -fr</strong> borrar</p></li>
 <li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>rmdir</strong> borrar directorio</p></li>
 <li><p><strong>cd</strong> cambiar directorio</p></li>
 <li><p><strong>whereis</strong> muestra donde esta el comando</p></li>
 <li><p><strong>pwd</strong> print working directory, se utiliza para imprimir el nombre del directorio actual</p></li>
@@ -422,7 +421,7 @@ head:<span class="w"> </span>no<span class="w"> </span>se<span class="w"> </span
 <li><p>G -&gt; ir al final del archivo</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">EDITOR</span><span class="o">=</span>/usr/bin/vim
-cat<span class="w"> </span>~/.vimrc
+$<span class="w"> </span>cat<span class="w"> </span>~/.vimrc
 filetype<span class="w"> </span>indent<span class="w"> </span>off
 </pre></div>
 </div>
@@ -477,17 +476,17 @@ tar<span class="w"> </span>-xvf<span class="w"> </span>new.tar
 </div>
 </li>
 <li><p><strong>NetPlan</strong> es la nueva utilidad para configurar la red, el antiguo /etc/network/interfaces ya no funciona. Debemos configurar <strong>/etc/netplan/01-*.yaml</strong>, por ejemplo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>network:
-<span class="w">  </span>ethernets:
-<span class="w">    </span>enp0s3:
-<span class="w">      </span>addresses:
-<span class="w">      </span>-<span class="w"> </span><span class="m">10</span>.4.105.100/8
-<span class="w">      </span>routes:
-<span class="w">      </span>-<span class="w"> </span>to:<span class="w"> </span>default
-<span class="w">        </span>via:<span class="w"> </span><span class="m">10</span>.0.0.2
-<span class="w">      </span>nameservers:
-<span class="w">        </span>addresses:<span class="w"> </span><span class="o">[</span><span class="m">8</span>.8.8.8<span class="o">]</span>
-<span class="w">  </span>version:<span class="w"> </span><span class="m">2</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enp0s3</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.4.105.100/8</span>
+<span class="w">      </span><span class="nt">routes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">        </span><span class="nt">via</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.2</span>
+<span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">8.8.8.8</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 </pre></div>
 </div>
 </li>

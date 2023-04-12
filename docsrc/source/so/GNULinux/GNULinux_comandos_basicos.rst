@@ -106,7 +106,6 @@ Ficheros y directorios
 * **mv** mover, renombrar
 * **rm -fr** borrar
 * **mkdir** crear directorio
-* **rmdir** borrar directorio
 * **cd** cambiar directorio
 * **whereis** muestra donde esta el comando
 * **pwd** print working directory, se utiliza para imprimir el nombre del directorio actual
@@ -137,7 +136,7 @@ Editores y visualizadores de archivos
   .. code-block:: bash 
  
    export EDITOR=/usr/bin/vim
-   cat ~/.vimrc
+   $ cat ~/.vimrc
    filetype indent off
 
 Compresión
@@ -190,7 +189,7 @@ Configuración de la red
    
 * **NetPlan** es la nueva utilidad para configurar la red, el antiguo /etc/network/interfaces ya no funciona. Debemos configurar **/etc/netplan/01-*.yaml**, por ejemplo:
   
-  .. code-block:: bash
+  .. code-block:: yaml
   
    network:
      ethernets:
