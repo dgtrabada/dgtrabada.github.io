@@ -8,7 +8,7 @@ GNU/Linux
 * :ref:`Usuarios y grupos GNU/Linux`
 * :ref:`Comandos avanzados`
 * :ref:`Shell Scripting`
-* Automatización de tareas y servicios
+* :ref:`Automatización de tareas y servicios`
 * :ref:`NIS`
 * NFS
 * Slurm
