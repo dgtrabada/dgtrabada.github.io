@@ -26,7 +26,7 @@ Para realizar la interconexión de redes, necesitamos diferentes elementos depen
 
 * **Switch** (conmutador) (nivel 2).  
 
-    .. image:: imagenes/switchico.png
+  .. image:: imagenes/switchico.png
     
   Es un Hub inteligente analiza las MAC de los equipos conectados, de esa forma solo manda los mensajes a un solo equipo disminuyendo considerablemente el tráfico de la red
 
@@ -37,7 +37,7 @@ Para realizar la interconexión de redes, necesitamos diferentes elementos depen
 
 * **El router** (encaminador) (nivel 3 Red)
 
-    .. image:: imagenes/routerico.png
+  .. image:: imagenes/routerico.png
 
   Se ocupan del encaminamiento de los paquetes entre sus distintos puertos, para ello utilizamos tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas y proporcionan seguridad y reducir la congestión de la red.
 

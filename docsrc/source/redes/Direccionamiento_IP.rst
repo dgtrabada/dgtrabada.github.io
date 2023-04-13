@@ -79,10 +79,10 @@ Además del subnetting, este juego con los bits de máscara permite hacer lo con
 
 Si tenemos redes de tipo C como por ejemplo:
 
-- 189.34.1.0
-- 189.34.2.0
-- 189.34.3.0
- … etc.
+| 189.34.1.0
+| 189.34.2.0
+| 189.34.3.0
+| … etc.
 
 podrían ser sumarizadas en una red 189.34.0.0 con máscara 255.255.0.0 que en realidad no es una red de tipo B. Este tipo de cosas se ha utilizado especialmente en enrutamiento IP.
 

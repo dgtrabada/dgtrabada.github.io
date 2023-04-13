@@ -320,8 +320,7 @@ document.write(`
 <p><strong>ARP</strong> (Adrees Resolution Protocol) «localiza la dirección lógica de un nodo a partir de la física». cuando un host quiere transmitir un paquete IP, necesita averiguar la dirección MAC del destinatario (dirección de destino en paquete IP) para ello genera un paquete ARP que difunde por toda la red. Solo responde el host que tenga la IP encapsulada en el paquete ARP con otro paquete ARP da respuesta con su dirección MAC</p>
 <p><strong>ICMP</strong> (Internet Control Mensage Protocol) Envía Mensajes de error en forma de datagrama, Si hay un error en estos mensajes no se reenvían para evitar el efecto bola de nieve. Entre otros mensajes podemos escribir los siguientes : Destino inalcanzable, tiempo excedido, problemas en parámetros,…» (lo utilizan herramientas como ping y tracert)</p>
 <p><strong>IP</strong> (Internet Protocol), IP es un protocolo encargado de transportar los datagramas o paquetes</p>
-<blockquote>
-<div><img alt="../_images/datagrama.png" src="../_images/datagrama.png" />
+<img alt="../_images/datagrama.png" src="../_images/datagrama.png" />
 <ul class="simple">
 <li><p><strong>VERS</strong>: Es la versión del protocolo IP. La versión actual es la 6.</p></li>
 <li><p><strong>LON</strong>: Es la longitud de la cabecera IP de 32 en 32 bits. No incluye el campo de datos.</p></li>
@@ -339,10 +338,8 @@ document.write(`
 <li><p><strong>Relleno</strong> : Si se usa una opción, el datagram se rellena con todos los bytes a cero hasta llegar a los 32 bits.</p></li>
 <li><p><strong>Datos</strong> : este campo contiene los datos a enviar, siendo su longitud múltiplo de 8 bits. El valor máximo de la longitud es 65.535 bytes (64 Kbytes). El campo comenzará con el contenido de la cabecera del protocolo de siguiente nivel: TCP o UDP.</p></li>
 </ul>
-</div></blockquote>
 <p><strong>TCP</strong> (Transmissión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Iniciar la comunicación: mientras un programa “escucha” otro se conecta</p></li>
 <li><p>Terminar la comunicación: aunque un sentido de la comunicación esté cortado, el otro puede seguir activo</p></li>
 <li><p>Saber qué tramas ha recibido el otro extremo, cuales deben volver a enviarse,…</p></li>
@@ -355,14 +352,14 @@ document.write(`
 <li><p><strong>Puerto origen</strong> (16 bits). Puerto de la máquina origen. Al igual que el puerto destino es necesario para identificar la conexión actual. El uso de puertos permite la multiplexación y la demultiplexación</p></li>
 </ul>
 <img alt="../_images/Puertos.png" src="../_images/Puertos.png" />
-<ul class="simple">
+<ul>
 <li><p><strong>Puerto destino</strong>  (16 bits). Puerto de la máquina destino.</p></li>
 <li><p><strong>Número de secuencia</strong> (32 bits). Indica el número de secuencia del primer byte que trasporta el segmento.</p></li>
 <li><p><strong>Número de acuse de recibo</strong> (32 bits). Indica el número de secuencia del siguiente byte que se espera recibir. Con este campo se indica al otro extremo de la conexión que los bytes anteriores se han recibido correctamente.</p></li>
 <li><p><strong>HLEN</strong> (4 bits). Longitud de la cabecera medida en múltiplos de 32 bits (4 bytes). El valor mínimo de este campo es 5, que corresponde a un segmento sin datos (20 bytes).</p></li>
 <li><p><strong>Reservado</strong> (6 bits). Bits reservados para un posible uso futuro.</p></li>
 <li><p><strong>Bits de código o indicadores</strong> (6 bits). Los bits de código determinan el propósito y contenido  del segmento. A continuación se explica el significado de cada uno de estos bits (mostrados de izquierda a derecha) si está a 1.</p>
-<ul>
+<ul class="simple">
 <li><p>URG. El campo Puntero de urgencia contiene información válida.</p></li>
 <li><p>ACK. El campo Número de acuse de recibo contiene información válida, es decir, el segmento actual lleva un ACK. Observemos que un mismo segmento puede transportar los datos de un sentido y las confirmaciones del otro sentido de la comunicación.</p></li>
 <li><p>PSH. La aplicación ha solicitado una operación push (enviar los datos existentes en la  memoria temporal sin esperar a completar el segmento).</p></li>
@@ -377,9 +374,6 @@ document.write(`
 <li><p><strong>Opciones</strong> (variable). Si está presente únicamente se define una opción: el tamaño máximo de segmento que será aceptado.</p></li>
 <li><p><strong>Relleno</strong>. Se utiliza para que la longitud de la cabecera sea múltiplo de 32 bits.</p></li>
 <li><p><strong>Datos</strong>. Información que envía la aplicación.</p></li>
-</ul>
-</div></blockquote>
-<ul>
 <li><p><strong>UDP</strong> (User Datagram Protocol). Permite la transmisión de mensajes sin la necesidad de establecer una conexión previa, y sin garantías de entrega. Mayor rendimiento que el TCP. Permite al igual que el protocolo TCP la multiplexión por medio de puertos.</p>
 <img alt="../_images/UDP.png" src="../_images/UDP.png" />
 </li>

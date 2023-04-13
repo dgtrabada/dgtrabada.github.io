@@ -2,7 +2,7 @@
 Cableado Estructurado
 *********************
 
- Un sistema de cableado estructurado es el sistema colectivo de componentes, como cables, canalizaciones, conectores, etiquetas, espacios y demás dispositivos que deben ser instalados para establecer una infraestructura de interconexión para los componentes de una red de datos. Al instalar una red hay que tener en cuenta los factores
+Un sistema de cableado estructurado es el sistema colectivo de componentes, como cables, canalizaciones, conectores, etiquetas, espacios y demás dispositivos que deben ser instalados para establecer una infraestructura de interconexión para los componentes de una red de datos. Al instalar una red hay que tener en cuenta los factores
 
 * Económico: cableado funcional con mínimo coste
 
@@ -77,7 +77,7 @@ Cableado Estructurado
 
   En ellos se ubican los paneles de parcheo, dispositivos de interconexión (switch, hub, routers, etc.) y en ocasiones también los servidores, pueden necesitar ventilación adicional (ventiladores y turbinas)
 
- En grandes redes se sitúan en habitaciones insonorizadas y a temperatura controlada
+  En grandes redes se sitúan en habitaciones insonorizadas y a temperatura controlada
 
   .. image:: imagenes/armarios.png
 
