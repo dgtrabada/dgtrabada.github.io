@@ -31,7 +31,7 @@ Hardware
 * :ref:`Herramientas de diagnostico`
 * Prácticas de taller
 
-  * Cuaderno de taller (versión pdf a dos caras)
-  * Cuadreno de taller (versión cuadernillo)
-  * Cuaderno de taller (versión odt)
+  * `Cuaderno de taller (versión pdf a dos caras) <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/taller/PRACTICAS-TALLER.pdf>`_
+  * `Cuadreno de taller (versión cuadernillo) <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/taller/PRACTICAS-TALLER_cuaderno.pdf>`_
+  * `Cuaderno de taller (versión odt) <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/docsrc/source/hardware/taller/PRACTICAS-TALLER.odt?raw=true>`_
 
