@@ -6,8 +6,8 @@ Originalmente **NIS** se llamaba *Páginas Amarillas (Yellow Pages)*, o *YP*, qu
 
 DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
 
-En el servidor:
-***************
+En el servidor (Ubuntu server 22.04)
+************************************
 
 Instalamos
 
@@ -50,8 +50,8 @@ Iniciar el servidor nis :
   
 Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.
 
-En el cliente:
-**************
+En el cliente
+*************
 
 .. code-block:: bash
 
@@ -108,8 +108,8 @@ Si diera algún error al conectar, podría ser por el firewall, para borrar las 
 Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
 
 
-Caso adaptador puente
-*********************
+Caso 0 : Adaptador puente con NIX
+*********************************
 
 * Haz dos clones enlazados, generando nuevas direcciones MAC, de "MV Ubuntu Server 22.04" y haz que tengan las siguientes IPs:
 
@@ -149,8 +149,8 @@ Caso adaptador puente
 
 
 
-Caso red interna
-****************
+Caso 1: Red interna con NIS
+***************************
 
 * En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.
 

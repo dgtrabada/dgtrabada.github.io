@@ -271,10 +271,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor">En el servidor:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-adaptador-puente">Caso adaptador puente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-red-interna">Caso red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-0-adaptador-puente-con-nix">Caso 0 : Adaptador puente con NIX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nis">Caso 1: Red interna con NIS</a></li>
 </ul>
             </nav>
         </div>
@@ -290,8 +290,8 @@ document.write(`
 <h1>NIS<a class="headerlink" href="#nis" title="Enlace permanente a este encabezado">#</a></h1>
 <p>Originalmente <strong>NIS</strong> se llamaba <em>Páginas Amarillas (Yellow Pages)</em>, o <em>YP</em>, que todavía se utiliza para referirse a él. Desafortunadamente, ese nombre es una marca registrada de British Telecom, que exigió a Sun abandonar ese nombre. Sin embargo YP permanece como prefijo en los nombres de la mayoría de las órdenes relacionadas con NIS, como ypserv e ypbind.</p>
 <p>DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.</p>
-<section id="en-el-servidor">
-<h2>En el servidor:<a class="headerlink" href="#en-el-servidor" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="en-el-servidor-ubuntu-server-22-04">
+<h2>En el servidor (Ubuntu server 22.04)<a class="headerlink" href="#en-el-servidor-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Instalamos</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>portmap
 
@@ -325,7 +325,7 @@ systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> 
 <p>Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.</p>
 </section>
 <section id="en-el-cliente">
-<h2>En el cliente:<a class="headerlink" href="#en-el-cliente" title="Enlace permanente a este encabezado">#</a></h2>
+<h2>En el cliente<a class="headerlink" href="#en-el-cliente" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalamos el paquete nis</span>
 apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
@@ -362,8 +362,8 @@ shadow:<span class="w"> </span>files<span class="w"> </span>nis
 <p>Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F</p>
 <p>Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart</p>
 </section>
-<section id="caso-adaptador-puente">
-<h2>Caso adaptador puente<a class="headerlink" href="#caso-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-0-adaptador-puente-con-nix">
+<h2>Caso 0 : Adaptador puente con NIX<a class="headerlink" href="#caso-0-adaptador-puente-con-nix" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>Haz dos clones enlazados, generando nuevas direcciones MAC, de «MV Ubuntu Server 22.04» y haz que tengan las siguientes IPs:</p>
 <ul>
@@ -396,8 +396,8 @@ VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1
 </li>
 </ul>
 </section>
-<section id="caso-red-interna">
-<h2>Caso red interna<a class="headerlink" href="#caso-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-1-red-interna-con-nis">
+<h2>Caso 1: Red interna con NIS<a class="headerlink" href="#caso-1-red-interna-con-nis" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.</p>
 <img alt="../../_images/caso_redinterna.jpg" src="../../_images/caso_redinterna.jpg" />
@@ -456,10 +456,10 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor">En el servidor:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-adaptador-puente">Caso adaptador puente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-red-interna">Caso red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-0-adaptador-puente-con-nix">Caso 0 : Adaptador puente con NIX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nis">Caso 1: Red interna con NIS</a></li>
 </ul>
   </nav></div>
 

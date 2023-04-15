@@ -10,9 +10,9 @@ GNU/Linux
 * :ref:`Shell Scripting`
 * :ref:`Automatización de tareas y servicios`
 * :ref:`NIS`
-* NFS
-* Slurm
-* Environment modules
-* Ansible
+* :ref:`NFS`
+* :ref:`Slurm`
+* :ref:`Environment modules`
+* :ref:`Ansible`
 * :ref:`LDAP`
-* Rocky Linux
+* :ref:`Rocky Linux`
