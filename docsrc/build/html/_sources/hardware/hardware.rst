@@ -29,4 +29,9 @@ Hardware
 * :ref:`Periféricos`
 * :ref:`Centro de Proceso de Datos (CPD)`
 * :ref:`Herramientas de diagnostico`
+* Prácticas de taller
+
+  * Cuaderno de taller (versión pdf a dos caras)
+  * Cuadreno de taller (versión cuadernillo)
+  * Cuaderno de taller (versión odt)
 
