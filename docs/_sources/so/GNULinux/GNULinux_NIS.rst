@@ -158,11 +158,11 @@ Caso 1: Red interna con NIS
 
 * Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección  172.16.0.10/16
 
-  .. image:: imagenes/adaptador_cliente.jpg
+  .. image:: imagenes/adaptador_servidor.jpg
 
 * Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16
     
-  .. image:: imagenes/adaptador_servidor.jpg
+  .. image:: imagenes/adaptador_cliente.jpg
       
 * Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):
 

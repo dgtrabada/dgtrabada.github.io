@@ -12,7 +12,7 @@ Se reservaron ciertos rangos de direcciones IP de las clases A, B y C para permi
 
 .. image:: imagenes/ip_clases.png
 
-Dirección red (Network)  es aquella en la que todos los bits de la porción de host están a cero, se obtiene Dirección IP (Addres) and Máscara de red(Network), veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:
+Dirección red (Network)  es aquella en la que todos los bits de la porción de host están a cero, se obtiene **Dirección IP (Addres) and Máscara de red(Network)**, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:
 
 .. code-block::
 
