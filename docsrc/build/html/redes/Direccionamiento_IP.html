@@ -308,7 +308,7 @@ document.write(`
 <span class="n">Hosts</span><span class="o">/</span><span class="n">Net</span><span class="p">:</span> <span class="mi">2</span><span class="o">^</span><span class="mi">8</span><span class="o">-</span><span class="mi">2</span> <span class="o">=</span> <span class="mi">254</span>          <span class="n">Class</span> <span class="n">B</span>
 </pre></div>
 </div>
-<p>En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 224 - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host</p>
+<p>En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 2²⁴ - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10000000</span> <span class="o">=</span> <span class="mi">128</span>
 <span class="mi">11000000</span> <span class="o">=</span> <span class="mi">192</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span>
 <span class="mi">11100000</span> <span class="o">=</span> <span class="mi">224</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span>
@@ -357,7 +357,6 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <p>En CIDR ya no se utiliza el término «clase de una red», ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red, utiliza la nomenclatura de barra invertida, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).</p>
 <p>Así por ejemplo, hablando en términos de subnetting, podemos decir que la red:
 172.17.11.25 con máscara 255.255.255.0 (que no es en realidad una red de clase C) es una subred (o subnet) de la red de clase B 172.17.0.0.</p>
-<img alt="../_images/ejem_cdir.png" src="../_images/ejem_cdir.png" />
 <img alt="../_images/cdir.png" src="../_images/cdir.png" />
 <p>La dirección de red sigue siendo la que tiene todos los bits del host a 0, y la de broadcast a 1, se utiliza una máscara de red, realizando la operación AND con la dirección IP para encontrar la dirección de red, por ejemplo:</p>
 <p>La dirección IP es 192.168.20.100/26</p>
@@ -378,7 +377,7 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <section id="ejemplos">
 <h3>Ejemplos<a class="headerlink" href="#ejemplos" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Ejemplo de subneting clásico</p>
-<p>¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?</p>
+<p><strong>¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?</strong></p>
 <p>2<sup>n</sup> ≥ 16 , es decir n ≥ 4</p>
 <p>tomamos los 4 primeros bits</p>
 <p><strong>1111</strong> 0000 = <strong>128 + 64 + 32 + 16</strong> + 0*8 + 4*0 + 2*0 + 1*0 = 240</p>
@@ -386,7 +385,7 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <p>hay 2⁴-2 = 14 hosts por subred</p>
 <img alt="../_images/subred1.png" src="../_images/subred1.png" />
 <p>VLSM (Máscara de Red de Longitud Variable) permite dividir un espacio de red en partes desiguales, es decir, la mascara de subred de una dirección IP variara según la cantidad de bits que se tomen prestados para una subred especifica, se conoce también como división de subredes en subredes.</p>
-<p>Veamos el siguiente ejemplo, una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0, las quieres repartir entre todas sus 8 departamentos, en el caso de que haga un subneting sin VLSM, quedaría (2n = 8) es decir n = 3 (11100000)</p>
+<p>Veamos el siguiente ejemplo, <strong>una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0, las quieres repartir entre todas sus 8 departamentos, en el caso de que haga un subneting sin VLSM, quedaría (2 = 8) es decir n = 3 (11100000)</strong></p>
 <img alt="../_images/subred2.png" src="../_images/subred2.png" />
 <p>Podemos hacer de nuevo subnetting con la primera subred, 200.1.1.0/27 para crear 4 subredes (/29)</p>
 <img alt="../_images/subred3.png" src="../_images/subred3.png" />

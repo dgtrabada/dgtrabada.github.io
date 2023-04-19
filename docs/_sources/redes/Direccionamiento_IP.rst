@@ -30,7 +30,7 @@ La dirección de broadcast es aquella en la que todos los bits de la porción de
     Broadcast: 128.192.224.255      10000000.11000000.11100000. 11111111
     Hosts/Net: 2^8-2 = 254          Class B
 
-En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 224 - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host
+En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 2²⁴ - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host
 
 .. code-block::
 
@@ -98,8 +98,6 @@ En CIDR ya no se utiliza el término «clase de una red», ya no hay clases como
 Así por ejemplo, hablando en términos de subnetting, podemos decir que la red:
 172.17.11.25 con máscara 255.255.255.0 (que no es en realidad una red de clase C) es una subred (o subnet) de la red de clase B 172.17.0.0.
 
-.. image:: imagenes/ejem_cdir.png
-
 .. image:: imagenes/cdir.png
 
 La dirección de red sigue siendo la que tiene todos los bits del host a 0, y la de broadcast a 1, se utiliza una máscara de red, realizando la operación AND con la dirección IP para encontrar la dirección de red, por ejemplo:
@@ -129,7 +127,7 @@ Ejemplos
 
 Ejemplo de subneting clásico
 
-¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?
+**¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?**
 
 2\ :sup:`n`\  ≥ 16 , es decir n ≥ 4
 
@@ -143,9 +141,10 @@ hay 2⁴-2 = 14 hosts por subred
 
 .. image:: imagenes/subred1.png
 
+
 VLSM (Máscara de Red de Longitud Variable) permite dividir un espacio de red en partes desiguales, es decir, la mascara de subred de una dirección IP variara según la cantidad de bits que se tomen prestados para una subred especifica, se conoce también como división de subredes en subredes.
 
-Veamos el siguiente ejemplo, una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0, las quieres repartir entre todas sus 8 departamentos, en el caso de que haga un subneting sin VLSM, quedaría (2n = 8) es decir n = 3 (11100000)
+Veamos el siguiente ejemplo, **una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0, las quieres repartir entre todas sus 8 departamentos, en el caso de que haga un subneting sin VLSM, quedaría (2 = 8) es decir n = 3 (11100000)**
 
 .. image:: imagenes/subred2.png
 
