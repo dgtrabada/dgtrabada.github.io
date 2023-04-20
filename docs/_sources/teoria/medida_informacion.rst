@@ -71,13 +71,13 @@ Ejemplos:
 
 * **¿Cuántos libros como "El Quijote" cabrían en un disco de 600 GB?**
 
-  1. Pasamos los GB a MB : 
+  * Pasamos los GB a MB : 
   
-  :math:`600 GB \times \frac{10^3 MB}{GB}  = 600000\  MB`
+    :math:`600 GB \times \frac{10^3 MB}{GB}  = 600000\  MB`
 
-  2. Dividimos la capacidad del disco entre lo que ocupa 1 libro :
+  * Dividimos la capacidad del disco entre lo que ocupa 1 libro :
   
-  :math:`\frac{600000 MB}{2 MB} = 300000\ libros` 
+    :math:`\frac{600000 MB}{2 MB} = 300000\ libros` 
 
 * **¿Cuántas canciones de 8MB cabrían en un disco de 128 GB?**
 
