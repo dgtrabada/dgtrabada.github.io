@@ -160,8 +160,7 @@ Algunos de los protocolos de la capa de aplicación son:
 
 * **HTTP** : Protocolo de transferencia de hipertexto, es el protocolo utilizado en las transacciones de páginas web. Define la sintaxis y la semántica que utilizan los elementos de software de la arquitectura web (clientes, servidores, proxies ) para comunicarse. Es un protocolo orientado a transacciones y sigue el esquema petición-respuesta entre un cliente y un servidor. Tiene una versión segura que es el  HTTPS
 
-Conexiones abiertas: netstat
-----------------------------
+**Conexiones abiertas: netstat**
 
 El comando netstat controla las conexiones TCP/UDP abiertas en el sistema
 
@@ -170,11 +169,9 @@ Puertos utilizados, procesos conectados, estado de la conexión,…
 Ejemplos
 
 * Netstat /?: Ayuda
-
 * Netstat -b: Conexiones actuales y el proceso que las maneja en el ordenador
-
 * Netstat –a: Conexiones actuales y puertos a la escucha en el ordenador
-        
+       
 
 
 

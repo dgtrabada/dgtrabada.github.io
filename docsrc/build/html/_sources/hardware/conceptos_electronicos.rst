@@ -136,7 +136,8 @@ Medidor de potencia eléctrica
 
 **Ejemplo:** Calcular la potencia del ejercicio anterior : P = VI = 12 V * 2 A = 24 w
 
-**Ejemplo de cálculo de consumo:**
+Ejemplo de cálculo de consumo:
+------------------------------
 
 La potencia de los ordenadores se encuentran entre los siguientes rangos:
 
@@ -154,86 +155,110 @@ Más ejemplos:
 Componentes electrónicos
 ========================
 
-* **Resistencias**
+Resistencias
+------------
 
-  La resistencia eléctrica de un objeto es una medida de su oposición al paso de corriente. Se mide en ohmios (Ω)
+La resistencia eléctrica de un objeto es una medida de su oposición al paso de corriente. Se mide en ohmios (Ω)
 
-  .. image:: imagenes/conceptos_electronicos/resistencias2.png
+.. image:: imagenes/conceptos_electronicos/resistencias2.png
 
-* **Condensadores**
+Condensadores
+-------------
 
-  Es un dispositivo que almacena energía eléctrica. La capacidad de un condensador se mide en faradios (F).
+Es un dispositivo que almacena energía eléctrica. La capacidad de un condensador se mide en faradios (F).
 
-  .. image:: imagenes/conceptos_electronicos/condensadores.png
+.. image:: imagenes/conceptos_electronicos/condensadores.png
 
-* **Diodos**
+Diodos
+------
 
-  Permite la circulación de la corriente electrica a través de él en un sentido.
+Permite la circulación de la corriente electrica a través de él en un sentido.
 
-  .. image:: imagenes/conceptos_electronicos/led.png
+.. image:: imagenes/conceptos_electronicos/led.png
 
-* **Transistores**
+Transistores
+------------
 
-  Cumple funciones de amplificador, oscilador, conmutador o rectificador.
+Cumple funciones de amplificador, oscilador, conmutador o rectificador.
 
-  .. image:: imagenes/conceptos_electronicos/transistores.png
+.. image:: imagenes/conceptos_electronicos/transistores.png
 
 
-* **Pilas**
+Pilas
+-----
 
-  Una pila eléctrica es un dispositivo que convierte energía química en energía eléctrica.
+Una pila eléctrica es un dispositivo que convierte energía química en energía eléctrica.
 
-  .. image:: imagenes/conceptos_electronicos/pilas.png
+.. image:: imagenes/conceptos_electronicos/pilas.png
 
-* **Baterías**
+Baterías
+--------
 
- Dispositivo que almacena energía eléctrica y que posteriormente la devuelve casi en su totalidad.
+Dispositivo que almacena energía eléctrica y que posteriormente la devuelve casi en su totalidad.
 
-  .. image:: imagenes/conceptos_electronicos/baterias.png
+.. image:: imagenes/conceptos_electronicos/baterias.png
 
-* **Pulsadores**
+Pulsadores
+----------
 
-  .. image:: imagenes/conceptos_electronicos/pulsadores.png
+.. image:: imagenes/conceptos_electronicos/pulsadores.png
 
-* **Interruptores**
+Interruptores
+-------------
 
-  .. image:: imagenes/conceptos_electronicos/interruptores.png
+.. image:: imagenes/conceptos_electronicos/interruptores.png
 
-* **Displays**
+Displays
+--------
 
-  .. image:: imagenes/conceptos_electronicos/displays.png
+.. image:: imagenes/conceptos_electronicos/displays.png
 
-* **Fusible**
+Fusible
+-------
 
-  El fusible permite el paso de la corriente mientras esta no supere un valor establecido.
+El fusible permite el paso de la corriente mientras esta no supere un valor establecido.
 
-  .. image:: imagenes/conceptos_electronicos/fusibles.png
-    :width: 150
+.. image:: imagenes/conceptos_electronicos/fusibles.png
+  :width: 150
 
-**Aparatos de medida de magnitudes eléctricas.**
+Aparatos de medida
+==================
 
-* **El polímetro.**
+El polímetro
+------------
 
-  .. image:: imagenes/conceptos_electronicos/polimetro.jpeg
-      :width: 200
+.. image:: imagenes/conceptos_electronicos/polimetro.jpeg
+    :width: 200
 
-* **Amperímetro** : mide la intensidad (en serie).
+Amperímetro
+-----------
 
-  .. image:: imagenes/conceptos_electronicos/amperimetro.png
+Mide la intensidad (en serie).
+
+.. image:: imagenes/conceptos_electronicos/amperimetro.png
   
-* **Voltímetro** : mide el Voltaje o tensión (en paralelo)
+Voltímetro
+----------
 
-  .. image:: imagenes/conceptos_electronicos/voltimetro.png
+Mide el Voltaje o tensión (en paralelo)
 
-* **Óhmetro** : mide la resistencia.
+.. image:: imagenes/conceptos_electronicos/voltimetro.png
 
-  .. image:: imagenes/conceptos_electronicos/ohmetro.png
+Óhmetro
+-------
 
-* **HFE** : probador de transistores
+Mide la resistencia.
 
-  .. image:: imagenes/conceptos_electronicos/hfe.png
+.. image:: imagenes/conceptos_electronicos/ohmetro.png
 
-  Los multímetros tienen diferentes escalas, en caso de no conocer el valor de la medición, se debe seleccionar la escala más grande a partir de ella se va reduciendo hasta tener una escala adecuada para hacer la medición.
+HFE
+---
+
+Probador de transistores
+
+.. image:: imagenes/conceptos_electronicos/hfe.png
+
+Los multímetros tienen diferentes escalas, en caso de no conocer el valor de la medición, se debe seleccionar la escala más grande a partir de ella se va reduciendo hasta tener una escala adecuada para hacer la medición.
   
 
 

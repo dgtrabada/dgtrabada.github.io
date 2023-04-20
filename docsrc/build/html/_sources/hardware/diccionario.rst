@@ -2,257 +2,380 @@
 Diccionario de la BIOS/UEFI
 ***************************
 
-address = dirección
+.. glossary::
 
-advanced = avanzado
+  address
+   dirección
 
-AGP Aperture Size = Apertura del Puerto de Gráficos Acelerados (AGP)
+  advanced
+   avanzado
 
-alias = acceso directo
+  AGP Aperture Size
+   Apertura del Puerto de Gráficos Acelerados (AGP)
 
-backup = copia de respaldo, copia de seguridad
+  alias
+   acceso directo
 
-bandwidth = ancho de banda, anchura de banda
+  backup
+   copia de respaldo, copia de seguridad
 
-boot = arranque
+  bandwidth
+   ancho de banda, anchura de banda
 
-boot secuence = secuencia de arranque
+  boot
+   arranque
 
-bug = error
+  boot secuence
+   secuencia de arranque
 
-burst = ráfagas
+  bug
+   error
 
-bus = línea de datos, cable de datos .
+  burst
+   ráfagas
 
-channel = canal
+  bus
+   línea de datos, cable de datos .
 
-clean = limpiar
+  channel
+   canal
 
-clear = borrar
+  clean
+   limpiar
 
-click = pulsación
+  clear
+   borrar
 
-clock = reloj
+  click
+   pulsación
 
-CMOS = CMOS
+  clock
+   reloj
 
-configuration = configuración
+  CMOS
+   CMOS
 
-copyright = derechos de autor .
+  configuration
+   configuración
 
-core = corazón, núcleo, motor
+  copyright
+   derechos de autor .
 
-crack = invadir
+  core
+   corazón, núcleo, motor
 
-daemon = demonio, proceso en segundo plano
+  crack
+   invadir
 
-date = fecha
+  daemon
+   demonio, proceso en segundo plano
 
-defaults = por defecto, predeterminado
+  date
+   fecha
 
-delay = demora
+  defaults
+   por defecto, predeterminado
 
-device = dispositivo
+  delay
+   demora
 
-disabled = deshabilitado
+  device
+   dispositivo
 
-driver = controlador
+  disabled
+   deshabilitado
 
-drives = unidades
+  driver
+   controlador
 
-enabled = habilitado
+  drives
+   unidades
 
-exit = salida
+  enabled
+   habilitado
 
-fan = ventilador
+  exit
+   salida
 
-features = características
+  fan
+   ventilador
 
-file = archivo, fichero
+  features
+   características
 
-firewall = cortafuegos
+  file
+   archivo, fichero
 
-first = primero
+  firewall
+   cortafuegos
 
-frame = cuadro,marco
+  first
+   primero
 
-frequency = frecuencia
+  frame
+   cuadro,marco
 
-gateway = puerta de enlace
+  frequency
+   frecuencia
 
-hard disk = disco duro
+  gateway
+   puerta de enlace
 
-host = anfitrión/albergar, hospedar
+  hard disk
+   disco duro
 
-host address = dirección de sistema anfitrión
+  host
+   anfitrión/albergar, hospedar
 
-ide drives = controladores ide
+  host address
+   dirección de sistema anfitrión
 
-interface = interfaz
+  ide drives
+   controladores ide
 
-internal = interno
+  interface
+   interfaz
 
-italic = cursiva
+  internal
+   interno
 
-item = objeto
+  italic
+   cursiva
 
-job = trabajo
+  item
+   objeto
 
-jumper = puente
+  job
+   trabajo
 
-kernel = núcleo
+  jumper
+   puente
 
+  kernel
+   núcleo
 
-key = llave, tecla, clave
+  key
+   llave, tecla, clave
 
-keyboard = teclado
+  keyboard
+   teclado
 
-laptop = computador portátil
+  laptop
+   computador portátil
 
-last = ultimo
+  last
+   ultimo
 
-load = cargar
+  load
+   cargar
 
-local area network (LAN) = red de área local
+  local area network (LAN)
+   red de área local
 
-lock = cerrojo
+  lock
+   cerrojo
 
-log = registro
+  log
+   registro
 
-malware = software malicioso
+  malware
+   software malicioso
 
-management = administración
+  management
+   administración
 
-map = mapa
+  map
+   mapa
 
-mask = máscara
+  mask
+   máscara
 
-memory = memoria
+  memory
+   memoria
 
-messages = mensajes
+  messages
+   mensajes
 
-mouse = mouse, ratón
+  mouse
+   mouse, ratón
 
-network (red) = una red de ordenadores
+  network (red)
+   una red de ordenadores
 
-optimized = optimizado
+  optimized
+   optimizado
 
-over = encima
+  over
+   encima
 
-owner = propietario
+  owner
+   propietario
 
-parallel = paralelo
+  parallel
+   paralelo
 
-partition = partición
+  partition
+   partición
 
-password = contraseña
+  password
+   contraseña
 
-password = contraseña
+  password
+   contraseña
 
-path = camino
+  path
+   camino
 
-payload = carga útil
+  payload
+   carga útil
 
-peripherals = periféricos
+  peripherals
+   periféricos
 
-pipe = tubería
+  pipe
+   tubería
 
-Pipeline = habilitar la función de lectura y escritura continua de la caché
+  Pipeline
+   habilitar la función de lectura y escritura continua de la caché
 
-port = puerto
+  port
+   puerto
 
-power = energía
+  power
+   energía
 
-quick = rápido
+  quick
+   rápido
 
-quit = salir
+  quit
+   salir
 
-quit without saving = salir sin guardar
+  quit without saving
+   salir sin guardar
 
-range = rango
+  range
+   rango
 
-read = leer
+  read
+   leer
 
-reboot = reiniciar
+  reboot
+   reiniciar
 
-reloaded = volver a cargar
+  reloaded
+   volver a cargar
 
-root = superusuario
+  root
+   superusuario, raiz
 
-root =raíz
+  save
+   guardar
 
-save = guardar
+  schedule
+   horario
 
-schedule = horario
+  second
+   segundo
 
-second = segundo
+  segmentation fault
+   violación de segmento
 
-segmentation fault = violación de segmento .
+  select
+   seleccionar
 
-select = seleccionar
+  self test
+   auto comprobación
 
-self test = auto comprobación
+  serial
+   serie
 
-serial = serie
+  set
+   elegir
 
-set = elegir
+  setting
+   ajustes
 
-setting = ajustes
+  setup
+   configuración
 
-setup = configuración
+  shell
+   interprete de comandos
 
-shell = interprete de comandos
+  Sleep Timer
+   Después del periodo seleccionado de inactividad, todos los dispositivos excepto el disco duro y el procesador se apagan
 
-Sleep Timer = Después del periodo seleccionado de inactividad, todos los dispositivos 
-excepto el disco duro y el procesador se apagan
+  smart
+   inteligente
 
-smart = inteligente
+  speed
+   velocidad
 
-speed = velocidad
+  standard
+   características comunes a la mayoría.
 
-standard =  características comunes a la mayoría.
+  status
+   estado
 
-status = estado
+  supervisor
+   controlador de procesos
 
-supervisor = controlador de procesos
+  suspend
+   suspender
 
-suspend = suspender
+  swap
+   espacio de intercambio
 
-swap = espacio de intercambio
+  system
+   sistema
 
-system = sistema
+  temperature
+   temperatura
 
-temperature = temperatura
+  third
+   tercero
 
-third = tercero
+  time
+   tiempo
 
-time = tiempo
+  trojan
+   Troyano
 
-trojan = Troyano
+  type
+   tipo
 
-type = tipo
+  up
+   arriba
 
-up = arriba
+  update
+   actualización
 
-update = actualización
+  user
+   usuario
 
-user = usuario
+  values
+   valores
 
-values = valores
+  viewer
+   espectador
 
-viewer = espectador
+  voltage
+   tensión , voltaje
 
-voltage = tensión , voltaje
+  wait
+   esperar
 
-wait = esperar
+  wake
+   despertar
 
-wake = despertar
+  warning
+   advertencia
 
-warning = advertencia
+  width
+   ancho
 
-width = ancho
+  worm
+   Gusano
 
-worm = Gusano
-
-write = Escribir
+  write
+   Escribir
 

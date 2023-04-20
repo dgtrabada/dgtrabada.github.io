@@ -111,8 +111,8 @@ RAID 50
 .. image:: imagenes/RAID/raid50_3.png
     :width: 500
 
-Ejemplo: Crear un RAID 0
-========================
+Caso práctico: Crear un RAID 0
+==============================
 
 Antes de crear la RAID 0 podemos ver en el fichero /proc/mdstat por si al algún otro raid:
 
@@ -178,6 +178,10 @@ LVM es una implementación de un administrador de volúmenes lógicos para siste
 * **PV** (Phisical Volume): son los volúmenes físicos, es decir, discos duros o particiones de un equipo.
 * **VG** (Volume Group): grupo volumen, es el área donde se juntan los PVs y VLs.
 * **LV** (Logical Volume): volúmenes lógicos o dispositivos donde se pueden crear sistemas de ficheros o FS
+
+
+Caso práctico: Crear LVM
+========================
 
 .. code-block:: bash
  

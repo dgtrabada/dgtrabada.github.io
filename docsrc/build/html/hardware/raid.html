@@ -281,8 +281,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niveles-raid-anidados">Niveles RAID anidados</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-100">RAID 100</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-50">RAID 50</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-crear-un-raid-0">Ejemplo: Crear un RAID 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-un-raid-0">Caso práctico: Crear un RAID 0</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">LVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-lvm">Caso práctico: Crear LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nas">NAS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#san">SAN</a></li>
 </ul>
@@ -356,8 +357,8 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <h2>RAID 50<a class="headerlink" href="#raid-50" title="Enlace permanente a este encabezado">#</a></h2>
 <a class="reference internal image-reference" href="../_images/raid50_3.png"><img alt="../_images/raid50_3.png" src="../_images/raid50_3.png" style="width: 500px;" /></a>
 </section>
-<section id="ejemplo-crear-un-raid-0">
-<h2>Ejemplo: Crear un RAID 0<a class="headerlink" href="#ejemplo-crear-un-raid-0" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-practico-crear-un-raid-0">
+<h2>Caso práctico: Crear un RAID 0<a class="headerlink" href="#caso-practico-crear-un-raid-0" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Antes de crear la RAID 0 podemos ver en el fichero /proc/mdstat por si al algún otro raid:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/proc/mdstat
 </pre></div>
@@ -404,6 +405,9 @@ watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class=
 <li><p><strong>VG</strong> (Volume Group): grupo volumen, es el área donde se juntan los PVs y VLs.</p></li>
 <li><p><strong>LV</strong> (Logical Volume): volúmenes lógicos o dispositivos donde se pueden crear sistemas de ficheros o FS</p></li>
 </ul>
+</section>
+<section id="caso-practico-crear-lvm">
+<h2>Caso práctico: Crear LVM<a class="headerlink" href="#caso-practico-crear-lvm" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pvcreate<span class="w"> </span>/dev/sdb2<span class="w"> </span><span class="c1"># Crear volumen físico</span>
 pvremove<span class="w"> </span>/dev/sdc1<span class="w"> </span><span class="c1"># Borrado de volúmen físico</span>
 pvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
@@ -463,8 +467,9 @@ lvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niveles-raid-anidados">Niveles RAID anidados</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-100">RAID 100</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-50">RAID 50</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-crear-un-raid-0">Ejemplo: Crear un RAID 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-un-raid-0">Caso práctico: Crear un RAID 0</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">LVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-lvm">Caso práctico: Crear LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nas">NAS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#san">SAN</a></li>
 </ul>

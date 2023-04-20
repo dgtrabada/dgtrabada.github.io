@@ -1,5 +1,5 @@
 ****
-BIOS 
+BIOS
 ****
 
 **La BIOS**, Sistema básico de entradas y salidas, del inglés "Basic Input/Output System" es un componente esencial que se usa para controlar el hardware.

@@ -272,16 +272,36 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-estandar-tia-942">El Estándar TIA 942</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-estandar-tia-942">El Estándar TIA 942</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-i-nivel-1-basico">TIER I- Nivel 1 (Básico)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-ii-nivel-ii-componentes-redundantes">TIER II- Nivel II (Componentes redundantes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-iii-nivel-iii-mantenimiento-concurrente">TIER III- Nivel III (Mantenimiento concurrente)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-iv-nivel-iv-tolerante-a-errores">TIER IV- Nivel IV (Tolerante a errores)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-de-un-cpd">Estructura de un CPD</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infraestructura-fisica">Infraestructura física</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-contra-incendios">Medidas contra incendios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climatizacion">Climatización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-fisica">Seguridad física</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#centro-de-respaldo">Centro de respaldo</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infraestructura-de-red-y-hardware-especifico-en-un-cpd">Infraestructura de red y hardware específico en un CPD</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-racks">Instalación de racks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cableado-horizontal">Cableado horizontal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#red-de-almacenamiento">Red de almacenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redundancia">Redundancia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitecturas-de-servidor">Arquitecturas de servidor</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-en-un-cpd">Software en un CPD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-en-un-cpd">Software en un CPD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sistemas-operativos-cpd">Sistemas Operativos (CPD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualizacion-de-sistemas">Virtualización de Sistemas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#herramientas-de-control-y-monitorizacion">Herramientas de control y monitorización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inventariado-del-hardware">Inventariado del Hardware</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -336,41 +356,43 @@ document.write(`
 </tr>
 </tbody>
 </table>
+<section id="tier-i-nivel-1-basico">
+<h3>TIER I- Nivel 1 (Básico)<a class="headerlink" href="#tier-i-nivel-1-basico" title="Enlace permanente a este encabezado">#</a></h3>
 <ul class="simple">
-<li><p><strong>TIER I- Nivel 1</strong> (Básico)</p>
-<ul>
 <li><p>Sensible a las interrupciones, planificadas o no.</p></li>
 <li><p>Un solo paso de corriente y distribución de aire acondicionado, sin componentes redundantes.</p></li>
 <li><p>Puede contar o no contar con piso elevado, UPS o generador.</p></li>
 <li><p>Generador independiente.</p></li>
 <li><p>Debe apagarse completamente para realizar mantenimiento preventivo.</p></li>
 </ul>
-</li>
-<li><p><strong>TIER II- Nivel II</strong> (Componentes redundantes)</p>
-<ul>
+</section>
+<section id="tier-ii-nivel-ii-componentes-redundantes">
+<h3>TIER II- Nivel II (Componentes redundantes)<a class="headerlink" href="#tier-ii-nivel-ii-componentes-redundantes" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
 <li><p>Menor sensibilidad a las interrupciones.</p></li>
 <li><p>Ruta única de alimentación eléctrica y enfriamiento, incluye componentes redundantes.</p></li>
 <li><p>Cuenta con piso elevado, UPS y generador.</p></li>
 </ul>
-</li>
-<li><p><strong>TIER III- Nivel III</strong> (Mantenimiento concurrente)</p>
-<ul>
+</section>
+<section id="tier-iii-nivel-iii-mantenimiento-concurrente">
+<h3>TIER III- Nivel III (Mantenimiento concurrente)<a class="headerlink" href="#tier-iii-nivel-iii-mantenimiento-concurrente" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
 <li><p>Interrupciones planificadas sin interrupción de funcionamiento.</p></li>
 <li><p>Múltiples rutas de alimentación eléctrica y de enfriamiento, una sola ruta activa.</p></li>
 <li><p>Cuenta con piso elevado.</p></li>
 <li><p>Equipos de TI cuentan con doble alimentación eléctrica.</p></li>
 </ul>
-</li>
-<li><p><strong>TIER IV- Nivel IV</strong> (Tolerante a errores)</p>
-<ul>
+</section>
+<section id="tier-iv-nivel-iv-tolerante-a-errores">
+<h3>TIER IV- Nivel IV (Tolerante a errores)<a class="headerlink" href="#tier-iv-nivel-iv-tolerante-a-errores" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
 <li><p>Nivel de disponibilidad del 99.995% y 0.4 horas de interrupción anual.</p></li>
 <li><p>Actividades planeadas o no planeadas no interrumpen los servicios.</p></li>
 <li><p>Múltiples rutas de alimentación eléctrica y de enfriamiento, incluye componentes redundantes.</p></li>
 <li><p>Equipos de enfriamiento cuentan con doble ruta de alimentación independiente.</p></li>
 <li><p>Cuenta con sistemas de almacenamiento de energía</p></li>
 </ul>
-</li>
-</ul>
+</section>
 </section>
 <section id="estructura-de-un-cpd">
 <h2>Estructura de un CPD<a class="headerlink" href="#estructura-de-un-cpd" title="Enlace permanente a este encabezado">#</a></h2>
@@ -404,7 +426,10 @@ document.write(`
 <img alt="../_images/DC_separacion_cables.png" src="../_images/DC_separacion_cables.png" />
 <p>En el caso de que los cables no tengan apantallamiento, la distancia se duplicara. En el caso de que los cables se instalen en la misma bandeja, los cables de corriente tendrán que estar separados por la parte de abajo con una bandeja de metal con toma de tierra NEMA VE 2-2001.</p>
 </li>
-<li><p><strong>Medidas contra incendios</strong></p>
+</ul>
+</section>
+<section id="medidas-contra-incendios">
+<h3>Medidas contra incendios<a class="headerlink" href="#medidas-contra-incendios" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Ya no sólo por la cantidad de material informático del que se dispone en cualquier CPD, sino por el incalculable valor de toda la información que éste puede almacenar, es necesario disponer de medidas contra incendios.</p>
 <ul>
 <li><p><strong>Cómo prevenir incendios en un CPD</strong></p>
@@ -432,8 +457,9 @@ document.write(`
 <p>En cualquiera de estos dos casos, además, deberás cumplir el RD513/2007, conocido como RIPCI y que rige tus obligaciones de cara al ayuntamiento de tu municipio y el reglamento de instalaciones de protección contra incendio (RIPCI 2017)</p>
 </li>
 </ul>
-</li>
-<li><p><strong>Climatización</strong></p>
+</section>
+<section id="climatizacion">
+<h3>Climatización<a class="headerlink" href="#climatizacion" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Para las empresas que cuentan con Data Centers, resulta muy importante el reducir al mínimo la energía consumida para la refrigeración de los equipos; manteniendo la temperatura del mismo al nivel necesario por las características de los equipos de IT.</p>
 <p>Este dato viene determinado por el PUE, relación entre la energía suministrada al Data Center  y la energía consumida por los equipos de IT. Reflejado en la siguiente fórmula:</p>
 <p><strong>PUE = Total Power into Datacenter/IT Equipment Power.</strong></p>
@@ -449,7 +475,8 @@ document.write(`
 <img alt="../_images/pasillos.jpeg" src="../_images/pasillos.jpeg" />
 <a class="reference internal image-reference" href="../_images/armarios.jpeg"><img alt="../_images/armarios.jpeg" src="../_images/armarios.jpeg" style="width: 300px;" /></a>
 </li>
-<li><p><strong>Sistema de cerramiento modular adaptable</strong>: Este sistema optimiza la eficacia del sistema, mediante el empleo, entre otras características, de puertas automáticas y elementos para evitar la recirculación del aire y con ello:</p></li>
+<li><p><strong>Sistema de cerramiento modular adaptable</strong>: Este sistema optimiza la eficacia del sistema, mediante el empleo, entre otras características, de puertas automáticas y elementos para evitar la recirculación del aire y con ello:</p>
+<ul>
 <li><p>El aire procedente de la unidad de refrigeración, entra por las rejillas de la parte frontal del rack, a través del suelo técnico</p></li>
 <li><p>La forma y tamaño de los conductos de refrigeración, así como la dirección y caudal del flujo, influyen directamente sobre la cantidad real de aire frío que se entrega a las zonas más críticas de cada rack</p>
 <a class="reference internal image-reference" href="../_images/armario2.png"><img alt="../_images/armario2.png" src="../_images/armario2.png" style="width: 280px;" /></a>
@@ -458,16 +485,16 @@ document.write(`
 </ul>
 <p>Ejemplos de diseños CPD, anexo H, estandar TIA-942</p>
 <img alt="../_images/pasillos2.jpeg" src="../_images/pasillos2.jpeg" />
-<ul class="simple">
-<li><p><strong>Seguridad física</strong></p></li>
-</ul>
-<p>En cuanto al control de acceso a las instalaciones, es importante disponer de circuito cerrado de televisión, control de acceso mediante tarjetas de identificación, o cualquier otro tipo de medida para proteger el acceso físico al recinto.</p>
-<ul class="simple">
-<li><p><strong>Centro de respaldo</strong></p></li>
-</ul>
-<p>Además, como medida extra de seguridad, las grandes organizaciones disponen de lo que se conoce como Centro de Respaldo, que, básicamente, se trata de un CPD diseñado (normalmente para dar un soporte reducido) para entrar en funcionamiento en caso de fallo del CPD principal.</p>
 </li>
 </ul>
+</section>
+<section id="seguridad-fisica">
+<h3>Seguridad física<a class="headerlink" href="#seguridad-fisica" title="Enlace permanente a este encabezado">#</a></h3>
+<p>En cuanto al control de acceso a las instalaciones, es importante disponer de circuito cerrado de televisión, control de acceso mediante tarjetas de identificación, o cualquier otro tipo de medida para proteger el acceso físico al recinto.</p>
+</section>
+<section id="centro-de-respaldo">
+<h3>Centro de respaldo<a class="headerlink" href="#centro-de-respaldo" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Además, como medida extra de seguridad, las grandes organizaciones disponen de lo que se conoce como Centro de Respaldo, que, básicamente, se trata de un CPD diseñado (normalmente para dar un soporte reducido) para entrar en funcionamiento en caso de fallo del CPD principal.</p>
 </section>
 </section>
 <section id="infraestructura-de-red-y-hardware-especifico-en-un-cpd">
@@ -491,17 +518,18 @@ document.write(`
 <p>Aunque no es un dispositivo como tal, a la hora de montar un servidor en rack en un CPD, se utiliza lo que se conoce como patch panel como punto donde terminan todos los cables de red de todos los hosts conectados a dicho CPD. De esta manera, cualquier equipo o servidor de la red tendrá una conexión en un puerto de un patch panel.</p>
 <p>El objetivo de un patch panel no es otro que el ofrecer una mayor comodidad y flexibilidad en la forma en que se conectan los servidores con los hosts de la red, haciendo que no sea necesario «tocar» los cables que van desde el CPD hasta las estaciones de trabajo, sino que simplemente conectado o desconectado los latiguillos de red podamos modificar la conectividad de una zona concreta de la red, añadir un nuevo host o desconectar temporalmente uno ya existente.</p>
 <img alt="../_images/ppanel.png" src="../_images/ppanel.png" />
-<ul>
-<li><p><strong>Cableado horizontal</strong></p>
-<p>Para este cableado se utilizara como mínimo los sistemas de cobre clasificados por categoría para 10 Gb/s. Los centros de datos de todo el mundo se están moviendo rápidamente para abordar el crecimiento del ancho de banda. Muchos administradores de centros de datos que buscan controlar los costos han elegido cobre de par trenzado Cat 6A para aplicaciones de 10 Gb/s, ya que es la opción más rentable para redes de capa de acceso.</p>
-</li>
-</ul>
-<p>De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los canales SFP + alternativos.</p>
-<ul>
-<li><p><strong>Red de almacenamiento</strong></p>
+</section>
+<section id="cableado-horizontal">
+<h3>Cableado horizontal<a class="headerlink" href="#cableado-horizontal" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Para este cableado se utilizara como mínimo los sistemas de cobre clasificados por categoría para 10 Gb/s. Los centros de datos de todo el mundo se están moviendo rápidamente para abordar el crecimiento del ancho de banda. Muchos administradores de centros de datos que buscan controlar los costos han elegido cobre de par trenzado Cat 6A para aplicaciones de 10 Gb/s, ya que es la opción más rentable para redes de capa de acceso.
+De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los canales SFP + alternativos.</p>
+</section>
+<section id="red-de-almacenamiento">
+<h3>Red de almacenamiento<a class="headerlink" href="#red-de-almacenamiento" title="Enlace permanente a este encabezado">#</a></h3>
 <p>En un CPD es muy habitual diseñar e implementar lo que se conoce como Red de Almacenamiento, ya sea de tipo NAS, SAN o iSAN. Normalmente los discos duran no van conectados directamente a los equipos (DAS), sino que forman parte de la red y son capaces de conectarse a ésta de una forma autónoma.</p>
-</li>
-<li><p><strong>Redundancia</strong></p>
+</section>
+<section id="redundancia">
+<h3>Redundancia<a class="headerlink" href="#redundancia" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Como se ha visto anteriormente, la redundancia de dispositivos es la forma en la que se consigue proporcionar al CPD la tolerancia a fallos. No existe manera alguna de evitar que un dispositivo (fuente de alimentación, disco duro, equipo informático, switch, …) falle de manera imprevista, sin aviso previo, por lo que la manera de hacer que el sistema completo siga funcionando es añadir redundancia replicando aquellos dispositivos más críticos para garantizar el funcionamiento continuo del sistema.</p>
 <p>Básicamente consiste en tener disponible un dispositivo igual al principal, que sólo entrará en funcionamiento en caso de fallo del primero. Además, hay que garantizar que la entrada en funcionamiento en caso de fallo será inmediata y no necesitará de atención humana para hacerlo, al menos en la medida de lo posible.</p>
 <ul>
@@ -510,40 +538,41 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/raid.png"><img alt="../_images/raid.png" src="../_images/raid.png" style="width: 300px;" /></a>
 </li>
 </ul>
-</li>
-<li><p><strong>Arquitecturas de servidor</strong></p>
+</section>
+<section id="arquitecturas-de-servidor">
+<h3>Arquitecturas de servidor<a class="headerlink" href="#arquitecturas-de-servidor" title="Enlace permanente a este encabezado">#</a></h3>
 <p>En entornos empresariales y de grandes organizaciones es muy común encontrarse con otros modelos de procesador de las arquitecturas más conocidas, así como de otras arquitecturas destinada únicamente a la rama de procesadores para servidores. Sus principales características se pueden observar en las dimensiones y velocidades de los buses principales, el mayor número de núcleos, mayor cantidad de memoria caché, y en algunos otros aspectos que les proporcionan un rendimiento (y precio) muy superior en comparación con los modelos de uso particular o destinados a estaciones de trabajo</p>
 <p>Además, en cuanto al aspecto físico de estos equipos, se busca reducir el espacio. Es por eso que se diseñan en cajas específicas para ser ubicadas en racks, y aprovechar así el espacio destinado a ubicar el equipamiento informático.</p>
 <img alt="../_images/server1.png" src="../_images/server1.png" />
 <img alt="../_images/server2.png" src="../_images/server2.png" />
-</li>
-</ul>
 </section>
 </section>
 <section id="software-en-un-cpd">
 <h2>Software en un CPD<a class="headerlink" href="#software-en-un-cpd" title="Enlace permanente a este encabezado">#</a></h2>
-<ul>
-<li><p><strong>Sistemas Operativos</strong></p>
+<section id="sistemas-operativos-cpd">
+<h3>Sistemas Operativos (CPD)<a class="headerlink" href="#sistemas-operativos-cpd" title="Enlace permanente a este encabezado">#</a></h3>
 <p>En cuanto a Sistemas Operativos, lo más habitual será encontrarnos con las versiones Server de todos los sistemas más conocidos:</p>
 <ul class="simple">
 <li><p>Windows: Windows 2003 Server, Windows Server 2008, Windows Server 2012</p></li>
 <li><p>Linux: Red Hat Enterprise, Rocky,  Debian, CentOS</p></li>
 <li><p>OS X (Apple): OS X Server</p></li>
 </ul>
-</li>
-<li><p><strong>Virtualización de Sistemas</strong></p>
+</section>
+<section id="virtualizacion-de-sistemas">
+<h3>Virtualización de Sistemas<a class="headerlink" href="#virtualizacion-de-sistemas" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Desde hace ya algún tiempo se ha empezado a virtualizar sistemas, debido principalmente a que se comprobó que los equipos informáticos estaban infrautilizados y se les podía sacar más rendimiento. No todos los usuarios o clientes necesitan un equipo completo para los servicios que tienen contratados. Es así como aparecen lo que se conoce como VPS (Virtual Private Server), de forma que en un equipo físico (equipo anfitrión) se pueden crear varias máquinas virtuales. Cada usuario o cliente tiene acceso a una de esas máquinas virtuales y la maneja como si fuera suya, aunque realmente varios usuarios o clientes están haciendo uso de una misma máquina física.</p>
 <p>Herramientas como VirtualBox, VMWare, KVM o Xen hacen posible la virtualización de sistemas.</p>
-</li>
-<li><p><strong>Herramientas de control y monitorización</strong></p>
+</section>
+<section id="herramientas-de-control-y-monitorizacion">
+<h3>Herramientas de control y monitorización<a class="headerlink" href="#herramientas-de-control-y-monitorizacion" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Cuando se dispone de tanto equipamiento informático (en un solo CPD puede haber cientos de equipos informáticos y otros dispositivos) se hace muy necesario poder monitorizar su comportamiento. No es posible evaluar el rendimiento o vigilar los equipos de forma manual.</p>
 <p>Herramientas como Nagio,s ganglia, etc permiten monitorizar todo el equipamiento informático de una manera automática y gráfica, de manera que en caso de fallo es la propia aplicación quién avisa a los técnicos del equipo que ha fallado y por qué.</p>
 <img alt="../_images/monitorizacion1.png" src="../_images/monitorizacion1.png" />
-</li>
-<li><p><strong>Inventariado del Hardware</strong></p>
+</section>
+<section id="inventariado-del-hardware">
+<h3>Inventariado del Hardware<a class="headerlink" href="#inventariado-del-hardware" title="Enlace permanente a este encabezado">#</a></h3>
 <p>De la misma manera que ocurre con la monitorización, cuando se dispone de cientos de equipos informáticos, no es posible mantener un inventario actualizado de forma manual. Será necesaria alguna aplicación que permita inventariar toda la red de equipos de forma automática, como por ejmplo Open-AudIT, opsi, openDCIM , OCSING, openITCOCKPIT, Spacewalk , Kuwaiba, FusionInventory, et…  Además, será muy útil a la hora de elaborar informes sobre el hardware utilizado, características, software instalado en cada equipo, …</p>
-</li>
-</ul>
+</section>
 </section>
 </section>
 
@@ -572,16 +601,36 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-estandar-tia-942">El Estándar TIA 942</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-estandar-tia-942">El Estándar TIA 942</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-i-nivel-1-basico">TIER I- Nivel 1 (Básico)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-ii-nivel-ii-componentes-redundantes">TIER II- Nivel II (Componentes redundantes)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-iii-nivel-iii-mantenimiento-concurrente">TIER III- Nivel III (Mantenimiento concurrente)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tier-iv-nivel-iv-tolerante-a-errores">TIER IV- Nivel IV (Tolerante a errores)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-de-un-cpd">Estructura de un CPD</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infraestructura-fisica">Infraestructura física</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-contra-incendios">Medidas contra incendios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climatizacion">Climatización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-fisica">Seguridad física</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#centro-de-respaldo">Centro de respaldo</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infraestructura-de-red-y-hardware-especifico-en-un-cpd">Infraestructura de red y hardware específico en un CPD</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-racks">Instalación de racks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cableado-horizontal">Cableado horizontal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#red-de-almacenamiento">Red de almacenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redundancia">Redundancia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitecturas-de-servidor">Arquitecturas de servidor</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-en-un-cpd">Software en un CPD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#software-en-un-cpd">Software en un CPD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sistemas-operativos-cpd">Sistemas Operativos (CPD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualizacion-de-sistemas">Virtualización de Sistemas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#herramientas-de-control-y-monitorizacion">Herramientas de control y monitorización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inventariado-del-hardware">Inventariado del Hardware</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

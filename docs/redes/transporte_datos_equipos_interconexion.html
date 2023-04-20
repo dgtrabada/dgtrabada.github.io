@@ -248,7 +248,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -264,6 +266,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repetidores-nivel-fisico">Repetidores (nivel físico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concentradores-o-hub-nivel-fisico">Concentradores o hub  (nivel físico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridge-puente-nivel-2-enlace-tramas">Bridge (puente)(nivel 2 enlace «tramas»)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#switch-conmutador-nivel-2">Switch (conmutador) (nivel 2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-router-encaminador-nivel-3-red">El router (encaminador) (nivel 3 Red)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pasarela-o-gateway-nivel-4-de-transporte">Pasarela o Gateway (nivel 4 de transporte)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -278,29 +293,38 @@ document.write(`
 <p>La arquitectura TCP/IP transfiere los datos mediante su embalaje en paquetes. Cada capa va añadiendo bits de control al bloque que le llega antes de pasarlo a la capa siguiente. En la recepción el proceso es el contrario.</p>
 <img alt="../_images/arquitectura_TCP_IP.png" src="../_images/arquitectura_TCP_IP.png" />
 <p>Para realizar la interconexión de redes, necesitamos diferentes elementos dependiendo de la longitud, número de nodos, situación etc…</p>
-<ul>
-<li><p><strong>Repetidores</strong> (nivel físico) . La señal de la red se va atenuando debido a la resistencia del cable, los repetidores regeneran la señal en ambas direcciones sin hacer ningún tipo de filtrado (nivel físico)</p>
+<section id="repetidores-nivel-fisico">
+<h2>Repetidores (nivel físico)<a class="headerlink" href="#repetidores-nivel-fisico" title="Enlace permanente a este encabezado">#</a></h2>
+<p>La señal de la red se va atenuando debido a la resistencia del cable, los repetidores regeneran la señal en ambas direcciones sin hacer ningún tipo de filtrado (nivel físico)</p>
 <img alt="../_images/repetidores.png" src="../_images/repetidores.png" />
-</li>
-<li><p><strong>Concentradores o hub</strong>  (nivel físico).</p>
+</section>
+<section id="concentradores-o-hub-nivel-fisico">
+<h2>Concentradores o hub  (nivel físico)<a class="headerlink" href="#concentradores-o-hub-nivel-fisico" title="Enlace permanente a este encabezado">#</a></h2>
 <img alt="../_images/hubico.png" src="../_images/hubico.png" />
 <p>El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos, es decir además regenera la señal. Para conectar un Hub-Hub lo hacemos con cable cruzado.</p>
 <a class="reference internal image-reference" href="../_images/hub.png"><img alt="../_images/hub.png" src="../_images/hub.png" style="width: 300px;" /></a>
-</li>
-<li><p><strong>Bridge</strong> (puente)(nivel 2 enlace) «tramas». Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red</p></li>
-<li><p><strong>Switch</strong> (conmutador) (nivel 2).</p>
+</section>
+<section id="bridge-puente-nivel-2-enlace-tramas">
+<h2>Bridge (puente)(nivel 2 enlace «tramas»)<a class="headerlink" href="#bridge-puente-nivel-2-enlace-tramas" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red</p>
+</section>
+<section id="switch-conmutador-nivel-2">
+<h2>Switch (conmutador) (nivel 2)<a class="headerlink" href="#switch-conmutador-nivel-2" title="Enlace permanente a este encabezado">#</a></h2>
 <img alt="../_images/switchico.png" src="../_images/switchico.png" />
 <p>Es un Hub inteligente analiza las MAC de los equipos conectados, de esa forma solo manda los mensajes a un solo equipo disminuyendo considerablemente el tráfico de la red</p>
 <img alt="../_images/schitch.png" src="../_images/schitch.png" />
 <a class="reference internal image-reference" href="../_images/hub_switch.png"><img alt="../_images/hub_switch.png" src="../_images/hub_switch.png" style="width: 300px;" /></a>
-</li>
-<li><p><strong>El router</strong> (encaminador) (nivel 3 Red)</p>
+</section>
+<section id="el-router-encaminador-nivel-3-red">
+<h2>El router (encaminador) (nivel 3 Red)<a class="headerlink" href="#el-router-encaminador-nivel-3-red" title="Enlace permanente a este encabezado">#</a></h2>
 <img alt="../_images/routerico.png" src="../_images/routerico.png" />
 <p>Se ocupan del encaminamiento de los paquetes entre sus distintos puertos, para ello utilizamos tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas y proporcionan seguridad y reducir la congestión de la red.</p>
 <img alt="../_images/router.png" src="../_images/router.png" />
-</li>
-<li><p><strong>Pasarela o Gateway</strong> (nivel 4 de transporte)  Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red</p></li>
-</ul>
+</section>
+<section id="pasarela-o-gateway-nivel-4-de-transporte">
+<h2>Pasarela o Gateway (nivel 4 de transporte)<a class="headerlink" href="#pasarela-o-gateway-nivel-4-de-transporte" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red</p>
+</section>
 </section>
 
 
@@ -318,6 +342,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repetidores-nivel-fisico">Repetidores (nivel físico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concentradores-o-hub-nivel-fisico">Concentradores o hub  (nivel físico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridge-puente-nivel-2-enlace-tramas">Bridge (puente)(nivel 2 enlace «tramas»)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#switch-conmutador-nivel-2">Switch (conmutador) (nivel 2)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-router-encaminador-nivel-3-red">El router (encaminador) (nivel 3 Red)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pasarela-o-gateway-nivel-4-de-transporte">Pasarela o Gateway (nivel 4 de transporte)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

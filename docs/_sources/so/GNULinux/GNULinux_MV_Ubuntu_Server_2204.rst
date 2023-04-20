@@ -8,7 +8,7 @@ MV Ubuntu Server 22.04
 
 * Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 22.04**
 
-* Utiliza un adaptador puente para la red con **IP** 10.3.**X.Y**/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
+* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
 
 * **DNS** 8.8.8.8, **Gateway** 10.0.0.2 y **subred** 10.0.0.0/8, 
 
@@ -49,6 +49,6 @@ Puedes comprobar que se ha generado (ls .ssh/) tendrá que aparecer las dos clav
 
 .. code-block:: bash
 
- $ ssh-copy-id 172.16.0.11
+ $ ssh-copy-id roo@10.4.X.Y
      
 Conectate sin que te pida la contraseña.

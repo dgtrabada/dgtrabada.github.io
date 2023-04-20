@@ -53,26 +53,25 @@ Tenemos 7 categorías diferentes, dependiendo del número de pares, el número d
   
     .. image:: imagenes/RJ45.png
   
-Cable directo
--------------
+* **Cable directo**
 
-El cable directo de red sirve para conectar *dispositivos diferentes*, como un computador con un hub o switch. En este caso, ambos extremos del cable deben tener la misma distribución. No existe diferencia alguna en la conectividad entre la distribución 568B y la distribución 568A siempre y cuando en ambos extremos se use la misma, en caso contrario hablamos de un cable cruzado. El esquema más utilizado en la práctica es tener en ambos extremos la distribución 568B.
+  El cable directo de red sirve para conectar *dispositivos diferentes*, como un computador con un hub o switch. En este caso, ambos extremos del cable deben tener la misma distribución. No existe diferencia alguna en la conectividad entre la distribución 568B y la distribución 568A siempre y cuando en ambos extremos se use la misma, en caso contrario hablamos de un cable cruzado. El esquema más utilizado en la práctica es tener en ambos extremos la distribución 568B.
 
-* **Cable directo T568A**
-
+  * **Cable directo T568A**
+  
   .. image:: imagenes/T568A.png
 
-* **Cable directo T568B**
+  * **Cable directo T568B**
 
   .. image:: imagenes/T568B.png
   
-Cable cruzado
--------------
+* **Cable cruzado**
 
-El cable cruzado de red sirve para conectar dispositivos iguales,  para crear un cable cruzado debe tener la distribución 568A y el otro 568B.
-Cable cruzado 568A/568B
+  El cable cruzado de red sirve para conectar dispositivos iguales,  para crear un cable cruzado debe tener la distribución 568A y el otro 568B.
+  
+  * **Cable cruzado 568A/568B**
 
-.. image:: imagenes/cable_cruzado.png
+  .. image:: imagenes/cable_cruzado.png
 
 Cable coaxial
 -------------
@@ -108,7 +107,7 @@ Conector BNC
 Conector (10Base-5)
 
 Fibra óptica
-============
+------------
 
 Cada filamento consta de un núcleo central de plástico o cristal (óxido de silicio y zinc ) con un alto índice de refracción, rodeado de una capa de un material similar con un índice de refracción ligeramente menor (plástico).
 

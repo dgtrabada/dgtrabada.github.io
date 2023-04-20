@@ -32,7 +32,7 @@ Comandos generales:
 * **hardinfo** es una herramienta de información y de benchmarking para GNU/Linux. Permite obtener información acerca del hardware de tu ordenador
 
 Discos duros
-============
+------------
 
 * **GParted** es un editor de particiones para el entorno de escritorio GNOME
 
@@ -80,14 +80,14 @@ Discos duros
 
  * mdadm #administrar discos del raid
 
-BIOS
-====
+BIOS/UEFI
+---------
 
 * **dmidecode** nos da información sobre la BIOS el tipo de hardware soportado, marca y modelo de la placa, tipo de socket, tamaño máximo memoria por slot...
 
 
 CPU
-===
+---
 
 * **cat /proc/cpuinfo**
 
@@ -96,7 +96,7 @@ CPU
   .. image:: imagenes/diagnostico/hardinfo.png
 
 Memoria
-=======
+-------
 
 * **cat /proc/meminfo**
 
@@ -110,7 +110,7 @@ Como se puede observar hay una gran cantidad de memoria en el caché, de la cual
   .. image:: imagenes/diagnostico/memtest.png
 
 Dispositivos
-============
+------------
 
 * **lshal** nos informa de todos los dispositivos reconocidos por nuestro sistema operativo.
   Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando

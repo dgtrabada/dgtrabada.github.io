@@ -35,34 +35,51 @@ El cable utilizado por el estándar Serial ATA es un cable redondeado que contie
 .. image:: imagenes/BUS/sata.png
     :width: 400
 
-* Conectores basados en el bus STA con diferente patillaje
+Conectores basados en el bus SATA con diferente patillaje
 
-  * eSATA (External SATA)
-   .. image:: imagenes/BUS/eSATA1.png
-   .. image:: imagenes/BUS/eSATA2.png
-  * eSATA USB hybrid (EUHP)
-   .. image:: imagenes/BUS/eSATA_usb.png
-   .. image:: imagenes/BUS/eSATA_usab2.png
-  * SATA Slimline
-   .. image:: imagenes/BUS/SATA_slimline.png
-   .. image:: imagenes/BUS/SATA_slimline2.png
-  * Mini-SATA (mSATA)
-   .. image:: imagenes/BUS/miniSATA.png
-   .. image:: imagenes/BUS/ministasata2.png
-  * SATA micro
-   .. image:: imagenes/BUS/sata_miscro.png
-   .. image:: imagenes/BUS/sata_micro1.png
-  * SATA SFF-8784
-   .. image:: imagenes/BUS/sata_sff.png
-   .. image:: imagenes/BUS/sata_sff2.png
-  * SATA Express
-   .. image:: imagenes/BUS/sata_express.png
-   .. image:: imagenes/BUS/SATA_espress2.png
-  * M.2 (NGFF)
-   .. image:: imagenes/BUS/m2.png
-  * U.2 connector
-   .. image:: imagenes/BUS/U2.png
-   .. image:: imagenes/BUS/U2_2.png
+* eSATA (External SATA)
+
+  .. image:: imagenes/BUS/eSATA1.png
+  .. image:: imagenes/BUS/eSATA2.png
+  
+* eSATA USB hybrid (EUHP)
+
+  .. image:: imagenes/BUS/eSATA_usb.png
+  .. image:: imagenes/BUS/eSATA_usab2.png
+   
+* SATA Slimline
+
+  .. image:: imagenes/BUS/SATA_slimline.png
+  .. image:: imagenes/BUS/SATA_slimline2.png
+  
+* Mini-SATA (mSATA)
+  
+  .. image:: imagenes/BUS/miniSATA.png
+  .. image:: imagenes/BUS/ministasata2.png
+  
+* SATA micro
+
+  .. image:: imagenes/BUS/sata_miscro.png
+  .. image:: imagenes/BUS/sata_micro1.png
+   
+* SATA SFF-8784
+
+  .. image:: imagenes/BUS/sata_sff.png
+  .. image:: imagenes/BUS/sata_sff2.png
+  
+* SATA Express
+
+  .. image:: imagenes/BUS/sata_express.png
+  .. image:: imagenes/BUS/SATA_espress2.png
+  
+* M.2 (NGFF)
+
+  .. image:: imagenes/BUS/m2.png
+  
+* U.2 connector
+
+  .. image:: imagenes/BUS/U2.png
+  .. image:: imagenes/BUS/U2_2.png
   
 
 Conectores SCSI
@@ -89,7 +106,7 @@ Existen dos anchuras de bus SCSI:
 Ranura M.2
 ==========
 
- Sustituye al estándar mSATA, puede llegar hasta una velocidad de transferencia de 3500 MB/s
+Sustituye al estándar mSATA, puede llegar hasta una velocidad de transferencia de 3500 MB/s
 
 .. image:: imagenes/BUS/M2_2.jpeg
     :width: 400

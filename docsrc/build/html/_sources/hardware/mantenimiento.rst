@@ -4,49 +4,51 @@ Mantenimiento de sistemas informáticos
 
 Un sistema informático (SI) es el conjunto de partes que funcionan relacionándose entre sí para conseguir un objetivo preciso.
 
-¿Qué es el mantenimiento para los PCs?
-======================================
+*¿Qué es el mantenimiento para los PCs?*
 
 Es el cuidado que se le da al ordenador para prevenir posibles fallos. El mantenimiento incluye técnicas que se aplican a los ordenadores para darle un periodo de vida útil más largo y libre de fallos. Se debe tener en cuenta la ubicación física del equipo ya sea en la oficina, en el aula, en casa, así como los cuidados especiales cuando no se está usando el equipo.
 
 Niveles de mantenimiento
-========================
+------------------------
 
 Descripción de técnicas auxiliares de mantenimiento de sistemas microinformáticos.
 Hay tres niveles de mantenimiento:
 
-    * Nivel de hardware.
-    * Nivel de software
-    * Nivel de documentación.
+* Nivel de hardware.
+* Nivel de software
+* Nivel de documentación.
 
 
-* **Nivel de mantenimiento de hardware**
+Nivel de mantenimiento de hardware
+==================================
 
-  Cuida el buen estado de los equipos y periféricos del sistema, los fallos suelen ser por desgastarse de los materiales o por accidentes.
+Cuida el buen estado de los equipos y periféricos del sistema, los fallos suelen ser por desgastarse de los materiales o por accidentes.
   
-  Dentro del mantenimiento del hardware tenemos:
+Dentro del mantenimiento del hardware tenemos:
 
-  * La limpieza de los hardware
-  * Comprueba que funcione todo correctamente (voltaje. temperatura)
-  * Reemplaza o repara los componentes desgastados o que funcione mal
+* La limpieza de los hardware
+* Comprueba que funcione todo correctamente (voltaje. temperatura)
+* Reemplaza o repara los componentes desgastados o que funcione mal
 
-* **Nivel de mantenimiento de software.**
+Nivel de mantenimiento de software.
+==================================
 
-  Se centra en las aplicaciones y los datos de tenga el sistema.
+Se centra en las aplicaciones y los datos de tenga el sistema.
   
-  Los fallos se dan de forma de pérdida de información, virus, troyanos, gusanos, etc ...
+Los fallos se dan de forma de pérdida de información, virus, troyanos, gusanos, etc ...
   
-  Dentro del mantenimiento de software tenemos:
+Dentro del mantenimiento de software tenemos:
 
-  * Limpieza de archivos y programas
-  * Actualizaciones de seguridad
-  * Copias de seguridad.
+* Limpieza de archivos y programas
+* Actualizaciones de seguridad
+* Copias de seguridad.
 
-  Imaginad que pasaría si se perdieran la base de datos de la facturación de una empresa y ésta no se pudiera recuperar al estar sólo en un ordenador que se ha averiado o eliminado la información accidentalmente o bajándolo a nuestro nivel si perdéis los trabajos que tenéis realizados para entregar en clase.
+Imaginad que pasaría si se perdieran la base de datos de la facturación de una empresa y ésta no se pudiera recuperar al estar sólo en un ordenador que se ha averiado o eliminado la información accidentalmente o bajándolo a nuestro nivel si perdéis los trabajos que tenéis realizados para entregar en clase.
 
-* **Nivel de mantenimiento de documentación**
+Nivel de mantenimiento de documentación
+=======================================
 
-  Cuando se instala, se mantine o se repara un sistema informativo hay que actualizar la documentación y dejar un registro de todas la tareas de mantenimiento.
+Cuando se instala, se mantine o se repara un sistema informativo hay que actualizar la documentación y dejar un registro de todas la tareas de mantenimiento.
 
 Técnicas auxiliares de mantenimiento 
 ====================================

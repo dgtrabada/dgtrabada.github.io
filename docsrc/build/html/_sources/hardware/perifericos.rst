@@ -246,7 +246,7 @@ Cada individuo posee una información biológica que lo diferencia de los demás
   .. image:: imagenes/perifericos/biometrico9.png
 
 Controlador de Dispositivo o Drivers
-------------------------------------
+====================================
 
 Un controlador de dispositivo (llamado normalmente controlador, o, en inglés, driver) es un programa informático que permite al sistema operativo interaccionar con un periférico, haciendo una abstracción del hardware y proporcionando una interfaz *"posiblemente estandarizada"* para usarlo.
 

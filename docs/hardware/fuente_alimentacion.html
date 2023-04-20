@@ -271,6 +271,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento">Funcionamiento</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-de-las-fuentes-de-alimentacion">Características de las fuentes de alimentación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-elegir-la-fuente-de-alimentacion">Cómo elegir la fuente de alimentación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuidados-de-la-fuente-de-alimentacion">Cuidados de la fuente de alimentación</a></li>
@@ -292,7 +293,8 @@ document.write(`
 Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación .</p>
 <a class="reference internal image-reference" href="../_images/fuente_alimentacion.png"><img alt="../_images/fuente_alimentacion.png" src="../_images/fuente_alimentacion.png" style="width: 300px;" /></a>
 <img alt="../_images/fuente_alimentacion2.png" src="../_images/fuente_alimentacion2.png" />
-<p><strong>Funcionamiento:</strong></p>
+<section id="funcionamiento">
+<h2>Funcionamiento<a class="headerlink" href="#funcionamiento" title="Enlace permanente a este encabezado">#</a></h2>
 <img alt="../_images/fuente_alimentacion_circuito.png" src="../_images/fuente_alimentacion_circuito.png" />
 <ul class="simple">
 <li><p><strong>Transformación</strong> : Se disminuye la corriente alterna de entrada (230 V 50 Hz)</p></li>
@@ -304,6 +306,7 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <img alt="../_images/fuente_simple_alimentacion_circuito.png" src="../_images/fuente_simple_alimentacion_circuito.png" />
 <p>(rectificación de la señal negativa)</p>
 <img alt="../_images/fuente_rectificacion_alimentacion_circuito.png" src="../_images/fuente_rectificacion_alimentacion_circuito.png" />
+</section>
 <section id="caracteristicas-de-las-fuentes-de-alimentacion">
 <h2>Características de las fuentes de alimentación<a class="headerlink" href="#caracteristicas-de-las-fuentes-de-alimentacion" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
@@ -336,19 +339,13 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <ul>
 <li><p>No adquirir una fuente de alimentación muy exacta, ya que calentará mucho y el ventilador hará ruido, ni muy potente, ya que el rendimiento no será bueno.</p></li>
 <li><p><strong>PFC</strong> (Power Factor Correction)  es la relación entre la potencia real (potencia aparente) suministrada por la red eléctrica y la potencia que la fuente puede ofrecer (potencia activa o de trabajo). El factor de potencia ideal es 1, pero veréis que está representado por decimales que van desde 0 hasta 1. Lamentablemente, la corriente eléctrica viaja dando picos de voltaje. Para rectificar estos picos, la fuente de alimentación equipa transformadores internos. Mediante estos transformadores, la fuente proporciona corriente continua para los componentes PC. En otras palabras, es imposible conseguir ese 1, pero sí llegar al 0.95-0.99.</p>
-<ul class="simple">
-<li><p><strong>PFC Pasivo</strong>: Se trata de una corrección pasiva que consiste en un núcleo de ferrita en la entrada de la fuente de alimentación. El valor de factor de potencia en caso de utilizar PFC pasivo ronda entre unos 60-80% (0.6-0.8). Su uso tiene varios inconvenientes, como por ejemplo, la necesidad de seleccionar el voltaje de entrada mediante un interruptor y el “ruido” electromagnético que llega a producir.</p></li>
-</ul>
-<blockquote>
-<div><a class="reference internal image-reference" href="../_images/PCPactivo.png"><img alt="../_images/PCPactivo.png" src="../_images/PCPactivo.png" style="width: 200px;" /></a>
-</div></blockquote>
-<ul class="simple">
-<li><p><strong>PFC Activo</strong>: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarlo con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.</p></li>
-</ul>
-<blockquote>
-<div><a class="reference internal image-reference" href="../_images/PFCpasivo.png"><img alt="../_images/PFCpasivo.png" src="../_images/PFCpasivo.png" style="width: 200px;" /></a>
-</div></blockquote>
-<ul class="simple">
+<ul>
+<li><p><strong>PFC Pasivo</strong>: Se trata de una corrección pasiva que consiste en un núcleo de ferrita en la entrada de la fuente de alimentación. El valor de factor de potencia en caso de utilizar PFC pasivo ronda entre unos 60-80% (0.6-0.8). Su uso tiene varios inconvenientes, como por ejemplo, la necesidad de seleccionar el voltaje de entrada mediante un interruptor y el “ruido” electromagnético que llega a producir.</p>
+<a class="reference internal image-reference" href="../_images/PCPactivo.png"><img alt="../_images/PCPactivo.png" src="../_images/PCPactivo.png" style="width: 200px;" /></a>
+</li>
+<li><p><strong>PFC Activo</strong>: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarlo con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.</p>
+<a class="reference internal image-reference" href="../_images/PFCpasivo.png"><img alt="../_images/PFCpasivo.png" src="../_images/PFCpasivo.png" style="width: 200px;" /></a>
+</li>
 <li><p>La contaminación sonora: Algunas fuentes de alimentación son silenciosas incluso en carga, otras no tanto… Lo mejor es permanecer debajo de 45dB, se debe evitar las fuentes que superan los 50dB en carga.</p></li>
 </ul>
 </li>
@@ -421,6 +418,7 @@ En el caso de que no tengamos un comprobador de la fuente de alimentación, vere
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento">Funcionamiento</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-de-las-fuentes-de-alimentacion">Características de las fuentes de alimentación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-elegir-la-fuente-de-alimentacion">Cómo elegir la fuente de alimentación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuidados-de-la-fuente-de-alimentacion">Cuidados de la fuente de alimentación</a></li>

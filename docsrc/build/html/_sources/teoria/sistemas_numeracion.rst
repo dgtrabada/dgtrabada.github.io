@@ -89,15 +89,15 @@ Ejemplo de **base decimal a base binaria** 61 :sub:`10) → 2)`
 
 Ejemplo de **base decimal a base octal** 61 :sub:`10) → 8)`
 
-  61 : 8 = 7 resto 5
+61 : 8 = 7 resto 5
 
-  61 :sub:`10)` = 75 :sub:`8)`
+61 :sub:`10)` = 75 :sub:`8)`
   
 Ejemplo de **base decimal a base hexadecimal** 61 :sub:`10) → 16)`
 
-  61 : 16 = 3 resto 13
+61 : 16 = 3 resto 13
 
-  61 :sub:`10)` = 3(13=D) = 3D :sub:`16)`
+61 :sub:`10)` = 3(13=D) = 3D :sub:`16)`
 
 Base N a base M ≠ N ≠ 10
 -------------------------

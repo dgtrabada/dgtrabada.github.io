@@ -69,42 +69,45 @@ Tipos software y licencias
 
 
 Tipos de software
-#################
+=================
 
- * **Software de sistema:** Su objetivo es desvincular adecuadamente al usuario y al programador de los detalles del sistema informático en particular que se use, aislándolo especialmente del procesamiento referido a las características internas de: memoria, discos, puertos y dispositivos de comunicaciones, impresoras, pantallas, teclados, etc. Incluye entre otros: Sistemas operativos, Controladores de dispositivos, Herramientas de diagnóstico, etc ...
+* **Software de sistema:** Su objetivo es desvincular adecuadamente al usuario y al programador de los detalles del sistema informático en particular que se use, aislándolo especialmente del procesamiento referido a las características internas de: memoria, discos, puertos y dispositivos de comunicaciones, impresoras, pantallas, teclados, etc. Incluye entre otros: Sistemas operativos, Controladores de dispositivos, Herramientas de diagnóstico, etc ...
 
- * **Software de programación:** Es el conjunto de herramientas que permiten al programador desarrollar programas de informática, usando diferentes alternativas y lenguajes de programación, de una manera práctica. Incluyen en forma básica: Editores de texto, Compiladores,  Intérpretes, Depuradores, Entornos de desarrollo integrados (IDE): Agrupan las anteriores herramientas, usualmente en un entorno visual, de forma tal que el programador no necesite introducir múltiples comandos para compilar, interpretar, depurar, etc. Habitualmente cuentan con una avanzada interfaz gráfica de usuario (GUI).
- * **Software de aplicación:** Es aquel que permite a los usuarios llevar a cabo una o varias tareas específicas, en cualquier campo de actividad susceptible de ser automatizado o asistido, con especial énfasis en los negocios. Incluye entre muchos otros: Aplicaciones para Control de sistemas y automatización industrial, Aplicaciones ofimáticas,  Software educativo, Software empresarial8​, Bases de datos, Videojuegos Software médico, etc
+* **Software de programación:** Es el conjunto de herramientas que permiten al programador desarrollar programas de informática, usando diferentes alternativas y lenguajes de programación, de una manera práctica. Incluyen en forma básica: Editores de texto, Compiladores,  Intérpretes, Depuradores, Entornos de desarrollo integrados (IDE): Agrupan las anteriores herramientas, usualmente en un entorno visual, de forma tal que el programador no necesite introducir múltiples comandos para compilar, interpretar, depurar, etc. Habitualmente cuentan con una avanzada interfaz gráfica de usuario (GUI).
+ 
+* **Software de aplicación:** Es aquel que permite a los usuarios llevar a cabo una o varias tareas específicas, en cualquier campo de actividad susceptible de ser automatizado o asistido, con especial énfasis en los negocios. Incluye entre muchos otros: Aplicaciones para Control de sistemas y automatización industrial, Aplicaciones ofimáticas,  Software educativo, Software empresarial8​, Bases de datos, Videojuegos Software médico, etc
 
 
 
 Tipos de licencias software
-###########################
+===========================
 
 
 La autorización que el titular de los derechos patrimoniales de una obra literaria, artística, musical, audiovisual o de software da a otras personas sobre lo que pueden y no pueden hacer con la obra, se realiza a través de una Licencia de Uso. La licencia es un documento que expresa la voluntad del autor sobre los límites y alcances del uso que pueden hacer las personas respecto a la:
 
-   * Copia.
-   * Reproducción.
-   * Modificación.
-   * Traducción.
-   * Adaptación.
-   * Beneficio económico.
+* Copia.
+* Reproducción.
+* Modificación.
+* Traducción.
+* Adaptación.
+* Beneficio económico.
 
 En este sentido se pueden encontrar una variedad de tipos de licencias que pueden ir desde las más restrictivas, en la cual el autor se reserva todos los derechos (de ahí la expresión **“todos los derechos reservados”**), hasta las licencias más permisivas en las cuales el autor autoriza una amplia posibilidad de usos de la obra a las personas (**"algunos derechos reservados"**), el extremo de esta posibilidad es el dominio público.
 Sin embargo, en todos estos tipos de licencias esta el principio de respeto por el otro y por lo que ha surgido de su creación, es decir el respecto por los Derechos Morales, lo que implica que en ningún momento una persona puede adjudicarse la autoría de una obra que no ha creado, independiente de la licencia que tenga.
 La forma de indicar los términos de la Licencia de Uso en una obra, es a través de una leyenda que sintetice lo que se puede y lo que no se puede hacer con la obra. En los libros, las licencias más restrictivas para los usuarios tienen una leyenda en una de las páginas, como la que esta a continuación:
-  *Todos los Derechos Reservados © Nombre del Autor y/o Nombre de la Editorial. Prohibida la reproducción total o parcial de esta obra, por cualquier medio, sin la autorización del autor/editor.*
+
+*Todos los Derechos Reservados © Nombre del Autor y/o Nombre de la Editorial. Prohibida la reproducción total o parcial de esta obra, por cualquier medio, sin la autorización del autor/editor.*
 
 Mientras que las licencias más permisivas con los usuarios, presentan leyendas del siguiente tipo:
-  *Derechos de Copia © Nombre del Autor y/o Nombre de la Editorial. Se permite la copia en cualquier formato siempre y cuando no se alteren los contenidos y se haga reconocimiento de los autores/editorial.*
+
+*Derechos de Copia © Nombre del Autor y/o Nombre de la Editorial. Se permite la copia en cualquier formato siempre y cuando no se alteren los contenidos y se haga reconocimiento de los autores/editorial.*
 
 Por lo tanto, una Licencia de Uso debe indicar como mínimo, la voluntad del autor en los siguientes aspectos:
 
 La licencia no pone en consideración el reconocimiento de la autoría de la obra, porque como lo establece el Derecho Moral en el Derecho de Autor, esto no es negociable. Siempre que se conozca la autoría de una obra se debe indicar.
 
 Software privativo
-##################
+==================
 
 El software privativo es cualquier software que no es libre. Está prohibido su uso, redistribución o modificación, o requiere que se solicite permiso, o tiene tantas restricciones que de hecho no se puede hacer libremente
 
@@ -116,7 +119,7 @@ Las siglas OEM hacen referencia a Original Equipment Manufacturer, que en castel
 Esta licencia va ligada a la placa base, de modo que solo podremos usar la licencia en un único equipo, pero con la ventaja de un reducido coste. Podemos cambiar otros componentes hardware (RAM, tarjeta gráfica) sin que afecte a la licencia.
 
 Licencia Retail
-***************
+---------------
 
 Windows Retail es la licencia “de toda la vida” que podemos adquirir en la propia página de microsoft.com. Esta licencia **va ligada a una cuenta de Microsoft**, de manera que podremos activar cualquier equipo tan solo iniciando sesión, pero esto no quiere decir que podamos activar todos los equipos con una sola licencia, tendremos que desactivar primero un ordenador antes de activarlo en el siguiente, la ventaja es que podremos hacer cambio en el hardware sin tener que comprar otra licencia.
 En las licencias de tipo retail, normalmente podemos elegir entre una licencia completa, o una licencia de actualización, que permite actualizar un sistema anterior al nuevo, por un coste algo más reducido.
@@ -129,18 +132,18 @@ En las licencias de tipo retail, normalmente podemos elegir entre una licencia c
  slmgr /ato                      # activará la licencia
 
 Licencia VOLUMEN (VLM)
-***************
+----------------------
 
 Las licencias  VOLUMEN, enfocadas a empresas, son las más completas. En este caso, el precio por licencia suele tener descuento y la ventaja está en que se puede utilizar en varios ordenadores en los que, por cierto, se pueden también hacer cambios de hardware. A los usuarios normales no les aporta ventaja de ningún tipo,  son como las RETAIL para empresas.
 Los Cracks para activar la licencias de windows piratas utilizan estas licencias, Windows pregunta a un servidor KMS, significa Key Management Service, y es un servicio de publicación automática de licencias de Microsoft, capaz de servir licencias para sistemas operativos. El Crack emula el servidor y dice que la licencia que se ha introducido es valida, de esta forma windows queda activado. A partir de W8 los Cracks son más complicados ya que verifica que el KMS no tenga la misma IP. Esta práctica además de ser ilegal crea un fallo en la seguridad del equipo.
 
 MSDN (LICENCIAS DE EDUCACIÓN.)
-***************
+---------------
 
 Son unas licencias especiales de Microsoft que permiten su uso únicamente para actividades educativas y de formación. Cualquier uso de estas licencias en equipos que desarrollen actividades fuera de este ámbito, es ilegal. Existen también licencias de este tipo para empresas de desarrollo, academias, etc
  
 Licencia OEM
-************
+---------------
 
 Las siglas OEM hacen referencia a Original Equipment Manufacturer, que en castellano se podría traducir como fabricante de equipamiento original.
 
@@ -151,7 +154,7 @@ Estas claves actualmente pueden comprarse de forma muy barata ~20€ en comparac
 
 
 Software libre
-##############
+==============
 
 `What is Open Source explained in LEGO <https://www.youtube.com/watch?v=a8fHgx9mE5U>`_
 
@@ -161,7 +164,7 @@ Software libre
 #. La libertad de mejorar el programa y hacer públicas esas mejoras a los demás, de modo que toda la comunidad se beneficie (Mejora).
 
 Licencias GPL
-************
+-------------
 
 Una de las más utilizadas es la Licencia Pública General de GNU (GNU GPL). El autor conserva los derechos de autor (copyright), y permite la redistribución y modificación bajo términos diseñados para asegurarse de que todas las versiones modificadas del software permanecen bajo los términos más restrictivos de la propia GNU GPL. Esto hace que sea imposible crear un producto con partes no licenciadas GPL: el conjunto tiene que ser GPL
 
@@ -174,19 +177,19 @@ En el sitio web oficial de GNU hay una lista de licencias que cumplen las condic
 Aproximadamente el 60% del software licenciado como software libre emplea una licencia GPL o de manejo.
 
 Licencias AGPL
-************
+--------------
 
 La Licencia Pública General de Affero (en inglés Affero General Public License, también Affero GPL o AGPL) es una licencia copyleft derivada de la Licencia Pública General de GNU diseñada específicamente para asegurar la cooperación con la comunidad en el caso de software que funcione en servidores de red.
 La Affero GPL es íntegramente una GNU GPL con una cláusula nueva que añade la obligación de distribuir el software si éste se ejecuta para ofrecer servicios a través de una red de ordenadores.
 La Free Software Foundation recomienda que el uso de la GNU AGPLv3 sea considerado para cualquier software que usualmente corra sobre una red.
 
 Licencias estilo BSD
-************
+--------------------
 
 Llamadas así porque se utilizan en gran cantidad de software distribuido junto a los sistemas operativos BSD. El autor, bajo tales licencias, mantiene la protección de copyright únicamente para la renuncia de garantía y para requerir la adecuada atribución de la autoría en trabajos derivados, pero permite la libre redistribución y modificación, incluso si dichos trabajos tienen propietario. Son muy permisivas, tanto que son fácilmente absorbidas al ser mezcladas con la licencia GNU GPL con quienes son compatibles. Puede argumentarse que esta licencia asegura “verdadero” software libre, en el sentido que el usuario tiene libertad ilimitada con respecto al software, y que puede decidir incluso redistribuirlo como no libre. Otras opiniones están orientadas a destacar que este tipo de licencia no contribuye al desarrollo de más software libre (normalmente utilizando la siguiente analogía: “una licencia BSD es más libre que una GPL si y sólo si se opina también que un país que permita la esclavitud es más libre que otro que no la permite”).
 
 Licencias estilo MPL y derivadas (Mozilla Public License)
-************
+-----------------------------------------
 
 Esta licencia es de Software Libre y tiene un gran valor porque fue el instrumento que empleó Netscape Communications Corp. para liberar su Netscape Communicator 4.0 y empezar ese proyecto tan importante para el mundo del Software Libre: Mozilla. Se utilizan en gran cantidad de productos de software libre de uso cotidiano en todo tipo de sistemas operativos. La MPL es Software Libre y promueve eficazmente la colaboración evitando el efecto “viral” de la GPL (si usas código licenciado GPL, tu desarrollo final tiene que estar licenciado GPL). Desde un punto de vista del desarrollador la GPL presenta un inconveniente en este punto, y lamentablemente mucha gente se cierra en banda ante el uso de dicho código. No obstante la MPL no es tan excesivamente permisiva como las licencias tipo BSD. Estas licencias son denominadas de copyleft débil. La NPL (luego la MPL) fue la primera licencia nueva después de muchos años, que se encargaba de algunos puntos que no fueron tomados en cuenta por las licencias BSD y GNU. En el espectro de las licencias de software libre se la puede considerar adyacente a la licencia estilo BSD, pero perfeccionada. Copyleft
 
@@ -195,14 +198,14 @@ El titular de los derechos de autor (copyright) de un software bajo licencia cop
 En España, toda obra derivada está tan protegida como una original, siempre que la obra derivada parta de una autorización contractual con el autor. En el caso genérico de que el autor retire las licencias “copyleft”, no afectaría de ningún modo a los productos derivados anteriores a esa retirada, ya que no tiene efecto retroactivo. En términos legales, el autor no tiene derecho a retirar el permiso de una licencia en vigencia. Si así sucediera, el conflicto entre las partes se resolvería en un pleito convencional.
  
 Diferentes tipos de Licencias de Software Libre
-************
+----------------------------------
 
 .. image:: imagenes/CC1.png
 
 .. image:: imagenes/CC2.png
 
 Tipos de licencias (documentos)
-************
+===============================
 
 Todo contenido (texto, ficheros, fotos, video,...) que está en Internet ha sido colocado por alguien, por lo tanto tiene dueño. Muchos de estos contenidos, objetos digitales, obras y creaciones están referenciados con su autoría e incluso la licencia de uso que tienen, suele pasar mucho en los vídeos, fotografías, imágenes, obras literarias, documentación, apuntes, manuales, obras literarias,....
 

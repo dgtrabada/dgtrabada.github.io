@@ -11,7 +11,8 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 
 .. image:: imagenes/fuentes/fuente_alimentacion2.png
 
-**Funcionamiento:**
+Funcionamiento
+==============
 
 .. image:: imagenes/fuentes/fuente_alimentacion_circuito.png
 
@@ -75,12 +76,12 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
 
   * **PFC Pasivo**: Se trata de una corrección pasiva que consiste en un núcleo de ferrita en la entrada de la fuente de alimentación. El valor de factor de potencia en caso de utilizar PFC pasivo ronda entre unos 60-80% (0.6-0.8). Su uso tiene varios inconvenientes, como por ejemplo, la necesidad de seleccionar el voltaje de entrada mediante un interruptor y el “ruido” electromagnético que llega a producir.
     
-   .. image:: imagenes/fuentes/PCPactivo.png
+    .. image:: imagenes/fuentes/PCPactivo.png
      :width: 200
     
   * **PFC Activo**: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarlo con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.
     
-   .. image:: imagenes/fuentes/PFCpasivo.png
+    .. image:: imagenes/fuentes/PFCpasivo.png
      :width: 200
     
   * La contaminación sonora: Algunas fuentes de alimentación son silenciosas incluso en carga, otras no tanto... Lo mejor es permanecer debajo de 45dB, se debe evitar las fuentes que superan los 50dB en carga.

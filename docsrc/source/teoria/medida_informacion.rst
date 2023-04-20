@@ -73,14 +73,14 @@ Ejemplos:
 
   1. Pasamos los GB a MB : 
   
-    :math:`600 GB \times \frac{10^3 MB}{GB}  = 600000\  MB`
+  :math:`600 GB \times \frac{10^3 MB}{GB}  = 600000\  MB`
 
   2. Dividimos la capacidad del disco entre lo que ocupa 1 libro :
   
-     :math:`\frac{600000 MB}{2 MB} = 300000\ libros` 
+  :math:`\frac{600000 MB}{2 MB} = 300000\ libros` 
 
 * **¿Cuántas canciones de 8MB cabrían en un disco de 128 GB?**
 
-   :math:`128 GB \times \frac{10^3 MB}{GB} = 128000\  MB`
+  :math:`128 GB \times \frac{10^3 MB}{GB} = 128000\  MB`
   
-   :math:`\frac{128000 MB}{8 MB} = 16000\  canciones`
+  :math:`\frac{128000 MB}{8 MB} = 16000\  canciones`

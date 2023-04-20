@@ -271,10 +271,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disco-duro-hdd">Disco duro (HDD)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-discos">Propiedades de los discos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-de-estado-solido">Discos de estado sólido</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidades">Utilidades</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disco-duro">Disco duro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-discos">Propiedades de los discos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-de-estado-solido">Discos de estado sólido</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidades">Utilidades</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memoria-flash">Memoria flash</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cd-dvd-blu-ray">CD,DVD, Blu-ray</a></li>
 </ul>
@@ -290,16 +293,15 @@ document.write(`
                   
   <section id="dispositivos-de-almacenamiento">
 <h1>Dispositivos de almacenamiento<a class="headerlink" href="#dispositivos-de-almacenamiento" title="Enlace permanente a este encabezado">#</a></h1>
-<section id="disco-duro-hdd">
-<h2>Disco duro (HDD)<a class="headerlink" href="#disco-duro-hdd" title="Enlace permanente a este encabezado">#</a></h2>
-<p>El disco rígido (hdd) hard disk drive, es el componente utilizado para almacenar los datos de manera permanente. El disco no está compuesto por un solo disco, sino por varios discos rígidos apilados muy juntos entre sí y llamados platos.</p>
+<section id="disco-duro">
+<h2>Disco duro<a class="headerlink" href="#disco-duro" title="Enlace permanente a este encabezado">#</a></h2>
+<p>El disco rígido <strong>(hdd) hard disk drive</strong>, es el componente utilizado para almacenar los datos de manera permanente. El disco no está compuesto por un solo disco, sino por varios discos rígidos apilados muy juntos entre sí y llamados platos.</p>
 <p>Los cabezales de lectura están ubicados a ambos lados de los platos. Estos cabezales son electroimanes que suben y bajan para leer la información o bien escribirla. El mecanismo completo de precisión se encuentra dentro de una caja totalmente hermética, debido a que la más mínima partícula puede degradar la superficie del disco.</p>
 <p>Los cabezales comienzan a escribir datos comenzando desde el borde del disco (pista 0) y avanzando hacia el centro. Los datos se organizan en círculos concéntricos denominados «pistas», creadas por un formateo de bajo nivel.</p>
 <img alt="../_images/discos.png" src="../_images/discos.png" />
 <p>Para leer, los cabezales terminan en una espira, cuando los platos giran se genera un campo magnético debido al spin, esto induce una intensidad en la espira, dependiendo del signo es 0 o 1. Para escribir se hace pasar una corriente por la espira que induce un campo magnético que a su vez induce una polarización magnética, dependiendo del signo de la corriente escribiremos 0 o 1.</p>
-</section>
 <section id="propiedades-de-los-discos">
-<h2>Propiedades de los discos<a class="headerlink" href="#propiedades-de-los-discos" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Propiedades de los discos<a class="headerlink" href="#propiedades-de-los-discos" title="Enlace permanente a este encabezado">#</a></h3>
 <ul>
 <li><p><strong>La caché de disco</strong>: (Disk cache o Cache buffer en inglés) es una porción de memoria RAM asociada a un disco con la utilidad de almacenar los datos recientemente leídos y por lo tanto agilizar la carga de los mismos en caso de que estos vuelvan a ser solicitados</p></li>
 <li><p><strong>Tamaño</strong> : 2,5 pulgadas ~7 x 10 cm o 3,5 pulgadas ~ 10 x 15 cm</p></li>
@@ -333,42 +335,37 @@ document.write(`
 </ul>
 </section>
 <section id="discos-de-estado-solido">
-<h2>Discos de estado sólido<a class="headerlink" href="#discos-de-estado-solido" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Discos de estado sólido<a class="headerlink" href="#discos-de-estado-solido" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Los discos duros SSD utilizan memoria flash (similables a las utilizadas en la RAM), pero a diferencia de ellas están basada en puertas NAND que no borran los datos cada vez que dejan de recibir corriente.</p>
 <p>Los SSD no pueden sobrescribir directamente los datos en páginas individuales. Solo pueden escribir datos en páginas vacías de un bloque.</p>
 <p>Un SSD completamente nuevo está cargado completamente de bloques con páginas en blanco. Cuando recibe datos nuevos en la SSD se escriben a velocidades vertiginosas. Sin embargo, a medida que se escriben más y más datos, las páginas en blanco se agotan y la unidad se queda con páginas aleatorias sin usar diseminadas por todos los bloques, como consecuencia, uno de los inconvenientes teóricos es que la memoria flash solo puede mantener un número finito de escrituras antes de finalizar su vida útil. Cuando se usa una SSD, las cargas eléctricas dentro de cada una de sus celdas de datos deben reiniciarse periódicamente. Desafortunadamente, la resistencia eléctrica de cada celda aumenta ligeramente con cada restablecimiento, lo que aumenta el voltaje necesario para escribir en esa celda. Eventualmente, el voltaje requerido llega a ser tan alto que la celda particular se vuelve imposible de escribir.</p>
 <p>Esto no quiere decir que una SSD obligatoriamente dure menos que un disco duro. Aunque los bloques de memoria en un SSD tienen un número limitado de operaciones de escritura, las nuevas generaciones han mejorado muchísimo en fiabilidad. Todas las SSD incluyen células de memoria adicionales libres para cuando las otras fallen no perder capacidad, reasignando sectores dañados.</p>
 <p>TBW o Total terabytes written,  es la cantidad de terabytes que podrían ser escritos en el disco duro durante toda su vida útil, por ejemplo un SSD Crucial MX500 de 1 TB de capacidad. Según el fabricante, este dispositivo soporta 365 TBW y tiene una garantía de cinco años, así que según esta fórmula tendríamos que su durabilidad es de (365TBW/365días) 1TB escritos al día todos los días durante 1 año.</p>
 <img alt="../_images/ssd.png" src="../_images/ssd.png" />
-<p>Interface:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>PCIe</p></li>
-</ul>
+</section>
+<section id="interface">
+<h3>Interface<a class="headerlink" href="#interface" title="Enlace permanente a este encabezado">#</a></h3>
+<ul>
+<li><p>PCIe</p>
 <img alt="../_images/pcie1.png" src="../_images/pcie1.png" />
-<ul class="simple">
-<li><p>M.2</p></li>
-</ul>
+</li>
+<li><p>M.2</p>
 <img alt="../_images/m21.png" src="../_images/m21.png" />
-<ul class="simple">
-<li><p>SATA</p></li>
-</ul>
+</li>
+<li><p>SATA</p>
 <img alt="../_images/sata2.png" src="../_images/sata2.png" />
-<ul class="simple">
-<li><p>Thunderbolt</p></li>
-</ul>
+</li>
+<li><p>Thunderbolt</p>
 <img alt="../_images/tunder.png" src="../_images/tunder.png" />
-<ul class="simple">
-<li><p>USB</p></li>
-</ul>
+</li>
+<li><p>USB</p>
 <img alt="../_images/usb1.png" src="../_images/usb1.png" />
-</div></blockquote>
-<ul class="simple">
+</li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=L2BSo8sPyaQ">Cómo se fabrican los Discos SSD</a></p></li>
 </ul>
 </section>
 <section id="utilidades">
-<h2>Utilidades<a class="headerlink" href="#utilidades" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Utilidades<a class="headerlink" href="#utilidades" title="Enlace permanente a este encabezado">#</a></h3>
 <p>La tecnología <strong>SMART</strong> (siglas de Self Monitoring Analysis and Reporting Technology), consiste en la capacidad de detección de fallos del disco duro. 1​La detección con anticipación de los fallos en la superficie permite al usuario el poder realizar una copia de su contenido, o reemplazar el disco, antes de que se produzca una pérdida de datos irrecuperable.</p>
 <p>Este tipo de tecnología tiene que ser compatible con el BIOS del equipo, estar activada y además que el propio disco duro sea compatible.</p>
 <p>Podemos hacer las pruebas de velocidad y  del smart con  <a class="reference external" href="https://wiki.gnome.org/Apps/Disks">gnome-disk-utility</a></p>
@@ -403,6 +400,7 @@ Para chequear el estado del SMART ejecutamos: smartctl -H /dev/sda</p>
 <li><p><strong>DRBL</strong> (Diskless Remote Boot in Linux: Inicio Remoto sin Disco en Línux) es software de servidor para arrancar y operar clientes de escritorio remotos. El prgrama DRBL permite a máquinas cliente correr como computadoras cliente ligeras sin estado administradas por el servidor DRBL. DRBL en vivo, es una distribución en discos en vivo basada en Debian del programa para servidor DRBL, el cual puede correr desde una USB o CD/DVD. Incluye un ambiente de escritorio para asistir a los usuarios a configurar el servidor.</p></li>
 </ul>
 <img alt="../_images/drbl.png" src="../_images/drbl.png" />
+</section>
 </section>
 <section id="memoria-flash">
 <h2>Memoria flash<a class="headerlink" href="#memoria-flash" title="Enlace permanente a este encabezado">#</a></h2>
@@ -441,10 +439,13 @@ Para chequear el estado del SMART ejecutamos: smartctl -H /dev/sda</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disco-duro-hdd">Disco duro (HDD)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-discos">Propiedades de los discos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-de-estado-solido">Discos de estado sólido</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidades">Utilidades</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disco-duro">Disco duro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-discos">Propiedades de los discos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-de-estado-solido">Discos de estado sólido</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interface">Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilidades">Utilidades</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memoria-flash">Memoria flash</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cd-dvd-blu-ray">CD,DVD, Blu-ray</a></li>
 </ul>

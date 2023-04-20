@@ -17,12 +17,14 @@ Algunas de las características básicas de los procesadores son las siguientes:
 * **Frecuencia** es una magnitud que mide el número de repeticiones por unidad de tiempo de cualquier fenómeno o suceso periódico. Se mide en (Hercios) Hz = 1/s.
 * **La velocidad** a la que un procesador puede realizar estas operaciones se mide en ciclos por segundo, también conocido como hercios (Hz). Un procesador de alta velocidad puede realizar más operaciones por segundo que un procesador de baja velocidad, lo que le permite ejecutar programas de manera más rápida y eficiente. Un procesador de 3GHz puede realizar 3000 millones de operaciones por segundo. (GHz=103MHz=106MHz=109Hz)
 * **Zócalo** (socket en inglés) es un sistema electromecánico de soporte y conexión eléctrica, instalado en la placa base, que se usa para fijar y conectar un microprocesador sin soldar.
- .. image:: imagenes/micros/micro3.png
-    :height: 120 
- .. image:: imagenes/micros/micro4.png
-    :height: 120  
- .. image:: imagenes/micros/micro5.png
-    :height: 120 
+
+  .. image:: imagenes/micros/micro3.png
+     :height: 120 
+  .. image:: imagenes/micros/micro4.png
+     :height: 120  
+  .. image:: imagenes/micros/micro5.png
+     :height: 120 
+    
 * **Litografía** se refiere a la tecnología de semiconducción que se utiliza para fabricar el circuito integrado, indicada en nanómetros (nm), y es un indicador del tamaño de las funciones incluidas en el semiconductor.
 * **TDP** es una medida de la cantidad máxima de energía térmica que un procesador, puede generar sin sufrir daños. La TDP se mide en vatios (W) y representa el límite superior de la potencia que el dispositivo puede consumir mientras se encuentra en un estado de operación normal. La TDP se utiliza a menudo como una medida de la capacidad de un dispositivo para manejar la carga de trabajo y determinar si es necesario proporcionar un enfriamiento adecuado para evitar sobrecalentamiento.
 * **Cantidad de núcleos** de un procesador es el número de unidades de procesamiento que se encuentran en un solo chip de procesador
@@ -54,11 +56,11 @@ Algunas de las características básicas de los procesadores son las siguientes:
 * **Estados de inactividad**. Los estados de inactividad (estados C) se utilizan para ahorrar energía cuando el procesador esté inactivo. C0 es el estado operacional, lo que significa que la CPU está funcionando correctamente. C1 es el primer estado de inactividad, C2 el segundo, etc., donde se realizan más acciones de ahorro de energía para estados C con valores numéricos más altos.
 * **APU** (Accelerated processing unit) es la unidad de procesamiento acelerado es un tipo de procesador que combina un procesador central (CPU) y una tarjeta gráfica (GPU) en un solo chip. Las APUs se utilizan en computadoras de escritorio y portátiles para mejorar el rendimiento de la unidad de procesamiento gráfico y proporcionar un rendimiento general más rápido. Las APUs suelen tener un mayor rendimiento que los procesadores tradicionales que no tienen una GPU integrada, ya que pueden ejecutar tareas de procesamiento de datos y gráficos de manera simultánea utilizando el mismo chip. Las APUs también suelen consumir menos energía que los procesadores tradicionales con tarjetas gráficas externas, lo que las hace más eficientes en términos energéticos.
 
-Características de los procesadores 
-===================================
+Características de INTEL
+------------------------
 
 .. image:: imagenes/micros/intel.png
-    :height: 50 
+    :height: 75 
 
 * **Brand** = Intel® Core™, Celeron®,  Pentium®
 * **Brand Modifies** = i3, i5, i7, and i9
@@ -66,8 +68,8 @@ Características de los procesadores
 * **SKU** = sirve  catalogarlo dentro de su generación
 * **Produc Line Suffix** = indica capacidades especiales
 
-Características de los procesadores
-===================================
+Características AMD
+-------------------
 
 .. image:: imagenes/micros/amd.png
     :height: 200 

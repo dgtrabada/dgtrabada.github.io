@@ -2,10 +2,10 @@
 Dispositivos de almacenamiento
 ******************************
 
-Disco duro (HDD)
-================
+Disco duro
+==========
 
-El disco rígido (hdd) hard disk drive, es el componente utilizado para almacenar los datos de manera permanente. El disco no está compuesto por un solo disco, sino por varios discos rígidos apilados muy juntos entre sí y llamados platos.
+El disco rígido **(hdd) hard disk drive**, es el componente utilizado para almacenar los datos de manera permanente. El disco no está compuesto por un solo disco, sino por varios discos rígidos apilados muy juntos entre sí y llamados platos.
 
 Los cabezales de lectura están ubicados a ambos lados de los platos. Estos cabezales son electroimanes que suben y bajan para leer la información o bien escribirla. El mecanismo completo de precisión se encuentra dentro de una caja totalmente hermética, debido a que la más mínima partícula puede degradar la superficie del disco.
 
@@ -16,7 +16,7 @@ Los cabezales comienzan a escribir datos comenzando desde el borde del disco (pi
 Para leer, los cabezales terminan en una espira, cuando los platos giran se genera un campo magnético debido al spin, esto induce una intensidad en la espira, dependiendo del signo es 0 o 1. Para escribir se hace pasar una corriente por la espira que induce un campo magnético que a su vez induce una polarización magnética, dependiendo del signo de la corriente escribiremos 0 o 1.
 
 Propiedades de los discos
-=========================
+-------------------------
 
 * **La caché de disco**: (Disk cache o Cache buffer en inglés) es una porción de memoria RAM asociada a un disco con la utilidad de almacenar los datos recientemente leídos y por lo tanto agilizar la carga de los mismos en caso de que estos vuelvan a ser solicitados
 * **Tamaño** : 2,5 pulgadas ~7 x 10 cm o 3,5 pulgadas ~ 10 x 15 cm
@@ -45,7 +45,7 @@ Propiedades de los discos
 * `How a Hard Disk Drive Works <https://www.youtube.com/watch?v=NtPc0jI21i0>`_
 
 Discos de estado sólido
-=======================
+-----------------------
 
 Los discos duros SSD utilizan memoria flash (similables a las utilizadas en la RAM), pero a diferencia de ellas están basada en puertas NAND que no borran los datos cada vez que dejan de recibir corriente.
 
@@ -59,23 +59,33 @@ TBW o Total terabytes written,  es la cantidad de terabytes que podrían ser esc
 
 .. image:: imagenes/almacenamiento/ssd.png
 
-Interface:
+Interface
+---------
 
-  * PCIe
+* PCIe
+
   .. image:: imagenes/almacenamiento/pcie.png 
-  * M.2
+  
+* M.2
+
   .. image:: imagenes/almacenamiento/m2.png
-  * SATA
+  
+* SATA
+
   .. image:: imagenes/almacenamiento/sata.png
-  * Thunderbolt
+  
+* Thunderbolt
+
   .. image:: imagenes/almacenamiento/tunder.png
-  * USB 
+  
+* USB 
+
   .. image:: imagenes/almacenamiento/usb.png
   
 * `Cómo se fabrican los Discos SSD <https://www.youtube.com/watch?v=L2BSo8sPyaQ>`_
 
 Utilidades
-==========
+----------
 
 La tecnología **SMART** (siglas de Self Monitoring Analysis and Reporting Technology), consiste en la capacidad de detección de fallos del disco duro. 1​La detección con anticipación de los fallos en la superficie permite al usuario el poder realizar una copia de su contenido, o reemplazar el disco, antes de que se produzca una pérdida de datos irrecuperable.
 
