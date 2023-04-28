@@ -266,7 +266,9 @@ Para que los cambios tengan efectos los subimos y salvamos:
  Done
  [edit]
 
-Comprobamos la tabla de encaminamiento
+Comprobamos la tabla de encaminamiento de **R2**
+
+.. image:: imagenes/R2.png
 
 .. code-block:: bash
 
@@ -315,7 +317,9 @@ Para el caso **R1**, ponemos un resumen de los comandos utilizados
  commit
  save
 
-Quedaría la tabla de encaminamiento
+Comprobamos la tabla de encaminamiento de **R1**
+
+.. image:: imagenes/R2.png
 
 .. code-block:: bash
 
@@ -361,7 +365,9 @@ Para el caso de **R3**
  commit
  save
 
-Quedaría la tabla de encaminamiento 
+Comprobamos la tabla de encaminamiento de **R3**
+
+.. image:: imagenes/R2.png
 
 .. code-block:: bash
 
