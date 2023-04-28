@@ -176,6 +176,8 @@ En el sitio web oficial de GNU hay una lista de licencias que cumplen las condic
 
 Aproximadamente el 60% del software licenciado como software libre emplea una licencia GPL o de manejo.
 
+`Software libre para una sociedad libre <https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiXtoa2hMz-AhULPewKHYOHD1gQFnoECCEQAQ&url=https%3A%2F%2Fwww.gnu.org%2Fphilosophy%2Ffsfs%2Ffree_software.es.pdf&usg=AOvVaw0cYwzPicFGB1Ufi-CQSiur>`_
+
 Licencias AGPL
 --------------
 

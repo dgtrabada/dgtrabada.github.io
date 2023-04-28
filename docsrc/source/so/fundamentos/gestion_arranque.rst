@@ -2,6 +2,7 @@
 Gestión arranque
 ****************
 
+
 Un gestor de arranque, como su nombre indica, es un programa que se carga al inicio del ordenador, antes del sistema operativo, y que nos permite elegir el sistema operativo que queremos cargar.
 
 Estos programas pueden leer automáticamente las particiones del ordenador para detectar y configurar los sistemas instalados, permiten crear nuestras propias entradas (útil en el caso de Linux, por ejemplo, para cargar el sistema con parámetros o un kernel específico) y pueden contar con medidas de seguridad adicionales, como, por ejemplo, protección mediante contraseña.

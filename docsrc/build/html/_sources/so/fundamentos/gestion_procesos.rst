@@ -2,6 +2,7 @@
 Gestión de procesos
 *******************
 
+
 Veamos el siguiente programa:
 
 .. code-block:: C
@@ -146,6 +147,15 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 Vemos el siguiente ejemplo:
 
 .. image:: imagenes/Ejemplo.png
+
+
+Plantilla para ejercicios
+=========================
+
+* `Plantilla.odt <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/docsrc/source/so/fundamentos/imagenes/Plantilla.odt>`_
+
+* `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/docsrc/source/so/fundamentos/imagenes/Plantilla.pdf>`_
+
 
 Bloqueos
 ========

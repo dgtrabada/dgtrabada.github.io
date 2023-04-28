@@ -56,8 +56,7 @@ Esta última red de clase B queda reservada para equipos que tienen activa la co
 El subnetting IP
 ================
 
-Tras la expansión en el uso del sistema de direccionamiento IP, surgió la necesidad de cosas como  disponer de espacios de redes mayores de 256 para clase C o menores de 16.384 para clase B por ejemplo. Con el juego de los bits de máscara podemos definir redes IP diferentes a las clases estándares.
-Por ejemplo, sabemos que la red 172.17.0.0 es una red de tipo B y le corresponde de manera natural la máscara 255.255.0.0.
+La subnetting (o subdivisión de redes) es una técnica utilizada para dividir una red de direcciones IP en subredes más pequeñas y eficientes. En otras palabras, se trata de dividir una red IP en varias subredes más pequeñas, para que los dispositivos puedan comunicarse de manera más eficiente.
 
 Por tanto si tengo por ejemplo la dirección de host 172.17.12.95 ya sabemos que es de clase B y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.
 
@@ -77,14 +76,7 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 
 Además del subnetting, este juego con los bits de máscara permite hacer lo contrario que el subnetting y se llamó sumarizacion de redes IP.
 
-Si tenemos redes de tipo C como por ejemplo:
 
-| 189.34.1.0
-| 189.34.2.0
-| 189.34.3.0
-| … etc.
-
-podrían ser sumarizadas en una red 189.34.0.0 con máscara 255.255.0.0 que en realidad no es una red de tipo B. Este tipo de cosas se ha utilizado especialmente en enrutamiento IP.
 
 CIDR
 ====
@@ -183,11 +175,221 @@ Los routers confeccionan una tabla de encaminamiento en donde registran qué nod
 
 * Dirección de Broadcast es "Dir_red OR NOT máscara", es siempre la última dirección de una red/subred.
 
-* El router necesita una dirección IP en cada subred a la que esté conectado y solo enrutará si el destino 
-está en otra subred, si no puede resolver siguiente nodo manda de vuelta mensaje ICMP, destino inalcanzable
+* El router necesita una dirección IP en cada subred a la que esté conectado y solo enrutará si el destino está en otra subred, si no puede resolver siguiente nodo manda de vuelta mensaje ICMP, destino inalcanzable
 
-.. image:: imagenes/tabla_encaminamiento.png
+Caso práctico: Tres routers
+---------------------------
 
-.. image:: imagenes/encaminamiento.png
+Fíjate en la siguiente figura en la que se muestran 6 ordenadores unidos por 3 switch y 3 routers
 
-.. image:: imagenes/encaminamiento2.png
+.. image:: imagenes/Routers.png
+
+Como podemos ver en la figura tenemos tres segmentos de red /24 y dos segmentos de red que unen los router en /30.
+
+Para este caso práctico vamos a utilizar **GNS3** que es un software de emulación de red de código abierto que permite a los usuarios simular topologías de red complejas y experimentar con diferentes configuraciones de red y **VyOS**, que es un sistema operativo de red de código abierto basado en el proyecto Vyatta. Está diseñado para ser utilizado como un enrutador de red, firewall, VPN y plataforma de virtualización de red.
+
+La forma más rápida de confiruar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+
+.. code-block:: bash
+  
+ set pcname 10.0.1.10/24
+ ip 10.0.1.10 10.0.1.254 24
+ 
+ set pcname 10.0.1.11/24
+ ip 10.0.1.11 10.0.1.254 24
+ 
+ set pcname 10.0.2.10/24
+ ip 10.0.2.10 10.0.2.254 24
+
+ set pcname 10.0.2.11/24
+ ip 10.0.2.11 10.0.2.254 24
+
+ set pcname 10.0.3.10/24
+ ip 10.0.3.10 10.0.3.254 24
+
+ set pcname 10.0.3.11/24
+ ip 10.0.3.11 10.0.3.254 24
+
+Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que esten en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con **R2**, abrimos la teminal y vemos que no esta configuradas las interfaces de red
+
+.. code-block:: bash
+   
+ vyos@vyos:~$ show interfaces
+ Codes: S - State, L - Link, u - Up, D - Down, A - Admin Down
+ Interface        IP Address                        S/L  Description
+ ---------        ----------                        ---  -----------
+ eth0             -                                 u/u  
+ eth1             -                                 u/u  
+ eth2             -                                 u/u  
+ lo               127.0.0.1/8                       u/u  
+                 ::1/128       
+                 
+Para configurarlas, abrimos una terminal:
+
+.. code-block:: bash
+
+ vyos@vyos:~$ configure
+ WARNING: You are currently configuring a live-ISO environment,....
+ [edit]
+ vyos@vyos# set interfaces ethernet eth1 address 10.0.0.2/30
+ [edit]
+ vyos@vyos# set interfaces ethernet eth0 address 10.0.2.254/24
+ [edit]
+ vyos@vyos# set interfaces ethernet eth1 address 10.0.0.5/30
+ 
+Tampoco estan configuradas las tablas de encaminamiento
+
+.. code-block:: bash
+
+ vyos@vyos:~$ netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ 
+  
+Añadimos las siguientes rutas estaticas: 
+
+.. code-block:: bash
+
+ vyos@vyos# set protocols static route 10.0.1.0/24 next-hop 10.0.0.1
+ [edit]
+ vyos@vyos# set protocols static route 10.0.3.0/24 next-hop 10.0.0.6
+ [edit]
+
+Para que los cambios tengan efectos los subimos y salvamos:
+
+.. code-block:: bash
+
+ vyos@vyos# commit
+ [edit]
+ vyos@vyos# save
+ Saving configuration to '/config/config.boot'...
+ Done
+ [edit]
+
+Comprobamos la tabla de encaminamiento
+
+.. code-block:: bash
+
+ vyos@vyos# netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ 10.0.0.0        0.0.0.0         255.255.255.252 U         0 0          0 eth1
+ 10.0.0.4        0.0.0.0         255.255.255.252 U         0 0          0 eth1
+ 10.0.1.0        10.0.0.1        255.255.255.0   UG        0 0          0 eth1
+ 10.0.2.0        0.0.0.0         255.255.255.0   U         0 0          0 eth0
+ 10.0.3.0        10.0.0.6        255.255.255.0   UG        0 0          0 eth1
+ [edit]
+ 
+y las interfaces de red como
+
+.. code-block:: bash
+
+ vyos@vyos# show interfaces
+  ethernet eth0 {
+      address 10.0.2.254/24
+      hw-id 0c:51:f2:fd:00:00
+  }
+  ethernet eth1 {
+      address 10.0.0.2/30
+      address 10.0.0.5/30
+      hw-id 0c:51:f2:fd:00:01
+  }
+  ethernet eth2 {
+      hw-id 0c:51:f2:fd:00:02
+  }
+  loopback lo {
+  }
+ [edit]
+ 
+ 
+Para el caso **R1**, ponemos un resumen de los comandos utilizados
+
+.. code-block:: bash
+
+ show interfaces
+ configure
+ set interfaces ethernet eth0 address 10.0.1.254/24
+ set interfaces ethernet eth1 address 10.0.0.1/30
+ set protocols static route 10.0.2.0/24 next-hop 10.0.0.2
+ set protocols static route 10.0.3.0/24 next-hop 10.0.0.2
+ commit
+ save
+
+Quedaría la tabla de encaminamiento
+
+.. code-block:: bash
+
+ vyos@vyos# netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ 10.0.0.0        0.0.0.0         255.255.255.252 U         0 0          0 eth1
+ 10.0.1.0        0.0.0.0         255.255.255.0   U         0 0          0 eth0
+ 10.0.2.0        10.0.0.2        255.255.255.0   UG        0 0          0 eth1
+ 10.0.3.0        10.0.0.2        255.255.255.0   UG        0 0          0 eth1
+ [edit]
+
+y las interfaces de red como
+
+.. code-block:: bash
+
+ vyos@vyos# show interfaces
+  ethernet eth0 {
+      address 10.0.1.254/24
+      hw-id 0c:36:d7:ab:00:00
+  }
+  ethernet eth1 {
+      address 10.0.0.1/30
+      hw-id 0c:36:d7:ab:00:01
+  }
+  ethernet eth2 {
+      hw-id 0c:36:d7:ab:00:02
+  }
+  loopback lo {
+  }
+ [edit]
+
+Para el caso de **R3**
+
+.. code-block:: bash
+
+ show interfaces
+ configure
+ set interfaces ethernet eth0 address 10.0.3.254/24
+ set interfaces ethernet eth2 address 10.0.0.6/30
+ set protocols static route 10.0.1.0/24 next-hop 10.0.0.5
+ set protocols static route 10.0.2.0/24 next-hop 10.0.0.5
+ commit
+ save
+
+Quedaría la tabla de encaminamiento 
+
+.. code-block:: bash
+
+ vyos@vyos# netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+ 10.0.0.4        0.0.0.0         255.255.255.252 U         0 0          0 eth2
+ 10.0.1.0        10.0.0.5        255.255.255.0   UG        0 0          0 eth2
+ 10.0.2.0        10.0.0.5        255.255.255.0   UG        0 0          0 eth2
+ 10.0.3.0        0.0.0.0         255.255.255.0   U         0 0          0 eth0
+ [edit]
+ 
+y las interfaces de red como
+
+.. code-block:: bash
+
+ vyos@vyos# show interfaces 
+  ethernet eth0 {
+      address 10.0.3.254/24
+      hw-id 0c:73:d2:39:00:00
+  }
+  ethernet eth1 {
+      hw-id 0c:73:d2:39:00:01
+  }
+  ethernet eth2 {
+      address 10.0.0.6/30
+      hw-id 0c:73:d2:39:00:02
+  }
+  loopback lo {
+  }
+ [edit]

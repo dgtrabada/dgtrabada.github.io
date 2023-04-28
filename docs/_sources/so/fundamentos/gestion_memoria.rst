@@ -2,6 +2,7 @@
 Gestión de memoria
 ******************
 
+
 Jerarquía de memoria
 ====================
 

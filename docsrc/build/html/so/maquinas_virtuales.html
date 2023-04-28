@@ -122,9 +122,9 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../hardware/hardware.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="so.html">Sistema Operativo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../redes/redes.html">Redes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redes/index.html">Redes</a></li>
 </ul>
 
     </div>
@@ -248,7 +248,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -264,6 +266,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Maquinas Virtuales</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurtacion-sshd">Configurtación sshd</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -306,6 +321,44 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 </pre></div>
 </div>
 </section>
+<section id="caso-practico-mv-ubuntu-server-22-04">
+<h1>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h1>
+<ul>
+<li><p>Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial</p></li>
+<li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
+<li><p>Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual <strong>MV Ubuntu Server 22.04</strong></p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde <strong>X.Y</strong> son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
+<li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8,</p></li>
+<li><p>Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout</p>
+<img alt="so/imagenes/MV_Ubuntu_Server_22.04.jpg" src="so/imagenes/MV_Ubuntu_Server_22.04.jpg" />
+</li>
+<li><p>Usuario: tunombre y utiliza de contraseña: alumno
+Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <strong>/etc/hostname</strong></p></li>
+</ul>
+<section id="configurtacion-sshd">
+<h2>Configurtación sshd<a class="headerlink" href="#configurtacion-sshd" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Si no lo has hecho durante la instalación instala el servidor de ssh en el servidor.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>openssh-server
+</pre></div>
+</div>
+<p>Para poder loguearse por ssh con el usuario root, primero tendremos que asignarle una contraseña, para ello ejecutamos los siguientes comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>su
+$<span class="w"> </span>passwd
+</pre></div>
+</div>
+<p>En el archivo <strong>/etc/ssh/sshd_config</strong> desomentar o incluir la linea : <strong>PermitRootLogin yes</strong></p>
+<p>En el caso de que tu maquina anfitriona sea <strong>Windows</strong>, pudes conectarte con MobaXterm, la primera vez te preguntara la contraseña.</p>
+<p>En el caso de que tu maquina anfitriona sea <strong>GNU/Linux</strong>, primero genera un par de claves rsa una privada y publica, para ello ejecuta el siguiente comando en tu home:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-keygen
+</pre></div>
+</div>
+<p>Puedes comprobar que se ha generado (ls .ssh/) tendrá que aparecer las dos claves (id_rsa  id_rsa.pub), lo siguiente será exportar la clave publica al cliente, para ello ejecutamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-copy-id<span class="w"> </span>roo@10.4.X.Y
+</pre></div>
+</div>
+<p>Conectate sin que te pida la contraseña.</p>
+</section>
+</section>
 
 
                 </article>
@@ -322,6 +375,25 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Maquinas Virtuales</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurtacion-sshd">Configurtación sshd</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

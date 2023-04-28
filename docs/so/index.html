@@ -1,1523 +1,372 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="es" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maquinas Virtuales &mdash; documentación de dgtrabada - 1.0</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Sistema Operativo &#8212; documentación de dgtrabada - 1.0</title>
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/translations.js"></script>
-    <script src="../_static/js/theme.js"></script>
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/index';</script>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
-    <link rel="prev" title="Redes" href="../redes/redes.html" /> 
-</head>
+    <link rel="next" title="Redes" href="../redes/index.html" />
+    <link rel="prev" title="Hardware" href="../hardware/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            dgtrabada
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../hardware/hardware.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../redes/redes.html">Redes</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Maquinas Virtuales</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#particiones">Particiones</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tabla-de-particiones-en-el-mbr">Tabla de particiones en el MBR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#guid-partition-table-gpt">GUID Partition Table (GPT).</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#organizacion-para-gnu-linux">Organización para GNU/Linux</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#comandos-ms-dos">Comandos ms-dos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#scripting-bat">Scripting .bat</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#powershell">PowerShell</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#caracteres-especiales">Caracteres especiales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#alias">Alias</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuracion-de-windows">Configuración de Windows</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#arranque-de-windows">Arranque de Windows</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#msconfig">msconfig</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gestion-de-servicios-powershell">Gestión de servicios (PowerShell)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#configuracion-windows">Configuración Windows</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#menu-inicio">Menú inicio</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#explorador-de-windows">Explorador de Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#administrador-de-tareas">Administrador de tareas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#copia-de-seguridad-y-restauracion-en-windows-10">Copia de seguridad y restauración en Windows 10</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#el-registro-de-windows">El registro de Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#comandos-panel-de-control">Comandos Panel de Control</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#historia-de-windows">Historia de Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#powershell-scripting">PowerShell Scripting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#variables-y-cadenas">Variables y cadenas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operadores">Operadores</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operadores-de-asignacion">Operadores de asignación</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#argumentos-de-entrada">Argumentos de entrada</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#evaluacion-de-condiciones">Evaluación de condiciones</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#operadores-logicos">Operadores lógicos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#comparacion-de-cadenas">Comparación de cadenas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#estructuras-condicionales-con-if">Estructuras condicionales con if</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bucles-con-for">Bucles con for</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bucles-con-while">Bucles con While</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bucles-con-until">Bucles con Until</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bucles-con-foreach">Bucles con Foreach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#archivos">Archivos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#funciones">Funciones</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#windows-powershell-ise">Windows PowerShell ISE</a><ul class="simple">
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#windows">Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#usuarios-y-grupos-windows">Usuarios y grupos Windows</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cuenta-de-usuario">Cuenta de usuario</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#grupos">Grupos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#un-grupo-local">Un grupo local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#perfiles-de-usuario">Perfiles de usuario</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
     </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">dgtrabada</a>
-      </nav>
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Maquinas Virtuales</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/so/index.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="maquinas-virtuales">
-<h1>Maquinas Virtuales<a class="headerlink" href="#maquinas-virtuales" title="Enlace permanente a este encabezado"></a></h1>
-<p>Una máquina virtual es un software que emula a un ordenador completo, es decir, que puede hacerse pasar por otro dispositivo -como un PC- de tal modo que puedes ejecutar otro sistema operativo en su interior. Tiene su propio disco duro, memoria, tarjeta gráfica y demás componentes de hardware, aunque todos ellos son virtuales.</p>
-<p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual</p>
-<p>Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..</p>
-<p>En clase utilizaremos VirtualBox:</p>
-<img alt="../_images/virtualbox.png" src="../_images/virtualbox.png" />
-<p>Resumen:</p>
-<p><strong>OVF/OVA</strong> : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).</p>
-<p><strong>Clonación completa</strong>, una copia exacta (incluyendo todos los archivos de disco duro virtual) de la máquina original serán creados.</p>
-<p><strong>Clonación enlazada</strong>, una nueva máquina será creada, pero los archivos de las unidades de disco duro virtuales serán vinculados a los archivos de disco duro virtual de la máquina original y no podrá mover la nueva máquina virtual a una computadora diferente sin mover los originales también.</p>
-<ul class="simple">
-<li><p><strong>RED</strong></p>
-<ul>
-<li><p><strong>Cable conectado</strong> que se encuentra en la parte de opciones avanzadas en la sección de red de la MV (también en el menú contextual del icono de red que se encuentra en la parte inferior derecha de la ventana de la MV, eligiendo Connect Network Adapter, o a través del menú de la MV Dispositivos -&gt; Red).</p></li>
-<li><p><strong>Modo NAT</strong> es la forma más sencilla que tiene una MV para acceder a una red externa. Por lo general, no se requiere ninguna configuración en la red, ni en el anfitrión ni en el invitado. Por esta razón, es el modo de red por defecto en VB. En modo NAT, VB coloca un router entre el exterior (hacia donde hace NAT) y el invitado. Dicho router posee un servidor DHCP que sirve hacia el interior. Este router mapea el tráfico desde y hacia la MV de forma transparente. Cada MV en modo NAT tendrá su propio router, por lo que estarán en redes aisladas, lo que implica, que por defecto, las MMVV que tienen su tarjeta de red en modo NAT no pueden verse entre sí.</p></li>
-<li><p><strong>Modo Red NAT</strong>, el cual funciona como el router de nuestra casa, es decir, los equipos que estén dentro de la misma red NAT podrán comunicarse entre sí, y es aquí donde radica la diferencia con el modo NAT el cual siempre constituye una red con un único equipo y no de varios como ahora es el caso.
-Para utilizarlo tenemos que crear la red NAT : Desde el menú Archivo -&gt; Preferencias -&gt; Red -&gt; Redes NAT.</p></li>
-<li><p><strong>Modo Adaptador puente</strong> simula que la tarjeta virtual está conectada al mismo switch que la tarjeta física del anfitrión, por lo tanto, la MV se va a comportar como si fuese un equipo más dentro de la misma red física en la que está el equipo anfitrión.</p></li>
-<li><p><strong>Modo Red interna</strong>, podemos construir redes aisladas, en las cuales solo habrá comunicación entre las MsVs que pertenezcan a la misma red interna.</p></li>
-<li><p><strong>Modo Solo-anfitrión</strong> se utiliza para crear una red interna a la que pertenecerá también el equipo anfitrión, algo que no sucede en el modo Red interna.</p></li>
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">documentación de dgtrabada - 1.0</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redes/index.html">Redes</a></li>
 </ul>
-</li>
-</ul>
-<p><em>Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.</em></p>
-<p>Comandos útiles virtualBox:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
-VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
-VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
-VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>savestate
-</pre></div>
-</div>
-</section>
-<section id="particiones">
-<h1>Particiones<a class="headerlink" href="#particiones" title="Enlace permanente a este encabezado"></a></h1>
-<p>Existen muchos tipos de sistemas de archivos. En la siguiente tabla vemos algunos de los más famosos:</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Sistema
-archivos</p></th>
-<th class="head"><p>archivo
-(máx.)</p></th>
-<th class="head"><p>partición
-(máx.)</p></th>
-<th class="head"><p>SO
-Utilizado</p></th>
-<th class="head"><p>Soporta
-Usuarios</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>FAT16</p></td>
-<td><p>2GB</p></td>
-<td><p>2GB</p></td>
-<td><p>Windows</p></td>
-<td><p>NO</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>FAT32</strong></p></td>
-<td><p><strong>4GB</strong></p></td>
-<td><p>2TB</p></td>
-<td><p><strong>Windows</strong></p></td>
-<td><p><strong>NO</strong></p></td>
-</tr>
-<tr class="row-even"><td><p><strong>NTFS</strong></p></td>
-<td><p><strong>~ TB</strong></p></td>
-<td><p>~ EB</p></td>
-<td><p><strong>Windows</strong></p></td>
-<td><p><strong>SI</strong></p></td>
-</tr>
-<tr class="row-odd"><td><p>EXT3</p></td>
-<td><p>2 TB</p></td>
-<td><p>32TB</p></td>
-<td><p>GNU/Linux</p></td>
-<td><p>SI</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>EXT4</strong></p></td>
-<td><p><strong>~ TB</strong></p></td>
-<td><p>~ EB</p></td>
-<td><p><strong>GNU/Linux</strong></p></td>
-<td><p><strong>SI</strong></p></td>
-</tr>
-</tbody>
-</table>
-<p>Para implementar un sistema de archivos tendremos que crear una Tabla de particiones. Una tabla de particiones es un índice que divide el espacio de almacenamiento en distintas secciones, llamadas particiones, y que da ciertas características de cada partición, como por ejemplo el sistema de ficheros usado en ella o si la partición es arrancable, de solo lectura,…
-Hay distintos alternativas para definir la tabla de particiones, veremos a continuación la tabla de particiones en el MBR, también llamada tabla de particiones DOS. Usada en IBM PC y compatibles con sistemas BIOS y GUID Partition Table propuesta por la especificación EFI y permite ser usada por IBM PC y compatibles con BIOS y con UEFI.</p>
-<section id="tabla-de-particiones-en-el-mbr">
-<h2>Tabla de particiones en el MBR<a class="headerlink" href="#tabla-de-particiones-en-el-mbr" title="Enlace permanente a este encabezado"></a></h2>
-<p>El <strong>MBR “Master Boot Record”</strong> es el primer sector («sector cero») de un dispositivo de almacenamiento de datos, es decir que representan los 512 primeros bytes del disco. Los primeros 446 bytes y la tabla de particiones en los últimos 64.
-Para este sistema de particiones existen 3 tipos diferentes de particiones:</p>
-<img alt="../_images/MBR.png" src="../_images/MBR.png" />
-<ul class="simple">
-<li><p><strong>Partición primaria</strong>: Son las divisiones crudas o primarias del disco, solo puede haber 4 de éstas o 3 primarias y una extendida.</p></li>
-<li><p><strong>Partición extendida</strong>: También conocida como partición secundaria es otro tipo de partición que actúa como una partición primaria; sirve para contener múltiples unidades lógicas en su interior. Fue ideada para romper la limitación de 4 particiones primarias en un solo disco físico. Solo puede existir una partición de este tipo por disco, y solo sirve para contener particiones lógicas. Por lo tanto, es el único tipo de partición que no soporta un sistema de archivos directamente.</p></li>
-<li><p><strong>Partición lógica</strong>: Ocupa una porción de la partición extendida o la totalidad de la misma, la cual se ha formateado con un tipo específico de sistema de archivos (FAT32, NTFS, ext2,…) y se le ha asignado una unidad, así el sistema operativo reconoce las particiones lógicas o su sistema de archivos. Puede haber un máximo de 23 particiones lógicas en una partición extendida</p></li>
-</ul>
-<img alt="../_images/particiones1.png" src="../_images/particiones1.png" />
-<p>Un disco duro puede contener un máximo de 4 particiones primarias o 3 particiones primarias y una extendida. Una partición extendida contiene un número “n” de particiones lógicas, solo puede existir una sola partición de este tipo en el disco duro. Las particiones lógicas se crean dentro de una partición extendida.</p>
-<p>Ejemplos de particionados:</p>
-<ul class="simple">
-<li><p>Sistema GNU/Linux en un disco de 500 GB.</p>
-<ul>
-<li><p>1º Partición primaria de 80GB con formato ext4 y punto de montaje / (en esta partición estarán los archivos del SO)</p></li>
-<li><p>2ª Partición primaria igual que la memoria RAM (4G) que tenga el equipo con formato swap (se usa para la memoria virtual temporal)</p></li>
-<li><p>3º Partición primaria 415 GB con formato ext4 y punto de montaje /home (contiene la configuración y datos de los usuarios)</p></li>
-</ul>
-</li>
-<li><p>Sistema Windows en un disco de 500 GB</p>
-<ul>
-<li><p>1º Partición primaria de 80 GB con formato ntfs (en esta partición estarán los archivos del SO)</p></li>
-<li><p>2º Partición primaria de 420 GB con formato ntfs (contiene la configuración y datos de los usuarios)</p></li>
-</ul>
-</li>
-<li><p>Sistema GNU/Linux y Windows en un disco de 600 GB.</p>
-<ul>
-<li><p>1º Partición primaria 80GB con formato ntfs</p></li>
-<li><p>2º Partición primaria de 220 GB con formato ntf</p></li>
-<li><p>3º Partición extendida
-* 1º Partición lógica de 76GB con formato ext4 y punto de montaje /
-* 2ª Partición lógica igual que la memoria RAM (4G) que tenga el equipo con formato swap
-* 3º Partición lógica 220 GB con formato ext4 y punto de montaje /home</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="guid-partition-table-gpt">
-<h2>GUID Partition Table (GPT).<a class="headerlink" href="#guid-partition-table-gpt" title="Enlace permanente a este encabezado"></a></h2>
-<p>Es parte del estándar Extensible Firmware Interface (EFI) propuesto por Intel para reemplazar el viejo BIOS del PC, heredada del IBM PC original.</p>
-<img alt="../_images/guid.png" src="../_images/guid.png" />
-<p>Cada bloque lógico (LBA) tiene un tamaño de 512 bytes. Las direcciones LBA negativas indican una posición a partir del final del volumen, siendo −1 el último bloque direccionable.</p>
-<p>Tiene un número ilimitado de particiones</p>
-<img alt="../_images/particiones2.png" src="../_images/particiones2.png" />
-<p>Independientemente de como se cree la tabla de particiones, dejaremos una partición para el sistema operativo otra para los datos y en el caso de instalar un GNU/Linux otra para la swap. El SO de windows ~80G, Linux ~50G</p>
-</section>
-<section id="organizacion-para-gnu-linux">
-<h2>Organización para GNU/Linux<a class="headerlink" href="#organizacion-para-gnu-linux" title="Enlace permanente a este encabezado"></a></h2>
-<p>Los sistemas GNU/ Linux identifican los discos duros empleando una combinación de letras y números : /dev/xxyN.</p>
-<ul class="simple">
-<li><p><strong>swap</strong> espacio de swap (o de intercambio), El swapping es el proceso por el que una página de memoria se copia en un espacio del disco configurado previamente para ello,para liberar esa memoria RAM.</p></li>
-<li><p><strong>/dev/</strong> nombre del directorio donde residirán todos los archivos de dispositivo.</p></li>
-<li><p><strong>xx</strong> las dos primeras letras indican el tipo de dispositivo en el que residirá la partición.</p>
-<ul>
-<li><p><strong>hd</strong> para discos IDE/PATA</p></li>
-<li><p><strong>sd</strong> discos SATA y SCSI.</p></li>
-</ul>
-</li>
-<li><p><strong>y</strong> letra que indica el número de disco duro (a,b,c…)</p></li>
-<li><p><strong>N</strong> número de partición (1,2,3…)</p></li>
-</ul>
-<p>Ejemplos :</p>
-<ul class="simple">
-<li><p>/dev/hda1 primera partición del primer diso duro IDE/PATA</p></li>
-<li><p>/dev/sdb2 segunda partición del segundo discoduro SCSI y SATA</p></li>
-</ul>
-</section>
-</section>
-<section id="comandos-ms-dos">
-<h1>Comandos ms-dos<a class="headerlink" href="#comandos-ms-dos" title="Enlace permanente a este encabezado"></a></h1>
-<p>Desde el directorio raíz se accede al archivo mediante una ruta de acceso absoluta
-Si se accede al archivo desde el directorio actual, la ruta es una ruta de acceso relativa</p>
-<ul>
-<li><p><strong>cd, chdir</strong>  cambia el directorio actual.</p>
-<ul class="simple">
-<li><p><strong>cd ..</strong>  sube un directorio</p></li>
-<li><p><strong>cd</strong> indica el path en el que te encuetras</p></li>
-<li><p><strong>cd &lt;Nombre directorio&gt;</strong> cambia al directorio especificado</p></li>
-<li><p><strong>cd &lt;letra unidad&gt;:</strong> para cambiar de unidad</p></li>
-</ul>
-</li>
-<li><p><strong>cls</strong> limpia la pantalla</p></li>
-<li><p><strong>dir</strong> lista los directorios y archivos de la unidad o directorio actual.</p>
-<ul class="simple">
-<li><p><strong>dir /ah</strong> archivos ocultos</p></li>
-<li><p><strong>dir /as</strong> archivos de sistema</p></li>
-<li><p><strong>dir /ad</strong> directorios</p></li>
-<li><p><strong>dir /aa</strong> archivos con indicador de lectura/escritura</p></li>
-<li><p><strong>dir /ar</strong> archivos de sólo lectura</p></li>
-<li><p><strong>dir /an</strong> orden alfabético por nombre</p></li>
-<li><p><strong>dir /ae</strong> orden alfabético por extensión</p></li>
-<li><p><strong>dir /ad</strong> fecha y hora (más antiguo)</p></li>
-<li><p><strong>dir /as</strong> tamaño (más pequeño)</p></li>
-<li><p><strong>dir /ag</strong> directorios agrupados antes de los archivos</p></li>
-<li><p><strong>dir /a-h</strong> el guión “-“ seguido de un indicador hace justamente lo contrario.</p></li>
-</ul>
-</li>
-<li><p><strong>md, mkdir</strong> crea directorios</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="w"> </span>mkdir<span class="w"> </span>TEST
-C:<span class="se">\T</span>EST&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>TEST
-C:<span class="se">\T</span>EST&gt;mkdir<span class="w"> </span>A<span class="w"> </span>B<span class="w"> </span>C
-C:<span class="se">\T</span>EST&gt;dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>A
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>B
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-<span class="w">               </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">               </span><span class="m">5</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.204.921.344<span class="w"> </span>bytes<span class="w"> </span>libres
-</pre></div>
-</div>
-</li>
-<li><p><strong>attrib</strong>  visualiza y cambia los atributos de directorios y archivos</p>
-<ul class="simple">
-<li><p>attrib ±r ±h … &lt;archivo&gt; /s …</p></li>
-<li><p><strong>attrib +r</strong> solo lectura</p></li>
-<li><p><strong>attrib +h</strong> hacerlo oculto</p></li>
-<li><p><strong>/s</strong> directorio actual y en todos los subdirectorio</p></li>
-</ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;attrib<span class="w"> </span>+h<span class="w"> </span>A
-C:<span class="se">\&gt;</span>dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>B
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-<span class="w">               </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">               </span><span class="m">4</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.209.717.760<span class="w"> </span>bytes<span class="w"> </span>libres
 
-C:<span class="se">\T</span>EST&gt;dir<span class="w"> </span>/ah
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>A
-<span class="w">               </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">               </span><span class="m">1</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.209.672.704<span class="w"> </span>bytes<span class="w"> </span>libres
-</pre></div>
-</div>
-</li>
-<li><p><strong>rd, rmdir</strong> - (rd /Q /S) Elimina un directorio.</p>
-<ul class="simple">
-<li><p><strong>/q</strong> modo silencioso</p></li>
-<li><p><strong>/S</strong> elimina subdirectorios</p></li>
-</ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:27<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:27<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:27<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>A
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>B
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-
-C:<span class="se">\T</span>EST&gt;rd<span class="w"> </span>A
-
-C:<span class="se">\T</span>EST&gt;dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:27<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:27<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>B
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-<span class="w">           </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">           </span><span class="m">4</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.204.515.840<span class="w"> </span>bytes<span class="w"> </span>libres
-</pre></div>
-</div>
-</li>
-<li><p><strong>move</strong> mueve o renombra un directorio o archivos. <strong>/Y</strong> sustituye los archivos sin pedir confirmación</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;move<span class="w"> </span>B<span class="w"> </span>G
-Se<span class="w"> </span>ha<span class="o">(</span>n<span class="o">)</span><span class="w"> </span>movido<span class="w">         </span><span class="m">1</span><span class="w"> </span>directorio<span class="o">(</span>s<span class="o">)</span>.
-
-C:<span class="se">\T</span>EST&gt;dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:30<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:30<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>G
-<span class="w">           </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">           </span><span class="m">4</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.208.816.640<span class="w"> </span>bytes<span class="w"> </span>libres
-</pre></div>
-</div>
-</li>
-<li><p><strong>ren</strong> cambia el nombre de uno o más ficheros</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;ren<span class="w"> </span>G<span class="w"> </span>A
-
-C:<span class="se">\T</span>EST&gt;dir
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:32<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:32<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>A
-<span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>C
-<span class="w">               </span><span class="m">0</span><span class="w"> </span>archivos<span class="w">              </span><span class="m">0</span><span class="w"> </span>bytes
-<span class="w">               </span><span class="m">4</span><span class="w"> </span><span class="nb">dirs</span><span class="w">  </span><span class="m">607</span>.208.062.976<span class="w"> </span>bytes<span class="w"> </span>libres
-</pre></div>
-</div>
-</li>
-<li><p><strong>tree/deltree</strong> lista/Borra un directorio con todos sus contenidos.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;tree
-Listado<span class="w"> </span>de<span class="w"> </span>rutas<span class="w"> </span>de<span class="w"> </span>carpetas
-El<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>serie<span class="w"> </span>del<span class="w"> </span>volumen<span class="w"> </span>es<span class="w"> </span>203A-19E6
-C:.
-└───A
-<span class="w">    </span>├───A1
-<span class="w">    </span>│<span class="w">   </span>├───A2
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├───A4
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└───A5
-<span class="w">    </span>│<span class="w">   </span>└───A3
-<span class="w">    </span>└───A2
-</pre></div>
-</div>
-</li>
-<li><p><strong>xcopy</strong> Copiar archivos y directorios
-* XCOPY &lt;origen&gt; &lt;destino&gt; /E /H /C /K</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>/E: Copia todas las subcarpetas y archivos, incluso si están vacíos.</p></li>
-<li><p>/H: Copia los archivos ocultos y los archivos de sistema.</p></li>
-<li><p>/C: Continúa copiando, incluso si ocurren errores.</p></li>
-<li><p>/K: Copia los atributos de los archivos, como la fecha y hora de creación y modificación.</p></li>
-</ul>
-</div></blockquote>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;xcopy<span class="w"> </span>A<span class="w"> </span>B<span class="w"> </span>/E<span class="w"> </span>/H<span class="w"> </span>/C<span class="w"> </span>/K
-¿B<span class="w"> </span>especifica<span class="w"> </span>un<span class="w"> </span>archivo
-o<span class="w"> </span>un<span class="w"> </span>directorio<span class="w"> </span>como<span class="w"> </span>destino
-<span class="o">(</span><span class="nv">F</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>archivo,<span class="w"> </span><span class="nv">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>directorio<span class="o">)</span>?<span class="w"> </span>D
-<span class="m">0</span><span class="w"> </span>archivo<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>copiado<span class="o">(</span>s<span class="o">)</span>
-
-C:<span class="se">\T</span>EST&gt;tree
-C:.
-├───A
-│<span class="w">   </span>├───A1
-│<span class="w">   </span>│<span class="w">   </span>├───A2
-│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├───A4
-│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>└───A5
-│<span class="w">   </span>│<span class="w">   </span>└───A3
-│<span class="w">   </span>└───A2
-└───B
-<span class="w">    </span>├───A1
-<span class="w">    </span>│<span class="w">   </span>├───A2
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├───A4
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└───A5
-<span class="w">    </span>│<span class="w">   </span>└───A3
-<span class="w">    </span>└───A2
-</pre></div>
-</div>
-</li>
-<li><p><strong>echo</strong> - mostrar mensajes (eco) por pantalla, también puede activar o desactivar la presentación de comandos por pantalla</p>
-<ul class="simple">
-<li><p><strong>%APPDATA%</strong> ruta de los programas del usuario.</p></li>
-<li><p><strong>%CMDCMDLINE%</strong> comando al intérprete de comandos (cmd.exe).</p></li>
-<li><p><strong>%CD%</strong> muestra el directorio actual.</p></li>
-<li><p><strong>%COMPUTERNAME%</strong> nombre del equipo.</p></li>
-<li><p><strong>%DATE%</strong> fecha actual</p></li>
-<li><p><strong>%HOMEDRIVE%</strong> unidad en la que está ubicado el directorio actual del usuario.</p></li>
-<li><p><strong>%HOMEPATH%</strong> directorio actual del usuario.</p></li>
-<li><p><strong>%OS%</strong> sistema operativo instalado.</p></li>
-<li><p><strong>%PATH%</strong> archivos ejecutables más importantes del sistema.</p></li>
-<li><p><strong>%PATHEXT%</strong> extensiones que el sistema considera ejecutables.</p></li>
-<li><p><strong>%RANDOM%</strong> Muestra un número entero entre 0 y 32167 elegido al azar.</p></li>
-<li><p><strong>%SYSTEMDRIVE%</strong> unidad en la que se ubica el sistema</p></li>
-<li><p><strong>%SYSTEMROOT%</strong> directorio raíz del sistema.</p></li>
-<li><p><strong>%TEMP%</strong> directorio temporal para las aplicaciones.</p></li>
-<li><p><strong>%TMP%</strong> directorio temporal para las aplicaciones.</p></li>
-<li><p><strong>%TIME%</strong> Muestra la fecha del día.</p></li>
-<li><p><strong>%USERDOMAIN%</strong> dominio al que pertenece la cuenta actual.</p></li>
-<li><p><strong>%USERNAME%</strong> nombre de usuario que corresponde a la cuenta actual.</p></li>
-<li><p><strong>%USERPROFILE%</strong> ubicación del perfil de usuario de la cuenta actual.</p></li>
-<li><p><strong>%WINDIR%</strong> directorio del sistema</p></li>
-</ul>
-</li>
-<li><p><strong>set</strong> - Muestra, establece o quita variables de entorno</p></li>
-<li><p><strong>Redireccionamiento</strong> Envía la salida a un archivo o dispositivo (si no existe lo crea)</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;echo<span class="w"> </span>hola<span class="w"> </span>&gt;<span class="w"> </span>salida.txt
-
-C:<span class="se">\T</span>EST&gt;echo<span class="w"> </span>adios<span class="w"> </span>&gt;&gt;<span class="w"> </span>salida.txt
-</pre></div>
-</div>
-</li>
-<li><p><strong>type</strong> - Muestra el contenido de un fichero.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;type<span class="w"> </span>salida.txt
-hola
-adios
-</pre></div>
-</div>
-</li>
-<li><p><strong>more</strong> presenta información de salida pantalla por pantalla</p></li>
-<li><p><strong>copy</strong> copiar un archivos, <strong>/Y</strong> sustituye los archivos sin pedir confirmación</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;copy<span class="w"> </span>salida.txt<span class="w"> </span>salida2.txt
-</pre></div>
-</div>
-</li>
-<li><p><strong>fc</strong> compara archivos.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;echo<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>salida2.txt
-
-C:<span class="se">\T</span>EST&gt;fc<span class="w"> </span>salida.txt<span class="w"> </span>salida2.txt
-Comparando<span class="w"> </span>archivos<span class="w"> </span>salida.txt<span class="w"> </span>y<span class="w"> </span>SALIDA2.TXT
-*****<span class="w"> </span>salida.txt
-*****<span class="w"> </span>SALIDA2.TXT
-<span class="m">1</span>
-*****
-</pre></div>
-</div>
-</li>
-<li><p><strong>find</strong> - Busca una cadena de texto específica en un archivo o en varios archivos</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;find<span class="w"> </span>/?
-Busca<span class="w"> </span>una<span class="w"> </span>cadena<span class="w"> </span>de<span class="w"> </span>texto<span class="w"> </span>en<span class="w"> </span>uno<span class="w"> </span>o<span class="w"> </span>más<span class="w"> </span>archivos.
-
-FIND<span class="w"> </span><span class="o">[</span>/V<span class="o">]</span><span class="w"> </span><span class="o">[</span>/C<span class="o">]</span><span class="w"> </span><span class="o">[</span>/N<span class="o">]</span><span class="w"> </span><span class="o">[</span>/I<span class="o">]</span><span class="w"> </span><span class="o">[</span>/OFF<span class="o">[</span>LINE<span class="o">]]</span><span class="w"> </span><span class="s2">&quot;cadena&quot;</span><span class="w"> </span><span class="o">[[</span>unidad:<span class="o">][</span>ruta<span class="o">]</span>archivo<span class="o">[</span><span class="w"> </span>...<span class="o">]]</span>
-
-<span class="w">  </span>/V<span class="w">          </span>Muestra<span class="w"> </span>todas<span class="w"> </span>las<span class="w"> </span>líneas<span class="w"> </span>que<span class="w"> </span>no<span class="w"> </span>tengan<span class="w"> </span>la<span class="w"> </span>cadena<span class="w"> </span>especificada.
-<span class="w">  </span>/C<span class="w">          </span>Muestra<span class="w"> </span>solo<span class="w"> </span>el<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>líneas<span class="w"> </span>que<span class="w"> </span>contienen<span class="w"> </span>la<span class="w"> </span>cadena.
-<span class="w">  </span>/N<span class="w">          </span>Muestra<span class="w"> </span>el<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>línea<span class="w"> </span>de<span class="w"> </span>cada<span class="w"> </span>línea.
-<span class="w">  </span>/I<span class="w">          </span>Omite<span class="w"> </span>mayúsculas/minúsculas<span class="w"> </span>al<span class="w"> </span>buscar<span class="w"> </span>una<span class="w"> </span>cadena.
-<span class="w">  </span>/OFF<span class="o">[</span>LINE<span class="o">]</span><span class="w">  </span>No<span class="w"> </span>omite<span class="w"> </span>archivos<span class="w"> </span>con<span class="w"> </span>el<span class="w"> </span>atributo<span class="w"> </span><span class="s2">&quot;sin conexión&quot;</span><span class="w"> </span>establecido.
-<span class="w">  </span><span class="s2">&quot;cadena&quot;</span><span class="w">    </span>Especifica<span class="w"> </span>el<span class="w"> </span>texto<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>desea<span class="w"> </span>buscar.
-<span class="w">  </span><span class="o">[</span>unidad:<span class="o">][</span>ruta<span class="o">]</span>archivo
-<span class="w">              </span>Especifica<span class="w"> </span>el<span class="w"> </span>o<span class="w"> </span>los<span class="w"> </span>archivos<span class="w"> </span>a<span class="w"> </span>buscar.
-<span class="w"> </span>Si<span class="w"> </span>no<span class="w"> </span>se<span class="w"> </span>especifica<span class="w"> </span>una<span class="w"> </span>ruta,<span class="w"> </span>FIND<span class="w"> </span>busca<span class="w"> </span>el<span class="w"> </span>texto<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>escriba<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>símbolo
-del<span class="w"> </span>sistema<span class="w"> </span>o<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>canalice<span class="w"> </span>desde<span class="w"> </span>otro<span class="w"> </span>comando.
-
-C:<span class="se">\T</span>EST&gt;find<span class="w"> </span><span class="s2">&quot;hola&quot;</span><span class="w"> </span>salida.txt
-
-----------<span class="w"> </span>SALIDA.TXT
-hola
-<span class="w"> </span>C:<span class="se">\T</span>EST&gt;find<span class="w"> </span>/V<span class="w"> </span><span class="s2">&quot;hola&quot;</span><span class="w"> </span>salida.txt
-
-----------<span class="w"> </span>SALIDA.TXT
-adios
-
-C:<span class="se">\T</span>EST&gt;find<span class="w"> </span>/N<span class="w"> </span><span class="s2">&quot;hola&quot;</span><span class="w"> </span>salida.txt
-
-----------<span class="w"> </span>SALIDA.TXT
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>hola
-</pre></div>
-</div>
-</li>
-<li><p><strong>del</strong> elimina archivos</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;del<span class="w"> </span>salida2.txt
-</pre></div>
-</div>
-</li>
-<li><p><strong>ping</strong> se utiliza para medir la latencia o tiempo que tardan en comunicarse dos puntos remotos</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;ping<span class="w"> </span><span class="m">8</span>.8.8.8
-
-Haciendo<span class="w"> </span>ping<span class="w"> </span>a<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span>con<span class="w"> </span><span class="m">32</span><span class="w"> </span>bytes<span class="w"> </span>de<span class="w"> </span>datos:
-Respuesta<span class="w"> </span>desde<span class="w"> </span><span class="m">8</span>.8.8.8:<span class="w"> </span><span class="nv">bytes</span><span class="o">=</span><span class="m">32</span><span class="w"> </span><span class="nv">tiempo</span><span class="o">=</span>4ms<span class="w"> </span><span class="nv">TTL</span><span class="o">=</span><span class="m">115</span>
-Respuesta<span class="w"> </span>desde<span class="w"> </span><span class="m">8</span>.8.8.8:<span class="w"> </span><span class="nv">bytes</span><span class="o">=</span><span class="m">32</span><span class="w"> </span><span class="nv">tiempo</span><span class="o">=</span>4ms<span class="w"> </span><span class="nv">TTL</span><span class="o">=</span><span class="m">115</span>
-Respuesta<span class="w"> </span>desde<span class="w"> </span><span class="m">8</span>.8.8.8:<span class="w"> </span><span class="nv">bytes</span><span class="o">=</span><span class="m">32</span><span class="w"> </span><span class="nv">tiempo</span><span class="o">=</span>7ms<span class="w"> </span><span class="nv">TTL</span><span class="o">=</span><span class="m">115</span>
-Respuesta<span class="w"> </span>desde<span class="w"> </span><span class="m">8</span>.8.8.8:<span class="w"> </span><span class="nv">bytes</span><span class="o">=</span><span class="m">32</span><span class="w"> </span><span class="nv">tiempo</span><span class="o">=</span>9ms<span class="w"> </span><span class="nv">TTL</span><span class="o">=</span><span class="m">115</span>
-
-Estadísticas<span class="w"> </span>de<span class="w"> </span>ping<span class="w"> </span>para<span class="w"> </span><span class="m">8</span>.8.8.8:
-<span class="w">    </span>Paquetes:<span class="w"> </span><span class="nv">enviados</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="nv">recibidos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="nv">perdidos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-<span class="w">    </span><span class="o">(</span><span class="m">0</span>%<span class="w"> </span>perdidos<span class="o">)</span>,
-Tiempos<span class="w"> </span>aproximados<span class="w"> </span>de<span class="w"> </span>ida<span class="w"> </span>y<span class="w"> </span>vuelta<span class="w"> </span>en<span class="w"> </span>milisegundos:
-<span class="w">    </span><span class="nv">Mínimo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>4ms,<span class="w"> </span><span class="nv">Máximo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>9ms,<span class="w"> </span><span class="nv">Media</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>6ms
-</pre></div>
-</div>
-</li>
-<li><p><strong>ipconfig</strong> muestra los valores de configuración de red de TCP/IP</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;ipconfig
-
-Configuración<span class="w"> </span>IP<span class="w"> </span>de<span class="w"> </span>Windows
-
-Adaptador<span class="w"> </span>de<span class="w"> </span>Ethernet<span class="w"> </span>vEthernet<span class="w"> </span><span class="o">(</span>WSL<span class="o">)</span>:
-
-<span class="w">   </span>Sufijo<span class="w"> </span>DNS<span class="w"> </span>específico<span class="w"> </span>para<span class="w"> </span>la<span class="w"> </span>conexión.<span class="w"> </span>.<span class="w"> </span>:
-<span class="w">   </span>Vínculo:<span class="w"> </span>dirección<span class="w"> </span>IPv6<span class="w"> </span>local.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>:<span class="w"> </span>fe80::a32:a5ec:1b5a:7617%40
-<span class="w">   </span>Dirección<span class="w"> </span>IPv4.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>:<span class="w"> </span><span class="m">192</span>.168.0.1
-<span class="w">   </span>Máscara<span class="w"> </span>de<span class="w"> </span>subred<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>:<span class="w"> </span><span class="m">255</span>.255.240.0
-<span class="w">   </span>Puerta<span class="w"> </span>de<span class="w"> </span>enlace<span class="w"> </span>predeterminada<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>:
-</pre></div>
-</div>
-</li>
-<li><p><strong>sort</strong> (Ordenar): Lee información de entrada, ordena datos y escribe los resultados en la pantalla, en un archivo o en otro dispositivo.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;sort<span class="w"> </span>salida.txt
-adios
-hola
-</pre></div>
-</div>
-</li>
-<li><p><strong>ver</strong> - Muestra la versión del Sistema Operativo.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;ver
-
-Microsoft<span class="w"> </span>Windows<span class="w"> </span><span class="o">[</span>Versión<span class="w"> </span><span class="m">10</span>.0.19044.2486<span class="o">]</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>vol</strong> - Muestra la etiqueta del disco duro y su volumen (si lo tiene).</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;vol
-<span class="w"> </span>El<span class="w"> </span>volumen<span class="w"> </span>de<span class="w"> </span>la<span class="w"> </span>unidad<span class="w"> </span>C<span class="w"> </span>no<span class="w"> </span>tiene<span class="w"> </span>etiqueta.
-<span class="w"> </span>El<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>serie<span class="w"> </span>del<span class="w"> </span>volumen<span class="w"> </span>es:<span class="w"> </span>203A-19E6
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="scripting-bat">
-<h1>Scripting .bat<a class="headerlink" href="#scripting-bat" title="Enlace permanente a este encabezado"></a></h1>
-<p>Un archivo o programa de procesamiento por lotes es un archivo de texto sin formato que contiene uno o más comandos de MS-DOS y que tiene asignado una extensión BAT.</p>
-<p>Cuando se escribe el nombre del programa de procesamiento por lotes en la línea de comandos, los comandos se ejecutan como un grupo.</p>
-<ul>
-<li><p><strong>pause</strong>: suspende la ejecución de un programa de procesamiento por lotes y muestra un mensaje indicando al usuario que presione cualquier tecla para continuar.</p></li>
-<li><p><strong>rem</strong> permite que se incluyan comentarios</p></li>
-<li><p><strong>echo [texto]</strong> muestra el texto por pantalla &#64;(on/off) para presentar los comandos por pantalla en un script</p>
-<p>Ejemplo:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="nb">type</span><span class="w"> </span>hola.bat
-@echo<span class="w"> </span>off
-rem<span class="w"> </span>Esto<span class="w"> </span>es<span class="w"> </span>un<span class="w"> </span>comentario
-rem<span class="w"> </span>@echo<span class="w"> </span>on<span class="w"> </span>se<span class="w"> </span>presentaran<span class="w"> </span>los<span class="w"> </span>comandos<span class="w"> </span>por<span class="w"> </span>pantalla
-<span class="nb">echo</span><span class="w"> </span>Hola<span class="w"> </span>Mundo
-pause
-C:<span class="se">\&gt;</span>hola.bat
-Hola<span class="w"> </span>Mundo
-Presione<span class="w"> </span>una<span class="w"> </span>tecla<span class="w"> </span>para<span class="w"> </span>continuar<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.
-</pre></div>
-</div>
-</li>
-<li><p><strong>for</strong> (repite un comando)</p>
-<p>FOR %%variable IN (conjunto) DO comando [parametros_del_comando]</p>
-<p>Ejemplo:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:&gt;type<span class="w"> </span><span class="k">for</span>.bat
-@echo<span class="w"> </span>off
-<span class="nb">echo</span><span class="w"> </span>-------------------------------
-<span class="nb">echo</span><span class="w"> </span>cuenta<span class="w"> </span>hasta<span class="w"> </span><span class="m">10</span><span class="w"> </span>de<span class="w"> </span><span class="m">2</span><span class="w"> </span>en<span class="w"> </span><span class="m">2</span>
-<span class="k">for</span><span class="w"> </span>/L<span class="w"> </span>%%j<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,10<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>hola<span class="w"> </span>%%j
-
-C:<span class="se">\&gt;</span><span class="k">for</span>.bat
--------------------------------
-cuena<span class="w"> </span>hasta<span class="w"> </span><span class="m">10</span><span class="w"> </span>de<span class="w"> </span><span class="m">2</span><span class="w"> </span>en<span class="w"> </span><span class="m">2</span>
-hola<span class="w"> </span><span class="m">1</span>
-hola<span class="w"> </span><span class="m">3</span>
-hola<span class="w"> </span><span class="m">5</span>
-hola<span class="w"> </span><span class="m">7</span>
-hola<span class="w"> </span><span class="m">9</span>
-</pre></div>
-</div>
-<p>Ejemplo con el parámetro /R ejecuta el comando recursivamente:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>/R<span class="w"> </span>%x<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span>*<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>@echo<span class="w"> </span>%x
-</pre></div>
-</div>
-<p>Visualizamos todas las dll que empiecen por a de C:WindowsSystem32</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>/R<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="w"> </span>%x<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span>A*.dll<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>@echo<span class="w"> </span>%xde<span class="w"> </span>C:<span class="se">\W</span>INNT
-</pre></div>
-</div>
-</li>
-<li><p><strong>Parámetros de entrada</strong>, los valores suministrados al ejecutar el archivo .bat se les llaman argumentos y se denotan %0, %1, …, %9.</p></li>
-<li><p><strong>shift</strong> cambia los valores de los parámetros reemplazables %0 a %9 copiando cada parámetro en el anterior, es decir, el valor de %1 es copiado en %0, el valor de %2 es copiado en %1 y así sucesivamente.</p></li>
-<li><p><strong>if</strong> (condicional)</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="nb">type</span><span class="w"> </span><span class="k">if</span>.bat
-@echo<span class="w"> </span>off
-<span class="nb">set</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span>%1
-<span class="nb">set</span><span class="w"> </span><span class="nv">b</span><span class="o">=</span>%2
-<span class="nb">echo</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>%a%<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>equ<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>y<span class="w"> </span>%b%<span class="w"> </span>son<span class="w"> </span>iguales
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>neq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>y<span class="w"> </span>%b%<span class="w"> </span>son<span class="w"> </span>distintos
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>leq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>geq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>lss<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>gtr<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="nb">echo</span><span class="w"> </span>-------------------------------------
-
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
-<span class="m">3</span><span class="w"> </span>y<span class="w"> </span><span class="m">3</span><span class="w"> </span>son<span class="w"> </span>iguales
-<span class="m">3</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">3</span>
-<span class="m">3</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">3</span>
--------------------------------------
-
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-<span class="m">5</span><span class="w"> </span>y<span class="w"> </span><span class="m">5</span><span class="w"> </span>son<span class="w"> </span>distintos
-<span class="m">5</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">5</span>
-<span class="m">5</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>que<span class="w"> </span><span class="m">5</span>
--------------------------------------
-
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-<span class="m">1</span><span class="w"> </span>y<span class="w"> </span><span class="m">1</span><span class="w"> </span>son<span class="w"> </span>distintos
-<span class="m">1</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">1</span>
-<span class="m">1</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>que<span class="w"> </span><span class="m">1</span>
--------------------------------------
-</pre></div>
-</div>
-</li>
-<li><p><strong>goto</strong> se va a una línea marcada por una etiqueta especificada por el usuario dentro de un programa de procesamiento por lotes.</p></li>
-</ul>
-</section>
-<section id="powershell">
-<h1>PowerShell<a class="headerlink" href="#powershell" title="Enlace permanente a este encabezado"></a></h1>
-<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la licencia MIT, que es una licencia de software libre y de código abierto</p>
-<section id="control-de-procesos-y-servicios">
-<h2>Control de procesos y servicios<a class="headerlink" href="#control-de-procesos-y-servicios" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p><strong>ps -&gt; Get-Process</strong> ver procesos</p></li>
-<li><p><strong>kill -&gt; Stop-Process</strong> mata procesos</p></li>
-<li><p><strong>Get-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Stop-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Start-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Suspend-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-</ul>
-<p>Ejemplo:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
-<span class="nb">Get-Process</span> <span class="n">-ProcessName</span> <span class="n">CalculatorApp</span>
-<span class="nb">Stop-Process</span> <span class="n">-ProcessName</span> <span class="n">CalculatorApp</span>
-<span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
-<span class="nb">Stop-Process</span> <span class="n">-Id</span> <span class="n">2828</span>
-</pre></div>
-</div>
-</section>
-<section id="caracteres-especiales">
-<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p>* ? » &gt; &gt;&gt; |</p></li>
-</ul>
-</section>
-<section id="ficheros-y-directorios">
-<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado"></a></h2>
-<ul>
-<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
-<li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
-<li><p><strong>rm -&gt; Remove-Item</strong> borrar</p></li>
-<li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
-<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p></li>
-<li><p><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</p></li>
-<li><p><strong>echo</strong> repetir salida estándar</p></li>
-<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> es parecido al comando find</p></li>
-<li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
-<li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
-<li><p><strong>select -&gt; Select-Object</strong></p>
-<p>cat archivo.dat | select -Last 2</p>
-<p>cat archivo.dat -Head 12 | select -Last 1</p>
-<p>cat archivo.dat | select -First 10</p>
-</li>
-</ul>
-</section>
-<section id="visualizadores-de-archivos">
-<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado"></a></h2>
-<ul>
-<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
-<li><p><strong>Get-Content archivo.dat -head 10</strong></p>
-<p>Get-Content archivo.dat | select -First 10  # head</p>
-</li>
-<li><p><strong>Get-Content archivo.dat -tail 10</strong> es como el comando tail en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
-<li><p><strong>Get-Content archivo.dat | %{ $_ -replace “A”, “B” }</strong> reemplazar</p></li>
-<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
-</ul>
-</section>
-<section id="filtros-y-busqueda-informacion">
-<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
-<li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
-<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada
-echo $(Select-String -Pattern «texto» archivo.dat| Measure-Object -Character).Characters, es como el comando grep -c GNULinux</p></li>
-<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
-Get-Service | Format-Table -Property Name, DependentServices</p></li>
-</ul>
-</section>
-<section id="alias">
-<h2>Alias<a class="headerlink" href="#alias" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
-<li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
-</ul>
-</section>
-<section id="gestion-de-usuarios">
-<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado"></a></h2>
-<p>Para hacerte administrador: <strong>start-process powershell -verb runas*</strong></p>
-<ul>
-<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
-<ul class="simple">
-<li><p>Get-LocalUser</p></li>
-<li><p>Get-LocalGroup</p></li>
-<li><p>Get-LocalGroupMember -Name nombre_grupo</p></li>
-</ul>
-</li>
-<li><p><strong>Crear un usuario con contraseña</strong></p>
-<ul class="simple">
-<li><p>$Password = Read-Host –AsSecureString</p></li>
-<li><p><strong>New-LocalUser -Name nombre_usuario -Password $Password</strong></p></li>
-<li><p>Sin que pregunte: $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force</p></li>
-</ul>
-</li>
-<li><p><strong>Crear un usuario sin contraseña</strong></p>
-<ul class="simple">
-<li><p>New-LocalUser -Name nombre_usuario -NoPassword</p></li>
-</ul>
-<blockquote>
-<div><p>Se la podemos asignar después: Set-LocalUser -Name nombre_usuario -Password $Password</p>
-</div></blockquote>
-</li>
-<li><p><strong>Asignar usuario a un grupo</strong></p>
-<ul class="simple">
-<li><p>Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario</p></li>
-</ul>
-</li>
-<li><p><strong>Eliminar un usuario</strong></p>
-<ul class="simple">
-<li><p>Remove-LocalUser -Name nombre_usuario</p></li>
-</ul>
-</li>
-<li><p><strong>Crear y borrar un grupo</strong></p>
-<ul class="simple">
-<li><p>New-LocalGroup -Name nombre_grupo</p></li>
-<li><p>Remove-LocalGroup -Name nombre_grupo</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="configuracion-de-windows">
-<h2>Configuración de Windows<a class="headerlink" href="#configuracion-de-windows" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p><strong>shutdown /r</strong> reiniciamos, si añadimos /f lo hace de forma forzosa</p></li>
-<li><p><strong>shutdown /s</strong> apagar</p></li>
-<li><p><strong>Cambiar IP</strong> netsh interface ip set address name=»Ethernet» source=static addr=10.4.104.100 mask=255.0.0.0 gateway=10.0.0.2</p></li>
-<li><p><strong>ipconfig</strong> consultar ip</p></li>
-<li><p><strong>Cambiar el DNS</strong> netsh interface ip set dnsserver «Ethernet» static 8.8.8.8 primary</p></li>
-<li><p><strong>ipconfig /all</strong> consultar dns</p></li>
-<li><p><strong>Rename-Computer -NewName «WS19tunombre»</strong> cambiar el nombre del equipo</p></li>
-<li><p><strong>Habilitar ping</strong> netsh advfirewall firewall add rule name=»Habilitar respuesta ICMP IPv4» protocol=icmpv4:8,any dir=in action=allow</p></li>
-<li><p><strong>Instalar el servidor ssh</strong></p></li>
-</ul>
-<blockquote>
-<div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
-<span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="n">OpenSSH</span><span class="p">.</span><span class="n">Server</span><span class="p">~~~~</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">0</span>
-<span class="c">#Iniciar el servicio ssh :</span>
-<span class="nb">Start-Service</span> <span class="n">sshd</span>
-<span class="c">#Para iniciar el servicio ssh durante el arranque de forma automática:</span>
-<span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">sshd</span> <span class="n">-StartupType</span> <span class="s1">&#39;Automatic&#39;</span>
-</pre></div>
-</div>
-<p>Para conectarse sin contraseña <strong>ssh -X Administrador&#64;IP</strong>: Copia tu clave publica .ssh/id_rsa.pub a IP:C:UsersAdministrador.sshauthorized_keys</p>
-</div></blockquote>
-</section>
-</section>
-<section id="arranque-de-windows">
-<h1>Arranque de Windows<a class="headerlink" href="#arranque-de-windows" title="Enlace permanente a este encabezado"></a></h1>
-<p>lo primero que se va a cargar son los ajustes del firmware, por lo que se comprueba que el sistema de disco es válido para llevar a cabo el inicio del PC, y en el caso de que el sistema esté listo se pasa a la siguiente fase. Por tanto, si el equipo tiene un MBR válido, lo que se traduce a un registro de arranque maestro, el proceso de arranque carga el conocido como “Administrador de arranque de Windows”, para a continuación pasar a la segunda fase.</p>
-<p>Tras esto entra en juego el administrador de arranque de Windows, lo que sirve para determinar si en ese equipo disponemos de varios sistemas operativos instalados, o tan solo de uno. En el caso de que sean varios los sistemas que pueden arrancar el PC, en pantalla se muestra un menú con los nombres de estos para que podamos seleccionar el que más nos interesa en ese momento, todo con el fin de que se realice el arranque en base a nuestras necesidades.</p>
-<p>inicio de windows
-Por tanto, al elegir Windows 10, que es el que nos ocupa en este caso, se pone en marcha el fichero “Winload.exe” que es el que comienza la carga del software de Microsoft. Es entonces cuando empieza la tercera fase del proceso, por lo que el mencionado “WinLoad.exe” comienza con la carga de los controladores más importantes con los que cuenta el equipo y así poder iniciar el Kernel del propio Windows 10. Por tanto, en este paso el núcleo del sistema utiliza los controladores para «comunicarse» con el hardware que tenemos instalado y lograr que el proceso de arranque siga su curso sin problema alguno.</p>
-<p>Y para terminar os vamos a hablar de la última fase, que es en la que se recoge la configuración del Registro de Windows, así como el resto controladores adicionales, entre otros elementos necesarios para el correcto funcionamiento del sistema operativo.</p>
-<p>or lo tanto, una vez se carga esto, el control en ese momento lo toma el proceso de gestión del sistema, con lo que a continuación se carga la interfaz de usuario, además del resto del hardware y el software instalado. Por tanto, finalizado este paso, en pantalla aparece la habitual interfaz de inicio de sesión de Windows 10 para que podamos introducir las correspondientes credenciales de acceso.</p>
-<p>Eso sí también merece la pena saber que cuando iniciamos Windows 10 en un ordenador que tiene soporte UEFI, la función llamada “Trusted Boot” protege el equipo desde el mismo momento en el que comienza el inicio del mismo. Así, lo primero que hace es localizar el gestor de arranque del sistema operativo, mientras que los PCs sin arranque seguro ejecutan cualquier gestor de arranque que encuentren en el disco duro, pero con UEFI, en primer lugar se verifica que el firmware esté firmado digitalmente para que todo el proceso se lleve a cabo con mayor seguridad y fiabilidad.</p>
-<section id="msconfig">
-<h2>msconfig<a class="headerlink" href="#msconfig" title="Enlace permanente a este encabezado"></a></h2>
-<p>Es una utilidad del sistema operativo cuya función inicial era la de corregir problemas asociados con el inicio de Windows, pero la cual poco a poco ha tomado más fuerza gracias a sus diversas alternativas de uso. Gracias a msconfig será posible ejecutar tareas como:</p>
-<blockquote>
-<div><p>Facilidad para configurar la forma de inicio de Windows.
-Cambiar el procedimiento de inicio.
-Seleccionar los servicios de inicio y programas que serán cargados junto con el sistema y muchas acciones más.</p>
-</div></blockquote>
-<p>Acceder a msconfig en Windows 10: Ejecutar el comando msconfig</p>
-<img alt="so/imagenes/configuracion_arranque.png" src="so/imagenes/configuracion_arranque.png" />
-<p>Como vemos, la utilidad msconfig nos brinda una serie de opciones a elegir, estas son:</p>
-<ul class="simple">
-<li><p><strong>Inicio normal</strong>. Es la opción por defecto e indica que Windows 10 cargara todos los elementos, controladores y servicios de inicio que han sido instalados, únicamente cuando se han realizado cambios en los controladores, servicios o aplicaciones que se cargan durante el arranque podemos seleccionar una opción adicional.</p></li>
-<li><p><strong>Inicio con diagnóstic</strong>. Su uso es similar al inicio en modo seguro ya conocido por todos, al seleccionar esta opción solo se ejecutarán los servicios y controladores de Windows 10, adicional a ello, el inicio de Diagnóstico está en la capacidad de ejecutar servicios de red o servicios aplicaciones de terceros, que son de un alto impacto para la seguridad del sistema tal como el antivirus, firewall, etc. Por lo general podemos iniciar Windows 10 con esta opción para comprobar si los servicios de Windows están afectando algún parámetro de uso del sistema y así descartar estas opciones.</p></li>
-<li><p><strong>Inicio selectivo</strong>. Al seleccionar esta opción, Windows 10 iniciará solo con los servicios y controladores básicos, también con esta opción será posible seleccionar otros servicios y elementos de inicio a ejecutar directamente desde las pestañas Servicios y Inicio.</p></li>
-</ul>
-<p>Hoy en día es normal, para muchos usuarios, contar con modo de arranque dual el cual nos permite tener dos sistemas operativos instalados en el disco duro aprovechando así todos los recursos de hardware, en caso de contar con más de un sistema operativo instalado, la herramienta msconfig nos da la opción de elegir cuál de ellos será la opción predeterminada.</p>
-<img alt="so/imagenes/configuracion_sistema.png" src="so/imagenes/configuracion_sistema.png" />
-<p>Aquí podemos cambiar sistema de arranque inicio por defecto en Windows 10, si tienes sistema dual boot, aquí tienes los pasos para cambiar cuál es el Sistema Operativo que se inicia por defecto desde Windows 10. También podemos cambiar el tiempo de espera que por defecto son 30 segundos.</p>
-<p>Existen una serie de opciones avanzadas en el sistema operativo que nos darán la opción de mejorar el arranque del sistema operativo, estas opciones avanzadas involucran cambios a nivel de memoria, procesadores o depuración de elementos.</p>
-<img alt="so/imagenes/opciones_avanzadas.png" src="so/imagenes/opciones_avanzadas.png" />
-<p>En la sección “Numero de procesadores” podemos definir la cantidad de procesadores disponibles en base al CPU de nuestro equipo (2, 4, 8 o más procesadores).</p>
-<p>En la sección “Cantidad máxima de memoria” podremos asignar la cantidad de RAM que deseamos que Windows 10 aplique al proceso de arranque, allí podemos usar toda la capacidad de la RAM instalada.</p>
-<p>En el campo “Configuración global de depuración”, esta opción esta deshabilitada por defecto y esta función se encarga de especificar la configuración de conexión del depurador en el equipo local con el fin de que un depurador de kernel pueda comunicarse con un host depurador, la conexión del depurador entre los equipos host y de destino puede ser de tipo Serie, IEEE 1394 o USB 2.0, en el puerto de depuración se especifica qué tipo de puerto será usado como tipo de conexión y puerto serie, el valor predeterminado es COM 1, finalmente la velocidad en baudios indica la velocidad en baudios que se usará al momento de seleccionar el puerto de depuración y el tipo de conexión de depuración, esta configuración es opcional y los valores válidos son 9600, 19.200, 38.400, 57.600 y 115.200. El valor predeterminado es 115.200 bps.</p>
-<p>Para configurar este arranque en modo seguro, desde la pestaña Arranque, activaremos la casilla “Arranque a prueba de errores” y allí seleccionar alguna de las opciones disponibles que son la siguientes:</p>
-<ul class="simple">
-<li><p><strong>Mínimo</strong>.  Con esta opción el arranque seguro se ejecuta de forma normal, con una interfaz de usuario y sin servicios de red habilitados.</p></li>
-<li><p><strong>Shell alterno</strong>. Esta opción abre el símbolo del sistema en modo a prueba de errores. Los servicios de red y la interfaz gráfica de usuario están deshabilitados por defecto.</p></li>
-<li><p><strong>Reparar Active Directory</strong>. Es un inicio seguro normal que ejecuta los servicios y características de Active Directory, útil para equipos en un dominio.</p></li>
-<li><p><strong>Red</strong>. Ejecuta el inicio seguro normal con servicios de red habilitados.</p></li>
-</ul>
-<p>Para deshabilitar opciones de arranque Windows 10, En la misma pestaña de arranque, encontramos en la parte inferior derecha una serie de opciones para aplicar a los procedimientos de arranque estándar y en modo seguro, estas opciones son.</p>
-<ul class="simple">
-<li><p><strong>Sin arranque de GUI</strong>. Al seleccionar esta opción, durante el arranque, no se mostrará la pantalla de carga habitual, tan solo una pantalla negra sin información con el fin de mejorar la velocidad de arranque.</p></li>
-<li><p><strong>Registro de arranque</strong>. En el proceso de inicio, Windows 10 escribe un registro completo detallando toda la información sobre el proceso de inicio, por defecto esta información está en la ruta C:WindowsNtbtlog.txt.</p></li>
-<li><p><strong>Vídeo base</strong>. Al seleccionar esta opción, ejecutamos un inicio de Windows estándar, en el cual solo serán cargados los controladores de vídeo estándar que vienen con el sistema operativo por defecto, en lugar de los específicos de la tarjeta de vídeo.</p></li>
-<li><p><strong>Información de arranque del SO</strong>. Si usamos esta opción, también debemos activar la opción Sin arranque de GUI. Con estas opciones, la pantalla de carga de Windows habitual se verá reemplazada por una pantalla negra, donde veremos información completa sobre los controladores que son cargados durante el proceso de inicio, así, en caso de que Windows se bloquee en el proceso de arranque, este modo de visualización puede ser útil para encontrar el controlador que causa el bloqueo y así facilitar las tareas de soporte.</p></li>
-</ul>
-<p><strong>Nota:</strong> En caso de que sea necesario que los cambios que hemos realizado sean constantes, debemos activar la casilla “Convertir en permanente toda la configuración de arranque”, o para volver al inicio normal utilizar otra vez el comando msconfig</p>
-<p>Podemos también definir los servicios que serán cargados en el arranque Windows 10. En la pestaña «Servicios»  será posible activar los servicios que serán ejecutados al inicio y desmarcar los que no lo serán, en caso de desear ver solo los servicios de terceros instalados por las aplicaciones, debemos activar la casilla “Ocultar todos los servicios de Microsoft”. Es aconsejable tener conocimiento sobre qué servicios han de deshabilitarse ya que si deshabilitamos algún servicio de Microsoft podemos causar anomalías en el sistema.
-Para definir los programas que serán cargados en el arranque Windows 10
-Es normal que los programa y aplicaciones que instalamos en Windows 10, cuenten con una opción la cual permite que estos sean cargados desde el proceso de arranque lo cual representa un impacto negativo en el rendimiento de este.</p>
-<p>Para deshabilitar programas de Inicio arranque Windows 10, vamos a la pestaña “Inicio de Windows” y allí damos clic en la línea “Abrir el administrador de tareas” el cual nos redireccionará a la pestaña “Inicio” del administrador de tareas:</p>
-<img alt="so/imagenes/administrador_tareas_arranque.png" src="so/imagenes/administrador_tareas_arranque.png" />
-<p>Si deseamos impedir que alguno de ellos sea ejecutado contamos con las siguientes opciones:
-Dar clic derecho sobre él y seleccionar la opción “Deshabilitar”.
-Seleccionarlo y pulsar en el botón “Deshabilitar” ubicado en la parte inferior</p>
-<p>Finalmente, en la pestaña “Herramientas” de msconfig, disponemos de un conjunto de herramientas del sistema como Información del sistema, Editor del registro, Visor de eventos, Monitor de rendimiento y más, las cuales nos permiten realizar una tarea mucho más completa. Podemos ver que cada herramienta tiene asociado un comando de ejecución.</p>
-</section>
-<section id="gestion-de-servicios-powershell">
-<h2>Gestión de servicios (PowerShell)<a class="headerlink" href="#gestion-de-servicios-powershell" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p>Get-Service</p></li>
-<li><p>New-Service</p></li>
-<li><p>Restart-Service</p></li>
-<li><p>Resume-Service</p></li>
-<li><p>Set-Service</p></li>
-<li><p>Start-Service</p></li>
-<li><p>Stop-Service</p></li>
-<li><p>Suspend-Service</p></li>
-</ul>
-<p>Ejemplo de uso:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">alumno</span><span class="p">&gt;</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
-
-<span class="n">Status</span>   <span class="n">Name</span>               <span class="n">DisplayName</span>
-<span class="p">------</span>   <span class="p">----</span>               <span class="p">-----------</span>
-<span class="n">Running</span>  <span class="n">Spooler</span>            <span class="n">Cola</span> <span class="n">de</span> <span class="n">impresión</span>
-
-
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">alumno</span><span class="p">&gt;</span> <span class="nb">Restart-Service</span> <span class="n">-Name</span> <span class="n">Spooler</span>
-<span class="n">ADVERTENCIA</span><span class="p">:</span> <span class="n">Esperando</span> <span class="n">a</span> <span class="n">que</span> <span class="n">se</span> <span class="n">inicie</span> <span class="n">el</span> <span class="n">servicio</span> <span class="s1">&#39;Cola de</span>
-<span class="s1">impresión (Spooler)&#39;</span><span class="p">...</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="configuracion-windows">
-<h1>Configuración Windows<a class="headerlink" href="#configuracion-windows" title="Enlace permanente a este encabezado"></a></h1>
-<section id="menu-inicio">
-<h2>Menú inicio<a class="headerlink" href="#menu-inicio" title="Enlace permanente a este encabezado"></a></h2>
-<img alt="so/imagenes/menu_inicio.png" src="so/imagenes/menu_inicio.png" />
-</section>
-<section id="explorador-de-windows">
-<h2>Explorador de Windows<a class="headerlink" href="#explorador-de-windows" title="Enlace permanente a este encabezado"></a></h2>
-<ul>
-<li><p>El explorador de Windows es un componente principal del sistema operativo que permite administrar el equipo, crear archivos y carpetas, lanzar aplicaciones, etc</p>
-<img alt="so/imagenes/explorador.png" src="so/imagenes/explorador.png" />
-</li>
-<li><p>Podemos buscar archivos por tamaño <strong>System.Size: &gt; 100 MB</strong></p></li>
-<li><p>Podemos buscar por una cierta extensión y tamaño <strong>System.Size: &gt; 100 MB .reg</strong></p></li>
-<li><p>Solo por extensión <strong>*.reg</strong>, empiezan por An y acaban por dat <strong>An*dat</strong></p></li>
-<li><p>Entre varios tamaños <strong>System.Size: &gt; 100 MB &lt; 200MB</strong></p></li>
-<li><p>por fecha de modificación <strong>fechademodificación:hoy</strong></p></li>
-</ul>
-</section>
-<section id="administrador-de-tareas">
-<h2>Administrador de tareas<a class="headerlink" href="#administrador-de-tareas" title="Enlace permanente a este encabezado"></a></h2>
-<p>Para ver el Administrador de tareas, tienes que hacer clic sobre cualquier espacio libre de la barra de tareas del Escritorio.</p>
-<img alt="so/imagenes/administrador_tareas.png" src="so/imagenes/administrador_tareas.png" />
-<p>Poner más detalles</p>
-<img alt="so/imagenes/administrador_tareas1.png" src="so/imagenes/administrador_tareas1.png" />
-<p>Además, en la solapa Rendimiento obtendremos información gráfica y numérica sobre el uso del procesador, la memoria, el disco y el hardware de red durante el último minuto.</p>
-<p>Información sobre el procesador.</p>
-<img alt="so/imagenes/administrador_tareas2.png" src="so/imagenes/administrador_tareas2.png" />
-<p>Mientras estemos mostrando la información sobre la CPU, podremos revisar bastantes datos sobre ella:</p>
-<ul class="simple">
-<li><p>El grado de utilización en este instante</p></li>
-<li><p>Su velocidad.</p></li>
-<li><p>La cantidad de procesos y subprocesos que está ejecutando.</p></li>
-<li><p>Los identificadores que tiene asignados.</p></li>
-<li><p>El tiempo que lleva funcionando desde que se arrancó el ordenador.</p></li>
-<li><p>El tamaño de la caché de nivel 1 (L1) y de nivel 2 (L2).</p></li>
-<li><p>El número de núcleos que incluye.</p></li>
-<li><p>etc.</p></li>
-</ul>
-<p>Además, en la parte superior, se muestra su modelo exacto (en mi caso, Intel(R) Core(TM) i5-4460 a 3,2GHz) y un gráfico que muestra su comportamiento en el último minuto.</p>
-<p>Si observáramos un consumo excesivo de procesador (un gráfico estadístico que muestra continuamente valores elevados), podríamos tener un proceso que funciona de forma inadecuada y está consumiendo demasiado tiempo de procesador. También puede ocurrir que estemos ejecutando demasiados programas de forma simultánea. En cualquier caso, habremos comprobado que el procesador estará suponiendo un cuello de botella en el rendimiento del equipo.</p>
-<p>Cuando tenemos varios procesadores, o un procesador con varios núcleos, podemos mostrar gráficos de uso diferenciados para cada uno de ellos.Haciendo clic sobre la categoría Memoria en el panel izquierdo, obtendremos detalles sobre el uso de la RAM.</p>
-<p>Información sobre la memoria.</p>
-<img alt="so/imagenes/administrador_tareas3.png" src="so/imagenes/administrador_tareas3.png" />
-<p>Sobre la memoria, podremos consultar la cantidad que se está usando y la que aún nos queda disponible. Además, podemos ver cuál es el máximo que podremos utilizar (incluyendo la memoria virtual), cuanta tenemos destinada a caché, la cantidad que tenemos paginada y la que aún no lo está.</p>
-<p>Como en el caso anterior, también disponemos de una representación gráfica que nos muestra la evolución en el uso de la memoria durante el último minuto. Además, ahora se incluye un gráfico que nos representa (de izquierda a derecha) diferentes datos:</p>
-<ul class="simple">
-<li><p>La cantidad de memoria ocupada por los procesos, los controladores y el sistema operativo.</p></li>
-<li><p>La memoria que debe escribirse a disco.</p></li>
-<li><p>La memoria que contiene datos y código a modo de caché, pero que no se están usando de forma activa.</p></li>
-<li><p>La memoria libre (la primera que será asignada cuando sea necesario).</p></li>
-</ul>
-<p>Si observamos un nivel de ocupación excesivamente elevado (porque estamos ejecutando demasiados programas para la cantidad de memoria instalada o porque tenemos un proceso que está consumiendo una cantidad excesiva), el sistema operativo se estará viendo forzado a usar de forma intensiva la memoria virtual. Esto supondrá un intercambio continuo de páginas de memoria entre la RAM y el disco, lo que puede implicar, de nuevo, un cuello de botella en el sistema que afectará directamente a su rendimiento.</p>
-<p>Haciendo clic sobre la categoría Disco en el panel izquierdo, obtendremos detalles sobre el uso del disco duro.</p>
-<p>Aspecto de la información sobre el disco.</p>
-<img alt="so/imagenes/administrador_tareas4.png" src="so/imagenes/administrador_tareas4.png" />
-<p>Como ves en la imagen, cuando tenemos más de un disco, aparecen varias entradas, etiquetadas como Disco 0, Disco 1, etc.</p>
-<p>En cada uno de ellos podremos consultar diferentes datos:</p>
-<ul class="simple">
-<li><p>El tiempo de actividad (en porcentaje).</p></li>
-<li><p>El tiempo medio de respuesta (en milisegundos).</p></li>
-<li><p>La velocidad de lectura y escritura en cada instante (medida en KB/s).</p></li>
-<li><p>La capacidad total (antes y después de formatear).</p></li>
-<li><p>Si se trata del disco donde está instalado el sistema.</p></li>
-<li><p>Si contiene el archivo de paginación.</p></li>
-</ul>
-<p>Además, en la parte superior, disponemos de una representación gráfica del tiempo de actividad y de la velocidad de transferencia en el último minuto</p>
-<p>Haciendo clic sobre la categoría Ethernet en el panel izquierdo, obtendremos detalles sobre el uso de la conexión de red.</p>
-<p>Aspecto de la información sobre la conexión de red.</p>
-<img alt="so/imagenes/administrador_tareas6.png" src="so/imagenes/administrador_tareas6.png" />
-<p>Como en el caso anterior, es importante que aclaremos que, en el caso de que nuestro ordenador tuviese varias tarjetas de red, en el panel izquierdo aparecería una entrada por cada una de ellas.</p>
-<p>Entre los datos que contiene, nos encontramos los siguientes:</p>
-<ul class="simple">
-<li><p>La velocidad de envío y recepción de datos en cada momento (medida en Kbps).</p></li>
-<li><p>La dirección IP (tanto IPv4 como IPv6).</p></li>
-<li><p>El nombre DNS del equipo.</p></li>
-<li><p>etc.</p></li>
-</ul>
-<p>Como antes, la parte superior incluye un gráfico que representa la actividad del dispositivo en el último minuto.</p>
-<p>Por último, debemos tener en cuenta que el panel izquierdo puede contener otros elementos, según los dispositivos que tenga nuestro ordenador. En este sentido, es frecuente que incluya entradas para Wi-Fi o Bluetooth.</p>
-<p>Algo que puede resultar muy útil es mantener la ventana del Administrador de tareas en primer plano.</p>
-<p>Lo conseguimos eligiendo la opción Siempre visible dentro del menú Opciones.</p>
-<img alt="so/imagenes/administrador_tareas_opciones.png" src="so/imagenes/administrador_tareas_opciones.png" />
-<p>Incluso podemos reducir la ventana para que sólo nos muestre el gráfico que queramos.</p>
-<p>En el caso de que queramos finalizar una tarea con el Administrador de tareas simplemente la seleccionamos y finalizamos tarea.</p>
-<img alt="so/imagenes/administrador_tareas_finalizar.png" src="so/imagenes/administrador_tareas_finalizar.png" />
-<p>Otra pestaña muy interesante es la de <strong>Rendimiento</strong>, que se centra en mostrarnos información sobre nuestros componentes internos de hardware como el procesador, la memoria o el disco duro.</p>
-<p>Aquí podremos conocer, en tiempo real, el consumo que hacemos de cada una de los núcleos del procesador, la velocidad de procesado actual, la memoria RAM libre y ocupada, así como la velocidad de trabajo de los discos duros que tenemos instalados e incluso de la conexión a la red que estemos usando en ese mismo instante.</p>
-<img alt="so/imagenes/administrador_tareas7.png" src="so/imagenes/administrador_tareas7.png" />
-</section>
-<section id="copia-de-seguridad-y-restauracion-en-windows-10">
-<h2>Copia de seguridad y restauración en Windows 10<a class="headerlink" href="#copia-de-seguridad-y-restauracion-en-windows-10" title="Enlace permanente a este encabezado"></a></h2>
-<p>Existen dos tipos principales de copias de seguridad:</p>
-<ul class="simple">
-<li><p><strong>Copia de seguridad de los archivos</strong>. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras.</p></li>
-<li><p><strong>Copia de seguridad del sistema</strong>. La copia de seguridad del sistema te permite crear una copia de todo el sistema operativo Windows que en ese momento tienes en tu ordenador, es decir, de todos los programas, los archivos y los valores de configuración.</p></li>
-</ul>
-</section>
-<section id="el-registro-de-windows">
-<h2>El registro de Windows<a class="headerlink" href="#el-registro-de-windows" title="Enlace permanente a este encabezado"></a></h2>
-<p>El registro de Windows es una base de datos dónde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura esta formada en forma de carpetas:</p>
-<p><strong>Inicio /Ejecutar/RegEdit</strong></p>
-<img alt="so/imagenes/registro_windows.png" src="so/imagenes/registro_windows.png" />
-<p>HKEY = HomeKey = Clave</p>
-<ul>
-<li><p>Tipos:</p>
-<ul class="simple">
-<li><p><strong>CONSTANTES</strong>: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….</p></li>
-<li><p><strong>DINÁMICAS</strong>: Se vuelven a crear cuando se incia Windows.</p></li>
-</ul>
-</li>
-<li><p><strong>HKEYS’S</strong></p>
-<ul class="simple">
-<li><p><strong>HKEY_CLASSES_ROOT</strong>,  contiene información sobre aplicaciones registradas.</p></li>
-<li><p><strong>HKEY_CURRENT_USER</strong>,  almacena configuraciones específicas del usuario con sesión iniciada en esos momentos.</p>
-<ul>
-<li><p>Acceso directo a la clave HKEY_USER que concierne al Directorio Activo.</p></li>
-<li><p>Control Panel/Desktop/WallPaper/  Imagen de fondo de escritorio</p></li>
-</ul>
-</li>
-<li><p><strong>HKEY_LOCAL_MACHINE</strong>, almacena configuraciones específicas del equipo local.</p></li>
-<li><p><strong>HKEY_USERS</strong>, contiene subclaves correspondientes a las claves</p></li>
-<li><p><strong>HKEY_CURRENT_USER</strong> de cada perfil de usuario cargado activamente en el equipo, aunque normalmente solo se cargan los subárboles de usuario correspondientes a los usuarios con sesión iniciada en esos momentos.</p></li>
-<li><p><strong>HKEY_CURRENT_CONFIG</strong>,  contiene la información referente a algunos de los dispositivos Plug and Play que tiene el ordenador.</p></li>
-</ul>
-</li>
-<li><p><strong>Búsquedas en el registro</strong></p>
-<blockquote>
-<div><p>HKEY correspondiente, y hacemos: Edición / Buscar</p>
-</div></blockquote>
-</li>
-<li><p><strong>Limpieza del registro</strong></p>
-<blockquote>
-<div><p>Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.</p>
-</div></blockquote>
-</li>
-<li><p><strong>Copia de seguridad del registro</strong>, es aconsejable realizarlos siempre antes que:</p>
-<ul class="simple">
-<li><p>Para realizar la copia: Archivo &gt; Exportar</p></li>
-<li><p>Para realizar la restaurar : Archivo &gt; Importar</p>
-<ul>
-<li><p>Copia parcial</p>
-<ul>
-<li><p>Seleccionamos la rama o la clave a guardar</p></li>
-<li><p>Pulsamos en: Registro /Exportar archivo de registro</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="comandos-panel-de-control">
-<h2>Comandos Panel de Control<a class="headerlink" href="#comandos-panel-de-control" title="Enlace permanente a este encabezado"></a></h2>
-<ul class="simple">
-<li><p><strong>ACCESS.CPL</strong>: abre las opciones de accesibilidad (únicamente para XP).</p></li>
-<li><p><strong>APPWIZ.CPL</strong>: abre Agregar o quitar programas.</p></li>
-<li><p><strong>AZMAN.MSC</strong>: abre el administrador de autorización (únicamente para Vista).</p></li>
-<li><p><strong>CERTMGR.MSC</strong>: abre los certificados para el usuario actual.</p></li>
-<li><p><strong>CLICONFG</strong>: abre la herramienta de configuración de cliente de red SQL.</p></li>
-<li><p><strong>COLLAB.CPL</strong>: abre la visualización instantánea (únicamente para Vista).</p></li>
-<li><p><strong>COMEXP.MSC o DCOMCNFG</strong>: abre los servicio de componentes (únicamente para Vista).</p></li>
-<li><p><strong>COMPMGMT.MSC</strong>: abre la administración de equipos.</p></li>
-<li><p><strong>COMPUTERDEFAULTS</strong>: abre la herramienta de programas predeterminados (únicamente para Vista).</p></li>
-<li><p><strong>CONTROL /NAME MICROSOFT.BACKUPANDRESTORECENTER</strong>: abre el centro de respaldo y recuperación (para Vista únicamente).</p></li>
-<li><p><strong>CONTROL ADMINTOOLS</strong>: abre las herramientas administrativas.</p></li>
-<li><p><strong>CONTROL COLOR</strong>: abre las propiedades de pantalla.</p></li>
-<li><p><strong>CONTROL FOLDERS</strong>: abre las opciones de carpeta.</p></li>
-<li><p><strong>CONTROL FONTS</strong>: abre las fuentes.</p></li>
-<li><p><strong>CONTROL INTERNATIONAL o INTL.CPL</strong>: abre la configuración regional y de idioma.</p></li>
-<li><p><strong>CONTROL KEYBOARD</strong>: abre las propiedades del teclado.</p></li>
-<li><p><strong>CONTROL MOUSE o MAIN.CPL</strong>: abre las propiedades del mouse.</p></li>
-<li><p><strong>CONTROL PRINTERS</strong>: impresoras y faxes disponibles.</p></li>
-<li><p><strong>CONTROL USERPASSWORDS</strong>: abre las cuentas de usuario.</p></li>
-<li><p><strong>CONTROL USERPASSWORDS2 o NETPLWIZ</strong>: administración de usuarios y su acceso.</p></li>
-<li><p><strong>CONTROL</strong>: abre el Panel de control.</p></li>
-<li><p><strong>CREDWIZ</strong>: abre la ventana para hacer copias de seguridad y restaurar contraseñas de usuarios (únicamente para Vista).</p></li>
-<li><p><strong>DESK.CPL</strong>: abre las propiedades de pantalla.</p></li>
-<li><p><strong>DEVMGMT.MSC</strong>: abre el Administrador de dispositivos.</p></li>
-<li><p><strong>DRWTSN32</strong>: abre Dr. Watson (para XP únicamente).</p></li>
-<li><p><strong>DXDIAG</strong>: abre la herramienta de diagnóstico de DirectX.</p></li>
-<li><p><strong>EVENTVWR o EVENTVWR.MSC</strong>: abre el Visor de sucesos.</p></li>
-<li><p><strong>FSMGMT.MSC</strong>: abre las carpetas compartidas.</p></li>
-<li><p><strong>GPEDIT.MSC</strong>: abre el editor de directiva de grupo (para las ediciones profesionales y más de Windows).</p></li>
-<li><p><strong>HDWWIZ.CPL</strong>: abre el asistente para agregar hardware.</p></li>
-<li><p><strong>INFOCARDCPL.CPL</strong>: abre el asistente de compatibilidad de programas.</p></li>
-<li><p><strong>IRPROPS.CPL</strong>: abre la utilidad de infrarrojos.</p></li>
-<li><p><strong>ISCSICPL</strong>: abre la herramienta de configuración del iniciador ISCI Microsoft (únicamente para Vista).</p></li>
-<li><p><strong>JOY.CPL</strong>: abre el dispositivo de juegos.</p></li>
-<li><p><strong>LPKSETUP</strong>: abre el asistente de instalación y desinstalación de idiomas (únicamente para Vista).</p></li>
-<li><p><strong>LUSRMGR.MSC</strong>: abre el editor de usuarios locales y grupos.</p></li>
-<li><p><strong>MDSCHED</strong>: abre la herramienta de diagnóstico de la memoria (únicamente para Vista).</p></li>
-<li><p><strong>MMC</strong>: abre una nueva consola vacía.</p></li>
-<li><p><strong>MMSYS.CPL</strong>: abre las propiedades de dispositivos de sonido y audio.</p></li>
-<li><p><strong>MOBSYNC</strong>: abre elementos para sincronizar.</p></li>
-<li><p><strong>MSCONFIG</strong>: abre la utilidad de configuración del sistema.</p></li>
-<li><p><strong>NAPCLCFG.MSC</strong>: abre la herramienta de configuración del cliente NAP (únicamente para Vista).</p></li>
-<li><p><strong>NTMSMGR.MSC</strong>: abre el administrador de medios de almacenamiento extraíbles.</p></li>
-<li><p><strong>NTMSOPRQ.MSC</strong>: abre las solicitudes del operador de medios de almacenamiento extraíbles.</p></li>
-<li><p><strong>ODBCAD32</strong>: abre el administrador de orígenes de datos ODBC.</p></li>
-<li><p><strong>OPTIONALFEATURES</strong>: abre la herramienta Agregar o quitar componentes Windows (únicamente para Vista).</p></li>
-<li><p><strong>PERFMON o PERFMON.MSC</strong>: abre el monitor de rendimiento de Windows.</p></li>
-<li><p><strong>POWERCFG.CPL</strong>: abre el administrador de opciones de energía.</p></li>
-<li><p><strong>REGEDIT o REGEDT32</strong> (únicamente para Vista): abre el editor del registro.</p></li>
-<li><p><strong>REKEYWIZ</strong>: abre el administrador de certificados de cifrado de archivos (únicamente para Vista).</p></li>
-<li><p><strong>RSOP.MSC</strong>: abre el conjunto resultante de directivas.</p></li>
-<li><p><strong>SECPOL.MSC</strong>: abre la configuración de seguridad local.</p></li>
-<li><p><strong>SERVICES.MSC</strong>: abre el administrador de servicios.</p></li>
-<li><p><strong>SLUI</strong>: abre el asistente de activación de Windows (únicamente para Vista).</p></li>
-<li><p><strong>SYSDM.CPL</strong>: abre las propiedades del sistema.</p></li>
-<li><p><strong>SYSEDIT</strong>: abre el editor de configuración del sistema (atención, manipular con prudencia).</p></li>
-<li><p><strong>SYSKEY</strong>: abre la herramienta de protección de la base de datos de cuentas de Windows (atención, manipular con mucha prudencia).</p></li>
-<li><p><strong>TABLETPC.CPL</strong>: abre la configuración para Tablet PC (únicamente para Vista).</p></li>
-<li><p><strong>TASKSCHD.MSC o CONTROL SCHEDTASKS</strong>: abre el planificador de tareas (únicamente para Vista).</p></li>
-<li><p><strong>TELEPHON.CPL</strong>: abre la herramienta de información de la ubicación.</p></li>
-<li><p><strong>TIMEDATE.CPL</strong>: abre las propiedades de fecha y hora.</p></li>
-<li><p><strong>TPM.MSC</strong>: abre la herramienta gestión de módulo de plataforma protegida en el equipo local (únicamente para Vista).</p></li>
-<li><p><strong>UTILMAN</strong>: abre el administrador de utilidades.</p></li>
-<li><p><strong>VERIFIER</strong>: abre el administrador del comprobador de controlador.</p></li>
-<li><p><strong>WMIMGMT.MSC</strong>: abre el instrumental de administración de Windows.</p></li>
-<li><p><strong>WSCUI.CPL</strong>: abre el centro de seguridad de Windows.</p></li>
-<li><p><strong>WUAUCPL.CPL</strong>: abre el servicio de actualizaciones automáticas de Windows (únicamente para XP).</p></li>
-</ul>
-</section>
-</section>
-<section id="historia-de-windows">
-<h1>Historia de Windows<a class="headerlink" href="#historia-de-windows" title="Enlace permanente a este encabezado"></a></h1>
-<img alt="so/imagenes/versiones.png" src="so/imagenes/versiones.png" />
-<p>La primera versión de Microsoft Windows, versión 1.0, presentada en diciembre de 1985, compitió con el sistema operativo de Apple. Carecía de un cierto grado de funcionalidad y logró muy poca popularidad. Windows 1.0 no era un sistema operativo completo; más bien era una extensión gráfica de MS-DOS.</p>
-<img alt="so/imagenes/msdos.png" src="so/imagenes/msdos.png" />
-<p>Windows versión 2.0 fue lanzado en noviembre de 1987 y fue un poco más popular que su predecesor. Windows 2.03 (lanzado en enero de 1988) incluyó por primera vez ventanas que podían solaparse unas a otras. El resultado de este cambio llevó a Apple a presentar una demanda contra Microsoft, debido a que infringían derechos de autor.</p>
-<p>Windows 2.0 El primer panel de control</p>
-<img alt="so/imagenes/windows2.png" src="so/imagenes/windows2.png" />
-<p>Windows versión 3.0, lanzado en 1990, fue la primera versión de Microsoft Windows que consiguió un amplio éxito comercial, vendiendo 2 millones de copias en los primeros seis meses. Presentaba mejoras en la interfaz de usuario y en la multitarea. Recibió un lavado de cara en Windows 3.1, que se hizo disponible para el público en general el 1 de marzo de 1992. El soporte de Windows 3.1 terminó el 31 de diciembre de 2001.</p>
-<p>1990 Windows 3.0</p>
-<img alt="so/imagenes/windows3.png" src="so/imagenes/windows3.png" />
-<p>El 24 de agosto de 1995, Microsoft lanzó Windows 95, acompañado por una extensa y millonaria campaña de marketing, Windows 95 fue un gran éxito en el mercado en el momento de su lanzamiento y en breve se convirtió en el sistema operativo de Escritorio más populares.</p>
-<p>1995 Windows 95</p>
-<img alt="so/imagenes/windows95.png" src="so/imagenes/windows95.png" />
-<p>El siguiente para la línea del usuario fue lanzado el 25 de junio de 1998, Microsoft Windows 98. Sustancialmente fue criticado por su lentitud y por su falta de fiabilidad en comparación con Windows 95, pero muchos de sus problemas básicos fueron posteriormente rectificados con el lanzamiento de Windows 98 Second Edition en 1999. El soporte estándar para Windows 98 terminó el 30 de junio de 2002, y el soporte ampliado para Windows 98 terminó el 11 de julio de 2006.</p>
-<p>1998 Windows 98</p>
-<img alt="so/imagenes/windows98.png" src="so/imagenes/windows98.png" />
-<p>Como parte de su línea «profesional», Microsoft lanzó Windows 2000 en febrero de 2000. La versión de consumidor tras Windows 98 fue Windows Me (Windows Millennium Edition). Lanzado en septiembre de 2000, Windows Me implementaba una serie de nuevas tecnologías para Microsoft: en particular fue el «Universal Plug and Play».</p>
-<p>En octubre de 2001, Microsoft lanzó Windows XP, una versión que se construyó en el kernel de Windows NT que también conserva la usabilidad orientada al consumidor de Windows 95 y sus sucesores. En dos ediciones distintas, «Home» y «Professional», el primero carece en gran medida de la seguridad y características de red de la edición Professional. Además, la primera edición «Media Center» fue lanzada en 2002, con énfasis en el apoyo a la funcionalidad de DVD y TV, por lo que incluía grabación de TV y un control remoto. A principios de la década de los 2000, Windows se empezaba a posicionar cómo el innovador en el mercado, pero su posición fue en declive.</p>
-<p>2001 WIndows XP</p>
-<img alt="so/imagenes/windows2000.png" src="so/imagenes/windows2000.png" />
-<p>El 30 de enero de 2007, Microsoft lanzó Windows Vista. Contiene un sinnúmero de características nuevas, a partir de un shell rediseñado, y la interfaz de usuario ofrece importantes cambios técnicos de envergadura, con especial atención a las características de seguridad. Está disponible en seis ediciones diferentes.</p>
-<p>2001 hasta el 2007 Windows Vista</p>
-<img alt="so/imagenes/windows2007.png" src="so/imagenes/windows2007.png" />
-<p>El 22 de octubre de 2009, Microsoft lanzó Windows 7. A diferencia de su predecesor, Windows Vista, que introdujo a un gran número de nuevas características, Windows 7 pretendía ser una actualización incremental, enfocada a la línea de Windows, con el objetivo de ser compatible con aplicaciones y hardware con los que Windows Vista no era compatible. Windows 7 tiene soporte multi-touch, un Windows shell rediseñado con una nueva barra de tareas, conocido como Superbar, un sistema red llamado HomeGroup, y mejoras en el rendimiento sobre todo en velocidad y en menor consumo de recursos.</p>
-<p>2009 Windows 7.</p>
-<img alt="so/imagenes/windows7.png" src="so/imagenes/windows7.png" />
-<p>El 26 de octubre de 2012, Microsoft lanzó Windows 8. El mayor cambio introducido es el reemplazo del Menú Inicio por una pantalla de Inicio de tamaño completo, la cual incluye nuevas aplicaciones. Su uso está enfatizado para dispositivos con pantallas táctiles, aunque puede ser utilizado con ratón y teclado. Por primera vez desde Windows 95, el botón de Inicio desaparece de la barra de tareas. El escritorio presenta una nueva interfaz y el explorador de Windows incluye la apariencia «Ribbon» de Microsoft Office. Una actualización masiva del sistema, Windows 8.1, fue lanzada el 17 de octubre de 2013 con nuevas mejoras de personalización, rendimiento y un botón para la pantalla de inicio, cuya ausencia en Windows 8 fue criticada.</p>
-<img alt="so/imagenes/windows12.png" src="so/imagenes/windows12.png" />
-<p>El 29 de julio de 2015, Microsoft lanzó Windows 10. Presenta un conjunto de aplicaciones y una interfaz que permite utilizarse en computadoras personales y dispositivos móviles. Visualmente es parecido a su predecesor, sin embargo, el Menú Inicio regresa en esta versión. Windows 10 introduce un nuevo navegador: Microsoft Edge, y un asistente de voz personal: Cortana. Se trata de un sistema que a diferencia de sus predecesores, lanzará actualizaciones masivas periódicamente para convertirse en un sistema de servicio. Hasta el 29 de julio de 2016, Microsoft ofreció gratuitamente una actualización a Windows 10 desde una PC con Windows 7 o Windows 8.1.</p>
-<p>2015 Windows 10</p>
-<img alt="so/imagenes/windows15.png" src="so/imagenes/windows15.png" />
-</section>
-<section id="powershell-scripting">
-<h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Enlace permanente a este encabezado"></a></h1>
-<p>Habilitar ejecución de scripts : <strong>Set-ExecutionPolicy Unrestricted</strong></p>
-<section id="variables-y-cadenas">
-<h2>Variables y cadenas<a class="headerlink" href="#variables-y-cadenas" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">5</span>
-<span class="nb">echo </span><span class="n">a</span> <span class="c">#obtenemos a</span>
-<span class="nb">echo </span><span class="nv">$a</span> <span class="c">#obtenemos 5</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">2</span>
-<span class="nv">$b</span><span class="p">=</span><span class="n">3</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$b</span><span class="p">+</span><span class="nv">$a</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#obtenemos 5</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;cadena&quot;</span>
-<span class="nb">echo </span><span class="nv">$a</span> <span class="c">#cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;CC&quot;</span><span class="p">)</span> <span class="c">#CCdena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-<span class="c">#c</span>
-<span class="c">#den</span>
-<span class="c">#</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="n">0</span><span class="p">]</span>
-<span class="c">#c</span>
-<span class="nb">echo </span><span class="nv">$a</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>      <span class="c">#dena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>         <span class="c">#ca</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>       <span class="c">#True</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>        <span class="c">#1</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;Ca&quot;</span><span class="p">)</span>  <span class="c">#Cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s2">&quot;cadena&quot;</span><span class="p">)</span>    <span class="c">#True</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Length</span>              <span class="c">#6</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;an&quot;</span><span class="p">)</span>      <span class="c">#False</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span>           <span class="c">#cadena</span>
-<span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span>           <span class="c">#CADENA</span>
-<span class="c">#....</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Random</span> <span class="c"># numero aletorio</span>
-<span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">10</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="no">[Convert]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$decimal</span><span class="p">,</span> <span class="n">2</span><span class="p">)</span> <span class="c">#pasar a binario</span>
-<span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;$pwd&quot;</span> <span class="c">#obtenemos la salida del comando pwd, no es lo mismo que $a=$(pwd)</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="nv">$a</span>
-<span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;notepad&quot;</span>
-<span class="p">&amp;</span><span class="nv">$a</span> <span class="c"># &amp; Permiten ejecutar un texto como si fuese un comando</span>
-</pre></div>
-</div>
-</section>
-<section id="operadores">
-<h2>Operadores<a class="headerlink" href="#operadores" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">11</span>
-<span class="nv">$b</span><span class="p">=</span><span class="n">5</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">-</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c"># 6 resta</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">+</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#16 suma</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#55 multiplicación</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">/</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#2,2 división</span>
-<span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">%</span><span class="nv">$b</span>
-<span class="nb">echo </span><span class="nv">$c</span> <span class="c">#1 resto o modulo</span>
-</pre></div>
-</div>
-</section>
-<section id="operadores-de-asignacion">
-<h2>Operadores de asignación<a class="headerlink" href="#operadores-de-asignacion" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$a</span><span class="p">=</span><span class="n">6</span>
-<span class="nv">$a</span><span class="p">+=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 8, es lo mismo que $a=$a+2</span>
-<span class="nv">$a</span><span class="p">-=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 6, es lo mismo que $a=$a-2</span>
-<span class="nv">$a</span><span class="p">++</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 7, es lo mismo que $a=$a+1</span>
-<span class="nv">$a</span><span class="p">--</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 6, es lo mismo que $a=$a-1</span>
-<span class="nv">$a</span><span class="p">/=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 3, es lo mismo que $a=$a/2</span>
-<span class="nv">$a</span><span class="p">*=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 9, es lo mismo que $a=$a*3</span>
-<span class="nv">$a</span><span class="p">%=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="c"># 0, es lo mismo que $a=$a%3</span>
-</pre></div>
-</div>
-</section>
-<section id="argumentos-de-entrada">
-<h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;dame un entero&quot;</span>  <span class="c">#ponemos &quot; para que aparezca en la misma linea</span>
-<span class="nv">$Name</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="c">#lo interpreta como cadenas</span>
-<span class="c">#si queremos pasar Name a un entero:</span>
-<span class="nv">$a</span> <span class="p">=</span> <span class="nv">$Name</span> <span class="o">-as</span> <span class="no">[int]</span>
-<span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$Name</span><span class="p">=</span><span class="nb">Read-Host</span>
-<span class="n">2</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nb">echo </span><span class="p">$(</span><span class="nv">$Name</span><span class="p">*</span><span class="nv">$Name</span><span class="p">)</span>
-<span class="n">22</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="nb">echo </span><span class="p">$(</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$a</span><span class="p">)</span>
-<span class="n">4</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
-<span class="nb">echo </span><span class="s2">&quot;tenemos $args parámetros de entrada&quot;</span>
-<span class="nb">echo </span><span class="s2">&quot;El argumento 0: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&quot;</span>
-<span class="nb">echo </span><span class="s2">&quot;El argumento 1: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">&quot;</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span>
-<span class="n">tenemos</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span> <span class="n">parámetros</span> <span class="n">de</span> <span class="n">entrada</span>
-<span class="n">El</span> <span class="n">argumento</span> <span class="n">0</span><span class="p">:</span> <span class="n">1</span>
-<span class="n">El</span> <span class="n">argumento</span> <span class="n">1</span><span class="p">:</span> <span class="n">2</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nv">$args</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="nb">echo </span><span class="nv">$i</span>
-<span class="p">}</span>
-<span class="n">PS</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
-<span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
-</pre></div>
-</div>
-</section>
-<section id="evaluacion-de-condiciones">
-<h2>Evaluación de condiciones<a class="headerlink" href="#evaluacion-de-condiciones" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">7</span> <span class="o">-eq</span> <span class="n">7</span> <span class="c">#True</span>
-<span class="n">7</span> <span class="o">-eq</span> <span class="n">8</span> <span class="c">#False</span>
-<span class="n">3</span> <span class="o">-gt</span> <span class="n">2</span> <span class="c">#True</span>
-</pre></div>
-</div>
-</section>
-<section id="operadores-logicos">
-<h2>Operadores lógicos<a class="headerlink" href="#operadores-logicos" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
-<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
-<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-Or</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>    <span class="c">#True</span>
-<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="n">-Xor</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>   <span class="c">#True</span>
-<span class="o">-Not</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>             <span class="c">#True</span>
-</pre></div>
-</div>
-</section>
-<section id="comparacion-de-cadenas">
-<h2>Comparación de cadenas<a class="headerlink" href="#comparacion-de-cadenas" title="Enlace permanente a este encabezado"></a></h2>
-<blockquote>
-<div><p>«hola» -eq «hola»    #True
-«hola» -eq «hoa»     #False
-«hola» -ne «hoa»     #True
-«hola» -ne «hola»    #False</p>
-</div></blockquote>
-</section>
-<section id="estructuras-condicionales-con-if">
-<h2>Estructuras condicionales con if<a class="headerlink" href="#estructuras-condicionales-con-if" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero</span> <span class="p">=</span> <span class="p">-</span><span class="n">10</span>
-<span class="k">If</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nb">echo </span><span class="s2">&quot;$numero es mayor que 0&quot;</span>
-  <span class="p">}</span>
-<span class="k">If</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nb">echo </span><span class="s2">&quot;$numero es mayor que 0&quot;</span>
-  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-  <span class="nb">echo </span><span class="s2">&quot;$numero es negativo&quot;</span>
-  <span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="bucles-con-for">
-<h2>Bucles con for<a class="headerlink" href="#bucles-con-for" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
-  <span class="nb">echo </span><span class="nv">$i</span>
-  <span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="bucles-con-while">
-<h2>Bucles con While<a class="headerlink" href="#bucles-con-while" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span>
-<span class="k">While</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-le</span> <span class="n">10</span><span class="p">)</span> <span class="p">{</span>
-<span class="nb">echo </span><span class="nv">$i</span>
-<span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="bucles-con-until">
-<h2>Bucles con Until<a class="headerlink" href="#bucles-con-until" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span><span class="p">;</span>
-<span class="k">do</span> <span class="p">{</span>
-<span class="nb">echo </span><span class="nv">$i</span>
-<span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
-<span class="p">}</span>
-<span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-gt</span> <span class="n">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="bucles-con-foreach">
-<h2>Bucles con Foreach<a class="headerlink" href="#bucles-con-foreach" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$num</span> <span class="k">in</span> <span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s2">&quot;hola&quot;</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="n">5</span><span class="p">)</span> <span class="p">{</span>
-<span class="nb">echo </span><span class="nv">$num</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="archivos">
-<h2>Archivos<a class="headerlink" href="#archivos" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;usuario,grupo&quot;</span> <span class="p">&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">echo </span><span class="s2">&quot;user01,group01&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">echo </span><span class="s2">&quot;user02,group02&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">echo </span><span class="s2">&quot;user03,group03&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">echo </span><span class="s2">&quot;user04,group04&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">Test-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>  <span class="c">#True ver si existe</span>
-
-<span class="c">#Leer el archivo linea a linea</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nb">get-content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span><span class="p">){</span>
-  <span class="nb">echo </span><span class="nv">$i</span>
-  <span class="p">}</span>
-
-<span class="c">#Podemos importarlo desde un csv</span>
-<span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">echo </span><span class="nv">$A</span><span class="p">.</span><span class="n">usuario</span>
-
-<span class="c">#Podemos recorrer los valores</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span>  <span class="nv">$A</span><span class="p">){</span>
-  <span class="nv">$u</span><span class="p">=</span><span class="nv">$i</span><span class="p">.</span><span class="n">usuario</span> <span class="p">;</span> <span class="nb">echo </span><span class="s2">&quot;usuario = $u&quot;</span>
-  <span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="funciones">
-<h2>Funciones<a class="headerlink" href="#funciones" title="Enlace permanente a este encabezado"></a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="n">foo</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">)</span> <span class="p">{</span>
-  <span class="s2">&quot;a: $a; b: $b; c: $c&quot;</span>
-  <span class="p">}</span>
-<span class="n">foo</span> <span class="n">1</span> <span class="n">3</span> <span class="n">5</span>
-<span class="c"># a: 1; b: 3; c: 5</span>
-</pre></div>
-</div>
-</section>
-<section id="windows-powershell-ise">
-<h2>Windows PowerShell ISE<a class="headerlink" href="#windows-powershell-ise" title="Enlace permanente a este encabezado"></a></h2>
-<img alt="so/imagenes/powersheelISE.png" src="so/imagenes/powersheelISE.png" />
-<img alt="so/imagenes/powersheelISE1.png" src="so/imagenes/powersheelISE1.png" />
-<img alt="so/imagenes/powersheelISE2.png" src="so/imagenes/powersheelISE2.png" />
-<div class="toctree-wrapper compound">
-</div>
-</section>
-</section>
-<section id="windows">
-<h1>Windows<a class="headerlink" href="#windows" title="Enlace permanente a este encabezado"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="#historia-de-windows"><span class="std std-ref">Historia de Windows</span></a></p></li>
-<li><p><a class="reference internal" href="#configuracion-windows"><span class="std std-ref">Configuración Windows</span></a></p></li>
-<li><p><a class="reference internal" href="#usuarios-y-grupos-windows"><span class="std std-ref">Usuarios y grupos Windows</span></a></p></li>
-<li><p><a class="reference internal" href="#arranque-de-windows"><span class="std std-ref">Arranque de Windows</span></a></p></li>
-<li><p><a class="reference internal" href="#comandos-ms-dos"><span class="std std-ref">Comandos ms-dos</span></a></p></li>
-<li><p><a class="reference internal" href="#scripting-bat"><span class="std std-ref">Scripting .bat</span></a></p></li>
-<li><p><a class="reference internal" href="#powershell"><span class="std std-ref">PowerShell</span></a></p></li>
-<li><p><a class="reference internal" href="#powershell-scripting"><span class="std std-ref">PowerShell Scripting</span></a></p></li>
-</ul>
-</section>
-<section id="usuarios-y-grupos-windows">
-<h1>Usuarios y grupos Windows<a class="headerlink" href="#usuarios-y-grupos-windows" title="Enlace permanente a este encabezado"></a></h1>
-<section id="cuenta-de-usuario">
-<h2>Cuenta de usuario<a class="headerlink" href="#cuenta-de-usuario" title="Enlace permanente a este encabezado"></a></h2>
-<p>Una cuenta de usuario se utiliza para:</p>
-<ul class="simple">
-<li><p>Autentificar la identidad del usuario</p></li>
-<li><p>Autorizar o denegar el acceso a los recursos</p></li>
-<li><p>Administrar la seguridad</p></li>
-<li><p>Auditar las acciones realizadas con la cuenta</p></li>
-</ul>
-<p>Hay dos cuentas predefinidas: <strong>Administrador e invitado</strong></p>
-<p>Un usuario local es una cuenta a la que se pueden conceder permisos y derechos para el equipo donde se está creando la cuenta</p>
-</section>
-<section id="grupos">
-<h2>Grupos<a class="headerlink" href="#grupos" title="Enlace permanente a este encabezado"></a></h2>
-<p>Se utilizan para poder asignar privilegios comunes a varios usuarios o equipos
-Hace más sencilla la administración</p>
-<p>Un usuario puede pertenecer a varios grupos y tener los permisos asignados a cada uno de ellos</p>
-<p>Hay ciertos grupos que se crean durante la instalación del sistema. Son las Identidades especiales</p>
-<p>Ejecutamos el comando <strong>lusrmgr.msc</strong></p>
-<img alt="so/imagenes/lusrmgr.png" src="so/imagenes/lusrmgr.png" />
-</section>
-<section id="un-grupo-local">
-<h2>Un grupo local<a class="headerlink" href="#un-grupo-local" title="Enlace permanente a este encabezado"></a></h2>
-<p>Un grupo local es una cuenta a la que se pueden conceder permisos y derechos para el equipo donde se ha creado</p>
-</section>
-<section id="perfiles-de-usuario">
-<h2>Perfiles de usuario<a class="headerlink" href="#perfiles-de-usuario" title="Enlace permanente a este encabezado"></a></h2>
-<p>Permite definir el entorno de trabajo de los usuarios en red
-El perfil local sólo es accesible desde el equipo donde se ha creado
-Un perfil temporal se crea cuando se produce un error en la carga del perfil de usuario, y se elimina al final de la sesión
-Se accede mediante la ficha Perfil de la pantalla de Propiedades del usuario:</p>
-<img alt="so/imagenes/perfil_usuario_windows.png" src="so/imagenes/perfil_usuario_windows.png" />
-<ul class="simple">
-<li><p>Un perfil de usuario permite asignar scripts de inicio de sesión y rutas de acceso locales</p></li>
-<li><p>Un script de inicio de sesión es un archivo con extensión .bat que contiene una secuencia de comandos que se ejecuta automáticamente cuando el usuario inicia una sesión.</p></li>
-<li><p>Una ruta de acceso local es una ruta a un directorio local privado del usuario.</p></li>
-<li><p>Es el directorio predeterminado en Símbolo de Sistema</p></li>
-</ul>
-</section>
-</section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="../redes/redes.html" class="btn btn-neutral float-left" title="Redes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
     </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Derechos de autor 2023, dgtrabada.</p>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+  <div id="rtd-footer-container"></div>
 
-  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
-    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
-   
 
-</footer>
-        </div>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-</body>
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/so/index.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Sistema Operativo</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="sistema-operativo">
+<h1>Sistema Operativo<a class="headerlink" href="#sistema-operativo" title="Enlace permanente a este encabezado">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="../teoria/medida_representacion_informacion.html#medida-y-representacion-de-la-informacion"><span class="std std-ref">Medida y representación de la información</span></a></p></li>
+<li><p><a class="reference internal" href="fundamentos/index.html#fundamentos-de-sistemas-operaticos"><span class="std std-ref">Fundamentos de Sistemas Operaticos</span></a></p></li>
+<li><p><a class="reference internal" href="maquinas_virtuales.html#maquinas-virtuales"><span class="std std-ref">Maquinas Virtuales</span></a></p></li>
+<li><p><a class="reference internal" href="particiones.html#particiones"><span class="std std-ref">Particiones</span></a></p></li>
+<li><p><a class="reference internal" href="GNULinux/GNULinux.html#gnu-linux"><span class="std std-ref">GNU/Linux</span></a></p></li>
+<li><p><a class="reference internal" href="windows/windows.html#windows"><span class="std std-ref">Windows</span></a></p></li>
+</ul>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../hardware/index.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Hardware</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../redes/index.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Redes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, dgtrabada.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

@@ -36,6 +36,12 @@ Cada vez que cambiemos el archivo **/etc/exports** tendremos que reiniciar el se
 
  systemctl restart nfs-kernel-server.service
  
+Una forma abreviada de incluir más nodos sería:
+ 
+.. code-block:: bash
+
+ /home/tunombre1 172.16.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+ 
 Cliente NFS
 ***********
 

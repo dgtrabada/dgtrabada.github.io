@@ -11,37 +11,37 @@ Uno de los propósitos del sistema operativo que gestiona el núcleo intermediar
 Funciones del sistema operativo
 ===============================
 
-Gestión de procesos
+1. Gestión de procesos
 -------------------
 
 La creación y eliminación de procesos tanto del usuario como del Sistema Operativo. La planificación de los procesos. La provisión de mecanismos para sincronización, comunicación y manejo de bloqueos mutuos.
 
-Gestión de la memoria principal
+2. Gestión de la memoria principal
 -------------------
 
 Esta memoria consiste en un almacén de datos que es compartido por la CPU y las aplicaciones.
   
-Gestión de memoria
+3. Gestión de memoria
 -------------------
 
 La gestión de memoria o administración de memoria es el acto de gestionar la memoria de un dispositivo informático. El proceso de asignación de memoria a los programas que la solicitan.​ La gestión de la memoria principal de una computadora es una tarea de suma importancia para el funcionamiento de la misma
 
-Gestión del sistema de archivos
+4. Gestión del sistema de archivos
 -------------------
 
 Los archivos son formatos creados por el usuario en el ordenador, los cuales se convierten en tablas que se deben registrar en el sistema si se quieren conservar y volver a usar en un futuro.
 
-Gestión arranque
+5. Gestión arranque
 -------------------
 
 Un gestor de arranque es un programa que permite elegir el siguiente código a ejecutar en el proceso de arranque, tradicionalmente a través de un menú.​​ Habitualmente el gestor de arranque forma parte del cargador de arranque como por ejemplo en GRUB, GRUB 2, LILO o SYSLINUX
   
-Gestión del sistema de entrada y salida
+6. Gestión del sistema de entrada y salida
 -------------------
 
 Se encarga de gestionar los puertos de entrada y salida del ordenador. Estos puertos son todos los periféricos que se pueden conectar a la torre del ordenador, como pueden ser el monitor, el ratón, la impresora, los auriculares, un pen-drive...
 
-Administración de usuarios
+7. Administración de usuarios
 -------------------
 
 El sistema operativo también se encarga de la gestión de los perfiles que se hayan creado y almacenado en el ordenador, pudiendo ser esta administración tipo monousuario o multiusuario.

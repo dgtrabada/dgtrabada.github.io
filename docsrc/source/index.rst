@@ -10,6 +10,6 @@
    :maxdepth: 3
    :caption: Apuntes:
    
-   hardware/hardware
-   so/so
-   redes/redes
+   hardware/index
+   so/index
+   redes/index

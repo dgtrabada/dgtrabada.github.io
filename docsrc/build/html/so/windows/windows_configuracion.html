@@ -122,9 +122,9 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../hardware/hardware.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../so.html">Sistema Operativo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../redes/redes.html">Redes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
 </ul>
 
     </div>
@@ -391,12 +391,17 @@ document.write(`
 <p>El registro de Windows es una base de datos dónde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura esta formada en forma de carpetas:</p>
 <p><strong>Inicio /Ejecutar/RegEdit</strong></p>
 <img alt="../../_images/registro_windows.png" src="../../_images/registro_windows.png" />
-<p>HKEY = HomeKey = Clave</p>
 <ul>
+<li><p>Estructura del registro (Jerarquía de carpetas)</p>
+<ul class="simple">
+<li><p>HKE/Claves/Subclaves</p></li>
+<li><p>HKEY = HomeKey = Clave</p></li>
+</ul>
+</li>
 <li><p>Tipos:</p>
 <ul class="simple">
-<li><p><strong>CONSTANTES</strong>: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….</p></li>
-<li><p><strong>DINÁMICAS</strong>: Se vuelven a crear cuando se incia Windows.</p></li>
+<li><p>CONSTANTES: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….</p></li>
+<li><p>DINÁMICAS: Se vuelven a crear cuando se incia Windows.</p></li>
 </ul>
 </li>
 <li><p><strong>HKEYS’S</strong></p>
@@ -415,28 +420,27 @@ document.write(`
 </ul>
 </li>
 <li><p><strong>Búsquedas en el registro</strong></p>
-<blockquote>
-<div><p>HKEY correspondiente, y hacemos: Edición / Buscar</p>
-</div></blockquote>
+<p>HKEY correspondiente, y hacemos: Edición / Buscar</p>
 </li>
 <li><p><strong>Limpieza del registro</strong></p>
-<blockquote>
-<div><p>Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.</p>
-</div></blockquote>
+<p>Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.</p>
 </li>
-<li><p><strong>Copia de seguridad del registro</strong>, es aconsejable realizarlos siempre antes que:</p>
+<li><p><strong>Copia de seguridad del registro</strong>,</p>
+<p>Es aconsejable realizarlos siempre antes que:</p>
 <ul class="simple">
-<li><p>Para realizar la copia: Archivo &gt; Exportar</p></li>
-<li><p>Para realizar la restaurar : Archivo &gt; Importar</p>
-<ul>
-<li><p>Copia parcial</p>
-<ul>
+<li><p>Instalación de un nuevo programa.</p></li>
+<li><p>Desinstalación de un programa.</p></li>
+<li><p>Instalación de un nuevo periférico.</p></li>
+<li><p>Desinstalación de un periférico.</p></li>
+<li><p>Modificación o actualización del sistema.</p></li>
+<li><p>Siempre que el usuario lo estime oportuno.</p></li>
+</ul>
+<p>Para realizar la copia: Archivo &gt; Exportar</p>
+<p>Para realizar la restaurar : Archivo &gt; Importar</p>
+<p>Para hacer una copia parcial</p>
+<ul class="simple">
 <li><p>Seleccionamos la rama o la clave a guardar</p></li>
 <li><p>Pulsamos en: Registro /Exportar archivo de registro</p></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

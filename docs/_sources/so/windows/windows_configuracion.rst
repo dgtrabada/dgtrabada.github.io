@@ -153,13 +153,15 @@ El registro de Windows es una base de datos dónde aplicaciones y controladores 
 
 .. image:: imagenes/registro_windows.png
 
-HKEY = HomeKey = Clave
- 
+* Estructura del registro (Jerarquía de carpetas)
+
+  * HKE/Claves/Subclaves
+  * HKEY = HomeKey = Clave
+
 * Tipos:
 
-  * **CONSTANTES**: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….
-  
-  * **DINÁMICAS**: Se vuelven a crear cuando se incia Windows.
+  * CONSTANTES: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….
+  * DINÁMICAS: Se vuelven a crear cuando se incia Windows.
     
 * **HKEYS’S**
 
@@ -181,22 +183,32 @@ HKEY = HomeKey = Clave
   
 * **Búsquedas en el registro**
 
-    HKEY correspondiente, y hacemos: Edición / Buscar
+  HKEY correspondiente, y hacemos: Edición / Buscar
 
 * **Limpieza del registro**
     
-    Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.
+  Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.
     
-* **Copia de seguridad del registro**, es aconsejable realizarlos siempre antes que:
-     
-  * Para realizar la copia: Archivo > Exportar
+* **Copia de seguridad del registro**, 
+
+  Es aconsejable realizarlos siempre antes que:   
   
-  * Para realizar la restaurar : Archivo > Importar
+  * Instalación de un nuevo programa.
+  * Desinstalación de un programa.
+  * Instalación de un nuevo periférico.
+  * Desinstalación de un periférico.
+  * Modificación o actualización del sistema.
+  * Siempre que el usuario lo estime oportuno.
   
-    * Copia parcial
-    
-      * Seleccionamos la rama o la clave a guardar
-      * Pulsamos en: Registro /Exportar archivo de registro
+  Para realizar la copia: Archivo > Exportar
+  
+  Para realizar la restaurar : Archivo > Importar
+  
+  Para hacer una copia parcial
+  
+  * Seleccionamos la rama o la clave a guardar
+  * Pulsamos en: Registro /Exportar archivo de registro
+
 
 Comandos Panel de Control
 =========================
