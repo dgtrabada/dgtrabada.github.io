@@ -10,6 +10,7 @@
    :maxdepth: 3
    :caption: Apuntes:
    
+   historia/index
    hardware/index
    so/index
    redes/index
