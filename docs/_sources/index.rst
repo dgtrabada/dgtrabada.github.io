@@ -15,3 +15,4 @@
    hardware/index
    so/index
    redes/index
+   python/index
