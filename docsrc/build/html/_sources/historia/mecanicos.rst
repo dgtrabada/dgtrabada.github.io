@@ -8,7 +8,7 @@ Dispositivos mecánicos
 .. image:: mecanicos/abaco.png
    :width: 400
 
-Leonardo da Vinci (1452-1519)
+1452 - 1519 Leonardo da Vinci 
 =============================
 
 En el Renacimiento Leonardo da Vinci (1452-1519) diseño como debería ser una calculadora (una caja con siete ruedas similar al dispositivo cuenta kilómetros de un coche). Este invento como tantos otros del genial personaje, no se llegaron a materializar porque la tecnología de la época no disponía de los medios suficientes.
@@ -26,7 +26,7 @@ Soun Utilizadas para Calcular
 
 
 
-1622 Reglas de cálculo (William Oughtred)
+1622 Reglas de cálculo de William Oughtred
 =========================================
 
  Cálculo de logaritmos
@@ -34,7 +34,7 @@ Soun Utilizadas para Calcular
 .. image:: mecanicos/Oughtred.jpg
    :width: 400
 
-1642 Máquina de Pascal: Pascalina 
+1642 Pascalina, la máquina de Pascal 
 =================================
 
 Primera máquina capaz de sumar y restar
@@ -47,8 +47,6 @@ Primera máquina capaz de sumar y restar
 
 Las ruedas representaban el «sistema decimal de numeración». Cada rueda constaba de diez pasos, para lo cual estaba convenientemente marcada con números del 9 al 0. El número total de ruedas era ocho (seis ruedas para representar los números enteros y dos ruedas más, en el extremo izquierdo, para los decimales). Con esta disposición «se podían obtener números entre 0'01 y 999.999'99».
 Mediante una manivela se hacía girar las ruedas dentadas. Para sumar o restar no había más que accionar la manivela en el sentido apropiado, con lo que las ruedas corrían los pasos necesarios. Cuando una rueda estaba en el 9 y se sumaba 1, ésta avanzaba hasta la posición marcada por un cero. En este punto, un gancho hacía avanzar un paso a la rueda siguiente. De esta manera se realizaba la operación de adición.
-
-
 
 
 
@@ -67,7 +65,7 @@ Sumas, restas, multiplicaciones y divisiones
 Tarjetas perforadas controlan el telar
 
 .. image:: mecanicos/Jacquar.jpg
-   :width: 400
+   :width: 300
 .. image:: mecanicos/Jacquar2.jpg
    :width: 400
 
@@ -84,6 +82,7 @@ Primera calculadora producida en masa
 ============================================
 
 .. image:: mecanicos/Babbage1.jpg
+   :width: 400
 .. image:: mecanicos/Babbage3.png
 
 
@@ -137,7 +136,7 @@ La máquina analítica debía funcionar con un motor a vapor y habría tenido 30
 
 El lenguaje de programación que sería utilizado era similar a los actuales lenguajes ensambladores. Era posible realizar bucles y condicionales. Se utilizaban tres tipos diferentes de tarjetas perforadas: una para operaciones aritméticas, una para constantes numéricas y otra para operaciones de almacenamiento y recuperación de datos de la memoria, y la transferencia de datos entre la unidad aritmética y la memoria. Se disponía de tres lectores diferentes para los tres tipos de tarjetas.
 
-1852, Ada Lovelace
+1852 Ada Lovelace
 =====================
 
 Augusta Ada King, Condesa de Lovelace, nacida Augusta Ada Byron, (Londres, 10 de diciembre de 1815 - Londres, 27 de noviembre de 1852), conocida habitualmente como Ada Lovelace, fue una matemática y escritora británica conocida principalmente por su trabajo sobre la máquina calculadora mecánica de uso general de Charles Babbage, la Máquina analítica.

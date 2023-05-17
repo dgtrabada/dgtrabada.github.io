@@ -42,7 +42,7 @@
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../_static/translations.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/maquinas_virtuales';</script>
-    <link rel="icon" href="../_static/quevedo.png"/>
+    <link rel="icon" href="../_static/ico.png"/>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -121,8 +121,7 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
-<ul class="nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Sistema Operativo</a></li>
@@ -274,13 +273,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Maquinas Virtuales</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurtacion-sshd">Configurtación sshd</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -323,9 +317,8 @@ VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1
 VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>savestate
 </pre></div>
 </div>
-</section>
 <section id="caso-practico-mv-ubuntu-server-22-04">
-<h1>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h1>
+<h2>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial</p></li>
 <li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
@@ -338,28 +331,6 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 <li><p>Usuario: tunombre y utiliza de contraseña: alumno
 Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <strong>/etc/hostname</strong></p></li>
 </ul>
-<section id="configurtacion-sshd">
-<h2>Configurtación sshd<a class="headerlink" href="#configurtacion-sshd" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Si no lo has hecho durante la instalación instala el servidor de ssh en el servidor.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>openssh-server
-</pre></div>
-</div>
-<p>Para poder loguearse por ssh con el usuario root, primero tendremos que asignarle una contraseña, para ello ejecutamos los siguientes comandos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>su
-$<span class="w"> </span>passwd
-</pre></div>
-</div>
-<p>En el archivo <strong>/etc/ssh/sshd_config</strong> desomentar o incluir la linea : <strong>PermitRootLogin yes</strong></p>
-<p>En el caso de que tu maquina anfitriona sea <strong>Windows</strong>, pudes conectarte con MobaXterm, la primera vez te preguntara la contraseña.</p>
-<p>En el caso de que tu maquina anfitriona sea <strong>GNU/Linux</strong>, primero genera un par de claves rsa una privada y publica, para ello ejecuta el siguiente comando en tu home:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-keygen
-</pre></div>
-</div>
-<p>Puedes comprobar que se ha generado (ls .ssh/) tendrá que aparecer las dos claves (id_rsa  id_rsa.pub), lo siguiente será exportar la clave publica al cliente, para ello ejecutamos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ssh-copy-id<span class="w"> </span>roo@10.4.X.Y
-</pre></div>
-</div>
-<p>Conectate sin que te pida la contraseña.</p>
 </section>
 </section>
 
@@ -387,13 +358,8 @@ $<span class="w"> </span>passwd
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Maquinas Virtuales</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurtacion-sshd">Configurtación sshd</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

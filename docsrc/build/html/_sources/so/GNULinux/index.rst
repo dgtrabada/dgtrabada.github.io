@@ -6,8 +6,9 @@ GNU/Linux
 * :ref:`Comandos básicos GNU/Linux`
 * :ref:`Permisos en GNU/Linux`
 * :ref:`Usuarios y grupos GNU/Linux`
+* :ref:`SSH`
+* :ref:`Samba`
 * :ref:`Comandos avanzados`
-* :ref:`Shell Scripting`
 * :ref:`Automatización de tareas y servicios`
 * :ref:`NIS`
 * :ref:`NFS`
@@ -16,3 +17,4 @@ GNU/Linux
 * :ref:`Ansible`
 * :ref:`LDAP`
 * :ref:`Rocky Linux`
+* :ref:`Shell Scripting`

@@ -2,7 +2,7 @@
 Transición, la electricicidad
 *****************************
 
-1800 La primera pila, la de Volta
+1800 La primera pila, Volta
 =================================
 
 El italiano Alessandro Volta diseña la primera pila eléctrica de la historia colocando una solución salina entre discos de zinc y plata.
@@ -44,11 +44,13 @@ Matemático inglés, desarrolla la Teoría del Álgebra de Boole que permitió a
 
 Desarrollo una teoría matemática que permitió la representación de circuitos de conmutación “ teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
 
-Portada de The Mathematical Analysis of Logic, edición de 1847. En su portada incluye la frase de Aristóteles (Anal. post., lib. I, cap. XI) «Todas las ciencias se asocian con otras respecto a elementos comunes. (Y yo llamo común a todo aquello que utilizan en sus demostraciones, no a aquello que puede ser o no ser probado)».
- El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
- 
 .. image:: electricicidad/Boole.png  
    :width: 500
+   
+*Portada de The Mathematical Analysis of Logic, edición de 1847. En su portada incluye la frase de Aristóteles (Anal. post., lib. I, cap. XI) «Todas las ciencias se asocian con otras respecto a elementos comunes. (Y yo llamo común a todo aquello que utilizan en sus demostraciones, no a aquello que puede ser o no ser probado)».*
+
+El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
+ 
 .. image:: electricicidad/Boole1.png  
    :width: 500
 

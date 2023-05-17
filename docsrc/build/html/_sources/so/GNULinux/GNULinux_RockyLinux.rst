@@ -2,27 +2,31 @@
 Rocky Linux
 ***********
 
-* Instalación `Rocky Linux <https://rockylinux.org/>`_
+Caso práctico: Instalación de Rocky Linux
+*********************************
 
-  * Descargate la iso Minimal para la arquitectura X86_64
-  * Utiliza un disco de 200 GB y 2G de RAM
-  * Llama a esta maquina virtual **"MV Rocky Linux"**.
-  * Utilizad dos adaptadores de red:
-    * Tarjeta red modo "**Puente**" : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
-    * Tarjeta de red modo "**Red interna**" : 172.16.0.10/16
-  * En el destino de la instalación, selecciona el disco duro si no esta ya seleccionado y deja la configuración de almacenamiento de forma Automática
-  * Configura la red en (RED Y NOMBRE DE ANFITRIÓN), haz que el nombre del equipo sea **compute-0-0**
-  * Crea la contraseña de root
-  * Añade en /etc/hosts
+* Descargate la iso de `Rocky Linux <https://rockylinux.org/>`_ Minimal para la arquitectura X86_64
+* Utiliza un disco de 200 GB y 2G de RAM
+* Llama a esta maquina virtual **"MV Rocky Linux"**.
+* Utilizad dos adaptadores de red:
+  * Tarjeta red modo "**Puente**" : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
+  * Tarjeta de red modo "**Red interna**" : 172.16.0.10/16
+* En el destino de la instalación, selecciona el disco duro si no esta ya seleccionado y deja la configuración de almacenamiento de forma Automática
+* Configura la red en (RED Y NOMBRE DE ANFITRIÓN), haz que el nombre del equipo sea **compute-0-0**
+* Crea la contraseña de root
+* Añade en /etc/hosts
 
-    .. code-block:: bash
+  .. code-block:: bash
   
-     172.16.0.10 compute-0-0
-     172.16.0.11 compute-0-1
-     172.16.0.12 compute-0-2
-     172.16.0.13 compute-0-3
+   172.16.0.10 compute-0-0
+   172.16.0.11 compute-0-1
+   172.16.0.12 compute-0-2
+   172.16.0.13 compute-0-3
   
-    En el caso de que necesites reconfigurar la red utiliza el comando **nmtui**
+   En el caso de que necesites reconfigurar la red utiliza el comando **nmtui**
+
+Caso práctico: Cluster con red interna
+**************************
 
 * Crea dos clones enlazados de "MV Rocky Linux" llámalos "**compute-0-0**" y "**compute-0-1**"
 
@@ -50,7 +54,7 @@ Rocky Linux
 * Instala el servidor LDAP en compute-0-0
 
 Servidor Rocky Linux
-********************
+===================
 
 Vamos a instalar el servidor  ldap en compute-0-0:
 
@@ -219,7 +223,7 @@ Para añadir la información al ldap
 
  sudo ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f grupo.ldif
 
-Comprobamos y subimos un pantallazo al curso del siguiente comnado ejecutado en compute-0-0:
+Comprobamos ejecutado en compute-0-0:
 
 .. code-block:: bash
 
@@ -406,8 +410,7 @@ probamos:
  ldapsearch -x -ZZ
 
 Cliente Rocky Linux
-*******************
-
+==================
 
 .. code-block:: bash
 

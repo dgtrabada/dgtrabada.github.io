@@ -24,7 +24,7 @@ copyleft = '2023, dgtrabada'
 author = 'dgtrabada'
 html_title = 'dgtrabada'
 html_short_title = 'Apuntes'
-html_favicon="quevedo.png"
+html_favicon="ico.png"
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags

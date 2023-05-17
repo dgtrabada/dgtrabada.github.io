@@ -20,7 +20,7 @@ Conjunto de programas y rutinas que permiten a la computadora realizar determina
 
 .. image:: intro1.png
    :width: 500
-
+|
 .. image:: intro2.png
    :width: 500
 

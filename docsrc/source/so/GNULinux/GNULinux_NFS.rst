@@ -9,8 +9,8 @@ Actualmente, el protocolo NFS está incluido en la mayoría de las distribucione
 
 En los sistemas Microsoft, la situación es algo más confusa: Para las versiones 2000, 2003 y XP, había que descargar e instalar el paquete Windows Services for UNIX). En Windows 8 ya se incluye de fábrica, pero sólo en la versión Enterprise edition y, hasta el momento de escribir este documento, no existe forma de instalarlo en otras versiones más modestas. De hecho, los usuarios que actualizan desde las ediciones Windows 7 Ultimate o Windows 7 Enterprise a la edición Windows 8 Pro, no podrán seguir usando NFS.
 
-Servidor NFS (Ubuntu Server 22.04)
-**********************************
+Servidor NFS
+************
 
 Instalamos
 
@@ -76,15 +76,10 @@ Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs ut
 Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.
 
 
-Caso 1: Red interna con  NFS
+Caso práctico: NFS con red interna
 *****************************
 
-Vamos a utilizar el caso 2 que vimos en la NIS, es decir:
-
-* **compute-0-0** : servidor con dos tarjetas de red
-* **compute-0-1** : cliente con una tarjeta de red
-
-En ejercicio anterior marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado
+Partimos del :ref:`Caso práctico: NIS con red interna`, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado
 
 .. code-block:: bash
 
@@ -99,9 +94,9 @@ Borra los directorios de los usuarios que se hayan creado. Si nos conectamos aho
 
 Haz que el home del usuario1 situado en el servidor se exporte al cliente de forma permanente por medio de NFS
 
-Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiela (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh
+Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiala (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh sin que te pida la contraseña
 
-Caso 1: Red interna con NFS y autofs
+Caso práctico: NFS con red interna y autofs
 ************************************
 
 Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar al cliente **compute-0-1**:

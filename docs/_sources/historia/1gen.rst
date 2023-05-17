@@ -12,7 +12,7 @@ Los primeros ordenadores estaban construidos con tubos de vacío.
 
 En un principio no existían sistemas operativos, se programaba directamente sobre el hardware. Los programas estaban hechos directamente en código máquina y el control de las funciones básicas se realiza mediante paneles enchufables.
 
-En 1936, Alan M. Turing (1912-1954)
+1936 Alan M. Turing
 ===================================
 
 Alan Mathison Turing, fue un matemático, lógico, informático teórico, criptógrafo.
@@ -47,7 +47,7 @@ Durante la segunda guerra mundial, trabajó en descifrar los códigos nazis, par
 En el campo de la inteligencia artificial, es conocido sobre todo por la concepción de la prueba de Turing (1950), un criterio según el cual puede juzgarse la inteligencia de una máquina si sus respuestas en la prueba son indistinguibles de las de un ser humano.
 La carrera de Turing terminó súbitamente tras ser procesado por homosexualidad en 1952. Dos años después de su condena, murió.
 
-John von Neumann
+1939 John von Neumann
 ================
 
 Matemático de origen húngaro de nombre John von Neumann, apoyándose en los principios que marcó Alan Turing en la conocida como "máquina de Turing", desarrolló la Arquitectura de von Neumann, un modelo de computador que propició un gran salto en el desarrollo de los primeros computadores y que, además, hoy aún sigue vigente
@@ -57,8 +57,8 @@ El concepto más innovador de este modelo es que el programa y los datos que se 
 .. image:: 1gen/Neumann.png
    :width: 350
 
-En 1937 Howard H. Aiken (1900-1973).
-====================================
+En 1937 Howard H. Aiken
+====================
 
 Profesor de Hardvard, concibe un ordenador completamente automático, a base de relés y con entrada de datos e instrucciones mediante fichas perforadas,  Harvard Mark I
 

@@ -42,7 +42,7 @@
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../../_static/translations.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/GNULinux_NFS';</script>
-    <link rel="icon" href="../../_static/quevedo.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -121,8 +121,7 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
-<ul class="nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Sistema Operativo</a></li>
@@ -274,11 +273,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs-ubuntu-server-22-04">Servidor NFS (Ubuntu Server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs">Servidor NFS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-nfs">Cliente NFS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#montar-un-sistema-de-archivos-nfs-usando-autofs">Montar un sistema de archivos NFS usando autofs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nfs">Caso 1: Red interna con  NFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nfs-y-autofs">Caso 1: Red interna con NFS y autofs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna">Caso práctico: NFS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna-y-autofs">Caso práctico: NFS con red interna y autofs</a></li>
 </ul>
             </nav>
         </div>
@@ -296,8 +295,8 @@ document.write(`
 El objetivo de NFS es que varios usuarios (o programas) de una red local puedan acceder a archivos y directorios compartidos como si fuesen locales. De esta forma, se puede centralizar la capacidad de almacenamiento de la red, pudiendo ser más reducida en los clientes.</p>
 <p>Actualmente, el protocolo NFS está incluido en la mayoría de las distribuciones Linux, y en las diferentes versiones del sistema operativo OSX de Apple.</p>
 <p>En los sistemas Microsoft, la situación es algo más confusa: Para las versiones 2000, 2003 y XP, había que descargar e instalar el paquete Windows Services for UNIX). En Windows 8 ya se incluye de fábrica, pero sólo en la versión Enterprise edition y, hasta el momento de escribir este documento, no existe forma de instalarlo en otras versiones más modestas. De hecho, los usuarios que actualizan desde las ediciones Windows 7 Ultimate o Windows 7 Enterprise a la edición Windows 8 Pro, no podrán seguir usando NFS.</p>
-<section id="servidor-nfs-ubuntu-server-22-04">
-<h2>Servidor NFS (Ubuntu Server 22.04)<a class="headerlink" href="#servidor-nfs-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="servidor-nfs">
+<h2>Servidor NFS<a class="headerlink" href="#servidor-nfs" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Instalamos</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>update
 apt<span class="w"> </span>install<span class="w"> </span>nfs-kernel-server
@@ -345,14 +344,9 @@ mount<span class="w"> </span><span class="m">172</span>.16.0.10:/home/tunombre1<
 <p>Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs utiliza el demonio automount para controlar los puntos de montaje dinámicamente tan sólo montándolos cuando sea necesario.</p>
 <p>Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.</p>
 </section>
-<section id="caso-1-red-interna-con-nfs">
-<h2>Caso 1: Red interna con  NFS<a class="headerlink" href="#caso-1-red-interna-con-nfs" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Vamos a utilizar el caso 2 que vimos en la NIS, es decir:</p>
-<ul class="simple">
-<li><p><strong>compute-0-0</strong> : servidor con dos tarjetas de red</p></li>
-<li><p><strong>compute-0-1</strong> : cliente con una tarjeta de red</p></li>
-</ul>
-<p>En ejercicio anterior marcaste la opción de que se cree el directorio automáticamente en el cliente <strong>sudo pam-auth-update</strong>, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado</p>
+<section id="caso-practico-nfs-con-red-interna">
+<h2>Caso práctico: NFS con red interna<a class="headerlink" href="#caso-practico-nfs-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Partimos del <a class="reference internal" href="GNULinux_NIS.html#caso-practico-nis-con-red-interna"><span class="std std-ref">Caso práctico: NIS con red interna</span></a>, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente <strong>sudo pam-auth-update</strong>, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w"> </span>Create<span class="w"> </span>home<span class="w"> </span>directory<span class="w"> </span>on<span class="w"> </span>login
 </pre></div>
 </div>
@@ -362,10 +356,10 @@ bash:<span class="w"> </span>cd:<span class="w"> </span>/home/tunombre1:<span cl
 </pre></div>
 </div>
 <p>Haz que el home del usuario1 situado en el servidor se exporte al cliente de forma permanente por medio de NFS</p>
-<p>Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiela (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh</p>
+<p>Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiala (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh sin que te pida la contraseña</p>
 </section>
-<section id="caso-1-red-interna-con-nfs-y-autofs">
-<h2>Caso 1: Red interna con NFS y autofs<a class="headerlink" href="#caso-1-red-interna-con-nfs-y-autofs" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-practico-nfs-con-red-interna-y-autofs">
+<h2>Caso práctico: NFS con red interna y autofs<a class="headerlink" href="#caso-practico-nfs-con-red-interna-y-autofs" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar al cliente <strong>compute-0-1</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>autofs
 </pre></div>
@@ -424,11 +418,11 @@ compute-0-0:/home/tunombre1<span class="w"> </span>116G<span class="w">   </span
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs-ubuntu-server-22-04">Servidor NFS (Ubuntu Server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs">Servidor NFS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-nfs">Cliente NFS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#montar-un-sistema-de-archivos-nfs-usando-autofs">Montar un sistema de archivos NFS usando autofs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nfs">Caso 1: Red interna con  NFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nfs-y-autofs">Caso 1: Red interna con NFS y autofs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna">Caso práctico: NFS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna-y-autofs">Caso práctico: NFS con red interna y autofs</a></li>
 </ul>
   </nav></div>
 

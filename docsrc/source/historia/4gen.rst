@@ -74,7 +74,7 @@ Microprocesadores de 16 bits
 ==================
 
 .. image:: 4gen/micro16.png
-   :width: 400
+   :width: 200
 
 Intel 8086 (1978), 4.77 MHz
 ----------------------

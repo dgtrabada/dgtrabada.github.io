@@ -42,7 +42,7 @@
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script src="../../_static/translations.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/GNULinux_NIS';</script>
-    <link rel="icon" href="../../_static/quevedo.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -121,8 +121,7 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Apuntes:</span></p>
-<ul class="nav bd-sidenav">
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Sistema Operativo</a></li>
@@ -276,8 +275,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-0-adaptador-puente-con-nix">Caso 0 : Adaptador puente con NIX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nis">Caso 1: Red interna con NIS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
 </ul>
             </nav>
         </div>
@@ -365,8 +364,8 @@ shadow:<span class="w"> </span>files<span class="w"> </span>nis
 <p>Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F</p>
 <p>Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart</p>
 </section>
-<section id="caso-0-adaptador-puente-con-nix">
-<h2>Caso 0 : Adaptador puente con NIX<a class="headerlink" href="#caso-0-adaptador-puente-con-nix" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-practico-nis-con-adaptador-puente">
+<h2>Caso práctico: NIS con adaptador puente<a class="headerlink" href="#caso-practico-nis-con-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>Haz dos clones enlazados, generando nuevas direcciones MAC, de «MV Ubuntu Server 22.04» y haz que tengan las siguientes IPs:</p>
 <ul>
@@ -399,8 +398,8 @@ VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1
 </li>
 </ul>
 </section>
-<section id="caso-1-red-interna-con-nis">
-<h2>Caso 1: Red interna con NIS<a class="headerlink" href="#caso-1-red-interna-con-nis" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="caso-practico-nis-con-red-interna">
+<h2>Caso práctico: NIS con red interna<a class="headerlink" href="#caso-practico-nis-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.</p>
 <img alt="../../_images/caso_redinterna.jpg" src="../../_images/caso_redinterna.jpg" />
@@ -421,12 +420,6 @@ iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </
 </li>
 <li><p>Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
-</pre></div>
-</div>
-</li>
-<li><p>Habilítalo para que se inicie durante el inicio y sube un pantallazo de los siguientes comandos ejecutados en el servidor (compute-0-0):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>enrutar.service
 </pre></div>
 </div>
 </li>
@@ -461,8 +454,8 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-0-adaptador-puente-con-nix">Caso 0 : Adaptador puente con NIX</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-red-interna-con-nis">Caso 1: Red interna con NIS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
 </ul>
   </nav></div>
 

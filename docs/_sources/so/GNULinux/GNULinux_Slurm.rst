@@ -12,7 +12,7 @@ Slurm
  squeue  # Informa sobre el estado de los trabajos en ejecución y pendientes
  sbatch  # Envía un script para su posterior ejecución
 
-Caso 1: Red interna con NIS, NFS, autofs y Slurm
+Caso práctico: Red interna con NIS, NFS, autofs y Slurm
 ************************************************
 
 Servidor compute-0-0

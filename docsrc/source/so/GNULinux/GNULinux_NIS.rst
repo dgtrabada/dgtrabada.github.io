@@ -108,7 +108,7 @@ Si diera algún error al conectar, podría ser por el firewall, para borrar las 
 Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
 
 
-Caso 0 : Adaptador puente con NIX
+Caso práctico: NIS con adaptador puente
 *********************************
 
 * Haz dos clones enlazados, generando nuevas direcciones MAC, de "MV Ubuntu Server 22.04" y haz que tengan las siguientes IPs:
@@ -149,7 +149,7 @@ Caso 0 : Adaptador puente con NIX
 
 
 
-Caso 1: Red interna con NIS
+Caso práctico: NIS con red interna
 ***************************
 
 * En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.
@@ -178,12 +178,5 @@ Caso 1: Red interna con NIS
   .. code-block:: bash
     
    cat /etc/systemd/system/enrutar.service
-     
-* Habilítalo para que se inicie durante el inicio y sube un pantallazo de los siguientes comandos ejecutados en el servidor (compute-0-0):
-
-  .. code-block:: bash
-    
-   sudo cat /etc/systemd/system/enrutar.service
-   sudo systemctl status enrutar.service
 
 * Si no lo habías realizado, ejecutamos en el cliente **sudo pam-auth-update** y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
