@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Active Directory y DNS &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/AD_DNS';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistema Operativo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/windows/AD_DNS.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Active Directory y DNS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente">Caso práctico: AD y DNS con adaptador puente</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="active-directory-y-dns">
+<h1>Active Directory y DNS<a class="headerlink" href="#active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h1>
+<section id="caso-practico-ad-y-dns-con-adaptador-puente">
+<h2>Caso práctico: AD y DNS con adaptador puente<a class="headerlink" href="#caso-practico-ad-y-dns-con-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
+<ul class="simple">
+<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WClient0-tunombre</strong> 10.5.X.Y/8</p></li>
+</ul>
+<section id="instalacion-y-configuracion-de-active-directory-y-dns">
+<h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p>En <strong>WServer</strong> vamos a Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles/Seleccionar un servidor del grupo de servidores/escoger SRV-tunombre/Marcar la casilla Servicios de dominio de Active Directory.</p></li>
+</ul>
+</section>
+<section id="creacion-de-un-dominio">
+<h3>Creación de un dominio:<a class="headerlink" href="#creacion-de-un-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<ul>
+<li><p>Partiendo de la ventana Resultados de la instalación de Active Directory, pulsar en Promover este servidor a controlador de dominio. (Si se había cerrado la ventana anterior es posible acceder a ella pulsando en el icono de advertencia de la barra de herramientas del Administrador del servidor)</p>
+<img alt="../../_images/WS_promoverservidorCD.png" src="../../_images/WS_promoverservidorCD.png" />
+</li>
+<li><p>De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio <strong>tunombre.local</strong> es crear un nuevo bosque. Para ello seleccionar la opción Agregar un nuevo bosque. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña &#64;lumn0</p></li>
+</ul>
+<p>NetBIOS es una especificación de interfaz utilizado para nombrar recursos de red en sistemas Windows anteriores a Windows 2000. Verificar el nombre NetBIOS tu_nombre y pulsar Siguiente</p>
+<p>Si todo ha sido configurado correctamente, hacer clic en Instalar.</p>
+<p>Por ultimo cuando se reinicie habilita las actualizaciones dinámicas.</p>
+<ul class="simple">
+<li><p>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV16-X /expandir Zonas de búsqueda directa/ clic el botón derecho del ratón en tunombre.local/Propiedades/General/lista Actualizaciones dinámicas elegir sin seguridad y con seguridad, a continuación hacer clic en Aceptar.</p></li>
+</ul>
+</section>
+<section id="unidades-organizativas-usuarios-y-grupos">
+<h3>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h3>
+<p>La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.</p>
+<p>Para crear de las unidades organizativas:</p>
+<p>En Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory dentro del domino tunombre.local crea las siguientes unidades organizativas (clic botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa) Usuarios y Grupos</p>
+<img alt="../../_images/WS_UO.png" src="../../_images/WS_UO.png" />
+<p>Dentro de la UO Grupos, crea el grupo global de seguridad A y B</p>
+<p>Dentro de la UO Ususarios, crea los usuarios:</p>
+<ul class="simple">
+<li><p>tu_nombreA1</p>
+<ul>
+<li><p>Nombre completo: tu_nombreA1 tu_apellido_A1.</p></li>
+<li><p>Contraseña &#64;lumn0A1</p></li>
+<li><p>Nombre de inicio de sesión del usuario: <a class="reference external" href="mailto:tu_nombreA2&#37;&#52;&#48;tu_nombre&#46;local">tu_nombreA2<span>&#64;</span>tu_nombre<span>&#46;</span>local</a></p></li>
+<li><p>La contraseña nunca expira</p></li>
+<li><p>Hazle miembro del grupo A</p></li>
+</ul>
+</li>
+<li><p>tu_nombreA2</p>
+<ul>
+<li><p>Nombre completo: tu_nombreA2 tu_apellido_A2</p></li>
+<li><p>Contraseña &#64;lumn0A2</p></li>
+<li><p>Nombre de inicio de sesión del usuario: <a class="reference external" href="mailto:tu_nombreA2&#37;&#52;&#48;tu_nombre&#46;local">tu_nombreA2<span>&#64;</span>tu_nombre<span>&#46;</span>local</a></p></li>
+<li><p>La contraseña nunca expira</p></li>
+<li><p>Hazle miembro del grupo A</p></li>
+</ul>
+</li>
+<li><p>tu_nombreB1</p>
+<ul>
+<li><p>Nombre completo: tu_nombreB1 tu_apellido_B1.</p></li>
+<li><p>Contraseña &#64;lumn0B1</p></li>
+<li><p>Nombre de inicio de sesión del usuario: <a class="reference external" href="mailto:tu_nombreB1&#37;&#52;&#48;tu_nombre&#46;local">tu_nombreB1<span>&#64;</span>tu_nombre<span>&#46;</span>local</a></p></li>
+<li><p>La contraseña nunca expira</p></li>
+<li><p>Hazle miembro del grupo B</p></li>
+</ul>
+</li>
+<li><p>tu_nombreB2</p>
+<ul>
+<li><p>Nombre completo: tu_nombreB2 tu_apellido_B2</p></li>
+<li><p>Contraseña &#64;lumn0B2</p></li>
+<li><p>Nombre de inicio de sesión del usuario: <a class="reference external" href="mailto:tu_nombreB2&#37;&#52;&#48;tu_nombre&#46;local">tu_nombreB2<span>&#64;</span>tu_nombre<span>&#46;</span>local</a></p></li>
+<li><p>La contraseña nunca expira</p></li>
+<li><p>Hazle miembro del grupo B</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="unir-un-equipo-al-dominio">
+<h3>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Vamos a unir <strong>WClient0-tunombre</strong> al dominio tu_nombre.local, cambiamos el nombre, ponemos el DNS la ip del dominio <strong>SRV-tunombre</strong>.</p>
+<p>una vez reiniciada la maquina vamos a «Este equipo»/Propiedades/Configuración de nombre, dominio y grupo de trabajo del equipo/Cambiar configuración/Cambiar el dominio : tu_nombre.local</p>
+</section>
+</section>
+<section id="caso-practico-ad-y-dns-con-red-interna">
+<h2>Caso práctico: AD y DNS con red interna<a class="headerlink" href="#caso-practico-ad-y-dns-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p>
+<p>Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p>
+<section id="configurar-servicio-de-enrutamiento">
+<h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
+<p>La red interna es Ethernet 2 : 172.16.0.10
+Panel / Agregar roles y características
+Seleccionamos nuestro servidor <strong>SRV-tunombre</strong>
+En Roles de servidor marcamos la casilla de:</p>
+<p>[x] Remote Access / <strong>Acceso remoto</strong></p>
+<p>En servicios de rol seleccionamos:</p>
+<p>[x] DirectAccess and VPN(RAS)</p>
+<p>[x] Routing</p>
+<p>Para comfigurar servicio de enrutamiento vamos a Panel/Herramientas/Enrutamiento y Acceso remoto, seleccionamos nuestro servidor SRV-tunombre, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
+<p>[x] Traduccion de direcciones de red (NAT)</p>
+<p>Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y)</p>
+<p>[x] Configurar mas adelante el DHCP y el DNS</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente">Caso práctico: AD y DNS con adaptador puente</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

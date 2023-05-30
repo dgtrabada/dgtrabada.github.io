@@ -274,6 +274,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
 </ul>
             </nav>
         </div>
@@ -317,6 +319,13 @@ VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1
 VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>savestate
 </pre></div>
 </div>
+<p>En modo gráfico:</p>
+<ul class="simple">
+<li><p>Ctrl_derecho + Supr = Ctrl + Atl + Supr</p></li>
+<li><p>Ctrl_derecho = Salir de pantalla</p></li>
+<li><p>Ctrl_derecho + f = pasar/volver de pantalla completa</p></li>
+<li><p>Ctrl_derecho + c = pasar/volver modo escalado</p></li>
+</ul>
 <section id="caso-practico-mv-ubuntu-server-22-04">
 <h2>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
@@ -326,10 +335,65 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 <li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde <strong>X.Y</strong> son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
 <li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8,</p></li>
 <li><p>Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout</p>
-<img alt="so/imagenes/MV_Ubuntu_Server_22.04.jpg" src="so/imagenes/MV_Ubuntu_Server_22.04.jpg" />
+<img alt="../_images/MV_Ubuntu_Server_22.04.jpg" src="../_images/MV_Ubuntu_Server_22.04.jpg" />
 </li>
 <li><p>Usuario: tunombre y utiliza de contraseña: alumno
 Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <strong>/etc/hostname</strong></p></li>
+</ul>
+</section>
+<section id="caso-practico-windows-11">
+<h2>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p>Descarte la ISO de Windwos 11 de la página de <a class="reference external" href="https://www.microsoft.com/es-es/software-download/windows11">Microsoft</a></p></li>
+<li><p>Creamos una nueva maquina virtual llamada <strong>Windows11</strong></p></li>
+<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación desconecta el cable de red virtual:</p>
+<p>Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado</p>
+</li>
+<li><p>En el caso de que aparezca el aviso de <strong>«startup.nsh»</strong> en Virtualbox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menu de instalación.</p></li>
+<li><p>Selecciona «No tengo clave de producto» y selecciona Windows 11 Education</p></li>
+<li><p>Selecciona la instalación personalizada : instalar solo Windows (avanzado)</p></li>
+<li><p>Configuramos Windows con una cuenta local <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, para ello :</p>
+<ul class="simple">
+<li><p>Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos «No tengo internet»,</p></li>
+<li><p>Seguimos con <strong>Continuar con la configuración limitada</strong></p></li>
+<li><p>Configuramos Windows con una cuenta local</p>
+<ul>
+<li><p>usuario : <strong>tunombre</strong></p></li>
+<li><p>contraseña : <strong>&#64;lumn0</strong></p></li>
+</ul>
+</li>
+<li><p>Preguntas de seguridad para esta cuenta:</p>
+<ul>
+<li><p>¿Cuál era el nombre de tu primera mascota? <strong>&#64;lumn0</strong></p></li>
+<li><p>¿Cuál es el nombre de la ciudad en la que naciste? <strong>&#64;lumn0</strong></p></li>
+<li><p>¿Cuál era tu apodo de infancia? <strong>&#64;lumn0</strong></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>No</strong> permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que «<strong>No</strong>» o «<strong>Solo los obligatorios</strong>»,  le daremos los mínimos permisos a Microsoft sobre nuestros datos y maquinas.</p></li>
+<li><p>De igual manera rechazamos la ayuda del asistente digital, ni usamos el reconocimiento de voz en línea</p></li>
+</ul>
+<p class="rubric">Notas</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>En el caso de que no aparezca haz la instalación como si fuera a se parte de un Dominio</p>
+</aside>
+</aside>
+</section>
+<section id="caso-practico-windows-server-2022">
+<h2>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
+<ul class="simple">
+<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)</p></li>
+<li><p>Contraseña del Administrador: &#64;lumn0</p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
+<li><p>Configurar nombre: Panel / Servidor local : Cambiamos nombre equipo, le llamamos SRV-tunombre</p></li>
+<li><p>Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria</p></li>
+<li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar</p></li>
 </ul>
 </section>
 </section>
@@ -359,6 +423,8 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
 </ul>
   </nav></div>
 

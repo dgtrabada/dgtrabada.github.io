@@ -41,6 +41,12 @@ Comandos útiles virtualBox:
  VBoxManage startvm 'Ubuntu Server 16.04' --type headless
  VBoxManage controlvm 'Ubuntu Server 16.04' savestate
 
+En modo gráfico:
+
+* Ctrl_derecho + Supr = Ctrl + Atl + Supr
+* Ctrl_derecho = Salir de pantalla
+* Ctrl_derecho + f = pasar/volver de pantalla completa
+* Ctrl_derecho + c = pasar/volver modo escalado
 
 Caso práctico: MV Ubuntu Server 22.04
 *************************************
@@ -57,8 +63,71 @@ Caso práctico: MV Ubuntu Server 22.04
 
 * Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout
 
-  .. image:: imagenes//MV_Ubuntu_Server_22.04.jpg
+  .. image:: imagenes/MV_Ubuntu_Server_22.04.jpg
 
 * Usuario: tunombre y utiliza de contraseña: alumno
   Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo **/etc/hostname** 
 
+
+Caso práctico: Windows 11
+*************************
+
+* Descarte la ISO de Windwos 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
+
+* Creamos una nueva maquina virtual llamada **Windows11**
+
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+
+* Para la instalación desconecta el cable de red virtual:
+  
+  Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado
+  
+* En el caso de que aparezca el aviso de **"startup.nsh"** en Virtualbox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menu de instalación.
+
+* Selecciona "No tengo clave de producto" y selecciona Windows 11 Education  
+
+* Selecciona la instalación personalizada : instalar solo Windows (avanzado)
+
+* Configuramos Windows con una cuenta local [#f1]_, para ello :
+
+  * Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos "No tengo internet",
+ 
+  * Seguimos con **Continuar con la configuración limitada** 
+  
+  * Configuramos Windows con una cuenta local
+ 
+    * usuario : **tunombre**
+    * contraseña : **@lumn0**
+
+  * Preguntas de seguridad para esta cuenta:
+   
+    * ¿Cuál era el nombre de tu primera mascota? **@lumn0**      
+    * ¿Cuál es el nombre de la ciudad en la que naciste? **@lumn0**      
+    * ¿Cuál era tu apodo de infancia? **@lumn0**
+
+* **No** permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que "**No**" o "**Solo los obligatorios**",  le daremos los mínimos permisos a Microsoft sobre nuestros datos y maquinas.
+
+* De igual manera rechazamos la ayuda del asistente digital, ni usamos el reconocimiento de voz en línea
+
+.. rubric:: Notas
+  
+.. [#f1] En el caso de que no aparezca haz la instalación como si fuera a se parte de un Dominio
+
+Caso práctico: Windows Server 2022
+**************************
+
+Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
+
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+
+* Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)
+
+* Contraseña del Administrador: @lumn0
+
+* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, **DNS** 8.8.8.8, **Gateway** 10.0.0.2
+
+* Configurar nombre: Panel / Servidor local : Cambiamos nombre equipo, le llamamos SRV-tunombre
+
+* Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria
+
+* Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar
