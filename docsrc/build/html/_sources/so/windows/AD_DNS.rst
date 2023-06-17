@@ -13,7 +13,7 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 Instalación y configuración de Active Directory y DNS
 -------------
 
-* En **WServer** vamos a Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles/Seleccionar un servidor del grupo de servidores/escoger SRV-tunombre/Marcar la casilla Servicios de dominio de Active Directory.
+* En **SRV-tunombre** vamos a **Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles** Seleccionar un servidor del grupo de servidores, escoger **SRV-tunombre/Marcar la casilla Servicios de dominio de Active Directory**
 
 
 Creación de un dominio:
@@ -23,24 +23,20 @@ Creación de un dominio:
 
   .. image:: imagenes/WS_promoverservidorCD.png
     
-* De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio **tunombre.local** es crear un nuevo bosque. Para ello seleccionar la opción Agregar un nuevo bosque. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña @lumn0
+* De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio **tunombre.local** es crear un nuevo bosque. Para ello seleccionar la opción **Agregar un nuevo bosque**. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña @lumn0
 
 NetBIOS es una especificación de interfaz utilizado para nombrar recursos de red en sistemas Windows anteriores a Windows 2000. Verificar el nombre NetBIOS tu_nombre y pulsar Siguiente
 
 Si todo ha sido configurado correctamente, hacer clic en Instalar.
 
-Por ultimo cuando se reinicie habilita las actualizaciones dinámicas.
-
-* Inicio->Herramientas administrativas/DNS/expandir SRV16-X /expandir Zonas de búsqueda directa/ clic el botón derecho del ratón en tunombre.local/Propiedades/General/lista Actualizaciones dinámicas elegir sin seguridad y con seguridad, a continuación hacer clic en Aceptar.
+Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV16-X /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tunombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
 
 Unidades Organizativas, usuarios y grupos
 -------------------------
 
 La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.
 
-Para crear de las unidades organizativas:
-
-En Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory dentro del domino tunombre.local crea las siguientes unidades organizativas (clic botón derecho del ratón -> Nuevo -> Unidad Organizativa) Usuarios y Grupos
+Para crear de las unidades organizativas en **Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory** dentro del domino **tunombre.local** crea las siguientes unidades organizativas (clic botón derecho del ratón -> Nuevo -> Unidad Organizativa) **Usuarios y Grupos**
 
 .. image:: imagenes/WS_UO.png
 
@@ -91,34 +87,46 @@ una vez reiniciada la maquina vamos a "Este equipo"/Propiedades/Configuración d
 Caso práctico: AD y DNS con red interna
 ===============================
 
-Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
+* Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
 
-Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 
 Configurar servicio de enrutamiento
 -------
 
-La red interna es Ethernet 2 : 172.16.0.10
-Panel / Agregar roles y características
-Seleccionamos nuestro servidor **SRV-tunombre**
+Tenmos que la red interna es Ethernet 2 : 172.16.0.10
+
+* Panel / Agregar roles y características
+
+  Seleccionamos nuestro servidor **SRV-tunombre**
+
 En Roles de servidor marcamos la casilla de:
 
-[x] Remote Access / **Acceso remoto**
+* [x] Remote Access / **Acceso remoto**
 
 En servicios de rol seleccionamos:
 
-[x] DirectAccess and VPN(RAS)
+* [x] DirectAccess and VPN(RAS)
 
-[x] Routing
+* [x] Routing
 
 
-Para comfigurar servicio de enrutamiento vamos a Panel/Herramientas/Enrutamiento y Acceso remoto, seleccionamos nuestro servidor SRV-tunombre, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
+Para comfigurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enrutamiento y Acceso remoto**, seleccionamos nuestro servidor **SRV-tunombre**, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
 
-[x] Traduccion de direcciones de red (NAT)
+* [x] Traduccion de direcciones de red (NAT)
 
 Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y)
 
-[x] Configurar mas adelante el DHCP y el DNS
+* [x] Configurar mas adelante el DHCP y el DNS
 
+Por ultimo unir un equipo al dominio tu_nombre.local, si utilizas la misma maquina virtual tendrás que quitarla del domnio, cambiarle el nombre y volver a meterla, si utilizas un nuevo clon enlazado simplemente únela como hemos hecho antes al dominio teniendo en cuenta que ahora el DNS y la puerta de enlace es 172.16.0.10
 
+Configurar una carpeta compartida
+-------
+
+Vamos a compartir la carpeta **C:\\compartidaA** alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:
+
+Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en **Uso compartido avanzado** seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y **quitamos Todos**, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer
+
+.. image:: imagenes/SRV_todo.png

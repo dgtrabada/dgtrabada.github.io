@@ -23,6 +23,11 @@ En /etc/hosts añadimos:
 .. code-block:: bash
 
   <IP> servidor.X.nis
+
+Ejecuta el comando domainname para mostrar o configurar el nombre de dominio de la máquina.
+
+.. code-block:: bash
+
   domainname servidor.X.nis
   
 Copia el nombre de su servidor NIS en el archivo /etc/defaultdomain (de aquí lo leerá el servicio ypserv.service que inicia la nis)
