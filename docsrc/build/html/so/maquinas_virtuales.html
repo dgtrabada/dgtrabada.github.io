@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Maquinas Virtuales &#8212; dgtrabada</title>
+    <title>La virtualización &#8212; dgtrabada</title>
   
   
   
@@ -263,7 +263,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Maquinas Virtuales</h1>
+    <h1>La virtualización</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -273,9 +273,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -287,9 +290,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="maquinas-virtuales">
-<h1>Maquinas Virtuales<a class="headerlink" href="#maquinas-virtuales" title="Enlace permanente a este encabezado">#</a></h1>
-<p>Una máquina virtual es un software que emula a un ordenador completo, es decir, que puede hacerse pasar por otro dispositivo -como un PC- de tal modo que puedes ejecutar otro sistema operativo en su interior. Tiene su propio disco duro, memoria, tarjeta gráfica y demás componentes de hardware, aunque todos ellos son virtuales.</p>
+  <section id="la-virtualizacion">
+<h1>La virtualización<a class="headerlink" href="#la-virtualizacion" title="Enlace permanente a este encabezado">#</a></h1>
+<p>La virtualización es una tecnología que permite la creación de entornos virtuales o máquinas virtuales (VM) que funcionan de manera independiente en un mismo sistema físico. Consiste en la abstracción de los recursos físicos, como la CPU, la memoria, el almacenamiento y los dispositivos de entrada/salida, para asignarlos y compartirlos entre varias máquinas virtuales.</p>
+<p>El objetivo principal de la virtualización es maximizar la utilización de los recursos físicos y mejorar la eficiencia de los sistemas informáticos. Al utilizar la virtualización, es posible ejecutar múltiples sistemas operativos y aplicaciones en un único servidor o computadora, lo que reduce la necesidad de hardware físico adicional.</p>
+<p>Algunos conceptos clave relacionados con la virtualización son:</p>
+<ul>
+<li><p><strong>Hipervisor</strong>: También conocido como monitor de máquina virtual (VMM), es el software o firmware responsable de crear y gestionar las máquinas virtuales. Se encarga de asignar y administrar los recursos físicos entre las VM.</p>
+<p>Existen dos tipos principales de hipervisores, también conocidos como monitores de máquina virtual (VMM):</p>
+<ul class="simple">
+<li><p><strong>Hipervisor de tipo 1 o «nativo»</strong> (Bare Metal Hypervisor): Este tipo de hipervisor se ejecuta directamente sobre el hardware físico sin depender de un sistema operativo anfitrión. Actúa como una capa de virtualización entre el hardware y las máquinas virtuales. Algunos ejemplos de hipervisores de tipo 1 son:</p>
+<ul>
+<li><p>VMware ESXi</p></li>
+<li><p>Microsoft Hyper-V</p></li>
+<li><p>Citrix XenServer</p></li>
+<li><p>KVM (Kernel-based Virtual Machine)</p></li>
+<li><p>Oracle VM Server</p></li>
+</ul>
+</li>
+<li><p><strong>Hipervisor de tipo 2 o «hosted»</strong> (Hosted Hypervisor): Este tipo de hipervisor se ejecuta como una aplicación dentro de un sistema operativo anfitrión. Utiliza los recursos y servicios del sistema operativo subyacente para proporcionar la virtualización. Algunos ejemplos de hipervisores de tipo 2 son:</p>
+<ul>
+<li><p>VMware Workstation</p></li>
+<li><p>Oracle VirtualBox</p></li>
+<li><p>Microsoft Virtual PC</p></li>
+<li><p>Parallels Desktop</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Máquina virtual (VM)</strong>: Es un entorno virtual que emula una computadora completa con su propio sistema operativo, aplicaciones y configuraciones. Cada VM se ejecuta de forma aislada y puede ser tratada como una entidad independiente.</p></li>
+<li><p><strong>Host</strong>: Es el sistema físico o servidor que ejecuta el hipervisor y aloja las máquinas virtuales.</p></li>
+<li><p><strong>Guest</strong>: Es la máquina virtual que se ejecuta dentro de un host. Puede ser un sistema operativo completo o una instancia de una aplicación específica.</p></li>
+<li><p><strong>Portabilidad</strong>: Las máquinas virtuales son independientes del hardware subyacente, lo que facilita su migración entre diferentes servidores físicos sin necesidad de modificar el sistema operativo o las aplicaciones.</p></li>
+<li><p><strong>Escalabilidad</strong>: La virtualización permite escalar verticalmente (aumentar los recursos asignados a una VM) o escalar horizontalmente (agregar más VM) según las necesidades de carga de trabajo.</p></li>
+</ul>
+<p>La virtualización se utiliza en diversos entornos, como servidores, redes, almacenamiento y escritorios, proporcionando flexibilidad, eficiencia y mayor aprovechamiento de los recursos informáticos.</p>
 <p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual</p>
 <p>Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..</p>
 <p>En clase utilizaremos VirtualBox:</p>
@@ -298,6 +333,16 @@ document.write(`
 <p><strong>OVF/OVA</strong> : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).</p>
 <p><strong>Clonación completa</strong>, una copia exacta (incluyendo todos los archivos de disco duro virtual) de la máquina original serán creados.</p>
 <p><strong>Clonación enlazada</strong>, una nueva máquina será creada, pero los archivos de las unidades de disco duro virtuales serán vinculados a los archivos de disco duro virtual de la máquina original y no podrá mover la nueva máquina virtual a una computadora diferente sin mover los originales también.</p>
+<p><em>Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.</em></p>
+<p><strong>VirtualBox Guest Additions</strong> es un conjunto de controladores y aplicaciones del sistema que mejoran el rendimiento y la funcionalidad de un sistema operativo invitado que se ejecuta dentro de una máquina virtual de VirtualBox. Cuando instalas las Guest Additions en el sistema operativo invitado, se habilitan funciones como carpetas compartidas, integración de ratón sin problemas, mejor soporte de video y mejor rendimiento.</p>
+<p>El paquete de Guest Additions proporciona controladores adicionales para el hardware de tu máquina virtual, incluyendo gráficos, redes y dispositivos de entrada. También incluye utilidades que te permiten redimensionar la ventana de la máquina virtual dinámicamente, compartir carpetas entre el sistema anfitrión y el invitado, y habilitar el intercambio de portapapeles.</p>
+<p><strong>Las instantáneas (snapshots)</strong> en VirtualBox son una característica que te permite guardar el estado actual de una máquina virtual en un punto específico del tiempo. Con las instantáneas, puedes capturar una imagen completa de la máquina virtual, incluyendo su configuración, discos virtuales y memoria, y luego restaurarla posteriormente si es necesario.</p>
+<p>Al crear una instantánea, VirtualBox guarda una copia del estado actual de la máquina virtual, incluyendo los registros de la CPU, la memoria y el estado de los discos virtuales. Esto te permite revertir fácilmente a ese punto en el tiempo en caso de que realices cambios o configuraciones que desees deshacer más adelante.</p>
+<p><strong>Las tecnologías VT-x</strong> (Intel Virtualization Technology) y <strong>AMD-V</strong> (AMD Virtualization) son extensiones de hardware que proporcionan soporte para la virtualización en procesadores Intel y AMD, respectivamente. Estas tecnologías permiten que los hipervisores, como VirtualBox, ejecuten máquinas virtuales de manera más eficiente y segura. Si habilitamos esa opción, entonces también podremos habilitar «Habilitar <strong>paginación anidada</strong>» que mejorará aún más el rendimiento del sistema permitiendo gestionar la memoria por medio del hardware y no del software.</p>
+<p><strong>los discos duros estáticos</strong> tienen un tamaño fijo, ofrecen un rendimiento constante pero pueden ocupar más espacio en el almacenamiento del host. <strong>Los discos duros dinámicos</strong> crecen según sea necesario, permiten un uso eficiente del almacenamiento y son más fáciles de migrar y copiar, pero pueden experimentar fragmentación y pueden tener un rendimiento ligeramente inferior en comparación con los discos estáticos</p>
+<p><strong>La opción PAE/NX</strong> permite habilitar el acceso a más de 4 GB de memoria RAM en sistemas de 32 bits y se habilita la protección NX para mejorar la seguridad del sistema. Si se deshabilita, el sistema operativo y las aplicaciones estarán limitados a utilizar solo 4 GB de memoria y no se aprovechará la protección NX.</p>
+<p>En “<strong>Carpetas Compartidas</strong>”, podemos crear una carpeta compartida entre la máquina anfitrión y la invitada. Para ello, hacemos clic en “Agregar Carpeta compartida”…</p>
+<p>En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambos sistemas, el invitado y el anfitrión, puedan <strong>compartir el portapapeles</strong>, lo que permitirá copiar y pegar de uno a otro.</p>
 <ul class="simple">
 <li><p><strong>RED</strong></p>
 <ul>
@@ -311,8 +356,8 @@ Para utilizarlo tenemos que crear la red NAT : Desde el menú Archivo -&gt; Pref
 </ul>
 </li>
 </ul>
-<p><em>Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.</em></p>
-<p>Comandos útiles virtualBox:</p>
+<section id="comandos-utiles-virtualbox">
+<h2>Comandos útiles virtualBox:<a class="headerlink" href="#comandos-utiles-virtualbox" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
 VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
 VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
@@ -327,7 +372,7 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 <li><p>Ctrl_derecho + c = pasar/volver modo escalado</p></li>
 </ul>
 <section id="caso-practico-mv-ubuntu-server-22-04">
-<h2>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h3>
 <ul>
 <li><p>Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial</p></li>
 <li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
@@ -342,7 +387,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </ul>
 </section>
 <section id="caso-practico-windows-11">
-<h2>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Enlace permanente a este encabezado">#</a></h3>
 <ul>
 <li><p>Descarte la ISO de Windwos 11 de la página de <a class="reference external" href="https://www.microsoft.com/es-es/software-download/windows11">Microsoft</a></p></li>
 <li><p>Creamos una nueva maquina virtual llamada <strong>Windows11</strong></p></li>
@@ -384,7 +429,18 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </aside>
 </section>
 <section id="caso-practico-windows-server-2022">
-<h2>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.</p>
+<ul class="simple">
+<li><p><strong>Windows Server Standard:</strong> permite ejecutar como máximo dos VMs en hasta dos procesadores y 64GB RAM. Es ideal para un entorno no virtualizado o poco virtualizado en el que se desee incluir características de alta disponibilidad.</p></li>
+<li><p><strong>Windows Server  Datacenter:</strong> permite ejecutar un número ilimitado de VMs en hasta dos procesadores. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.</p></li>
+<li><p>Respecto a la interfaz de usuario, se ofrecen dos posibilidades pero siempre se podrá pasar de una opción a la otra libremente en cualquier momento.</p>
+<ul>
+<li><p><strong>Server Core:</strong> reduce el espacio requerido en el disco, la posible superficie expuesta a ataques y especialmente los requisitos de servicio y reinicio del servidor.</p></li>
+<li><p><strong>Servidor con una GUI:</strong> ofrece los elementos de la interfaz de usuario y las herramientas de administración de gráficos.</p></li>
+</ul>
+</li>
+</ul>
 <p>Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
 <ul class="simple">
 <li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
@@ -395,6 +451,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 <li><p>Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria</p></li>
 <li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -422,9 +479,12 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
