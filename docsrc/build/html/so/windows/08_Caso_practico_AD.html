@@ -278,11 +278,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>
@@ -303,7 +306,7 @@ document.write(`
 <p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
 <li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8</p></li>
-<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WClient0-tunombre</strong> 10.5.X.Y/8</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5-tunombre</strong> 10.5.X.Y/8</p></li>
 </ul>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
 <h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
@@ -321,12 +324,12 @@ document.write(`
 </ul>
 <p>NetBIOS es una especificación de interfaz utilizado para nombrar recursos de red en sistemas Windows anteriores a Windows 2000. Verificar el nombre NetBIOS tu_nombre y pulsar Siguiente</p>
 <p>Si todo ha sido configurado correctamente, hacer clic en Instalar.</p>
-<p>Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV16-X /expandir Zonas de búsqueda directa/</strong> clic el botón derecho del ratón en <strong>tunombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong> elegir <strong>sin seguridad y con seguridad</strong>, a continuación hacer clic en Aceptar.</p>
+<p>Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/</strong> clic el botón derecho del ratón en <strong>tu_nombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong> elegir <strong>sin seguridad y con seguridad</strong>, a continuación hacer clic en Aceptar.</p>
 </section>
 <section id="unidades-organizativas-usuarios-y-grupos">
 <h3>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h3>
 <p>La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.</p>
-<p>Para crear de las unidades organizativas en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong> dentro del domino <strong>tunombre.local</strong> crea las siguientes unidades organizativas (clic botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa) <strong>Usuarios y Grupos</strong></p>
+<p>Para crear de las unidades organizativas en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong> dentro del domino <strong>tu_nombre.local</strong> crea las siguientes unidades organizativas (clic botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa) <strong>Usuarios y Grupos</strong></p>
 <img alt="../../_images/WS_UO.png" src="../../_images/WS_UO.png" />
 <p>Dentro de la UO Grupos, crea el grupo global de seguridad A y B</p>
 <p>Dentro de la UO Ususarios, crea los usuarios:</p>
@@ -371,8 +374,82 @@ document.write(`
 </section>
 <section id="unir-un-equipo-al-dominio">
 <h3>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos a unir <strong>WClient0-tunombre</strong> al dominio tu_nombre.local, cambiamos el nombre, ponemos el DNS la ip del dominio <strong>SRV-tunombre</strong>.</p>
-<p>una vez reiniciada la maquina vamos a «Este equipo»/Propiedades/Configuración de nombre, dominio y grupo de trabajo del equipo/Cambiar configuración/Cambiar el dominio : tu_nombre.local</p>
+<p>Vamos a unir <strong>WC5-tunombre</strong> al dominio tu_nombre.local, para ello:</p>
+<ol class="arabic">
+<li><p>Cambiamos el nombre de la maquina</p></li>
+<li><p>Ponemos el DNS la ip del dominio <strong>SRV-tunombre</strong>.</p></li>
+<li><p>Haz clic derecho en el botón «Inicio» y selecciona «Sistema» en el menú desplegable.</p></li>
+<li><p>En la ventana de «Sistema», haz clic en «Configuración avanzada del sistema» en el panel izquierdo.</p></li>
+<li><p>Se abrirá la ventana de «Propiedades del sistema». Haz clic en la pestaña «Nombre de equipo» y luego en el botón «Cambiar».</p></li>
+<li><p>En la siguiente ventana, verás la opción «Miembro de». Asegúrate de seleccionar la opción «Dominio» en lugar de «Grupo de trabajo».</p></li>
+<li><p>Ingresa un nombre del dominio <strong>tu_nombre.local</strong></p>
+<img alt="../../_images/quitar_dominio.png" src="../../_images/quitar_dominio.png" />
+</li>
+<li><p>Haz clic en «OK» para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.</p></li>
+</ol>
+</section>
+<section id="quitar-el-equipo-del-dominio">
+<h3>Quitar el equipo del dominio<a class="headerlink" href="#quitar-el-equipo-del-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<ol class="arabic simple">
+<li><p>Accede al equipo con una cuenta de administrador local.</p></li>
+<li><p>Haz clic derecho en el botón «Inicio» y selecciona «Sistema» en el menú desplegable.</p></li>
+<li><p>En la ventana de «Sistema», haz clic en «Configuración avanzada del sistema» en el panel izquierdo.</p></li>
+<li><p>Se abrirá la ventana de «Propiedades del sistema». Haz clic en la pestaña «Nombre de equipo» y luego en el botón «Cambiar».</p></li>
+<li><p>En la siguiente ventana, verás la opción «Miembro de». Asegúrate de seleccionar la opción «Grupo de trabajo» en lugar de «Dominio».</p></li>
+<li><p>Ingresa un nombre de grupo de trabajo para el equipo. Por defecto, el grupo de trabajo suele ser «WORKGROUP», pero puedes ingresar un nombre diferente si lo deseas.</p></li>
+<li><p>Haz clic en «OK» para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.</p></li>
+<li><p>En el servicdor <strong>«Inicio/Herramientas administrativas/Ususarios y equipos de Active Directory/»</strong></p></li>
+<li><p>Selecciona <strong>tu_nombre.local</strong>, y quita los clientes que has sacado del dominio en la pestaña de <strong>Computers</strong></p></li>
+</ol>
+</section>
+<section id="configurar-una-carpeta-compartida">
+<h3>Configurar una carpeta compartida<a class="headerlink" href="#configurar-una-carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Las carpetas y archivos en Windows permiten configurar los siguientes permisos:</p>
+<ul class="simple">
+<li><p><strong>Control total</strong> el usuario tiene control total sobre la carpeta y puede añadir, cambiar, mover y eliminar elementos. El usuario también puede agregar y quitar permisos de la carpeta y subcarpetas.</p></li>
+<li><p><strong>Modificar</strong> una combinación de lectura y escritura. El usuario también tiene la capacidad de eliminar los archivos dentro de la carpeta. También puede ver el contenido de las subcarpetas.</p></li>
+<li><p><strong>Leer y Ejecutar</strong> los usuarios pueden leer el contenido de los archivos y</p></li>
+</ul>
+<p>ejecutar los programas de la carpeta.
+Mostrar el contenido de la carpeta: permite al usuario ver el contenido
+de la carpeta seleccionada. No se permite al usuario leer ni ejecutar el
+contenido de un archivo.</p>
+<p>Vamos a compartir la carpeta <strong>C:\compartida</strong> alojada en nuestro servidor, con los permisos solo de lectura, para ello:</p>
+<p>Con el botón <strong>derecho del ratón</strong> accedemos a las propiedades de la carpeta vamos a la pestaña de <strong>Compartir</strong> aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta.</p>
+<p>En la misma pestaña de <strong>Compartir</strong> este mismo dialogo nos vamos a <strong>Compartir</strong> permisos y agrgamos a Todos  <strong>quitamos Todos</strong> solo con permisos de Lectura</p>
+<p>Como podemos ver esta compartida en: <strong>\SRV-TUNOMREcompartida</strong> o <strong>\10.4.100.100</strong>, si el cliente es linux podemos acceder <strong>smb://10.4.100.100/</strong></p>
+</section>
+<section id="instalacion-de-software-utilizando-directivas-de-grupo">
+<h3>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h3>
+<ol class="arabic">
+<li><p>Vamos a poner en la carpeta compartida el programa a instalar en formato msi <a class="footnote-reference brackets" href="#msi" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, para este caso utilizaremos <a class="reference external" href="https://www.videolan.org/">VideoLAN</a>.</p></li>
+<li><p>Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong>. Crea un nuevo objeto de directiva de grupo (GPO) <strong>Instalar VLC</strong></p>
+<img alt="../../_images/GPO_VLC.png" src="../../_images/GPO_VLC.png" />
+</li>
+<li><p>En la pestaña de <strong>Configuración/Configuración del equipo</strong> vamos a Edición</p>
+<img alt="../../_images/GPO_VLC_configuracion.png" src="../../_images/GPO_VLC_configuracion.png" />
+</li>
+<li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de softare</strong> creamos un nuevo paquete</p>
+<img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
+</li>
+<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida, vamos a seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
+<img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
+</li>
+<li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y Wc6-Tunombre</p>
+<img alt="../../_images/GPO_VLC_Equipos.png" src="../../_images/GPO_VLC_Equipos.png" />
+</li>
+<li><p>En la consola de administración de Directivas de grupo, navega hasta  Despacho1, haz clic derecho en la OU y selecciona <strong>Vincular un GPO existente</strong></p>
+<img alt="../../_images/GPO_VLC_editar3.png" src="../../_images/GPO_VLC_editar3.png" />
+</li>
+<li><p>Los cambios en las políticas de grupo pueden requerir que el cliente se reinicie para que las configuraciones tengan efecto. Por otro lado si queremos aplicar nosotros mismos las directivas de grupo en los clientes de Windows, abre una ventana del símbolo del sistema (cmd) o PowerShell y ejecuta el comando <strong>gpupdate /force</strong>. Esto obligará al equipo a buscar y aplicar las nuevas directivas de grupo.</p></li>
+</ol>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="msi" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
+</aside>
+</aside>
 </section>
 </section>
 <section id="caso-practico-ad-y-dns-con-red-interna">
@@ -408,18 +485,8 @@ document.write(`
 </ul>
 <p>Por ultimo unir un equipo al dominio tu_nombre.local, si utilizas la misma maquina virtual tendrás que quitarla del domnio, cambiarle el nombre y volver a meterla, si utilizas un nuevo clon enlazado simplemente únela como hemos hecho antes al dominio teniendo en cuenta que ahora el DNS y la puerta de enlace es 172.16.0.10</p>
 </section>
-<section id="configurar-una-carpeta-compartida">
-<h3>Configurar una carpeta compartida<a class="headerlink" href="#configurar-una-carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Las carpetas y archivos en Windows permiten configurar los siguientes permisos:</p>
-<ul class="simple">
-<li><p><strong>Control total</strong> el usuario tiene control total sobre la carpeta y puede añadir, cambiar, mover y eliminar elementos. El usuario también puede agregar y quitar permisos de la carpeta y subcarpetas.</p></li>
-<li><p><strong>Modificar</strong> una combinación de lectura y escritura. El usuario también tiene la capacidad de eliminar los archivos dentro de la carpeta. También puede ver el contenido de las subcarpetas.</p></li>
-<li><p><strong>Leer y Ejecutar</strong> los usuarios pueden leer el contenido de los archivos y</p></li>
-</ul>
-<p>ejecutar los programas de la carpeta.
-Mostrar el contenido de la carpeta: permite al usuario ver el contenido
-de la carpeta seleccionada. No se permite al usuario leer ni ejecutar el
-contenido de un archivo.</p>
+<section id="id2">
+<h3>Configurar una carpeta compartida<a class="headerlink" href="#id2" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a compartir la carpeta <strong>C:\compartidaA</strong> alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:</p>
 <p>Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y <strong>quitamos Todos</strong>, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer</p>
 <img alt="../../_images/SRV_todo.png" src="../../_images/SRV_todo.png" />
@@ -456,11 +523,14 @@ contenido de un archivo.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>

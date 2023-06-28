@@ -214,7 +214,7 @@ Configuración de Windows (PowerShell)
 
   .. code-block:: PowerShell
   
-   Rename-Computer -NewName "WS19tunombre"
+   Rename-Computer -NewName "WC0-tunombre"
 
 * **Habilitar ping**  
 

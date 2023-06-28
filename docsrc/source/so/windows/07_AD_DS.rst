@@ -21,6 +21,8 @@ La estructura del Directorio Activo se organiza jerárquicamente en los siguient
 
 * **Objeto**: Los objetos en el Directorio Activo representan recursos de red, como usuarios, grupos, equipos, impresoras, entre otros. Cada objeto tiene atributos que definen sus propiedades y características.
 
+* **Contenedores**  Un contenedor es similar a una UO en términos de ser una entidad lógica utilizada para agrupar objetos relacionados dentro de un dominio de Active Directory, la principal diferencia radica en que las UOs proporcionan una estructura jerárquica para organizar y administrar objetos en un dominio de Active Directory, mientras que los contenedores son entidades más simples que se utilizan para agrupar objetos relacionados, pero sin las mismas capacidades de administración y delegación de tareas.
+
 La estructura del Directorio Activo permite una administración eficiente de la red, al permitir la centralización de la administración de usuarios, recursos y políticas de seguridad. Además, facilita la implementación de políticas de grupo, la asignación de permisos y la gestión de la seguridad en toda la red.
 
 Controlador de dominio

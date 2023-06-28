@@ -277,6 +277,15 @@ document.write(`
                   
   <section id="configuracion-de-windows-server-powershell">
 <h1>Configuración de Windows Server (PowerShell)<a class="headerlink" href="#configuracion-de-windows-server-powershell" title="Enlace permanente a este encabezado">#</a></h1>
+<p>netsh interface ip set address name=»Ethernet» source=static addr=172.16.0.12 mask=255.0.0.0 gateway=172.16.0.10</p>
+<p>netsh interface ip set dnsserver «Ethernet» static 172.16.0.10 primary</p>
+<p>Rename-Computer -NewName «WC2-tunombre»
+Restart-Computer</p>
+<p>Add-Computer -DomainName tu_nombre.local</p>
+<p>Si queremos sacar la maquina del dominio, en una terminal con permiso de administrador ejceutamos:</p>
+<p>Remove-Computer -UnjoinDomainCredential tunombreAdministrador -PassThru -Verbose</p>
+<p>En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:</p>
+<p>w32tm /resync</p>
 </section>
 
 
