@@ -47,8 +47,10 @@ Reiniciamos el servicio
 
   systemctl restart smbd.service nmbd.service
 
-Para acceder desde GNU/Linux poner en el administrador de archivos **smb://IP/share/**
-Para acceder desde windows **\\IP**
+
+* Para acceder desde GNU/Linux poner en el administrador de archivos **smb://IP/share/**
+
+* Para acceder desde windows **\\IP**
 
 
 En el caso de que queramos contruir un servidor samba seguro incluimos al final de ***/etc/samba/smb.con**:

@@ -66,7 +66,12 @@ Control de procesos
  Ctrl+Z     # para  detener una tarea en primer plano
  Ctrl+C     # para cancelar una tarea en primer plano
        
-       
+**/etc/security/limits.conf** es utilizado en sistemas Unix y Linux para configurar límites de recursos y privilegios para usuarios y grupos. Este archivo permite establecer restricciones específicas sobre cómo los usuarios pueden utilizar los recursos del sistema, como la cantidad de memoria, la cantidad de procesos, el número de archivos abiertos, entre otros. También se utiliza para establecer prioridades y políticas de programación para procesos específicos.nLos límites definidos en "/etc/security/limits.conf" son aplicados por el sistema de gestión de límites de recursos (RLIMIT) del kernel. Esto permite evitar el uso excesivo de recursos por parte de usuarios o grupos, lo que podría llevar a una degradación del rendimiento del sistema o incluso a problemas de seguridad.
+
+**/proc/self** es un atajo que permite a un proceso acceder a información sobre sí mismo a través del sistema de archivos virtual /proc, que proporciona una ventana al kernel para monitorear y gestionar procesos y recursos del sistema.
+
+
+
 Ficheros y directorios
 ======================
 

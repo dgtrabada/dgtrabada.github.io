@@ -140,6 +140,10 @@ Comandos avanzados
    $ echo "Mi nombre es $tunombre
    hoy es $(date)" >> new_file.dat
 
+  * **tee** ambos a fichero y a pantalla
+  
+  * **/dev/null** descarta la salida
+  
   *  **echo $?** devuelve 0 si el comando que se acaba de ejecutar no ha dado problemas
   
   *  **&>** combina los operadores 2> (redirigir stderr) y > (redirigir stdout) en uno solo.
