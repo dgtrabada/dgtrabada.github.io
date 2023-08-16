@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Usuarios y grupos GNU/Linux &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/03_usuarios';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistemas Operativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/03_usuarios.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Usuarios y grupos GNU/Linux</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anadir-quotas-a-los-usuarios">Añadir Quotas a los usuarios:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="usuarios-y-grupos-gnu-linux">
+<h1>Usuarios y grupos GNU/Linux<a class="headerlink" href="#usuarios-y-grupos-gnu-linux" title="Enlace permanente a este encabezado">#</a></h1>
+<p><strong>Tipos de usuarios:</strong></p>
+<ul class="simple">
+<li><p>Usuario <strong>Normal</strong>: alumno, juan, pepe, etc ..</p></li>
+<li><p>Usuarios de <strong>Sistema</strong>: mail, man, proxy, tty, etc</p></li>
+<li><p><strong>root</strong>: administrador del sistema</p></li>
+</ul>
+<p>Los usuarios están definidos en los siguientes archivos:</p>
+<ul class="simple">
+<li><p><strong>/etc/p&#64;sswd</strong> (-rw-r–r– 1 root root): contiene información sobre cada usuario: ID, grupo principal, descripción, directorio de inicio, shell, etc.</p></li>
+<li><p><strong>/etc/shadow</strong>/ (-rw-r—– 1): contiene los passwords encriptados de los usuarios cuando se emplean shadow passwords.</p></li>
+<li><p><strong>/etc/group</strong>/: contiene los miembros de cada grupo, excepto para el grupo principal, que aparece en /etc/passwd.</p></li>
+<li><p><strong>/etc/skel</strong>/: Plantilla de ficheros iniciales que se copian en el $HOME del nuevo usuario cuando se crea</p></li>
+<li><p><strong>/etc/adduser.conf</strong>/ configuración del comando adduser</p></li>
+<li><p><strong>/etc/pam.d/</strong> Pluggable Authentication Modules</p></li>
+<li><p><strong>/etc/pam.d/</strong>/ Pluggable Authentication Modules</p></li>
+<li><p><strong>~/.bashrc</strong> configurar sesión del usuario en ~/.config es la configuración del entorno gráfico</p></li>
+</ul>
+<section id="gestion-de-usuarios">
+<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>useradd</strong> añade nuevos usuarios al sistema.</p>
+<ul class="simple">
+<li><p>-g Grupo principal que queremos tenga el usuario (debe existir previamente)</p></li>
+<li><p>-d Carpeta home del usuario. Suele ser /home/nombre-usuario</p></li>
+<li><p>-m Crear carpeta home si es que no existe.</p></li>
+<li><p>-s Intérprete de comandos (shell) del usuario. Suele ser /bin/bashuseradd al1</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>useradd<span class="w"> </span>-g<span class="w"> </span>grupo<span class="w"> </span>-d<span class="w"> </span>/home/usuario<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>usuario
+</pre></div>
+</div>
+</li>
+<li><p><strong>passwd usuario</strong> establecer la contraseña del usuario o cambiarla</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd<span class="w"> </span>-d<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># deshabilita</span>
+passwd<span class="w"> </span>-l<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># bloquea ! /etc/shadow</span>
+passwd<span class="w"> </span>-u<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># desbloquea</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>userdel usuario</strong> elimina el usuario. (-r elimina y borra su home)</p></li>
+<li><p><strong>usermod</strong> modifica las propiedades de usuarios</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod<span class="w"> </span>-s<span class="w"> </span>/bin/csh<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># cambia shell</span>
+usermod<span class="w"> </span>-G<span class="w"> </span>cdrom,mldonkey<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># grupos</span>
+usermod<span class="w"> </span>-e<span class="w"> </span><span class="m">2010</span>-1-1<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># expira</span>
+usermod<span class="w"> </span>-g<span class="w">  </span>grupo<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># fuerza usuario a grupo principal</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>chfn</strong> cambia la información de contacto de un usuario.</p></li>
+<li><p><strong>chsh</strong> cambia el shell del usuario especificado.</p></li>
+<li><p><strong>chage</strong> permite cambiar el <a class="reference external" href="mailto:p&#37;&#52;&#48;ssword">p<span>&#64;</span>ssword</a> y los datos del usuario.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chage<span class="w"> </span>-E<span class="w"> </span><span class="m">2011</span>-1-11<span class="w"> </span>al2<span class="w"> </span><span class="c1">#expirar</span>
+chage<span class="w"> </span>-l<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días antes de ser bloqueada</span>
+chage<span class="w"> </span>-M<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días para modificar la contraseña,</span>
+<span class="w">               </span><span class="c1">#luego del cual deberá modificarla en forma obligatoria</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="gestion-de-grupos">
+<h2>Gestión de grupos<a class="headerlink" href="#gestion-de-grupos" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Algunos grupos predefinidos son:</p>
+<ul class="simple">
+<li><p>adm: permite leer ficheros de log y monitorizar tareas</p></li>
+<li><p>cdrom, floppy, audio, video: dan acceso a estos dispositivos</p></li>
+<li><p>sudo: permite utilizar sudo sin introducir la contraseña del usuario</p></li>
+<li><p>shadow: permite acceso al fichero de contraseñas /etc/shadow</p></li>
+<li><p>“usuario”: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario</p></li>
+</ul>
+<p>Para gestionar los grupos podemos utilizar los siguientes comandos:</p>
+<ul>
+<li><p><strong>groupadd</strong> añade un grupo al sistema.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupadd<span class="w"> </span>fp
+groupadd<span class="w"> </span>–g<span class="w"> </span><span class="m">1020</span><span class="w"> </span>fp
+</pre></div>
+</div>
+</li>
+<li><p><strong>groupdel</strong> para eliminar grupos del sistema</p></li>
+<li><p><strong>groupmod</strong> permite modificar el nombre o GID de un grupo.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupmod<span class="w"> </span>-g<span class="w"> </span><span class="m">1021</span><span class="w"> </span>fp
+groupmod<span class="w"> </span>-n<span class="w"> </span>fp<span class="w"> </span>fp2<span class="w"> </span><span class="c1"># cambia el nombre del grupo</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>gpasswd</strong> permite administrar los grupos.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gpasswd<span class="w"> </span>-A<span class="w"> </span>al1<span class="w"> </span>fp<span class="w">    </span><span class="c1"># señala como administrador del grupo fp al usuario al1</span>
+gpasswd<span class="w"> </span>fp<span class="w">           </span><span class="c1"># cambia el passwd del grupo admin</span>
+gpasswd<span class="w"> </span>-a<span class="w"> </span>al1<span class="w"> </span>admin<span class="w"> </span><span class="c1"># añade el usuario al1 al grupo admin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="comandos-adicionales">
+<h2>Comandos adicionales<a class="headerlink" href="#comandos-adicionales" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>whoami
+alumno
+
+$<span class="w"> </span>groups
+alumno<span class="w"> </span>adm<span class="w"> </span>dialout<span class="w"> </span>cdrom<span class="w"> </span>plugdev<span class="w"> </span>lpadmin<span class="w"> </span>admin<span class="w"> </span>sambashare
+
+<span class="nv">$id</span>
+<span class="nv">uid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>alumno<span class="o">)</span><span class="w"> </span><span class="nv">gid</span><span class="o">=</span><span class="m">1000</span><span class="o">(</span>alumno<span class="o">)</span><span class="w"> </span><span class="nv">grupos</span><span class="o">=</span><span class="m">4</span><span class="o">(</span>adm<span class="o">)</span>,20<span class="o">(</span>dialout<span class="o">)</span>,24<span class="o">(</span>cdrom<span class="o">)</span>,
+<span class="m">46</span><span class="o">(</span>plugdev<span class="o">)</span>,105<span class="o">(</span>lpadmin<span class="o">)</span>,119<span class="o">(</span>admin<span class="o">)</span>,122<span class="o">(</span>sambashare<span class="o">)</span>,1000<span class="o">(</span>alumno<span class="o">)</span>
+
+$<span class="w"> </span>who
+alumno<span class="w"> </span>tty7<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">09</span>:52<span class="w"> </span><span class="o">(</span>:0<span class="o">)</span>
+alumno<span class="w"> </span>pts/0<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">10</span>:05<span class="w"> </span><span class="o">(</span>:0.0<span class="o">)</span>
+alumno<span class="w"> </span>pts/1<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">10</span>:10<span class="w"> </span><span class="o">(</span>:0.0<span class="o">)</span>
+alumno<span class="w"> </span>pts/2<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">10</span>:19<span class="w"> </span><span class="o">(</span>:0.0<span class="o">)</span>
+alumno<span class="w"> </span>pts/4<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">11</span>:10<span class="w"> </span><span class="o">(</span>:0.0<span class="o">)</span>
+profesor<span class="w"> </span>pts/5<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">11</span>:12
+profesor<span class="w"> </span>pts/6<span class="w"> </span><span class="m">2011</span>-02-09<span class="w"> </span><span class="m">11</span>:19<span class="w"> </span><span class="o">(</span><span class="m">192</span>.168.248.1<span class="o">)</span>
+$<span class="w"> </span>w
+<span class="m">11</span>:19:52<span class="w"> </span>up<span class="w"> </span><span class="m">1</span>:29,<span class="w"> </span><span class="m">7</span><span class="w"> </span>users,<span class="w"> </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">1</span>.47,<span class="w"> </span><span class="m">1</span>.03,<span class="w"> </span><span class="m">0</span>.97
+USER<span class="w"> </span>TTY<span class="w"> </span>FROM<span class="w"> </span>LOGIN@<span class="w"> </span>IDLE<span class="w"> </span>JCPU<span class="w"> </span>PCPU<span class="w"> </span>WHAT
+alumno<span class="w"> </span>tty7<span class="w"> </span>:0<span class="w"> </span><span class="m">09</span>:52<span class="w"> </span><span class="m">1</span>:28m<span class="w"> </span><span class="m">6</span>:56<span class="w"> </span><span class="m">1</span>.42s<span class="w"> </span>gnome-session
+alumno<span class="w"> </span>pts/0<span class="w"> </span>:0.0<span class="w"> </span><span class="m">10</span>:05<span class="w"> </span><span class="m">9</span>.00s<span class="w"> </span><span class="m">0</span>.47s<span class="w"> </span><span class="m">0</span>.47s<span class="w"> </span>bash
+alumno<span class="w"> </span>pts/1<span class="w"> </span>:0.0<span class="w"> </span><span class="m">10</span>:10<span class="w"> </span><span class="m">4</span>:11<span class="w"> </span><span class="m">1</span>.06s<span class="w"> </span><span class="m">1</span>.06s<span class="w"> </span>bash
+alumno<span class="w"> </span>pts/2<span class="w"> </span>:0.0<span class="w"> </span><span class="m">10</span>:19<span class="w"> </span><span class="m">31</span>:30<span class="w"> </span><span class="m">1</span>:26<span class="w"> </span><span class="m">1</span>:25<span class="w"> </span>texmacs.bin
+alumno<span class="w"> </span>pts/4<span class="w"> </span>:0.0<span class="w"> </span><span class="m">11</span>:10<span class="w"> </span><span class="m">6</span>:19<span class="w"> </span><span class="m">0</span>.62s<span class="w"> </span><span class="m">17</span>.92s<span class="w"> </span>gnome-terminal
+profesor<span class="w"> </span>pts/5<span class="w"> </span>-<span class="w"> </span><span class="m">11</span>:12<span class="w"> </span><span class="m">1</span>:18<span class="w"> </span><span class="m">1</span>.36s<span class="w"> </span><span class="m">0</span>.56s<span class="w"> </span>-bash
+profesor<span class="w"> </span>pts/6<span class="w"> </span><span class="m">192</span>.168.248.1<span class="w"> </span><span class="m">11</span>:19<span class="w"> </span><span class="m">19</span>.00s<span class="w"> </span><span class="m">0</span>.34s<span class="w"> </span><span class="m">0</span>.34s<span class="w"> </span>-bash
+
+$<span class="w"> </span>last
+profesor<span class="w"> </span>pts/6<span class="w"> </span><span class="m">192</span>.168.248.1<span class="w"> </span>Wed<span class="w"> </span>Feb<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">11</span>:19<span class="w"> </span>still<span class="w"> </span>logged<span class="w"> </span><span class="k">in</span>
+profesor<span class="w"> </span>pts/5<span class="w"> </span>Wed<span class="w"> </span>Feb<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">11</span>:12<span class="w"> </span>still<span class="w"> </span>logged<span class="w"> </span><span class="k">in</span>
+profesor<span class="w"> </span>pts/5<span class="w"> </span>Wed<span class="w"> </span>Feb<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">11</span>:12<span class="w"> </span>-<span class="w"> </span><span class="m">11</span>:12<span class="w"> </span><span class="o">(</span><span class="m">00</span>:00<span class="o">)</span>
+alumno<span class="w"> </span>pts/5<span class="w"> </span>:0.0<span class="w"> </span>Wed<span class="w"> </span>Feb<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">11</span>:10<span class="w"> </span>-<span class="w"> </span><span class="m">11</span>:12<span class="w"> </span><span class="o">(</span><span class="m">00</span>:01<span class="o">)</span>
+alumno<span class="w"> </span>pts/4<span class="w"> </span>:0.0<span class="w"> </span>Wed<span class="w"> </span>Feb<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">11</span>:10<span class="w"> </span>still<span class="w"> </span>logged<span class="w"> </span><span class="k">in</span>
+
+$<span class="w"> </span>finger<span class="w"> </span>dani
+Login:<span class="w"> </span>dani<span class="w">                             </span>Name:<span class="w"> </span><span class="o">(</span>null<span class="o">)</span>
+Directory:<span class="w"> </span>/home/dani<span class="w">                   </span>Shell:<span class="w"> </span>/bin/bash
+On<span class="w"> </span>since<span class="w"> </span>Sun<span class="w"> </span>Feb<span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">19</span>:12<span class="w"> </span><span class="o">(</span>CET<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>pts/18<span class="w"> </span>from<span class="w"> </span><span class="m">74</span>.125.230.178
+No<span class="w"> </span>mail.
+No<span class="w"> </span>Plan.
+
+<span class="c1"># Otros</span>
+write,<span class="w"> </span>wall,<span class="w"> </span>mesg,<span class="w"> </span>newgrp,<span class="w"> </span>...
+</pre></div>
+</div>
+</section>
+<section id="anadir-quotas-a-los-usuarios">
+<h2>Añadir Quotas a los usuarios:<a class="headerlink" href="#anadir-quotas-a-los-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#tenemos que añadir usrquota,grpquota en el fstab</span>
+
+vi<span class="w"> </span>/etc/fstab
+<span class="nv">UUID</span><span class="o">=</span>XXXX<span class="w"> </span>/home<span class="w">      </span>ext4<span class="w">    </span>defaults,usrquota,grpquota<span class="w">        </span><span class="m">0</span><span class="w">       </span><span class="m">2</span>
+
+<span class="c1">#para activarlo</span>
+mount<span class="w"> </span>-a
+
+<span class="c1">#si no funciona podemos remontar</span>
+mount<span class="w"> </span>-o<span class="w"> </span>remount,usrquota,grpquota<span class="w"> </span>/home
+
+<span class="c1">#escaneo de las quotas asignadas a grupos y usuarios</span>
+<span class="c1">#en caso de que sea la primera vez, crea los ficheros de quota para usuarios y grupos</span>
+quotacheck<span class="w"> </span>-cgumv<span class="w"> </span>/home
+
+<span class="c1">#activar las quotas</span>
+quotaon<span class="w"> </span>-ugv<span class="w"> </span>/home
+
+<span class="c1">#setquota -u usuario 256000 307200 0 0 /home</span>
+edquota<span class="w"> </span>usuario
+
+<span class="c1">#setquota -g grupo 256000 307200 0 0 /home</span>
+edquota<span class="w"> </span>-g<span class="w"> </span>grupo
+
+<span class="c1">#crear un informe del uso del disco para el grupo y por usuarios</span>
+repquota<span class="w"> </span>-vg<span class="w"> </span>/home
+repquota<span class="w"> </span>-vu<span class="w"> </span>-a
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anadir-quotas-a-los-usuarios">Añadir Quotas a los usuarios:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

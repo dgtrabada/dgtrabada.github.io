@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>LDAP &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/13_ldap';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistemas Operativos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/13_ldap.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LDAP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-ldap">¿Qué es LDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-openldap">¿Qué es OpenLDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funcionan-ldap-y-openldap">¿Cómo funcionan LDAP y OpenLDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-del-servidor-ldap">Instalación del servidor LDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-la-estructura-del-directorio">Crear la estructura del directorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-los-clientes-autenticacion-con-openldap">Configuración de los clientes: Autenticación con OpenLDAP</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ldap">
+<h1>LDAP<a class="headerlink" href="#ldap" title="Enlace permanente a este encabezado">#</a></h1>
+<section id="que-es-ldap">
+<h2>¿Qué es LDAP?<a class="headerlink" href="#que-es-ldap" title="Enlace permanente a este encabezado">#</a></h2>
+<p>LDAP es un protocolo que ofrece el acceso a un servicio de directorio implementado sobre un entorno de red, con el objeto de acceder a una determinada información. Puede ejecutarse sobre TCP/IP o sobre cualquier otro servicio de trasferencia orientado a la conexión.</p>
+<p>LDAP son las siglas en inglés de Lightweight Directory Access Protocol (Protocolo Ligero de Acceso a Directorios) y podemos considerarlo como un sistema de almacenamiento de red (normalmente construido como una base de datos) al que se pueden realizar consultas.</p>
+</section>
+<section id="que-es-openldap">
+<h2>¿Qué es OpenLDAP?<a class="headerlink" href="#que-es-openldap" title="Enlace permanente a este encabezado">#</a></h2>
+<p>OpenLDAP es un desarrollo del protocolo LDAP, implementado con la filosofía del software libre y código abierto. El proyecto OpenLDAP se inició en agosto de 1998 y está sustentado por una entidad sin ánimo de lucro llamada OpenLDAP Foundation, creada por el desarrollador estadounidense Kurt D. Zeilenga para coordinar las actividades del proyecto.</p>
+</section>
+<section id="como-funcionan-ldap-y-openldap">
+<h2>¿Cómo funcionan LDAP y OpenLDAP?<a class="headerlink" href="#como-funcionan-ldap-y-openldap" title="Enlace permanente a este encabezado">#</a></h2>
+<p>El modelo de información de LDAP se basa en entradas, entendiendo por entrada un conjunto de atributos identificados por un nombre global único (Distinguished Name – DN), que se utiliza para identificarla de forma específica. Las entradas se organizan de forma lógica y jerárquica mediante un esquema de directorio, que contiene la definición de los objetos que pueden formar parte del directorio.</p>
+<p>Entre los atributos que suelen emplearse habitualmente, encontramos los siguientes, aunque puede haber muchos más:</p>
+<ul class="simple">
+<li><p>uid (user id): Identificación única de la entrada en el árbol.</p></li>
+<li><p>objectClass: Indica el tipo de objeto al que pertenece la entrada.</p></li>
+<li><p>cn (common name): Nombre de la persona representada en el objeto.</p></li>
+<li><p>givenname: Nombre de pila.</p></li>
+<li><p>sn (surname): Apellido de la persona.</p></li>
+<li><p>o (organization): Entidad a la que pertenece la persona.</p></li>
+<li><p>u (organizational unit): El departamento en el que trabaja la persona.</p></li>
+<li><p>mail: dirección de correo electrónico de la persona.</p></li>
+</ul>
+<img alt="../../_images/LDAP.png" src="../../_images/LDAP.png" />
+</section>
+<section id="instalacion-del-servidor-ldap">
+<h2>Instalación del servidor LDAP<a class="headerlink" href="#instalacion-del-servidor-ldap" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>slapd<span class="w"> </span>ldap-utils
+<span class="c1">#contraseña slapd : alumno</span>
+
+<span class="w">  </span>NO
+<span class="w">  </span>dominio<span class="w"> </span>DNS<span class="w"> </span>:<span class="w"> </span>ldap.tunombre.local
+<span class="w">  </span>organización<span class="w"> </span>:<span class="w"> </span>tunombre
+<span class="w">  </span>contraseña<span class="w"> </span>:<span class="w"> </span>alumno
+<span class="w">  </span>HDB
+
+<span class="c1">#Si necesitamos reconfigurarlo</span>
+sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>slapd
+</pre></div>
+</div>
+<p>Puedes chequear que se ha creado tu LDAP utilizando el comando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="crear-la-estructura-del-directorio">
+<h2>Crear la estructura del directorio<a class="headerlink" href="#crear-la-estructura-del-directorio" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Una vez configurado el servidor, deberemos configurar la estructura básica del directorio. Es decir, crearemos la estructura jerárquica del árbol (DIT – Directory Information Tree).</p>
+<p>Una de las formas más sencillas de añadir información al directorio es utilizar archivos LDIF (LDAP Data Interchange Format). En realidad, se trata de archivos en texto plano, pero con un formato particular que debemos conocer poder construirlos correctamente</p>
+<p>El formato básico de una entrada es así:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># comentario</span>
+dn:<span class="w"> </span>&lt;nombre<span class="w"> </span>global<span class="w"> </span>único&gt;
+&lt;atributo&gt;:<span class="w"> </span>&lt;valor&gt;
+&lt;atributo&gt;:<span class="w"> </span>&lt;valor&gt;
+...
+</pre></div>
+</div>
+<p>&lt;atributo&gt; puede ser un tipo de atributo como cn o objectClass, o puede incluir opciones como cn;lang_en_US o userCertificate;binary.</p>
+<p>Entre dos entradas consecutivas debe existir siempre una línea en blanco.
+Si una línea es demasiado larga, podemos repartir su contenido entre varias, siempre que las líneas de continuación comiencen con un carácter de tabulación o un espacio en blanco.</p>
+<p>Por ejemplo, las siguientes líneas son equivalentes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>alumno1,<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>ldap,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>alumno1,<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>ldap,
+
+<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>tunombre,dc<span class="o">=</span>es
+</pre></div>
+</div>
+<p>Vamos insertar los siguientes objetos en el LDAP</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>tunombre.ldif
+
+dn:<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>usuarios,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>ldap,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>tunombre,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>organizationalUnit
+ou:<span class="w"> </span>usuarios
+
+dn:<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>grupos,dc<span class="o">=</span>ldap,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>tunombre,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>organizationalUnit
+ou:<span class="w"> </span>grupos
+</pre></div>
+</div>
+<p>Añadimos la información a la base de datos OpenLDAP. Con el comando ldapadd:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>tunombre.ldif
+</pre></div>
+</div>
+<p>Para comprobar que todo esta bien, podemos ejecutar:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
+</pre></div>
+</div>
+<p>Para añadir nuevos usuarios</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>usuarios.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>inetOrgPerson
+objectClass:<span class="w"> </span>posixAccount
+objectClass:<span class="w"> </span>shadowAccount
+uid:<span class="w"> </span>tunombre1
+sn:<span class="w"> </span>sntunombre1
+givenName:<span class="w"> </span>tunombre1
+cn:<span class="w"> </span>tunombre1
+displayName:<span class="w"> </span>tunombre1
+uidNumber:<span class="w"> </span><span class="m">1010</span>
+gidNumber:<span class="w"> </span><span class="m">501</span>
+userPassword:<span class="w"> </span>tunombre1
+loginShell:<span class="w"> </span>/bin/bash
+homeDirectory:<span class="w"> </span>/home/tunombre1
+shadowExpire:<span class="w"> </span>-1
+shadowFlag:<span class="w"> </span><span class="m">0</span>
+shadowWarning:<span class="w"> </span><span class="m">7</span>
+shadowMin:<span class="w"> </span><span class="m">8</span>
+shadowMax:<span class="w"> </span><span class="m">999999</span>
+shadowLastChange:<span class="w"> </span><span class="m">10877</span>
+mail:<span class="w"> </span>tunombre1@ldap.tunombre.local
+postalCode:<span class="w"> </span><span class="m">28027</span>
+</pre></div>
+</div>
+<p>Para cargar el nuevo usuario en el directorio.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>usuarios.ldif
+</pre></div>
+</div>
+<p>Para añadir un grupo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>grupo.ldif
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>tuapellido,ou<span class="o">=</span>grupos,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>posixGroup
+cn:<span class="w"> </span>GA
+gidNumber:<span class="w"> </span><span class="m">501</span>
+</pre></div>
+</div>
+<p>Para añadir la información al ldap</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>grupo.ldif
+</pre></div>
+</div>
+<p>Cuando añadas nuevos usuarios, recuerda que los valores para los atributos uidNumber y homeDirectory deben ser diferentes para cada usuario.</p>
+<p>Lo mismo ocurre con el atributo gidNumber de los grupos.</p>
+<p>Además, los valores de los campos uidNumber y gidNumber no deben coincidir con el UID y GID de ningún usuario y grupo local.</p>
+<p>Ahora podemos comprobar que el contenido anterior se ha añadido correctamente. Para lograrlo podemos utilizar, por ejemplo, el comando ldapsearch , que nos permite hacer una búsqueda en el directorio.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
+</pre></div>
+</div>
+<p>Otra opción interesante para comprobar el contenido del directorio es utilizar el comando slapcat. Su cometido es mostrar el contenido completo del directorio LDAP. Además, esta información se obtiene en formato LDIF, lo que nos permitirá volcarla a un fichero y exportar la base de datos de un modo muy sencillo.</p>
+<p>Editar Objetos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>change.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>usuario4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+replace:<span class="w"> </span>uidNumber
+uidNumber:<span class="w"> </span><span class="m">1014</span>
+
+$<span class="w"> </span>sudo<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>change.ldif<span class="w"> </span>-W
+</pre></div>
+</div>
+<p>Añadir Objetos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>add.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>usuario4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>homePhone
+homePhone:<span class="w"> </span><span class="m">1234567</span>
+
+$<span class="w"> </span>sudo<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>add.ldif<span class="w"> </span>-W
+</pre></div>
+</div>
+<p>Para borrar por ejemplo el objeto tunombre1 :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-W<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="s2">&quot;uid=tunombre1,dc=ldap,dc=tunombre,dc=local&quot;</span>
+</pre></div>
+</div>
+<p>Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no esta</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
+</pre></div>
+</div>
+<p>Para hacer copias de seguridad y restaurarlas utilizamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>slapcat<span class="w"> </span>-l<span class="w"> </span>backup.ldif<span class="w"> </span><span class="c1">#hacemos un backup</span>
+
+<span class="c1">#borramos los usuarios, por error ...</span>
+sudo<span class="w"> </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-W<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="s2">&quot;uid=tunombre1......,dc=ldap,dc=tunombre,dc=local&quot;</span>
+systemctl<span class="w"> </span>stop<span class="w"> </span>slapd.service<span class="w">  </span><span class="c1">#antes de restaurar paramos el servicio</span>
+rm<span class="w"> </span>-Rf<span class="w"> </span>/var/lib/ldap/*<span class="w"> </span><span class="c1">#limpiamos el directorio ldap</span>
+slapadd<span class="w"> </span>-v<span class="w"> </span>-c<span class="w"> </span>-l<span class="w"> </span>backup.ldif<span class="w">  </span><span class="c1">#restauramos</span>
+slapindex<span class="w"> </span>-v<span class="w"> </span><span class="c1">#rehacemos indices</span>
+chown<span class="w"> </span>-Rf<span class="w"> </span>openldap.openldap<span class="w"> </span>/var/lib/ldap/*
+systemctl<span class="w"> </span>start<span class="w"> </span>slapd.service
+</pre></div>
+</div>
+</section>
+<section id="configuracion-de-los-clientes-autenticacion-con-openldap">
+<h2>Configuración de los clientes: Autenticación con OpenLDAP<a class="headerlink" href="#configuracion-de-los-clientes-autenticacion-con-openldap" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libnss-ldap<span class="w"> </span>libpam-ldap<span class="w"> </span>ldap-utils<span class="w"> </span>-y
+
+<span class="w">  </span>ldap://172.16.0.10
+<span class="w">  </span><span class="nv">dc</span><span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+<span class="w">  </span>LDAP<span class="w"> </span>version<span class="w"> </span>:<span class="w"> </span><span class="m">3</span>
+<span class="w">  </span>Yes
+<span class="w">  </span>No
+<span class="w">  </span>LDAP<span class="w"> </span>account<span class="w"> </span><span class="k">for</span><span class="w"> </span>root:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+<span class="w">  </span>alumno
+
+<span class="c1">#reconfigurar :  sudo dpkg-reconfigure ldap-auth-config</span>
+
+vi<span class="w"> </span>/etc/hosts
+<span class="m">172</span>.16.0.10<span class="w">   </span>ldap.tunombre.local
+
+vi<span class="w">  </span>/etc/ldap.conf
+<span class="c1">#Ponemos la siguiente linea al final: 172.16.0.10</span>
+
+
+sudo<span class="w"> </span>pam-auth-update<span class="w"> </span><span class="c1">#marcar que se cree el directorio automaticamente</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>sysv-rc-conf
+sudo<span class="w"> </span>sysv-rc-conf<span class="w"> </span>libnss-ldap<span class="w"> </span>on
+sudo<span class="w"> </span>auth-client-config<span class="w"> </span>-t<span class="w"> </span>nss<span class="w"> </span>-p<span class="w"> </span>lac_ldap
+</pre></div>
+</div>
+<p>Algunos de estos comandos ya no están actualizados o tienen problemas lo importante es:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/nsswitch.conf
+passwd:<span class="w"> </span>files<span class="w"> </span>ldap
+shadow:<span class="w"> </span>files<span class="w"> </span>ldap
+group:<span class="w"> </span>files<span class="w"> </span>ldap
+</pre></div>
+</div>
+<p>para comprobarlo puedes utilizar el comando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
+</pre></div>
+</div>
+<p>Hacer que funcione el caché de nombres</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>nscd
+</pre></div>
+</div>
+<p>Para poder cambiar el password</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>libpam-cracklib
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-ldap">¿Qué es LDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-openldap">¿Qué es OpenLDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-funcionan-ldap-y-openldap">¿Cómo funcionan LDAP y OpenLDAP?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-del-servidor-ldap">Instalación del servidor LDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-la-estructura-del-directorio">Crear la estructura del directorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-los-clientes-autenticacion-con-openldap">Configuración de los clientes: Autenticación con OpenLDAP</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
