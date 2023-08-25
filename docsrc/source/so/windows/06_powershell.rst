@@ -259,7 +259,7 @@ Configuración de Windows (PowerShell)
   .. code-block:: PowerShell
   
    ipconfig /all #consultar dns
-   netsh interface ip set dnsserver "Ethernet" static 8.8.8.8 primary
+   netsh interface ip set dns "Ethernet" static 8.8.8.8
 
 * **Cambiar el nombre del equipo**
 
