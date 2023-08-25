@@ -124,7 +124,15 @@
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistemas Operativos</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentos/index.html">Fundamentos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html">GNU/Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../windows/index.html">Windows</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
 </ul>
@@ -277,6 +285,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-y-condicionales">Bucles y condicionales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-archivos-y-carpetas">Propiedades de archivos y carpetas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays">Arrays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
 </ul>
             </nav>
@@ -520,6 +529,30 @@ c
 </pre></div>
 </div>
 </li>
+<li><p>Juntar expresiones and y or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+<span class="k">do</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>j<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales y j = a&#39;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales o j = a&#39;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>y<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+b<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+b<span class="w"> </span>b<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+c<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+c<span class="w"> </span>c<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
 <section id="propiedades-de-archivos-y-carpetas">
@@ -586,6 +619,30 @@ $<span class="w"> </span>Suma<span class="w"> </span><span class="m">1</span><sp
 </pre></div>
 </div>
 </section>
+<section id="arrays">
+<h2>Arrays<a class="headerlink" href="#arrays" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>A<span class="o">[</span><span class="m">0</span><span class="o">]=</span><span class="m">1</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[0]</span><span class="si">}</span>
+<span class="m">1</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[1]</span><span class="si">}</span>
+
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+&gt;<span class="w"> </span><span class="k">do</span>
+&gt;<span class="w"> </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="nv">$i</span>
+&gt;<span class="w"> </span><span class="k">done</span>
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
+&gt;<span class="w"> </span><span class="k">do</span>
+&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+&gt;<span class="w"> </span><span class="k">done</span>
+<span class="m">1</span>
+<span class="m">2</span>
+<span class="m">3</span>
+<span class="m">4</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span><span class="si">${</span><span class="nv">A</span><span class="p">[1]</span><span class="si">}</span><span class="o">+</span><span class="si">${</span><span class="nv">A</span><span class="p">[2]</span><span class="si">}</span><span class="k">))</span>
+<span class="m">3</span>
+</pre></div>
+</div>
+</section>
 <section id="escritura-de-archivos">
 <h2>Escritura de archivos<a class="headerlink" href="#escritura-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">tunombre</span><span class="o">=</span>dani
@@ -635,6 +692,7 @@ hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-y-condicionales">Bucles y condicionales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-archivos-y-carpetas">Propiedades de archivos y carpetas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays">Arrays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
 </ul>
   </nav></div>

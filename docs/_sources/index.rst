@@ -12,8 +12,8 @@ Apuntes
 .. =====================================
 
 .. toctree::
-   :maxdepth: 3
-   
+   :maxdepth: 1
+         
    historia/index
    hardware/index
    so/index

@@ -248,6 +248,32 @@ Bucles y condicionales
      date
    done
 
+* Juntar expresiones and y or
+
+  .. code-block:: bash
+
+   for i in a b c
+   do
+     for j in a b c
+     do
+       if [ $i == $j ] && [ $j == "a" ]    
+       then
+         echo $i $j ',i j son iguales y j = a'
+       fi
+       if [ $i == $j ] || [ $j == "a" ]    
+       then
+         echo $i $j ',i j son iguales o j = a'
+       fi
+     done
+   done
+   a a ,i j son iguales y j = a
+   a a ,i j son iguales o j = a
+   b a ,i j son iguales o j = a
+   b b ,i j son iguales o j = a
+   c a ,i j son iguales o j = a
+   c c ,i j son iguales o j = a
+
+
 Propiedades de archivos y carpetas
 **********************************
 
@@ -315,6 +341,33 @@ Funciones
 
  $ Suma 1 2
  3
+
+
+Arrays
+******
+
+.. code-block:: bash
+ 
+ $ A[0]=1
+ $ echo ${A[0]}
+ 1
+ $ echo ${A[1]}
+ 
+ $ for i in 1 2 3 4
+ > do
+ > A[$i]=$i
+ > done
+ $ for i in 1 2 3 4
+ > do
+ > echo ${A[$i]}
+ > done
+ 1
+ 2
+ 3
+ 4
+ $ echo $((${A[1]}+${A[2]}))
+ 3
+
 
 Escritura de archivos
 *********************

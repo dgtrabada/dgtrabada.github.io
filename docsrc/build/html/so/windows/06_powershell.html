@@ -124,7 +124,15 @@
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hardware/index.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Sistemas Operativos</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentos/index.html">Fundamentos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html">Windows</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../redes/index.html">Redes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
 </ul>
@@ -276,10 +284,11 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 </ul>
 </li>
@@ -336,7 +345,7 @@ document.write(`
 </ul>
 </section>
 <section id="alias">
-<h2>Alias<a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">#</a></h2>
+<h2>Alias <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
 <li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
 <li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
@@ -407,6 +416,49 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
 <span class="n">False</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
 <span class="n">True</span>
+</pre></div>
+</div>
+</section>
+<section id="gestion-de-acl">
+<h2>Gestión de ACL<a class="headerlink" href="#gestion-de-acl" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span> <span class="n">Allow</span>  <span class="n">FullControl</span><span class="p">...</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
+<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
+</pre></div>
+</div>
+<p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
+
+<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
+
+<span class="c">#Para cambiar propietario</span>
+<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
+</pre></div>
+</div>
+<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
+
+<span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
+
+<span class="c"># Crear una regla de acceso para el grupo A</span>
+<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
 </section>
@@ -507,16 +559,74 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 <span class="c">#Iniciar el servicio ssh :</span>
 <span class="nb">Start-Service</span> <span class="n">sshd</span>
 
+<span class="c">#Para reiniciarlo</span>
+<span class="nb">Restart-Service</span> <span class="n">sshd</span>
+
 <span class="c">#Para iniciar el servicio ssh durante el arranque de forma automática:</span>
 <span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">sshd</span> <span class="n">-StartupType</span> <span class="s1">&#39;Automatic&#39;</span>
 
-<span class="c">#Para conectarse sin contraseña primero copia tu</span>
-<span class="c">#clave publica .ssh/id_rsa.pub a IP:C:\Users\Administrador\.ssh\authorized_keys</span>
+<span class="c">#Para conectarse sin contraseña primero copia tu clave publica</span>
+<span class="n">scp</span> <span class="n">-P22</span> <span class="p">.</span><span class="n">ssh</span><span class="p">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span> <span class="n">Administrador</span><span class="nv">@IP</span><span class="p">:</span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">\.</span><span class="n">ssh</span><span class="p">\</span><span class="n">authorized_keys</span>
+
+<span class="c">#después ya te puedes conectar sin meter contraseña</span>
 <span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
 </pre></div>
 </div>
 </li>
+<li><p><strong>Instalar edior vi</strong></p>
+<ul>
+<li><p>Con Chocolatey:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Instalar Chocolatey (si aún no lo tienes):</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span><span class="p">;</span> <span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://chocolatey.org/install.ps1&#39;</span><span class="p">))</span>
+
+<span class="n">choco</span> <span class="n">install</span> <span class="n">vim</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sin Chocolatey <a class="footnote-reference brackets" href="#id5" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php</span>
+<span class="c"># Descarga el instalador adecuado para tu sistema, en mi caso:</span>
+<span class="n">curl</span><span class="p">.</span><span class="n">exe</span> <span class="n">https</span><span class="p">://</span><span class="n">ftp</span><span class="p">.</span><span class="n">nluug</span><span class="p">.</span><span class="n">nl</span><span class="p">/</span><span class="n">pub</span><span class="p">/</span><span class="n">vim</span><span class="p">/</span><span class="n">pc</span><span class="p">/</span><span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span> <span class="n">-o</span> <span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span>
+
+<span class="c"># Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display</span>
+<span class="p">./</span><span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span>
+
+<span class="c"># Crea un alias:</span>
+<span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+</pre></div>
+</div>
+</li>
 </ul>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.</p>
+<p>Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:</p>
+<p>Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).</p>
+<p>Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$PROFILE</span> <span class="n">-Type</span> <span class="n">File</span> <span class="n">-Force</span>
+</pre></div>
+</div>
+<p>Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+</pre></div>
+</div>
+<p>Guarda el archivo y cierra el editor de texto.</p>
+<p>Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.</p>
+</aside>
+</aside>
 </section>
 
 
@@ -546,10 +656,11 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 </ul>
 </li>

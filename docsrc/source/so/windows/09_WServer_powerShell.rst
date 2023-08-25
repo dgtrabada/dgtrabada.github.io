@@ -1,5 +1,5 @@
 ********************************************
-Configuración de Windows Server (PowerShell)
+Casos prácticos : Active Directory sin GUI
 ********************************************
 
 
@@ -8,7 +8,7 @@ netsh interface ip set address name="Ethernet" source=static addr=172.16.0.12 ma
 netsh interface ip set dnsserver "Ethernet" static 172.16.0.10 primary
 
 
-Rename-Computer -NewName "WC2-tunombre"
+Rename-Computer -NewName "WC22tunombre"
 Restart-Computer
 
 Add-Computer -DomainName tu_nombre.local

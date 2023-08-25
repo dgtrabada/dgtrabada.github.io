@@ -45,6 +45,8 @@
     <link rel="icon" href="../_static/ico.png"/>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="next" title="Particiones" href="particiones.html" />
+    <link rel="prev" title="Fundamentos" href="fundamentos/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -121,10 +123,18 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../historia/index.html">Historia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hardware/index.html">Hardware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Sistemas Operativos</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Sistemas Operativos</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../teoria/medida_representacion_informacion.html">Medida y representación de la información</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fundamentos/index.html">Fundamentos</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GNULinux/index.html">GNU/Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows/index.html">Windows</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../redes/index.html">Redes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
 </ul>
@@ -277,6 +287,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
 </ul>
 </li>
 </ul>
@@ -443,7 +454,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </ul>
 <p>Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
 <ul class="simple">
-<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
 <li><p>Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)</p></li>
 <li><p>Contraseña del Administrador: &#64;lumn0</p></li>
 <li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
@@ -451,6 +462,22 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 <li><p>Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria</p></li>
 <li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar</p></li>
 </ul>
+</section>
+<section id="caso-practico-windows-server-2022-sin-gui">
+<h3>Caso práctico: Windows Server 2022 sin GUI<a class="headerlink" href="#caso-practico-windows-server-2022-sin-gui" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p>Creamos una maquina virtual llamada <strong>WServer_22</strong>, con 100GB de disco duro reservado dinámicamente, 2048GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)</p></li>
+<li><p>Instalación nueva : Personalizada, instalar solo Windows (avanzado) y usamos todo el disco.</p></li>
+<li><p>Contraseña del Administrador: &#64;lumn0</p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
+<li><p>Cambia el nombre por WS22tunombre</p></li>
+<li><p>Habilita el ping</p></li>
+<li><p>Instala el editor vi</p></li>
+<li><p>Instala el servidor ssh</p></li>
+<li><p>Voluntario: Haz que puedas conectarte por ssh sin contraseña</p></li>
+</ul>
+<p>ayuda: <a class="reference internal" href="windows/06_powershell.html#configuracion-de-windows-powershell"><span class="std std-ref">Configuración de Windows (PowerShell)</span></a></p>
 </section>
 </section>
 </section>
@@ -464,6 +491,24 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
                 <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="fundamentos/index.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Fundamentos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="particiones.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Particiones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -483,6 +528,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
 </ul>
 </li>
 </ul>
