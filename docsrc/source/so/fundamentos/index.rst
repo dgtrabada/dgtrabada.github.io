@@ -1,6 +1,6 @@
-***********
-Fundamentos
-***********
+**********************************
+Fundamentos de sistemas operativos
+**********************************
 
 * :ref:`Evolución del Sistema Operativo`
 * :ref:`Tipos software y licencias`

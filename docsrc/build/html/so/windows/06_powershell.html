@@ -281,20 +281,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -419,6 +416,142 @@ Get-Service | Format-Table -Property Name, DependentServices</p></li>
 </pre></div>
 </div>
 </section>
+<section id="inforacion-de-harware">
+<h2>Inforación de harware<a class="headerlink" href="#inforacion-de-harware" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>Get-PSDrive</strong> cmdlet obtiene las unidades de la sesión actual.</p></li>
+<li><p><strong>Get-NetAdapter</strong> en PowerShell te mostrará información sobre las interfaces de red</p></li>
+<li><p><strong>Get-WmiObject</strong> optener información sobre el procesador</p></li>
+<li><p><strong>Get-CimInstance</strong> se utiliza para recuperar instancias de una clase</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-PSDrive</span>
+
+<span class="n">Name</span>           <span class="n">Used</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>     <span class="n">Free</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span> <span class="n">Provider</span>      <span class="n">Root</span>                                                     <span class="n">CurrentLocation</span>
+<span class="p">----</span>           <span class="p">---------</span>     <span class="p">---------</span> <span class="p">--------</span>      <span class="p">----</span>                                                     <span class="p">---------------</span>
+<span class="k">Alias</span>                                  <span class="k">Alias</span>
+<span class="n">C</span>                   <span class="n">8</span><span class="p">,</span><span class="n">28</span>         <span class="n">91</span><span class="p">,</span><span class="n">07</span> <span class="n">FileSystem</span>    <span class="n">C</span><span class="p">:\</span>
+<span class="n">Cert</span>                                   <span class="n">Certificate</span>   <span class="p">\</span>
+<span class="n">D</span>                                      <span class="n">FileSystem</span>    <span class="n">D</span><span class="p">:\</span>
+<span class="n">Env</span>                                    <span class="n">Environment</span>
+<span class="k">Function</span>                               <span class="k">Function</span>
+<span class="n">HKCU</span>                                   <span class="n">Registry</span>      <span class="n">HKEY_CURRENT_USER</span>
+<span class="n">HKLM</span>                                   <span class="n">Registry</span>      <span class="n">HKEY_LOCAL_MACHINE</span>
+<span class="n">Variable</span>                               <span class="n">Variable</span>
+<span class="n">WSMan</span>                                  <span class="n">WSMan</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span>
+
+<span class="n">Name</span>           <span class="n">Used</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>     <span class="n">Free</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span> <span class="n">Provider</span>      <span class="n">Root</span>                                                     <span class="n">CurrentLocation</span>
+<span class="p">----</span>           <span class="p">---------</span>     <span class="p">---------</span> <span class="p">--------</span>      <span class="p">----</span>                                                     <span class="p">---------------</span>
+<span class="n">C</span>                   <span class="n">8</span><span class="p">,</span><span class="n">28</span>         <span class="n">91</span><span class="p">,</span><span class="n">07</span> <span class="n">FileSystem</span>    <span class="n">C</span><span class="p">:\</span>
+<span class="n">D</span>                                      <span class="n">FileSystem</span>    <span class="n">D</span><span class="p">:\</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span>
+
+<span class="n">Name</span>       <span class="n">Used</span>        <span class="n">Free</span>
+<span class="p">----</span>       <span class="p">----</span>        <span class="p">----</span>
+<span class="n">C</span>    <span class="n">8886775808</span> <span class="n">97782759424</span>
+<span class="n">D</span>             <span class="n">0</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span>
+<span class="n">Name</span>       <span class="n">Used</span>        <span class="n">Free</span>
+<span class="p">----</span>       <span class="p">----</span>        <span class="p">----</span>
+<span class="n">C</span>    <span class="n">8886775808</span> <span class="n">97782759424</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$particion_C</span><span class="p">=$(</span><span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span>
+<span class="n">8886775808</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
+<span class="n">8</span><span class="p">,</span><span class="n">33112827263359</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">(</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">),</span><span class="n">2</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
+<span class="n">8</span><span class="p">,</span><span class="n">33</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="s2">&quot;El $porcentaje % de la partición C esta ocupada&quot;</span>
+<span class="n">El</span> <span class="n">8</span><span class="p">.</span><span class="n">33</span> <span class="p">%</span> <span class="n">de</span> <span class="n">la</span> <span class="n">partición</span> <span class="n">C</span> <span class="n">esta</span> <span class="n">ocupada</span>
+</pre></div>
+</div>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">caption</span>
+ <span class="n">Intel64</span> <span class="n">Family</span> <span class="n">6</span> <span class="n">Model</span> <span class="n">142</span> <span class="n">Stepping</span> <span class="n">10</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_ComputerSystem</span><span class="p">).</span><span class="n">SystemType</span>
+ <span class="n">x64-based</span> <span class="n">PC</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">((</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="n">1</span><span class="p">]</span>
+ <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-Property</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Number</span><span class="p">*</span>
+
+ <span class="n">Name</span>                                     <span class="n">NumberOfCores</span> <span class="n">NumberOfEnabledCore</span> <span class="n">NumberOfLogicalProcessors</span>
+ <span class="p">----</span>                                     <span class="p">-------------</span> <span class="p">-------------------</span> <span class="p">-------------------------</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>             <span class="n">2</span>                                             <span class="n">2</span>
+
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">NumberOfCores</span>
+
+ <span class="n">NumberOfCores</span>
+<span class="p">-------------</span>
+             <span class="n">2</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">win32_processor</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">LoadPercentage</span>
+
+ <span class="n">LoadPercentage</span>
+ <span class="p">--------------</span>
+             <span class="n">44</span>
+
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-class</span> <span class="s2">&quot;Win32_Processor&quot;</span><span class="p">|</span> <span class="p">%</span> <span class="p">{</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU ID: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">DeviceID</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Model: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Cores: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">NumberOfCores</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Max Speed: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">MaxClockSpeed</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Status: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Status</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span>
+ <span class="p">&gt;&gt;</span> <span class="p">}</span>
+ <span class="n">CPU</span> <span class="n">ID</span><span class="p">:</span>
+ <span class="n">CPU0</span>
+ <span class="n">CPU</span> <span class="n">Model</span><span class="p">:</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="n">CPU</span> <span class="n">Cores</span><span class="p">:</span>
+ <span class="n">2</span>
+ <span class="n">CPU</span> <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span>
+ <span class="n">1800</span>
+ <span class="n">CPU</span> <span class="n">Status</span><span class="p">:</span>
+ <span class="n">OK</span>
+</pre></div>
+</div>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span>
+
+<span class="n">SystemDirectory</span>     <span class="n">Organization</span> <span class="n">BuildNumber</span> <span class="n">RegisteredUser</span>     <span class="n">SerialNumber</span>            <span class="n">Version</span>
+<span class="p">---------------</span>     <span class="p">------------</span> <span class="p">-----------</span> <span class="p">--------------</span>     <span class="p">------------</span>            <span class="p">-------</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">system32</span>              <span class="n">20348</span>       <span class="n">Usuario</span> <span class="n">de</span> <span class="n">Windows</span> <span class="n">00454</span><span class="p">-</span><span class="n">40000</span><span class="p">-</span><span class="n">00001-AA444</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">20348</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">FreePhysicalMemory</span>
+<span class="n">986776</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">TotalVirtualMemorySize</span>
+<span class="n">3276340</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">NumberOfUsers</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">BootDevice</span>
+<span class="p">\</span><span class="n">Device</span><span class="p">\</span><span class="n">HarddiskVolume1</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">Version</span>
+<span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">20348</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">WindowsDirectory</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">Windows</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">CountryCode</span>
+<span class="n">34</span>
+</pre></div>
+</div>
+</section>
 <section id="gestion-de-acl">
 <h2>Gestión de ACL<a class="headerlink" href="#gestion-de-acl" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
@@ -511,9 +644,8 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 </li>
 </ul>
 </section>
-</section>
 <section id="configuracion-de-windows-powershell">
-<h1>Configuración de Windows (PowerShell)<a class="headerlink" href="#configuracion-de-windows-powershell" title="Enlace permanente a este encabezado">#</a></h1>
+<h2>Configuración de Windows (PowerShell)<a class="headerlink" href="#configuracion-de-windows-powershell" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p><strong>Reiniciar</strong></p>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="nb">r</span>
@@ -628,6 +760,7 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 </aside>
 </aside>
 </section>
+</section>
 
 
                 </article>
@@ -653,20 +786,17 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PowerShell</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
