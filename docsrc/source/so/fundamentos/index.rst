@@ -2,10 +2,14 @@
 Fundamentos de sistemas operativos
 **********************************
 
-* :ref:`Evolución del Sistema Operativo`
-* :ref:`Tipos software y licencias`
-* :ref:`Sistemas operativos`
-* :ref:`Gestión de procesos`
-* :ref:`Gestión de memoria`
-* :ref:`Sistema de archivos`
-* :ref:`Gestión arranque`
+.. toctree::
+   :maxdepth: 1
+   
+   so_evolucion_sistema_operativo.rst
+   so_licencias.rst
+   sistemas_operativos.rst
+   gestion_procesos.rst
+   gestion_memoria.rst
+   sistema_archivos.rst 
+   gestion_arranque.rst              
+       

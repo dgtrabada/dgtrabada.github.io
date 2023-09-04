@@ -2,16 +2,18 @@
 Windows
 *******
 
+.. toctree::
+   :maxdepth: 1
+   
+   01_historia.rst
+   02_configuracion.rst
+   03_usuarios_grupos.rst
+   04_arranque.rst
+   05_comandos_dos.rst
+   06_powershell.rst
+   07_AD_DS.rst
+   08_Caso_practico_AD.rst
+   09_Caso_practico_AD_sin_GUI.rst
+   10_powershell_scripting.rst
+   11_bat.rst
 
-* :ref:`Historia de Windows`
-* :ref:`Configuración Windows`
-* :ref:`Usuarios y grupos Windows`
-* :ref:`Arranque de Windows`
-* :ref:`Comandos ms-dos`
-* :ref:`PowerShell`
-* :ref:`Configuración de Windows (PowerShell)`
-* :ref:`Active Directory Domain Services (AD DS)`
-* :ref:`Casos prácticos : Active Directory`
-* :ref:`Casos prácticos : Active Directory sin GUI`
-* :ref:`PowerShell Scripting`
-* :ref:`Scripting .bat`
