@@ -3,8 +3,8 @@ Casos prácticos : Active Directory sin GUI
 ********************************************
 
 
-Caso práctico: AD y DNS con adaptador puente
-===============================
+Caso práctico: AD y DNS con adaptador puente sin GUI
+====================================================
 
 Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
@@ -12,7 +12,7 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 * Clon enlazado 2 de "Windows Server 2022 sin GUI" llamado **CLient-tunombre** 10.5.X.Y/8
 
 Instalación y configuración de Active Directory y DNS
--------------
+-----------------------------------------------------
 
 Instalamos el rol de Servicio de dominio de Active Directory
 
@@ -37,7 +37,7 @@ No tenemos creada ninguna parte de la infraestructura, comenzamos creando el bos
 
 
 Unidades Organizativas, usuarios y grupos
--------------------------
+-----------------------------------------
 
 Vamos a crear las siguientes  unidades organizativas:
 
@@ -54,7 +54,7 @@ Puedes comprobar las unidades creadas:
   
 
 Grupos y usuarios
--------
+------------------
 
 Vamos a crear los mismos usuarios que hicimos con entorno gráfico, es decir tu_nombreA1 en el grupo A, tu_nombreA2 en el grupo A, tu_nombreB1 en el grupo B y tu_nombreB2 en grupo B.
 
@@ -93,7 +93,7 @@ Podemos comprobar que se han creado los grupos y los usuarios:
 
 
 Unir equipo al dominio
--------
+----------------------
 
 Para añadir el equipo al dominio **CLient-tunombre** primero tendremos que cambiar el DNS:
 
