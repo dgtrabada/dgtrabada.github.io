@@ -39,7 +39,7 @@ La secuencia del POST pueden varíar segun el fabricante, la placa base y la ver
 9. Instalar todas las funciones del BIOS
 10. Verificar todas las configuraciones (unidades de disco y discos rígidos)
   .. image:: imagenes/BIOS/post.jpg
-        :width: 400
+     :width: 400
     
 Si en algún momento el POST encuentra un error, intentará continuar con el inicio del ordenador. Sin embargo, si el error es serio, el BIOS detendrá la carga del sistema y:
 
@@ -59,12 +59,12 @@ Si en algún momento el POST encuentra un error, intentará continuar con el ini
 * Zumbador de la placa base.
 
   .. image:: imagenes/BIOS/zumbador.png
-    :width: 200
+     :width: 200
     
 * Otra forma es con un código (denominado código POST) al puerto serial del ordenador, que puede recuperarse a través de hardware especial de diagnósticos. La tarjeta de diagnóstico POST:
 
   .. image:: imagenes/BIOS/diagnostico_post.png
-    :width: 250
+     :width: 250
 
   * Cuando se encienda el ordenador comenzaran a aparecer combinaciones de teclas y números. Cada combinación indica que se está probando algún componente del equipo.
   * Si no hay problemas en el display de la tarjeta aparecerá el código "00" o "FF", que significa que la computadora se encuentra lista para buscar el sistema operativo.
@@ -77,7 +77,7 @@ El SETUP es un programa configuración de la BIOS, que permite acceder a los par
 El SETUP se activa en la mayoria de los casos pulsando la tecla DEL,SUPR, F2...
 
 .. image:: imagenes/BIOS/setup.png
-      :width: 400
+   :width: 400
 
 Un análisis de la pantalla de inicio para entrar al SETUP obtenemos que:
 
@@ -96,7 +96,7 @@ Pulsado la tecla <Supr> se entra en el SETUP
 A través del menú principal del Setup puedes acceder a los diferentes submenús mediante los que llevarás a cabo la configuración de la BIOS
 
 .. image:: imagenes/BIOS/cmos_setup.png
-      :width: 400
+   :width: 400
 
 * **Standard CMOS Setup**: desde esta pantalla accederemos a la configuración de nuestros discos y disqueteras, así como la hora y fecha del sistema.
 * **Advanced CMOS Setup**: (Configuraciones Avanzadas de la BIOS) puedes, por ejemplo, escoger si, al encender el ordenador, se lleva a cabo una autocompro bación rápida o profunda. O determinar cuál es la secuencia de arranque, el orden en el que la BIOS debe buscar el sistema operativo en las distintas unidades de disco.
@@ -142,13 +142,13 @@ Utilice este menú para configurar la secuencia de arranque de los dispositivos,
     :width: 400
 |
 .. image:: imagenes/BIOS/advanced_bios_features2.png
-    :width: 400
+   :width: 400
 |
 .. image:: imagenes/BIOS/advanced_bios_features3.png
-    :width: 400
+   :width: 400
 |
 .. image:: imagenes/BIOS/advanced_bios_features4.png
-    :width: 400
+   :width: 400
 
 * **Boot Sequence**: Mediante esta opción estableceremos el orden en el que el ordenador intentará cargar un sistema operativo desde las distintas unidades.
   * **1st Boot Device**: desde aquí indicaremos cuál es la primera unidad que se utilizará para buscar un sistema de arranque.
@@ -164,7 +164,7 @@ Advanced Chipset Features (configuración avanzada y del chipset)
 ================================================================
 
 .. image:: imagenes/BIOS/advanced_chiset_featuress.png
-    :width: 400
+   :width: 400
     
 Esta parte de la BIOS afecta a partes críticas del sistema como el procesador, la RAM, los buses AGP, PCI, etc. Entre sus opciones nos permite habilitar los puertos USB, habilitar el soporte para teclado USB, el tipo de bus AGP,…
 
@@ -178,9 +178,9 @@ Power Managment Setup
 Habilitar y deshabilitar desde que dispositivos queremos que el sistema se inicie tras hibernar o apagar el equipo. Elegir que queremos que ocurra si la electricidad vuelve tras un corte de suministro. Programar una fecha y una hora para que el sistema autoarranque. Elegir el funcionamiento del botón de apagado el sistema se apague inmediatamente o preferimos tener que esperar 4 segundos.
 
 .. image:: imagenes/BIOS/power_managment_setup.png
-    :width: 400
+   :width: 400
 .. image:: imagenes/BIOS/power_managment_setup1.png
-    :width: 400
+   :width: 400
 
 * **Power Management**: En este apartado activaremos o desactivaremos la función de ahorro de energía
 * **ACPI Suspend Mode** (Modo Suspendido ACPI) puedes especificar cómo trabaja el PC en el modo de ahorro de energía ACPI.

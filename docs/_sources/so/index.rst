@@ -9,6 +9,7 @@ Sistemas Operativos
    fundamentos/index
    maquinas_virtuales.rst
    particiones/
+   ../hardware/raid.rst
    GNULinux/index
    windows/index
    

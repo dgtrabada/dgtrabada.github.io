@@ -15,7 +15,7 @@ Apuntes
    :maxdepth: 1
          
    historia/index
-   hardware/index
    so/index
+   hardware/index
    redes/index
    python/index
