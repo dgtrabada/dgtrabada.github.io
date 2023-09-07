@@ -7,20 +7,24 @@ Cuando realizamos la operación de codificación lo que estamos realizando es la
 El conjunto de todos lo símbolos posible que componen un determinado código toma el nombre de alfabeto.
 
 Código morse
+------------
 
 .. image:: imagenes/morse.png
   :width: 200
   
 Alfabeto Braille
+----------------
 
 .. image:: imagenes/braille.png
   :width: 300
 
-cartucho egipcio
+Cartucho egipcio
+----------------
 
 .. image:: imagenes/cleopatra.png 
 
 Piedra rosetta
+--------------
 
 .. image:: imagenes/roseta.png
 

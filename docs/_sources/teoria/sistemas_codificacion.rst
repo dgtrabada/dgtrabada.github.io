@@ -46,15 +46,15 @@ Ejemplo :
 
 1. Pasamos a binario:
 
-   19,5625 :sub:`10)`= 10011,1001 :sub:`2)`
+   19,5625 :sub:`10)` = 10011,1001 :sub:`2)`
   
 2. Colocamos la coma decimal a la derecha del bit más significativo
   
-   10011,1001 = 1,00111001*2 :sup:`4)`
+   10011,1001 = 1,00111001*2 :sup:`4`
   
 3. Escribir exponente en exceso a 2 :sup:`n-1` – 1
 
-   4+(2:sub:`8-1` – 1) = 131 :sub:`10)` = 10000011 :sub:`2)`
+   4+( 2 :sup:`8-1` – 1) = 131 :sub:`10)` = 10000011 :sub:`2)`
 
 Finalmente queda:
 

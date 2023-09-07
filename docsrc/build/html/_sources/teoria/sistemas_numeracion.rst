@@ -55,7 +55,7 @@ Tabla de los 17 primeros números
 
 
 Conversión de base N a decimal
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (Teorema fundamental de la numeración)
 
@@ -68,64 +68,131 @@ Conversión de base N a decimal
 
 Ejemplo:
 
-:math:`111101_{2)} = 1×2^5 + 1×2^4 + 1×2^3 + 1×2^2 + 0×2^1 + 1×2^0 = 61_{10)}`
+.. math::
+  
+   111101_{2)} &= 1×2^5 + 1×2^4 + 1×2^3 + 1×2^2 + 0×2^1 + 1×2^0 = 61_{10)}
 
-:math:`75_{8)} = 7×8^{1} + 5×8^{0} = 61_{10)}`
+   75_{8)} &= 7×8^{1} + 5×8^{0} = 61_{10)}
 
-:math:`331_{4)} = 3×4^2 + 3×4^1 + 1×4^0 = 61_{10)}`
+   331_{4)} &= 3×4^2 + 3×4^1 + 1×4^0 = 61_{10)}
 
-:math:`3D_{16)} = 3×16^1 + (D=13)×16^0 = 61_{10)}`
+   3D_{16)} &= 3×16^1 + (D=13)×16^0 = 61_{10)}
 
 Base decimal a base N
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: imagenes/rec.png
-  :width: 75
+   :align: center
+   :width: 75
 
 Ejemplo de **base decimal a base binaria** 61 :sub:`10) → 2)`
 
 .. image:: imagenes/decabin.png
-  :width: 300
+   :align: center
+   :width: 300
 
 Ejemplo de **base decimal a base octal** 61 :sub:`10) → 8)`
 
-61 : 8 = 7 resto 5
+.. math::
+  
+   61 : 8 &= 7\ resto \textbf{5}
 
-61 :sub:`10)` = 75 :sub:`8)`
+   7 : 8 &= 0\ resto\ \textbf{7}
+
+   61_{10)} &= 75_{8)}
+  
   
 Ejemplo de **base decimal a base hexadecimal** 61 :sub:`10) → 16)`
 
-61 : 16 = 3 resto 13
 
-61 :sub:`10)` = 3(13=D) = 3D :sub:`16)`
+.. math::
+        
+    61 : 16 &= 3\  resto\ (13=\textbf{D}) 
+    
+    3 : 16 &= 0 \ resto\  \textbf{3} 
+    
+    61_{10)} &= 3D_{8)}
+
+
 
 Base N a base M ≠ N ≠ 10
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. (TFM) pasamos a base M → base 10
 2. De base 10 a base N
 
+
+**Ejemplo**: Como se escribiría 3D :sub:`16)` en base 8
+
+.. math::
+    
+    3D_{16)} &= 3×16^1 + (D=13)×16^0 = 61_{10)} 
+    
+    61 : 8 &= 7\  resto\ \textbf{5} 
+    
+    7 : 8 &= 0 \ resto\  \textbf{7} 
+    
+    61_{10)} &= 75_{8)}
+
+
 **Ejemplo**: Como se escribiría 21 :sub:`12)` en base 5
 
-:math:`21_{12)} = 2 \times 12^{1} + 1 \times 12^0 = 25_{10)}` →
+Primero pasamos a base 10:
 
-| 25 : 5 = 5 resto **0**
-| 5 : 5 = **1** resto **0**
-| = 100 :sub:`5)`
+.. math::
+
+   21_{12)} = 2 \times 12^{1} + 1 \times 12^0 = 25_{10)} 
+
+y de base 10 pasamos a base 5:
+
+.. math::
+
+  25 : 5 &= 5\ resto\ \textbf{0}
+  
+  5 : 5  &= 1\ resto\ \textbf{0}
+  
+  1 : 5 &= 0\ resto\ \textbf{1}
+ 
+  25_{10)} &= 100_{5)}
+  
+finalmente queda:
+
+.. math::
+
+  21_{12)} =  100_{5)}
+
 
 **Ejemplo**: Como se escribe 2A :sub:`15)` en base 3
 
-:math:`2A_{15)} = 2 \times 15^1+A \times 15^0 = 30 + A = 30 + 10 = 40_{10)} =`
+Primero base 10
 
-| 40 : 3 = 13 resto **1**
-| 13 : 3 = 4 resto **1**
-| 4 : 3 = **1** resto **1**
-|        = 1111 :sub:`3)`
+.. math::
+
+   2A_{15)} = 2 \times 15^1+A \times 15^0 = 30 + A = 30 + 10 = 40_{10)} =
+
+y de base 10 pasamos a base 3:
+
+.. math::
+   
+   40 : 3 &= 13\ resto\ \textbf{1}
+  
+   13 : 3 &= 4\ resto\ \textbf{1}
+ 
+   4 : 3  &= 1\ resto\ \textbf{1}
+
+   1 : 3  &= 0\ resto\ \textbf{1}
+  
+Finalemte queda:
+
+.. math::
+
+  2A_{15)} = 40_{10)} = 1111_{3)}
 
 
 
 Cambio de base por agrupaciones (binaria, octal, hexadecimal)
--------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 Para el caso de la base 2,8 y 16, podemos hacer agrupaciones 8 → (3,3) y en 16 → (4,4)
 
@@ -140,5 +207,9 @@ Ejemplo 1000 :sub:`10)` = 0011 1110 1000 :sub:`2)`
 Queda:
 
 3E8 :sub:`16)` = 0011 1110 1000 :sub:`2)` = 1750 :sub:`8)` = 1000 :sub:`10)`
+
+
+Resumen
+^^^^^^^
 
 .. image:: imagenes/resumen.png
