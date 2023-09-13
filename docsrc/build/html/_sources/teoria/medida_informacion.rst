@@ -49,11 +49,11 @@ Ejemplos:
 
 #. **¿Cuántos KiB hay en 64 MiB?**
 
-   :math:`64MiB = 64 MiB \times \frac{2^{10} KiB }{MiB}= 2^{6} \times 2^{10} KiB = 2^{16} \  GiB`
+   :math:`64MiB = 64 MiB \times \frac{2^{10} KiB }{MiB}= 2^{6} \times 2^{10} KiB = 2^{16} \  KiB`
 
 #. **¿Cuántos EiB hay en 50 ZiB?**
 
-   :math:`50ZiB = 50 ZiB \times  1024 = 51200\  ZiB`
+   :math:`50ZiB = 50 ZiB \times  1024 = 51200\  EiB`
 
 #. **¿Cuántos ZB hay en 50 EB?**
 
