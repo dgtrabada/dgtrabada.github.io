@@ -8,7 +8,7 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = docs
+BUILDDIR      = build
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -23,4 +23,4 @@ help:
 
 github:
 	@make html
-	#cp -a build/html/. ../docs
+	cp -a build/html/ docs
