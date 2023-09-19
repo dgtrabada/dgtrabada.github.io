@@ -1,0 +1,975 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PowerShell &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/06_powershell';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Active Directory Domain Services (AD DS)" href="07_AD_DS.html" />
+    <link rel="prev" title="Comandos ms-dos" href="05_comandos_dos.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Windows</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_bat.html">Scripting .bat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/windows/06_powershell.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PowerShell</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="powershell">
+<h1>PowerShell<a class="headerlink" href="#powershell" title="Enlace permanente a este encabezado">#</a></h1>
+<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la licencia MIT, que es una licencia de software libre y de código abierto</p>
+<section id="control-de-procesos-y-servicios">
+<h2>Control de procesos y servicios<a class="headerlink" href="#control-de-procesos-y-servicios" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>ps -&gt; Get-Process</strong> ver procesos</p></li>
+<li><p><strong>kill -&gt; Stop-Process</strong> mata procesos</p></li>
+<li><p><strong>Get-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+<li><p><strong>Stop-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+<li><p><strong>Start-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+<li><p><strong>Suspend-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
+<span class="nb">Get-Process</span> <span class="n">-ProcessName</span> <span class="n">CalculatorApp</span>
+<span class="nb">Stop-Process</span> <span class="n">-ProcessName</span> <span class="n">CalculatorApp</span>
+<span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
+<span class="nb">Stop-Process</span> <span class="n">-Id</span> <span class="n">2828</span>
+</pre></div>
+</div>
+</section>
+<section id="ficheros-y-directorios">
+<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
+<li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
+<li><p><strong>rm -&gt; Remove-Item</strong> borrar</p></li>
+<li><p><strong>mkdir</strong> crear directorio</p></li>
+<li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
+<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p></li>
+<li><p><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</p></li>
+<li><p><strong>echo</strong> repetir salida estándar</p></li>
+<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> busca todos los archivos <a href="#id1"><span class="problematic" id="id2">*</span></a>.txt</p></li>
+<li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
+<li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
+<li><p><strong>select -&gt; Select-Object</strong></p></li>
+</ul>
+</section>
+<section id="alias">
+<h2>Alias <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
+<li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
+</ul>
+</section>
+<section id="caracteres-especiales">
+<h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p>* ? » &gt; &gt;&gt; |</p></li>
+</ul>
+</section>
+<section id="visualizadores-de-archivos">
+<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
+<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
+<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
+</ul>
+</section>
+<section id="filtros-y-busqueda-informacion">
+<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
+<li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
+<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada</p></li>
+<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
+Get-Service | Format-Table -Property Name, DependentServices</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Alias</span> <span class="n">-Name</span> <span class="nb">cat</span>
+
+<span class="n">CommandType</span>     <span class="n">Name</span>
+<span class="p">-----------</span>     <span class="p">----</span>
+<span class="k">Alias</span>           <span class="nb">cat </span><span class="p">-&gt;</span> <span class="nb">Get-Content</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">1</span> <span class="p">&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">2</span> <span class="p">&gt;&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Test-Path</span> <span class="n">-Path</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">True</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">1</span>
+<span class="n">2</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span>
+<span class="n">1</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-Last</span> <span class="n">1</span>
+<span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">2</span>
+<span class="n">1</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
+<span class="n">1</span>
+<span class="n">B</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">sort</span>
+<span class="n">1</span>
+<span class="n">3</span>
+<span class="n">B</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">2</span><span class="p">:</span><span class="n">2</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">5</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="n">True</span>
+</pre></div>
+</div>
+</section>
+<section id="inforacion-de-harware">
+<h2>Inforación de harware<a class="headerlink" href="#inforacion-de-harware" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>Get-PSDrive</strong> cmdlet obtiene las unidades de la sesión actual.</p></li>
+<li><p><strong>Get-NetAdapter</strong> en PowerShell te mostrará información sobre las interfaces de red</p></li>
+<li><p><strong>Get-WmiObject</strong> optener información sobre el procesador</p></li>
+<li><p><strong>Get-CimInstance</strong> se utiliza para recuperar instancias de una clase</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-PSDrive</span>
+
+<span class="n">Name</span>           <span class="n">Used</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>     <span class="n">Free</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span> <span class="n">Provider</span>      <span class="n">Root</span>                                                     <span class="n">CurrentLocation</span>
+<span class="p">----</span>           <span class="p">---------</span>     <span class="p">---------</span> <span class="p">--------</span>      <span class="p">----</span>                                                     <span class="p">---------------</span>
+<span class="k">Alias</span>                                  <span class="k">Alias</span>
+<span class="n">C</span>                   <span class="n">8</span><span class="p">,</span><span class="n">28</span>         <span class="n">91</span><span class="p">,</span><span class="n">07</span> <span class="n">FileSystem</span>    <span class="n">C</span><span class="p">:\</span>
+<span class="n">Cert</span>                                   <span class="n">Certificate</span>   <span class="p">\</span>
+<span class="n">D</span>                                      <span class="n">FileSystem</span>    <span class="n">D</span><span class="p">:\</span>
+<span class="n">Env</span>                                    <span class="n">Environment</span>
+<span class="k">Function</span>                               <span class="k">Function</span>
+<span class="n">HKCU</span>                                   <span class="n">Registry</span>      <span class="n">HKEY_CURRENT_USER</span>
+<span class="n">HKLM</span>                                   <span class="n">Registry</span>      <span class="n">HKEY_LOCAL_MACHINE</span>
+<span class="n">Variable</span>                               <span class="n">Variable</span>
+<span class="n">WSMan</span>                                  <span class="n">WSMan</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span>
+
+<span class="n">Name</span>           <span class="n">Used</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span>     <span class="n">Free</span> <span class="p">(</span><span class="n">GB</span><span class="p">)</span> <span class="n">Provider</span>      <span class="n">Root</span>                                                     <span class="n">CurrentLocation</span>
+<span class="p">----</span>           <span class="p">---------</span>     <span class="p">---------</span> <span class="p">--------</span>      <span class="p">----</span>                                                     <span class="p">---------------</span>
+<span class="n">C</span>                   <span class="n">8</span><span class="p">,</span><span class="n">28</span>         <span class="n">91</span><span class="p">,</span><span class="n">07</span> <span class="n">FileSystem</span>    <span class="n">C</span><span class="p">:\</span>
+<span class="n">D</span>                                      <span class="n">FileSystem</span>    <span class="n">D</span><span class="p">:\</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span>
+
+<span class="n">Name</span>       <span class="n">Used</span>        <span class="n">Free</span>
+<span class="p">----</span>       <span class="p">----</span>        <span class="p">----</span>
+<span class="n">C</span>    <span class="n">8886775808</span> <span class="n">97782759424</span>
+<span class="n">D</span>             <span class="n">0</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span>
+<span class="n">Name</span>       <span class="n">Used</span>        <span class="n">Free</span>
+<span class="p">----</span>       <span class="p">----</span>        <span class="p">----</span>
+<span class="n">C</span>    <span class="n">8886775808</span> <span class="n">97782759424</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$particion_C</span><span class="p">=$(</span><span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span>
+<span class="n">8886775808</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
+<span class="n">8</span><span class="p">,</span><span class="n">33112827263359</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">(</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">),</span><span class="n">2</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
+<span class="n">8</span><span class="p">,</span><span class="n">33</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="s2">&quot;El $porcentaje % de la partición C esta ocupada&quot;</span>
+<span class="n">El</span> <span class="n">8</span><span class="p">.</span><span class="n">33</span> <span class="p">%</span> <span class="n">de</span> <span class="n">la</span> <span class="n">partición</span> <span class="n">C</span> <span class="n">esta</span> <span class="n">ocupada</span>
+</pre></div>
+</div>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">caption</span>
+ <span class="n">Intel64</span> <span class="n">Family</span> <span class="n">6</span> <span class="n">Model</span> <span class="n">142</span> <span class="n">Stepping</span> <span class="n">10</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_ComputerSystem</span><span class="p">).</span><span class="n">SystemType</span>
+ <span class="n">x64-based</span> <span class="n">PC</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">((</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="n">1</span><span class="p">]</span>
+ <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-Property</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Number</span><span class="p">*</span>
+
+ <span class="n">Name</span>                                     <span class="n">NumberOfCores</span> <span class="n">NumberOfEnabledCore</span> <span class="n">NumberOfLogicalProcessors</span>
+ <span class="p">----</span>                                     <span class="p">-------------</span> <span class="p">-------------------</span> <span class="p">-------------------------</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>             <span class="n">2</span>                                             <span class="n">2</span>
+
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">NumberOfCores</span>
+
+ <span class="n">NumberOfCores</span>
+<span class="p">-------------</span>
+             <span class="n">2</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">win32_processor</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">LoadPercentage</span>
+
+ <span class="n">LoadPercentage</span>
+ <span class="p">--------------</span>
+             <span class="n">44</span>
+
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-class</span> <span class="s2">&quot;Win32_Processor&quot;</span><span class="p">|</span> <span class="p">%</span> <span class="p">{</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU ID: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">DeviceID</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Model: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Cores: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">NumberOfCores</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Max Speed: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">MaxClockSpeed</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="s2">&quot;CPU Status: &quot;</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Status</span>
+ <span class="p">&gt;&gt;</span>     <span class="nb">Write-Host</span>
+ <span class="p">&gt;&gt;</span> <span class="p">}</span>
+ <span class="n">CPU</span> <span class="n">ID</span><span class="p">:</span>
+ <span class="n">CPU0</span>
+ <span class="n">CPU</span> <span class="n">Model</span><span class="p">:</span>
+ <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+ <span class="n">CPU</span> <span class="n">Cores</span><span class="p">:</span>
+ <span class="n">2</span>
+ <span class="n">CPU</span> <span class="n">Max</span> <span class="n">Speed</span><span class="p">:</span>
+ <span class="n">1800</span>
+ <span class="n">CPU</span> <span class="n">Status</span><span class="p">:</span>
+ <span class="n">OK</span>
+</pre></div>
+</div>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span>
+
+<span class="n">SystemDirectory</span>     <span class="n">Organization</span> <span class="n">BuildNumber</span> <span class="n">RegisteredUser</span>     <span class="n">SerialNumber</span>            <span class="n">Version</span>
+<span class="p">---------------</span>     <span class="p">------------</span> <span class="p">-----------</span> <span class="p">--------------</span>     <span class="p">------------</span>            <span class="p">-------</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">system32</span>              <span class="n">20348</span>       <span class="n">Usuario</span> <span class="n">de</span> <span class="n">Windows</span> <span class="n">00454</span><span class="p">-</span><span class="n">40000</span><span class="p">-</span><span class="n">00001-AA444</span> <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">20348</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">FreePhysicalMemory</span>
+<span class="n">986776</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">TotalVirtualMemorySize</span>
+<span class="n">3276340</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">NumberOfUsers</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">BootDevice</span>
+<span class="p">\</span><span class="n">Device</span><span class="p">\</span><span class="n">HarddiskVolume1</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">Version</span>
+<span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">20348</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">WindowsDirectory</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">Windows</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">CountryCode</span>
+<span class="n">34</span>
+</pre></div>
+</div>
+</section>
+<section id="gestion-de-acl">
+<h2>Gestión de ACL<a class="headerlink" href="#gestion-de-acl" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span> <span class="n">Allow</span>  <span class="n">FullControl</span><span class="p">...</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
+<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
+</pre></div>
+</div>
+<p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
+
+<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
+
+<span class="c">#Para cambiar propietario</span>
+<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
+</pre></div>
+</div>
+<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
+
+<span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
+
+<span class="c"># Crear una regla de acceso para el grupo A</span>
+<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
+</section>
+<section id="gestion-de-usuarios">
+<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Para ser administrador</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">start-process</span> <span class="n">powershell</span> <span class="n">-verb</span> <span class="n">runas</span>
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-LocalUser</span>
+<span class="nb">Get-LocalGroup</span>
+<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario con contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span>$Password = Read-Host -AsSecureString
+New-LocalUser -Name nombre_usuario -Password $Password
+
+#Sin que pida confirmación
+$Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario sin contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-NoPassword</span>
+
+<span class="c">#Se la podemos asignar después:</span>
+<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Asignar usuario a un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">nombre_grupo</span> <span class="n">-Member</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Eliminar un usuario</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear y borrar un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="configuracion-de-windows-powershell">
+<h2>Configuración de Windows (PowerShell)<a class="headerlink" href="#configuracion-de-windows-powershell" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
+<li><p><strong>Reiniciar</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="nb">r</span>
+<span class="n">shutdown</span> <span class="p">/</span><span class="n">f</span> <span class="c">#de forma forzosa</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Apagar</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="n">s</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Consultar IP</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">ipconfig</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Cambiar IP</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">interface</span> <span class="n">ip</span> <span class="nb">set </span><span class="n">address</span> <span class="n">name</span><span class="p">=</span><span class="s2">&quot;Ethernet&quot;</span> <span class="n">source</span><span class="p">=</span><span class="n">static</span> <span class="n">addr</span><span class="p">=</span><span class="n">10</span><span class="p">.</span><span class="n">4</span><span class="p">.</span><span class="n">104</span><span class="p">.</span><span class="n">100</span> <span class="n">mask</span><span class="p">=</span><span class="n">255</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span> <span class="n">gateway</span><span class="p">=</span><span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">2</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Cambiar y consultar el DNS</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">ipconfig</span> <span class="p">/</span><span class="n">all</span> <span class="c">#consultar dns</span>
+<span class="n">netsh</span> <span class="n">interface</span> <span class="n">ip</span> <span class="nb">set </span><span class="n">dns</span> <span class="s2">&quot;Ethernet&quot;</span> <span class="n">static</span> <span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span><span class="p">.</span><span class="n">8</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Cambiar el nombre del equipo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Rename-Computer</span> <span class="n">-NewName</span> <span class="s2">&quot;WC0-tunombre&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Habilitar ping</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">netsh</span> <span class="n">advfirewall</span> <span class="n">firewall</span> <span class="n">add</span> <span class="n">rule</span> <span class="n">name</span><span class="p">=</span><span class="s2">&quot;Habilitar respuesta ICMP IPv4&quot;</span> <span class="n">protocol</span><span class="p">=</span><span class="n">icmpv4</span><span class="p">:</span><span class="n">8</span><span class="p">,</span><span class="n">any</span> <span class="n">dir</span><span class="p">=</span><span class="k">in</span> <span class="n">action</span><span class="p">=</span><span class="n">allow</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Instalar el servidor ssh</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
+<span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="n">OpenSSH</span><span class="p">.</span><span class="n">Server</span><span class="p">~~~~</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">0</span>
+
+<span class="c">#Iniciar el servicio ssh :</span>
+<span class="nb">Start-Service</span> <span class="n">sshd</span>
+
+<span class="c">#Para reiniciarlo</span>
+<span class="nb">Restart-Service</span> <span class="n">sshd</span>
+
+<span class="c">#Para iniciar el servicio ssh durante el arranque de forma automática:</span>
+<span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">sshd</span> <span class="n">-StartupType</span> <span class="s1">&#39;Automatic&#39;</span>
+
+<span class="c">#Para conectarse sin contraseña primero copia tu clave publica</span>
+<span class="n">scp</span> <span class="n">-P22</span> <span class="p">.</span><span class="n">ssh</span><span class="p">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span> <span class="n">Administrador</span><span class="nv">@IP</span><span class="p">:</span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">\.</span><span class="n">ssh</span><span class="p">\</span><span class="n">authorized_keys</span>
+
+<span class="c">#después ya te puedes conectar sin meter contraseña</span>
+<span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Instalar edior vi</strong></p>
+<ul>
+<li><p>Con Chocolatey:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Instalar Chocolatey (si aún no lo tienes):</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span><span class="p">;</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span><span class="p">;</span> <span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">&#39;https://chocolatey.org/install.ps1&#39;</span><span class="p">))</span>
+
+<span class="n">choco</span> <span class="n">install</span> <span class="n">vim</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sin Chocolatey <a class="footnote-reference brackets" href="#id5" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php</span>
+<span class="c"># Descarga el instalador adecuado para tu sistema, en mi caso:</span>
+<span class="n">curl</span><span class="p">.</span><span class="n">exe</span> <span class="n">https</span><span class="p">://</span><span class="n">ftp</span><span class="p">.</span><span class="n">nluug</span><span class="p">.</span><span class="n">nl</span><span class="p">/</span><span class="n">pub</span><span class="p">/</span><span class="n">vim</span><span class="p">/</span><span class="n">pc</span><span class="p">/</span><span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span> <span class="n">-o</span> <span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span>
+
+<span class="c"># Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display</span>
+<span class="p">./</span><span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span>
+
+<span class="c"># Crea un alias:</span>
+<span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.</p>
+<p>Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:</p>
+<p>Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).</p>
+<p>Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$PROFILE</span> <span class="n">-Type</span> <span class="n">File</span> <span class="n">-Force</span>
+</pre></div>
+</div>
+<p>Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+</pre></div>
+</div>
+<p>Guarda el archivo y cierra el editor de texto.</p>
+<p>Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05_comandos_dos.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Comandos ms-dos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07_AD_DS.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Active Directory Domain Services (AD DS)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

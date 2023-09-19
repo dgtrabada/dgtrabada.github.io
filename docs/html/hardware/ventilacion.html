@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Ventilación &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hardware/ventilacion';</script>
+    <link rel="icon" href="../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="next" title="Memoria RAM" href="ram.html" />
+    <link rel="prev" title="Encapsulados" href="encapsuladors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../historia/index.html">Historia</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/SXXI.html">SXXI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../so/index.html">Sistemas Operativos</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../so/fundamentos/index.html">Fundamentos de sistemas operativos</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../so/maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../so/particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raid.html">RAID</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../so/GNULinux/index.html">GNU/Linux</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../so/windows/index.html">Windows</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/11_bat.html">Scripting .bat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Hardware</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../so/particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../redes/index.html">Redes</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/hardware/ventilacion.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ventilación</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disipadores-de-calor">Disipadores de Calor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-pasta-termica">La pasta térmica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-refrigeracion">Tipos de refrigeración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-aire">Por aire</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrigeracion-liquida">Refrigeración Liquida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-formas-de-refrigeracion">Otras formas de refrigeración</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ventilacion">
+<h1>Ventilación<a class="headerlink" href="#ventilacion" title="Enlace permanente a este encabezado">#</a></h1>
+<p>Dado que el procesador emite calor, se hace necesario disiparlo afín de evitar que los circuitos se derritan. Esta es la razón por la que generalmente se monta sobre un disipador térmico, hecho de un metal conductor del calor (cobre o aluminio) a fin de ampliar la superficie de transferencia de temperatura del procesador. Para mejorar la conducción del calor se utiliza pasta térmica y por lo general, el disipador está acompañado de un ventilador para mejorar la circulación de aire y la transferencia de calor. La unidad también incluye un ventilador que expulsa el aire caliente de la carcasa, dejando entrar el aire fresco del exterior.</p>
+<img alt="../_images/ventilador1.png" src="../_images/ventilador1.png" />
+<section id="disipadores-de-calor">
+<h2>Disipadores de Calor<a class="headerlink" href="#disipadores-de-calor" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Es una estructura metálica (por lo general de aluminio) que va montado encima del Microprocesador para ayudar a disipar el calor que genera.</p>
+<img alt="../_images/disipador1.png" src="../_images/disipador1.png" />
+<p>Los pliegues del disipador hacen que aumente su área
+«La Ley de Fourier indica que el flujo de calor es directamente proporcional a la superficie de contacto y a la constante de conductividad térmica</p>
+<img alt="../_images/fourier.png" src="../_images/fourier.png" />
+<p><a class="reference external" href="https://www.youtube.com/watch?v=RYD9TLN4qpM">Instalación de Disipador Térmico</a></p>
+</section>
+<section id="la-pasta-termica">
+<h2>La pasta térmica<a class="headerlink" href="#la-pasta-termica" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Es una sustancia que incrementa la conducción de calor entre las superficies de dos o más objetos que pueden ser irregulares y no hacen contacto directo. En electrónica e informática, es frecuentemente usada para ayudar a la disipación del calor de componentes mediante un disipador.</p>
+<img alt="../_images/pasta.png" src="../_images/pasta.png" />
+<p>Si observamos las superficies a un nivel microscópico vemos que tienen rugosidades, la pasta térmica hace que las superficies tengan mejor contacto</p>
+<img alt="../_images/pasta2.png" src="../_images/pasta2.png" />
+</section>
+<section id="tipos-de-refrigeracion">
+<h2>Tipos de refrigeración<a class="headerlink" href="#tipos-de-refrigeracion" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="por-aire">
+<h3>Por aire<a class="headerlink" href="#por-aire" title="Enlace permanente a este encabezado">#</a></h3>
+<ul>
+<li><p><strong>Refrigeración pasiva por aire</strong></p>
+<p>El aire a temperatura ambiente enfría los componentes de la computadora. Las técnicas pasivas de enfriamiento consisten en incrementar la superficie de contacto con el aire para maximizar el calor que éste es capaz de retirar.</p>
+<img alt="../_images/aire.png" src="../_images/aire.png" />
+</li>
+<li><p><strong>Refrigeración activa por Aire</strong></p>
+<p>Partimos de un sistema pasivo y agregamos un ventilador o unas turbinas que aceleren el flujo de aire.</p>
+<img alt="../_images/activa.png" src="../_images/activa.png" />
+</li>
+</ul>
+</section>
+<section id="refrigeracion-liquida">
+<h3>Refrigeración Liquida<a class="headerlink" href="#refrigeracion-liquida" title="Enlace permanente a este encabezado">#</a></h3>
+<ul>
+<li><p><strong>Por Agua</strong></p>
+<p>El agua tiene una mejor conductividad térmica que el aire, por lo cual puede transferir calor más eficientemente y a mayores distancias que el aire. Es más cara y silenciosa que la refrigeración activa por aire.</p>
+<img alt="../_images/agua.png" src="../_images/agua.png" />
+<a class="reference internal image-reference" href="../_images/instlacion.jpeg"><img alt="../_images/instlacion.jpeg" src="../_images/instlacion.jpeg" style="width: 200px;" /></a>
+</li>
+<li><p><strong>Refrigeración Líquida por Inmersión</strong></p>
+<p>El pc es totalmente sumergido en un líquido de conductividad eléctrica muy baja, como el aceite mineral. El pc se mantiene enfriado por el intercambio de calor entre sus partes, el líquido refrigerante y el aire del ambiente.</p>
+<img alt="../_images/liquida.png" src="../_images/liquida.png" />
+<p><a class="reference external" href="http://www.holacape.com/2008/11/sistema-de-enfriamiento-con-aceite.html">Aceite</a></p>
+<p><a class="reference external" href="https://www.profesionalreview.com/2021/03/14/refrigeracion-por-inmersion/">Inmersión</a></p>
+</li>
+</ul>
+</section>
+<section id="otras-formas-de-refrigeracion">
+<h3>Otras formas de refrigeración<a class="headerlink" href="#otras-formas-de-refrigeracion" title="Enlace permanente a este encabezado">#</a></h3>
+<ul>
+<li><p><strong>Refrigeración por Metal Líquido</strong> «</p>
+<p>El metal líquido, también conocido como LM, funciona igual que la pasta térmica, rellenando los espacios microscópicos que hay entre las superficies del componente y del disipador de calor. … El galio es un metal blando con un punto de fusión bajo y un punto de ebullición alto»</p>
+<img alt="../_images/metal.png" src="../_images/metal.png" />
+</li>
+<li><p><strong>Refrigeración Termoeléctrica</strong></p>
+<p>(Celula de Peltier) «El principio de funcionamiento de la refrigeración termoeléctrica por células Peltier es bastante sencillo. Se usan dos placas cerámicas, las cuales están separados por pilares, fabricados con dos tipos de semiconductores: el tipo P (boro, indio, galio) y el tipo N (fósforo, arsénico, antimonio). Cuando se hace circular una corriente continua por entre ambas placas cerámicas, una de ellas se enfría. Mientras que todo el calor que pierde esta, lo recoge la segunda placa cerámica.»</p>
+<img alt="../_images/peltier.png" src="../_images/peltier.png" />
+</li>
+<li><p><strong>Refrigeración por Heatpipes</strong></p>
+<p>Un heatpipe es un puente termico, tienen una elevada conductividad térmica, la capacidad del material de cambiar de temperatura, sea para calentarse o para enfriarse</p>
+</li>
+<li><p><strong>Refrigeración por Cambio de Fase</strong></p>
+<p>El funcionamiento de una refrigeración por cambio de fase está basado en el principio de la física que explica que, cada vez que un fluido cambia de fase, lo hace absorbiendo o desprendiendo calor de su entorno para poder realizar el cambio.</p>
+<img alt="../_images/cambio_fase.png" src="../_images/cambio_fase.png" />
+</li>
+<li><p><strong>Refrigeración por LN2</strong></p>
+<p>Gracias a su punto de ebullición de -195,79 ºC, es el ojito derecho de los aficionados al «overclocking», que se dedican a aumentar la frecuencia de los procesadores a niveles increíbles, buscando récords.</p>
+<img alt="../_images/ln2.png" src="../_images/ln2.png" />
+</li>
+<li><p><strong>Refrigeración por Criogenia</strong></p>
+<p>La criogenia es el conjunto de técnicas utilizadas para enfriar un material a la temperatura de ebullición del nitrógeno o a temperaturas aún más bajas. … El uso de helio líquido en lugar de nitrógeno permite alcanzar la temperatura de ebullición de éste, que es de 4,22 K (-268,93 °C)</p>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="encapsuladors.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Encapsulados</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ram.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Memoria RAM</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disipadores-de-calor">Disipadores de Calor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-pasta-termica">La pasta térmica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-refrigeracion">Tipos de refrigeración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-aire">Por aire</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refrigeracion-liquida">Refrigeración Liquida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-formas-de-refrigeracion">Otras formas de refrigeración</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
