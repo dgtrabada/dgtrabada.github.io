@@ -113,13 +113,6 @@ El software privativo es cualquier software que no es libre. Está prohibido su 
 
 **EULA**, son las siglas de **“End-User License Agreement”** o traducido al español, *“Acuerdo de Licencia con el Usuario Final”* que son las condiciones o limitaciones que debes aceptar para poder utilizar ese programa, aplicación, juego, producto, etc.
 
-Licencia OEM
-------------
-
-Las siglas OEM hacen referencia a Original Equipment Manufacturer, que en castellano se podría traducir como fabricante de equipamiento original.
-
-Esta licencia va ligada a la placa base, de modo que solo podremos usar la licencia en un único equipo, pero con la ventaja de un reducido coste. Podemos cambiar otros componentes hardware (RAM, tarjeta gráfica) sin que afecte a la licencia.
-
 Licencia Retail
 ---------------
 
