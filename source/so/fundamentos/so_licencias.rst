@@ -153,10 +153,10 @@ Software libre
 
 `What is Open Source explained in LEGO <https://www.youtube.com/watch?v=a8fHgx9mE5U>`_
 
-#. La libertad de usar el programa, con cualquier propósito (Uso).
-#. La libertad de estudiar cómo funciona el programa y modificarlo, adaptándolo a las propias necesidades (Estudio).
-#. La libertad de distribuir copias del programa, con lo cual se puede ayudar a otros usuarios (Distribución).
-#. La libertad de mejorar el programa y hacer públicas esas mejoras a los demás, de modo que toda la comunidad se beneficie (Mejora).
+#. La libertad de **usar** el programa, con cualquier propósito (Uso).
+#. La libertad de **estudiar** cómo funciona el programa y modificarlo, adaptándolo a las propias necesidades (Estudio).
+#. La libertad de **distribuir** copias del programa, con lo cual se puede ayudar a otros usuarios (Distribución).
+#. La libertad de **mejorar** el programa y hacer públicas esas mejoras a los demás, de modo que toda la comunidad se beneficie (Mejora).
 
 Licencias GPL
 -------------
