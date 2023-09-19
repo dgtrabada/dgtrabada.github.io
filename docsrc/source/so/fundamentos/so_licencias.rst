@@ -112,7 +112,9 @@ Software privativo
 El software privativo es cualquier software que no es libre. Está prohibido su uso, redistribución o modificación, o requiere que se solicite permiso, o tiene tantas restricciones que de hecho no se puede hacer libremente
 
 **EULA**, son las siglas de **“End-User License Agreement”** o traducido al español, *“Acuerdo de Licencia con el Usuario Final”* que son las condiciones o limitaciones que debes aceptar para poder utilizar ese programa, aplicación, juego, producto, etc.
+
 Licencia OEM
+------------
 
 Las siglas OEM hacen referencia a Original Equipment Manufacturer, que en castellano se podría traducir como fabricante de equipamiento original.
 

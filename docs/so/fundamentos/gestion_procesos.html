@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Gestión de procesos &#8212; dgtrabada</title>
   
@@ -19,33 +18,30 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/fundamentos/gestion_procesos';</script>
-    <link rel="shortcut icon" href="../../_static/ico.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Gestión de memoria" href="gestion_memoria.html" />
@@ -429,79 +425,79 @@ document.write(`
 <span class="cm"> *</span>
 <span class="cm"> * You should have received a copy of the GNU General Public License</span>
 <span class="cm"> * along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-<span class="cm"> */</span><span class="w"></span>
+<span class="cm"> */</span>
 
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">c</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">es_primo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">            </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">es_primo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w"></span>
-<span class="hll"><span class="w">            </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-</span><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">c</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">es_primo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">es_primo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<span class="hll"><span class="w">            </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Lo compilamos y ejecutamos de la siguiente forma:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc primos.c
-$ ./a.out
-<span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">5</span> <span class="m">7</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>primos.c
+$<span class="w"> </span>./a.out
+<span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span>
 </pre></div>
 </div>
 <p>Si ahora cambiamos la sentencia <strong>sleep(100)</strong> para que tarde un poco más y lo ejecutamos en el background varias veces, observamos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gcc primos.c <span class="o">&amp;&amp;</span> ./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">8310</span>
-./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span> <span class="m">8318</span>
-$ ./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span> <span class="m">8319</span>
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>   Ejecutando              gcc primos.c <span class="o">&amp;&amp;</span> ./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>-  Ejecutando              ./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>+  Ejecutando              ./a.out <span class="p">&amp;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>primos.c<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">8310</span>
+./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">8318</span>
+$<span class="w"> </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span><span class="w"> </span><span class="m">8319</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Ejecutando<span class="w">              </span>gcc<span class="w"> </span>primos.c<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>+<span class="w">  </span>Ejecutando<span class="w">              </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>traemos al primer plano el proceso 2 y pulsando &lt;ctrl&gt;+z lo paramos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">fg</span> %2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%2
 ./a.out
 ^Z
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Detenido                ./a.out
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span>   Ejecutando              gcc primos.c <span class="o">&amp;&amp;</span> ./a.out <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Detenido                ./a.out
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>-  Ejecutando              ./a.out <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>./a.out
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w">   </span>Ejecutando<span class="w">              </span>gcc<span class="w"> </span>primos.c<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>./a.out
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>traemos al primer plano el 1 proceso y lo matamos utilizando &lt;ctrl&gt;+c</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">fg</span> %1
-gcc primos.c <span class="o">&amp;&amp;</span> ./a.out
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">fg</span><span class="w"> </span>%1
+gcc<span class="w"> </span>primos.c<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out
 ^C
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Detenido                ./a.out
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>-  Ejecutando              ./a.out <span class="p">&amp;</span>
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>./a.out
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>-<span class="w">  </span>Ejecutando<span class="w">              </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>Para matarlo no es necesario pasarlo al plano principal podemos hacerlo con kill %n</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">kill</span> %3
-$ <span class="nb">jobs</span>
-<span class="o">[</span><span class="m">2</span><span class="o">]</span>+  Detenido                ./a.out
-<span class="o">[</span><span class="m">3</span><span class="o">]</span>-  Terminado               ./a.out
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>%3
+$<span class="w"> </span><span class="nb">jobs</span>
+<span class="o">[</span><span class="m">2</span><span class="o">]</span>+<span class="w">  </span>Detenido<span class="w">                </span>./a.out
+<span class="o">[</span><span class="m">3</span><span class="o">]</span>-<span class="w">  </span>Terminado<span class="w">               </span>./a.out
 </pre></div>
 </div>
 <p>Como podemos ver proceso es un programa que está en ejecución. Los procesos pueden estar en alguno de los siguientes estados:</p>
@@ -549,10 +545,7 @@ El problema de este algoritmo es el desconocimiento del tiempo que va a durar un
               
               
                 <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="sistemas_operativos.html"
@@ -572,10 +565,7 @@ El problema de este algoritmo es el desconocimiento del tiempo que va a durar un
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -601,7 +591,7 @@ El problema de este algoritmo es el desconocimiento del tiempo que va a durar un
             
           </div>
           <footer class="bd-footer-content">
-            
+            <div class="bd-footer-content__inner">
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -624,7 +614,7 @@ Por dgtrabada
     
   </div>
   
-</div>
+</div></div>
           </footer>
         
 
@@ -633,8 +623,8 @@ Por dgtrabada
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
   <footer class="bd-footer">
   </footer>

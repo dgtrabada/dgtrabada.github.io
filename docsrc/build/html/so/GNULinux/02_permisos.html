@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Permisos en GNU/Linux &#8212; dgtrabada</title>
   
@@ -19,33 +18,30 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/02_permisos';</script>
-    <link rel="shortcut icon" href="../../_static/ico.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Usuarios y grupos GNU/Linux" href="03_usuarios.html" />
@@ -429,67 +425,67 @@ document.write(`
 </ul>
 </li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -la fecha.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>fecha.sh
 
-- rw- rw- r-- <span class="m">1</span> alumno alumno <span class="m">5</span> ene <span class="m">4</span> <span class="m">19</span>:02 fecha.sh
-↑ ↑   ↑   ↑   ↑ ↑      ↑      ↑ ↑           ↑
-<span class="m">1</span> <span class="m">2</span>   <span class="m">3</span>   <span class="m">4</span>   <span class="m">5</span> <span class="m">6</span>      <span class="m">7</span>      <span class="m">8</span> <span class="m">9</span>           <span class="m">10</span>
-<span class="m">1</span> : Tipo de <span class="nv">archivo</span> <span class="o">=</span> - es un archivo regular <span class="o">[</span><span class="nv">d</span> <span class="o">=</span> directorio<span class="p">;</span> <span class="nv">l</span> <span class="o">=</span> enlace simbólico<span class="p">;</span> ...<span class="o">]</span>
-<span class="m">2</span> : <span class="nv">Permisos</span> <span class="o">=</span> los permisos para el propietario son de lectura y escritura
-<span class="m">3</span> : <span class="nv">Permisos</span> <span class="o">=</span> el grupo tiene permiso de sólo lectura
-<span class="m">4</span> : <span class="nv">Permisos</span> <span class="o">=</span> los otros usuarios tienen el permiso de sólo lectura
-<span class="m">5</span> : Enlace <span class="nv">Físico</span> <span class="o">=</span> tiene un enlace físico
-<span class="m">6</span> : <span class="nv">Propietario</span> <span class="o">=</span> el usuario alumno es el propietario de este archivo
-<span class="m">7</span> : <span class="nv">Grupo</span> <span class="o">=</span> este archivo pertenece al grupo alumno
-<span class="m">8</span> : <span class="nv">Tamaño</span> <span class="o">=</span> su tamaño es de <span class="m">246417</span> bytes
-<span class="m">9</span> : <span class="nv">Fecha</span> <span class="o">=</span> fecha en el que fue creado
-<span class="m">10</span> : <span class="nv">Nombre</span> <span class="o">=</span> el archivo se llama fecha.sh
+-<span class="w"> </span>rw-<span class="w"> </span>rw-<span class="w"> </span>r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>alumno<span class="w"> </span>alumno<span class="w"> </span><span class="m">5</span><span class="w"> </span>ene<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">19</span>:02<span class="w"> </span>fecha.sh
+↑<span class="w"> </span>↑<span class="w">   </span>↑<span class="w">   </span>↑<span class="w">   </span>↑<span class="w"> </span>↑<span class="w">      </span>↑<span class="w">      </span>↑<span class="w"> </span>↑<span class="w">           </span>↑
+<span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w">   </span><span class="m">3</span><span class="w">   </span><span class="m">4</span><span class="w">   </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w">      </span><span class="m">7</span><span class="w">      </span><span class="m">8</span><span class="w"> </span><span class="m">9</span><span class="w">           </span><span class="m">10</span>
+<span class="m">1</span><span class="w"> </span>:<span class="w"> </span>Tipo<span class="w"> </span>de<span class="w"> </span><span class="nv">archivo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-<span class="w"> </span>es<span class="w"> </span>un<span class="w"> </span>archivo<span class="w"> </span>regular<span class="w"> </span><span class="o">[</span><span class="nv">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>directorio<span class="p">;</span><span class="w"> </span><span class="nv">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>enlace<span class="w"> </span>simbólico<span class="p">;</span><span class="w"> </span>...<span class="o">]</span>
+<span class="m">2</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>los<span class="w"> </span>permisos<span class="w"> </span>para<span class="w"> </span>el<span class="w"> </span>propietario<span class="w"> </span>son<span class="w"> </span>de<span class="w"> </span>lectura<span class="w"> </span>y<span class="w"> </span>escritura
+<span class="m">3</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>tiene<span class="w"> </span>permiso<span class="w"> </span>de<span class="w"> </span>sólo<span class="w"> </span>lectura
+<span class="m">4</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Permisos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>los<span class="w"> </span>otros<span class="w"> </span>usuarios<span class="w"> </span>tienen<span class="w"> </span>el<span class="w"> </span>permiso<span class="w"> </span>de<span class="w"> </span>sólo<span class="w"> </span>lectura
+<span class="m">5</span><span class="w"> </span>:<span class="w"> </span>Enlace<span class="w"> </span><span class="nv">Físico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>tiene<span class="w"> </span>un<span class="w"> </span>enlace<span class="w"> </span>físico
+<span class="m">6</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Propietario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>alumno<span class="w"> </span>es<span class="w"> </span>el<span class="w"> </span>propietario<span class="w"> </span>de<span class="w"> </span>este<span class="w"> </span>archivo
+<span class="m">7</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>este<span class="w"> </span>archivo<span class="w"> </span>pertenece<span class="w"> </span>al<span class="w"> </span>grupo<span class="w"> </span>alumno
+<span class="m">8</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Tamaño</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>su<span class="w"> </span>tamaño<span class="w"> </span>es<span class="w"> </span>de<span class="w"> </span><span class="m">246417</span><span class="w"> </span>bytes
+<span class="m">9</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Fecha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>fecha<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>que<span class="w"> </span>fue<span class="w"> </span>creado
+<span class="m">10</span><span class="w"> </span>:<span class="w"> </span><span class="nv">Nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>el<span class="w"> </span>archivo<span class="w"> </span>se<span class="w"> </span>llama<span class="w"> </span>fecha.sh
 </pre></div>
 </div>
 <ul>
 <li><p><strong>chmod</strong> cambia los permisos de lectura, escritura y ejecución del archivo o directorio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod a+x fecha.dat    <span class="c1"># damos permisos de ejecución a todos</span>
-chmod u+rw fecha.dat   <span class="c1"># damos permisos de lectura y escritura a usuarios propietario</span>
-chmod o-r fecha.dat    <span class="c1"># quitamos permisos de lectura a otros usuarios</span>
-chmod o+w fecha.dat    <span class="c1"># damos permisos de escritura a los usuarios del grupo</span>
-chmod -R a+rwx carpeta <span class="c1"># -R cambiar los permisos de forma recursiva</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>a+x<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># damos permisos de ejecución a todos</span>
+chmod<span class="w"> </span>u+rw<span class="w"> </span>fecha.dat<span class="w">   </span><span class="c1"># damos permisos de lectura y escritura a usuarios propietario</span>
+chmod<span class="w"> </span>o-r<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># quitamos permisos de lectura a otros usuarios</span>
+chmod<span class="w"> </span>o+w<span class="w"> </span>fecha.dat<span class="w">    </span><span class="c1"># damos permisos de escritura a los usuarios del grupo</span>
+chmod<span class="w"> </span>-R<span class="w"> </span>a+rwx<span class="w"> </span>carpeta<span class="w"> </span><span class="c1"># -R cambiar los permisos de forma recursiva</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Notación binaria</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Octal Binario Permisos efectivos
-  <span class="m">0</span>    <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>    - - -
-  <span class="m">1</span>    <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>    - - x
-  <span class="m">2</span>    <span class="m">0</span> <span class="m">1</span> <span class="m">0</span>    - w -
-  <span class="m">3</span>    <span class="m">0</span> <span class="m">1</span> <span class="m">1</span>    - w x
-  <span class="m">4</span>    <span class="m">1</span> <span class="m">0</span> <span class="m">0</span>    r - -
-  <span class="m">5</span>    <span class="m">1</span> <span class="m">0</span> <span class="m">1</span>    r - x
-  <span class="m">6</span>    <span class="m">1</span> <span class="m">1</span> <span class="m">0</span>    r w -
-  <span class="m">7</span>    <span class="m">1</span> <span class="m">1</span> <span class="m">1</span>    r w x
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Octal<span class="w"> </span>Binario<span class="w"> </span>Permisos<span class="w"> </span>efectivos
+<span class="w">  </span><span class="m">0</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>-<span class="w"> </span>-<span class="w"> </span>-
+<span class="w">  </span><span class="m">1</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>-<span class="w"> </span>-<span class="w"> </span>x
+<span class="w">  </span><span class="m">2</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>-<span class="w"> </span>w<span class="w"> </span>-
+<span class="w">  </span><span class="m">3</span><span class="w">    </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>-<span class="w"> </span>w<span class="w"> </span>x
+<span class="w">  </span><span class="m">4</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>r<span class="w"> </span>-<span class="w"> </span>-
+<span class="w">  </span><span class="m">5</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>r<span class="w"> </span>-<span class="w"> </span>x
+<span class="w">  </span><span class="m">6</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w">    </span>r<span class="w"> </span>w<span class="w"> </span>-
+<span class="w">  </span><span class="m">7</span><span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w">    </span>r<span class="w"> </span>w<span class="w"> </span>x
 
- r  : <span class="nb">read</span> <span class="o">=</span> <span class="nv">4</span> <span class="o">=</span> <span class="m">100</span>
- w  : <span class="nv">write</span> <span class="o">=</span> <span class="nv">2</span> <span class="o">=</span> <span class="m">010</span>
- x  : <span class="nv">execute</span> <span class="o">=</span> <span class="nv">1</span> <span class="o">=</span> <span class="m">001</span>
+<span class="w"> </span>r<span class="w">  </span>:<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span>
+<span class="w"> </span>w<span class="w">  </span>:<span class="w"> </span><span class="nv">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">010</span>
+<span class="w"> </span>x<span class="w">  </span>:<span class="w"> </span><span class="nv">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">001</span>
 
- <span class="nv">rwx</span> <span class="o">=</span> <span class="m">100</span> + <span class="m">010</span> + <span class="nv">001</span> <span class="o">=</span> <span class="nv">111</span> <span class="o">=</span> <span class="m">4</span>+2+1 <span class="o">=</span> <span class="m">7</span>
- r-x <span class="o">=</span> <span class="m">100</span> + <span class="nv">001</span> <span class="o">=</span> <span class="nv">101</span> <span class="o">=</span> <span class="m">4</span>+1 <span class="o">=</span> <span class="m">5</span>
+<span class="w"> </span><span class="nv">rwx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>+<span class="w"> </span><span class="m">010</span><span class="w"> </span>+<span class="w"> </span><span class="nv">001</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">111</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>+2+1<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
+<span class="w"> </span>r-x<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span>+<span class="w"> </span><span class="nv">001</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">101</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>+1<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
 
- chmod a+rwx <span class="o">=</span> chmod <span class="m">777</span>
- chmod a-rwx <span class="o">=</span> chmod <span class="m">000</span>
- chmod a+rw <span class="o">=</span> chmod <span class="m">666</span>
+<span class="w"> </span>chmod<span class="w"> </span>a+rwx<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span>
+<span class="w"> </span>chmod<span class="w"> </span>a-rwx<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">000</span>
+<span class="w"> </span>chmod<span class="w"> </span>a+rw<span class="w"> </span><span class="o">=</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span>
 
- rwxr-x--- <span class="o">(</span><span class="m">750</span><span class="o">)</span>
- r–x r--r-- <span class="o">(</span><span class="m">544</span><span class="o">)</span>
+<span class="w"> </span>rwxr-x---<span class="w"> </span><span class="o">(</span><span class="m">750</span><span class="o">)</span>
+<span class="w"> </span>r–x<span class="w"> </span>r--r--<span class="w"> </span><span class="o">(</span><span class="m">544</span><span class="o">)</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>chown</strong> cambia el propietario y el grupo del archivo o directorio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown alumno2:GB foto.jpg
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>alumno2:GB<span class="w"> </span>foto.jpg
 </pre></div>
 </div>
 </li>
 <li><p><strong>chgrp</strong> cambia el grupo del archivo o directorio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp smr2 foto.jpg
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chgrp<span class="w"> </span>smr2<span class="w"> </span>foto.jpg
 </pre></div>
 </div>
 </li>
@@ -504,43 +500,43 @@ chmod -R a+rwx carpeta <span class="c1"># -R cambiar los permisos de forma recur
 </div>
 <ul>
 <li><p><strong>setuid</strong> permite que un fichero ejecutable se ejecute con los permisos del propietario del fichero</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ chmod u+s /bin/su
-$ ls -l /bin/su
- -rwsr-xr-x <span class="m">1</span> root root <span class="m">40128</span> mar <span class="m">29</span> <span class="m">11</span>:25 /bin/su
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>u+s<span class="w"> </span>/bin/su
+$<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>/bin/su
+<span class="w"> </span>-rwsr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">40128</span><span class="w"> </span>mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">11</span>:25<span class="w"> </span>/bin/su
 
-$ ls -la /usr/bin/passwd
- -rwsr-xr-x <span class="m">1</span> root root <span class="m">54256</span> mar <span class="m">29</span> <span class="m">11</span>:25 /usr/bin/passwd
+$<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/usr/bin/passwd
+<span class="w"> </span>-rwsr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">54256</span><span class="w"> </span>mar<span class="w"> </span><span class="m">29</span><span class="w"> </span><span class="m">11</span>:25<span class="w"> </span>/usr/bin/passwd
 </pre></div>
 </div>
 </li>
 <li><p><strong>setgid</strong> permite que un fichero ejecutable se ejecute con los permisos del grupo al que pertenece el fichero, por ejemplo asignamos el bit setgid la carpeta /compartido, le asignamos permisos totales para el propietario y el grupo (770) y el bit segid (2):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -la
-drwxrwx---  <span class="m">6</span> usuario1 GA      <span class="m">4096</span> sep <span class="m">18</span> <span class="m">09</span>:37 carpetaGA
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls<span class="w"> </span>-la
+drwxrwx---<span class="w">  </span><span class="m">6</span><span class="w"> </span>usuario1<span class="w"> </span>GA<span class="w">      </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:37<span class="w"> </span>carpetaGA
 
-$ chmod g+s carpetaGA/
-drwxrws---  <span class="m">2</span> usuario1 GA      <span class="m">4096</span> sep <span class="m">18</span> <span class="m">09</span>:46 carpetaGA
+$<span class="w"> </span>chmod<span class="w"> </span>g+s<span class="w"> </span>carpetaGA/
+drwxrws---<span class="w">  </span><span class="m">2</span><span class="w"> </span>usuario1<span class="w"> </span>GA<span class="w">      </span><span class="m">4096</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:46<span class="w"> </span>carpetaGA
 
-$ su
-$ <span class="nb">cd</span> carpetaGA/
-$ touch <span class="nb">test</span>
-$ ls -la
--rw-r--r-- <span class="m">1</span> root     GA      <span class="m">0</span> sep <span class="m">18</span> <span class="m">09</span>:47 <span class="nb">test</span>
+$<span class="w"> </span>su
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>carpetaGA/
+$<span class="w"> </span>touch<span class="w"> </span><span class="nb">test</span>
+$<span class="w"> </span>ls<span class="w"> </span>-la
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w">     </span>GA<span class="w">      </span><span class="m">0</span><span class="w"> </span>sep<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">09</span>:47<span class="w"> </span><span class="nb">test</span>
 
-$ whoami
+$<span class="w"> </span>whoami
 root
 </pre></div>
 </div>
 </li>
 <li><p><strong>sticky</strong> permite que cualquier usuario pueda modificar un archivo o directorio, pero solo su propietario pueda borrarlo, este bit se asigna siempre en /tmp y /var/tmp</p>
 <p>/tmp tiene permisos 777, el bit sticky se asignaría del siguiente modo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod <span class="m">1777</span> /tmp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">1777</span><span class="w"> </span>/tmp
 
 <span class="c1">#otra forma:</span>
-chmod o+t /tmp
+chmod<span class="w"> </span>o+t<span class="w"> </span>/tmp
 
 <span class="c1">#Si hacemos un ls veremos la “t” asignada:</span>
-<span class="nv">$ls</span> -la / <span class="p">|</span> grep tmp
-drwxrwxrwt  <span class="m">13</span> root root  <span class="m">4096</span> <span class="m">2011</span>-04-24 <span class="m">20</span>:55 tmp
+<span class="nv">$ls</span><span class="w"> </span>-la<span class="w"> </span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tmp
+drwxrwxrwt<span class="w">  </span><span class="m">13</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">4096</span><span class="w"> </span><span class="m">2011</span>-04-24<span class="w"> </span><span class="m">20</span>:55<span class="w"> </span>tmp
 </pre></div>
 </div>
 </li>
@@ -555,10 +551,7 @@ drwxrwxrwt  <span class="m">13</span> root root  <span class="m">4096</span> <sp
               
               
                 <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="01_comandos_basicos.html"
@@ -578,10 +571,7 @@ drwxrwxrwt  <span class="m">13</span> root root  <span class="m">4096</span> <sp
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -605,7 +595,7 @@ drwxrwxrwt  <span class="m">13</span> root root  <span class="m">4096</span> <sp
             
           </div>
           <footer class="bd-footer-content">
-            
+            <div class="bd-footer-content__inner">
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -628,7 +618,7 @@ Por dgtrabada
     
   </div>
   
-</div>
+</div></div>
           </footer>
         
 
@@ -637,8 +627,8 @@ Por dgtrabada
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>RAID &#8212; dgtrabada</title>
   
@@ -19,33 +18,30 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../_static/translations.js"></script>
+    <script src="../_static/translations.js?v=efdbd0b9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'hardware/raid';</script>
-    <link rel="shortcut icon" href="../_static/ico.png"/>
+    <link rel="icon" href="../_static/ico.png"/>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
     <link rel="next" title="GNU/Linux" href="../so/GNULinux/index.html" />
@@ -486,39 +482,39 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <section id="caso-practico-crear-un-raid-0">
 <h2>Caso práctico: Crear un RAID 0<a class="headerlink" href="#caso-practico-crear-un-raid-0" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Antes de crear la RAID 0 podemos ver en el fichero /proc/mdstat por si al algún otro raid:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /proc/mdstat
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/proc/mdstat
 </pre></div>
 </div>
 <p>Proseguimos a la creación del md en el que crearemos la RAID. Para ello utilizaremos el comando mknod :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mknod /dev/md0 b <span class="m">9</span> <span class="m">0</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mknod<span class="w"> </span>/dev/md0<span class="w"> </span>b<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 <p>Si ya tuviéramos algún otro raid llamado md0, podemos crear un md diferente: md1, md2, …
 Procedemos ahora a crear finalmente la RAID 0.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm --create /dev/md0 --level<span class="o">=</span>raid0 --raid-devices<span class="o">=</span><span class="m">2</span> /dev/sda /dev/sdb
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--create<span class="w"> </span>/dev/md0<span class="w"> </span>--level<span class="o">=</span>raid0<span class="w"> </span>--raid-devices<span class="o">=</span><span class="m">2</span><span class="w"> </span>/dev/sda<span class="w"> </span>/dev/sdb
 </pre></div>
 </div>
 <p>Para formatear la RAID utilizaremos el comando</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs: mkfs.ext4 /dev/md0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs:<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/md0
 </pre></div>
 </div>
 <p>Podemos montarla en /mnt : mount /dev/md0 /mnt/</p>
 <p>Para montar la RAID de forma automática cuando se inicia el ordenador, añadimos la siguiente línea al fichero /etc/fstab :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dev/md0 /punto_de_montaje sistema_de_archivos defaults,user <span class="m">0</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/dev/md0<span class="w"> </span>/punto_de_montaje<span class="w"> </span>sistema_de_archivos<span class="w"> </span>defaults,user<span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 <p>Para cambiar un disco duro defectuoso:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo mdadm --remove /dev/md0 /dev/sda1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mdadm<span class="w"> </span>--remove<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1
 </pre></div>
 </div>
 <p>En el caso de que ya no este conectado, desde drbl se vería en cat /proc/mdstat como removed</p>
 <p>usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfdisk -d /dev/sdc <span class="p">|</span> sfdisk /dev/sda
-mdadm --stop /dev/md127
-rm /mdadm/mdadm.conf
-mdadm --assemble --scan
-mdadm --add /dev/md0 /dev/sda1 <span class="c1"># añadimos el nuevo</span>
-watch cat /proc/mdstat <span class="c1"># podemos ver como se recuperan</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfdisk<span class="w"> </span>-d<span class="w"> </span>/dev/sdc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sfdisk<span class="w"> </span>/dev/sda
+mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/md127
+rm<span class="w"> </span>/mdadm/mdadm.conf
+mdadm<span class="w"> </span>--assemble<span class="w"> </span>--scan
+mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># añadimos el nuevo</span>
+watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>
 </pre></div>
 </div>
 </section>
@@ -534,15 +530,15 @@ watch cat /proc/mdstat <span class="c1"># podemos ver como se recuperan</span>
 </section>
 <section id="caso-practico-crear-lvm">
 <h2>Caso práctico: Crear LVM<a class="headerlink" href="#caso-practico-crear-lvm" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pvcreate /dev/sdb2 <span class="c1"># Crear volumen físico</span>
-pvremove /dev/sdc1 <span class="c1"># Borrado de volúmen físico</span>
-pvdisplay <span class="c1"># Mostrar información</span>
-vgcreate DatosLVM /dev/sdb2 /dev/sda1 <span class="c1"># Crear grupo de volúmenes</span>
-vgremove DatosLVM <span class="c1"># Borrado de grupo de volúmenes</span>
-vgdisplay <span class="c1"># Mostrar información</span>
-lvcreate --name ruta --size 500M DatosLVM <span class="c1"># Crear volumen lógico</span>
-lvremove /dev/DatosLVM/ruta <span class="c1"># Borrado de grupo de volúmenes</span>
-lvdisplay <span class="c1"># Mostrar información</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pvcreate<span class="w"> </span>/dev/sdb2<span class="w"> </span><span class="c1"># Crear volumen físico</span>
+pvremove<span class="w"> </span>/dev/sdc1<span class="w"> </span><span class="c1"># Borrado de volúmen físico</span>
+pvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
+vgcreate<span class="w"> </span>DatosLVM<span class="w"> </span>/dev/sdb2<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># Crear grupo de volúmenes</span>
+vgremove<span class="w"> </span>DatosLVM<span class="w"> </span><span class="c1"># Borrado de grupo de volúmenes</span>
+vgdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
+lvcreate<span class="w"> </span>--name<span class="w"> </span>ruta<span class="w"> </span>--size<span class="w"> </span>500M<span class="w"> </span>DatosLVM<span class="w"> </span><span class="c1"># Crear volumen lógico</span>
+lvremove<span class="w"> </span>/dev/DatosLVM/ruta<span class="w"> </span><span class="c1"># Borrado de grupo de volúmenes</span>
+lvdisplay<span class="w"> </span><span class="c1"># Mostrar información</span>
 </pre></div>
 </div>
 </section>
@@ -566,10 +562,7 @@ lvdisplay <span class="c1"># Mostrar información</span>
               
               
                 <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../so/particiones.html"
@@ -589,10 +582,7 @@ lvdisplay <span class="c1"># Mostrar información</span>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -630,7 +620,7 @@ lvdisplay <span class="c1"># Mostrar información</span>
             
           </div>
           <footer class="bd-footer-content">
-            
+            <div class="bd-footer-content__inner">
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -653,7 +643,7 @@ Por dgtrabada
     
   </div>
   
-</div>
+</div></div>
           </footer>
         
 
@@ -662,8 +652,8 @@ Por dgtrabada
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
   <footer class="bd-footer">
   </footer>

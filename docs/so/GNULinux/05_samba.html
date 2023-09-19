@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Samba &#8212; dgtrabada</title>
   
@@ -19,33 +18,30 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/05_samba';</script>
-    <link rel="shortcut icon" href="../../_static/ico.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Automatización de tareas y servicios" href="06_automatizacion_tareas.html" />
@@ -415,30 +411,30 @@ document.write(`
 <section id="caso-practico-samba">
 <h2>Caso práctico: Samba<a class="headerlink" href="#caso-practico-samba" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Instalamos el servicor de samba:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install samba
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>samba
 </pre></div>
 </div>
 <p>Al final de <strong>/etc/samba/smb.conf</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>share<span class="o">]</span>
- <span class="nv">comment</span> <span class="o">=</span> Ubuntu File Server Share
- <span class="nv">path</span> <span class="o">=</span> /srv/samba/share
- <span class="nv">browsable</span> <span class="o">=</span> yes
- guest <span class="nv">ok</span> <span class="o">=</span> yes
- <span class="nb">read</span> <span class="nv">only</span> <span class="o">=</span> no
- create <span class="nv">mask</span> <span class="o">=</span> <span class="m">0755</span>
+<span class="w"> </span><span class="nv">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Ubuntu<span class="w"> </span>File<span class="w"> </span>Server<span class="w"> </span>Share
+<span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/srv/samba/share
+<span class="w"> </span><span class="nv">browsable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
+<span class="w"> </span>guest<span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
+<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>no
+<span class="w"> </span>create<span class="w"> </span><span class="nv">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0755</span>
 </pre></div>
 </div>
 <p>Creamos la carpeta</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p /srv/samba/share
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/srv/samba/share
 </pre></div>
 </div>
 <p>Le cambiamos los permisos</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown nobody:nogroup /srv/samba/share/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>nobody:nogroup<span class="w"> </span>/srv/samba/share/
 </pre></div>
 </div>
 <p>En el caso de tener problemas puedes probar con chmod a+rwx</p>
 <p>Reiniciamos el servicio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl restart smbd.service nmbd.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smbd.service<span class="w"> </span>nmbd.service
 </pre></div>
 </div>
 <ul class="simple">
@@ -447,27 +443,27 @@ document.write(`
 </ul>
 <p>En el caso de que queramos contruir un servidor samba seguro incluimos al final de <strong>*/etc/samba/smb.con</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>secured<span class="o">]</span>
- <span class="nv">path</span> <span class="o">=</span> /samba/secured
- valid <span class="nv">users</span> <span class="o">=</span> @smbgrp
- guest <span class="nv">ok</span> <span class="o">=</span> no
- <span class="nv">writable</span> <span class="o">=</span> yes
- <span class="nv">browsable</span> <span class="o">=</span> yes
+<span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/samba/secured
+<span class="w"> </span>valid<span class="w"> </span><span class="nv">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@smbgrp
+<span class="w"> </span>guest<span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>no
+<span class="w"> </span><span class="nv">writable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
+<span class="w"> </span><span class="nv">browsable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
 </pre></div>
 </div>
 <p>Creamos la carpeta que pertenezca al grupo smbgrp</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p /samba/secured
-<span class="nb">cd</span> /samba
-chmod -R <span class="m">0770</span> secured
-chown root:smbgrp secured
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/samba/secured
+<span class="nb">cd</span><span class="w"> </span>/samba
+chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">0770</span><span class="w"> </span>secured
+chown<span class="w"> </span>root:smbgrp<span class="w"> </span>secured
 </pre></div>
 </div>
 <p>Añadimos los usuarios que queramos al grupo smbgrp y les damos una contraseña</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod -a -G smbgrp usuario1
-smbpasswd -a contraseña
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>smbgrp<span class="w"> </span>usuario1
+smbpasswd<span class="w"> </span>-a<span class="w"> </span>contraseña
 </pre></div>
 </div>
 <p>Por ultimo reiniciamos el servicio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl restart smbd.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smbd.service
 </pre></div>
 </div>
 </section>
@@ -480,10 +476,7 @@ smbpasswd -a contraseña
               
               
                 <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="04_ssh.html"
@@ -503,10 +496,7 @@ smbpasswd -a contraseña
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -530,7 +520,7 @@ smbpasswd -a contraseña
             
           </div>
           <footer class="bd-footer-content">
-            
+            <div class="bd-footer-content__inner">
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -553,7 +543,7 @@ Por dgtrabada
     
   </div>
   
-</div>
+</div></div>
           </footer>
         
 
@@ -562,8 +552,8 @@ Por dgtrabada
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
   <footer class="bd-footer">
   </footer>

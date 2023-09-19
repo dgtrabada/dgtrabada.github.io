@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>NIS &#8212; dgtrabada</title>
   
@@ -19,33 +18,30 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../../_static/translations.js"></script>
+    <script src="../../_static/translations.js?v=efdbd0b9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/08_NIS';</script>
-    <link rel="shortcut icon" href="../../_static/ico.png"/>
+    <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="NFS" href="09_GNULinux_NFS.html" />
@@ -419,36 +415,36 @@ document.write(`
 <section id="en-el-servidor-ubuntu-server-22-04">
 <h2>En el servidor (Ubuntu server 22.04)<a class="headerlink" href="#en-el-servidor-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Instalamos</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get -y install portmap
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>portmap
 
 <span class="c1">#Instalamos dominio servidor.X.nis  donde X son las 3 primeras iniciales de tu nombre</span>
-apt-get -y install nis
+apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
 <p>En /etc/hosts añadimos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;IP&gt; servidor.X.nis
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;IP&gt;<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
 <p>Ejecuta el comando domainname para mostrar o configurar el nombre de dominio de la máquina.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>domainname servidor.X.nis
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>domainname<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
 <p>Copia el nombre de su servidor NIS en el archivo /etc/defaultdomain (de aquí lo leerá el servicio ypserv.service que inicia la nis)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Actualizamos la base de datos y creamos los mapas de la NIS</span>
-/usr/sbin/ypserv start
+/usr/sbin/ypserv<span class="w"> </span>start
 /usr/sbin/rpc.ypxfrd
-/usr/lib/yp/ypinit -m
+/usr/lib/yp/ypinit<span class="w"> </span>-m
 
 <span class="c1"># Comprobamos</span>
-rpcinfo -p
+rpcinfo<span class="w"> </span>-p
 </pre></div>
 </div>
 <p>En el caso de que no funcione, puedes buscar posibles errores en firewall (iptables -F)</p>
 <p>Iniciar el servidor nis :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl status ypserv.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
 
 <span class="c1"># Para iniciar el servidor NIS haz que se inicie el servicio (ypserv.service)</span>
-systemctl <span class="nb">enable</span> ypserv.service
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ypserv.service
 </pre></div>
 </div>
 <p>Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.</p>
@@ -456,17 +452,17 @@ systemctl <span class="nb">enable</span> ypserv.service
 <section id="en-el-cliente">
 <h2>En el cliente<a class="headerlink" href="#en-el-cliente" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalamos el paquete nis</span>
-apt-get -y install nis
+apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
 <p>Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nisdomainname &lt;nombre&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nisdomainname<span class="w"> </span>&lt;nombre&gt;
 </pre></div>
 </div>
 <p>En /etc/nsswitch.conf añadiendo al final de cada línea la palabra «nis».</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd: files systemd nis
-group: files systemd nis
-shadow: files nis
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
+group:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
+shadow:<span class="w"> </span>files<span class="w"> </span>nis
 </pre></div>
 </div>
 <p>En /etc/yp.conf  añadimos ypserver &lt;ip_del_servidor_nis&gt;, y añade el servidor al /etc/host</p>
@@ -475,16 +471,16 @@ shadow: files nis
 </pre></div>
 </div>
 <p>para comprobarlo puedes utilizar el comando:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent passwd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
 </pre></div>
 </div>
 <p>Para hacer que se cree el directorio de los ususrios de forma automatica marcarlo con el siguiente comando:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo pam-auth-update
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pam-auth-update
 </pre></div>
 </div>
 <p>PAM (Pluggable Authentication Modules) establece una interfaz entre los programas de usuario y distintos métodos de autenticación.   De esta forma, el método de autenticación se hace transparente para los programas.</p>
 <p>Haz que el cliente NIs se inice como servicios en el arranque del sistema, para ello</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl <span class="nb">enable</span>  ypbind.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w">  </span>ypbind.service
 </pre></div>
 </div>
 <p>Copia el nombre de su servidor NIS en el archivo <strong>/etc/defaultdomain</strong> (de aquí lo leerá el servicio ypbind.service que inicia la nis)</p>
@@ -499,10 +495,10 @@ shadow: files nis
 <li><p>Clon enlazado 1 : «compute-0-0» 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
 <li><p>Clon enlazado 2 : «compute-0-1» 10.5.X.Y/8 (DHCP si usas portátil)</p>
 <img alt="../../_images/virtualbox.jpg" src="../../_images/virtualbox.jpg" />
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage list vms
-VBoxManage list runningvms
-VBoxManage startvm <span class="s1">&#39;compute-0-0&#39;</span> --type headless
-VBoxManage startvm <span class="s1">&#39;compute-0-1&#39;</span> --type headless
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
+VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
+VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;compute-0-0&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
+VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;compute-0-1&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
 </pre></div>
 </div>
 </li>
@@ -538,15 +534,15 @@ VBoxManage startvm <span class="s1">&#39;compute-0-1&#39;</span> --type headless
 <img alt="../../_images/adaptador_cliente.jpg" src="../../_images/adaptador_cliente.jpg" />
 </li>
 <li><p>Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="m">1</span> &gt; /proc/sys/net/ipv4/ip_forward
-iptables -F
-iptables -A FORWARD -j ACCEPT
-iptables -t nat -A POSTROUTING -s <span class="m">172</span>.16.0.0/16 -o enp0s3 -j MASQUERADE
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+iptables<span class="w"> </span>-F
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
 </pre></div>
 </div>
 </li>
 <li><p>Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /etc/systemd/system/enrutar.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
 </pre></div>
 </div>
 </li>
@@ -562,10 +558,7 @@ iptables -t nat -A POSTROUTING -s <span class="m">172</span>.16.0.0/16 -o enp0s3
               
               
                 <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="07_comandos_avanzados.html"
@@ -585,10 +578,7 @@ iptables -t nat -A POSTROUTING -s <span class="m">172</span>.16.0.0/16 -o enp0s3
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -615,7 +605,7 @@ iptables -t nat -A POSTROUTING -s <span class="m">172</span>.16.0.0/16 -o enp0s3
             
           </div>
           <footer class="bd-footer-content">
-            
+            <div class="bd-footer-content__inner">
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -638,7 +628,7 @@ Por dgtrabada
     
   </div>
   
-</div>
+</div></div>
           </footer>
         
 
@@ -647,8 +637,8 @@ Por dgtrabada
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
   <footer class="bd-footer">
   </footer>
