@@ -23,4 +23,4 @@ help:
 
 github:
 	@make html
-	cp -a build/html/ docs
+	rsync -av --delete build/html/ docs
