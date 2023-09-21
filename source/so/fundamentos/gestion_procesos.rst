@@ -152,7 +152,7 @@ Vemos el siguiente ejemplo:
 Plantilla para ejercicios
 =========================
 
-* `Plantilla.odt <PK>`_
+* `Plantilla.odt <https://github.com/dgtrabada/dgtrabada.github.io/blob/39f7a68fe55fd5545bbcf27b5390a2da8bbfe5f3/source/so/fundamentos/imagenes/Plantilla.odt>`_
 
 * `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/20be7bbb85e2973dd3255481b8477d748ba781bf/source/so/fundamentos/imagenes/Plantilla.pdf>`_
 
