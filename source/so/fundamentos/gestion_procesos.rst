@@ -152,9 +152,9 @@ Vemos el siguiente ejemplo:
 Plantilla para ejercicios
 =========================
 
-* `Plantilla.odt <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/docsrc/source/so/fundamentos/imagenes/Plantilla.odt>`_
+* `Plantilla.odt <PK>`_
 
-* `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/docsrc/source/so/fundamentos/imagenes/Plantilla.pdf>`_
+* `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/20be7bbb85e2973dd3255481b8477d748ba781bf/source/so/fundamentos/imagenes/Plantilla.pdf>`_
 
 
 Bloqueos
