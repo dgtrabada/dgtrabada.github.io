@@ -11,7 +11,7 @@ Usuarios y grupos GNU/Linux
 
 Los usuarios están definidos en los siguientes archivos:
 
-* **/etc/p@sswd** (-rw-r--r-- 1 root root): contiene información sobre cada usuario: ID, grupo principal, descripción, directorio de inicio, shell, etc.
+* **/etc/passwd** (-rw-r--r-- 1 root root): contiene información sobre cada usuario: ID, grupo principal, descripción, directorio de inicio, shell, etc.
 * **/etc/shadow**/ (-rw-r----- 1): contiene los passwords encriptados de los usuarios cuando se emplean shadow passwords.
 * **/etc/group**/: contiene los miembros de cada grupo, excepto para el grupo principal, que aparece en /etc/passwd.
 * **/etc/skel**/: Plantilla de ficheros iniciales que se copian en el $HOME del nuevo usuario cuando se crea
@@ -127,6 +127,7 @@ Comandos adicionales
  alumno pts/4 2011-02-09 11:10 (:0.0)
  profesor pts/5 2011-02-09 11:12
  profesor pts/6 2011-02-09 11:19 (192.168.248.1)
+ 
  $ w
  11:19:52 up 1:29, 7 users, load average: 1.47, 1.03, 0.97
  USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT
