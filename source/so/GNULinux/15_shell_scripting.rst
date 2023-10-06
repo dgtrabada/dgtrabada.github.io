@@ -6,7 +6,14 @@ Dar permisos de ejecución a un script:
 
 .. code-block:: bash
 
+ $ cat script.sh 
+ #!/bin/bash
+ echo hola $(whoami)
+
  $ chmod +x script.sh
+ 
+ $ ./script.sh 
+ hola dani
 
 
 Entrada de datos

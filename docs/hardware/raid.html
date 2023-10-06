@@ -495,7 +495,7 @@ Procedemos ahora a crear finalmente la RAID 0.</p>
 </pre></div>
 </div>
 <p>Para formatear la RAID utilizaremos el comando</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs:<span class="w"> </span>mkfs.ext4<span class="w"> </span>/dev/md0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs.ext4<span class="w"> </span>/dev/md0
 </pre></div>
 </div>
 <p>Podemos montarla en /mnt : mount /dev/md0 /mnt/</p>
@@ -511,7 +511,7 @@ Procedemos ahora a crear finalmente la RAID 0.</p>
 <p>usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfdisk<span class="w"> </span>-d<span class="w"> </span>/dev/sdc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sfdisk<span class="w"> </span>/dev/sda
 mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/md127
-rm<span class="w"> </span>/mdadm/mdadm.conf
+rm<span class="w"> </span>/etc/mdadm/mdadm.conf
 mdadm<span class="w"> </span>--assemble<span class="w"> </span>--scan
 mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># añadimos el nuevo</span>
 watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>

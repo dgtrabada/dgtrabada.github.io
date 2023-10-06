@@ -137,7 +137,7 @@ Para formatear la RAID utilizaremos el comando
 
 .. code-block:: bash
 
-  mkfs: mkfs.ext4 /dev/md0
+  mkfs.ext4 /dev/md0
   
 Podemos montarla en /mnt : mount /dev/md0 /mnt/
 
@@ -161,7 +161,7 @@ usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción 
 
  sfdisk -d /dev/sdc | sfdisk /dev/sda
  mdadm --stop /dev/md127
- rm /mdadm/mdadm.conf
+ rm /etc/mdadm/mdadm.conf
  mdadm --assemble --scan
  mdadm --add /dev/md0 /dev/sda1 # añadimos el nuevo
  watch cat /proc/mdstat # podemos ver como se recuperan
