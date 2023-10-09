@@ -319,5 +319,45 @@ La estructura de las instrucciones es de 6 columnas separadas por espacios o tab
 * **<dump-freq>** es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.
 * **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​
 
+rsync
+=====
+
+rsync sirve para sincronización de archivos
+
+.. code-block:: bash
+
+  rsync [opciones] [origen] [destino]
+
+Opciones comunes
+
+* **-v** (verbose): Muestra información detallada sobre el proceso de sincronización.
+* **-r** (recursive): Copia directorios recursivamente.
+* **-a** (archive): Modo de copia de seguridad, que conserva metadatos como permisos, propiedades y fechas de modificación.
+* **--delete**: Elimina archivos en el destino que no existen en el origen (útil para mantener los dos sistemas iguales).
+* **--exclude**: Permite excluir ciertos archivos o patrones de archivos de la sincronización.
+* **-n** (dry-run): Realiza una simulación de la sincronización sin realizar cambios en el sistema de archivos.
+* **-P** (progress): Muestra el progreso de la transferencia.
+
+Ejemplos de uso
+
+.. code-block:: bash
+  
+  #Copiar un directorio local a otro lugar local
+  rsync -av /ruta/de/origen/ /ruta/de/destino/
+ 
+  #Copiar de local a un servidor remoto (SSH)
+  rsync -av -e ssh /ruta/local/ usuario@servidor:/ruta/destino/
+
+  #Copiar de un servidor remoto a local
+  rsync -av -e ssh usuario@servidor:/ruta/origen/ /ruta/local/destino/
+
+  #Eliminar archivos en el destino que no existen en el origen
+  rsync -av --delete /ruta/de/origen/ /ruta/de/destino/
+
+Consejos adicionales
+
+* Usa ``-n`` para simular una sincronización antes de ejecutarla realmente. Esto te permitirá ver qué cambios se realizarán sin efectuarlos.
+
+* Usa ``--exclude`` para evitar copiar ciertos archivos o directorios. Por ejemplo, ``--exclude=archivo.txt`` evitará la copia del archivo llamado archivo.txt.
 
   

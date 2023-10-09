@@ -401,6 +401,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-la-red">Configuración de la red</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">virtualBox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-particiones">Gestión de particiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">rsync</a></li>
 </ul>
             </nav>
         </div>
@@ -720,6 +721,42 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <li><p><strong>&lt;pass-num&gt;</strong> indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​</p></li>
 </ul>
 </section>
+<section id="rsync">
+<h2>rsync<a class="headerlink" href="#rsync" title="Enlace permanente a este encabezado">#</a></h2>
+<p>rsync sirve para sincronización de archivos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rsync<span class="w"> </span><span class="o">[</span>opciones<span class="o">]</span><span class="w"> </span><span class="o">[</span>origen<span class="o">]</span><span class="w"> </span><span class="o">[</span>destino<span class="o">]</span>
+</pre></div>
+</div>
+<p>Opciones comunes</p>
+<ul class="simple">
+<li><p><strong>-v</strong> (verbose): Muestra información detallada sobre el proceso de sincronización.</p></li>
+<li><p><strong>-r</strong> (recursive): Copia directorios recursivamente.</p></li>
+<li><p><strong>-a</strong> (archive): Modo de copia de seguridad, que conserva metadatos como permisos, propiedades y fechas de modificación.</p></li>
+<li><p><strong>–delete</strong>: Elimina archivos en el destino que no existen en el origen (útil para mantener los dos sistemas iguales).</p></li>
+<li><p><strong>–exclude</strong>: Permite excluir ciertos archivos o patrones de archivos de la sincronización.</p></li>
+<li><p><strong>-n</strong> (dry-run): Realiza una simulación de la sincronización sin realizar cambios en el sistema de archivos.</p></li>
+<li><p><strong>-P</strong> (progress): Muestra el progreso de la transferencia.</p></li>
+</ul>
+<p>Ejemplos de uso</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Copiar un directorio local a otro lugar local</span>
+rsync<span class="w"> </span>-av<span class="w"> </span>/ruta/de/origen/<span class="w"> </span>/ruta/de/destino/
+
+<span class="c1">#Copiar de local a un servidor remoto (SSH)</span>
+rsync<span class="w"> </span>-av<span class="w"> </span>-e<span class="w"> </span>ssh<span class="w"> </span>/ruta/local/<span class="w"> </span>usuario@servidor:/ruta/destino/
+
+<span class="c1">#Copiar de un servidor remoto a local</span>
+rsync<span class="w"> </span>-av<span class="w"> </span>-e<span class="w"> </span>ssh<span class="w"> </span>usuario@servidor:/ruta/origen/<span class="w"> </span>/ruta/local/destino/
+
+<span class="c1">#Eliminar archivos en el destino que no existen en el origen</span>
+rsync<span class="w"> </span>-av<span class="w"> </span>--delete<span class="w"> </span>/ruta/de/origen/<span class="w"> </span>/ruta/de/destino/
+</pre></div>
+</div>
+<p>Consejos adicionales</p>
+<ul class="simple">
+<li><p>Usa <code class="docutils literal notranslate"><span class="pre">-n</span></code> para simular una sincronización antes de ejecutarla realmente. Esto te permitirá ver qué cambios se realizarán sin efectuarlos.</p></li>
+<li><p>Usa <code class="docutils literal notranslate"><span class="pre">--exclude</span></code> para evitar copiar ciertos archivos o directorios. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">--exclude=archivo.txt</span></code> evitará la copia del archivo llamado archivo.txt.</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -772,6 +809,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-la-red">Configuración de la red</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">virtualBox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-particiones">Gestión de particiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rsync">rsync</a></li>
 </ul>
   </nav></div>
 

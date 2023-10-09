@@ -8,7 +8,8 @@ Dar permisos de ejecución a un script:
 
  $ cat script.sh 
  #!/bin/bash
- echo hola $(whoami)
+ nombre=$(whoami)
+ echo hola ${nombre}
 
  $ chmod +x script.sh
  
