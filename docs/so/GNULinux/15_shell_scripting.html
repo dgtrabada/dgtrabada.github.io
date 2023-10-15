@@ -741,6 +741,30 @@ $<span class="w"> </span>Suma<span class="w"> </span><span class="m">1</span><sp
 </section>
 <section id="arrays">
 <h2>Arrays<a class="headerlink" href="#arrays" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nv">palabra</span><span class="o">=(</span><span class="s2">&quot;PYTHON&quot;</span><span class="w"> </span><span class="s2">&quot;LINUX&quot;</span><span class="w"> </span><span class="s2">&quot;BASH&quot;</span><span class="w"> </span><span class="s2">&quot;GITHUB&quot;</span><span class="w"> </span><span class="s2">&quot;DOCKER&quot;</span><span class="o">)</span>
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">palabra</span><span class="p">[0]</span><span class="si">}</span>
+PYTHON
+
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">palabra</span><span class="p">[1]</span><span class="si">}</span>
+LINUX
+
+$<span class="w"> </span><span class="nv">longitud</span><span class="o">=</span><span class="si">${#</span><span class="nv">palabra</span><span class="p">[@]</span><span class="si">}</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$longitud</span>
+<span class="m">5</span>
+
+$<span class="w"> </span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="nv">$longitud</span><span class="p">;</span>i++<span class="o">))</span>
+&gt;<span class="w"> </span><span class="k">do</span>
+&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>palabra<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="si">${</span><span class="nv">palabra</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+&gt;<span class="w"> </span><span class="k">done</span>
+
+palabra<span class="o">[</span><span class="m">0</span><span class="o">]=</span>PYTHON
+palabra<span class="o">[</span><span class="m">1</span><span class="o">]=</span>LINUX
+palabra<span class="o">[</span><span class="m">2</span><span class="o">]=</span>BASH
+palabra<span class="o">[</span><span class="m">3</span><span class="o">]=</span>GITHUB
+palabra<span class="o">[</span><span class="m">4</span><span class="o">]=</span>DOCKER
+</pre></div>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>A<span class="o">[</span><span class="m">0</span><span class="o">]=</span><span class="m">1</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[0]</span><span class="si">}</span>
 <span class="m">1</span>

@@ -355,6 +355,32 @@ Arrays
 ******
 
 .. code-block:: bash
+
+  $ palabra=("PYTHON" "LINUX" "BASH" "GITHUB" "DOCKER")
+  
+  $ echo ${palabra[0]}
+  PYTHON
+  
+  $ echo ${palabra[1]}
+  LINUX
+  
+  $ longitud=${#palabra[@]}
+  $ echo $longitud 
+  5
+  
+  $ for((i=0;i<$longitud;i++)) 
+  > do 
+  > echo palabra[$i]=${palabra[$i]}
+  > done
+    
+  palabra[0]=PYTHON
+  palabra[1]=LINUX
+  palabra[2]=BASH
+  palabra[3]=GITHUB
+  palabra[4]=DOCKER
+
+
+.. code-block:: bash
  
  $ A[0]=1
  $ echo ${A[0]}
