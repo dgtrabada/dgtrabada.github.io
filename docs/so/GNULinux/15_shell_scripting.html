@@ -763,17 +763,29 @@ palabra<span class="o">[</span><span class="m">1</span><span class="o">]=</span>
 palabra<span class="o">[</span><span class="m">2</span><span class="o">]=</span>BASH
 palabra<span class="o">[</span><span class="m">3</span><span class="o">]=</span>GITHUB
 palabra<span class="o">[</span><span class="m">4</span><span class="o">]=</span>DOCKER
+
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">palabra</span><span class="p">[@]</span><span class="si">}</span>
+&gt;<span class="w"> </span><span class="k">do</span>
+&gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
+&gt;<span class="w"> </span><span class="k">done</span>
+PYTHON
+LINUX
+BASH
+GITHUB
+DOCKER
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>A<span class="o">[</span><span class="m">0</span><span class="o">]=</span><span class="m">1</span>
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[0]</span><span class="si">}</span>
 <span class="m">1</span>
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[1]</span><span class="si">}</span>
 
 $<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
 &gt;<span class="w"> </span><span class="k">do</span>
 &gt;<span class="w"> </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="nv">$i</span>
 &gt;<span class="w"> </span><span class="k">done</span>
+
 $<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span>
 &gt;<span class="w"> </span><span class="k">do</span>
 &gt;<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
@@ -782,6 +794,7 @@ $<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<spa
 <span class="m">2</span>
 <span class="m">3</span>
 <span class="m">4</span>
+
 $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span><span class="si">${</span><span class="nv">A</span><span class="p">[1]</span><span class="si">}</span><span class="o">+</span><span class="si">${</span><span class="nv">A</span><span class="p">[2]</span><span class="si">}</span><span class="k">))</span>
 <span class="m">3</span>
 </pre></div>
