@@ -379,18 +379,30 @@ Arrays
   palabra[3]=GITHUB
   palabra[4]=DOCKER
 
+  $ for i in ${palabra[@]}
+  > do
+  > echo $i
+  > done
+  PYTHON
+  LINUX
+  BASH
+  GITHUB
+  DOCKER
+
 
 .. code-block:: bash
  
  $ A[0]=1
  $ echo ${A[0]}
  1
+ 
  $ echo ${A[1]}
  
  $ for i in 1 2 3 4
  > do
  > A[$i]=$i
  > done
+ 
  $ for i in 1 2 3 4
  > do
  > echo ${A[$i]}
@@ -399,6 +411,7 @@ Arrays
  2
  3
  4
+ 
  $ echo $((${A[1]}+${A[2]}))
  3
 
