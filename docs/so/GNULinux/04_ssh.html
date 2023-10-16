@@ -400,16 +400,16 @@ document.write(`
 <p>Vamos a configurar una conexión ssh desde un cliente a un servidor exportando la clave publica</p>
 <p>Si no lo has hecho durante la instalación instala el servidor de ssh en el <strong>servidor</strong>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>user1@server<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>sudo<span class="w"> </span>su
-<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># apt install openssh-server</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openssh-server
 </pre></div>
 </div>
 <p>Para poder loguearse por ssh con el usuario root, primero tendremos que asignarle una contraseña, para ello ejecutamos los siguientes comandos en el <strong>servidor</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>user1@server<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>sudo<span class="w"> </span>su
-<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># passwd</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span>$<span class="w">  </span>passwd
 </pre></div>
 </div>
 <p>En el archivo <strong>/etc/ssh/sshd_config</strong> del <strong>servidor</strong> desomentar o incluir la linea : <strong>PermitRootLogin yes</strong>, y por ultimo reinicia el servicio sshd</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl restart  sshd.service</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w">  </span>sshd.service
 </pre></div>
 </div>
 <p>Genera en el <strong>cliente</strong> un par de claves rsa, una privada y otra publica, para ello ejecuta el siguiente comando en tu home:</p>

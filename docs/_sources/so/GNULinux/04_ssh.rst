@@ -9,20 +9,20 @@ Si no lo has hecho durante la instalación instala el servidor de ssh en el **se
 .. code-block:: bash
 
   [user1@server ~]$ sudo su
-  [root@server ~]# apt install openssh-server
+  [root@server ~]$ apt install openssh-server
 
 Para poder loguearse por ssh con el usuario root, primero tendremos que asignarle una contraseña, para ello ejecutamos los siguientes comandos en el **servidor**:
 
 .. code-block:: bash
 
   [user1@server ~]$ sudo su
-  [root@server ~]# passwd
+  [root@server ~]$  passwd
 
 En el archivo **/etc/ssh/sshd_config** del **servidor** desomentar o incluir la linea : **PermitRootLogin yes**, y por ultimo reinicia el servicio sshd
 
 .. code-block:: bash
 
-  [root@server ~]# systemctl restart  sshd.service
+  [root@server ~]$ systemctl restart  sshd.service
 
 Genera en el **cliente** un par de claves rsa, una privada y otra publica, para ello ejecuta el siguiente comando en tu home:
 
