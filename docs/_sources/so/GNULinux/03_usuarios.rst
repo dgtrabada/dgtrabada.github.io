@@ -179,10 +179,10 @@ Añadir Quotas a los usuarios:
  #activar las quotas
  quotaon -ugv /home 
  
- #setquota -u usuario 256000 307200 0 0 /home
+ #setquota -u usuario 10M 10M 0 0 /home
  edquota usuario
  
- #setquota -g grupo 256000 307200 0 0 /home
+ #setquota -g grupo 10M 10M 0 0 /home
  edquota -g grupo
  
  #crear un informe del uso del disco para el grupo y por usuarios
