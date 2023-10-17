@@ -2,7 +2,7 @@
 Python
 ******
 
-1) `Tipos <https://github.com/dgtrabada/python/blob/main/01_Tipos/Tipos.html>`_
+1) `Tipos <https://github.com/dgtrabada/python/Tipos.html>`_
 #) `Colecciones <https://github.com/dgtrabada/python/tree/main/02_Colecciones/Colecciones.html>`_
 #) `Control_flujo <https://github.com/dgtrabada/python/tree/main/03_Control_flujo/Control_flujo.html>`_
 #) `RW <https://github.com/dgtrabada/python/tree/main/04_RW/rw.html>`_
