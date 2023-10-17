@@ -14,3 +14,10 @@ Python
 #) `Pandas <01_pandas.html>`_ 
 #) `Seaborn <Seaborn.html>`_
 #) `Scikit_learn <12_Scikit_learn>`_
+
+
+* `[Documentación ofical] <https://docs.python.org>`_
+
+* `Guido van Rossum,(2015), El tutorial de Python Autor original. <https://argentinaenpython.com/quiero-aprender-python/TutorialPython3.pdf>`_
+
+* `Raúl González Duque, Python PARA TODOS <https://launchpadlibrarian.net/18980633/Python%20para%20todos.pdf>`_
