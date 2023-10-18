@@ -166,6 +166,22 @@ usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción 
  mdadm --add /dev/md0 /dev/sda1 # añadimos el nuevo
  watch cat /proc/mdstat # podemos ver como se recuperan
 
+En el caso de quere borrar el raid
+
+.. code-block:: bash
+
+  # desmontamos el raid
+  umount /dev/mdX  
+  
+  # lo paramos
+  mdadm --stop /dev/mdX
+  
+  # detener el conjunto raid
+  mdadm --stop /dev/mdX
+  
+  # finalmente borrarlo
+  mdadm --remove /dev/mdX
+
 LVM
 ===
 

@@ -517,6 +517,20 @@ mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md0<span class="w
 watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>
 </pre></div>
 </div>
+<p>En el caso de quere borrar el raid</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># desmontamos el raid</span>
+umount<span class="w"> </span>/dev/mdX
+
+<span class="c1"># lo paramos</span>
+mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/mdX
+
+<span class="c1"># detener el conjunto raid</span>
+mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/mdX
+
+<span class="c1"># finalmente borrarlo</span>
+mdadm<span class="w"> </span>--remove<span class="w"> </span>/dev/mdX
+</pre></div>
+</div>
 </section>
 <section id="lvm">
 <h2>LVM<a class="headerlink" href="#lvm" title="Enlace permanente a este encabezado">#</a></h2>
