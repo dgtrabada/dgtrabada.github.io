@@ -181,6 +181,7 @@ En el caso de quere borrar el raid
   
   # finalmente borrarlo
   mdadm --remove /dev/mdX
+  
 
 LVM
 ===
