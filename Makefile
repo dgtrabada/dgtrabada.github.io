@@ -24,4 +24,4 @@ help:
 github:
 	@make html
 	rsync -av --delete build/html/ docs
-	cp -a source/python/*html docs/python/
+	#cp -a source/python/*html docs/python/
