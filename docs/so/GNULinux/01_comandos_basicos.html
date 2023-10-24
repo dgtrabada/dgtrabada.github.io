@@ -639,9 +639,23 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 <section id="gestion-de-particiones">
 <h2>Gestión de particiones<a class="headerlink" href="#gestion-de-particiones" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
-<li><p><strong>fdisk -l</strong> permite crear particiones en el disco duro</p></li>
-<li><p><strong>cfdisk</strong> similar a fdisk, pero con una interfaz diferente</p></li>
 <li><p><strong>gparted</strong> editor de particiones para el entorno de escritorio GNOME</p></li>
+<li><p><strong>cfdisk</strong> similar a fdisk, pero con una interfaz diferente</p></li>
+<li><p><strong>fdisk</strong>
+* <strong>fdisk -l</strong> muestra discos y particiones que hay en el sistema
+* <strong>fdisk /dev/sdX</strong> para hacer el particionado del disco /dev/sdX</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>o</strong> crear nueva tabla de particiones</p></li>
+<li><p><strong>n</strong> crear nueva particion</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>mkfs.ext4 /dev/sdX1</strong> dar formato ext4 a la partición sdX1</p></li>
+<li><p><strong>fsck</strong> Utilidad para detectar, verificar y corregir los errores del sistema de archivo</p></li>
+<li><p><strong>mkswap /dev/sdX1</strong> para convertir la partición /dev/sdX1 al formato SWAP</p></li>
+<li><p><strong>mkswapon</strong> activan particiones de swap</p></li>
+<li><p><strong>mkswapoff</strong> desactivan particiones de swap</p></li>
 <li><p><strong>df -h</strong> muestra el estado actual de las particiones montadas</p></li>
 <li><p><strong>du -skh</strong> tamaño de archivos</p></li>
 <li><p><strong>mount</strong> Montar particiones</p>
@@ -657,11 +671,6 @@ umount<span class="w"> </span>/media/carpeta1
 </pre></div>
 </div>
 </li>
-<li><p><strong>mkfs</strong> construir un sistema de ficheros de Linux sobre un dispositivo</p></li>
-<li><p><strong>fsck</strong> Utilidad para detectar, verificar y corregir los errores del sistema de archivo</p></li>
-<li><p><strong>mkswap</strong> para convertir un fichero vacío al formato SWAP</p></li>
-<li><p><strong>mkswapon</strong> activan particiones de swap</p></li>
-<li><p><strong>mkswapoff</strong> desactivan particiones de swap</p></li>
 <li><p><strong>lsblk -a</strong> nos muestra información de todos los dispositivos de bloque</p></li>
 <li><p><strong>file</strong> sirve para determinar el tipo archivo</p></li>
 <li><p><strong>dd</strong> copia y clona datos discos y particiones.

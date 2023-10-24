@@ -233,9 +233,20 @@ virtualBox
 Gestión de particiones
 ======================
 
-* **fdisk -l** permite crear particiones en el disco duro
-* **cfdisk** similar a fdisk, pero con una interfaz diferente
+
 * **gparted** editor de particiones para el entorno de escritorio GNOME
+* **cfdisk** similar a fdisk, pero con una interfaz diferente
+* **fdisk** 
+  * **fdisk -l** muestra discos y particiones que hay en el sistema
+  * **fdisk /dev/sdX** para hacer el particionado del disco /dev/sdX
+    * **o** crear nueva tabla de particiones
+    * **n** crear nueva particion
+* **mkfs.ext4 /dev/sdX1** dar formato ext4 a la partición sdX1
+* **fsck** Utilidad para detectar, verificar y corregir los errores del sistema de archivo
+* **mkswap /dev/sdX1** para convertir la partición /dev/sdX1 al formato SWAP
+* **mkswapon** activan particiones de swap
+* **mkswapoff** desactivan particiones de swap
+
 * **df -h** muestra el estado actual de las particiones montadas
 * **du -skh** tamaño de archivos
 * **mount** Montar particiones
@@ -253,11 +264,7 @@ Gestión de particiones
    umount punto de montaje
    umount /media/carpeta1
    
-* **mkfs** construir un sistema de ficheros de Linux sobre un dispositivo
-* **fsck** Utilidad para detectar, verificar y corregir los errores del sistema de archivo
-* **mkswap** para convertir un fichero vacío al formato SWAP
-* **mkswapon** activan particiones de swap
-* **mkswapoff** desactivan particiones de swap
+
 * **lsblk -a** nos muestra información de todos los dispositivos de bloque
 * **file** sirve para determinar el tipo archivo
 * **dd** copia y clona datos discos y particiones.
