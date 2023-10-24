@@ -236,11 +236,16 @@ Gestión de particiones
 
 * **gparted** editor de particiones para el entorno de escritorio GNOME
 * **cfdisk** similar a fdisk, pero con una interfaz diferente
-* **fdisk** 
-  * **fdisk -l** muestra discos y particiones que hay en el sistema
-  * **fdisk /dev/sdX** para hacer el particionado del disco /dev/sdX
-    * **o** crear nueva tabla de particiones
-    * **n** crear nueva particion
+* **fdisk**
+
+  .. code-block:: bash
+  
+    fdisk -l # muestra discos y particiones que hay en el sistema
+    fdisk /dev/sdX #para hacer el particionado del disco /dev/sdX
+      # o crear nueva tabla de particiones (MSDOS)
+      # n crear nueva particion
+      # w escribir los cambios
+
 * **mkfs.ext4 /dev/sdX1** dar formato ext4 a la partición sdX1
 * **fsck** Utilidad para detectar, verificar y corregir los errores del sistema de archivo
 * **mkswap /dev/sdX1** para convertir la partición /dev/sdX1 al formato SWAP
