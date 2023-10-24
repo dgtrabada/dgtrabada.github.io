@@ -227,4 +227,7 @@ Una red de área de almacenamiento, en inglés SAN (Storage Area Network), es un
 
 .. image:: imagenes/RAID/san.png
 
-En resumen, un NAS es una solución de almacenamiento en red simple y económica, ideal para pequeñas y medianas empresas, mientras que un SAN es una solución de almacenamiento de alto rendimiento y escalable diseñada para satisfacer las necesidades de grandes empresas.
+Si los comparamos, un NAS es una solución de almacenamiento en red simple y económica, ideal para pequeñas y medianas empresas, mientras que un SAN es una solución de almacenamiento de alto rendimiento y escalable diseñada para satisfacer las necesidades de grandes empresas.
+
+* NAS: Utiliza protocolos de nivel de archivo como SMB/CIFS, NFS y FTP.
+* SAN: Utiliza protocolos de nivel de bloque como Fibre Channel (FC) y iSCSI.
