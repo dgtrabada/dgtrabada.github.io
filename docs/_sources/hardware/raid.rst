@@ -186,7 +186,7 @@ En el caso de quere borrar el raid
 LVM
 ===
 
-LVM es una implementación de un administrador de volúmenes lógicos para sistemas GNU/Linux
+LVM es una implementación de un administrador de volúmenes lógicos para sistemas GNU/Linux.  Permite crear, redimensionar y administrar volúmenes lógicos de una manera más dinámica que las particiones tradicionales.
 
 .. image:: imagenes/RAID/lvm.png
     :width: 400
@@ -196,6 +196,7 @@ LVM es una implementación de un administrador de volúmenes lógicos para siste
 * **VG** (Volume Group): grupo volumen, es el área donde se juntan los PVs y VLs.
 * **LV** (Logical Volume): volúmenes lógicos o dispositivos donde se pueden crear sistemas de ficheros o FS
 
+VM ofrece ventajas como la capacidad de agregar espacio de disco adicional a un sistema sin necesidad de apagarlo, mover datos en caliente entre discos, y crear instantáneas de volúmenes para respaldos.
 
 Caso práctico: Crear LVM
 ========================
