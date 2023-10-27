@@ -139,13 +139,13 @@ Para formatear la RAID utilizaremos el comando
 
   mkfs.ext4 /dev/md0
   
-Podemos montarla en /mnt : mount /dev/md0 /mnt/
-
-Para montar la RAID de forma automática cuando se inicia el ordenador, añadimos la siguiente línea al fichero /etc/fstab :
+Podemos montarla en /mnt
 
 .. code-block:: bash
 
-  /dev/md0 /punto_de_montaje sistema_de_archivos defaults,user 0
+  /mnt : mount /dev/md0 /mnt/
+
+Si quisieramos montar la RAID de forma automática cuando se inicia el ordenador, podríamos añadir algo parecido a ``/dev/md0 /punto_de_montaje sistema_de_archivos defaults,user 0`` en el fichero **/etc/fstab**
 
 Para cambiar un disco duro defectuoso:
 
@@ -155,6 +155,15 @@ Para cambiar un disco duro defectuoso:
 
 En el caso de que ya no este conectado, desde drbl se vería en cat /proc/mdstat como removed
 
+Para recuperar  raid:
+
+.. code-block:: bash
+
+  mdadm --stop /dev/mdX #paramos todos los raid
+  mdadm --assemble --scan 
+  mdadm --add /dev/mdX /dev/sdY # añadimos el nuevo
+  watch cat /proc/mdstat # podemos ver como se recuperan
+   
 usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk
 
 .. code-block:: bash

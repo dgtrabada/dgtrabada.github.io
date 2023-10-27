@@ -305,7 +305,7 @@ Comandos avanzados
 
 
 * **sort** ordena
-   
+
   .. code-block:: bash
 
    $ sort login.dat
@@ -314,7 +314,27 @@ Comandos avanzados
    empleado   : nombre5
    gerente    : nombre2
    supervisor : nombre3
-
+   
+   $ cat test.dat 
+   2 B
+   3 C
+   20 D
+   1 A
+   $ sort test.dat 
+   1 A
+   2 B
+   20 D
+   3 C
+   $ sort -n test.dat #--numeric-sort
+   1 A
+   2 B
+   3 C
+   20 D
+   $ sort -rn test.dat #--reverse
+   20 D
+   3 C
+   2 B
+   1 A
 
 * **wc** te dice el nº de lineas, palabras y caracteres que tiene el archivo
 
