@@ -164,18 +164,9 @@ Para recuperar  raid:
   mdadm --add /dev/mdX /dev/sdY # añadimos el nuevo
   watch cat /proc/mdstat # podemos ver como se recuperan
    
-usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk
+En el caso de que no funcione puedes probar a usar antes sfdisk para clonar el esquema de partición ``sfdisk -d /dev/sdc | sfdisk /dev/sda``
 
-.. code-block:: bash
-
- sfdisk -d /dev/sdc | sfdisk /dev/sda
- mdadm --stop /dev/md127
- rm /etc/mdadm/mdadm.conf
- mdadm --assemble --scan
- mdadm --add /dev/md0 /dev/sda1 # añadimos el nuevo
- watch cat /proc/mdstat # podemos ver como se recuperan
-
-En el caso de quere borrar el raid
+Para borrar el raid
 
 .. code-block:: bash
 

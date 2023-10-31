@@ -515,16 +515,8 @@ mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/mdX<span class="w
 watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>
 </pre></div>
 </div>
-<p>usar sfdisk para clonar el esquema de partición. Para ello usaremos la opción -d de sfdisk</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sfdisk<span class="w"> </span>-d<span class="w"> </span>/dev/sdc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sfdisk<span class="w"> </span>/dev/sda
-mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/md127
-rm<span class="w"> </span>/etc/mdadm/mdadm.conf
-mdadm<span class="w"> </span>--assemble<span class="w"> </span>--scan
-mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sda1<span class="w"> </span><span class="c1"># añadimos el nuevo</span>
-watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w"> </span><span class="c1"># podemos ver como se recuperan</span>
-</pre></div>
-</div>
-<p>En el caso de quere borrar el raid</p>
+<p>En el caso de que no funcione puedes probar a usar antes sfdisk para clonar el esquema de partición <code class="docutils literal notranslate"><span class="pre">sfdisk</span> <span class="pre">-d</span> <span class="pre">/dev/sdc</span> <span class="pre">|</span> <span class="pre">sfdisk</span> <span class="pre">/dev/sda</span></code></p>
+<p>Para borrar el raid</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># desmontamos el raid</span>
 umount<span class="w"> </span>/dev/mdX
 
