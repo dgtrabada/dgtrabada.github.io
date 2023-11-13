@@ -441,6 +441,9 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>useradd<span class="w"> </span>-g<span class="w"> </span>grupo<span class="w"> </span>-d<span class="w"> </span>/home/usuario<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>usuario
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Para asignar una contraseña podemos al usuario podemos ingresarla despues de crear el usuario <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">passwd</span> <span class="pre">usuario</span></code> o durante la creación del usuario con la opción <code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">$(</span> <span class="pre">mkpasswd</span> <span class="pre">-m</span> <span class="pre">sha-512</span> <span class="pre">-s</span> <span class="pre">cambiame)</span></code> tambien podríamos poner la contraseña encritada directamente.</p></li>
+</ul>
 </li>
 <li><p><strong>passwd usuario</strong> establecer la contraseña del usuario o cambiarla</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd<span class="w"> </span>-d<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># deshabilita</span>
@@ -460,7 +463,7 @@ usermod<span class="w"> </span>-g<span class="w">  </span>grupo<span class="w"> 
 </li>
 <li><p><strong>chfn</strong> cambia la información de contacto de un usuario.</p></li>
 <li><p><strong>chsh</strong> cambia el shell del usuario especificado.</p></li>
-<li><p><strong>chage</strong> permite cambiar el <a class="reference external" href="mailto:p&#37;&#52;&#48;ssword">p<span>&#64;</span>ssword</a> y los datos del usuario.</p>
+<li><p><strong>chage</strong> permite cambiar el password y los datos del usuario.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chage<span class="w"> </span>-E<span class="w"> </span><span class="m">2011</span>-1-11<span class="w"> </span>al2<span class="w"> </span><span class="c1">#expirar</span>
 chage<span class="w"> </span>-l<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días antes de ser bloqueada</span>
 chage<span class="w"> </span>-M<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días para modificar la contraseña,</span>

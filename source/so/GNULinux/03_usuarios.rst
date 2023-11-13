@@ -34,6 +34,8 @@ Gestión de usuarios
   .. code-block:: bash
     
    sudo useradd -g grupo -d /home/usuario -m -s /bin/bash usuario
+ 
+  * Para asignar una contraseña podemos al usuario podemos ingresarla despues de crear el usuario ``sudo passwd usuario`` o durante la creación del usuario con la opción ``-p $( mkpasswd -m sha-512 -s cambiame)`` tambien podríamos poner la contraseña encritada directamente.
 
 * **passwd usuario** establecer la contraseña del usuario o cambiarla
 
@@ -58,7 +60,7 @@ Gestión de usuarios
 
 * **chsh** cambia el shell del usuario especificado.
 
-* **chage** permite cambiar el p@ssword y los datos del usuario.
+* **chage** permite cambiar el password y los datos del usuario.
 
   .. code-block:: bash
   
