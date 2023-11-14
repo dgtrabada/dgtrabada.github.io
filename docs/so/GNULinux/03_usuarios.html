@@ -395,8 +395,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anadir-quotas-a-los-usuarios">Añadir Quotas a los usuarios:</a></li>
 </ul>
             </nav>
@@ -507,8 +509,10 @@ gpasswd<span class="w"> </span>-a<span class="w"> </span>al1<span class="w"> </s
 </li>
 </ul>
 </section>
+<section id="comandos-adicionales">
+<h2>Comandos adicionales<a class="headerlink" href="#comandos-adicionales" title="Enlace permanente a este encabezado">#</a></h2>
 <section id="visudo">
-<h2>visudo<a class="headerlink" href="#visudo" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>visudo<a class="headerlink" href="#visudo" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Tradicionalmente, <strong>visudo</strong> abre el archivo <strong>/etc/sudoers</strong> con el editor de texto vi. Sin embargo, Ubuntu, ha configurado visudo para utilizar el editor de texto nano en su lugar.
 Para cambiarlo de nuevo a vi, emita el siguiente comando: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">update-alternatives</span> <span class="pre">--config</span> <span class="pre">editor</span></code>
 encontramos los diferentes campos:</p>
@@ -521,9 +525,6 @@ encontramos los diferentes campos:</p>
 <li><p><strong>(ALL:ALL)</strong> Esta parte de la regla especifica el usuario y el grupo al que se puede cambiar mediante sudo. En este caso, «ALL» significa que el usuario username puede cambiar a cualquier usuario y grupo. Podrías restringirlo a un usuario y grupo específico si lo deseas.</p></li>
 <li><p>El ultimo <strong>ALL</strong> indica los comandos específicos que un usuario puede ejecutar con privilegios de administrador. Por ejemplo <code class="docutils literal notranslate"><span class="pre">usuario</span> <span class="pre">ALL=(ALL:ALL)</span> <span class="pre">/bin/ls,</span> <span class="pre">/usr/bin/apt-get</span></code></p></li>
 </ul>
-</section>
-<section id="comandos-adicionales">
-<h2>Comandos adicionales<a class="headerlink" href="#comandos-adicionales" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>whoami
 alumno
 
@@ -572,6 +573,7 @@ No<span class="w"> </span>Plan.
 write,<span class="w"> </span>wall,<span class="w"> </span>mesg,<span class="w"> </span>newgrp,<span class="w"> </span>...
 </pre></div>
 </div>
+</section>
 </section>
 <section id="anadir-quotas-a-los-usuarios">
 <h2>Añadir Quotas a los usuarios:<a class="headerlink" href="#anadir-quotas-a-los-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
@@ -651,8 +653,10 @@ repquota<span class="w"> </span>-vu<span class="w"> </span>-a
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anadir-quotas-a-los-usuarios">Añadir Quotas a los usuarios:</a></li>
 </ul>
   </nav></div>

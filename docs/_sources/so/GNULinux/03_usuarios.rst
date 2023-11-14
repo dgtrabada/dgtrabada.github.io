@@ -106,8 +106,13 @@ Para gestionar los grupos podemos utilizar los siguientes comandos:
    gpasswd fp           # cambia el passwd del grupo admin
    gpasswd -a al1 admin # añade el usuario al1 al grupo admin
 
+
+
+Comandos adicionales
+====================
+
 visudo
-======
+^^^^^^
 
 Tradicionalmente, **visudo** abre el archivo **/etc/sudoers** con el editor de texto vi. Sin embargo, Ubuntu, ha configurado visudo para utilizar el editor de texto nano en su lugar.
 Para cambiarlo de nuevo a vi, emita el siguiente comando: ``sudo update-alternatives --config editor``
@@ -124,10 +129,6 @@ encontramos los diferentes campos:
 * **(ALL:ALL)** Esta parte de la regla especifica el usuario y el grupo al que se puede cambiar mediante sudo. En este caso, "ALL" significa que el usuario username puede cambiar a cualquier usuario y grupo. Podrías restringirlo a un usuario y grupo específico si lo deseas.
 
 * El ultimo **ALL** indica los comandos específicos que un usuario puede ejecutar con privilegios de administrador. Por ejemplo ``usuario ALL=(ALL:ALL) /bin/ls, /usr/bin/apt-get``
-
-
-Comandos adicionales
-====================
   
 .. code-block:: bash
 
