@@ -137,13 +137,25 @@ Editores y visualizadores de archivos
   * u -> undo
   * :%s/cadena1/cadena2/g -> sustituir una cadena
   * G -> ir al final del archivo
+  * :set number -> ver los número de linea
   
   .. code-block:: bash 
  
-   export EDITOR=/usr/bin/vim
    $ cat ~/.vimrc
    filetype indent off
+  
+   Para configurar que el editor vi sea nuestro editor de forma predeterminaada:
+   
+   .. code-block:: bash
+     
+     export EDITOR=/usr/bin/vim
 
+   Esta configuración se aplica solo para la sesión actual, para que sea permanente agrega esta línea al archivo .bashrc
+   
+   .. code-block:: bash
+
+     echo 'export EDITOR=/usr/bin/vi' >> ~/.bashrc
+   
 Compresión
 ==========
 

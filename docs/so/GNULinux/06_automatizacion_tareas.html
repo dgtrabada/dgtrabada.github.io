@@ -420,12 +420,25 @@ document.write(`
 <h1>Automatización de tareas y servicios<a class="headerlink" href="#automatizacion-de-tareas-y-servicios" title="Enlace permanente a este encabezado">#</a></h1>
 <section id="comando-at">
 <h2>Comando at<a class="headerlink" href="#comando-at" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Permite indicar el momento en que se quiere ejecutar un trabajo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>at<span class="w"> </span><span class="o">[</span>opciones<span class="w"> </span><span class="o">]</span><span class="w"> </span>TIME
+<p>Permite indicar el momento en que se quiere ejecutar un trabajo <code class="docutils literal notranslate"><span class="pre">at</span> <span class="pre">[opciones</span> <span class="pre">]</span> <span class="pre">TIME</span></code> , para ver los trabajos utilizamos <code class="docutils literal notranslate"><span class="pre">at</span> <span class="pre">-l</span></code> y para borrarlos <code class="docutils literal notranslate"><span class="pre">at</span> <span class="pre">-d</span></code> como se puede ver en el siguiente ejemplo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>at<span class="w"> </span><span class="m">5</span>:00<span class="w"> </span>PM
+at&gt;<span class="w"> </span>ls
+at&gt;<span class="w"> </span>&lt;EOT&gt;
+job<span class="w"> </span><span class="m">16</span><span class="w"> </span>at<span class="w"> </span>Tue<span class="w"> </span>Nov<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">17</span>:00:00<span class="w"> </span><span class="m">2023</span>
+$<span class="w"> </span>at<span class="w"> </span><span class="m">7</span>:00<span class="w"> </span>PM
+at&gt;<span class="w"> </span>ls
+at&gt;<span class="w"> </span>&lt;EOT&gt;
+job<span class="w"> </span><span class="m">17</span><span class="w"> </span>at<span class="w"> </span>Tue<span class="w"> </span>Nov<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">19</span>:00:00<span class="w"> </span><span class="m">2023</span>
+$<span class="w"> </span>at<span class="w"> </span>-l
+<span class="m">16</span><span class="w">      </span>Tue<span class="w"> </span>Nov<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">17</span>:00:00<span class="w"> </span><span class="m">2023</span><span class="w"> </span>a<span class="w"> </span>dani
+<span class="m">17</span><span class="w">      </span>Tue<span class="w"> </span>Nov<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">19</span>:00:00<span class="w"> </span><span class="m">2023</span><span class="w"> </span>a<span class="w"> </span>dani
+$<span class="w"> </span>at<span class="w"> </span>-d<span class="w"> </span><span class="m">16</span>
+$<span class="w"> </span>at<span class="w"> </span>-l
+<span class="m">17</span><span class="w">      </span>Tue<span class="w"> </span>Nov<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="m">19</span>:00:00<span class="w"> </span><span class="m">2023</span><span class="w"> </span>a<span class="w"> </span>dani
 </pre></div>
 </div>
 <p>Al ejecutar at pasamos a un nuevo prompt, que nos permite introducir comandos que se ejecutarán a la hora indicada. Para guardar trabajo y salir: <strong>CTRL+D</strong> (guarda el entorno), el trabajo no para aunque se cierre la sesión.</p>
-<p>Opciones:</p>
+<p>Mas opciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-f<span class="w"> </span>FILE<span class="w">  </span><span class="c1"># indica un fichero donde se encuentran las acciones a realizar.</span>
 
 HH:MM<span class="w"> </span>-&gt;<span class="w"> </span><span class="m">12</span>:54
@@ -434,14 +447,6 @@ HH:MM<span class="w"> </span>MMDDYY<span class="w"> </span>-&gt;<span class="w">
 now<span class="w"> </span>+<span class="w"> </span>num<span class="w"> </span>-&gt;<span class="w"> </span>at<span class="w"> </span>now+2hours
 num<span class="w"> </span>puede<span class="w"> </span>ser<span class="w"> </span>minutos,<span class="w"> </span>horas,<span class="w"> </span>días,<span class="w"> </span>semanas,<span class="w"> </span>...
 today,<span class="w"> </span>tomorrow<span class="w"> </span>-&gt;<span class="w"> </span><span class="m">22</span>:44tomorrow
-</pre></div>
-</div>
-<p>Ver trabajos pendientes del usuario (o de todos si es root):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>at<span class="w"> </span>-l
-</pre></div>
-</div>
-<p>Borrar trabajos</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>at<span class="w"> </span>-d<span class="w"> </span>numero
 </pre></div>
 </div>
 <p>Control de acceso: /etc/at.allow, /etc/at.deny</p>

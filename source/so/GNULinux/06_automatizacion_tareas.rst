@@ -5,15 +5,29 @@ Automatización de tareas y servicios
 Comando at
 **********
 
-Permite indicar el momento en que se quiere ejecutar un trabajo
+Permite indicar el momento en que se quiere ejecutar un trabajo ``at [opciones ] TIME`` , para ver los trabajos utilizamos ``at -l`` y para borrarlos ``at -d`` como se puede ver en el siguiente ejemplo:
 
 .. code-block:: bash
 
- at [opciones ] TIME
+  $ at 5:00 PM
+  at> ls
+  at> <EOT>
+  job 16 at Tue Nov 14 17:00:00 2023
+  $ at 7:00 PM
+  at> ls
+  at> <EOT>
+  job 17 at Tue Nov 14 19:00:00 2023
+  $ at -l
+  16      Tue Nov 14 17:00:00 2023 a dani
+  17      Tue Nov 14 19:00:00 2023 a dani
+  $ at -d 16
+  $ at -l
+  17      Tue Nov 14 19:00:00 2023 a dani
+
 
 Al ejecutar at pasamos a un nuevo prompt, que nos permite introducir comandos que se ejecutarán a la hora indicada. Para guardar trabajo y salir: **CTRL+D** (guarda el entorno), el trabajo no para aunque se cierre la sesión.
 
-Opciones:
+Mas opciones:
 
 .. code-block:: bash
 
@@ -25,18 +39,6 @@ Opciones:
  now + num -> at now+2hours
  num puede ser minutos, horas, días, semanas, ...
  today, tomorrow -> 22:44tomorrow
-
-Ver trabajos pendientes del usuario (o de todos si es root):
-
-.. code-block:: bash
-
- at -l 
-
-Borrar trabajos
-
-.. code-block:: bash
-
- at -d numero
 
 Control de acceso: /etc/at.allow, /etc/at.deny
 
