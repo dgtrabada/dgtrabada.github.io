@@ -395,10 +395,12 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comando-at">Comando at</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crontab">Crontab</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd">Systemd</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unit">[Unit]</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#service">[Service]</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install">[Install]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd">Systemd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit">[Unit]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#service">[Service]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install">[Install]</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-targets">Los Targets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-servicios">GESTION DE SERVICIOS</a></li>
@@ -554,9 +556,8 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 <li><p><strong>[Install]</strong></p></li>
 </ul>
 <p>A continuación se indican esquemáticamente las opciones más importantes dentro de cada sección.</p>
-</section>
 <section id="unit">
-<h2>[Unit]<a class="headerlink" href="#unit" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>[Unit]<a class="headerlink" href="#unit" title="Enlace permanente a este encabezado">#</a></h3>
 <p><strong>Description=&lt;descrición del unit&gt;</strong></p>
 <p>Una descripción del servicio que se muestra al consultar el status del servicio.</p>
 <p><strong>After=&lt;units&gt;</strong></p>
@@ -569,7 +570,7 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 <p>Configura dependencias negativas, es decir, es un opuesto a Requires. El servicio no se inicia si el servicio indicado en esta línea está activo.</p>
 </section>
 <section id="service">
-<h2>[Service]<a class="headerlink" href="#service" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>[Service]<a class="headerlink" href="#service" title="Enlace permanente a este encabezado">#</a></h3>
 <p><strong>TimeoutStartSec=&lt;n&gt;</strong></p>
 <p>Tiempo tras el cuál, si el servicio no ha arrancado, se considera fallo y se detiene.</p>
 <p><strong>ExecStart=&lt;ejecutable&gt;</strong></p>
@@ -586,10 +587,11 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 </ul>
 </section>
 <section id="install">
-<h2>[Install]<a class="headerlink" href="#install" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>[Install]<a class="headerlink" href="#install" title="Enlace permanente a este encabezado">#</a></h3>
 <p><strong>WantedBy=multi-user.target</strong></p>
 <p>Indica el target al que pertenece este unit. Esto provoca que el comando systemctl enable &lt;servicio&gt;.service cree los enlaces simbólicos necesarios dentro del target multi-user.target.wants sin necesidad de hacerlo manualmente.</p>
 <p>Lo que se consigue con esto es que el servicio se ejecute automáticamente al arrancar se target.</p>
+</section>
 </section>
 <section id="los-targets">
 <h2>Los Targets<a class="headerlink" href="#los-targets" title="Enlace permanente a este encabezado">#</a></h2>
@@ -797,10 +799,12 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span cl
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comando-at">Comando at</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crontab">Crontab</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd">Systemd</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unit">[Unit]</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#service">[Service]</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install">[Install]</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemd">Systemd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit">[Unit]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#service">[Service]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install">[Install]</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-targets">Los Targets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-servicios">GESTION DE SERVICIOS</a></li>

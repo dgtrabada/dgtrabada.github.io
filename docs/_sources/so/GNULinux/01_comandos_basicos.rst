@@ -117,11 +117,15 @@ Ficheros y directorios
 * **find** buscar; find -name *dat ; find -not -name *dat
 * **locate** fichero  #busca el fichero
 
-Editores y visualizadores de archivos
+Visualizadores de archivos
 =====================================
     
 * **cat** visualizar el contenido archivo
 * **more** mostrar archivos haciendo pausa en cada pantalla
+
+Editor vi
+=========
+
 * **vi hola.dat** abrir y editar el archivo hola.dat
 
   * i -> modo insertar
@@ -139,22 +143,25 @@ Editores y visualizadores de archivos
   * G -> ir al final del archivo
   * :set number -> ver los número de linea
   
+  Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:
+  
   .. code-block:: bash 
  
-   $ cat ~/.vimrc
-   filetype indent off
+    $ cat ~/.vimrc
+    filetype indent off
   
-   Para configurar que el editor vi sea nuestro editor de forma predeterminaada:
+  Para configurar que el editor vi sea nuestro editor de forma predeterminaada:
    
-   .. code-block:: bash
+  .. code-block:: bash
      
      export EDITOR=/usr/bin/vim
 
-   Esta configuración se aplica solo para la sesión actual, para que sea permanente agrega esta línea al archivo .bashrc
+  Esta configuración se aplica solo para la sesión actual, para que sea permanente agrega esta línea al archivo .bashrc
    
-   .. code-block:: bash
+  .. code-block:: bash
 
-     echo 'export EDITOR=/usr/bin/vi' >> ~/.bashrc
+    echo 'export EDITOR=/usr/bin/vi' >> ~/.bashrc
+    bash
    
 Compresión
 ==========

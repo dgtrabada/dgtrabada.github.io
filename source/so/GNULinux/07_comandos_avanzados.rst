@@ -84,8 +84,8 @@ Comandos avanzados
    $ echo ${a:1:3}
    ww.
    
-   $ echo ${a::2}
-   ww
+   $ echo ${a:1:4}
+   ww.f
    
    $ echo ${#a}
    11  

@@ -170,7 +170,7 @@ El formato de un archivo unit sigue unas reglas y nomenclatura específicas. Bá
 A continuación se indican esquemáticamente las opciones más importantes dentro de cada sección.
 
 [Unit]
-******
+^^^^^^
 
 **Description=<descrición del unit>**
 
@@ -193,7 +193,7 @@ Activa los units indicados aquí. Wants configura dependencias de manera más d�
 Configura dependencias negativas, es decir, es un opuesto a Requires. El servicio no se inicia si el servicio indicado en esta línea está activo.
 
 [Service]
-*********
+^^^^^^^^^
 
 **TimeoutStartSec=<n>**
 
@@ -215,7 +215,7 @@ Configura el tipo de arranque del procesos de la unidad la cual afecta a la func
 * **idle** – Similar a simple, la ejecución actual del binario del servicio se retrasa hasta que todos los trabajos se terminan, lo que evita la mezcla de la salida de estados con las salidas de los servicios por la Shell.
 
 [Install]
-*********
+^^^^^^^^^^
 
 **WantedBy=multi-user.target**
 
