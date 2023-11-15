@@ -402,11 +402,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-targets">Los Targets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-servicios">GESTION DE SERVICIOS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-encadenamiento-de-servicios">Ejemplo de encadenamiento de servicios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-encadenamiento-de-servicios">Ejemplo de encadenamiento de servicios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-enrutamiento">Ejemplo de enrutamiento</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
             </nav>
         </div>
@@ -611,9 +612,6 @@ lrwxrwxrwx<span class="w"> </span><span class="m">1</span><span class="w"> </spa
 <p>En Systemd la forma de controlar los servicios del sistema cambia. Los servicios ya no se controlan a través de /etc/init.d y tampoco se utiliza el comando “service”. Aquí se utiliza el gestor de servicios llamado <strong>systemctl</strong>.</p>
 <p>La principal orden para controlar systemd es systemctl. systemctl sustituye a chkconfig de System V.</p>
 <p>systenctl es una herramienta potente con muchas opciones. A continuación se listan los más importantes atendiendo su funcionalidad.</p>
-</section>
-<section id="gestion-de-servicios">
-<h2>GESTION DE SERVICIOS<a class="headerlink" href="#gestion-de-servicios" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w">                              </span><span class="c1">#Lista servicios y unidades disponibles en el sistema.</span>
 systemctl<span class="w"> </span>list-unit-files<span class="w">              </span><span class="c1">#Lista ficheros de unidades</span>
 systemctl<span class="w"> </span>list-units<span class="w">                   </span><span class="c1">#Lista servicios disponibles q</span>
@@ -644,9 +642,8 @@ $<span class="w"> </span>service<span class="w"> </span>--status-all<span class=
 <span class="o">[</span><span class="w"> </span>+<span class="w"> </span><span class="o">]</span><span class="w">  </span>ssh
 </pre></div>
 </div>
-</section>
 <section id="ejemplo-de-encadenamiento-de-servicios">
-<h2>Ejemplo de encadenamiento de servicios<a class="headerlink" href="#ejemplo-de-encadenamiento-de-servicios" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Ejemplo de encadenamiento de servicios<a class="headerlink" href="#ejemplo-de-encadenamiento-de-servicios" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Servicio A personalizado se ejecuta automáticamente en el arranque con el target multi-user.target:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Unit<span class="o">]</span>
 <span class="nv">Description</span><span class="o">=</span>Servicio<span class="w"> </span>A
@@ -693,6 +690,36 @@ $<span class="w"> </span>service<span class="w"> </span>--status-all<span class=
 </div>
 <p>servicio B</p>
 </section>
+<section id="acceder-a-los-registros-del-sistema">
+<h3>Acceder a los registros del sistema<a class="headerlink" href="#acceder-a-los-registros-del-sistema" title="Enlace permanente a este encabezado">#</a></h3>
+<p>La forma básica de acceder a los registros del sistema es:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w">                             </span><span class="c1"># cat /var/log/messages</span>
+journalctl<span class="w"> </span>-f<span class="w">                          </span><span class="c1"># tail -f /var/log/messages</span>
+journalctl<span class="w"> </span>--list-boots<span class="w">                </span><span class="c1"># Filtrar la salida de logs por boots</span>
+journalctl<span class="w"> </span>-b<span class="w">                          </span><span class="c1"># Logs del boot actual</span>
+journalctl<span class="w"> </span>-b<span class="w"> </span>-1<span class="w">                       </span><span class="c1"># Anteriores</span>
+journalctl<span class="w"> </span>-k<span class="w">                          </span><span class="c1"># Ver los mensajes del kernel</span>
+journalctl<span class="w"> </span>-n<span class="w">                          </span><span class="c1"># Filtrar por número de entradas</span>
+journalctl<span class="w"> </span><span class="nv">_COMM</span><span class="o">=</span>NetworkManager<span class="w">        </span><span class="c1"># Filtras por ejecutables o programas</span>
+journalctl<span class="w"> </span>/usr/sbin/NetworkManager<span class="w">    </span><span class="c1"># Filtrar por especificando la ruta</span>
+journalctl<span class="w"> </span><span class="nv">_PID</span><span class="o">=</span><span class="m">2527</span><span class="w">                   </span><span class="c1"># Mostrar la salida por PID</span>
+journalctl<span class="w"> </span><span class="nv">_UID</span><span class="o">=</span><span class="m">1001</span><span class="w">                   </span><span class="c1"># id de los usuarios</span>
+journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s1">&#39;30 min ago&#39;</span><span class="w">        </span><span class="c1"># Última media hora:</span>
+journalctl<span class="w"> </span>/dev/sda<span class="w">                    </span><span class="c1"># Funcionamiento en nuestras unidades de discos duros</span>
+journalctl<span class="w"> </span>--disk-usage<span class="w">                </span><span class="c1"># Ver el espacio que están ocupando</span>
+systemctl<span class="w"> </span>list-units<span class="w"> </span>-t<span class="w"> </span>service<span class="w"> </span>--all<span class="w">  </span><span class="c1"># Filtrar la salida por servicios de systemd</span>
+journalctl<span class="w"> </span>-u<span class="w"> </span>dbus.service<span class="w">             </span><span class="c1"># Si nos interesa uno en particular</span>
+
+<span class="c1">#Filtrar por intervalos de tiempo</span>
+journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s1">&#39;yesterday&#39;</span><span class="w"> </span>--until<span class="w"> </span><span class="s1">&#39;02:00&#39;</span>
+journalctl<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
+<span class="c1">#Filtrar por programas e intervalos</span>
+journalctl<span class="w"> </span><span class="nv">_COMM</span><span class="o">=</span>firefox<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
+journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="ejemplo-de-enrutamiento">
 <h2>Ejemplo de enrutamiento<a class="headerlink" href="#ejemplo-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/enrutar.sh
@@ -721,35 +748,6 @@ $<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>
 $<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>enrutar.service
 $<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 $<span class="w"> </span>systemctl<span class="w"> </span>list-unit-files
-</pre></div>
-</div>
-</section>
-<section id="acceder-a-los-registros-del-sistema">
-<h2>Acceder a los registros del sistema<a class="headerlink" href="#acceder-a-los-registros-del-sistema" title="Enlace permanente a este encabezado">#</a></h2>
-<p>La forma básica de acceder a los registros del sistema es:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w">                             </span><span class="c1"># cat /var/log/messages</span>
-journalctl<span class="w"> </span>-f<span class="w">                          </span><span class="c1"># tail -f /var/log/messages</span>
-journalctl<span class="w"> </span>--list-boots<span class="w">                </span><span class="c1"># Filtrar la salida de logs por boots</span>
-journalctl<span class="w"> </span>-b<span class="w">                          </span><span class="c1"># Logs del boot actual</span>
-journalctl<span class="w"> </span>-b<span class="w"> </span>-1<span class="w">                       </span><span class="c1"># Anteriores</span>
-journalctl<span class="w"> </span>-k<span class="w">                          </span><span class="c1"># Ver los mensajes del kernel</span>
-journalctl<span class="w"> </span>-n<span class="w">                          </span><span class="c1"># Filtrar por número de entradas</span>
-journalctl<span class="w"> </span><span class="nv">_COMM</span><span class="o">=</span>NetworkManager<span class="w">        </span><span class="c1"># Filtras por ejecutables o programas</span>
-journalctl<span class="w"> </span>/usr/sbin/NetworkManager<span class="w">    </span><span class="c1"># Filtrar por especificando la ruta</span>
-journalctl<span class="w"> </span><span class="nv">_PID</span><span class="o">=</span><span class="m">2527</span><span class="w">                   </span><span class="c1"># Mostrar la salida por PID</span>
-journalctl<span class="w"> </span><span class="nv">_UID</span><span class="o">=</span><span class="m">1001</span><span class="w">                   </span><span class="c1"># id de los usuarios</span>
-journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s1">&#39;30 min ago&#39;</span><span class="w">        </span><span class="c1"># Última media hora:</span>
-journalctl<span class="w"> </span>/dev/sda<span class="w">                    </span><span class="c1"># Funcionamiento en nuestras unidades de discos duros</span>
-journalctl<span class="w"> </span>--disk-usage<span class="w">                </span><span class="c1"># Ver el espacio que están ocupando</span>
-systemctl<span class="w"> </span>list-units<span class="w"> </span>-t<span class="w"> </span>service<span class="w"> </span>--all<span class="w">  </span><span class="c1"># Filtrar la salida por servicios de systemd</span>
-journalctl<span class="w"> </span>-u<span class="w"> </span>dbus.service<span class="w">             </span><span class="c1"># Si nos interesa uno en particular</span>
-
-<span class="c1">#Filtrar por intervalos de tiempo</span>
-journalctl<span class="w"> </span>--since<span class="w"> </span><span class="s1">&#39;yesterday&#39;</span><span class="w"> </span>--until<span class="w"> </span><span class="s1">&#39;02:00&#39;</span>
-journalctl<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
-<span class="c1">#Filtrar por programas e intervalos</span>
-journalctl<span class="w"> </span><span class="nv">_COMM</span><span class="o">=</span>firefox<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
-journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span class="w"> </span>--since<span class="o">=</span><span class="s1">&#39;2015-02-29 00:01&#39;</span><span class="w"> </span>--until<span class="o">=</span><span class="s1">&#39;2015-03-29 00:01&#39;</span>
 </pre></div>
 </div>
 </section>
@@ -806,11 +804,12 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span cl
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-targets">Los Targets</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-servicios">GESTION DE SERVICIOS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-encadenamiento-de-servicios">Ejemplo de encadenamiento de servicios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#systemctl">Systemctl</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-encadenamiento-de-servicios">Ejemplo de encadenamiento de servicios</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-enrutamiento">Ejemplo de enrutamiento</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
   </nav></div>
 

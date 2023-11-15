@@ -246,9 +246,6 @@ La principal orden para controlar systemd es systemctl. systemctl sustituye a ch
 
 systenctl es una herramienta potente con muchas opciones. A continuación se listan los más importantes atendiendo su funcionalidad.
 
-GESTION DE SERVICIOS
-********************
-
 .. code-block:: bash
 
  systemctl                              #Lista servicios y unidades disponibles en el sistema.
@@ -284,7 +281,7 @@ Ejemplo :
 
 
 Ejemplo de encadenamiento de servicios
-**************************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Servicio A personalizado se ejecuta automáticamente en el arranque con el target multi-user.target:
 
@@ -348,6 +345,39 @@ servicio B
  ExecStart=/bin/servicioB.sh
  [Install] 
 
+
+Acceder a los registros del sistema
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+La forma básica de acceder a los registros del sistema es:
+
+.. code-block:: bash
+
+ journalctl                             # cat /var/log/messages
+ journalctl -f                          # tail -f /var/log/messages
+ journalctl --list-boots                # Filtrar la salida de logs por boots
+ journalctl -b                          # Logs del boot actual
+ journalctl -b -1                       # Anteriores
+ journalctl -k                          # Ver los mensajes del kernel
+ journalctl -n                          # Filtrar por número de entradas
+ journalctl _COMM=NetworkManager        # Filtras por ejecutables o programas
+ journalctl /usr/sbin/NetworkManager    # Filtrar por especificando la ruta
+ journalctl _PID=2527                   # Mostrar la salida por PID
+ journalctl _UID=1001                   # id de los usuarios
+ journalctl --since '30 min ago'        # Última media hora:
+ journalctl /dev/sda                    # Funcionamiento en nuestras unidades de discos duros
+ journalctl --disk-usage                # Ver el espacio que están ocupando 
+ systemctl list-units -t service --all  # Filtrar la salida por servicios de systemd
+ journalctl -u dbus.service             # Si nos interesa uno en particular
+ 
+ #Filtrar por intervalos de tiempo
+ journalctl --since 'yesterday' --until '02:00'
+ journalctl --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
+ #Filtrar por programas e intervalos
+ journalctl _COMM=firefox --since='2015-02-29 00:01' --until='2015-03-29 00:01'
+ journalctl -u sshd.service --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
+
+
 Ejemplo de enrutamiento
 ***********************
 
@@ -381,34 +411,3 @@ Para que se inicie automáticamente utilizamos el sistema systemctl
  $ systemctl enable enrutar.service
  $ systemctl start enrutar.service
  $ systemctl list-unit-files 
-
-Acceder a los registros del sistema
-***********************************
-
-La forma básica de acceder a los registros del sistema es:
-
-.. code-block:: bash
-
- journalctl                             # cat /var/log/messages
- journalctl -f                          # tail -f /var/log/messages
- journalctl --list-boots                # Filtrar la salida de logs por boots
- journalctl -b                          # Logs del boot actual
- journalctl -b -1                       # Anteriores
- journalctl -k                          # Ver los mensajes del kernel
- journalctl -n                          # Filtrar por número de entradas
- journalctl _COMM=NetworkManager        # Filtras por ejecutables o programas
- journalctl /usr/sbin/NetworkManager    # Filtrar por especificando la ruta
- journalctl _PID=2527                   # Mostrar la salida por PID
- journalctl _UID=1001                   # id de los usuarios
- journalctl --since '30 min ago'        # Última media hora:
- journalctl /dev/sda                    # Funcionamiento en nuestras unidades de discos duros
- journalctl --disk-usage                # Ver el espacio que están ocupando 
- systemctl list-units -t service --all  # Filtrar la salida por servicios de systemd
- journalctl -u dbus.service             # Si nos interesa uno en particular
- 
- #Filtrar por intervalos de tiempo
- journalctl --since 'yesterday' --until '02:00'
- journalctl --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
- #Filtrar por programas e intervalos
- journalctl _COMM=firefox --since='2015-02-29 00:01' --until='2015-03-29 00:01'
- journalctl -u sshd.service --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
