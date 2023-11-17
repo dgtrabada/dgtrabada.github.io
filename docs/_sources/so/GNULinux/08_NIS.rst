@@ -114,7 +114,7 @@ Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la p
 
 
 Caso práctico: NIS con adaptador puente
-*********************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Haz dos clones enlazados, generando nuevas direcciones MAC, de "MV Ubuntu Server 22.04" y haz que tengan las siguientes IPs:
 
@@ -155,7 +155,7 @@ Caso práctico: NIS con adaptador puente
 
 
 Caso práctico: NIS con red interna
-***************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.
 
