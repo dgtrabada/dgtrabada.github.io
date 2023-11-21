@@ -45,7 +45,7 @@ Control de acceso: /etc/at.allow, /etc/at.deny
 Crontab
 *******
 
-Cron se emplea para ejecución de trabajos periódicos, mientras que el comando crontab permite configurar los procesos a ejecutar que posteriormente el demonio cron se encarga de ejecutar, para modificarlo:
+Cron se emplea para ejecución de trabajos periódicos, utilizamos el comando crontab para configurar los procesos a ejecutar , para modificarlo utilizaremos:
 
 .. code-block:: bash
 
