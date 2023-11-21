@@ -456,46 +456,26 @@ today,<span class="w"> </span>tomorrow<span class="w"> </span>-&gt;<span class="
 </section>
 <section id="crontab">
 <h2>Crontab<a class="headerlink" href="#crontab" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Cron se emplea para ejecución de trabajos periódicos, mientras que el comando crontab permite configurar los procesos a ejecutar que posteriormente el demonio cron se encarga de ejecutar, el contrab del sistema se encuentra en <strong>/etc/crontab</strong></p>
+<p>Cron se emplea para ejecución de trabajos periódicos, mientras que el comando crontab permite configurar los procesos a ejecutar que posteriormente el demonio cron se encarga de ejecutar, para modificarlo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>crontab<span class="w"> </span>-e<span class="w">    </span><span class="c1">#edita el fichero crontab</span>
 crontab<span class="w"> </span>-l<span class="w">    </span><span class="c1">#muestra el fichero crontab</span>
 crontab<span class="w"> </span>-r<span class="w">    </span><span class="c1">#borra el fichero crontab</span>
 </pre></div>
 </div>
-<p>Control de acceso: /etc/cron.allow, /etc/cron.deny</p>
-<p>Hay al menos dos maneras distintas de usar cron:</p>
-<p>La primera es en el directorio etc, encontrarás los siguientes directorios:</p>
-<ul class="simple">
-<li><p>cron.hourly</p></li>
-<li><p>cron.daily</p></li>
-<li><p>cron.weekly</p></li>
-<li><p>cron.monthly</p></li>
-</ul>
-<p>Si se coloca un archivo tipo script en cualquiera de estos directorios, entonces el script se ejecutará cada hora, cada día, cada semana o cada mes, dependiendo del directorio.</p>
-<p>Como segundo modo de ejecutar o usar cron es a través de manipular directamente el archivo /etc/crontab. En la instalación por defecto de varias distribuciones Linux, este archivo se verá a algo como lo siguiente:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/crontab
-<span class="nv">SHELL</span><span class="o">=</span>/bin/bash
-<span class="nv">PATH</span><span class="o">=</span>/sbin:/bin:/usr/sbin:/usr/bin
-<span class="nv">MAILTO</span><span class="o">=</span>root
-<span class="nv">HOME</span><span class="o">=</span>/
-
-<span class="c1"># run-parts</span>
-<span class="m">01</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>root<span class="w"> </span>run-parts<span class="w"> </span>/etc/cron.hourly
-<span class="m">02</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>root<span class="w"> </span>run-parts<span class="w"> </span>/etc/cron.daily
-<span class="m">22</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>root<span class="w"> </span>run-parts<span class="w"> </span>/etc/cron.weekly
-<span class="m">42</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>root<span class="w"> </span>run-parts<span class="w"> </span>/etc/cron.monthly
+<p>Ejemplo de lineas en el crontab:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">01</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">  </span>date<span class="w"> </span>&gt;<span class="w"> </span>~/log
+<span class="m">02</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">  </span>/ruta/al/script.sh
 </pre></div>
 </div>
-<p>las líneas que ejecutan las tareas programadas propiamente. No hay límites de cuantas tareas pueda haber, una por renglón. Los campos (son 7) que forman estas líneas están formados de la siguiente manera:</p>
-<ol class="arabic simple">
-<li><p>Minuto: Controla el minuto de la hora en que el comando será ejecutado, este valor debe de estar entre 0 y 59.</p></li>
-<li><p>Hora: Controla la hora en que el comando será ejecutado, se especifica en un formato de 24 horas, los valores deben estar entre 0 y 23, 0 es medianoche.</p></li>
-<li><p>Día del Mes: Día del mes en que se quiere ejecutar el comando. Por ejemplo se indicaría 20, para ejecutar el comando el día 20 del mes.</p></li>
-<li><p>Mes: Mes en que el comando se ejecutará, puede ser indicado numéricamente (1-12), o por el nombre del mes en inglés, solo las tres primeras letras.</p></li>
-<li><p>Día de la semana: Día en la semana en que se ejecutará el comando, puede ser numérico (0-7) o por el nombre del día en inglés, solo las tres primeras letras. (0 y 7 = domingo)</p></li>
-<li><p>Usuario: Usuario que ejecuta el comando.</p></li>
-<li><p>Comando: Comando, script o programa que se desea ejecutar. Este campo puede contener múltiples palabras y espacios.</p></li>
-</ol>
+<p>Formato de Configuración: El formato general para programar tareas en crontab sigue este patrón: <code class="docutils literal notranslate"><span class="pre">minuto</span> <span class="pre">hora</span> <span class="pre">díaDelMes</span> <span class="pre">mes</span> <span class="pre">díaDeLaSemana</span> <span class="pre">comando</span></code>.</p>
+<ul class="simple">
+<li><p><strong>minuto</strong>: Minuto en el que se ejecutará la tarea (0-59).</p></li>
+<li><p><strong>hora</strong>: Hora en la que se ejecutará la tarea (0-23).</p></li>
+<li><p><strong>díaDelMes</strong>: Día del mes en el que se ejecutará la tarea (1-31).</p></li>
+<li><p><strong>mes</strong>: Mes en el que se ejecutará la tarea (1-12).</p></li>
+<li><p><strong>díaDeLaSemana</strong>: Día de la semana en el que se ejecutará la tarea (0-6, donde 0 es domingo).</p></li>
+<li><p><strong>comando</strong>: Comando o script que se ejecutará.</p></li>
+</ul>
 <p>Ejemplos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">01</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">       </span>Se<span class="w"> </span>ejecuta<span class="w"> </span>al<span class="w"> </span>minuto<span class="w"> </span><span class="m">1</span><span class="w"> </span>de<span class="w"> </span>cada<span class="w"> </span>hora<span class="w"> </span>de<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>días
 <span class="m">15</span><span class="w"> </span><span class="m">8</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">       </span>A<span class="w"> </span>las<span class="w"> </span><span class="m">8</span>:15<span class="w"> </span>a.m.<span class="w"> </span>de<span class="w"> </span>cada<span class="w"> </span>día

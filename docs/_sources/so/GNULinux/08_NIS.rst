@@ -78,7 +78,7 @@ En /etc/nsswitch.conf añadiendo al final de cada línea la palabra "nis".
   shadow: files nis
 
 
-En /etc/yp.conf  añadimos ypserver <ip_del_servidor_nis>, y añade el servidor al /etc/host
+En /etc/yp.conf  añadimos ``ypserver <ip_del_servidor_nis>``, y añade el servidor al /etc/hosts
 
 Por ultimo lanzamos el servicio ypbind
 

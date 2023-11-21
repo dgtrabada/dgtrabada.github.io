@@ -45,7 +45,7 @@ Control de acceso: /etc/at.allow, /etc/at.deny
 Crontab
 *******
 
-Cron se emplea para ejecución de trabajos periódicos, mientras que el comando crontab permite configurar los procesos a ejecutar que posteriormente el demonio cron se encarga de ejecutar, el contrab del sistema se encuentra en **/etc/crontab**
+Cron se emplea para ejecución de trabajos periódicos, mientras que el comando crontab permite configurar los procesos a ejecutar que posteriormente el demonio cron se encarga de ejecutar, para modificarlo:
 
 .. code-block:: bash
 
@@ -53,45 +53,21 @@ Cron se emplea para ejecución de trabajos periódicos, mientras que el comando 
  crontab -l    #muestra el fichero crontab
  crontab -r    #borra el fichero crontab 
 
-Control de acceso: /etc/cron.allow, /etc/cron.deny
-
-Hay al menos dos maneras distintas de usar cron:
-
-La primera es en el directorio etc, encontrarás los siguientes directorios:
-
-* cron.hourly
-* cron.daily
-* cron.weekly
-* cron.monthly
-
-Si se coloca un archivo tipo script en cualquiera de estos directorios, entonces el script se ejecutará cada hora, cada día, cada semana o cada mes, dependiendo del directorio.
-
-Como segundo modo de ejecutar o usar cron es a través de manipular directamente el archivo /etc/crontab. En la instalación por defecto de varias distribuciones Linux, este archivo se verá a algo como lo siguiente:
+Ejemplo de lineas en el crontab:
 
 .. code-block:: bash
 
- $ cat /etc/crontab
- SHELL=/bin/bash
- PATH=/sbin:/bin:/usr/sbin:/usr/bin
- MAILTO=root
- HOME=/
+ 01 * * * *  date > ~/log
+ 02 4 * * *  /ruta/al/script.sh
 
- # run-parts  
- 01 * * * * root run-parts /etc/cron.hourly
- 02 4 * * * root run-parts /etc/cron.daily
- 22 4 * * 0 root run-parts /etc/cron.weekly
- 42 4 1 * * root run-parts /etc/cron.monthly
+Formato de Configuración: El formato general para programar tareas en crontab sigue este patrón: ``minuto hora díaDelMes mes díaDeLaSemana comando``.
 
-
-las líneas que ejecutan las tareas programadas propiamente. No hay límites de cuantas tareas pueda haber, una por renglón. Los campos (son 7) que forman estas líneas están formados de la siguiente manera:
-
-1. Minuto: Controla el minuto de la hora en que el comando será ejecutado, este valor debe de estar entre 0 y 59.
-2. Hora: Controla la hora en que el comando será ejecutado, se especifica en un formato de 24 horas, los valores deben estar entre 0 y 23, 0 es medianoche.
-3. Día del Mes: Día del mes en que se quiere ejecutar el comando. Por ejemplo se indicaría 20, para ejecutar el comando el día 20 del mes.
-4. Mes: Mes en que el comando se ejecutará, puede ser indicado numéricamente (1-12), o por el nombre del mes en inglés, solo las tres primeras letras.
-5. Día de la semana: Día en la semana en que se ejecutará el comando, puede ser numérico (0-7) o por el nombre del día en inglés, solo las tres primeras letras. (0 y 7 = domingo)
-6. Usuario: Usuario que ejecuta el comando.
-7. Comando: Comando, script o programa que se desea ejecutar. Este campo puede contener múltiples palabras y espacios.
+* **minuto**: Minuto en el que se ejecutará la tarea (0-59).
+* **hora**: Hora en la que se ejecutará la tarea (0-23).
+* **díaDelMes**: Día del mes en el que se ejecutará la tarea (1-31).
+* **mes**: Mes en el que se ejecutará la tarea (1-12).
+* **díaDeLaSemana**: Día de la semana en el que se ejecutará la tarea (0-6, donde 0 es domingo).
+* **comando**: Comando o script que se ejecutará.
 
 Ejemplos:
 
