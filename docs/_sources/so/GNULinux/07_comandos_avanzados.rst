@@ -428,6 +428,9 @@ Comandos avanzados
   
    #eliminar lineas en blanco de un archivo
    sed '/^$/d' archivo.txt
+   
+   #cambiar tabulaciones por espacios
+   sed -i 's/\t/ /g' archivo.txt
 
 
 * **paste** muestra por pantalla el contenido de dos archivos
