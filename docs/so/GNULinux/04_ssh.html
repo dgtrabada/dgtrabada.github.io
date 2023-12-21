@@ -408,7 +408,7 @@ document.write(`
 <span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span>$<span class="w">  </span>passwd
 </pre></div>
 </div>
-<p>En el archivo <strong>/etc/ssh/sshd_config</strong> del <strong>servidor</strong> desomentar o incluir la linea : <strong>PermitRootLogin yes</strong>, y por ultimo reinicia el servicio sshd</p>
+<p>En el archivo <code class="docutils literal notranslate"><span class="pre">/etc/ssh/sshd_config</span></code> del <strong>servidor</strong> desomentar o incluir la linea : <code class="docutils literal notranslate"><span class="pre">PermitRootLogin</span> <span class="pre">yes</span></code>, y por ultimo reinicia el servicio sshd</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w">  </span>sshd.service
 </pre></div>
 </div>
@@ -416,7 +416,7 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>user2@client<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>ssh-keygen
 </pre></div>
 </div>
-<p>Puedes comprobar que se ha generado en el <strong>cliente</strong> (ls .ssh/) tendrá que aparecer las dos claves (id_rsa  id_rsa.pub), lo siguiente será exportar la clave publica al <strong>servidor</strong>, para ello ejecutamos:</p>
+<p>Puedes comprobar que se ha generado en el <strong>cliente</strong> <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">.ssh/</span></code> tendrá que aparecer las dos claves <code class="docutils literal notranslate"><span class="pre">id_rsa</span>&#160; <span class="pre">id_rsa.pub</span></code>, lo siguiente será exportar la clave publica al <strong>servidor</strong>, para ello ejecutamos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>user2@client<span class="w"> </span>~<span class="o">]</span>$<span class="w"> </span>ssh-copy-id<span class="w"> </span>root@IP_servidor
 </pre></div>
 </div>

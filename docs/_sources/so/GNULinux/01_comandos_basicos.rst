@@ -114,8 +114,14 @@ Ficheros y directorios
 * **cd** cambiar directorio
 * **whereis** muestra donde esta el comando
 * **pwd** print working directory, se utiliza para imprimir el nombre del directorio actual
-* **find** buscar; find -name *dat ; find -not -name *dat
 * **locate** fichero  #busca el fichero
+* **find** buscar; 
+
+  .. code-block:: bash
+  
+    find -name *dat
+    find -not -name *dat
+    find . -type f -size +20M
 
 Visualizadores de archivos
 =====================================
