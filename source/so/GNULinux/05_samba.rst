@@ -15,7 +15,7 @@ Instalamos el servicor de samba:
 
  sudo apt install samba
 
-Al final de **/etc/samba/smb.conf**
+Al final de ``etc/samba/smb.conf``
 
 .. code-block:: bash
 
@@ -48,12 +48,12 @@ Reiniciamos el servicio
   systemctl restart smbd.service nmbd.service
 
 
-* Para acceder desde GNU/Linux poner en el administrador de archivos **smb://IP/share/**
+* Para acceder desde GNU/Linux poner en el administrador de archivos ``smb://IP/share/``
 
-* Para acceder desde windows **\\IP**
+* Para acceder desde windows ``\\IP``
 
 
-En el caso de que queramos contruir un servidor samba seguro incluimos al final de ***/etc/samba/smb.con**:
+En el caso de que queramos contruir un servidor samba seguro incluimos al final de ``/etc/samba/smb.con``:
 
 .. code-block:: bash
 
