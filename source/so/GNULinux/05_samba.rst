@@ -15,7 +15,7 @@ Instalamos el servicor de samba:
 
  sudo apt install samba
 
-Al final de ``etc/samba/smb.conf``
+Al final de ``/etc/samba/smb.conf``
 
 .. code-block:: bash
 
