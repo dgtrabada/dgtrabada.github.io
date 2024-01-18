@@ -429,7 +429,7 @@ apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>domainname<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
-<p>Copia el nombre de su servidor NIS en el archivo /etc/defaultdomain (de aquí lo leerá el servicio ypserv.service que inicia la nis)</p>
+<p>Copia el nombre de su servidor NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypserv.service que inicia la nis)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Actualizamos la base de datos y creamos los mapas de la NIS</span>
 /usr/sbin/ypserv<span class="w"> </span>start
 /usr/sbin/rpc.ypxfrd
@@ -441,10 +441,8 @@ rpcinfo<span class="w"> </span>-p
 </div>
 <p>En el caso de que no funcione, puedes buscar posibles errores en firewall (iptables -F)</p>
 <p>Iniciar el servidor nis :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
-
-<span class="c1"># Para iniciar el servidor NIS haz que se inicie el servicio (ypserv.service)</span>
-systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ypserv.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ypserv.service
+systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
 </pre></div>
 </div>
 <p>Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.</p>
@@ -456,10 +454,11 @@ apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w">
 </pre></div>
 </div>
 <p>Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nisdomainname<span class="w"> </span>&lt;nombre&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nisdomainname<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
-<p>En /etc/nsswitch.conf añadiendo al final de cada línea la palabra «nis».</p>
+<p>Copia el nombre de su servidor NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypbind.service que inicia la nis)</p>
+<p>En <code class="docutils literal notranslate"><span class="pre">/etc/nsswitch.conf</span></code> añadiendo al final de cada línea la palabra «nis».</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
 group:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
 shadow:<span class="w"> </span>files<span class="w"> </span>nis
@@ -474,16 +473,16 @@ shadow:<span class="w"> </span>files<span class="w"> </span>nis
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
 </pre></div>
 </div>
-<p>Para hacer que se cree el directorio de los ususrios de forma automatica marcarlo con el siguiente comando:</p>
+<p>Para hacer que se cree el directorio de los usuarios de forma automatica marcarlo con el siguiente comando:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pam-auth-update
 </pre></div>
 </div>
 <p>PAM (Pluggable Authentication Modules) establece una interfaz entre los programas de usuario y distintos métodos de autenticación.   De esta forma, el método de autenticación se hace transparente para los programas.</p>
 <p>Haz que el cliente NIs se inice como servicios en el arranque del sistema, para ello</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w">  </span>ypbind.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ypbind.service
+systemctl<span class="w"> </span>status<span class="w"> </span>ypbind.service
 </pre></div>
 </div>
-<p>Copia el nombre de su servidor NIS en el archivo <strong>/etc/defaultdomain</strong> (de aquí lo leerá el servicio ypbind.service que inicia la nis)</p>
 <p>Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F</p>
 <p>Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart</p>
 </section>
@@ -534,15 +533,36 @@ VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1
 <img alt="../../_images/adaptador_cliente.jpg" src="../../_images/adaptador_cliente.jpg" />
 </li>
 <li><p>Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/enrutar.sh
+<span class="c1">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
 iptables<span class="w"> </span>-F
 iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-j<span class="w"> </span>ACCEPT
 iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
 </pre></div>
 </div>
 </li>
+<li><p>Dale permisos de ejecución:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/enrutar.sh
+</pre></div>
+</div>
+</li>
 <li><p>Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
+
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Inicia<span class="w"> </span>enrutamiento
+<span class="nv">After</span><span class="o">=</span>syslog.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/root/enrutar.sh
+<span class="nv">User</span><span class="o">=</span>root
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+
+$<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>enrutar.service
+$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 </pre></div>
 </div>
 </li>

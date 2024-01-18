@@ -30,7 +30,7 @@ Ejecuta el comando domainname para mostrar o configurar el nombre de dominio de 
 
   domainname servidor.X.nis
   
-Copia el nombre de su servidor NIS en el archivo /etc/defaultdomain (de aquí lo leerá el servicio ypserv.service que inicia la nis)
+Copia el nombre de su servidor NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypserv.service que inicia la nis)
 
 .. code-block:: bash
 
@@ -48,10 +48,8 @@ Iniciar el servidor nis :
 
 .. code-block:: bash
 
+  systemctl enable ypserv.service 
   systemctl status ypserv.service
-  
-  # Para iniciar el servidor NIS haz que se inicie el servicio (ypserv.service)
-  systemctl enable ypserv.service
   
 Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.
 
@@ -67,9 +65,11 @@ Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nis
 
 .. code-block:: bash
 
-  nisdomainname <nombre>
+  nisdomainname servidor.X.nis
 
-En /etc/nsswitch.conf añadiendo al final de cada línea la palabra "nis".
+Copia el nombre de su servidor NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypbind.service que inicia la nis)
+
+En ``/etc/nsswitch.conf`` añadiendo al final de cada línea la palabra "nis".
 
 .. code-block:: bash
 
@@ -92,7 +92,7 @@ para comprobarlo puedes utilizar el comando:
 
   getent passwd
 
-Para hacer que se cree el directorio de los ususrios de forma automatica marcarlo con el siguiente comando:
+Para hacer que se cree el directorio de los usuarios de forma automatica marcarlo con el siguiente comando:
 
 .. code-block:: bash
 
@@ -104,9 +104,9 @@ Haz que el cliente NIs se inice como servicios en el arranque del sistema, para 
 
 .. code-block:: bash
 
-  systemctl enable  ypbind.service
+  systemctl enable ypbind.service
+  systemctl status ypbind.service
 
-Copia el nombre de su servidor NIS en el archivo **/etc/defaultdomain** (de aquí lo leerá el servicio ypbind.service que inicia la nis)
 
 Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F 
 
@@ -172,16 +172,39 @@ Caso práctico: NIS con red interna
 * Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):
 
   .. code-block:: bash
-    
+   
+   $ cat /root/enrutar.sh
+   #!/bin/bash
    echo 1 > /proc/sys/net/ipv4/ip_forward
    iptables -F
    iptables -A FORWARD -j ACCEPT
    iptables -t nat -A POSTROUTING -s 172.16.0.0/16 -o enp0s3 -j MASQUERADE
+   
+* Dale permisos de ejecución:
+
+  .. code-block:: bash
+   
+   $ chmod +x /root/enrutar.sh
+
      
 * Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :
 
   .. code-block:: bash
     
-   cat /etc/systemd/system/enrutar.service
+    $ cat /etc/systemd/system/enrutar.service
+
+    [Unit]
+    Description=Inicia enrutamiento
+    After=syslog.target
+    
+    [Service]
+    ExecStart=/root/enrutar.sh
+    User=root
+
+    [Install]
+    WantedBy=multi-user.target
+
+    $ systemctl enable enrutar.service
+    $ systemctl start enrutar.service
 
 * Si no lo habías realizado, ejecutamos en el cliente **sudo pam-auth-update** y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)

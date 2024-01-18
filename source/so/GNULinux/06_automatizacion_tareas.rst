@@ -353,37 +353,3 @@ La forma básica de acceder a los registros del sistema es:
  journalctl _COMM=firefox --since='2015-02-29 00:01' --until='2015-03-29 00:01'
  journalctl -u sshd.service --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
 
-
-Ejemplo de enrutamiento
-***********************
-
-.. code-block:: bash
- 
- $ cat /root/enrutar.sh
- #!/bin/bash
- echo 1 > /proc/sys/net/ipv4/ip_forward
- iptables -F
- iptables -A FORWARD -j ACCEPT
- iptables -t nat -A POSTROUTING -s 10.0.2.0/24 -o enp0s3 -j MASQUERADE
-
-Para que se inicie automáticamente utilizamos el sistema systemctl
-
-.. code-block:: bash
-
- $ cat /etc/systemd/system/enrutar.service
- 
- [Unit]
- Description=Inicia enrutamiento
- After=syslog.target 
-
- [Service]
- ExecStart=/root/enrutar.sh
- User=root
- 
- [Install]
- WantedBy=multi-user.target
-
- $ chmod +x /root/enrutar.sh
- $ systemctl enable enrutar.service
- $ systemctl start enrutar.service
- $ systemctl list-unit-files 

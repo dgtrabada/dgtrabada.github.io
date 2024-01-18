@@ -407,7 +407,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-enrutamiento">Ejemplo de enrutamiento</a></li>
 </ul>
             </nav>
         </div>
@@ -700,37 +699,6 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span cl
 </div>
 </section>
 </section>
-<section id="ejemplo-de-enrutamiento">
-<h2>Ejemplo de enrutamiento<a class="headerlink" href="#ejemplo-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/enrutar.sh
-<span class="c1">#!/bin/bash</span>
-<span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-iptables<span class="w"> </span>-F
-iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-j<span class="w"> </span>ACCEPT
-iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.2.0/24<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
-</pre></div>
-</div>
-<p>Para que se inicie automáticamente utilizamos el sistema systemctl</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
-
-<span class="o">[</span>Unit<span class="o">]</span>
-<span class="nv">Description</span><span class="o">=</span>Inicia<span class="w"> </span>enrutamiento
-<span class="nv">After</span><span class="o">=</span>syslog.target
-
-<span class="o">[</span>Service<span class="o">]</span>
-<span class="nv">ExecStart</span><span class="o">=</span>/root/enrutar.sh
-<span class="nv">User</span><span class="o">=</span>root
-
-<span class="o">[</span>Install<span class="o">]</span>
-<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-
-$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/enrutar.sh
-$<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>enrutar.service
-$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
-$<span class="w"> </span>systemctl<span class="w"> </span>list-unit-files
-</pre></div>
-</div>
-</section>
 </section>
 
 
@@ -789,7 +757,6 @@ $<span class="w"> </span>systemctl<span class="w"> </span>list-unit-files
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-enrutamiento">Ejemplo de enrutamiento</a></li>
 </ul>
   </nav></div>
 
