@@ -407,6 +407,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-servicio-encendido">Ejemplo de servicio encendido</a></li>
 </ul>
             </nav>
         </div>
@@ -699,6 +700,34 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span cl
 </div>
 </section>
 </section>
+<section id="ejemplo-de-servicio-encendido">
+<h2>Ejemplo de servicio encendido<a class="headerlink" href="#ejemplo-de-servicio-encendido" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/encendido.sh
+<span class="c1">#!/bin/bash</span>
+date<span class="w"> </span>&gt;&gt;<span class="w"> </span>/root/encendido.log
+</pre></div>
+</div>
+<p>Para que se inicie automáticamente utilizamos el sistema systemctl</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/encendido.service
+
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Inicia<span class="w"> </span>enrutamiento
+<span class="nv">After</span><span class="o">=</span>syslog.target
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/root/encendido.sh
+<span class="nv">User</span><span class="o">=</span>root
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+
+$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/encendido.sh
+$<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>encendido.service
+$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>encendido.service
+$<span class="w"> </span>systemctl<span class="w"> </span>list-unit-files
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -757,6 +786,7 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>sshd.service<span cl
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceder-a-los-registros-del-sistema">Acceder a los registros del sistema</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-servicio-encendido">Ejemplo de servicio encendido</a></li>
 </ul>
   </nav></div>
 

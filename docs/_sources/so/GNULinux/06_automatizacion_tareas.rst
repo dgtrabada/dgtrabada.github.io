@@ -353,3 +353,34 @@ La forma básica de acceder a los registros del sistema es:
  journalctl _COMM=firefox --since='2015-02-29 00:01' --until='2015-03-29 00:01'
  journalctl -u sshd.service --since='2015-02-29 00:01' --until='2015-03-29 00:01' 
 
+
+Ejemplo de servicio encendido
+***********************
+
+.. code-block:: bash
+ 
+ $ cat /root/encendido.sh
+ #!/bin/bash
+ date >> /root/encendido.log
+
+Para que se inicie automáticamente utilizamos el sistema systemctl
+
+.. code-block:: bash
+
+ $ cat /etc/systemd/system/encendido.service
+ 
+ [Unit]
+ Description=Inicia enrutamiento
+ After=syslog.target 
+
+ [Service]
+ ExecStart=/root/encendido.sh
+ User=root
+ 
+ [Install]
+ WantedBy=multi-user.target
+
+ $ chmod +x /root/encendido.sh
+ $ systemctl enable encendido.service
+ $ systemctl start encendido.service
+ $ systemctl list-unit-files 
