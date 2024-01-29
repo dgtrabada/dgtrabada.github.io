@@ -202,7 +202,7 @@ Caso práctico: NIS con red interna
     [Install]
     WantedBy=multi-user.target
 
-Habilitamos el servicio y lo inicamos:
+* Habilitamos el servicio y lo inicamos:
 
   .. code-block:: bash
   
