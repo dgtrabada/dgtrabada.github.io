@@ -180,19 +180,17 @@ Caso práctico: NIS con red interna
    iptables -A FORWARD -j ACCEPT
    iptables -t nat -A POSTROUTING -s 172.16.0.0/16 -o enp0s3 -j MASQUERADE
    
-* Dale permisos de ejecución:
+* Le damos permisos de ejecución:
 
   .. code-block:: bash
    
-   $ chmod +x /root/enrutar.sh
+   chmod +x /root/enrutar.sh
 
      
-* Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :
+* Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script para ello edita el archivo ``etc/systemd/system/enrutar.service``:
 
   .. code-block:: bash
     
-    $ cat /etc/systemd/system/enrutar.service
-
     [Unit]
     Description=Inicia enrutamiento
     After=syslog.target
@@ -204,7 +202,11 @@ Caso práctico: NIS con red interna
     [Install]
     WantedBy=multi-user.target
 
-    $ systemctl enable enrutar.service
-    $ systemctl start enrutar.service
+Habilitamos el servicio y lo inicamos:
+
+  .. code-block:: bash
+  
+    systemctl enable enrutar.service
+    systemctl start enrutar.service
 
 * Si no lo habías realizado, ejecutamos en el cliente **sudo pam-auth-update** y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)

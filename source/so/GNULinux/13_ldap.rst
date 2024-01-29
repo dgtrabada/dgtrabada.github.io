@@ -262,9 +262,6 @@ Configuración de los clientes: Autenticación con OpenLDAP
 
 
  sudo pam-auth-update #marcar que se cree el directorio automaticamente
- sudo apt-get install sysv-rc-conf
- sudo sysv-rc-conf libnss-ldap on
- sudo auth-client-config -t nss -p lac_ldap
 
 Algunos de estos comandos ya no están actualizados o tienen problemas lo importante es:
 

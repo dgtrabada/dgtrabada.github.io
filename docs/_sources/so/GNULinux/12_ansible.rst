@@ -192,13 +192,13 @@ Podríamos ejecutarlo solo en el server1
 
 .. code-block:: bash
 
- ansible-playbook -l server1 myplaybook.yml
+ ansible-playbook -l server1 playbook.yml
  
 Para cambiar el grupo de hosts por defecto.
 
 .. code-block:: bash
 
- ansible-playbook sampleplaybook.yml -i ansible_hosts 
+ ansible-playbook playbook.yml -i ansible_hosts 
  
  
 Roles

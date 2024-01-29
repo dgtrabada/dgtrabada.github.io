@@ -542,15 +542,13 @@ iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </
 </pre></div>
 </div>
 </li>
-<li><p>Dale permisos de ejecución:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/enrutar.sh
+<li><p>Le damos permisos de ejecución:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/enrutar.sh
 </pre></div>
 </div>
 </li>
-<li><p>Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script en :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/etc/systemd/system/enrutar.service
-
-<span class="o">[</span>Unit<span class="o">]</span>
+<li><p>Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script para ello edita el archivo <code class="docutils literal notranslate"><span class="pre">etc/systemd/system/enrutar.service</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Unit<span class="o">]</span>
 <span class="nv">Description</span><span class="o">=</span>Inicia<span class="w"> </span>enrutamiento
 <span class="nv">After</span><span class="o">=</span>syslog.target
 
@@ -560,12 +558,18 @@ iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </
 
 <span class="o">[</span>Install<span class="o">]</span>
 <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
-
-$<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>enrutar.service
-$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 </pre></div>
 </div>
 </li>
+</ul>
+<p>Habilitamos el servicio y lo inicamos:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>enrutar.service
+systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
 <li><p>Si no lo habías realizado, ejecutamos en el cliente <strong>sudo pam-auth-update</strong> y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)</p></li>
 </ul>
 </section>
