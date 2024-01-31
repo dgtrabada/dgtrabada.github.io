@@ -79,7 +79,7 @@ Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master p
 Caso práctico: NFS con red interna
 *****************************
 
-Partimos del :ref:`Caso práctico: NIS con red interna`, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado
+Partimos del :ref:`Caso práctico: NIS con red interna`, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado, puedes configurarlo como se muestra en el siguiente vídeo `<https://mediateca.educa.madrid.org/video/xcy1gscdrqt8w264>`_
 
 .. code-block:: bash
 

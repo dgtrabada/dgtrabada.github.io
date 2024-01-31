@@ -123,7 +123,6 @@ Caso práctico: NIS con adaptador puente
   * Clon enlazado 2 : "compute-0-1" 10.5.X.Y/8 (DHCP si usas portátil)
   
     .. image:: imagenes/virtualbox.jpg
-
   
     .. code-block:: bash
   
@@ -160,6 +159,8 @@ Caso práctico: NIS con red interna
 * En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.
 
   .. image:: imagenes/caso_redinterna.jpg
+
+* Puedes ver el desarrollo en el siguiente  `vídeo <https://mediateca.educa.madrid.org/video/rzhjr419uxyd6vpv>`_
 
 * Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección  172.16.0.10/16
 

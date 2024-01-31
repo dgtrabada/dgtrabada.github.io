@@ -35,6 +35,8 @@ Entre los atributos que suelen emplearse habitualmente, encontramos los siguient
 Instalación del servidor LDAP
 =============================
 
+Puedes seguir los pasos en el siguiente vídeo `<https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_
+
 .. code-block:: bash
 
  sudo apt-get install slapd ldap-utils
