@@ -18,7 +18,7 @@ Caso práctico: Red interna con NIS, NFS, autofs y Slurm
 Servidor compute-0-0
 ********************
 
-Lo instalaremos en el servidor compute-0-0, en el que exporta los usuarios por NIS y el home por NFS, como podemos ver también en el siguiente vídeo `<https://mediateca.educa.madrid.org/video/e84ii5ywht6gafmy>`_
+Lo instalaremos en el servidor compute-0-0, en el que exporta los usuarios por NIS y el home por NFS, como podemos ver también en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/e84ii5ywht6gafmy>`_
 
 .. code-block:: bash
 
