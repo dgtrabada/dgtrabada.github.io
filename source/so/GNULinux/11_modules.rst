@@ -4,8 +4,7 @@ Environment modules
 
 Modules permite el cambio rápido de un entorno a otro porque nos deja cargar o borrar las variables necesarios para un programa ejecutando un comando sencillo y avisa si hay conflictos entre un entorno ya definido con otro que el usuario quiere cargar.
 
-Una vez instalado, es fácil definir los entornos, consiste básicamente en
-crear los diferentes ficheros en modulefiles
+Una vez instalado, es fácil definir los entornos, consiste básicamente en crear los diferentes ficheros en modulefiles como podemos ver en el vídeo `<https://mediateca.educa.madrid.org/video/fsvyrjlovd95w8ht>`_
 
 Los modulefiles están escritos en Tcl (Tool Command Language) y son
 interpretados por el modulecmd que se ejecuta cada vez que invocamos
