@@ -512,25 +512,25 @@ tunombre1@compute-0-0:~$<span class="w"> </span>cat<span class="w"> </span>salid
 </pre></div>
 </div>
 <p>como podemos ver, no se encuentra el ejecutable test.x, para que funcione tenemos que exportar a los nodos /export/app, instalar los environment-modules en los nodos  y copiar su configuración:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tunombre1@compute-0-0:~$<span class="w"> </span>scp<span class="w"> </span>/usr/share/modules/modulefiles/test<span class="w"> </span>compute-0-1:/usr/share/modules/modulefiles/test
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~$<span class="w"> </span>scp<span class="w"> </span>/usr/share/modules/modulefiles/test<span class="w"> </span>compute-0-1:/usr/share/modules/modulefiles/test
 
-tunombre1@compute-0-0:~$<span class="w"> </span>tail<span class="w"> </span>-5<span class="w"> </span>/etc/exports
+root@compute-0-0:~$<span class="w"> </span>tail<span class="w"> </span>-5<span class="w"> </span>/etc/exports
 /home/tunombre1<span class="w"> </span><span class="m">172</span>.16.0.12<span class="o">(</span>rw,sync,no_root_squash,no_subtree_check<span class="o">)</span>
 /home/tunombre1<span class="w"> </span><span class="m">172</span>.16.0.13<span class="o">(</span>rw,sync,no_root_squash,no_subtree_check<span class="o">)</span>
 /home/tunombre1<span class="w"> </span><span class="m">172</span>.16.0.14<span class="o">(</span>rw,sync,no_root_squash,no_subtree_check<span class="o">)</span>
 /export<span class="w"> </span><span class="m">172</span>.16.0.10<span class="o">(</span>rw,async,no_root_squash<span class="o">)</span><span class="w"> </span><span class="m">172</span>.16.0.0/255.255.255.0<span class="o">(</span>rw,async<span class="o">)</span>
 /export/apps<span class="w"> </span>*<span class="o">(</span>rw,async,no_root_squash<span class="o">)</span>
 
-tunombre1@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.master
+root@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.master
 <span class="c1">#</span>
 +auto.master
 /home<span class="w"> </span>/etc/auto.home
 /export<span class="w"> </span>/etc/auto.share<span class="w"> </span>--timeout<span class="o">=</span><span class="m">1200</span>
 
-tunombre1@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.home
+root@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.home
 *<span class="w">    </span>compute-0-0:/home/<span class="p">&amp;</span>
 
-tunombre1@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.share
+root@compute-0-1:~$<span class="w"> </span>tail<span class="w"> </span>-4<span class="w"> </span>/etc/auto.share
 apps<span class="w"> </span>compute-0-0:/export/<span class="p">&amp;</span>
 </pre></div>
 </div>

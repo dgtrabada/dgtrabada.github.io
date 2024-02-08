@@ -141,25 +141,25 @@ como podemos ver, no se encuentra el ejecutable test.x, para que funcione tenemo
 
 .. code-block:: bash
 
- tunombre1@compute-0-0:~$ scp /usr/share/modules/modulefiles/test compute-0-1:/usr/share/modules/modulefiles/test
+ root@compute-0-0:~$ scp /usr/share/modules/modulefiles/test compute-0-1:/usr/share/modules/modulefiles/test
  
- tunombre1@compute-0-0:~$ tail -5 /etc/exports
+ root@compute-0-0:~$ tail -5 /etc/exports
  /home/tunombre1 172.16.0.12(rw,sync,no_root_squash,no_subtree_check)
  /home/tunombre1 172.16.0.13(rw,sync,no_root_squash,no_subtree_check)
  /home/tunombre1 172.16.0.14(rw,sync,no_root_squash,no_subtree_check)
  /export 172.16.0.10(rw,async,no_root_squash) 172.16.0.0/255.255.255.0(rw,async) 
  /export/apps *(rw,async,no_root_squash)
 
- tunombre1@compute-0-1:~$ tail -4 /etc/auto.master
+ root@compute-0-1:~$ tail -4 /etc/auto.master
  #
  +auto.master
  /home /etc/auto.home
  /export /etc/auto.share --timeout=1200
  
- tunombre1@compute-0-1:~$ tail -4 /etc/auto.home 
+ root@compute-0-1:~$ tail -4 /etc/auto.home 
  *    compute-0-0:/home/&
  
- tunombre1@compute-0-1:~$ tail -4 /etc/auto.share 
+ root@compute-0-1:~$ tail -4 /etc/auto.share 
  apps compute-0-0:/export/&
 
 
