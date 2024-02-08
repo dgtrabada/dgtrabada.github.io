@@ -14,7 +14,7 @@ Los **Roles** es una agrupación de ficheros, tareas y plantillas
 
 Una **Task** se podría definir como una acción a realizar.
 
-Instalamos ansible
+Instalamos ansible (`vídeo <https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8>`_)
 
 .. code-block:: bash
 
