@@ -439,7 +439,8 @@ document.write(`
 </section>
 <section id="instalacion-del-servidor-ldap">
 <h2>Instalación del servidor LDAP<a class="headerlink" href="#instalacion-del-servidor-ldap" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Puedes seguir los pasos en el siguiente vídeo <a class="reference external" href="https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq">https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq</a></p>
+<p>Puedes seguir los pasos en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq">vídeo LDAP</a>, <a href="#id1"><span class="problematic" id="id2">`vídeo LDAP+Ansible
+https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf`_</span></a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>slapd<span class="w"> </span>ldap-utils
 <span class="c1">#contraseña slapd : alumno</span>
 
@@ -556,7 +557,7 @@ gidNumber:<span class="w"> </span><span class="m">501</span>
 <p>Editar Objetos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>change.ldif
 
-dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>usuario4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
 changetype:<span class="w"> </span>modify
 replace:<span class="w"> </span>uidNumber
 uidNumber:<span class="w"> </span><span class="m">1014</span>
@@ -567,7 +568,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>ldapmodify<span class="w"> 
 <p>Añadir Objetos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>add.ldif
 
-dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>usuario4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre4,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
 changetype:<span class="w"> </span>modify
 add:<span class="w"> </span>homePhone
 homePhone:<span class="w"> </span><span class="m">1234567</span>

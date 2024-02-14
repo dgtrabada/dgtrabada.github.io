@@ -35,7 +35,8 @@ Entre los atributos que suelen emplearse habitualmente, encontramos los siguient
 Instalación del servidor LDAP
 =============================
 
-Puedes seguir los pasos en el siguiente vídeo `<https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_
+Puedes seguir los pasos en el siguiente `vídeo LDAP <https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_, `vídeo LDAP+Ansible
+https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf`_
 
 .. code-block:: bash
 
@@ -189,7 +190,7 @@ Editar Objetos:
 
  $ cat change.ldif 
 
- dn: uid=usuario4,dc=ldap,dc=tunombre,dc=local
+ dn: uid=tunombre4,dc=ldap,dc=tunombre,dc=local
  changetype: modify
  replace: uidNumber
  uidNumber: 1014
@@ -202,7 +203,7 @@ Añadir Objetos:
 
  $ cat add.ldif
 
- dn: uid=usuario4,dc=ldap,dc=tunombre,dc=local
+ dn: uid=tunombre4,dc=ldap,dc=tunombre,dc=local
  changetype: modify
  add: homePhone
  homePhone: 1234567
