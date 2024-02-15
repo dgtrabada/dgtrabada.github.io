@@ -188,7 +188,7 @@ Caso práctico: NIS con red interna
    chmod +x /root/enrutar.sh
 
      
-* Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script para ello edita el archivo ``etc/systemd/system/enrutar.service``:
+* Crea un script llamado enrutar.sh y crea un servicio donde se cargue este script para ello edita el archivo ``/etc/systemd/system/enrutar.service``:
 
   .. code-block:: bash
     
