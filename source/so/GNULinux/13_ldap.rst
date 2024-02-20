@@ -36,7 +36,8 @@ Instalación del servidor LDAP
 =============================
 
 Puedes seguir los pasos en el siguiente `vídeo LDAP <https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_, `vídeo LDAP+Ansible
-<https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf>`_
+<https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf>`_, `vídeo LDAP+NFS+Autofs+Slurm
+<https://mediateca.educa.madrid.org/video/ii55p5pf5rtw76qp>`_
 
 .. code-block:: bash
 
