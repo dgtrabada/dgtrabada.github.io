@@ -18,7 +18,7 @@ Explorador de Windows
 
 * Podemos buscar por una cierta extensión y tamaño **System.Size: > 100 MB .reg**
 
-* Solo por extensión ***.reg**, empiezan por An y acaban por dat **An*dat**
+* Solo por extensión ***.reg**, empiezan por An y acaban por dat **\"An*dat\"**
 
 * Entre varios tamaños **System.Size: > 100 MB < 200MB**
 
@@ -136,7 +136,7 @@ Aquí podremos conocer, en tiempo real, el consumo que hacemos de cada una de lo
 .. image:: imagenes/administrador_tareas7.png
 
 Grupos de trabajo y nombre de equipo
-===========================
+====================================
 
 En **Configuración/Sistema/Información** podemos cambiar el nombre del equipo, para cambiar el grupo de trabajo vamos a:
 
@@ -160,7 +160,7 @@ Cada equipo perteneciente al grupo de trabajo debe disponer de su cuenta de usua
 Todos los usuarios de una red local pueden pertenecer a un grupo de trabajo sin necesidad de pedir permiso ni introducir ninguna contraseña. Por lo tanto, cuando compartimos una carpeta hay que configurar de forma adecuada los permisos y los usuarios que tendrán acceso a nuestra carpeta compartida.
 
 Copia de seguridad y restauración
-================================
+=================================
 
 Existen dos tipos principales de copias de seguridad:
 
