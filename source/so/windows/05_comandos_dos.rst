@@ -198,6 +198,17 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **%WINDIR%** directorio del sistema
   
 * **set** - Muestra, establece o quita variables de entorno
+ 
+  .. code-block:: shell
+  
+    set a=1
+    set b=3
+    set /a sum=a+b
+    echo %sum%
+    
+    set str=%a%+%b%
+    echo %str%
+
 
 * **Redireccionamiento** Envía la salida a un archivo o dispositivo (si no existe lo crea)
 

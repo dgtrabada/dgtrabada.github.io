@@ -106,7 +106,7 @@ En modo gráfico:
 * Ctrl_derecho + c = pasar/volver modo escalado
 
 Caso práctico: MV Ubuntu Server 22.04
-*************************************
+=====
 
 * Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial
 
@@ -127,13 +127,13 @@ Caso práctico: MV Ubuntu Server 22.04
 
 
 Caso práctico: Windows 11
-*************************
+=====
 
 * Descarte la ISO de Windwos 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
 
 * Creamos una nueva maquina virtual llamada **Windows11**
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y deshabilita EFI
 
 * Para la instalación desconecta el cable de red virtual:
   
@@ -168,10 +168,10 @@ Caso práctico: Windows 11
 
 .. rubric:: Notas
   
-.. [#f1] En el caso de que no aparezca haz la instalación como si fuera a se parte de un Dominio
+.. [#f1] En el caso de que no aparezca haz la instalación como si fuera a ser parte de un Dominio
 
 Caso práctico: Windows Server 2022
-**************************
+=====
 
 Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.
 
@@ -203,7 +203,7 @@ Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de for
 * Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar
 
 Caso práctico: Windows Server 2022 sin GUI
-**************************
+=====
 
 * Creamos una maquina virtual llamada **WServer_22**, con 100GB de disco duro reservado dinámicamente, 2048GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
 
