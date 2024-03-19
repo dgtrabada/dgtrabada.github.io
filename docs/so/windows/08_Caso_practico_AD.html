@@ -498,7 +498,7 @@ document.write(`
 <ol class="arabic">
 <li><p>Cambiamos el nombre de la maquina</p></li>
 <li><p>Ponemos el DNS la ip del dominio <strong>SRV-tunombre</strong>.</p></li>
-<li><p>Haz clic derecho en el botón «Inicio» y selecciona «Sistema» en el menú desplegable.</p></li>
+<li><p>Haz clic derecho en el botón «Inicio» y selecciona «Sistema &gt; Información» en el menú desplegable.</p></li>
 <li><p>En la ventana de «Sistema», haz clic en «Configuración avanzada del sistema» en el panel izquierdo.</p></li>
 <li><p>Se abrirá la ventana de «Propiedades del sistema». Haz clic en la pestaña «Nombre de equipo» y luego en el botón «Cambiar».</p></li>
 <li><p>En la siguiente ventana, verás la opción «Miembro de». Asegúrate de seleccionar la opción «Dominio» en lugar de «Grupo de trabajo».</p></li>
@@ -530,13 +530,10 @@ document.write(`
 <li><p><strong>Modificar</strong> una combinación de lectura y escritura. El usuario también tiene la capacidad de eliminar los archivos dentro de la carpeta. También puede ver el contenido de las subcarpetas.</p></li>
 <li><p><strong>Leer y Ejecutar</strong> los usuarios pueden leer el contenido de los archivos y</p></li>
 </ul>
-<p>ejecutar los programas de la carpeta.
-Mostrar el contenido de la carpeta: permite al usuario ver el contenido
-de la carpeta seleccionada. No se permite al usuario leer ni ejecutar el
-contenido de un archivo.</p>
+<p>ejecutar los programas de la carpeta.</p>
 <p>Vamos a compartir la carpeta <strong>C:\compartida</strong> alojada en nuestro servidor, con los permisos solo de lectura, para ello:</p>
 <p>Con el botón <strong>derecho del ratón</strong> accedemos a las propiedades de la carpeta vamos a la pestaña de <strong>Compartir</strong> aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta.</p>
-<p>En la misma pestaña de <strong>Compartir</strong> este mismo dialogo nos vamos a <strong>Compartir</strong> permisos y agrgamos a Todos  <strong>quitamos Todos</strong> solo con permisos de Lectura</p>
+<p>En la misma pestaña de <strong>Compartir</strong> este mismo dialogo nos vamos a <strong>Compartir</strong> permisos y comprobamos que <strong>Todos</strong> solo con permisos de Lectura</p>
 <p>Como podemos ver esta compartida en: <strong>\SRV-TUNOMREcompartida</strong> o <strong>\10.4.100.100</strong>, si el cliente es linux podemos acceder <strong>smb://10.4.100.100/</strong></p>
 </section>
 <section id="instalacion-de-software-utilizando-directivas-de-grupo">
@@ -549,13 +546,13 @@ contenido de un archivo.</p>
 <li><p>En la pestaña de <strong>Configuración/Configuración del equipo</strong> vamos a Edición</p>
 <img alt="../../_images/GPO_VLC_configuracion.png" src="../../_images/GPO_VLC_configuracion.png" />
 </li>
-<li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de softare</strong> creamos un nuevo paquete</p>
+<li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de software</strong> creamos un nuevo paquete</p>
 <img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
 </li>
 <li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida, vamos a seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
 <img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
 </li>
-<li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y Wc6-Tunombre</p>
+<li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre</p>
 <img alt="../../_images/GPO_VLC_Equipos.png" src="../../_images/GPO_VLC_Equipos.png" />
 </li>
 <li><p>En la consola de administración de Directivas de grupo, navega hasta  Despacho1, haz clic derecho en la OU y selecciona <strong>Vincular un GPO existente</strong></p>

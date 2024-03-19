@@ -85,7 +85,7 @@ Vamos a unir **WC5-tunombre** al dominio tu_nombre.local, para ello:
 
 #. Ponemos el DNS la ip del dominio **SRV-tunombre**.
 
-#. Haz clic derecho en el botón "Inicio" y selecciona "Sistema" en el menú desplegable.
+#. Haz clic derecho en el botón "Inicio" y selecciona "Sistema > Información" en el menú desplegable.
 
 #. En la ventana de "Sistema", haz clic en "Configuración avanzada del sistema" en el panel izquierdo.
 
@@ -133,15 +133,12 @@ Las carpetas y archivos en Windows permiten configurar los siguientes permisos:
 
 * **Leer y Ejecutar** los usuarios pueden leer el contenido de los archivos y
 ejecutar los programas de la carpeta.
-Mostrar el contenido de la carpeta: permite al usuario ver el contenido
-de la carpeta seleccionada. No se permite al usuario leer ni ejecutar el
-contenido de un archivo.
 
 Vamos a compartir la carpeta **C:\\compartida** alojada en nuestro servidor, con los permisos solo de lectura, para ello:
 
 Con el botón **derecho del ratón** accedemos a las propiedades de la carpeta vamos a la pestaña de **Compartir** aqui en **Uso compartido avanzado** seleccionamos compartir esta carpeta. 
 
-En la misma pestaña de **Compartir** este mismo dialogo nos vamos a **Compartir** permisos y agrgamos a Todos  **quitamos Todos** solo con permisos de Lectura
+En la misma pestaña de **Compartir** este mismo dialogo nos vamos a **Compartir** permisos y comprobamos que **Todos** solo con permisos de Lectura
 
 Como podemos ver esta compartida en: **\\SRV-TUNOMRE\compartida** o **\\10.4.100.100**, si el cliente es linux podemos acceder **smb://10.4.100.100/**
 
@@ -158,7 +155,7 @@ Instalación de software utilizando directivas de grupo
 
    .. image:: imagenes/GPO_VLC_configuracion.png
 
-#. En **Directiva Instalar/Configuración del equipo/Directivas/Configuración de softare** creamos un nuevo paquete  
+#. En **Directiva Instalar/Configuración del equipo/Directivas/Configuración de software** creamos un nuevo paquete  
    
    .. image:: imagenes/GPO_VLC_editar.png
    
@@ -167,7 +164,7 @@ Instalación de software utilizando directivas de grupo
 
    .. image:: imagenes/GPO_VLC_editar2.png
     
-#. Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y Wc6-Tunombre
+#. Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre
 
    .. image:: imagenes/GPO_VLC_Equipos.png
     

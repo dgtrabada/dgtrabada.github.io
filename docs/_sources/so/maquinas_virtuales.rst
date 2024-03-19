@@ -133,7 +133,7 @@ Caso práctico: Windows 11
 
 * Creamos una nueva maquina virtual llamada **Windows11**
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y deshabilita EFI
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y deshabilita EFI
 
 * Para la instalación desconecta el cable de red virtual:
   
@@ -188,7 +188,7 @@ Windows Server es la plataforma para crear una infraestructura de aplicaciones c
   
 Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4096MB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)
 
@@ -205,7 +205,7 @@ Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de for
 Caso práctico: Windows Server 2022 sin GUI
 =====
 
-* Creamos una maquina virtual llamada **WServer_22**, con 100GB de disco duro reservado dinámicamente, 2048GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual llamada **WServer_22**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)
 
