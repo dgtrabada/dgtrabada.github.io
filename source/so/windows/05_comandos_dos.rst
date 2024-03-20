@@ -205,9 +205,11 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
     set b=3
     set /a sum=a+b
     echo %sum%
+    4
     
     set str=%a%+%b%
     echo %str%
+    a+b
 
 
 * **Redireccionamiento** Envía la salida a un archivo o dispositivo (si no existe lo crea)
