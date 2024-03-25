@@ -397,7 +397,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
@@ -408,6 +407,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
@@ -494,24 +494,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</section>
-<section id="directivas-de-passwords">
-<h3>Directivas de passwords<a class="headerlink" href="#directivas-de-passwords" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Crear una nueva directiva de password sobre el grupo B, para ello abre el <strong>Centro de administración de Active Directory</strong> selecciona tu_nombre (local)/System/Password Settings Container</p>
-<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
-<p>Nuevo/Configuración de contraseña</p>
-<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
-<p>Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.</p>
-<ul class="simple">
-<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
-<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
-<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
-<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
-<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
-<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
-<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
-</ul>
-<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
 </section>
 <section id="unir-un-equipo-al-dominio">
 <h3>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
@@ -698,7 +680,24 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 </li>
 </ul>
 <img alt="../../_images/ADINT02.png" src="../../_images/ADINT02.png" />
-<p>ayuda: Crea una directiva de password sobre los grupos.</p>
+</section>
+<section id="directivas-de-passwords">
+<h3>Directivas de passwords<a class="headerlink" href="#directivas-de-passwords" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el <strong>Centro de administración de Active Directory</strong> selecciona tu_nombre (local)/System/Password Settings Container</p>
+<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
+<p>Nuevo/Configuración de contraseña</p>
+<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
+<p>Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.</p>
+<ul class="simple">
+<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
+<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
+<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
+<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
+<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
+<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
+<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
+</ul>
+<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
 </section>
 <section id="id3">
 <h3>Configurar una carpeta compartida<a class="headerlink" href="#id3" title="Enlace permanente a este encabezado">#</a></h3>
@@ -755,7 +754,6 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
@@ -766,6 +764,7 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
 </ul>
 </li>

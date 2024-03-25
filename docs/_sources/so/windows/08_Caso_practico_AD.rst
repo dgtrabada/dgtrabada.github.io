@@ -76,34 +76,6 @@ Dentro de la UO Ususarios, crea los usuarios:
   * La contraseña nunca expira
   * Hazle miembro del grupo B
 
-Directivas de passwords
------------------------
-
-Crear una nueva directiva de password sobre el grupo B, para ello abre el **Centro de administración de Active Directory** selecciona tu_nombre (local)/System/Password Settings Container
-
-.. image:: imagenes/directivaPASS01.jpeg
-
-Nuevo/Configuración de contraseña
-
-.. image:: imagenes/directivaPASS02.jpeg
-
-Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.
-
-* **Nombre**: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.
-
-* **Precedencia**: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.
-
-* **Longitud mínima**: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.
-
-* **Complejidad de la contraseña**: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.
-
-* **Duración máxima de la contraseña**: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.
-
-* **Historial de contraseñas**: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.
-
-* **Bloqueo** de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.
-
-.. image:: imagenes/directivaPASS03.jpeg
 
 Unir un equipo al dominio
 -------------------------
@@ -330,7 +302,34 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:
 
 .. image:: imagenes/ADINT02.png
 
-ayuda: Crea una directiva de password sobre los grupos.
+Directivas de passwords
+-----------------------
+
+Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el **Centro de administración de Active Directory** selecciona tu_nombre (local)/System/Password Settings Container
+
+.. image:: imagenes/directivaPASS01.jpeg
+
+Nuevo/Configuración de contraseña
+
+.. image:: imagenes/directivaPASS02.jpeg
+
+Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.
+
+* **Nombre**: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.
+
+* **Precedencia**: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.
+
+* **Longitud mínima**: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.
+
+* **Complejidad de la contraseña**: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.
+
+* **Duración máxima de la contraseña**: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.
+
+* **Historial de contraseñas**: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.
+
+* **Bloqueo** de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.
+
+.. image:: imagenes/directivaPASS03.jpeg
 
 Configurar una carpeta compartida
 ---------------------------------
