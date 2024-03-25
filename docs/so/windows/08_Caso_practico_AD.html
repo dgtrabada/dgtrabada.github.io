@@ -397,6 +397,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
@@ -405,7 +406,9 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>
@@ -425,8 +428,8 @@ document.write(`
 <h2>Caso práctico: AD y DNS con adaptador puente<a class="headerlink" href="#caso-practico-ad-y-dns-con-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8</p></li>
-<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5-tunombre</strong> 10.5.X.Y/8</p></li>
+<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5-tunombre</strong> 10.5.X.Y/8, DHCP si es portatil</p></li>
 </ul>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
 <h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
@@ -492,6 +495,24 @@ document.write(`
 </li>
 </ul>
 </section>
+<section id="directivas-de-passwords">
+<h3>Directivas de passwords<a class="headerlink" href="#directivas-de-passwords" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Crear una nueva directiva de password sobre el grupo B, para ello abre el <strong>Centro de administración de Active Directory</strong> selecciona tu_nombre (local)/System/Password Settings Container</p>
+<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
+<p>Nuevo/Configuración de contraseña</p>
+<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
+<p>Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.</p>
+<ul class="simple">
+<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
+<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
+<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
+<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
+<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
+<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
+<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
+</ul>
+<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
+</section>
 <section id="unir-un-equipo-al-dominio">
 <h3>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a unir <strong>WC5-tunombre</strong> al dominio tu_nombre.local, para ello:</p>
@@ -549,7 +570,7 @@ document.write(`
 <li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de software</strong> creamos un nuevo paquete</p>
 <img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
 </li>
-<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida, vamos a seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
+<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
 <img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
 </li>
 <li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre</p>
@@ -566,21 +587,33 @@ document.write(`
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
 </aside>
+<aside class="footnote brackets" id="sysvol" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
+<p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
+<ul class="simple">
+<li><p><strong>Policies</strong> (Políticas): Esta carpeta contiene Objetos de Política de Grupo (GPO), que definen varios ajustes y configuraciones para usuarios y computadoras dentro de un dominio.</p></li>
+<li><p><strong>Scripts</strong>: Esta carpeta puede contener scripts de inicio de sesión u otros scripts utilizados para diversas tareas administrativas.</p></li>
+<li><p><strong>Staging</strong> (Escenario): Utilizado durante el proceso de replicación para preparar cambios antes de que se apliquen a otros controladores de dominio.</p></li>
+<li><p><strong>Domain</strong> (Dominio): Contiene información específica del dominio.</p></li>
+<li><p><strong>StarterGPOs</strong>: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.</p></li>
+</ul>
+</aside>
 </aside>
 </section>
 </section>
 <section id="caso-practico-ad-y-dns-con-red-interna">
 <h2>Caso práctico: AD y DNS con red interna<a class="headerlink" href="#caso-practico-ad-y-dns-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
-<li><p>Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVInt-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5Int-tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
 <h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Tenmos que la red interna es Ethernet 2 : 172.16.0.10</p>
 <ul>
 <li><p>Panel / Agregar roles y características</p>
-<p>Seleccionamos nuestro servidor <strong>SRV-tunombre</strong></p>
+<p>Seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong></p>
 </li>
 </ul>
 <p>En Roles de servidor marcamos la casilla de:</p>
@@ -592,18 +625,83 @@ document.write(`
 <li><p>[x] DirectAccess and VPN(RAS)</p></li>
 <li><p>[x] Routing</p></li>
 </ul>
-<p>Para comfigurar servicio de <strong>enrutamiento</strong> vamos a <strong>Panel/Herramientas/Enrutamiento y Acceso remoto</strong>, seleccionamos nuestro servidor <strong>SRV-tunombre</strong>, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
+<p>Para comfigurar servicio de <strong>enrutamiento</strong> vamos a <strong>Panel/Herramientas/Enrutamiento y Acceso remoto</strong>, seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong>, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
 <ul class="simple">
 <li><p>[x] Traduccion de direcciones de red (NAT)</p></li>
 </ul>
-<p>Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y)</p>
+<p>Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (DHCP caso portatil)</p>
 <ul class="simple">
 <li><p>[x] Configurar mas adelante el DHCP y el DNS</p></li>
 </ul>
-<p>Por ultimo unir un equipo al dominio tu_nombre.local, si utilizas la misma maquina virtual tendrás que quitarla del domnio, cambiarle el nombre y volver a meterla, si utilizas un nuevo clon enlazado simplemente únela como hemos hecho antes al dominio teniendo en cuenta que ahora el DNS y la puerta de enlace es 172.16.0.10</p>
 </section>
-<section id="id2">
-<h3>Configurar una carpeta compartida<a class="headerlink" href="#id2" title="Enlace permanente a este encabezado">#</a></h3>
+<section id="configura-el-controlador-de-dominio">
+<h3>Configura el controlador de dominio<a class="headerlink" href="#configura-el-controlador-de-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Crea un controlador de dominio llamado <strong>empresa_tunombre.local</strong> y las siguientes unidades organizativas:</p>
+<ul class="simple">
+<li><p>OU=Oficinas</p>
+<ul>
+<li><p>OU=Madrid</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+<li><p>OU=Barcelona</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>OU=Departamentos</p>
+<ul>
+<li><p>OU=Recursos Humanos</p></li>
+<li><p>OU=Finanzas</p></li>
+<li><p>OU=IT</p></li>
+</ul>
+</li>
+<li><p>OU=Usuarios</p>
+<ul>
+<li><p>OU=Empleados</p></li>
+<li><p>OU=Contratistas</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT01.png" src="../../_images/ADINT01.png" />
+<ul class="simple">
+<li><p>La <strong>OU Oficinas</strong> se utiliza para agrupar las unidades organizativas por ubicación geográfica.</p></li>
+<li><p>Las <strong>OU Madrid y Barcelona</strong> se utilizan para agrupar los departamentos dentro de cada oficina.</p></li>
+<li><p>La <strong>OU Departamentos</strong> se utiliza para agrupar las unidades organizativas por función.</p></li>
+<li><p>La <strong>OU Usuarios</strong> se utiliza para agrupar las cuentas de usuario.</p></li>
+</ul>
+<p><strong>Ayuda</strong>: En el caso de querer borrar una OU que esta protegída contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.</p>
+</section>
+<section id="configura-los-usuarios-del-sistema">
+<h3>Configura los usuarios del sistema<a class="headerlink" href="#configura-los-usuarios-del-sistema" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Crea el grupo de seguridad global Empleados dentro del UO Empleados y Contratistas dentro de su UO Contratistas.
+Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
+<ul class="simple">
+<li><p>UO Empleados</p>
+<ul>
+<li><p>E01_tunombre perteneciente al grupo Empleados</p></li>
+<li><p>E02_tunombre perteneciente al grupo Empleados</p></li>
+</ul>
+</li>
+<li><p>UO Contratistas</p>
+<ul>
+<li><p>C01_tunombre perteneciente al grupo Contratista</p></li>
+<li><p>C02_tunombre perteneciente al grupo Contratista</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT02.png" src="../../_images/ADINT02.png" />
+<p>ayuda: Crea una directiva de password sobre los grupos.</p>
+</section>
+<section id="id3">
+<h3>Configurar una carpeta compartida<a class="headerlink" href="#id3" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a compartir la carpeta <strong>C:\compartidaA</strong> alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:</p>
 <p>Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y <strong>quitamos Todos</strong>, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer</p>
 <img alt="../../_images/SRV_todo.png" src="../../_images/SRV_todo.png" />
@@ -657,6 +755,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
@@ -665,7 +764,9 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>

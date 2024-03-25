@@ -1,23 +1,23 @@
-**********************
+**********************************
 Casos prácticos : Active Directory
-**********************
+**********************************
 
 Caso práctico: AD y DNS con adaptador puente
-===============================
+============================================
 
 Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
-* Clon enlazado 1 de "Windows Server 2022" llamado **SRV-tunombre** con IP 10.4.X.Y/8
-* Clon enlazado 2 de "Windows 11" llamado **WC5-tunombre** 10.5.X.Y/8
+* Clon enlazado 1 de "Windows Server 2022" llamado **SRV-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil
+* Clon enlazado 2 de "Windows 11" llamado **WC5-tunombre** 10.5.X.Y/8, DHCP si es portatil
 
 Instalación y configuración de Active Directory y DNS
--------------
+-----------------------------------------------------
 
 * En **SRV-tunombre** vamos a **Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles** Seleccionar un servidor del grupo de servidores, escoger **SRV-tunombre/Marcar la casilla Servicios de dominio de Active Directory**
 
 
 Creación de un dominio:
--------
+-----------------------
 
 * Partiendo de la ventana Resultados de la instalación de Active Directory, pulsar en Promover este servidor a controlador de dominio. (Si se había cerrado la ventana anterior es posible acceder a ella pulsando en el icono de advertencia de la barra de herramientas del Administrador del servidor)
 
@@ -32,7 +32,7 @@ Si todo ha sido configurado correctamente, hacer clic en Instalar.
 Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tu_nombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
 
 Unidades Organizativas, usuarios y grupos
--------------------------
+-----------------------------------------
 
 La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.
 
@@ -76,8 +76,37 @@ Dentro de la UO Ususarios, crea los usuarios:
   * La contraseña nunca expira
   * Hazle miembro del grupo B
 
+Directivas de passwords
+-----------------------
+
+Crear una nueva directiva de password sobre el grupo B, para ello abre el **Centro de administración de Active Directory** selecciona tu_nombre (local)/System/Password Settings Container
+
+.. image:: imagenes/directivaPASS01.jpeg
+
+Nuevo/Configuración de contraseña
+
+.. image:: imagenes/directivaPASS02.jpeg
+
+Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.
+
+* **Nombre**: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.
+
+* **Precedencia**: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.
+
+* **Longitud mínima**: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.
+
+* **Complejidad de la contraseña**: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.
+
+* **Duración máxima de la contraseña**: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.
+
+* **Historial de contraseñas**: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.
+
+* **Bloqueo** de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.
+
+.. image:: imagenes/directivaPASS03.jpeg
+
 Unir un equipo al dominio
-----------
+-------------------------
 
 Vamos a unir **WC5-tunombre** al dominio tu_nombre.local, para ello:
 
@@ -102,7 +131,7 @@ Vamos a unir **WC5-tunombre** al dominio tu_nombre.local, para ello:
 
 
 Quitar el equipo del dominio
------------
+----------------------------
 
 1. Accede al equipo con una cuenta de administrador local.
 
@@ -123,7 +152,7 @@ Quitar el equipo del dominio
 #. Selecciona **tu_nombre.local**, y quita los clientes que has sacado del dominio en la pestaña de **Computers**
 
 Configurar una carpeta compartida
--------
+---------------------------------
 
 Las carpetas y archivos en Windows permiten configurar los siguientes permisos:
 
@@ -143,7 +172,7 @@ En la misma pestaña de **Compartir** este mismo dialogo nos vamos a **Compartir
 Como podemos ver esta compartida en: **\\SRV-TUNOMRE\compartida** o **\\10.4.100.100**, si el cliente es linux podemos acceder **smb://10.4.100.100/**
 
 Instalación de software utilizando directivas de grupo
----------
+------------------------------------------------------
 
 1. Vamos a poner en la carpeta compartida el programa a instalar en formato msi [#msi]_, para este caso utilizaremos `VideoLAN <https://www.videolan.org/>`_.
 
@@ -160,7 +189,7 @@ Instalación de software utilizando directivas de grupo
    .. image:: imagenes/GPO_VLC_editar.png
    
 
-#. Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida, vamos a seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).
+#. Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL [#sysvol]_, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).
 
    .. image:: imagenes/GPO_VLC_editar2.png
     
@@ -179,24 +208,36 @@ Instalación de software utilizando directivas de grupo
 
 .. [#msi] El formato **MSI** es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.
 
+.. [#sysvol] SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio. 
 
+  Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:
+
+  * **Policies** (Políticas): Esta carpeta contiene Objetos de Política de Grupo (GPO), que definen varios ajustes y configuraciones para usuarios y computadoras dentro de un dominio.
+
+  * **Scripts**: Esta carpeta puede contener scripts de inicio de sesión u otros scripts utilizados para diversas tareas administrativas.
+
+  * **Staging** (Escenario): Utilizado durante el proceso de replicación para preparar cambios antes de que se apliquen a otros controladores de dominio.
+
+  * **Domain** (Dominio): Contiene información específica del dominio.
+
+  * **StarterGPOs**: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.
+  
 
 Caso práctico: AD y DNS con red interna
-===============================
+=======================================
 
-* Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
+Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
-* Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 1 de "Windows Server 2022" llamado **SRVInt-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
+* Clon enlazado 2 de "Windows 11" llamado **WC5Int-tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 
 Configurar servicio de enrutamiento
--------
-
-Tenmos que la red interna es Ethernet 2 : 172.16.0.10
+-----------------------------------
 
 * Panel / Agregar roles y características
 
-  Seleccionamos nuestro servidor **SRV-tunombre**
+  Seleccionamos nuestro servidor **SRVInt-tunombre**
 
 En Roles de servidor marcamos la casilla de:
 
@@ -209,18 +250,90 @@ En servicios de rol seleccionamos:
 * [x] Routing
 
 
-Para comfigurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enrutamiento y Acceso remoto**, seleccionamos nuestro servidor **SRV-tunombre**, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
+Para comfigurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enrutamiento y Acceso remoto**, seleccionamos nuestro servidor **SRVInt-tunombre**, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
 
 * [x] Traduccion de direcciones de red (NAT)
 
-Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y)
+Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (DHCP caso portatil)
 
 * [x] Configurar mas adelante el DHCP y el DNS
 
-Por ultimo unir un equipo al dominio tu_nombre.local, si utilizas la misma maquina virtual tendrás que quitarla del domnio, cambiarle el nombre y volver a meterla, si utilizas un nuevo clon enlazado simplemente únela como hemos hecho antes al dominio teniendo en cuenta que ahora el DNS y la puerta de enlace es 172.16.0.10
+
+Configura el controlador de dominio
+-----------------------------------
+
+Crea un controlador de dominio llamado **empresa_tunombre.local** y las siguientes unidades organizativas:
+
+* OU=Oficinas
+
+  * OU=Madrid
+ 
+    * OU=Ventas
+      
+    * OU=Marketing
+   
+    * OU=Administración
+    
+  * OU=Barcelona
+   
+    * OU=Ventas
+            
+    * OU=Marketing
+      
+    * OU=Administración
+      
+* OU=Departamentos
+        
+  * OU=Recursos Humanos
+        
+  * OU=Finanzas
+      
+  * OU=IT
+      
+* OU=Usuarios
+        
+  * OU=Empleados
+        
+  * OU=Contratistas
+
+.. image:: imagenes/ADINT01.png
+
+
+
+* La **OU Oficinas** se utiliza para agrupar las unidades organizativas por ubicación geográfica.
+
+* Las **OU Madrid y Barcelona** se utilizan para agrupar los departamentos dentro de cada oficina.
+
+* La **OU Departamentos** se utiliza para agrupar las unidades organizativas por función.
+
+* La **OU Usuarios** se utiliza para agrupar las cuentas de usuario.
+
+**Ayuda**: En el caso de querer borrar una OU que esta protegída contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.
+   
+Configura los usuarios del sistema
+-----------------------------------
+
+Crea el grupo de seguridad global Empleados dentro del UO Empleados y Contratistas dentro de su UO Contratistas.
+Dentro de cada unidad organizativa crea los siguientes usuarios:
+
+* UO Empleados
+  
+  * E01_tunombre perteneciente al grupo Empleados
+
+  * E02_tunombre perteneciente al grupo Empleados
+  
+* UO Contratistas
+  
+  * C01_tunombre perteneciente al grupo Contratista
+
+  * C02_tunombre perteneciente al grupo Contratista
+
+.. image:: imagenes/ADINT02.png
+
+ayuda: Crea una directiva de password sobre los grupos.
 
 Configurar una carpeta compartida
--------
+---------------------------------
 
 Vamos a compartir la carpeta **C:\\compartidaA** alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:
 
