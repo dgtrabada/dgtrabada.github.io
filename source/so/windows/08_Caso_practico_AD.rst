@@ -207,6 +207,8 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 Configurar servicio de enrutamiento
 -----------------------------------
 
+Para configurar el servicio de enrutamiento vamos a:
+
 * Panel / Agregar roles y características
 
   Seleccionamos nuestro servidor **SRVInt-tunombre**
@@ -330,6 +332,34 @@ Dentro del Centro de administración de Windows Server, puedes encontrar una sec
 * **Bloqueo** de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.
 
 .. image:: imagenes/directivaPASS03.jpeg
+
+
+Intalar programas y cambiar el fondo de escritorio por GPO
+----------------------------------------------------------
+
+Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre
+
+.. image:: imagenes/GPOINT01.ppng
+
+En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC
+
+.. image:: imagenes/GPOINT02.ppng
+
+Utilizaremos la carpeta C:\Windows\SYSVOL [#sysvol]_, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.
+
+.. image:: imagenes/GPOINT03.ppng
+
+En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **Configuración/Configuracióndel equipo**  vamos a Edición, en **Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/** creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada
+
+.. image:: imagenes/GPOINT04.ppng
+
+Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en **Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio**, lo habilitamos
+
+.. image:: imagenes/GPOINT05.ppng
+
+Por ultimo vamos a **Administracion de directivas de grupo/** buscamos **Oficina/Barcelona/Administración** vinculamos las **dos GPO existenetes**
+
+.. image:: imagenes/GPOINT06.ppng
 
 Configurar una carpeta compartida
 ---------------------------------

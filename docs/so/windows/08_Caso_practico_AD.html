@@ -408,7 +408,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>
@@ -570,7 +571,8 @@ document.write(`
 <p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
 </aside>
 <aside class="footnote brackets" id="sysvol" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
 <p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
 <p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
 <ul class="simple">
@@ -593,6 +595,7 @@ document.write(`
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
 <h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Para configurar el servicio de enrutamiento vamos a:</p>
 <ul>
 <li><p>Panel / Agregar roles y características</p>
 <p>Seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong></p>
@@ -699,8 +702,23 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 </ul>
 <img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
 </section>
-<section id="id3">
-<h3>Configurar una carpeta compartida<a class="headerlink" href="#id3" title="Enlace permanente a este encabezado">#</a></h3>
+<section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
+<h3>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre</p>
+<img alt="so/windows/imagenes/GPOINT01.ppng" src="so/windows/imagenes/GPOINT01.ppng" />
+<p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
+<img alt="so/windows/imagenes/GPOINT02.ppng" src="so/windows/imagenes/GPOINT02.ppng" />
+<p>Utilizaremos la carpeta C:WindowsSYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<img alt="so/windows/imagenes/GPOINT03.ppng" src="so/windows/imagenes/GPOINT03.ppng" />
+<p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
+<img alt="so/windows/imagenes/GPOINT04.ppng" src="so/windows/imagenes/GPOINT04.ppng" />
+<p>Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio</strong>, lo habilitamos</p>
+<img alt="so/windows/imagenes/GPOINT05.ppng" src="so/windows/imagenes/GPOINT05.ppng" />
+<p>Por ultimo vamos a <strong>Administracion de directivas de grupo/</strong> buscamos <strong>Oficina/Barcelona/Administración</strong> vinculamos las <strong>dos GPO existenetes</strong></p>
+<img alt="so/windows/imagenes/GPOINT06.ppng" src="so/windows/imagenes/GPOINT06.ppng" />
+</section>
+<section id="id4">
+<h3>Configurar una carpeta compartida<a class="headerlink" href="#id4" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a compartir la carpeta <strong>C:\compartidaA</strong> alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:</p>
 <p>Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y <strong>quitamos Todos</strong>, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer</p>
 <img alt="../../_images/SRV_todo.png" src="../../_images/SRV_todo.png" />
@@ -765,7 +783,8 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configurar una carpeta compartida</a></li>
 </ul>
 </li>
 </ul>
