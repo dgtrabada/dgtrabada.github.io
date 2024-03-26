@@ -202,7 +202,7 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
 * Clon enlazado 1 de "Windows Server 2022" llamado **SRVInt-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
 * Clon enlazado 2 de "Windows 11" llamado **WC5Int-tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
-
+* Clon enlazado 3 de "Windows 11" llamado **WC6Int-tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 Configurar servicio de enrutamiento
 -----------------------------------
@@ -339,15 +339,15 @@ Intalar programas y cambiar el fondo de escritorio por GPO
 
 Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre
 
-.. image:: imagenes/GPOINT01.ppng
+.. image:: imagenes/GPOINT01.png
 
 En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC
 
-.. image:: imagenes/GPOINT02.ppng
+.. image:: imagenes/GPOINT02.png
 
 Utilizaremos la carpeta C:\Windows\SYSVOL [#sysvol]_, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.
 
-.. image:: imagenes/GPOINT03.ppng
+.. image:: imagenes/GPOINT03.png
 
 En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **Configuración/Configuracióndel equipo**  vamos a Edición, en **Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/** creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada
 
@@ -355,11 +355,11 @@ En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **C
 
 Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en **Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio**, lo habilitamos
 
-.. image:: imagenes/GPOINT05.ppng
+.. image:: imagenes/GPOINT05.png
 
 Por ultimo vamos a **Administracion de directivas de grupo/** buscamos **Oficina/Barcelona/Administración** vinculamos las **dos GPO existenetes**
 
-.. image:: imagenes/GPOINT06.ppng
+.. image:: imagenes/GPOINT06.png
 
 Configurar una carpeta compartida
 ---------------------------------

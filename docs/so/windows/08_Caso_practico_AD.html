@@ -592,6 +592,7 @@ document.write(`
 <ul class="simple">
 <li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVInt-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
 <li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5Int-tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC6Int-tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
 <h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
@@ -705,17 +706,17 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
 <h3>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre</p>
-<img alt="so/windows/imagenes/GPOINT01.ppng" src="so/windows/imagenes/GPOINT01.ppng" />
+<img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
 <p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
-<img alt="so/windows/imagenes/GPOINT02.ppng" src="so/windows/imagenes/GPOINT02.ppng" />
+<img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
 <p>Utilizaremos la carpeta C:WindowsSYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
-<img alt="so/windows/imagenes/GPOINT03.ppng" src="so/windows/imagenes/GPOINT03.ppng" />
+<img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
 <p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
 <img alt="so/windows/imagenes/GPOINT04.ppng" src="so/windows/imagenes/GPOINT04.ppng" />
 <p>Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio</strong>, lo habilitamos</p>
-<img alt="so/windows/imagenes/GPOINT05.ppng" src="so/windows/imagenes/GPOINT05.ppng" />
+<img alt="../../_images/GPOINT05.png" src="../../_images/GPOINT05.png" />
 <p>Por ultimo vamos a <strong>Administracion de directivas de grupo/</strong> buscamos <strong>Oficina/Barcelona/Administración</strong> vinculamos las <strong>dos GPO existenetes</strong></p>
-<img alt="so/windows/imagenes/GPOINT06.ppng" src="so/windows/imagenes/GPOINT06.ppng" />
+<img alt="../../_images/GPOINT06.png" src="../../_images/GPOINT06.png" />
 </section>
 <section id="id4">
 <h3>Configurar una carpeta compartida<a class="headerlink" href="#id4" title="Enlace permanente a este encabezado">#</a></h3>
