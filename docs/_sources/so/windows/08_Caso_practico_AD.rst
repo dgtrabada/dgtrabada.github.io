@@ -25,7 +25,7 @@ Creación de un dominio:
     
 * De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio **tunombre.local** es crear un nuevo bosque. Para ello seleccionar la opción **Agregar un nuevo bosque**. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña @lumn0
 
-NetBIOS es una especificación de interfaz utilizado para nombrar recursos de red en sistemas Windows anteriores a Windows 2000. Verificar el nombre NetBIOS tu_nombre y pulsar Siguiente
+Verificar el nombre NetBIOS [#NetBIOS]_ tu_nombre y pulsar Siguiente
 
 Si todo ha sido configurado correctamente, hacer clic en Instalar.
 
@@ -177,6 +177,18 @@ Instalación de software utilizando directivas de grupo
 
 
 .. rubric:: Footnotes
+
+.. [#NetBIOS] NetBIOS (Sistema Básico de Entrada/Salida de Red) es un protocolo de red desarrollado originalmente por IBM en los años 80. Es un protocolo de capa de aplicación que permite la comunicación entre dispositivos en una red local (LAN). Aunque es una tecnología más antigua, todavía se encuentra en uso en algunas redes, especialmente en entornos heredados y redes locales más pequeñas. Las características importantes de NetBIOS:
+
+ * Identificación de nombres de red: NetBIOS proporciona un método para que los dispositivos en una red local se identifiquen entre sí mediante nombres de red. Estos nombres NetBIOS son de hasta 15 caracteres alfanuméricos y se utilizan para identificar recursos de red como impresoras, carpetas compartidas y otros dispositivos.
+
+ * Resolución de nombres: NetBIOS también incluye un servicio de resolución de nombres que permite a los dispositivos de la red traducir nombres de recursos NetBIOS en direcciones IP que puedan ser utilizadas para la comunicación en la red.
+
+ * Sesiones NetBIOS: NetBIOS permite establecer sesiones entre dispositivos en la red para la transferencia de datos. Estas sesiones pueden ser utilizadas para la comunicación entre aplicaciones en diferentes dispositivos.
+
+ * Datagramas NetBIOS: Además de las sesiones, NetBIOS también admite la comunicación de datagramas, que son mensajes de longitud fija que pueden ser enviados a todos los dispositivos en la red o a dispositivos específicos.
+
+ * Puertos NetBIOS: NetBIOS utiliza el puerto TCP/UDP 137 para la resolución de nombres, el puerto TCP 139 para las sesiones NetBIOS y el puerto UDP 138 para datagramas NetBIOS.
 
 .. [#msi] El formato **MSI** es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.
 
@@ -345,13 +357,13 @@ En Inicio/Herramientas administrativas de Windows/Administración de directivas 
 
 .. image:: imagenes/GPOINT02.png
 
-Utilizaremos la carpeta C:\Windows\SYSVOL [#sysvol]_, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.
+Utilizaremos la carpeta C:\\Windows\\SYSVOL [#sysvol]_, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.
 
 .. image:: imagenes/GPOINT03.png
 
 En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **Configuración/Configuracióndel equipo**  vamos a Edición, en **Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/** creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada
 
-.. image:: imagenes/GPOINT04.ppng
+.. image:: imagenes/GPOINT04.png
 
 Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en **Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio**, lo habilitamos
 
@@ -361,11 +373,42 @@ Por ultimo vamos a **Administracion de directivas de grupo/** buscamos **Oficina
 
 .. image:: imagenes/GPOINT06.png
 
-Configurar una carpeta compartida
----------------------------------
+Configuración de carpetas compartida
+------------------------------------
 
-Vamos a compartir la carpeta **C:\\compartidaA** alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:
+Crea las siguientes carpetas compartidas con los siguientes permisos:
 
-Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en **Uso compartido avanzado** seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y **quitamos Todos**, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer
+* C:\\compartida\\empleados\\E01_tunombre (E01_tunombre tiene permisos de lectura y escritura)
+  
+* C:\\compartida\\empleados\\E01_tunombre (E02_tunombre tiene permisos de lectura y escritura)
 
-.. image:: imagenes/SRV_todo.png
+* C:\\compartida\\empleados\\empleados_compartida (al grupo de empleados tiene permiso de lectura)
+ 
+* C:\\compartida\\contratista\\C01_tunombre (C01_tunombre tiene permisos de lectura y escritura)
+
+* C:\\compartida\\contratista\\C01_tunombre (C02_tunombre tiene permisos de lectura y escritura)
+
+* C:\\compartida\\contratista\\contratista_compartida (al grupo de contratista tiene permiso de lectura)
+
+Montaje de una unidad
+---------------------
+
+Queremos que se monten de forma automatica la carpeta contratista_compartida en h: y la carpeta empleados_compartida i: para ello copiamos el siguiente script llamado **montar.bat** en \\\\SRVInt-tunombre\\NETLOGON o directamente en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts
+
+.. code-block:: bash
+
+  net use h: \\SRVInt-tunombre\contratistas_compartida
+  net use i: \\SRVInt-tunombre\empleados_compartida
+  
+Vamos a los usuarios en los que queremos que se monten las unidades, **Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil**  lo metemos en el Script de inicio de sesión
+
+.. image:: imagenes/perfil01.png
+
+Perfil móvil
+------------
+Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.
+
+En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRVInt-tunombre\\\Perfiles\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
+
+.. image:: imagenes/perfil02.png
+

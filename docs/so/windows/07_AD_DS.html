@@ -398,6 +398,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos">Grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-perfiles-de-usuario">Tipos de perfiles de usuario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directiva-de-grupo-gpo">Directiva de Grupo GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-los-archivos">ACL de los archivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-una-carpeta">ACL de una carpeta</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-deployment-services-wds">Windows Deployment Services (WDS)</a></li>
 </ul>
             </nav>
@@ -415,7 +420,7 @@ document.write(`
 <section id="active-directory">
 <h2>Active Directory<a class="headerlink" href="#active-directory" title="Enlace permanente a este encabezado">#</a></h2>
 <p>El Directorio Activo (Active Directory en inglés) es el servicio de directorio utilizado en entornos de red de Microsoft Windows. Proporciona un conjunto de servicios de administración centralizada de recursos de red, como usuarios, grupos, equipos, impresoras y otros objetos, en un dominio de Windows.</p>
-<p>La estructura del Directorio Activo se organiza jerárquicamente en los siguientes componentes:</p>
+<p>A diferencia que en los grupos de trabajo, en lo que la administración de usuarios y privilegios se hará de forma individual en cada uno de los equipos que forman parte del <strong>grupo de trabajo</strong>, es decir cada uno de los equipos pertenecientes a un grupo de trabajo tienen una relación de <strong>igual a igual</strong> entre ellos y se administran de forma local, en el <strong>Directorio Activo se organiza jerárquicamente</strong> en los siguientes componentes:</p>
 <img alt="../../_images/AD.png" src="../../_images/AD.png" />
 <ul class="simple">
 <li><p><strong>Bosque (Forest)</strong>: Es el nivel más alto en la estructura del Directorio Activo. Un bosque es una colección de uno o más dominios de Windows que comparten una relación de confianza mutua. Cada bosque tiene un nombre de dominio raíz y comparte una base de datos y una política de seguridad común.</p></li>
@@ -426,6 +431,7 @@ document.write(`
 <li><p><strong>Contenedores</strong>  Un contenedor es similar a una UO en términos de ser una entidad lógica utilizada para agrupar objetos relacionados dentro de un dominio de Active Directory, la principal diferencia radica en que las UOs proporcionan una estructura jerárquica para organizar y administrar objetos en un dominio de Active Directory, mientras que los contenedores son entidades más simples que se utilizan para agrupar objetos relacionados, pero sin las mismas capacidades de administración y delegación de tareas.</p></li>
 </ul>
 <p>La estructura del Directorio Activo permite una administración eficiente de la red, al permitir la centralización de la administración de usuarios, recursos y políticas de seguridad. Además, facilita la implementación de políticas de grupo, la asignación de permisos y la gestión de la seguridad en toda la red.</p>
+<img alt="../../_images/AD_orga.png" src="../../_images/AD_orga.png" />
 </section>
 <section id="controlador-de-dominio">
 <h2>Controlador de dominio<a class="headerlink" href="#controlador-de-dominio" title="Enlace permanente a este encabezado">#</a></h2>
@@ -471,6 +477,37 @@ document.write(`
 <li><p><strong>Dominio</strong>: se aplican a todos los equipos y/o usuarios de un dominio.</p></li>
 <li><p><strong>Unidad Organizativa (OU)</strong>: se aplican únicamente a los equipos y/o usuarios que pertenecen a la OU.</p></li>
 </ul>
+</section>
+<section id="recursos-compartidos">
+<h2>Recursos compartidos<a class="headerlink" href="#recursos-compartidos" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Los <strong>permisos NTFS</strong> en Windows se refieren a los permisos de archivos y carpetas que controlan el acceso de los usuarios a esos recursos en un sistema de archivos NTFS (Sistema de archivos Nuevo Tecnológico). Aquí te explico cómo configurar los permisos</p>
+<ul class="simple">
+<li><p>Nos determina que usuarios y grupos tienen acceso a determinados archivos y carpetas.</p></li>
+<li><p>Objetivo es dar seguridad a los datos almacenados en los dispositivos de almacenamiento.</p></li>
+<li><p>Marca a través de lista de control de acceso <strong>(ACL)</strong> los ficheros y carpetas</p></li>
+<li><p>Las marcas y las restricciones las marca y las aplica el Núcleo del SO</p></li>
+</ul>
+<section id="acl-de-los-archivos">
+<h3>ACL de los archivos<a class="headerlink" href="#acl-de-los-archivos" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p><strong>Leer</strong>: Se puede leer el archivo y ver sus permisos, atributos y quién es su propietario.</p></li>
+<li><p><strong>Escribir</strong>: Es posible sobrescribir en el archivo. Ver al propietario y los permisos del archivo. Modificar sus atributos.</p></li>
+<li><p><strong>Lectura y Ejecución</strong>: Se pueden ejecutar aplicaciones e incluye el permiso Escribir obligatoriamente.</p></li>
+<li><p><strong>Modificar</strong>: Se puede modificar o eliminar el archivo, e incluye los permisos Escribir, y Lectura y ejecución.</p></li>
+<li><p><strong>Control Total</strong>: Puedes tomar la propiedad y modificar los permisos, e incluye todos los permisos anteriores.</p></li>
+</ul>
+</section>
+<section id="acl-de-una-carpeta">
+<h3>ACL de una carpeta<a class="headerlink" href="#acl-de-una-carpeta" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p><strong>Leer</strong>: Permite ver archivos y subcarpetas dentro de la carpeta, ver los permisos y atributos de carpeta y saber quien es el propietario.</p></li>
+<li><p><strong>Escribir</strong>: Permite crear archivos y subcarpetas en la carpeta, modificar atributos de carpeta, ver el propietario y los permisos.</p></li>
+<li><p><strong>Listar el Contenido de la Carpeta</strong>: Ver los nombre de archivos y subcarpetas en la carpeta.</p></li>
+<li><p><strong>Lectura y Ejecución</strong>: Te puedes mover por las carpetas para llegar a leer otros archivos y carpetas donde en principio no tendrías permisos, además incluye los permisos de Leer y Listar el contenido de la carpeta.</p></li>
+<li><p><strong>Modificar</strong>: Puedes eliminar la carpeta e incluye los permiso de Escribir y Lectura y ejecución.</p></li>
+<li><p><strong>Control Total</strong>: Puedes modificar los permisos, tomar la propiedad, eliminar subcarpetas y archivos, y además tienes todos los permisos anteriores</p></li>
+</ul>
+</section>
 </section>
 <section id="windows-deployment-services-wds">
 <h2>Windows Deployment Services (WDS)<a class="headerlink" href="#windows-deployment-services-wds" title="Enlace permanente a este encabezado">#</a></h2>
@@ -525,6 +562,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos">Grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-perfiles-de-usuario">Tipos de perfiles de usuario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directiva-de-grupo-gpo">Directiva de Grupo GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-los-archivos">ACL de los archivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-una-carpeta">ACL de una carpeta</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-deployment-services-wds">Windows Deployment Services (WDS)</a></li>
 </ul>
   </nav></div>

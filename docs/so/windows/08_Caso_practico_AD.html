@@ -409,7 +409,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartida">Configuración de carpetas compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#montaje-de-una-unidad">Montaje de una unidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
 </ul>
 </li>
 </ul>
@@ -446,7 +448,7 @@ document.write(`
 </li>
 <li><p>De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio <strong>tunombre.local</strong> es crear un nuevo bosque. Para ello seleccionar la opción <strong>Agregar un nuevo bosque</strong>. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña &#64;lumn0</p></li>
 </ul>
-<p>NetBIOS es una especificación de interfaz utilizado para nombrar recursos de red en sistemas Windows anteriores a Windows 2000. Verificar el nombre NetBIOS tu_nombre y pulsar Siguiente</p>
+<p>Verificar el nombre NetBIOS <a class="footnote-reference brackets" href="#netbios" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> tu_nombre y pulsar Siguiente</p>
 <p>Si todo ha sido configurado correctamente, hacer clic en Instalar.</p>
 <p>Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/</strong> clic el botón derecho del ratón en <strong>tu_nombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong> elegir <strong>sin seguridad y con seguridad</strong>, a continuación hacer clic en Aceptar.</p>
 </section>
@@ -543,7 +545,7 @@ document.write(`
 <section id="instalacion-de-software-utilizando-directivas-de-grupo">
 <h3>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h3>
 <ol class="arabic">
-<li><p>Vamos a poner en la carpeta compartida el programa a instalar en formato msi <a class="footnote-reference brackets" href="#msi" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, para este caso utilizaremos <a class="reference external" href="https://www.videolan.org/">VideoLAN</a>.</p></li>
+<li><p>Vamos a poner en la carpeta compartida el programa a instalar en formato msi <a class="footnote-reference brackets" href="#msi" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, para este caso utilizaremos <a class="reference external" href="https://www.videolan.org/">VideoLAN</a>.</p></li>
 <li><p>Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong>. Crea un nuevo objeto de directiva de grupo (GPO) <strong>Instalar VLC</strong></p>
 <img alt="../../_images/GPO_VLC.png" src="../../_images/GPO_VLC.png" />
 </li>
@@ -553,7 +555,7 @@ document.write(`
 <li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de software</strong> creamos un nuevo paquete</p>
 <img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
 </li>
-<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
+<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
 <img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
 </li>
 <li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre</p>
@@ -566,13 +568,24 @@ document.write(`
 </ol>
 <p class="rubric">Footnotes</p>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="msi" role="note">
+<aside class="footnote brackets" id="netbios" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>NetBIOS (Sistema Básico de Entrada/Salida de Red) es un protocolo de red desarrollado originalmente por IBM en los años 80. Es un protocolo de capa de aplicación que permite la comunicación entre dispositivos en una red local (LAN). Aunque es una tecnología más antigua, todavía se encuentra en uso en algunas redes, especialmente en entornos heredados y redes locales más pequeñas. Las características importantes de NetBIOS:</p>
+<ul class="simple">
+<li><p>Identificación de nombres de red: NetBIOS proporciona un método para que los dispositivos en una red local se identifiquen entre sí mediante nombres de red. Estos nombres NetBIOS son de hasta 15 caracteres alfanuméricos y se utilizan para identificar recursos de red como impresoras, carpetas compartidas y otros dispositivos.</p></li>
+<li><p>Resolución de nombres: NetBIOS también incluye un servicio de resolución de nombres que permite a los dispositivos de la red traducir nombres de recursos NetBIOS en direcciones IP que puedan ser utilizadas para la comunicación en la red.</p></li>
+<li><p>Sesiones NetBIOS: NetBIOS permite establecer sesiones entre dispositivos en la red para la transferencia de datos. Estas sesiones pueden ser utilizadas para la comunicación entre aplicaciones en diferentes dispositivos.</p></li>
+<li><p>Datagramas NetBIOS: Además de las sesiones, NetBIOS también admite la comunicación de datagramas, que son mensajes de longitud fija que pueden ser enviados a todos los dispositivos en la red o a dispositivos específicos.</p></li>
+<li><p>Puertos NetBIOS: NetBIOS utiliza el puerto TCP/UDP 137 para la resolución de nombres, el puerto TCP 139 para las sesiones NetBIOS y el puerto UDP 138 para datagramas NetBIOS.</p></li>
+</ul>
+</aside>
+<aside class="footnote brackets" id="msi" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
 <p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
 </aside>
 <aside class="footnote brackets" id="sysvol" role="note">
-<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
 <p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
 <p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
 <ul class="simple">
@@ -709,20 +722,42 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
 <p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
 <img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
-<p>Utilizaremos la carpeta C:WindowsSYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
 <img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
 <p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
-<img alt="so/windows/imagenes/GPOINT04.ppng" src="so/windows/imagenes/GPOINT04.ppng" />
+<img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
 <p>Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio</strong>, lo habilitamos</p>
 <img alt="../../_images/GPOINT05.png" src="../../_images/GPOINT05.png" />
 <p>Por ultimo vamos a <strong>Administracion de directivas de grupo/</strong> buscamos <strong>Oficina/Barcelona/Administración</strong> vinculamos las <strong>dos GPO existenetes</strong></p>
 <img alt="../../_images/GPOINT06.png" src="../../_images/GPOINT06.png" />
 </section>
-<section id="id4">
-<h3>Configurar una carpeta compartida<a class="headerlink" href="#id4" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos a compartir la carpeta <strong>C:\compartidaA</strong> alojada en nuestro servidor, como lectura para el grupo B y rwx para el grupo A, para ello:</p>
-<p>Con el botón derecho del ratón accedemos a las propiedades de la carpeta vamos a la pestaña de compartir aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta. En este mismo dialogo nos vamos a permisos y <strong>quitamos Todos</strong>, después agregamos A y B. Al grupo A le damos el control total y al grupo B solo leer</p>
-<img alt="../../_images/SRV_todo.png" src="../../_images/SRV_todo.png" />
+<section id="configuracion-de-carpetas-compartida">
+<h3>Configuración de carpetas compartida<a class="headerlink" href="#configuracion-de-carpetas-compartida" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Crea las siguientes carpetas compartidas con los siguientes permisos:</p>
+<ul class="simple">
+<li><p>C:\compartida\empleados\E01_tunombre (E01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\E01_tunombre (E02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\empleados_compartida (al grupo de empleados tiene permiso de lectura)</p></li>
+<li><p>C:\compartida\contratista\C01_tunombre (C01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\C01_tunombre (C02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\contratista_compartida (al grupo de contratista tiene permiso de lectura)</p></li>
+</ul>
+</section>
+<section id="montaje-de-una-unidad">
+<h3>Montaje de una unidad<a class="headerlink" href="#montaje-de-una-unidad" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Queremos que se monten de forma automatica la carpeta contratista_compartida en h: y la carpeta empleados_compartida i: para ello copiamos el siguiente script llamado <strong>montar.bat</strong> en \\SRVInt-tunombre\NETLOGON o directamente en C:WindowsSYSVOLsysvolempresa_tunombre.localscripts</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>net<span class="w"> </span>use<span class="w"> </span>h:<span class="w"> </span><span class="se">\\</span>SRVInt-tunombre<span class="se">\c</span>ontratistas_compartida
+net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span><span class="se">\\</span>SRVInt-tunombre<span class="se">\e</span>mpleados_compartida
+</pre></div>
+</div>
+<p>Vamos a los usuarios en los que queremos que se monten las unidades, <strong>Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil</strong>  lo metemos en el Script de inicio de sesión</p>
+<img alt="so/windows/imagenes/perfil01.png" src="so/windows/imagenes/perfil01.png" />
+</section>
+<section id="perfil-movil">
+<h3>Perfil móvil<a class="headerlink" href="#perfil-movil" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.</p>
+<p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRVInt-tunombre\PerfilesC01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
+<img alt="so/windows/imagenes/perfil02.png" src="so/windows/imagenes/perfil02.png" />
 </section>
 </section>
 </section>
@@ -785,7 +820,9 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Configurar una carpeta compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartida">Configuración de carpetas compartida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#montaje-de-una-unidad">Montaje de una unidad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
 </ul>
 </li>
 </ul>
