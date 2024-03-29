@@ -5,7 +5,7 @@ Active Directory Domain Services (AD DS)
 Active Directory
 ================
 
-El Directorio Activo (Active Directory en inglés) es el servicio de directorio utilizado en entornos de red de Microsoft Windows. Proporciona un conjunto de servicios de administración centralizada de recursos de red, como usuarios, grupos, equipos, impresoras y otros objetos, en un dominio de Windows. 
+El Directorio Activo (Active Directory en inglés) es el servicio de directorio utilizado en entornos de red de Microsoft Windows. Proporciona un conjunto de servicios de administración centralizada de recursos de red, como usuarios, grupos, equipos, impresoras y otros objetos, en un dominio de Windows.
 
 A diferencia que en los grupos de trabajo, en lo que la administración de usuarios y privilegios se hará de forma individual en cada uno de los equipos que forman parte del **grupo de trabajo**, es decir cada uno de los equipos pertenecientes a un grupo de trabajo tienen una relación de **igual a igual** entre ellos y se administran de forma local, en el **Directorio Activo se organiza jerárquicamente** en los siguientes componentes:
 
@@ -24,7 +24,6 @@ A diferencia que en los grupos de trabajo, en lo que la administración de usuar
 * **Contenedores**  Un contenedor es similar a una UO en términos de ser una entidad lógica utilizada para agrupar objetos relacionados dentro de un dominio de Active Directory, la principal diferencia radica en que las UOs proporcionan una estructura jerárquica para organizar y administrar objetos en un dominio de Active Directory, mientras que los contenedores son entidades más simples que se utilizan para agrupar objetos relacionados, pero sin las mismas capacidades de administración y delegación de tareas.
 
 La estructura del Directorio Activo permite una administración eficiente de la red, al permitir la centralización de la administración de usuarios, recursos y políticas de seguridad. Además, facilita la implementación de políticas de grupo, la asignación de permisos y la gestión de la seguridad en toda la red.
-
 
 .. image:: imagenes/AD_orga.png
 
@@ -80,7 +79,7 @@ Las GPO se pueden diferenciar dependiendo del objeto al que configuran y se pued
 Recursos compartidos
 ====================
 
-Los **permisos NTFS** en Windows se refieren a los permisos de archivos y carpetas que controlan el acceso de los usuarios a esos recursos en un sistema de archivos NTFS (Sistema de archivos Nuevo Tecnológico). Aquí te explico cómo configurar los permisos 
+Los **permisos NTFS** en Windows se refieren a los permisos de archivos y carpetas que controlan el acceso de los usuarios a esos recursos en un sistema de archivos NTFS (Sistema de archivos Nuevo Tecnológico).
 
 * Nos determina que usuarios y grupos tienen acceso a determinados archivos y carpetas.
 

@@ -394,11 +394,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
@@ -436,52 +435,173 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="ficheros-y-directorios">
-<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
-<li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
-<li><p><strong>rm -&gt; Remove-Item</strong> borrar</p></li>
-<li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
-<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p></li>
-<li><p><strong>diff -&gt; Compare-Object</strong> diferencias entre ficheros y directorios</p></li>
-<li><p><strong>echo</strong> repetir salida estándar</p></li>
-<li><p><strong>Get-ChildItem -Recurse -Filter “*.txt”</strong> busca todos los archivos <a href="#id1"><span class="problematic" id="id2">*</span></a>.txt</p></li>
-<li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
-<li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
-<li><p><strong>select -&gt; Select-Object</strong></p></li>
-</ul>
-</section>
 <section id="alias">
-<h2>Alias <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">#</a></h2>
+<h2>Alias <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
 <li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
 <li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
 </ul>
 </section>
+<section id="ficheros-y-directorios">
+<h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
+<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
+<li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
+<li><p><strong>rm, rm -r -&gt; Remove-Item</strong> borrar</p></li>
+<li><p><strong>mkdir</strong> crear directorio</p></li>
+<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p>
+<ul>
+<li><p>l (vínculo)</p></li>
+<li><p>d (directorio)</p></li>
+<li><p>a (archivo)</p></li>
+<li><p>r (solo lectura)</p></li>
+<li><p>h (oculto)</p></li>
+<li><p>s (sistema)</p></li>
+</ul>
+</li>
+<li><p><strong>echo</strong> repetir salida estándar</p></li>
+<li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
+<li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">pwd</span>
+
+<span class="n">Path</span>
+<span class="p">----</span>
+<span class="n">C</span><span class="p">:\</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="n">mkdir</span> <span class="n">A</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span>
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">A</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cd </span><span class="n">A</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="n">mkdir</span> <span class="n">B</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">B</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="n">mkdir</span> <span class="n">C</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">C</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">ls</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">B</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">C</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">28</span>              <span class="n">8</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">Test-Path</span> <span class="n">D</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">Test-Path</span> <span class="n">B</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">pwd</span>
+
+<span class="n">Path</span>
+<span class="p">----</span>
+<span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">mv </span><span class="n">B</span> <span class="n">D</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">cp </span><span class="n">-r</span> <span class="n">D</span> <span class="n">F</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">ls</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">C</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">D</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">29</span>                <span class="n">F</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">28</span>              <span class="n">8</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">rm </span><span class="n">F</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">ls</span>
+
+<span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">A</span>
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">C</span>
+<span class="n">d</span><span class="p">-----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">27</span>                <span class="n">D</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">29</span><span class="p">/</span><span class="n">03</span><span class="p">/</span><span class="n">2024</span>      <span class="n">9</span><span class="p">:</span><span class="n">28</span>              <span class="n">8</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+</pre></div>
+</div>
+</section>
 <section id="caracteres-especiales">
 <h2>Caracteres especiales<a class="headerlink" href="#caracteres-especiales" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p>* ? » &gt; &gt;&gt; |</p></li>
+<ul>
+<li><p><strong>*</strong> (Asterisco):</p>
+<p>Se utiliza como comodín para hacer coincidir cero o más caracteres en una ruta o nombre de archivo, por ejemplo, para listar todos los archivos .txt en un directorio, puedes usar:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">C</span><span class="p">:\</span><span class="n">Directorio</span><span class="p">\*.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>?</strong> (Signo de interrogación):</p>
+<p>Se utiliza como comodín para hacer coincidir un único carácter en una ruta o nombre de archivo, por ejemplo, para listar todos los archivos que tengan una extensión de tres caracteres en un directorio, puedes usar:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">C</span><span class="p">:\</span><span class="n">Directorio</span><span class="p">\???.*</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>\</strong> (Barra invertida):</p>
+<p>Se utiliza como separador de ruta en las rutas de archivo y directorio en Windows.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Directorio</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>&quot;</strong> (Comillas dobles):</p>
+<p>Se utilizan para delimitar cadenas de texto que contienen espacios u otros caracteres especiales, por ejemplo, para especificar un nombre de archivo con espacios al usar un comando como Get-ChildItem:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\Directorio con Espacios\Archivo.txt&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>&gt;</strong> (Redireccionamiento de salida):</p>
+<p>Se utiliza para redirigir la salida de un comando hacia un archivo (sobrescribiendo el archivo si ya existe), por ejemplo, para guardar la salida de un comando en un archivo de texto:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">&gt;</span> <span class="n">procesos</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>&gt;&gt;</strong> (Redireccionamiento de salida, añadir al final del archivo):</p>
+<p>Se utiliza para redirigir la salida de un comando y agregarla al final de un archivo (sin sobrescribir el contenido existente), por ejemplo, para agregar la salida de un comando al final de un archivo de registro:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Date</span> <span class="p">&gt;&gt;</span> <span class="n">registro</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>|</strong> (Tubo o pipe):</p>
+<p>Se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s2">&quot;explorer&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
-<section id="visualizadores-de-archivos">
-<h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p></li>
-<li><p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p></li>
+<section id="visualizadores-de-archivos-filtros-y-busqueda-de-informacion">
+<h2>Visualizadores de archivos, filtros y búsqueda de información<a class="headerlink" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion" title="Enlace permanente a este encabezado">#</a></h2>
+<ul>
 <li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
-</ul>
-</section>
-<section id="filtros-y-busqueda-informacion">
-<h2>Filtros y búsqueda información<a class="headerlink" href="#filtros-y-busqueda-informacion" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
+<li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p>
+<p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux
+<strong>(Get-Content .archivo.dat)[2]</strong> podemos ver la linea 3</p>
+</li>
+<li><p><strong>select -&gt; Select-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
+<p><strong>Get-Content -head 3 .archivo1.dat | select -Last 1</strong></p>
+</li>
 <li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
 <li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
 <li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada</p></li>
-<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :
-Get-Service | Format-Table -Property Name, DependentServices</p></li>
+<li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :</p>
+<p><strong>Get-Service | Format-Table -Property Name, DependentServices</strong></p>
+</li>
 </ul>
 <p>Ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Alias</span> <span class="n">-Name</span> <span class="nb">cat</span>
@@ -827,7 +947,7 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 </pre></div>
 </div>
 </li>
-<li><p>Sin Chocolatey <a class="footnote-reference brackets" href="#id5" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
+<li><p>Sin Chocolatey <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php</span>
 <span class="c"># Descarga el instalador adecuado para tu sistema, en mi caso:</span>
 <span class="n">curl</span><span class="p">.</span><span class="n">exe</span> <span class="n">https</span><span class="p">://</span><span class="n">ftp</span><span class="p">.</span><span class="n">nluug</span><span class="p">.</span><span class="n">nl</span><span class="p">/</span><span class="n">pub</span><span class="p">/</span><span class="n">vim</span><span class="p">/</span><span class="n">pc</span><span class="p">/</span><span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span> <span class="n">-o</span> <span class="n">gvim90</span><span class="p">.</span><span class="n">exe</span>
@@ -845,9 +965,9 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 </ul>
 <p class="rubric">Footnotes</p>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id5" role="note">
+<aside class="footnote brackets" id="id3" role="note">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
 <p>Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.</p>
 <p>Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:</p>
 <p>Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).</p>
@@ -917,11 +1037,10 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-de-procesos-y-servicios">Control de procesos y servicios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos">Visualizadores de archivos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtros-y-busqueda-informacion">Filtros y búsqueda información</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>

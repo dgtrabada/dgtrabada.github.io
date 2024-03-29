@@ -23,51 +23,194 @@ Ejemplo:
  Stop-Process -ProcessName CalculatorApp
  calc.exe
  Stop-Process -Id 2828   
-
-Ficheros y directorios
-======================
-
-* **cp -r -> Copy-Item** copiar
-* **mv -> Move-Item** mover, renombrar
-* **rm -> Remove-Item** borrar
-* **mkdir** crear directorio
-* **pwd -> Get-Location** donde te encuentras
-* **ls -> Get-ChildItem** listar archivos y carpetas, para ver los archivos ocultos -h
-* **diff -> Compare-Object** diferencias entre ficheros y directorios
-* **echo** repetir salida estándar
-* **Get-ChildItem -Recurse -Filter '*.txt'** busca todos los archivos *.txt
-* **Get-Help -Name Get-ChildItem** obtener ayuda
-* **Test-Path -Path <archivo>** nos dice si exite el archivo o carpeta
-* **select -> Select-Object**
-
+ 
+ 
 
 Alias [#alias]_
-=====
+===============
 
 * **New-Alias -Name "ver" -Value Get-ChildItem**
 * **Get-Alias** ver los alias que hay en el sistema
 
+
+Ficheros y directorios
+======================
+
+* **pwd -> Get-Location** donde te encuentras
+* **cp -r -> Copy-Item** copiar
+* **mv -> Move-Item** mover, renombrar
+* **rm, rm -r -> Remove-Item** borrar
+* **mkdir** crear directorio
+* **ls -> Get-ChildItem** listar archivos y carpetas, para ver los archivos ocultos -h
+  
+  * l (vínculo)
+  * d (directorio)
+  * a (archivo)
+  * r (solo lectura)
+  * h (oculto)
+  * s (sistema)
+
+* **echo** repetir salida estándar
+* **Test-Path -Path <archivo>** nos dice si exite el archivo o carpeta
+* **Get-Help -Name Get-ChildItem** obtener ayuda
+
+Ejemplo:
+
+.. code-block:: powershell
+
+  PS C:\> pwd
+
+  Path
+  ----
+  C:\
+
+  PS C:\> mkdir A
+
+  Directorio: C:\
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                A
+
+  PS C:\> cd A   
+
+  PS C:\A> mkdir B  
+
+  Directorio: C:\A
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                B
+
+  PS C:\A> mkdir C
+
+  Directorio: C:\A
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                C
+
+  PS C:\A> ls                  
+
+  Directorio: C:\A
+
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                B
+  d-----        29/03/2024      9:27                C
+  -a----        29/03/2024      9:28              8 archivo.dat 
+
+  PS C:\A> Test-Path D                            
+  False
+  PS C:\A> Test-Path B
+  True
+  PS C:\A> pwd
+
+  Path
+  ----
+  C:\A
+
+  PS C:\A> mv B D
+  PS C:\A> cp -r D F
+  PS C:\A> ls
+
+  Directorio: C:\A
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                C
+  d-----        29/03/2024      9:27                D
+  d-----        29/03/2024      9:29                F
+  -a----        29/03/2024      9:28              8 archivo.dat 
+
+  PS C:\A> rm F
+  PS C:\A> ls
+
+  Directorio: C:\A
+  Mode                 LastWriteTime         Length Name        
+  ----                 -------------         ------ ----        
+  d-----        29/03/2024      9:27                C  
+  d-----        29/03/2024      9:27                D
+  -a----        29/03/2024      9:28              8 archivo.dat 
+
+
 Caracteres especiales
 =====================
+  
+* **\*** (Asterisco):
 
-* \* ? \ " > >> |
+  Se utiliza como comodín para hacer coincidir cero o más caracteres en una ruta o nombre de archivo, por ejemplo, para listar todos los archivos .txt en un directorio, puedes usar:
+
+  .. code-block:: powershell
+
+   Get-ChildItem C:\Directorio\*.txt
+
+* **?** (Signo de interrogación):
+
+  Se utiliza como comodín para hacer coincidir un único carácter en una ruta o nombre de archivo, por ejemplo, para listar todos los archivos que tengan una extensión de tres caracteres en un directorio, puedes usar:
+
+  .. code-block:: powershell
+
+   Get-ChildItem C:\Directorio\???.*
 
 
-Visualizadores de archivos
-==========================
+* **\\** (Barra invertida):
 
-* **cat -> Get-Content** visualizar el contenido archivo
-* **Get-Content archivo.dat -tail 10 -wait** es como el comando tail -f en GNULinux
+  Se utiliza como separador de ruta en las rutas de archivo y directorio en Windows.
+
+  .. code-block:: powershell
+
+   cd C:\Directorio
+
+* **\"** (Comillas dobles):
+
+  Se utilizan para delimitar cadenas de texto que contienen espacios u otros caracteres especiales, por ejemplo, para especificar un nombre de archivo con espacios al usar un comando como Get-ChildItem:
+
+  .. code-block:: powershell
+
+   Get-ChildItem "C:\Directorio con Espacios\Archivo.txt"
+
+* **\>** (Redireccionamiento de salida):
+
+  Se utiliza para redirigir la salida de un comando hacia un archivo (sobrescribiendo el archivo si ya existe), por ejemplo, para guardar la salida de un comando en un archivo de texto:
+
+  .. code-block:: powershell
+
+   Get-Process > procesos.txt
+
+* **\>\>** (Redireccionamiento de salida, añadir al final del archivo):
+
+  Se utiliza para redirigir la salida de un comando y agregarla al final de un archivo (sin sobrescribir el contenido existente), por ejemplo, para agregar la salida de un comando al final de un archivo de registro:
+
+  .. code-block:: powershell
+
+   Get-Date >> registro.txt
+
+
+* **\|** (Tubo o pipe):
+
+  Se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar:
+
+  .. code-block:: powershell
+
+   Get-Process | Where-Object { $_.Name -eq "explorer" }
+
+
+Visualizadores de archivos, filtros y búsqueda de información
+=============================================================
+
 * **more** mostrar archivos haciendo pausa en cada pantalla
+* **cat -> Get-Content** visualizar el contenido archivo
 
-Filtros y búsqueda información
-==============================
+  **Get-Content archivo.dat -tail 10 -wait** es como el comando tail -f en GNULinux
+  **(Get-Content .\archivo.dat)[2]** podemos ver la linea 3
 
+* **select -> Select-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
+
+  **Get-Content -head 3 .\archivo1.dat | select -Last 1**
+  
 * **sort -> Sort-Object** ordenar
 * **sls -> Select-String = grep** filtrar,
 * **Select-String -Pattern <texto>** -Quiet nos devuelve solo True o nada
 * **ft -> Format-Table** dar a la salida formato de tabla :
-  Get-Service | Format-Table -Property Name, DependentServices
+
+  **Get-Service | Format-Table -Property Name, DependentServices**
 
 
 Ejemplo:
@@ -118,7 +261,7 @@ Ejemplo:
 
 
 Inforación de harware
-==============
+=====================
 
 * **Get-PSDrive** cmdlet obtiene las unidades de la sesión actual.
 * **Get-NetAdapter** en PowerShell te mostrará información sobre las interfaces de red
@@ -369,7 +512,7 @@ Para ser administrador
 
 
 Configuración de Windows (PowerShell)
-==============
+=====================================
 
 * **Reiniciar**
 
@@ -471,15 +614,15 @@ Configuración de Windows (PowerShell)
 .. [#alias] 
   
   Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.
-
+  
   Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:
 
   Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).
 
   Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:
-
+  
   .. code-block:: powershell
-
+  
     Test-Path $PROFILE
 
   Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:

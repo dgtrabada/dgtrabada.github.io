@@ -132,8 +132,7 @@ Las carpetas y archivos en Windows permiten configurar los siguientes permisos:
 
 * **Modificar** una combinación de lectura y escritura. El usuario también tiene la capacidad de eliminar los archivos dentro de la carpeta. También puede ver el contenido de las subcarpetas.
 
-* **Leer y Ejecutar** los usuarios pueden leer el contenido de los archivos y
-ejecutar los programas de la carpeta.
+* **Leer y Ejecutar** los usuarios pueden leer el contenido de los archivos y ejecutar los programas de la carpeta.
 
 Vamos a compartir la carpeta **C:\\compartida** alojada en nuestro servidor, con los permisos solo de lectura, para ello:
 
@@ -373,8 +372,8 @@ Por ultimo vamos a **Administracion de directivas de grupo/** buscamos **Oficina
 
 .. image:: imagenes/GPOINT06.png
 
-Configuración de carpetas compartida
-------------------------------------
+Configuración de carpetas compartidas
+-------------------------------------
 
 Crea las siguientes carpetas compartidas con los siguientes permisos:
 
@@ -402,13 +401,23 @@ Queremos que se monten de forma automatica la carpeta contratista_compartida en 
   
 Vamos a los usuarios en los que queremos que se monten las unidades, **Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil**  lo metemos en el Script de inicio de sesión
 
-.. image:: imagenes/perfil01.png
+.. image:: imagenes/Perfil01.png
 
 Perfil móvil
 ------------
 Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.
 
-En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRVInt-tunombre\\\Perfiles\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
+En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRVInt-tunombre\\Perfiles\\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
 
-.. image:: imagenes/perfil02.png
+.. image:: imagenes/Perfil02.png
 
+Perfil Obligatorio
+------------------
+
+Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.
+
+Primero crear un perfil de usuario personalizado móvil que servirá como base para el perfil obligatorio, crea un usuario admin_tunombre con permisos de administrador, configura el escritorio, las aplicaciones y la configuración del usuario según sea necesario.
+
+Haz que el usuario adiministrador tenga control total sobre la caprte admin_tunombre.v6 y copiala a la carpeta profile.v6
+
+En la pestaña Perfil , en el campo Ruta de acceso del perfil , escribe la ruta de acceso a la carpeta compartida sin la extensión. Por ejemplo, si el nombre de la carpeta es \\\\srvint-tunombre\\Perfiles\\profile.v6, escribiría \\\\srvint-tunombre\\Perfiles\\profile
