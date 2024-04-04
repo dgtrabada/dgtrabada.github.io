@@ -206,6 +206,34 @@ Instalación de software utilizando directivas de grupo
   * **StarterGPOs**: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.
   
 
+Unir un cliente Ubuntu al dominio
+---------------------------------
+
+* Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
+
+* cambia el DNS (ip windows server), revisa ``/etc/resolv.conf``, Gateway 10.0.0.2 y subred 10.0.0.0/8.
+
+Instalar los paquetes necesarios:
+
+.. code-block:: bash
+
+  apt install sssd-ad sssd-tools realmd adcli
+  apt install krb5-user
+  #ponemos el dominio (tu_nombre.local) cuando nos pregunte por:
+  #Reino predeterminado de la versión 5 de Kerberos: 
+  
+Para que se cree el home de forma automatica cuando se loguea el usuario
+
+.. code-block:: bash
+
+  pam-auth-update
+
+.. image:: imagenes/ubuntuADSRV.png
+
+.. image:: imagenes/ubuntuAD.png
+
+.. image:: imagenes/ubuntuADssh.png
+
 Caso práctico: AD y DNS con red interna
 =======================================
 

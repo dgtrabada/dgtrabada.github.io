@@ -401,6 +401,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
@@ -598,6 +599,27 @@ document.write(`
 </ul>
 </aside>
 </aside>
+</section>
+<section id="unir-un-cliente-ubuntu-al-dominio">
+<h3>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
+<li><p>cambia el DNS (ip windows server), revisa <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code>, Gateway 10.0.0.2 y subred 10.0.0.0/8.</p></li>
+</ul>
+<p>Instalar los paquetes necesarios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>sssd-ad<span class="w"> </span>sssd-tools<span class="w"> </span>realmd<span class="w"> </span>adcli
+apt<span class="w"> </span>install<span class="w"> </span>krb5-user
+<span class="c1">#ponemos el dominio (tu_nombre.local) cuando nos pregunte por:</span>
+<span class="c1">#Reino predeterminado de la versión 5 de Kerberos:</span>
+</pre></div>
+</div>
+<p>Para que se cree el home de forma automatica cuando se loguea el usuario</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pam-auth-update
+</pre></div>
+</div>
+<img alt="../../_images/ubuntuADSRV.png" src="../../_images/ubuntuADSRV.png" />
+<img alt="../../_images/ubuntuAD.png" src="../../_images/ubuntuAD.png" />
+<img alt="../../_images/ubuntuADssh.png" src="../../_images/ubuntuADssh.png" />
 </section>
 </section>
 <section id="caso-practico-ad-y-dns-con-red-interna">
@@ -834,6 +856,7 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
