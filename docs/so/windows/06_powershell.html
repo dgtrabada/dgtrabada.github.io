@@ -398,10 +398,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 </ul>
             </nav>
         </div>
@@ -590,66 +590,95 @@ document.write(`
 <ul>
 <li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
 <li><p><strong>cat -&gt; Get-Content</strong> visualizar el contenido archivo</p>
-<p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux
-<strong>(Get-Content .archivo.dat)[2]</strong> podemos ver la linea 3</p>
+<p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p>
+<p><strong>(Get-Content archivo.dat)[2]</strong> podemos ver la linea 3</p>
 </li>
 <li><p><strong>select -&gt; Select-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
-<p><strong>Get-Content -head 3 .archivo1.dat | select -Last 1</strong></p>
+<p><strong>Get-Content -head 3 archivo.dat | select -Last 1</strong></p>
 </li>
 <li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
 <li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
-<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve solo True o nada</p></li>
+<li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve el texto o nada</p></li>
 <li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :</p>
 <p><strong>Get-Service | Format-Table -Property Name, DependentServices</strong></p>
 </li>
 </ul>
 <p>Ejemplo:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Alias</span> <span class="n">-Name</span> <span class="nb">cat</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">1</span> <span class="n">linea</span>
+<span class="n">2</span> <span class="n">linea</span>
+<span class="n">3</span> <span class="n">linea</span>
+<span class="n">4</span> <span class="n">linea</span>
+<span class="n">5</span> <span class="n">linea</span>
 
-<span class="n">CommandType</span>     <span class="n">Name</span>
-<span class="p">-----------</span>     <span class="p">----</span>
-<span class="k">Alias</span>           <span class="nb">cat </span><span class="p">-&gt;</span> <span class="nb">Get-Content</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">)[</span><span class="n">2</span><span class="p">]</span>
+<span class="n">3</span> <span class="n">linea</span>
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">1</span> <span class="p">&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">2</span> <span class="p">&gt;&gt;</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Test-Path</span> <span class="n">-Path</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">-head</span> <span class="n">3</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-last</span> <span class="n">1</span>
+<span class="n">3</span> <span class="n">linea</span>
 <span class="n">True</span>
 <span class="n">2</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
-<span class="n">1</span>
-<span class="n">2</span>
-<span class="n">3</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span>
-<span class="n">1</span>
-<span class="n">2</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Head</span> <span class="n">2</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-Last</span> <span class="n">1</span>
-<span class="n">2</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">2</span>
-<span class="n">1</span>
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
-<span class="n">1</span>
-<span class="n">B</span>
-<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">-head</span> <span class="n">3</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">3</span>
+<span class="n">1</span> <span class="n">linea</span>
+<span class="n">2</span> <span class="n">linea</span>
+<span class="n">3</span> <span class="n">linea</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="n">vi</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
+<span class="n">1</span> <span class="n">linea</span>
+<span class="n">B</span> <span class="n">linea</span>
+<span class="n">3</span> <span class="n">linea</span>
+<span class="n">4</span> <span class="n">linea</span>
+<span class="n">5</span> <span class="n">linea</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">sort</span>
-<span class="n">1</span>
-<span class="n">3</span>
-<span class="n">B</span>
+<span class="n">1</span> <span class="n">linea</span>
+<span class="n">3</span> <span class="n">linea</span>
+<span class="n">4</span> <span class="n">linea</span>
+<span class="n">5</span> <span class="n">linea</span>
+<span class="n">B</span> <span class="n">linea</span>
 
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
 
-<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">2</span><span class="p">:</span><span class="n">2</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">2</span><span class="p">:</span><span class="n">2</span> <span class="n">linea</span>
 
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">linea</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">1</span><span class="p">:</span><span class="n">1</span> <span class="n">linea</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">2</span><span class="p">:</span><span class="n">2</span> <span class="n">linea</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">3</span><span class="p">:</span><span class="n">3</span> <span class="n">linea</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">4</span><span class="p">:</span><span class="n">4</span> <span class="n">linea</span>
+<span class="n">archivo</span><span class="p">.</span><span class="n">dat</span><span class="p">:</span><span class="n">5</span><span class="p">:</span><span class="n">5</span> <span class="n">linea</span>
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">5</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
-<span class="n">False</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">2</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">linea</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
 <span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">sls </span><span class="n">J</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="n">-Quiet</span>
+<span class="n">False</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span>  <span class="n">2</span>
+
+<span class="n">2</span> <span class="n">linea</span>
+
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span>  <span class="n">liena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span>  <span class="n">linea</span>
+
+<span class="n">1</span> <span class="n">linea</span>
+<span class="n">2</span> <span class="n">linea</span>
+<span class="n">3</span> <span class="n">linea</span>
+<span class="n">4</span> <span class="n">linea</span>
+<span class="n">5</span> <span class="n">linea</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Service</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-Property</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Displayname</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">4</span>
+<span class="n">Name</span>                                       <span class="n">DisplayName</span>
+<span class="p">----</span>                                       <span class="p">-----------</span>
+<span class="n">ADWS</span>                                       <span class="n">Servicios</span> <span class="n">web</span> <span class="n">de</span> <span class="n">Active</span>  <span class="n">Directory</span>
+<span class="n">AJRouter</span>                                   <span class="n">Servicio</span> <span class="n">de</span> <span class="n">enrutador</span> <span class="n">de</span> <span class="n">AllJoyn</span>
 </pre></div>
 </div>
 </section>
-<section id="inforacion-de-harware">
-<h2>Inforación de harware<a class="headerlink" href="#inforacion-de-harware" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="informacion-de-harware">
+<h2>Información de harware<a class="headerlink" href="#informacion-de-harware" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
 <li><p><strong>Get-PSDrive</strong> cmdlet obtiene las unidades de la sesión actual.</p></li>
 <li><p><strong>Get-NetAdapter</strong> en PowerShell te mostrará información sobre las interfaces de red</p></li>
@@ -784,98 +813,6 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="gestion-de-acl">
-<h2>Gestión de ACL<a class="headerlink" href="#gestion-de-acl" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
-
-<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
-<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
-<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span> <span class="n">Allow</span>  <span class="n">FullControl</span><span class="p">...</span>
-
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
-<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
-<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
-</pre></div>
-</div>
-<p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
-
-<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
-<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
-<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
-
-<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
-
-<span class="c">#Para cambiar propietario</span>
-<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
-</pre></div>
-</div>
-<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
-
-<span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
-
-<span class="c"># Crear una regla de acceso para el grupo A</span>
-<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
-
-<span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
-<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
-</pre></div>
-</div>
-</section>
-<section id="gestion-de-usuarios">
-<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Para ser administrador</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">start-process</span> <span class="n">powershell</span> <span class="n">-verb</span> <span class="n">runas</span>
-</pre></div>
-</div>
-<ul>
-<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-LocalUser</span>
-<span class="nb">Get-LocalGroup</span>
-<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Crear un usuario con contraseña</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span>$Password = Read-Host -AsSecureString
-New-LocalUser -Name nombre_usuario -Password $Password
-
-#Sin que pida confirmación
-$Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
-</pre></div>
-</div>
-</li>
-<li><p><strong>Crear un usuario sin contraseña</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-NoPassword</span>
-
-<span class="c">#Se la podemos asignar después:</span>
-<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Asignar usuario a un grupo</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">nombre_grupo</span> <span class="n">-Member</span> <span class="n">nombre_usuario</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Eliminar un usuario</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>Crear y borrar un grupo</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
-<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
 <section id="configuracion-de-windows-powershell">
 <h2>Configuración de Windows (PowerShell)<a class="headerlink" href="#configuracion-de-windows-powershell" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
@@ -992,6 +929,98 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 </aside>
 </aside>
 </section>
+<section id="gestion-de-usuarios">
+<h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Para ser administrador</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">start-process</span> <span class="n">powershell</span> <span class="n">-verb</span> <span class="n">runas</span>
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-LocalUser</span>
+<span class="nb">Get-LocalGroup</span>
+<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario con contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span>$Password = Read-Host -AsSecureString
+New-LocalUser -Name nombre_usuario -Password $Password
+
+#Sin que pida confirmación
+$Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear un usuario sin contraseña</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-NoPassword</span>
+
+<span class="c">#Se la podemos asignar después:</span>
+<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Asignar usuario a un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">nombre_grupo</span> <span class="n">-Member</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Eliminar un usuario</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Crear y borrar un grupo</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="gestion-de-acl">
+<h2>Gestión de ACL<a class="headerlink" href="#gestion-de-acl" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span> <span class="n">Allow</span>  <span class="n">FullControl</span><span class="p">...</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
+<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
+</pre></div>
+</div>
+<p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
+
+<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
+
+<span class="c">#Para cambiar propietario</span>
+<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
+</pre></div>
+</div>
+<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
+
+<span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
+
+<span class="c"># Crear una regla de acceso para el grupo A</span>
+<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -1041,10 +1070,10 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inforacion-de-harware">Inforación de harware</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 </ul>
   </nav></div>
 

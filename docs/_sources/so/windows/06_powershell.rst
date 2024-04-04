@@ -199,15 +199,16 @@ Visualizadores de archivos, filtros y búsqueda de información
 * **cat -> Get-Content** visualizar el contenido archivo
 
   **Get-Content archivo.dat -tail 10 -wait** es como el comando tail -f en GNULinux
-  **(Get-Content .\archivo.dat)[2]** podemos ver la linea 3
+  
+  **(Get-Content archivo.dat)[2]** podemos ver la linea 3
 
 * **select -> Select-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
 
-  **Get-Content -head 3 .\archivo1.dat | select -Last 1**
+  **Get-Content -head 3 archivo.dat | select -Last 1**
   
 * **sort -> Sort-Object** ordenar
 * **sls -> Select-String = grep** filtrar,
-* **Select-String -Pattern <texto>** -Quiet nos devuelve solo True o nada
+* **Select-String -Pattern <texto>** -Quiet nos devuelve el texto o nada
 * **ft -> Format-Table** dar a la salida formato de tabla :
 
   **Get-Service | Format-Table -Property Name, DependentServices**
@@ -217,51 +218,79 @@ Ejemplo:
 
 .. code-block:: powershell
 
- PS C:\> Get-Alias -Name cat
+  PS C:\> cat archivo.dat  
+  1 linea
+  2 linea
+  3 linea
+  4 linea
+  5 linea 
+
+  PS C:\> (Get-Content archivo.dat)[2]
+  3 linea
  
- CommandType     Name 
- -----------     ---- 
- Alias           cat -> Get-Content 
-
- PS C:\> echo 1 > archivo.dat
- PS C:\> echo 2 >> archivo.dat
- PS C:\> Test-Path -Path .\archivo.dat   
- True
- 2
- PS C:\> Get-Content archivo.dat
- 1 
- 2
- 3
- PS C:\> Get-Content archivo.dat -Head 2
- 1
- 2
- PS C:\> cat archivo.dat -Head 2 | select -Last 1
- 2
- PS C:\> Get-Content archivo.dat | select -First 2
- 1  
-
- PS C:\> Get-Content archivo.dat | %{ $_ -replace '2', 'B' } 
- 1 
- B
- 3
- PS C:\> Get-Content archivo.dat | %{ $_ -replace '2', 'B' } | sort
- 1 
- 3
- B 
+  PS C:\> Get-Content -head 3 archivo.dat | select -last 1 
+  3 linea   
+  True
+  2
  
- PS C:\> sls 2 archivo.dat 
+  PS C:\> Get-Content -head 3 archivo.dat | select -First 3
+  1 linea
+  2 linea
+  3 linea
 
- archivo.dat:2:2
+  PS C:\> vi .\archivo.dat                                      
+  PS C:\>  Get-Content archivo.dat | %{ $_ -replace '2', 'B' }
+  1 linea
+  B linea
+  3 linea
+  4 linea
+  5 linea
+
+  PS C:\> Get-Content archivo.dat | %{ $_ -replace '2', 'B' } | sort
+  1 linea
+  3 linea
+  4 linea
+  5 linea
+  B linea 
  
+  PS C:\> sls 2 archivo.dat   
+
+  archivo.dat:2:2 linea
+
+  PS C:\> sls linea archivo.dat 
+  archivo.dat:1:1 linea
+  archivo.dat:2:2 linea
+  archivo.dat:3:3 linea
+  archivo.dat:4:4 linea
+  archivo.dat:5:5 linea
+
+  PS C:\> sls linea archivo.dat -Quiet
+  True
+  PS C:\> sls J archivo.dat -Quiet    
+  False
  
- PS C:\> sls 5 archivo.dat -Quiet
- False
- PS C:\> sls 2 archivo.dat -Quiet
- True
+  PS C:\> Get-Content archivo.dat | Select-String -Pattern  2  
+ 
+  2 linea
 
 
-Inforación de harware
-=====================
+  PS C:\> Get-Content archivo.dat | Select-String -Pattern  liena
+  PS C:\> Get-Content archivo.dat | Select-String -Pattern  linea
+
+  1 linea
+  2 linea
+  3 linea
+  4 linea
+  5 linea
+
+  PS C:\> Get-Service | Format-Table -Property Name, Displayname | select -First 4          
+  Name                                       DisplayName
+  ----                                       -----------
+  ADWS                                       Servicios web de Active  Directory 
+  AJRouter                                   Servicio de enrutador de AllJoyn
+
+Información de harware
+======================
 
 * **Get-PSDrive** cmdlet obtiene las unidades de la sesión actual.
 * **Get-NetAdapter** en PowerShell te mostrará información sobre las interfaces de red
@@ -404,112 +433,6 @@ Ejemplo:
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).CountryCode                              
   34
 
-Gestión de ACL
-==============
-
-Access Control List o "Lista de Control de Acceso" es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.
-
-.. code-block:: powershell
-
-  PS C:\Users> Get-Acl A
-
-  Path Owner                   Access
-  ---- -----                   ------
-  A    BUILTIN\Administradores NT AUTHORITY\SYSTEM Allow  FullControl...
-
-  PS C:\Users> $(Get-Acl A).Owner
-  BUILTIN\Administradores
-  PS C:\Users> $(Get-Acl A).Group
-  WC22TUNOMBRE\Ninguno
-
-Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.
-
-.. code-block:: powershell
-
-  #Cambiar permisos en un archivo o carpeta:
-  PS C:\Users> icacls A /grant "wc22tunombre\tu_nombrea1:(OI)(CI)RW"           
-  PS C:\Users> Get-Acl A
-
-  Path Owner                   Access
-  ---- -----                   ------
-  A    BUILTIN\Administradores WC22TUNOMBRE\tu_nombreA1 Allow  Write, Read, Synchronize...
-
-  #le hemos dado permisos de RW al usuario tu_nombreA1
-  
-  #Para cambiar propietario
-  icacls A /setowner "wc22tunombre\tu_nombrea1"
-  
-
-Ejemplo de como dar permisos de RW a un grupo completo:
-
-.. code-block:: powershell
-
-  $permissions = "Read", "Write" 
-
-  $acl = Get-Acl -Path A
-
-  # Crear una regla de acceso para el grupo A
-  $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("A", $permissions, "ContainerInherit, ObjectInherit", "None", "Allow")
-
-  $acl.SetAccessRule($accessRule)
-  Set-Acl -Path A -AclObject $acl
-
-
-Gestión de usuarios
-===================
-
-Para ser administrador
-
-.. code-block:: powershell
-
- start-process powershell -verb runas
-
-* **Listar usuarios, grupos y usuarios del grupo**
-
-  .. code-block:: PowerShell
-
-   Get-LocalUser
-   Get-LocalGroup
-   Get-LocalGroupMember -Name nombre_grupo
-  
-* **Crear un usuario con contraseña**
-
-  .. code-block:: PowerShell
-  
-    $Password = Read-Host -AsSecureString
-    New-LocalUser -Name nombre_usuario -Password $Password
-  
-    #Sin que pida confirmación
-    $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force 
-    
-* **Crear un usuario sin contraseña**
-
-  .. code-block:: PowerShell
-  
-   New-LocalUser -Name nombre_usuario -NoPassword
-   
-   #Se la podemos asignar después: 
-   Set-LocalUser -Name nombre_usuario -Password $Password
-   
-* **Asignar usuario a un grupo**
-
-  .. code-block:: PowerShell
-  
-   Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario
-  
-* **Eliminar un usuario**
-
-  .. code-block:: PowerShell
-  
-   Remove-LocalUser -Name nombre_usuario
-  
-* **Crear y borrar un grupo**
-
-  .. code-block:: PowerShell
-  
-   New-LocalGroup -Name nombre_grupo
-   Remove-LocalGroup -Name nombre_grupo
-
 
 Configuración de Windows (PowerShell)
 =====================================
@@ -648,6 +571,109 @@ Configuración de Windows (PowerShell)
   Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.
   
 
+Gestión de usuarios
+===================
 
+Para ser administrador
+
+.. code-block:: powershell
+
+ start-process powershell -verb runas
+
+* **Listar usuarios, grupos y usuarios del grupo**
+
+  .. code-block:: PowerShell
+
+   Get-LocalUser
+   Get-LocalGroup
+   Get-LocalGroupMember -Name nombre_grupo
+  
+* **Crear un usuario con contraseña**
+
+  .. code-block:: PowerShell
+  
+    $Password = Read-Host -AsSecureString
+    New-LocalUser -Name nombre_usuario -Password $Password
+  
+    #Sin que pida confirmación
+    $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force 
+    
+* **Crear un usuario sin contraseña**
+
+  .. code-block:: PowerShell
+  
+   New-LocalUser -Name nombre_usuario -NoPassword
+   
+   #Se la podemos asignar después: 
+   Set-LocalUser -Name nombre_usuario -Password $Password
+   
+* **Asignar usuario a un grupo**
+
+  .. code-block:: PowerShell
+  
+   Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario
+  
+* **Eliminar un usuario**
+
+  .. code-block:: PowerShell
+  
+   Remove-LocalUser -Name nombre_usuario
+  
+* **Crear y borrar un grupo**
+
+  .. code-block:: PowerShell
+  
+   New-LocalGroup -Name nombre_grupo
+   Remove-LocalGroup -Name nombre_grupo
+
+Gestión de ACL
+==============
+
+Access Control List o "Lista de Control de Acceso" es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.
+
+.. code-block:: powershell
+
+  PS C:\Users> Get-Acl A
+
+  Path Owner                   Access
+  ---- -----                   ------
+  A    BUILTIN\Administradores NT AUTHORITY\SYSTEM Allow  FullControl...
+
+  PS C:\Users> $(Get-Acl A).Owner
+  BUILTIN\Administradores
+  PS C:\Users> $(Get-Acl A).Group
+  WC22TUNOMBRE\Ninguno
+
+Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.
+
+.. code-block:: powershell
+
+  #Cambiar permisos en un archivo o carpeta:
+  PS C:\Users> icacls A /grant "wc22tunombre\tu_nombrea1:(OI)(CI)RW"           
+  PS C:\Users> Get-Acl A
+
+  Path Owner                   Access
+  ---- -----                   ------
+  A    BUILTIN\Administradores WC22TUNOMBRE\tu_nombreA1 Allow  Write, Read, Synchronize...
+
+  #le hemos dado permisos de RW al usuario tu_nombreA1
+  
+  #Para cambiar propietario
+  icacls A /setowner "wc22tunombre\tu_nombrea1"
+  
+
+Ejemplo de como dar permisos de RW a un grupo completo:
+
+.. code-block:: powershell
+
+  $permissions = "Read", "Write" 
+
+  $acl = Get-Acl -Path A
+
+  # Crear una regla de acceso para el grupo A
+  $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("A", $permissions, "ContainerInherit, ObjectInherit", "None", "Allow")
+
+  $acl.SetAccessRule($accessRule)
+  Set-Acl -Path A -AclObject $acl
   
   

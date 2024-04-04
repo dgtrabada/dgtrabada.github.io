@@ -411,13 +411,33 @@ En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de l
 
 .. image:: imagenes/Perfil02.png
 
+Aplicar cuota
+-------------
+
+1. Crea un nuevo disco virtual de 50G, puedes formatearlo con **diskmgmt.msc** y añadirlo como nueva unidad E:
+
+#. Abre Administración de equipos **compmgmt.msc** en Almacenamiento / Administración de discos / propiedades en la pestaña Cuota, selecciona Habilitar la administración de cuotas y asignale 20MB
+
+
+
 Perfil Obligatorio
 ------------------
 
 Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.
 
-Primero crear un perfil de usuario personalizado móvil que servirá como base para el perfil obligatorio, crea un usuario admin_tunombre con permisos de administrador, configura el escritorio, las aplicaciones y la configuración del usuario según sea necesario.
+1. Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\\\SRVInt-tunombre\\Perfiles\\usuario_plantilla
 
-Haz que el usuario adiministrador tenga control total sobre la caprte admin_tunombre.v6 y copiala a la carpeta profile.v6
+#. Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cerra,ps ña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles 
 
-En la pestaña Perfil , en el campo Ruta de acceso del perfil , escribe la ruta de acceso a la carpeta compartida sin la extensión. Por ejemplo, si el nombre de la carpeta es \\\\srvint-tunombre\\Perfiles\\profile.v6, escribiría \\\\srvint-tunombre\\Perfiles\\profile
+#. Creamos en el servidor un nuevo grupo llamado perfilobligatorio
+
+#. Cambiamos los permisos de seguridad a la carpeta usuario_plantilla.v6, ponemos al grupo de Administradores, reemplazamos propietario en contenedores y objetos. Añadimos tambien al grupo de perfilesobligatorios y le damos control total, recordar darlo con herencia.
+
+#. Entramos en la carpeta usuario_plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.
+
+#. Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/usario_plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.
+
+#. En el usuario_plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.
+
+#. Creamos el uausio C03_tunombre, le asignamos el Perfil \\\\srvint-tunombre\\Perfiles\\usuario_plantilla y le metomos en el grupo perfiles obligatorios
+ 
