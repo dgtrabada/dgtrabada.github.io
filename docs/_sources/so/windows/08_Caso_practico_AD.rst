@@ -211,13 +211,14 @@ Unir un cliente Ubuntu al dominio
 
 * Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
 
-* cambia el DNS (ip windows server), revisa ``/etc/resolv.conf``, Gateway 10.0.0.2 y subred 10.0.0.0/8.
+* Cambia el DNS (ip windows server), revisa ``/etc/resolv.conf``, Gateway 10.0.0.2 y subred 10.0.0.0/8.
 
 Instalar los paquetes necesarios:
 
 .. code-block:: bash
 
   apt install sssd-ad sssd-tools realmd adcli
+  
   apt install krb5-user
   #ponemos el dominio (tu_nombre.local) cuando nos pregunte por:
   #Reino predeterminado de la versión 5 de Kerberos: 
@@ -230,9 +231,16 @@ Para que se cree el home de forma automatica cuando se loguea el usuario
 
 .. image:: imagenes/ubuntuADSRV.png
 
-.. image:: imagenes/ubuntuAD.png
+Seleccionar otro usaurio
 
+.. image:: imagenes/ubuntuAD.png
+    :scale: 50%
+    
+Tambien puedes conectarte por ssh
+   
 .. image:: imagenes/ubuntuADssh.png
+    :scale: 50%
+    
 
 Caso práctico: AD y DNS con red interna
 =======================================
@@ -442,10 +450,25 @@ En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de l
 Aplicar cuota
 -------------
 
-1. Crea un nuevo disco virtual de 50G, puedes formatearlo con **diskmgmt.msc** y añadirlo como nueva unidad E:
+Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de "Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos"
 
-#. Abre Administración de equipos **compmgmt.msc** en Almacenamiento / Administración de discos / propiedades en la pestaña Cuota, selecciona Habilitar la administración de cuotas y asignale 20MB
+.. image:: imagenes/CuotaAD01.png
 
+Para activar las cuotas vamos a:
+
+.. image:: imagenes/CuotaAD02.png
+
+Creamos una nueva plantilla llamada **Límite 10MB tunombre**, con Advertencia al 20 y 50%
+
+.. image:: imagenes/CuotaAD03.png
+
+Aplica la plantilla creada en la carpeta compartida en la que se encunetran los perfiles móviles, cuando lo apliques no olvides marcar **Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.**
+
+.. image:: imagenes/CuotaAD04.png
+
+Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesisión te dara un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:
+
+.. image:: imagenes/CuotaAD05.png
 
 
 Perfil Obligatorio

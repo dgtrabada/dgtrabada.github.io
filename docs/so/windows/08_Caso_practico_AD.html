@@ -604,10 +604,11 @@ document.write(`
 <h3>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
 <ul class="simple">
 <li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
-<li><p>cambia el DNS (ip windows server), revisa <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code>, Gateway 10.0.0.2 y subred 10.0.0.0/8.</p></li>
+<li><p>Cambia el DNS (ip windows server), revisa <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code>, Gateway 10.0.0.2 y subred 10.0.0.0/8.</p></li>
 </ul>
 <p>Instalar los paquetes necesarios:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>sssd-ad<span class="w"> </span>sssd-tools<span class="w"> </span>realmd<span class="w"> </span>adcli
+
 apt<span class="w"> </span>install<span class="w"> </span>krb5-user
 <span class="c1">#ponemos el dominio (tu_nombre.local) cuando nos pregunte por:</span>
 <span class="c1">#Reino predeterminado de la versión 5 de Kerberos:</span>
@@ -618,8 +619,10 @@ apt<span class="w"> </span>install<span class="w"> </span>krb5-user
 </pre></div>
 </div>
 <img alt="../../_images/ubuntuADSRV.png" src="../../_images/ubuntuADSRV.png" />
-<img alt="../../_images/ubuntuAD.png" src="../../_images/ubuntuAD.png" />
-<img alt="../../_images/ubuntuADssh.png" src="../../_images/ubuntuADssh.png" />
+<p>Seleccionar otro usaurio</p>
+<a class="reference internal image-reference" href="../../_images/ubuntuAD.png"><img alt="../../_images/ubuntuAD.png" src="../../_images/ubuntuAD.png" style="width: 393.0px; height: 289.5px;" /></a>
+<p>Tambien puedes conectarte por ssh</p>
+<a class="reference internal image-reference" href="../../_images/ubuntuADssh.png"><img alt="../../_images/ubuntuADssh.png" src="../../_images/ubuntuADssh.png" style="width: 404.0px; height: 295.0px;" /></a>
 </section>
 </section>
 <section id="caso-practico-ad-y-dns-con-red-interna">
@@ -784,10 +787,16 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 </section>
 <section id="aplicar-cuota">
 <h3>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Enlace permanente a este encabezado">#</a></h3>
-<ol class="arabic simple">
-<li><p>Crea un nuevo disco virtual de 50G, puedes formatearlo con <strong>diskmgmt.msc</strong> y añadirlo como nueva unidad E:</p></li>
-<li><p>Abre Administración de equipos <strong>compmgmt.msc</strong> en Almacenamiento / Administración de discos / propiedades en la pestaña Cuota, selecciona Habilitar la administración de cuotas y asignale 20MB</p></li>
-</ol>
+<p>Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de «Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos»</p>
+<img alt="../../_images/CuotaAD01.png" src="../../_images/CuotaAD01.png" />
+<p>Para activar las cuotas vamos a:</p>
+<img alt="../../_images/CuotaAD02.png" src="../../_images/CuotaAD02.png" />
+<p>Creamos una nueva plantilla llamada <strong>Límite 10MB tunombre</strong>, con Advertencia al 20 y 50%</p>
+<img alt="../../_images/CuotaAD03.png" src="../../_images/CuotaAD03.png" />
+<p>Aplica la plantilla creada en la carpeta compartida en la que se encunetran los perfiles móviles, cuando lo apliques no olvides marcar <strong>Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.</strong></p>
+<img alt="../../_images/CuotaAD04.png" src="../../_images/CuotaAD04.png" />
+<p>Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesisión te dara un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:</p>
+<img alt="../../_images/CuotaAD05.png" src="../../_images/CuotaAD05.png" />
 </section>
 <section id="perfil-obligatorio">
 <h3>Perfil Obligatorio<a class="headerlink" href="#perfil-obligatorio" title="Enlace permanente a este encabezado">#</a></h3>
