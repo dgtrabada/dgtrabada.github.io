@@ -211,7 +211,7 @@ Unir un cliente Ubuntu al dominio
 
 * Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
 
-* Cambia el DNS (ip windows server), revisa ``/etc/resolv.conf``, Gateway 10.0.0.2 y subred 10.0.0.0/8.
+* Cambia el DNS (ip windows server), revisa **/etc/resolv.conf** y que aparezca en **/ets/hosts**. Haz que el Gateway 10.0.0.2 y con subred 10.0.0.0/8.
 
 Instalar los paquetes necesarios:
 
@@ -220,9 +220,25 @@ Instalar los paquetes necesarios:
   apt install sssd-ad sssd-tools realmd adcli
   
   apt install krb5-user
-  #ponemos el dominio (tu_nombre.local) cuando nos pregunte por:
+  #ponemos el dominio (TUNOMBRE.LOCAL) cuando nos pregunte por:
   #Reino predeterminado de la versión 5 de Kerberos: 
   
+
+Añadimos (rdns = false) en /etc/krb5.conf
+
+.. code-block:: bash
+
+  head -3  /etc/krb5.conf
+  [libdefaults]
+        default_realm = TUNOMBRE.LOCAL
+        rdns = false
+
+Añadimos nuestro Ubuntu al AD:
+
+.. code-block:: bash
+
+  sudo realm join --user=Administrador -v tu_nombre.local
+
 Para que se cree el home de forma automatica cuando se loguea el usuario
 
 .. code-block:: bash
@@ -478,7 +494,7 @@ Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desd
 
 1. Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\\\SRVInt-tunombre\\Perfiles\\usuario_plantilla
 
-#. Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cerra,ps ña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles 
+#. Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cierra la pestaña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles 
 
 #. Creamos en el servidor un nuevo grupo llamado perfilobligatorio
 
