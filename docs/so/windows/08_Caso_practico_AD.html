@@ -603,8 +603,8 @@ document.write(`
 <section id="unir-un-cliente-ubuntu-al-dominio">
 <h3>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
 <ul class="simple">
-<li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
-<li><p>Cambia el DNS (ip windows server), revisa <strong>/etc/resolv.conf</strong> y que aparezca en <strong>/ets/hosts</strong>. Haz que el Gateway 10.0.0.2 y con subred 10.0.0.0/8.</p></li>
+<li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.</p></li>
+<li><p>Cambia el DNS (ip windows server), haz que aparezca en <strong>/ets/hosts</strong> el nombre del dominio y sincroniza temporalmente los dos ordeandores.</p></li>
 </ul>
 <p>Instalar los paquetes necesarios:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>sssd-ad<span class="w"> </span>sssd-tools<span class="w"> </span>realmd<span class="w"> </span>adcli
@@ -614,7 +614,7 @@ apt<span class="w"> </span>install<span class="w"> </span>krb5-user
 <span class="c1">#Reino predeterminado de la versión 5 de Kerberos:</span>
 </pre></div>
 </div>
-<p>Añadimos (rdns = false) en /etc/krb5.conf</p>
+<p>Deshabilitamos la resolución inversa de DNS (rdns = false) en /etc/krb5.conf</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>head<span class="w"> </span>-3<span class="w">  </span>/etc/krb5.conf
 <span class="o">[</span>libdefaults<span class="o">]</span>
 <span class="w">      </span><span class="nv">default_realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>TUNOMBRE.LOCAL

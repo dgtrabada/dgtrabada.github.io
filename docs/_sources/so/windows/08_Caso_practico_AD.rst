@@ -209,9 +209,9 @@ Instalación de software utilizando directivas de grupo
 Unir un cliente Ubuntu al dominio
 ---------------------------------
 
-* Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
+* Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.
 
-* Cambia el DNS (ip windows server), revisa **/etc/resolv.conf** y que aparezca en **/ets/hosts**. Haz que el Gateway 10.0.0.2 y con subred 10.0.0.0/8.
+* Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordeandores.
 
 Instalar los paquetes necesarios:
 
@@ -224,7 +224,7 @@ Instalar los paquetes necesarios:
   #Reino predeterminado de la versión 5 de Kerberos: 
   
 
-Añadimos (rdns = false) en /etc/krb5.conf
+Deshabilitamos la resolución inversa de DNS (rdns = false) en /etc/krb5.conf
 
 .. code-block:: bash
 
