@@ -211,7 +211,7 @@ Unir un cliente Ubuntu al dominio
 
 * Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.
 
-* Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordeandores.
+* Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordeandores. 
 
 Instalar los paquetes necesarios:
 
@@ -220,8 +220,9 @@ Instalar los paquetes necesarios:
   apt install sssd-ad sssd-tools realmd adcli
   
   apt install krb5-user
-  #ponemos el dominio (TUNOMBRE.LOCAL) cuando nos pregunte por:
-  #Reino predeterminado de la versión 5 de Kerberos: 
+  #Reino predeterminado de la versión 5 de Kerberos:
+  TUNOMBRE.LOCAL
+
   
 
 Deshabilitamos la resolución inversa de DNS (rdns = false) en /etc/krb5.conf
@@ -237,7 +238,7 @@ Añadimos nuestro Ubuntu al AD:
 
 .. code-block:: bash
 
-  sudo realm join --user=Administrador -v tu_nombre.local
+  sudo realm join --user=Administrador -v tunombre.local
 
 Para que se cree el home de forma automatica cuando se loguea el usuario
 

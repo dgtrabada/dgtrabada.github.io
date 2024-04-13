@@ -171,7 +171,7 @@ Caso práctico: Windows 11
 .. [#f1] En el caso de que no aparezca haz la instalación como si fuera a ser parte de un Dominio
 
 Caso práctico: Windows Server 2022
-=====
+==================================
 
 Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.
 
@@ -203,9 +203,9 @@ Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de for
 * Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar
 
 Caso práctico: Windows Server 2022 sin GUI
-=====
+==========================================
 
-* Creamos una maquina virtual llamada **WServer_22**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)
 
@@ -213,17 +213,15 @@ Caso práctico: Windows Server 2022 sin GUI
 
 * Contraseña del Administrador: @lumn0
 
-* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, **DNS** 8.8.8.8, **Gateway** 10.0.0.2
+* Instala el servidor ssh
+
+* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP, **DNS** 8.8.8.8, **Gateway** 10.0.0.2
 
 * Cambia el nombre por WS22tunombre 
-      
+
 * Habilita el ping
 
 * Instala el editor vi
-
-* Instala el servidor ssh
-
-* Voluntario: Haz que puedas conectarte por ssh sin contraseña
 
 
 ayuda: :ref:`Configuración de Windows (PowerShell)`

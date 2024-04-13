@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 
 
@@ -6,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Casos prácticos : Active Directory sin GUI &#8212; dgtrabada</title>
   
@@ -28,18 +29,18 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=bb07477c"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../../_static/translations.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/09_Caso_practico_AD_sin_GUI';</script>
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
@@ -393,7 +394,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente-sin-gui">Caso práctico: AD y DNS con adaptador puente sin GUI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-sin-gui">Caso práctico: AD y DNS sin GUI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
@@ -413,13 +415,26 @@ document.write(`
                   
   <section id="casos-practicos-active-directory-sin-gui">
 <h1>Casos prácticos : Active Directory sin GUI<a class="headerlink" href="#casos-practicos-active-directory-sin-gui" title="Enlace permanente a este encabezado">#</a></h1>
-<section id="caso-practico-ad-y-dns-con-adaptador-puente-sin-gui">
-<h2>Caso práctico: AD y DNS con adaptador puente sin GUI<a class="headerlink" href="#caso-practico-ad-y-dns-con-adaptador-puente-sin-gui" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
+<section id="caso-practico-ad-y-dns-sin-gui">
+<h2>Caso práctico: AD y DNS sin GUI<a class="headerlink" href="#caso-practico-ad-y-dns-sin-gui" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea los siguiente clones enlazados:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de «Windows Server 2022 sin GUI» llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8</p></li>
-<li><p>Clon enlazado 2 de «Windows Server 2022 sin GUI» llamado <strong>CLient-tunombre</strong> 10.5.X.Y/8</p></li>
+<li><p>Clon enlazado 1 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>» llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
+<section id="configurar-servicio-de-enrutamiento">
+<h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Instalar el servicio de enrutamiento</span>
+<span class="nb">Install-WindowsFeature</span> <span class="n">Routing</span> <span class="n">-IncludeManagementTools</span>
+
+<span class="c"># habilitar NAT para la red interna</span>
+<span class="nb">New-NetNat</span> <span class="n">-Name</span> <span class="s2">&quot;NAT&quot;</span> <span class="n">-InternalIPInterfaceAddressPrefix</span> <span class="s2">&quot;172.16.0.10/16&quot;</span>
+
+<span class="c">#habilitamos el reenvío de paquetes</span>
+<span class="nb">Set-NetIPInterface</span> <span class="n">-Forwarding</span> <span class="n">Enabled</span>
+</pre></div>
+</div>
+</section>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
 <h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Instalamos el rol de Servicio de dominio de Active Directory</p>
@@ -549,7 +564,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente-sin-gui">Caso práctico: AD y DNS con adaptador puente sin GUI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-sin-gui">Caso práctico: AD y DNS sin GUI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>

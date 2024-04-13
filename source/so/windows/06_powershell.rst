@@ -475,7 +475,7 @@ Configuración de Windows (PowerShell)
 
   .. code-block:: PowerShell
   
-   Rename-Computer -NewName "WC0-tunombre"
+   Rename-Computer -NewName "WS22tunombre"
 
 * **Habilitar ping**  
 
@@ -487,7 +487,10 @@ Configuración de Windows (PowerShell)
 
   .. code-block:: powershell
 
+   #Primero buscamos características disponibles en línea que coincidan con el patrón 
    Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+   
+   #Luego la añadimos:
    Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
    
    #Iniciar el servicio ssh :
@@ -497,12 +500,12 @@ Configuración de Windows (PowerShell)
    Restart-Service sshd
    
    #Para iniciar el servicio ssh durante el arranque de forma automática:
-   Set-Service -Name sshd -StartupType 'Automatic'
+   Set-Service -Name sshd -StartupType Automatic
    
    #Para conectarse sin contraseña primero copia tu clave publica 
    scp -P22 .ssh/id_rsa.pub Administrador@IP:C:\Users\Administrador\.ssh\authorized_keys
    
-   #después ya te puedes conectar sin meter contraseña
+   #Después ya te puedes conectar sin meter contraseña
    ssh -X Administrador@IP
  
 * **Instalar edior vi**
