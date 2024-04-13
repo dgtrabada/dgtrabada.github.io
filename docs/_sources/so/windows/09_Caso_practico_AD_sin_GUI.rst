@@ -2,10 +2,6 @@
 Casos prácticos : Active Directory sin GUI
 ********************************************
 
-
-Caso práctico: AD y DNS sin GUI
-====================================================
-
 Crea los siguiente clones enlazados:
 
 * Clon enlazado 1 de "`Windows Server 2022 sin GUI <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui>`_" llamado **WS22tunombre** con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16

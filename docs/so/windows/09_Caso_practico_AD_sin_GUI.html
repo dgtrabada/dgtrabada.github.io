@@ -394,14 +394,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-sin-gui">Caso práctico: AD y DNS sin GUI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 </ul>
             </nav>
         </div>
@@ -415,15 +412,13 @@ document.write(`
                   
   <section id="casos-practicos-active-directory-sin-gui">
 <h1>Casos prácticos : Active Directory sin GUI<a class="headerlink" href="#casos-practicos-active-directory-sin-gui" title="Enlace permanente a este encabezado">#</a></h1>
-<section id="caso-practico-ad-y-dns-sin-gui">
-<h2>Caso práctico: AD y DNS sin GUI<a class="headerlink" href="#caso-practico-ad-y-dns-sin-gui" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Crea los siguiente clones enlazados:</p>
 <ul class="simple">
 <li><p>Clon enlazado 1 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>» llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
 <li><p>Clon enlazado 2 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
-<h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Instalar el servicio de enrutamiento</span>
 <span class="nb">Install-WindowsFeature</span> <span class="n">Routing</span> <span class="n">-IncludeManagementTools</span>
 
@@ -436,7 +431,7 @@ document.write(`
 </div>
 </section>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
-<h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Instalamos el rol de Servicio de dominio de Active Directory</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Install-WindowsFeature</span> <span class="n">-Name</span> <span class="n">AD-Domain-Services</span> <span class="n">-IncludeManagementTools</span>
 </pre></div>
@@ -453,7 +448,7 @@ document.write(`
 </div>
 </section>
 <section id="unidades-organizativas-usuarios-y-grupos">
-<h3>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a crear las siguientes  unidades organizativas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Despacho1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Despacho1&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 <span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Despacho2&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Despacho2&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
@@ -465,7 +460,7 @@ document.write(`
 </div>
 </section>
 <section id="grupos-y-usuarios">
-<h3>Grupos y usuarios<a class="headerlink" href="#grupos-y-usuarios" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Grupos y usuarios<a class="headerlink" href="#grupos-y-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a crear los mismos usuarios que hicimos con entorno gráfico, es decir tu_nombreA1 en el grupo A, tu_nombreA2 en el grupo A, tu_nombreB1 en el grupo B y tu_nombreB2 en grupo B.</p>
 <p>Primero vamos a crear los grupos de seguridad</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;A&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;A&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
@@ -492,7 +487,7 @@ document.write(`
 </div>
 </section>
 <section id="unir-equipo-al-dominio">
-<h3>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Para añadir el equipo al dominio <strong>CLient-tunombre</strong> primero tendremos que cambiar el DNS:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS</span>
 <span class="nb">Get-DnsClientServerAddress</span>
@@ -518,7 +513,6 @@ document.write(`
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">w32tm</span> <span class="p">/</span><span class="n">resync</span>
 </pre></div>
 </div>
-</section>
 </section>
 </section>
 
@@ -564,14 +558,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-sin-gui">Caso práctico: AD y DNS sin GUI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 </ul>
   </nav></div>
 
