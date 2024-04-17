@@ -7,8 +7,8 @@ Caso práctico: AD y DNS con adaptador puente
 
 Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
-* Clon enlazado 1 de "Windows Server 2022" llamado **SRV-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil
-* Clon enlazado 2 de "Windows 11" llamado **WC5-tunombre** 10.5.X.Y/8, DHCP si es portatil
+* Clon enlazado 1 de `Windows Server 2022 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022>`_ llamado **SRV-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil
+* Clon enlazado 2 de `Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_ llamado **WC5-tunombre** 10.5.X.Y/8, DHCP si es portatil
 
 Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/v7q1diqc4c9ldsg6>`_
 
