@@ -147,7 +147,7 @@ Como podemos ver esta compartida en: **\\\\SRV-TUNOMRE\\compartida** o **\\\\10.
 Instalación de software utilizando directivas de grupo
 ------------------------------------------------------
 
-1. Vamos a poner en la carpeta compartida el programa a instalar en formato msi [#msi]_, para este caso utilizaremos `VideoLAN <https://www.videolan.org/>`_.
+1. Vamos a instalar `VideoLAN <https://www.videolan.org/>`_ en formato msi [#msi]_. Para ello lo bajamos y lo guardadmos dentro de la carpeta SYSVOL [#sysvol]_ **C:\\Windows\\Sysvol**
 
 #. Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio **Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo**. Crea un nuevo objeto de directiva de grupo (GPO) **Instalar VLC**
 
