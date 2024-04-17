@@ -27,18 +27,18 @@ Creación de un dominio:
     
 * De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio **tunombre.local** es crear un nuevo bosque. Para ello seleccionar la opción **Agregar un nuevo bosque**. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña @lumn0
 
-Verificar el nombre NetBIOS [#NetBIOS]_ tu_nombre y pulsar Siguiente
+Verificar el nombre NetBIOS [#NetBIOS]_ tunombre y pulsar Siguiente
 
 Si todo ha sido configurado correctamente, hacer clic en Instalar.
 
-Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tu_nombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
+Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tunombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
 
 Unidades Organizativas, usuarios y grupos
 -----------------------------------------
 
 La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.
 
-Para crear de las unidades organizativas en **Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory** dentro del domino **tu_nombre.local** crea las siguientes unidades organizativas (clic botón derecho del ratón -> Nuevo -> Unidad Organizativa) **Usuarios y Grupos**
+Para crear de las unidades organizativas en **Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory** dentro del domino **tunombre.local** crea las siguientes unidades organizativas (clic botón derecho del ratón -> Nuevo -> Unidad Organizativa) **Usuarios y Grupos**
 
 .. image:: imagenes/WS_UO.png
 
@@ -46,35 +46,35 @@ Dentro de la UO Grupos, crea el grupo global de seguridad A y B
 
 Dentro de la UO Ususarios, crea los usuarios:
 
-* tu_nombreA1
+* tunombreA1
 
-  * Nombre completo: tu_nombreA1 tu_apellido_A1.
+  * Nombre completo: tunombreA1 tuapellidoA1.
   * Contraseña @lumn0A1
-  * Nombre de inicio de sesión del usuario: tu_nombreA2@tu_nombre.local
+  * Nombre de inicio de sesión del usuario: tunombreA1@tunombre.local
   * La contraseña nunca expira
   * Hazle miembro del grupo A
 
-* tu_nombreA2 
+* tunombreA2 
 
-  * Nombre completo: tu_nombreA2 tu_apellido_A2
+  * Nombre completo: tunombreA2 tuapellidoA2
   * Contraseña @lumn0A2
-  * Nombre de inicio de sesión del usuario: tu_nombreA2@tu_nombre.local
+  * Nombre de inicio de sesión del usuario: tunombreA2@tunombre.local
   * La contraseña nunca expira
   * Hazle miembro del grupo A
 
-* tu_nombreB1
+* tunombreB1
 
-  * Nombre completo: tu_nombreB1 tu_apellido_B1.
+  * Nombre completo: tunombreB1 tuapellidoB1.
   * Contraseña @lumn0B1
-  * Nombre de inicio de sesión del usuario: tu_nombreB1@tu_nombre.local
+  * Nombre de inicio de sesión del usuario: tunombreB1@tunombre.local
   * La contraseña nunca expira
   * Hazle miembro del grupo B
 
-* tu_nombreB2 
+* tunombreB2 
 
-  * Nombre completo: tu_nombreB2 tu_apellido_B2
+  * Nombre completo: tunombreB2 tuapellidoB2
   * Contraseña @lumn0B2
-  * Nombre de inicio de sesión del usuario: tu_nombreB2@tu_nombre.local
+  * Nombre de inicio de sesión del usuario: tunombreB2@tunombre.local
   * La contraseña nunca expira
   * Hazle miembro del grupo B
 
@@ -82,7 +82,7 @@ Dentro de la UO Ususarios, crea los usuarios:
 Unir un equipo al dominio
 -------------------------
 
-Vamos a unir **WC5-tunombre** al dominio tu_nombre.local, para ello:
+Vamos a unir **WC5-tunombre** al dominio tunombre.local, para ello:
 
 1. Cambiamos el nombre de la maquina
 
@@ -96,7 +96,7 @@ Vamos a unir **WC5-tunombre** al dominio tu_nombre.local, para ello:
 
 #. En la siguiente ventana, verás la opción "Miembro de". Asegúrate de seleccionar la opción "Dominio" en lugar de "Grupo de trabajo".
 
-#. Ingresa un nombre del dominio **tu_nombre.local** 
+#. Ingresa un nombre del dominio **tunombre.local** 
 
    .. image:: imagenes/quitar_dominio.png
    
@@ -123,7 +123,7 @@ Quitar el equipo del dominio
 
 #. En el servicdor **"Inicio/Herramientas administrativas/Ususarios y equipos de Active Directory/"**
 
-#. Selecciona **tu_nombre.local**, y quita los clientes que has sacado del dominio en la pestaña de **Computers**
+#. Selecciona **tunombre.local**, y quita los clientes que has sacado del dominio en la pestaña de **Computers**
 
 Configurar una carpeta compartida
 ---------------------------------
@@ -142,7 +142,7 @@ Con el botón **derecho del ratón** accedemos a las propiedades de la carpeta v
 
 En la misma pestaña de **Compartir** este mismo dialogo nos vamos a **Compartir** permisos y comprobamos que **Todos** solo con permisos de Lectura
 
-Como podemos ver esta compartida en: **\\SRV-TUNOMRE\compartida** o **\\10.4.100.100**, si el cliente es linux podemos acceder **smb://10.4.100.100/**
+Como podemos ver esta compartida en: **\\\\SRV-TUNOMRE\\compartida** o **\\\\10.4.100.100**, si el cliente es linux podemos acceder **smb://10.4.100.100/**
 
 Instalación de software utilizando directivas de grupo
 ------------------------------------------------------
@@ -373,7 +373,7 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:
 Directivas de passwords
 -----------------------
 
-Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el **Centro de administración de Active Directory** selecciona tu_nombre (local)/System/Password Settings Container
+Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el **Centro de administración de Active Directory** selecciona tunombre (local)/System/Password Settings Container
 
 .. image:: imagenes/directivaPASS01.jpeg
 
