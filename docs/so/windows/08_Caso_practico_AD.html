@@ -548,8 +548,9 @@ document.write(`
 </section>
 <section id="instalacion-de-software-utilizando-directivas-de-grupo">
 <h3>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/3eeqjzksxsgrpaco">vídeo</a></p>
 <ol class="arabic">
-<li><p>Vamos a instalar <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato msi <a class="footnote-reference brackets" href="#msi" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Para ello lo bajamos y lo guardadmos dentro de la carpeta SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <strong>C:\Windows\Sysvol</strong></p></li>
+<li><p>Vamos a instalar <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato msi <a class="footnote-reference brackets" href="#msi" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Para ello lo bajamos y lo guardadmos dentro de la carpeta SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <strong>C:\Windows\Sysvol</strong></p></li>
 <li><p>Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong>. Crea un nuevo objeto de directiva de grupo (GPO) <strong>Instalar VLC</strong></p>
 <img alt="../../_images/GPO_VLC.png" src="../../_images/GPO_VLC.png" />
 </li>
@@ -559,7 +560,7 @@ document.write(`
 <li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de software</strong> creamos un nuevo paquete</p>
 <img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
 </li>
-<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
+<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
 <img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
 </li>
 <li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre</p>
@@ -584,12 +585,12 @@ document.write(`
 </ul>
 </aside>
 <aside class="footnote brackets" id="msi" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
 <p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
 </aside>
 <aside class="footnote brackets" id="sysvol" role="note">
 <span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>,<a role="doc-backlink" href="#id5">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
 <p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
 <p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
 <ul class="simple">
@@ -761,7 +762,7 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
 <p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
 <img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
-<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
 <img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
 <p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
 <img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
