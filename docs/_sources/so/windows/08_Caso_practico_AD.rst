@@ -213,6 +213,9 @@ Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.ma
 Unir un cliente Ubuntu al dominio
 ---------------------------------
 
+Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/rc3ogoh99gwnkmbh>`_
+
+
 * Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.
 
 * Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordeandores. 

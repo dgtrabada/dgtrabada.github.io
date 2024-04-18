@@ -590,7 +590,7 @@ document.write(`
 </aside>
 <aside class="footnote brackets" id="sysvol" role="note">
 <span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id7">3</a>)</span>
 <p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
 <p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
 <ul class="simple">
@@ -605,6 +605,7 @@ document.write(`
 </section>
 <section id="unir-un-cliente-ubuntu-al-dominio">
 <h3>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/rc3ogoh99gwnkmbh">vídeo</a></p>
 <ul class="simple">
 <li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.</p></li>
 <li><p>Cambia el DNS (ip windows server), haz que aparezca en <strong>/ets/hosts</strong> el nombre del dominio y sincroniza temporalmente los dos ordeandores.</p></li>
@@ -762,7 +763,7 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
 <p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
 <img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
-<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
 <img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
 <p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
 <img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
