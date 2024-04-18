@@ -45,7 +45,13 @@ No tenemos creada ninguna parte de la infraestructura, comenzamos creando el bos
   DomainName : tunombre.local
   password : @lumn0
 
+Puedes comprobar que se ha creado con el siguiente comando:
 
+.. code-block:: powershell
+
+  Get-ADComputer -Filter * 
+
+.. image:: imagenes/WS22NGUI00.png
 
 Unidades Organizativas, usuarios y grupos
 -----------------------------------------
@@ -54,54 +60,67 @@ Vamos a crear las siguientes  unidades organizativas:
 
 .. code-block:: powershell
 
-  New-ADOrganizationalUnit -DisplayName "Despacho1" -Name "Despacho1" -path "DC=tunombre,DC=local"
-  New-ADOrganizationalUnit -DisplayName "Despacho2" -Name "Despacho2" -path "DC=tunombre,DC=local"
-  
+  New-ADOrganizationalUnit -DisplayName "DespachoX" -Name "DespachoX" -path "DC=tunombre,DC=local"
+  New-ADOrganizationalUnit -DisplayName "DespachoY" -Name "DespachoY" -path "DC=tunombre,DC=local"
+
 Puedes comprobar las unidades creadas:
 
 .. code-block:: powershell
 
   Get-ADOrganizationalUnit -LDAPFilter "(name=*)"  | FT Name,DistinguishedName
-  
+
+.. image:: imagenes/WS22NGUI01.png
+
+En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luuego borrar
+
+.. code-block:: powershell
+
+  Set-ADOrganizationalUnit -Identity "OU=DespachoX,DC=tunombre,DC=local" -ProtectedFromAccidentalDeletion $False
+  Remove-ADOrganizationalUnit -Identity "OU=DespachoX,DC=tunombre,DC=local" -Recursive
+
 
 Grupos y usuarios
 ------------------
 
-Vamos a crear los mismos usuarios que hicimos con entorno gráfico, es decir tu_nombreA1 en el grupo A, tu_nombreA2 en el grupo A, tu_nombreB1 en el grupo B y tu_nombreB2 en grupo B.
+Vamos a crear los sigientes usuarios y grupos de seguridad
 
-Primero vamos a crear los grupos de seguridad
+* Grupo X
+  
+  * Usuario: tunombreX1 con la contraseña @lumn0X1, haz que sea miembro del grupo X
+  * Usuario: tunombreX2 con la contraseña @lumn0X2, haz que sea miembro del grupo X
+  
+* Grupo Y
+  
+  * Usuario: tunombreY1 con la contraseña @lumn0Y1, haz que sea miembro del grupo Y
+  * Usuario: tunombreY2 con la contraseña @lumn0Y2, haz que sea miembro del grupo Y  
 
 .. code-block:: powershell
 
-  New-ADGroup -DisplayName "A" -Name "A" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
-  New-ADGroup -DisplayName "B" -Name "B" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
+  New-ADGroup -DisplayName "X" -Name "X" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
+  New-ADGroup -DisplayName "Y" -Name "Y" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
 
 
 Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tu_nombreA1
 
 .. code-block:: powershell 
   
-  New-ADUser -DisplayName "tu_nombreA1" -Name "tu_nombreA1" -UserPrincipalName "tu_nombreA1" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0A1" -AsPlainText -Force) -ChangePasswordAtLogon:$True
+  New-ADUser -DisplayName "tunombreX1" -Name "tunombreX1" -UserPrincipalName "tunombreX1" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0X1" -AsPlainText -Force) -ChangePasswordAtLogon:$True
 
 Por ultio lo añadimos al grupo
 
 .. code-block:: powershell
  
-  Add-ADGroupMember -Identity "A" -Members "tu_nombreA1"
+  Add-ADGroupMember -Identity "X" -Members "tunombreX1"
 
 
 Podemos comprobar que se han creado los grupos y los usuarios:
 
 .. code-block:: powershell
 
-  $lista = Get-ADGroup -Filter *  -SearchBase "DC=tunombre,DC=local" | select Name
-  foreach ( $g in $lista) {
-  echo ""
-  echo $g
-  echo "-------------"
-  Get-ADGroupMember $g.Name -recursive | Select-Object Name
-  }
+  Get-ADGroupMember "X" | Select-Object Name
+  Get-ADGroupMember "Y" | Select-Object Name
 
+.. image:: imagenes/WS22NGUI02.png
 
 Unir equipo al dominio
 ----------------------

@@ -45,7 +45,13 @@ No tenemos creada ninguna parte de la infraestructura, comenzamos creando el bos
   DomainName : tunombre.local
   password : @lumn0
 
+Puedes comprobar que se ha creado con el siguiente comando:
 
+.. code-block:: powershell
+
+  Get-ADComputer -Filter * 
+
+.. image:: imagenes/WS22NGUI00.png
 
 Unidades Organizativas, usuarios y grupos
 -----------------------------------------
@@ -54,22 +60,29 @@ Vamos a crear las siguientes  unidades organizativas:
 
 .. code-block:: powershell
 
-  New-ADOrganizationalUnit -DisplayName "Despacho1" -Name "Despacho1" -path "DC=tunombre,DC=local"
-  New-ADOrganizationalUnit -DisplayName "Despacho2" -Name "Despacho2" -path "DC=tunombre,DC=local"
-  
+  New-ADOrganizationalUnit -DisplayName "DespachoX" -Name "DespachoX" -path "DC=tunombre,DC=local"
+  New-ADOrganizationalUnit -DisplayName "DespachoY" -Name "DespachoY" -path "DC=tunombre,DC=local"
+
 Puedes comprobar las unidades creadas:
 
 .. code-block:: powershell
 
   Get-ADOrganizationalUnit -LDAPFilter "(name=*)"  | FT Name,DistinguishedName
-  
+
+.. image:: imagenes/WS22NGUI01.png
+
+En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luuego borrar
+
+.. code-block:: powershell
+
+  Set-ADOrganizationalUnit -Identity "OU=DespachoX,DC=tunombre,DC=local" -ProtectedFromAccidentalDeletion $False
+  Remove-ADOrganizationalUnit -Identity "OU=DespachoX,DC=tunombre,DC=local" -Recursive
+
 
 Grupos y usuarios
 ------------------
 
-Vamos a crear los mismos usuarios que hicimos con entorno gráfico, es decir tu_nombreA1 en el grupo A, tu_nombreA2 en el grupo A, tu_nombreB1 en el grupo B y tu_nombreB2 en grupo B.
-
-Primero vamos a crear los grupos de seguridad
+Vamos a crear los sigientes usuarios y grupos de seguridad
 
 .. code-block:: powershell
 

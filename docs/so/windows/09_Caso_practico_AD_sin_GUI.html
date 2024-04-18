@@ -446,23 +446,33 @@ document.write(`
 <span class="n">password</span> <span class="p">:</span> <span class="nv">@lumn0</span>
 </pre></div>
 </div>
+<p>Puedes comprobar que se ha creado con el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span>
+</pre></div>
+</div>
+<img alt="../../_images/WS22NGUI00.png" src="../../_images/WS22NGUI00.png" />
 </section>
 <section id="unidades-organizativas-usuarios-y-grupos">
 <h2>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a crear las siguientes  unidades organizativas:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Despacho1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Despacho1&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
-<span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Despacho2&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Despacho2&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;DespachoX&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;DespachoX&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
+<span class="nb">New-ADOrganizationalUnit</span> <span class="n">-DisplayName</span> <span class="s2">&quot;DespachoY&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;DespachoY&quot;</span> <span class="n">-path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 </pre></div>
 </div>
 <p>Puedes comprobar las unidades creadas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ADOrganizationalUnit</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(name=*)&quot;</span>  <span class="p">|</span> <span class="nb">FT </span><span class="n">Name</span><span class="p">,</span><span class="n">DistinguishedName</span>
 </pre></div>
 </div>
+<img alt="../../_images/WS22NGUI01.png" src="../../_images/WS22NGUI01.png" />
+<p>En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luuego borrar</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ADOrganizationalUnit</span> <span class="n">-Identity</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-ProtectedFromAccidentalDeletion</span> <span class="nv">$False</span>
+<span class="nb">Remove-ADOrganizationalUnit</span> <span class="n">-Identity</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Recursive</span>
+</pre></div>
+</div>
 </section>
 <section id="grupos-y-usuarios">
 <h2>Grupos y usuarios<a class="headerlink" href="#grupos-y-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Vamos a crear los mismos usuarios que hicimos con entorno gráfico, es decir tu_nombreA1 en el grupo A, tu_nombreA2 en el grupo A, tu_nombreB1 en el grupo B y tu_nombreB2 en grupo B.</p>
-<p>Primero vamos a crear los grupos de seguridad</p>
+<p>Vamos a crear los sigientes usuarios y grupos de seguridad</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;A&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;A&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 <span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;B&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;B&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 </pre></div>
