@@ -399,6 +399,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 </ul>
             </nav>
         </div>
@@ -473,56 +474,90 @@ document.write(`
 <section id="grupos-y-usuarios">
 <h2>Grupos y usuarios<a class="headerlink" href="#grupos-y-usuarios" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a crear los sigientes usuarios y grupos de seguridad</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;A&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;A&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
-<span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;B&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;B&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
+<ul class="simple">
+<li><p>Grupo X</p>
+<ul>
+<li><p>Usuario: tunombreX1 con la contraseña &#64;lumn0X1, haz que sea miembro del grupo X</p></li>
+<li><p>Usuario: tunombreX2 con la contraseña &#64;lumn0X2, haz que sea miembro del grupo X</p></li>
+</ul>
+</li>
+<li><p>Grupo Y</p>
+<ul>
+<li><p>Usuario: tunombreY1 con la contraseña &#64;lumn0Y1, haz que sea miembro del grupo Y</p></li>
+<li><p>Usuario: tunombreY2 con la contraseña &#64;lumn0Y2, haz que sea miembro del grupo Y</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;X&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
+<span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Y&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Y&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 </pre></div>
 </div>
 <p>Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tu_nombreA1</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADUser</span> <span class="n">-DisplayName</span> <span class="s2">&quot;tu_nombreA1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;tu_nombreA1&quot;</span> <span class="n">-UserPrincipalName</span> <span class="s2">&quot;tu_nombreA1&quot;</span> <span class="n">-Enabled</span><span class="p">:</span><span class="nv">$True</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="n">-AccountPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="n">-string</span> <span class="s2">&quot;@lumn0A1&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-ChangePasswordAtLogon</span><span class="p">:</span><span class="nv">$True</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADUser</span> <span class="n">-DisplayName</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-UserPrincipalName</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-Enabled</span><span class="p">:</span><span class="nv">$True</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="n">-AccountPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="n">-string</span> <span class="s2">&quot;@lumn0X1&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-ChangePasswordAtLogon</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
+<p>Al establecer <code class="docutils literal notranslate"><span class="pre">-ChangePasswordAtLogon:$False</span></code>, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado <code class="docutils literal notranslate"><span class="pre">Set-ADUser</span> <span class="pre">-Identity</span> <span class="pre">&quot;tunombreX1&quot;</span> <span class="pre">-ChangePasswordAtLogon</span> <span class="pre">$False</span></code>, en el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña y hasta que no lo hagamos no podremos loguearnos por ssh.</p>
 <p>Por ultio lo añadimos al grupo</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;A&quot;</span> <span class="n">-Members</span> <span class="s2">&quot;tu_nombreA1&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;X&quot;</span> <span class="n">-Members</span> <span class="s2">&quot;tunombreX1&quot;</span>
 </pre></div>
 </div>
 <p>Podemos comprobar que se han creado los grupos y los usuarios:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$lista</span> <span class="p">=</span> <span class="nb">Get-ADGroup</span> <span class="n">-Filter</span> <span class="p">*</span>  <span class="n">-SearchBase</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="p">|</span> <span class="nb">select </span><span class="n">Name</span>
-<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$g</span> <span class="k">in</span> <span class="nv">$lista</span><span class="p">)</span> <span class="p">{</span>
-<span class="nb">echo </span><span class="s2">&quot;&quot;</span>
-<span class="nb">echo </span><span class="nv">$g</span>
-<span class="nb">echo </span><span class="s2">&quot;-------------&quot;</span>
-<span class="nb">Get-ADGroupMember</span> <span class="nv">$g</span><span class="p">.</span><span class="n">Name</span> <span class="n">-recursive</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span>
-<span class="p">}</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ADGroupMember</span> <span class="s2">&quot;X&quot;</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span>
+<span class="nb">Get-ADGroupMember</span> <span class="s2">&quot;Y&quot;</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span>
 </pre></div>
 </div>
+<img alt="../../_images/WS22NGUI02.png" src="../../_images/WS22NGUI02.png" />
 </section>
 <section id="unir-equipo-al-dominio">
 <h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Para añadir el equipo al dominio <strong>CLient-tunombre</strong> primero tendremos que cambiar el DNS:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS</span>
+<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS del cliente</span>
 <span class="nb">Get-DnsClientServerAddress</span>
 
- <span class="c">#En el caso de que no apunte al servidor, lo cambiamos:</span>
- <span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceIndex</span> <span class="n">6</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s2">&quot;10.4.100.100&quot;</span><span class="p">,</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">)</span>
+<span class="c">#En el caso de que no apunte al servidor, lo cambiamos:</span>
+<span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceIndex</span> <span class="n">6</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s2">&quot;172.16.0.10&quot;</span><span class="p">,</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Por ultimo lo metemos dentro del dominio con el siguiente comando, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña</p>
+<p>Por ultimo lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-computer</span> <span class="n">-domainname</span> <span class="s2">&quot;tunombre.local&quot;</span> <span class="n">-Credential</span>  <span class="n">tunombre</span><span class="p">\</span><span class="n">administrador</span> <span class="n">-restart</span> <span class="n">-force</span>
 
 <span class="c">#puedes comprobar que se añadido en el servidor ejecuntando allí</span>
 <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">Name</span>
 </pre></div>
 </div>
+<img alt="../../_images/WS22NGUI03.png" src="../../_images/WS22NGUI03.png" />
+<p>En el caso de que quieras hacerlo sin exportar el diplay:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$password</span> <span class="p">=</span> <span class="nb">ConvertTo-SecureString</span> <span class="s2">&quot;@lumn0&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
+<span class="nv">$credenciales</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">PSCredential</span><span class="p">(</span><span class="s2">&quot;tunombre\administrador&quot;</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span>
+
+<span class="nb">Add-Computer</span> <span class="n">-DomainName</span> <span class="s2">&quot;tunombre.local&quot;</span> <span class="n">-Credential</span> <span class="nv">$credenciales</span> <span class="n">-Restart</span> <span class="n">-Force</span>
+</pre></div>
+</div>
 <p>Es posible que al haber clonado los equipos no os deje por tener el mismo SID, para cambiarlo:</p>
 <img alt="../../_images/sysprep.png" src="../../_images/sysprep.png" />
-<p>Si queremos sacar la maquina del dominio, en una terminal con permiso de administrador ejceutamos:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-Computer</span> <span class="n">-UnjoinDomainCredential</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">Administrador</span> <span class="n">-PassThru</span> <span class="n">-Verbose</span>
+<p>Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejceutamos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;NombreDeLaComputadora&quot;</span>
 </pre></div>
 </div>
 <p>En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">w32tm</span> <span class="p">/</span><span class="n">resync</span>
 </pre></div>
 </div>
+</section>
+<section id="carpeta-compartida">
+<h2>Carpeta compartida<a class="headerlink" href="#carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Creamos una carpeta en el servidor y la compartimos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Desde el servidor</span>
+<span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">compartida_tunombre</span>
+<span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;compartida_tunombre&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\Users\compartida_tunombre\&quot;</span> <span class="n">-ReadAccess</span> <span class="s2">&quot;Todos&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;Administradores&quot;</span>
+</pre></div>
+</div>
+<img alt="../../_images/WS22NGUI04.png" src="../../_images/WS22NGUI04.png" />
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span>  <span class="c">#La montamos en el cliente en la unidad Z</span>
+<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;Z&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
+</pre></div>
+</div>
+<img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
 </section>
 </section>
 
@@ -573,6 +608,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 </ul>
   </nav></div>
 

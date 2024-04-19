@@ -84,52 +84,60 @@ Grupos y usuarios
 
 Vamos a crear los sigientes usuarios y grupos de seguridad
 
+* Grupo X
+  
+  * Usuario: tunombreX1 con la contraseña @lumn0X1, haz que sea miembro del grupo X
+  * Usuario: tunombreX2 con la contraseña @lumn0X2, haz que sea miembro del grupo X
+  
+* Grupo Y
+  
+  * Usuario: tunombreY1 con la contraseña @lumn0Y1, haz que sea miembro del grupo Y
+  * Usuario: tunombreY2 con la contraseña @lumn0Y2, haz que sea miembro del grupo Y  
+
 .. code-block:: powershell
 
-  New-ADGroup -DisplayName "A" -Name "A" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
-  New-ADGroup -DisplayName "B" -Name "B" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
+  New-ADGroup -DisplayName "X" -Name "X" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
+  New-ADGroup -DisplayName "Y" -Name "Y" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
 
 
 Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tu_nombreA1
 
 .. code-block:: powershell 
   
-  New-ADUser -DisplayName "tu_nombreA1" -Name "tu_nombreA1" -UserPrincipalName "tu_nombreA1" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0A1" -AsPlainText -Force) -ChangePasswordAtLogon:$True
+  New-ADUser -DisplayName "tunombreX1" -Name "tunombreX1" -UserPrincipalName "tunombreX1" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0X1" -AsPlainText -Force) -ChangePasswordAtLogon:$False
+
+Al establecer ``-ChangePasswordAtLogon:$False``, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado ``Set-ADUser -Identity "tunombreX1" -ChangePasswordAtLogon $False``, en el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña y hasta que no lo hagamos no podremos loguearnos por ssh.
 
 Por ultio lo añadimos al grupo
 
 .. code-block:: powershell
  
-  Add-ADGroupMember -Identity "A" -Members "tu_nombreA1"
+  Add-ADGroupMember -Identity "X" -Members "tunombreX1"
 
 
 Podemos comprobar que se han creado los grupos y los usuarios:
 
 .. code-block:: powershell
 
-  $lista = Get-ADGroup -Filter *  -SearchBase "DC=tunombre,DC=local" | select Name
-  foreach ( $g in $lista) {
-  echo ""
-  echo $g
-  echo "-------------"
-  Get-ADGroupMember $g.Name -recursive | Select-Object Name
-  }
+  Get-ADGroupMember "X" | Select-Object Name
+  Get-ADGroupMember "Y" | Select-Object Name
 
+.. image:: imagenes/WS22NGUI02.png
 
 Unir equipo al dominio
 ----------------------
 
-Para añadir el equipo al dominio **CLient-tunombre** primero tendremos que cambiar el DNS:
+Para añadir el equipo al dominio **WC05tunombre** primero tendremos que cambiar el DNS:
 
 .. code-block:: powershell
 
-  #Comprobamos el DNS
+  #Comprobamos el DNS del cliente
   Get-DnsClientServerAddress
 
-   #En el caso de que no apunte al servidor, lo cambiamos:
-   Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("10.4.100.100", "8.8.8.8")
+  #En el caso de que no apunte al servidor, lo cambiamos:
+  Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("172.16.0.10", "8.8.8.8")
    
-Por ultimo lo metemos dentro del dominio con el siguiente comando, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña
+Por ultimo lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña
 
 .. code-block:: powershell
 
@@ -137,18 +145,28 @@ Por ultimo lo metemos dentro del dominio con el siguiente comando, necesitaremos
    
   #puedes comprobar que se añadido en el servidor ejecuntando allí
   Get-ADComputer -Filter * | FT Name
+  
+.. image:: imagenes/WS22NGUI03.png
+
+En el caso de que quieras hacerlo sin exportar el diplay:
+
+.. code-block:: powershell
+
+  $password = ConvertTo-SecureString "@lumn0" -AsPlainText -Force
+  $credenciales = New-Object System.Management.Automation.PSCredential("tunombre\administrador", $password)
+
+  Add-Computer -DomainName "tunombre.local" -Credential $credenciales -Restart -Force
 
 Es posible que al haber clonado los equipos no os deje por tener el mismo SID, para cambiarlo:
-
 
 .. image:: imagenes/sysprep.png
 
 
-Si queremos sacar la maquina del dominio, en una terminal con permiso de administrador ejceutamos:
+Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejceutamos:
 
 .. code-block:: powershell
 
-  Remove-Computer -UnjoinDomainCredential tunombre\Administrador -PassThru -Verbose
+  Remove-ADComputer -Identity "NombreDeLaComputadora"
 
 
 En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:
@@ -156,3 +174,24 @@ En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un
 .. code-block:: powershell
   
   w32tm /resync
+
+
+Carpeta compartida
+------------------
+
+Creamos una carpeta en el servidor y la compartimos:
+
+.. code-block:: powershell
+
+  #Desde el servidor
+  mkdir C:\Users\compartida_tunombre
+  New-SmbShare -Name "compartida_tunombre"  -Path "C:\Users\compartida_tunombre\" -ReadAccess "Todos" -FullAccess "Administradores"
+
+.. image:: imagenes/WS22NGUI04.png
+
+.. code-block:: powershell
+
+    #La montamos en el cliente en la unidad Z
+  New-PSDrive -Name "Z" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\compartida_tunombre" 
+  
+.. image:: imagenes/WS22NGUI05.png
