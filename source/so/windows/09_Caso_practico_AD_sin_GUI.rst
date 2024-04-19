@@ -190,8 +190,117 @@ Creamos una carpeta en el servidor y la compartimos:
 .. image:: imagenes/WS22NGUI04.png
 
 .. code-block:: powershell
-
-    #La montamos en el cliente en la unidad Z
+   
+  #Podemos ver que esta en:
+  ls "\\WS22TUNOMBRE\compartida_tunombre"
+   
+  #La montamos en el cliente en la unidad Z
   New-PSDrive -Name "Z" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\compartida_tunombre" 
   
 .. image:: imagenes/WS22NGUI05.png
+
+
+Instalación de software utilizando directivas de grupo
+------------------------------------------------------
+
+Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.
+
+Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO para instalar los programas que queramos
+
+.. code-block:: powershell
+
+  #En AD tenemos los siguientes clientes
+  Get-ADComputer -Filter * | Select-Object Name, DistinguishedName
+
+  #Nuestro cliente esta en:
+ Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
+ 
+ #tenemos las siguientes unidades organizativas
+  Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
+  
+  #Movemos el equi al "DespachoX"
+  $IdentidadEquipo = $(Get-ADComputer -Identity "WC05TUNOMBRE").DistinguishedName
+  
+  Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
+ 
+  
+Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:
+
+.. code-block:: powershell
+
+  #es posible que el link de descarga haya cambiado...
+  cd C:\Windows\SYSVOL\sysvol\tunombre.local
+Invoke-WebRequest -Uri "https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi" -OutFile "vlc-3.0.20-win64.msi"
+
+
+Creamos la GPO y la vinculamos a la OU correspondiente:  
+
+.. code-block:: powershell
+
+  #Creamos la politica de grupo:
+  New-GPO -Name "Instalar VLC"
+  
+  #La vinculamos:
+  Get-GPO -Name "Instalar VLC"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
+  
+  #Si queremos desvincular: 
+  #Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
+  #Borrarla:
+  #Remove-GPO -Name <Nombre> -Domain <dominio>
+  
+  #creamod el script en \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1:
+  $rutaMSI = "\\WS22TUNOMBRE\sysvol\tunombre.local\vlc-3.0.20-win64.msi"
+  # Instalar el MSI
+  Start-Process msiexec.exe -ArgumentList "/i `"$rutaMSI`" /qn" -Wait
+
+  Set-GPRegistryValue -Name "Instalar VLC" -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" -ValueName "Instalar VLC" -Type String -Value "powershell.exe -File \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1"
+
+ 
+
+
+
+rm -r C:\Users\XY
+
+mkdir C:\Users\XY
+mkdir C:\Users\XY\X
+mkdir C:\Users\XY\Y
+
+# Obtener el objeto ACL actual de la carpeta XY
+$acl= Get-Acl -Path "C:\Users\XY"
+
+# Permisos para la carpeta principal (lectura y escritura)
+$permisos= "ReadAndExecute", "ListDirectory"
+
+# Crear la regla de acceso para el grupo X
+$reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+$reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
+
+
+# Agregar las reglas de acceso 
+$acl.AddAccessRule($reglaX)
+$acl.AddAccessRule($reglaY)
+
+
+cd C:\Users\XY
+
+$acl= Get-Acl -Path "C:\Users\XY\X"
+$permisos = "Modify"
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+$acl.AddAccessRule($regla)
+
+$acl= Get-Acl -Path "C:\Users\XY\Y"
+$permisos = "Modify"
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
+$acl.AddAccessRule($regla)
+
+
+
+$usuario = "tunombreX1"
+$password = ConvertTo-SecureString "@lumn0X1" -AsPlainText -Force
+$credenciales = New-Object System.Management.Automation.PSCredential($usuario, $password)
+
+Start-Process powershell.exe -Credential $credenciales 
+
+Set-ADUser -Identity "nombreusuario" -ChangePasswordAtLogon $False
+
+Start-Process powershell.exe -Credential $credenciales
