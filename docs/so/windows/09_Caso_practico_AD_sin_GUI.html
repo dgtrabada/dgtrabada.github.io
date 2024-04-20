@@ -400,6 +400,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
             </nav>
         </div>
@@ -553,11 +554,89 @@ document.write(`
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI04.png" src="../../_images/WS22NGUI04.png" />
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span>  <span class="c">#La montamos en el cliente en la unidad Z</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Podemos ver que esta en:</span>
+<span class="nb">ls </span><span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
+
+<span class="c">#La montamos en el cliente en la unidad Z</span>
 <span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;Z&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
+</section>
+<section id="instalacion-de-software-utilizando-directivas-de-grupo">
+<h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.</p>
+<p>Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO para instalar los programas que queramos</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="c">#En AD tenemos los siguientes clientes</span>
+ <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
+
+ <span class="c">#Nuestro cliente esta en:</span>
+<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+
+<span class="c">#tenemos las siguientes unidades organizativas</span>
+ <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+
+ <span class="c">#Movemos el equi al &quot;DespachoX&quot;</span>
+ <span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
+
+ <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
+</pre></div>
+</div>
+<p>Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#es posible que el link de descarga haya cambiado...</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">SYSVOL</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span>
+</pre></div>
+</div>
+<p>Invoke-WebRequest -Uri «<a class="reference external" href="https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi">https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi</a>» -OutFile «vlc-3.0.20-win64.msi»</p>
+<p>Creamos la GPO y la vinculamos a la OU correspondiente:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
+<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span>
+
+<span class="c">#La vinculamos:</span>
+<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
+
+<span class="c">#Si queremos desvincular:</span>
+<span class="c">#Remove-GPLink -Name &lt;Nombre&gt; -Target &lt;Path_OU_Dominio&gt;</span>
+<span class="c">#Borrarla:</span>
+<span class="c">#Remove-GPO -Name &lt;Nombre&gt; -Domain &lt;dominio&gt;</span>
+
+<span class="c">#creamod el script en \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1:</span>
+<span class="nv">$rutaMSI</span> <span class="p">=</span> <span class="s2">&quot;\\WS22TUNOMBRE\sysvol\tunombre.local\vlc-3.0.20-win64.msi&quot;</span>
+<span class="c"># Instalar el MSI</span>
+<span class="nb">Start-Process</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;/i </span><span class="se">`&quot;</span><span class="s2">$rutaMSI</span><span class="se">`&quot;</span><span class="s2"> /qn&quot;</span> <span class="n">-Wait</span>
+
+<span class="nb">Set-GPRegistryValue</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span> <span class="n">-Key</span> <span class="s2">&quot;HKLM\Software\Microsoft\Windows\CurrentVersion\Run&quot;</span> <span class="n">-ValueName</span> <span class="s2">&quot;Instalar VLC&quot;</span> <span class="n">-Type</span> <span class="n">String</span> <span class="n">-Value</span> <span class="s2">&quot;powershell.exe -File \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1&quot;</span>
+</pre></div>
+</div>
+<p>rm -r C:UsersXY</p>
+<p>mkdir C:UsersXY
+mkdir C:UsersXYX
+mkdir C:UsersXYY</p>
+<p># Obtener el objeto ACL actual de la carpeta XY
+$acl= Get-Acl -Path «C:UsersXY»</p>
+<p># Permisos para la carpeta principal (lectura y escritura)
+$permisos= «ReadAndExecute», «ListDirectory»</p>
+<p># Crear la regla de acceso para el grupo X
+$reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)
+$reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)</p>
+<p># Agregar las reglas de acceso
+$acl.AddAccessRule($reglaX)
+$acl.AddAccessRule($reglaY)</p>
+<p>cd C:UsersXY</p>
+<p>$acl= Get-Acl -Path «C:UsersXYX»
+$permisos = «Modify»
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)
+$acl.AddAccessRule($regla)</p>
+<p>$acl= Get-Acl -Path «C:UsersXYY»
+$permisos = «Modify»
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)
+$acl.AddAccessRule($regla)</p>
+<p>$usuario = «tunombreX1»
+$password = ConvertTo-SecureString «&#64;lumn0X1» -AsPlainText -Force
+$credenciales = New-Object System.Management.Automation.PSCredential($usuario, $password)</p>
+<p>Start-Process powershell.exe -Credential $credenciales</p>
+<p>Set-ADUser -Identity «nombreusuario» -ChangePasswordAtLogon $False</p>
+<p>Start-Process powershell.exe -Credential $credenciales</p>
 </section>
 </section>
 
@@ -609,6 +688,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
   </nav></div>
 

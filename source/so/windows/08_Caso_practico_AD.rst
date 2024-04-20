@@ -449,8 +449,8 @@ Crea las siguientes carpetas compartidas con los siguientes permisos:
 
 * C:\\compartida\\contratista\\contratista_compartida (al grupo de contratista tiene permiso de lectura)
 
-Montaje de una unidad
----------------------
+Mapear unidades de red a las carpetas compartidas.
+--------------------------------------------------
 
 Queremos que se monten de forma automatica la carpeta contratista_compartida en h: y la carpeta empleados_compartida i: para ello copiamos el siguiente script llamado **montar.bat** en \\\\SRVInt-tunombre\\NETLOGON o directamente en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts
 
@@ -462,6 +462,7 @@ Queremos que se monten de forma automatica la carpeta contratista_compartida en 
 Vamos a los usuarios en los que queremos que se monten las unidades, **Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil**  lo metemos en el Script de inicio de sesión
 
 .. image:: imagenes/Perfil01.png
+
 
 Perfil móvil
 ------------
