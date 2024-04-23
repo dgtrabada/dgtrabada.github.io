@@ -413,6 +413,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>
@@ -759,9 +760,9 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 </section>
 <section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
 <h3>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre</p>
+<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la «OU=Computers»</p>
 <img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
-<p>En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
+<p>En <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong> creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
 <img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
 <p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
 <img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
@@ -786,9 +787,22 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 </section>
 <section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
 <h3>Mapear unidades de red a las carpetas compartidas.<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Queremos que se monten de forma automatica la carpeta contratista_compartida en h: y la carpeta empleados_compartida i: para ello copiamos el siguiente script llamado <strong>montar.bat</strong> en \\SRVInt-tunombre\NETLOGON o directamente en C:WindowsSYSVOLsysvolempresa_tunombre.localscripts</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>net<span class="w"> </span>use<span class="w"> </span>h:<span class="w"> </span><span class="se">\\</span>SRVInt-tunombre<span class="se">\c</span>ontratistas_compartida
-net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span><span class="se">\\</span>SRVInt-tunombre<span class="se">\e</span>mpleados_compartida
+<p>Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados</p>
+<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente <strong>«Ususarios / Empleados»</strong> en llamada <strong>«Mapeo de unidades de empleados»</strong></p>
+<img alt="../../_images/GPOINT07.png" src="../../_images/GPOINT07.png" />
+<p>Con el botón derecho del ratón abrimos el <strong>«Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -&gt; nuevo / unidad asignada»</strong></p>
+<img alt="../../_images/GPOINT08.png" src="../../_images/GPOINT08.png" />
+<p>Seleccionamos la Acción de Crear:</p>
+<img alt="../../_images/GPOINT09.png" src="../../_images/GPOINT09.png" />
+<p>En el cliente tenemos que:</p>
+<img alt="../../_images/GPOINT10.png" src="../../_images/GPOINT10.png" />
+<p>En el caso de que tengamos problemas, <code class="docutils literal notranslate"><span class="pre">gpupdate</span> <span class="pre">/force</span></code> es un comando que fuerza una actualización de las políticas de grupo en un equipo cliente de Windows.</p>
+</section>
+<section id="script-al-inicio-de-la-sesion">
+<h3>Script al inicio de la sesión<a class="headerlink" href="#script-al-inicio-de-la-sesion" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Vamos hacer el mapeo de unidades en red con siguiente script llamado <strong>montar.bat</strong> en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>net<span class="w"> </span>use<span class="w"> </span>h:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\c</span>ontratistas_compartida
+net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\e</span>mpleados_compartida
 </pre></div>
 </div>
 <p>Vamos a los usuarios en los que queremos que se monten las unidades, <strong>Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil</strong>  lo metemos en el Script de inicio de sesión</p>
@@ -799,6 +813,8 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 <p>Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.</p>
 <p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRVInt-tunombre\Perfiles\C01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
 <img alt="../../_images/Perfil02.png" src="../../_images/Perfil02.png" />
+<p>Cuando se cierra la sesión, el perfil se actualizará en el servidor:</p>
+<img alt="../../_images/Perfil03.png" src="../../_images/Perfil03.png" />
 </section>
 <section id="aplicar-cuota">
 <h3>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Enlace permanente a este encabezado">#</a></h3>
@@ -891,6 +907,7 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>

@@ -400,6 +400,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
             </nav>
@@ -563,25 +565,54 @@ document.write(`
 </div>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
 </section>
-<section id="instalacion-de-software-utilizando-directivas-de-grupo">
-<h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.</p>
-<p>Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO para instalar los programas que queramos</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="c">#En AD tenemos los siguientes clientes</span>
- <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
+<section id="habilitar-scripts">
+<h2>Habilitar scripts<a class="headerlink" href="#habilitar-scripts" title="Enlace permanente a este encabezado">#</a></h2>
+<p>New-GPO -Name «Habilitar Ejecución de Scripts»</p>
+<p>Set-GPRegistryValue -Name «Habilitar Ejecución de Scripts» -Key «HKLMSOFTWAREPoliciesMicrosoftWindowsPowerShellScriptExecution» -ValueName «ExecutionPolicy» -Type String -Value «AllSigned»</p>
+<p>Get-GPO -Name «Habilitar Ejecución de Scripts»  | New-GPLink -Target «OU=DespachoX,DC=tunombre,DC=local»</p>
+</section>
+<section id="mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">
+<h2>Mapear unidades de red a las carpetas compartidas utilizando GPO<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#En AD tenemos los siguientes clientes</span>
+<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
 
- <span class="c">#Nuestro cliente esta en:</span>
+<span class="c">#Nuestro cliente esta en:</span>
 <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 
 <span class="c">#tenemos las siguientes unidades organizativas</span>
- <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 
- <span class="c">#Movemos el equi al &quot;DespachoX&quot;</span>
- <span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
+<span class="c">#Movemos el equi al &quot;DespachoX&quot;</span>
+<span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
 
- <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
+<span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
+<p>Vamos a crear un script para que se ejecute al inicio de la sesión:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cat </span><span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount_H</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;H&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
+<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span>
+
+<span class="c"># Asignar la configuración de inicio de sesión a la GPO</span>
+<span class="nb">Set-GPRegistryValue</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span> <span class="n">-Key</span> <span class="s2">&quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span> <span class="n">-ValueName</span> <span class="s2">&quot;ScriptName&quot;</span> <span class="n">-Type</span> <span class="n">String</span> <span class="n">-Value</span> <span class="s2">&quot;\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1&quot;</span>
+
+<span class="c">#La vinculamos:</span>
+<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
+
+<span class="c">#Si queremos desvincular:</span>
+<span class="c">#Remove-GPLink -Name &lt;Nombre&gt; -Target &lt;Path_OU_Dominio&gt;</span>
+<span class="c">#Borrarla:</span>
+<span class="c">#Remove-GPO -Name &lt;Nombre&gt; -Domain &lt;dominio&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="instalacion-de-software-utilizando-directivas-de-grupo">
+<h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.</p>
 <p>Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#es posible que el link de descarga haya cambiado...</span>
 <span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">SYSVOL</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span>
@@ -688,6 +719,8 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
   </nav></div>

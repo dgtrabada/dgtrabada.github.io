@@ -199,13 +199,19 @@ Creamos una carpeta en el servidor y la compartimos:
   
 .. image:: imagenes/WS22NGUI05.png
 
+Habilitar scripts
+-----------------
+New-GPO -Name "Habilitar Ejecución de Scripts"
 
-Instalación de software utilizando directivas de grupo
-------------------------------------------------------
+Set-GPRegistryValue -Name "Habilitar Ejecución de Scripts" -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptExecution" -ValueName "ExecutionPolicy" -Type String -Value "AllSigned"
 
-Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.
+Get-GPO -Name "Habilitar Ejecución de Scripts"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
 
-Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO para instalar los programas que queramos
+
+Mapear unidades de red a las carpetas compartidas utilizando GPO
+----------------------------------------------------------------
+
+Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO
 
 .. code-block:: powershell
 
@@ -213,15 +219,48 @@ Lo primero que heremos es mover los ordenadores a la unidad organizativa donde v
   Get-ADComputer -Filter * | Select-Object Name, DistinguishedName
 
   #Nuestro cliente esta en:
- Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
+  Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
  
- #tenemos las siguientes unidades organizativas
+  #tenemos las siguientes unidades organizativas
   Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
   
   #Movemos el equi al "DespachoX"
   $IdentidadEquipo = $(Get-ADComputer -Identity "WC05TUNOMBRE").DistinguishedName
   
   Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
+
+Vamos a crear un script para que se ejecute al inicio de la sesión:
+
+.. code-block:: powershell
+
+  cat \\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1
+  New-PSDrive -Name "H" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\compartida_tunombre"
+
+.. code-block:: powershell
+
+  #Creamos la politica de grupo:
+  New-GPO -Name "Mapear en H"
+  
+  # Asignar la configuración de inicio de sesión a la GPO
+  Set-GPRegistryValue -Name "Mapear en H" -Key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ValueName "ScriptName" -Type String -Value "\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1"
+  
+  #La vinculamos:
+  Get-GPO -Name "Mapear en H"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
+  
+  #Si queremos desvincular: 
+  #Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
+  #Borrarla:
+  #Remove-GPO -Name <Nombre> -Domain <dominio>
+
+
+
+
+Instalación de software utilizando directivas de grupo
+------------------------------------------------------
+
+Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.
+
+
  
   
 Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:

@@ -408,11 +408,11 @@ Dentro del Centro de administración de Windows Server, puedes encontrar una sec
 Intalar programas y cambiar el fondo de escritorio por GPO
 ----------------------------------------------------------
 
-Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC5Int-tunombre y WC6-tunombre
+Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la "OU=Computers"
 
 .. image:: imagenes/GPOINT01.png
 
-En Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC
+En **Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo** creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC
 
 .. image:: imagenes/GPOINT02.png
 
@@ -452,12 +452,38 @@ Crea las siguientes carpetas compartidas con los siguientes permisos:
 Mapear unidades de red a las carpetas compartidas.
 --------------------------------------------------
 
-Queremos que se monten de forma automatica la carpeta contratista_compartida en h: y la carpeta empleados_compartida i: para ello copiamos el siguiente script llamado **montar.bat** en \\\\SRVInt-tunombre\\NETLOGON o directamente en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts
+Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados
+
+En **Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo** creamos una GPO directamente **"Ususarios / Empleados"** en llamada **"Mapeo de unidades de empleados"**
+
+.. image:: imagenes/GPOINT07.png
+
+
+Con el botón derecho del ratón abrimos el **"Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -> nuevo / unidad asignada"**
+
+.. image:: imagenes/GPOINT08.png
+
+
+Seleccionamos la Acción de Crear:
+
+.. image:: imagenes/GPOINT09.png
+
+
+En el cliente tenemos que:
+
+.. image:: imagenes/GPOINT10.png
+
+En el caso de que tengamos problemas, ``gpupdate /force`` es un comando que fuerza una actualización de las políticas de grupo en un equipo cliente de Windows.
+
+Script al inicio de la sesión 
+-----------------------------
+
+Vamos hacer el mapeo de unidades en red con siguiente script llamado **montar.bat** en C:\\Windows\\SYSVOL\\sysvol\\empresa_tunombre.local\\scripts
 
 .. code-block:: bash
 
-  net use h: \\SRVInt-tunombre\contratistas_compartida
-  net use i: \\SRVInt-tunombre\empleados_compartida
+  net use h: \\SRV-tunombre\contratistas_compartida
+  net use i: \\SRV-tunombre\empleados_compartida
   
 Vamos a los usuarios en los que queremos que se monten las unidades, **Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil**  lo metemos en el Script de inicio de sesión
 
@@ -471,6 +497,10 @@ Vamos a crear un perfil movil a los contratistas, para ello primero creamos una 
 En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRVInt-tunombre\\Perfiles\\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
 
 .. image:: imagenes/Perfil02.png
+
+Cuando se cierra la sesión, el perfil se actualizará en el servidor:
+
+.. image:: imagenes/Perfil03.png
 
 Aplicar cuota
 -------------
