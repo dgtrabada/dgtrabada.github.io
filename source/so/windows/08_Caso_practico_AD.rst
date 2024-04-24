@@ -275,6 +275,9 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 * Clon enlazado 2 de "Windows 11" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 * Clon enlazado 3 de "Windows 11" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
+Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3>`_
+
+
 Configurar servicio de enrutamiento
 -----------------------------------
 
