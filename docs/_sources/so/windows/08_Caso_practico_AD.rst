@@ -271,9 +271,9 @@ Caso práctico: AD y DNS con red interna
 
 Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
-* Clon enlazado 1 de "Windows Server 2022" llamado **SRVInt-tunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
-* Clon enlazado 2 de "Windows 11" llamado **WC5Int-tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
-* Clon enlazado 3 de "Windows 11" llamado **WC6Int-tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 1 de "Windows Server 2022" llamado **SRVtunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
+* Clon enlazado 2 de "Windows 11" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 3 de "Windows 11" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 Configurar servicio de enrutamiento
 -----------------------------------
@@ -282,7 +282,7 @@ Para configurar el servicio de enrutamiento vamos a:
 
 * Panel / Agregar roles y características
 
-  Seleccionamos nuestro servidor **SRVInt-tunombre**
+  Seleccionamos nuestro servidor **SRVtunombre**
 
 En Roles de servidor marcamos la casilla de:
 
@@ -494,7 +494,7 @@ Perfil móvil
 ------------
 Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.
 
-En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRVInt-tunombre\\Perfiles\\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
+En **Usuarios y equipos de Active Directory**, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: **\\\\SRV-tunombre\\Perfiles\\C01_tunombre**, de forma mas general podríamos cambiar C01_tunombre por **%username%**
 
 .. image:: imagenes/Perfil02.png
 

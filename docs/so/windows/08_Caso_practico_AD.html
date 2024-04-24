@@ -645,16 +645,16 @@ TUNOMBRE.LOCAL
 <h2>Caso práctico: AD y DNS con red interna<a class="headerlink" href="#caso-practico-ad-y-dns-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVInt-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC5Int-tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC6Int-tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVtunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
 <h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Para configurar el servicio de enrutamiento vamos a:</p>
 <ul>
 <li><p>Panel / Agregar roles y características</p>
-<p>Seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong></p>
+<p>Seleccionamos nuestro servidor <strong>SRVtunombre</strong></p>
 </li>
 </ul>
 <p>En Roles de servidor marcamos la casilla de:</p>
@@ -811,7 +811,7 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 <section id="perfil-movil">
 <h3>Perfil móvil<a class="headerlink" href="#perfil-movil" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.</p>
-<p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRVInt-tunombre\Perfiles\C01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
+<p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRV-tunombre\Perfiles\C01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
 <img alt="../../_images/Perfil02.png" src="../../_images/Perfil02.png" />
 <p>Cuando se cierra la sesión, el perfil se actualizará en el servidor:</p>
 <img alt="../../_images/Perfil03.png" src="../../_images/Perfil03.png" />
