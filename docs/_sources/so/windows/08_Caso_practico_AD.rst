@@ -267,7 +267,8 @@ Tambien puedes conectarte por ssh
    
 .. image:: imagenes/ubuntuADssh.png
     :scale: 50%
-    
+   
+Ayuda: Usa "kinit administrador@tunombre.local" para iniciar sesión como administrador en el dominio. Puedes verificar la configuración DNS en "/etc/resolv.conf". Recuerda sincronizar los relojes de los sistemas para mantener una hora precisa en toda la red.
 
 Caso práctico: AD y DNS con red interna
 =======================================
