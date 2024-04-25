@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Casos prácticos : Active Directory &#8212; dgtrabada</title>
+    <title>Casos prácticos : Active Directory con adaptador puente &#8212; dgtrabada</title>
   
   
   
@@ -45,7 +45,7 @@
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Casos prácticos : Active Directory sin GUI" href="09_Caso_practico_AD_sin_GUI.html" />
+    <link rel="next" title="Casos prácticos : Active Directory con red interna" href="08_Caso_practico_AD_redint.html" />
     <link rel="prev" title="Active Directory Domain Services (AD DS)" href="07_AD_DS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -186,7 +186,8 @@
 <li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_bat.html">Scripting .bat</a></li>
@@ -384,7 +385,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Casos prácticos : Active Directory</h1>
+    <h1>Casos prácticos : Active Directory con adaptador puente</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -394,31 +395,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente">Caso práctico: AD y DNS con adaptador puente</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
 </ul>
             </nav>
         </div>
@@ -430,10 +414,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="casos-practicos-active-directory">
-<h1>Casos prácticos : Active Directory<a class="headerlink" href="#casos-practicos-active-directory" title="Enlace permanente a este encabezado">#</a></h1>
-<section id="caso-practico-ad-y-dns-con-adaptador-puente">
-<h2>Caso práctico: AD y DNS con adaptador puente<a class="headerlink" href="#caso-practico-ad-y-dns-con-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h2>
+  <section id="casos-practicos-active-directory-con-adaptador-puente">
+<h1>Casos prácticos : Active Directory con adaptador puente<a class="headerlink" href="#casos-practicos-active-directory-con-adaptador-puente" title="Enlace permanente a este encabezado">#</a></h1>
 <p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
 <li><p>Clon enlazado 1 de <a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022">Windows Server 2022</a> llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil</p></li>
@@ -441,13 +423,13 @@ document.write(`
 </ul>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/v7q1diqc4c9ldsg6">vídeo</a></p>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
-<h3>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
 <li><p>En <strong>SRV-tunombre</strong> vamos a <strong>Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles</strong> Seleccionar un servidor del grupo de servidores, escoger <strong>SRV-tunombre/Marcar la casilla Servicios de dominio de Active Directory</strong></p></li>
 </ul>
 </section>
 <section id="creacion-de-un-dominio">
-<h3>Creación de un dominio:<a class="headerlink" href="#creacion-de-un-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Creación de un dominio:<a class="headerlink" href="#creacion-de-un-dominio" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>Partiendo de la ventana Resultados de la instalación de Active Directory, pulsar en Promover este servidor a controlador de dominio. (Si se había cerrado la ventana anterior es posible acceder a ella pulsando en el icono de advertencia de la barra de herramientas del Administrador del servidor)</p>
 <img alt="../../_images/WS_promoverservidorCD.png" src="../../_images/WS_promoverservidorCD.png" />
@@ -459,7 +441,7 @@ document.write(`
 <p>Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/</strong> clic el botón derecho del ratón en <strong>tunombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong> elegir <strong>sin seguridad y con seguridad</strong>, a continuación hacer clic en Aceptar.</p>
 </section>
 <section id="unidades-organizativas-usuarios-y-grupos">
-<h3>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Enlace permanente a este encabezado">#</a></h2>
 <p>La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.</p>
 <p>Para crear de las unidades organizativas en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong> dentro del domino <strong>tunombre.local</strong> crea las siguientes unidades organizativas (clic botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa) <strong>Usuarios y Grupos</strong></p>
 <img alt="../../_images/WS_UO.png" src="../../_images/WS_UO.png" />
@@ -505,7 +487,7 @@ document.write(`
 </ul>
 </section>
 <section id="unir-un-equipo-al-dominio">
-<h3>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Vamos a unir <strong>WC5-tunombre</strong> al dominio tunombre.local, para ello:</p>
 <ol class="arabic">
 <li><p>Cambiamos el nombre de la maquina</p></li>
@@ -521,7 +503,7 @@ document.write(`
 </ol>
 </section>
 <section id="quitar-el-equipo-del-dominio">
-<h3>Quitar el equipo del dominio<a class="headerlink" href="#quitar-el-equipo-del-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Quitar el equipo del dominio<a class="headerlink" href="#quitar-el-equipo-del-dominio" title="Enlace permanente a este encabezado">#</a></h2>
 <ol class="arabic simple">
 <li><p>Accede al equipo con una cuenta de administrador local.</p></li>
 <li><p>Haz clic derecho en el botón «Inicio» y selecciona «Sistema» en el menú desplegable.</p></li>
@@ -535,7 +517,7 @@ document.write(`
 </ol>
 </section>
 <section id="configurar-una-carpeta-compartida">
-<h3>Configurar una carpeta compartida<a class="headerlink" href="#configurar-una-carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Configurar una carpeta compartida<a class="headerlink" href="#configurar-una-carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Las carpetas y archivos en Windows permiten configurar los siguientes permisos:</p>
 <ul class="simple">
 <li><p><strong>Control total</strong> el usuario tiene control total sobre la carpeta y puede añadir, cambiar, mover y eliminar elementos. El usuario también puede agregar y quitar permisos de la carpeta y subcarpetas.</p></li>
@@ -548,7 +530,7 @@ document.write(`
 <p>Como podemos ver esta compartida en: <strong>\\SRV-TUNOMRE\compartida</strong> o <strong>\\10.4.100.100</strong>, si el cliente es linux podemos acceder <strong>smb://10.4.100.100/</strong></p>
 </section>
 <section id="instalacion-de-software-utilizando-directivas-de-grupo">
-<h3>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/3eeqjzksxsgrpaco">vídeo</a></p>
 <ol class="arabic">
 <li><p>Vamos a instalar <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato msi <a class="footnote-reference brackets" href="#msi" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Para ello lo bajamos y lo guardadmos dentro de la carpeta SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <strong>C:\Windows\Sysvol</strong></p></li>
@@ -591,7 +573,7 @@ document.write(`
 </aside>
 <aside class="footnote brackets" id="sysvol" role="note">
 <span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id8">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
 <p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
 <p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
 <ul class="simple">
@@ -605,7 +587,7 @@ document.write(`
 </aside>
 </section>
 <section id="unir-un-cliente-ubuntu-al-dominio">
-<h3>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h3>
+<h2>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/rc3ogoh99gwnkmbh">vídeo</a></p>
 <ul class="simple">
 <li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.</p></li>
@@ -644,211 +626,6 @@ Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srv-tunom
 <p>Ayuda: Usa «kinit <a class="reference external" href="mailto:administrador&#37;&#52;&#48;tunombre&#46;local">administrador<span>&#64;</span>tunombre<span>&#46;</span>local</a>» para iniciar sesión como administrador en el dominio. Puedes verificar la configuración DNS en «/etc/resolv.conf». Recuerda sincronizar los relojes de los sistemas para mantener una hora precisa en toda la red.</p>
 </section>
 </section>
-<section id="caso-practico-ad-y-dns-con-red-interna">
-<h2>Caso práctico: AD y DNS con red interna<a class="headerlink" href="#caso-practico-ad-y-dns-con-red-interna" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
-<ul class="simple">
-<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVtunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC07tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-</ul>
-<p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3">vídeo</a></p>
-<section id="configurar-servicio-de-enrutamiento">
-<h3>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Para configurar el servicio de enrutamiento vamos a:</p>
-<ul>
-<li><p>Panel / Agregar roles y características</p>
-<p>Seleccionamos nuestro servidor <strong>SRVtunombre</strong></p>
-</li>
-</ul>
-<p>En Roles de servidor marcamos la casilla de:</p>
-<ul class="simple">
-<li><p>[x] Remote Access / <strong>Acceso remoto</strong></p></li>
-</ul>
-<p>En servicios de rol seleccionamos:</p>
-<ul class="simple">
-<li><p>[x] DirectAccess and VPN(RAS)</p></li>
-<li><p>[x] Routing</p></li>
-</ul>
-<p>Para comfigurar servicio de <strong>enrutamiento</strong> vamos a <strong>Panel/Herramientas/Enrutamiento y Acceso remoto</strong>, seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong>, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
-<ul class="simple">
-<li><p>[x] Traduccion de direcciones de red (NAT)</p></li>
-</ul>
-<p>Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (DHCP caso portatil)</p>
-<ul class="simple">
-<li><p>[x] Configurar mas adelante el DHCP y el DNS</p></li>
-</ul>
-</section>
-<section id="configura-el-controlador-de-dominio">
-<h3>Configura el controlador de dominio<a class="headerlink" href="#configura-el-controlador-de-dominio" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Crea un controlador de dominio llamado <strong>empresa_tunombre.local</strong> y las siguientes unidades organizativas:</p>
-<ul class="simple">
-<li><p>OU=Oficinas</p>
-<ul>
-<li><p>OU=Madrid</p>
-<ul>
-<li><p>OU=Ventas</p></li>
-<li><p>OU=Marketing</p></li>
-<li><p>OU=Administración</p></li>
-</ul>
-</li>
-<li><p>OU=Barcelona</p>
-<ul>
-<li><p>OU=Ventas</p></li>
-<li><p>OU=Marketing</p></li>
-<li><p>OU=Administración</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>OU=Departamentos</p>
-<ul>
-<li><p>OU=Recursos Humanos</p></li>
-<li><p>OU=Finanzas</p></li>
-<li><p>OU=IT</p></li>
-</ul>
-</li>
-<li><p>OU=Usuarios</p>
-<ul>
-<li><p>OU=Empleados</p></li>
-<li><p>OU=Contratistas</p></li>
-</ul>
-</li>
-</ul>
-<img alt="../../_images/ADINT01.png" src="../../_images/ADINT01.png" />
-<ul class="simple">
-<li><p>La <strong>OU Oficinas</strong> se utiliza para agrupar las unidades organizativas por ubicación geográfica.</p></li>
-<li><p>Las <strong>OU Madrid y Barcelona</strong> se utilizan para agrupar los departamentos dentro de cada oficina.</p></li>
-<li><p>La <strong>OU Departamentos</strong> se utiliza para agrupar las unidades organizativas por función.</p></li>
-<li><p>La <strong>OU Usuarios</strong> se utiliza para agrupar las cuentas de usuario.</p></li>
-</ul>
-<p><strong>Ayuda</strong>: En el caso de querer borrar una OU que esta protegída contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.</p>
-</section>
-<section id="configura-los-usuarios-del-sistema">
-<h3>Configura los usuarios del sistema<a class="headerlink" href="#configura-los-usuarios-del-sistema" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Crea el grupo de seguridad global Empleados dentro del UO Empleados y Contratistas dentro de su UO Contratistas.
-Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
-<ul class="simple">
-<li><p>UO Empleados</p>
-<ul>
-<li><p>E01_tunombre perteneciente al grupo Empleados</p></li>
-<li><p>E02_tunombre perteneciente al grupo Empleados</p></li>
-</ul>
-</li>
-<li><p>UO Contratistas</p>
-<ul>
-<li><p>C01_tunombre perteneciente al grupo Contratista</p></li>
-<li><p>C02_tunombre perteneciente al grupo Contratista</p></li>
-</ul>
-</li>
-</ul>
-<img alt="../../_images/ADINT02.png" src="../../_images/ADINT02.png" />
-</section>
-<section id="directivas-de-passwords">
-<h3>Directivas de passwords<a class="headerlink" href="#directivas-de-passwords" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el <strong>Centro de administración de Active Directory</strong> selecciona tunombre (local)/System/Password Settings Container</p>
-<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
-<p>Nuevo/Configuración de contraseña</p>
-<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
-<p>Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.</p>
-<ul class="simple">
-<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
-<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
-<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
-<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
-<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
-<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
-<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
-</ul>
-<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
-</section>
-<section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
-<h3>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la «OU=Computers»</p>
-<img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
-<p>En <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong> creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
-<img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
-<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
-<img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
-<p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
-<img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
-<p>Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio</strong>, lo habilitamos</p>
-<img alt="../../_images/GPOINT05.png" src="../../_images/GPOINT05.png" />
-<p>Por ultimo vamos a <strong>Administracion de directivas de grupo/</strong> buscamos <strong>Oficina/Barcelona/Administración</strong> vinculamos las <strong>dos GPO existenetes</strong></p>
-<img alt="../../_images/GPOINT06.png" src="../../_images/GPOINT06.png" />
-</section>
-<section id="configuracion-de-carpetas-compartidas">
-<h3>Configuración de carpetas compartidas<a class="headerlink" href="#configuracion-de-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Crea las siguientes carpetas compartidas con los siguientes permisos:</p>
-<ul class="simple">
-<li><p>C:\compartida\empleados\E01_tunombre (E01_tunombre tiene permisos de lectura y escritura)</p></li>
-<li><p>C:\compartida\empleados\E01_tunombre (E02_tunombre tiene permisos de lectura y escritura)</p></li>
-<li><p>C:\compartida\empleados\empleados_compartida (al grupo de empleados tiene permiso de lectura)</p></li>
-<li><p>C:\compartida\contratista\C01_tunombre (C01_tunombre tiene permisos de lectura y escritura)</p></li>
-<li><p>C:\compartida\contratista\C01_tunombre (C02_tunombre tiene permisos de lectura y escritura)</p></li>
-<li><p>C:\compartida\contratista\contratista_compartida (al grupo de contratista tiene permiso de lectura)</p></li>
-</ul>
-</section>
-<section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
-<h3>Mapear unidades de red a las carpetas compartidas.<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados</p>
-<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente <strong>«Ususarios / Empleados»</strong> en llamada <strong>«Mapeo de unidades de empleados»</strong></p>
-<img alt="../../_images/GPOINT07.png" src="../../_images/GPOINT07.png" />
-<p>Con el botón derecho del ratón abrimos el <strong>«Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -&gt; nuevo / unidad asignada»</strong></p>
-<img alt="../../_images/GPOINT08.png" src="../../_images/GPOINT08.png" />
-<p>Seleccionamos la Acción de Crear:</p>
-<img alt="../../_images/GPOINT09.png" src="../../_images/GPOINT09.png" />
-<p>En el cliente tenemos que:</p>
-<img alt="../../_images/GPOINT10.png" src="../../_images/GPOINT10.png" />
-<p>En el caso de que tengamos problemas, <code class="docutils literal notranslate"><span class="pre">gpupdate</span> <span class="pre">/force</span></code> es un comando que fuerza una actualización de las políticas de grupo en un equipo cliente de Windows.</p>
-</section>
-<section id="script-al-inicio-de-la-sesion">
-<h3>Script al inicio de la sesión<a class="headerlink" href="#script-al-inicio-de-la-sesion" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos hacer el mapeo de unidades en red con siguiente script llamado <strong>montar.bat</strong> en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>net<span class="w"> </span>use<span class="w"> </span>h:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\c</span>ontratistas_compartida
-net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\e</span>mpleados_compartida
-</pre></div>
-</div>
-<p>Vamos a los usuarios en los que queremos que se monten las unidades, <strong>Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil</strong>  lo metemos en el Script de inicio de sesión</p>
-<img alt="../../_images/Perfil01.png" src="../../_images/Perfil01.png" />
-</section>
-<section id="perfil-movil">
-<h3>Perfil móvil<a class="headerlink" href="#perfil-movil" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.</p>
-<p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRV-tunombre\Perfiles\C01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
-<img alt="../../_images/Perfil02.png" src="../../_images/Perfil02.png" />
-<p>Cuando se cierra la sesión, el perfil se actualizará en el servidor:</p>
-<img alt="../../_images/Perfil03.png" src="../../_images/Perfil03.png" />
-</section>
-<section id="aplicar-cuota">
-<h3>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de «Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos»</p>
-<img alt="../../_images/CuotaAD01.png" src="../../_images/CuotaAD01.png" />
-<p>Para activar las cuotas vamos a:</p>
-<img alt="../../_images/CuotaAD02.png" src="../../_images/CuotaAD02.png" />
-<p>Creamos una nueva plantilla llamada <strong>Límite 10MB tunombre</strong>, con Advertencia al 20 y 50%</p>
-<img alt="../../_images/CuotaAD03.png" src="../../_images/CuotaAD03.png" />
-<p>Aplica la plantilla creada en la carpeta compartida en la que se encunetran los perfiles móviles, cuando lo apliques no olvides marcar <strong>Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.</strong></p>
-<img alt="../../_images/CuotaAD04.png" src="../../_images/CuotaAD04.png" />
-<p>Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesisión te dara un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:</p>
-<img alt="../../_images/CuotaAD05.png" src="../../_images/CuotaAD05.png" />
-</section>
-<section id="perfil-obligatorio">
-<h3>Perfil Obligatorio<a class="headerlink" href="#perfil-obligatorio" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.</p>
-<ol class="arabic simple">
-<li><p>Personalizamos en el cliente el perfil movil que hemos creado, este seguardará en el servidor en C:\PerfilesE01_tunombre.v6</p></li>
-<li><p>Desde propiedades de la carpeta del perfil vamos a Seguridad / Opciones avanzadas y cambiamos el propietario a Administrador, marcamos la opción de reemplazar en todas las subcarpetas</p></li>
-<li><p>Copiamos la carpeta E01_tunombre.v6 a platilla.v6 y la compartimos para todos solo con permisos de lectura</p></li>
-<li><p>Hacemos que los usuarios deseados tengan esta carpeta como su perfil: \\SRV-tunombre\Perfiles\plantilla</p></li>
-<li><p>Entramos en la carpeta plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.</p></li>
-<li><p>Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.</p></li>
-<li><p>En el plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.</p></li>
-</ol>
-</section>
-</section>
-</section>
 
 
                 </article>
@@ -869,11 +646,11 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
       </div>
     </a>
     <a class="right-next"
-       href="09_Caso_practico_AD_sin_GUI.html"
+       href="08_Caso_practico_AD_redint.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">Casos prácticos : Active Directory sin GUI</p>
+        <p class="prev-next-title">Casos prácticos : Active Directory con red interna</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -892,31 +669,14 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-adaptador-puente">Caso práctico: AD y DNS con adaptador puente</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ad-y-dns-con-red-interna">Caso práctico: AD y DNS con red interna</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-una-carpeta-compartida">Configurar una carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
 </ul>
   </nav></div>
 

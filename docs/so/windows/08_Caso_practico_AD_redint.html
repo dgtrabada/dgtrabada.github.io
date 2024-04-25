@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="es" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Casos prácticos : Active Directory con red interna &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/08_Caso_practico_AD_redint';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="index.html">Windows</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_bat.html">Scripting .bat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/windows/08_Caso_practico_AD_redint.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Casos prácticos : Active Directory con red interna</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="casos-practicos-active-directory-con-red-interna">
+<h1>Casos prácticos : Active Directory con red interna<a class="headerlink" href="#casos-practicos-active-directory-con-red-interna" title="Enlace permanente a este encabezado">#</a></h1>
+<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
+<ul class="simple">
+<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVtunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC07tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+</ul>
+<p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3">vídeo</a></p>
+<section id="configurar-servicio-de-enrutamiento">
+<h2>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Para configurar el servicio de enrutamiento vamos a:</p>
+<ul>
+<li><p>Panel / Agregar roles y características</p>
+<p>Seleccionamos nuestro servidor <strong>SRVtunombre</strong></p>
+</li>
+</ul>
+<p>En Roles de servidor marcamos la casilla de:</p>
+<ul class="simple">
+<li><p>[x] Remote Access / <strong>Acceso remoto</strong></p></li>
+</ul>
+<p>En servicios de rol seleccionamos:</p>
+<ul class="simple">
+<li><p>[x] DirectAccess and VPN(RAS)</p></li>
+<li><p>[x] Routing</p></li>
+</ul>
+<p>Para comfigurar servicio de <strong>enrutamiento</strong> vamos a <strong>Panel/Herramientas/Enrutamiento y Acceso remoto</strong>, seleccionamos nuestro servidor <strong>SRVInt-tunombre</strong>, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
+<ul class="simple">
+<li><p>[x] Traduccion de direcciones de red (NAT)</p></li>
+</ul>
+<p>Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (DHCP caso portatil)</p>
+<ul class="simple">
+<li><p>[x] Configurar mas adelante el DHCP y el DNS</p></li>
+</ul>
+</section>
+<section id="configura-el-controlador-de-dominio">
+<h2>Configura el controlador de dominio<a class="headerlink" href="#configura-el-controlador-de-dominio" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea un controlador de dominio llamado <strong>empresa_tunombre.local</strong> y las siguientes unidades organizativas:</p>
+<ul class="simple">
+<li><p>OU=Oficinas</p>
+<ul>
+<li><p>OU=Madrid</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+<li><p>OU=Barcelona</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>OU=Departamentos</p>
+<ul>
+<li><p>OU=Recursos Humanos</p></li>
+<li><p>OU=Finanzas</p></li>
+<li><p>OU=IT</p></li>
+</ul>
+</li>
+<li><p>OU=Usuarios</p>
+<ul>
+<li><p>OU=Empleados</p></li>
+<li><p>OU=Contratistas</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT01.png" src="../../_images/ADINT01.png" />
+<ul class="simple">
+<li><p>La <strong>OU Oficinas</strong> se utiliza para agrupar las unidades organizativas por ubicación geográfica.</p></li>
+<li><p>Las <strong>OU Madrid y Barcelona</strong> se utilizan para agrupar los departamentos dentro de cada oficina.</p></li>
+<li><p>La <strong>OU Departamentos</strong> se utiliza para agrupar las unidades organizativas por función.</p></li>
+<li><p>La <strong>OU Usuarios</strong> se utiliza para agrupar las cuentas de usuario.</p></li>
+</ul>
+<p><strong>Ayuda</strong>: En el caso de querer borrar una OU que esta protegída contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.</p>
+</section>
+<section id="configura-los-usuarios-del-sistema">
+<h2>Configura los usuarios del sistema<a class="headerlink" href="#configura-los-usuarios-del-sistema" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea el grupo de seguridad global Empleados dentro del UO Empleados y Contratistas dentro de su UO Contratistas.
+Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
+<ul class="simple">
+<li><p>UO Empleados</p>
+<ul>
+<li><p>E01_tunombre perteneciente al grupo Empleados</p></li>
+<li><p>E02_tunombre perteneciente al grupo Empleados</p></li>
+</ul>
+</li>
+<li><p>UO Contratistas</p>
+<ul>
+<li><p>C01_tunombre perteneciente al grupo Contratista</p></li>
+<li><p>C02_tunombre perteneciente al grupo Contratista</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT02.png" src="../../_images/ADINT02.png" />
+</section>
+<section id="directivas-de-passwords">
+<h2>Directivas de passwords<a class="headerlink" href="#directivas-de-passwords" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crear una nueva directiva de password sobre el grupo Empleados y Contratistas, para ello abre el <strong>Centro de administración de Active Directory</strong> selecciona tunombre (local)/System/Password Settings Container</p>
+<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
+<p>Nuevo/Configuración de contraseña</p>
+<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
+<p>Dentro del Centro de administración de Windows Server, puedes encontrar una sección para configurar las políticas de contraseña.</p>
+<ul class="simple">
+<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
+<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
+<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
+<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
+<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
+<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
+<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
+</ul>
+<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
+</section>
+<section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
+<h2>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la «OU=Computers»</p>
+<img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
+<p>En <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong> creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
+<img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
+<p>Utilizaremos la carpeta C:\Windows\SYSVOL <a href="#id3"><span class="problematic" id="id1">[#sysvol]_</span></a>, esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
+<p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuracióndel equipo</strong>  vamos a Edición, en <strong>Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/</strong> creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada</p>
+<img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
+<p>Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Active Desktop/Tapiz del escritorio</strong>, lo habilitamos</p>
+<img alt="../../_images/GPOINT05.png" src="../../_images/GPOINT05.png" />
+<p>Por ultimo vamos a <strong>Administracion de directivas de grupo/</strong> buscamos <strong>Oficina/Barcelona/Administración</strong> vinculamos las <strong>dos GPO existenetes</strong></p>
+<img alt="../../_images/GPOINT06.png" src="../../_images/GPOINT06.png" />
+</section>
+<section id="configuracion-de-carpetas-compartidas">
+<h2>Configuración de carpetas compartidas<a class="headerlink" href="#configuracion-de-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Crea las siguientes carpetas compartidas con los siguientes permisos:</p>
+<ul class="simple">
+<li><p>C:\compartida\empleados\E01_tunombre (E01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\E01_tunombre (E02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\empleados_compartida (al grupo de empleados tiene permiso de lectura)</p></li>
+<li><p>C:\compartida\contratista\C01_tunombre (C01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\C01_tunombre (C02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\contratista_compartida (al grupo de contratista tiene permiso de lectura)</p></li>
+</ul>
+</section>
+<section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
+<h2>Mapear unidades de red a las carpetas compartidas.<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados</p>
+<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente <strong>«Ususarios / Empleados»</strong> en llamada <strong>«Mapeo de unidades de empleados»</strong></p>
+<img alt="../../_images/GPOINT07.png" src="../../_images/GPOINT07.png" />
+<p>Con el botón derecho del ratón abrimos el <strong>«Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -&gt; nuevo / unidad asignada»</strong></p>
+<img alt="../../_images/GPOINT08.png" src="../../_images/GPOINT08.png" />
+<p>Seleccionamos la Acción de Crear:</p>
+<img alt="../../_images/GPOINT09.png" src="../../_images/GPOINT09.png" />
+<p>En el cliente tenemos que:</p>
+<img alt="../../_images/GPOINT10.png" src="../../_images/GPOINT10.png" />
+<p>En el caso de que tengamos problemas, <code class="docutils literal notranslate"><span class="pre">gpupdate</span> <span class="pre">/force</span></code> es un comando que fuerza una actualización de las políticas de grupo en un equipo cliente de Windows.</p>
+</section>
+<section id="script-al-inicio-de-la-sesion">
+<h2>Script al inicio de la sesión<a class="headerlink" href="#script-al-inicio-de-la-sesion" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos hacer el mapeo de unidades en red con siguiente script llamado <strong>montar.bat</strong> en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>net<span class="w"> </span>use<span class="w"> </span>h:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\c</span>ontratistas_compartida
+net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span><span class="se">\\</span>SRV-tunombre<span class="se">\e</span>mpleados_compartida
+</pre></div>
+</div>
+<p>Vamos a los usuarios en los que queremos que se monten las unidades, <strong>Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil</strong>  lo metemos en el Script de inicio de sesión</p>
+<img alt="../../_images/Perfil01.png" src="../../_images/Perfil01.png" />
+</section>
+<section id="perfil-movil">
+<h2>Perfil móvil<a class="headerlink" href="#perfil-movil" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos a crear un perfil movil a los contratistas, para ello primero creamos una carpeta compartida llamada Perfiles con acceso de escritura y lectura para todos los usuarios.</p>
+<p>En <strong>Usuarios y equipos de Active Directory</strong>, En la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRV-tunombre\Perfiles\C01_tunombre</strong>, de forma mas general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
+<img alt="../../_images/Perfil02.png" src="../../_images/Perfil02.png" />
+<p>Cuando se cierra la sesión, el perfil se actualizará en el servidor:</p>
+<img alt="../../_images/Perfil03.png" src="../../_images/Perfil03.png" />
+</section>
+<section id="aplicar-cuota">
+<h2>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de «Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos»</p>
+<img alt="../../_images/CuotaAD01.png" src="../../_images/CuotaAD01.png" />
+<p>Para activar las cuotas vamos a:</p>
+<img alt="../../_images/CuotaAD02.png" src="../../_images/CuotaAD02.png" />
+<p>Creamos una nueva plantilla llamada <strong>Límite 10MB tunombre</strong>, con Advertencia al 20 y 50%</p>
+<img alt="../../_images/CuotaAD03.png" src="../../_images/CuotaAD03.png" />
+<p>Aplica la plantilla creada en la carpeta compartida en la que se encunetran los perfiles móviles, cuando lo apliques no olvides marcar <strong>Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.</strong></p>
+<img alt="../../_images/CuotaAD04.png" src="../../_images/CuotaAD04.png" />
+<p>Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesisión te dara un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:</p>
+<img alt="../../_images/CuotaAD05.png" src="../../_images/CuotaAD05.png" />
+</section>
+<section id="perfil-obligatorio">
+<h2>Perfil Obligatorio<a class="headerlink" href="#perfil-obligatorio" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.</p>
+<ol class="arabic simple">
+<li><p>Personalizamos en el cliente el perfil movil que hemos creado, este seguardará en el servidor en C:\PerfilesE01_tunombre.v6</p></li>
+<li><p>Desde propiedades de la carpeta del perfil vamos a Seguridad / Opciones avanzadas y cambiamos el propietario a Administrador, marcamos la opción de reemplazar en todas las subcarpetas</p></li>
+<li><p>Copiamos la carpeta E01_tunombre.v6 a platilla.v6 y la compartimos para todos solo con permisos de lectura</p></li>
+<li><p>Hacemos que los usuarios deseados tengan esta carpeta como su perfil: \\SRV-tunombre\Perfiles\plantilla</p></li>
+<li><p>Entramos en la carpeta plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.</p></li>
+<li><p>Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.</p></li>
+<li><p>En el plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.</p></li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-el-controlador-de-dominio">Configura el controlador de dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configura-los-usuarios-del-sistema">Configura los usuarios del sistema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-passwords">Directivas de passwords</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Intalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil Obligatorio</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

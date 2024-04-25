@@ -13,6 +13,7 @@ Windows
    06_powershell.rst
    07_AD_DS.rst
    08_Caso_practico_AD.rst
+   08_Caso_practico_AD_redint.rst
    09_Caso_practico_AD_sin_GUI.rst
    10_powershell_scripting.rst
    11_bat.rst
