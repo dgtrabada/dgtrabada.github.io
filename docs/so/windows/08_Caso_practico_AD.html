@@ -616,7 +616,9 @@ document.write(`
 
 apt<span class="w"> </span>install<span class="w"> </span>krb5-user
 <span class="c1">#Reino predeterminado de la versión 5 de Kerberos:</span>
-TUNOMBRE.LOCAL
+Reino<span class="w"> </span>de<span class="w"> </span>Kerberos:<span class="w"> </span>tunombre.local
+Servidores<span class="w"> </span>:<span class="w"> </span>srv-tunombre.tunombre.local
+Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srv-tunombre
 </pre></div>
 </div>
 <p>Deshabilitamos la resolución inversa de DNS (rdns = false) en /etc/krb5.conf</p>
@@ -834,14 +836,14 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 <h3>Perfil Obligatorio<a class="headerlink" href="#perfil-obligatorio" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.</p>
 <ol class="arabic simple">
-<li><p>Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\SRVInt-tunombre\Perfiles\usuario_plantilla</p></li>
+<li><p>Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\SRV-tunombre\Perfiles\usuario_plantilla</p></li>
 <li><p>Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cierra la pestaña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles</p></li>
 <li><p>Creamos en el servidor un nuevo grupo llamado perfilobligatorio</p></li>
 <li><p>Cambiamos los permisos de seguridad a la carpeta usuario_plantilla.v6, ponemos al grupo de Administradores, reemplazamos propietario en contenedores y objetos. Añadimos tambien al grupo de perfilesobligatorios y le damos control total, recordar darlo con herencia.</p></li>
 <li><p>Entramos en la carpeta usuario_plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.</p></li>
 <li><p>Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/usario_plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.</p></li>
 <li><p>En el usuario_plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.</p></li>
-<li><p>Creamos el uausio C03_tunombre, le asignamos el Perfil \\srvint-tunombre\Perfiles\usuario_plantilla y le metomos en el grupo perfiles obligatorios</p></li>
+<li><p>Creamos el uausio C03_tunombre, le asignamos el Perfil \\srv-tunombre\Perfiles\usuario_plantilla y le metomos en el grupo perfiles obligatorios</p></li>
 </ol>
 </section>
 </section>

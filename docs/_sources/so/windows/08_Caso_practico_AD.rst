@@ -228,7 +228,10 @@ Instalar los paquetes necesarios:
   
   apt install krb5-user
   #Reino predeterminado de la versión 5 de Kerberos:
-  TUNOMBRE.LOCAL
+  Reino de Kerberos: tunombre.local
+  Servidores : srv-tunombre.tunombre.local
+  Servidor administrativo: srv-tunombre
+
 
   
 
@@ -534,7 +537,7 @@ Perfil Obligatorio
 
 Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.
 
-1. Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\\\SRVInt-tunombre\\Perfiles\\usuario_plantilla
+1. Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\\\SRV-tunombre\\Perfiles\\usuario_plantilla
 
 #. Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cierra la pestaña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles 
 
@@ -548,5 +551,5 @@ Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desd
 
 #. En el usuario_plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.
 
-#. Creamos el uausio C03_tunombre, le asignamos el Perfil \\\\srvint-tunombre\\Perfiles\\usuario_plantilla y le metomos en el grupo perfiles obligatorios
+#. Creamos el uausio C03_tunombre, le asignamos el Perfil \\\\srv-tunombre\\Perfiles\\usuario_plantilla y le metomos en el grupo perfiles obligatorios
  
