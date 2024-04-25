@@ -278,6 +278,7 @@ Crea los siguiente clones enlazados con los adaptadores en modo puente:
 * Clon enlazado 1 de "Windows Server 2022" llamado **SRVtunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
 * Clon enlazado 2 de "Windows 11" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 * Clon enlazado 3 de "Windows 11" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 3 de "Windows 11" llamado **WC07tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3>`_
 
