@@ -539,19 +539,17 @@ Perfil Obligatorio
 
 Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.
 
-1. Creamos un nuevo perfil móvil, vamos a llamarlo usuario_plantilla : \\\\SRV-tunombre\\Perfiles\\usuario_plantilla
+1. Personalizamos en el cliente el perfil movil que hemos creado, este seguardará en el servidor en C:\\Perfiles\E01_tunombre.v6
 
-#. Iniciamos sesión en el cliente con el usuario plantilla, hacemos un link simbolico del block de notas en el escriotrio, creamos una carpeta llamada DOC, y cierra la pestaña sesión para que se cree la carpeta usuario_plantilla.v6 en la compartida de Perfiles 
+#. Desde propiedades de la carpeta del perfil vamos a Seguridad / Opciones avanzadas y cambiamos el propietario a Administrador, marcamos la opción de reemplazar en todas las subcarpetas
 
-#. Creamos en el servidor un nuevo grupo llamado perfilobligatorio
+#. Copiamos la carpeta E01_tunombre.v6 a platilla.v6 y la compartimos para todos solo con permisos de lectura
 
-#. Cambiamos los permisos de seguridad a la carpeta usuario_plantilla.v6, ponemos al grupo de Administradores, reemplazamos propietario en contenedores y objetos. Añadimos tambien al grupo de perfilesobligatorios y le damos control total, recordar darlo con herencia.
+#. Hacemos que los usuarios deseados tengan esta carpeta como su perfil: \\\\SRV-tunombre\\Perfiles\\plantilla
 
-#. Entramos en la carpeta usuario_plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.
+#. Entramos en la carpeta plantilla.v6, activamos los elementos ocultos, si hay una carpeta en AppData llamada localLow o Roaming la eliminamos.
 
-#. Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/usario_plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.
+#. Abrimos el registro y vamos a HKEY_USERS, vamos a archivo, cargamos subarbol/plantilla elegimos el archivo NTUSER.DAT, abrimos y le ponemos nombre a la clave (perfilobligatorio) y le damos permisos al grupo perfileobligatorio, le damos control total con herencia. Finalmente le damos archivo y descargamos el subárbol.
 
-#. En el usuario_plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.
+#. En el plantilla.v6 cambiamos NTUSER.DAT NTUSER.MAM.
 
-#. Creamos el uausio C03_tunombre, le asignamos el Perfil \\\\srv-tunombre\\Perfiles\\usuario_plantilla y le metomos en el grupo perfiles obligatorios
- 
