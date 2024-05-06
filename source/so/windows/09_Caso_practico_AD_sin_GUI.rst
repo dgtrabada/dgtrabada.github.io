@@ -286,11 +286,7 @@ Podemos cargar un script:
 
   Invoke-Command -Session $session -ScriptBlock $scriptBlock
 
-También podemos cargarlo de un archivo, para editar el archivo podemos hacerlo con el editor vi utilizando una conexión ssh
-
-
-
-Para editar el script lo podemos hacer directamente con el editor vim :ref:`editorVI`  por ssh... para instalarlo necsitaras tener acceso al entorno gráfico
+También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el `editor vim <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi>`_ utilizando una conexión por ssh... para instalarlo necsitaras tener acceso al entorno gráfico
 
 .. image:: imagenes/WS22NGUI05.png
 
