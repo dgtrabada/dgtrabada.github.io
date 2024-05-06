@@ -484,6 +484,7 @@ Configuración de Windows (PowerShell)
    netsh advfirewall firewall add rule name="Habilitar respuesta ICMP IPv4" protocol=icmpv4:8,any dir=in action=allow
 
 * **Instalar el servidor ssh**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. code-block:: powershell
 
@@ -507,7 +508,7 @@ Configuración de Windows (PowerShell)
    
    #Después ya te puedes conectar sin meter contraseña
    ssh -X Administrador@IP
- 
+    
 * **Instalar edior vi**
 
   * Con Chocolatey:

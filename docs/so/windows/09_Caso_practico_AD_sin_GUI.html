@@ -46,7 +46,7 @@
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="PowerShell Scripting" href="10_powershell_scripting.html" />
-    <link rel="prev" title="Casos prácticos : Active Directory" href="08_Caso_practico_AD.html" />
+    <link rel="prev" title="Casos prácticos : Active Directory con red interna" href="08_Caso_practico_AD_redint.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -186,7 +186,8 @@
 <li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_bat.html">Scripting .bat</a></li>
@@ -400,6 +401,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
@@ -510,6 +512,15 @@ document.write(`
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI02.png" src="../../_images/WS22NGUI02.png" />
+<p>En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan un menor complejidad para hacer pruebas:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Obtener la directiva de contraseñas actua</span>
+<span class="nv">$pwdPolicy</span> <span class="p">=</span> <span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+<span class="c"># Deshabilitar los requisitos de complejidad</span>
+<span class="nb">Set-ADDefaultDomainPasswordPolicy</span> <span class="n">-Identity</span> <span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">DistinguishedName</span> <span class="n">-ComplexityEnabled</span> <span class="nv">$false</span>
+<span class="c"># le damos la nueva contraseña</span>
+<span class="nb">Set-ADAccountPassword</span> <span class="n">-Identity</span> <span class="n">tunombreX1</span> <span class="n">-NewPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="s2">&quot;1234&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-Reset</span>
+</pre></div>
+</div>
 </section>
 <section id="unir-equipo-al-dominio">
 <h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
@@ -536,7 +547,7 @@ document.write(`
 <span class="nb">Add-Computer</span> <span class="n">-DomainName</span> <span class="s2">&quot;tunombre.local&quot;</span> <span class="n">-Credential</span> <span class="nv">$credenciales</span> <span class="n">-Restart</span> <span class="n">-Force</span>
 </pre></div>
 </div>
-<p>Es posible que al haber clonado los equipos no os deje por tener el mismo SID, para cambiarlo:</p>
+<p>Es posible que al clonar los equipos, puedan surgir problemas debido a que comparten el mismo SID. Para solucionarlo:</p>
 <img alt="../../_images/sysprep.png" src="../../_images/sysprep.png" />
 <p>Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejceutamos:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;NombreDeLaComputadora&quot;</span>
@@ -544,26 +555,77 @@ document.write(`
 </div>
 <p>En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">w32tm</span> <span class="p">/</span><span class="n">resync</span>
+
+<span class="c">#darla a mano:</span>
+<span class="nb">Set-Date</span> <span class="n">-Date</span> <span class="s2">&quot;lunes, 6 de mayo de 2024 9:27:57&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="carpeta-compartida">
 <h2>Carpeta compartida<a class="headerlink" href="#carpeta-compartida" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Creamos una carpeta en el servidor y la compartimos:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Desde el servidor</span>
-<span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">compartida_tunombre</span>
-<span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;compartida_tunombre&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\Users\compartida_tunombre\&quot;</span> <span class="n">-ReadAccess</span> <span class="s2">&quot;Todos&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;Administradores&quot;</span>
+<p>Creamos una carpeta en el servidor</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span>C:\XY-TUNOMBRE
+├───X-tunombre
+└───Y-tunombre
+</pre></div>
+</div>
+<p>y la compartimos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">XY-tunombre</span><span class="p">&gt;</span> <span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\XY-tunombre\X-tunombre&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Administradores&quot;</span>
+
+<span class="n">Name</span> <span class="n">ScopeName</span> <span class="n">Path</span>                      <span class="n">Description</span>
+<span class="p">----</span> <span class="p">---------</span> <span class="p">----</span>                      <span class="p">-----------</span>
+<span class="n">X</span>    <span class="p">*</span>         <span class="n">C</span><span class="p">:\</span><span class="n">XY-tunombre</span><span class="p">\</span><span class="n">X-tunombre</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Podemos ver que esta en:</span>
+<span class="nb">ls </span><span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
+
+<span class="c">#Podmeos montar en el cliente en la unidad Z</span>
+<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
+
+<span class="c">#Para ver las carpetas que hay compartidas ejecuta en el servidor:</span>
+<span class="n">net</span> <span class="n">share</span>
+
+<span class="c">#Para dejar de compartir la carpeta, utiliza el siguiente comando:</span>
+<span class="n">net</span> <span class="n">share</span> <span class="n">NombreRecurso</span> <span class="p">/</span><span class="n">delete</span>
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI04.png" src="../../_images/WS22NGUI04.png" />
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Podemos ver que esta en:</span>
-<span class="nb">ls </span><span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
-
-<span class="c">#La montamos en el cliente en la unidad Z</span>
-<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;Z&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
+</section>
+<section id="administracion-remota">
+<h2>Administración remota<a class="headerlink" href="#administracion-remota" title="Enlace permanente a este encabezado">#</a></h2>
+<p>WinRM (Windows Remote Management) es un conjunto de servicios de administración remota que permite a los administradores de sistemas administrar y ejecutar comandos en sistemas Windows de forma remota, utiliza el protocolo WS-Management (WSMan) para establecer conexiones remotas y ejecutar comandos de manera segura.</p>
+<p>Para permitir la administración remota del cliente, configuramos WinRM:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">winrm</span> <span class="n">quickconfig</span>
 </pre></div>
 </div>
+<p>Desde el servidor pordemos ejecutar comandos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">WC05TUNOMBRE</span><span class="p">,</span><span class="n">WC06TUNOMBRE</span> <span class="n">-ScriptBlock</span> <span class="p">{</span><span class="n">HOSTNAME</span><span class="p">.</span><span class="n">EXE</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Invoke-Command se comunicará con hasta 32 equipos a la vez, si ponemos más comenzará hasta terminar los 32 primeros.</p>
+<p>Si queremos abrir una sesisión</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Enter-PSSession</span> <span class="n">WC06TUNOMBRE</span>
+<span class="nb">Exit-PSSession</span>
+</pre></div>
+</div>
+<p>También ofrece la opción de crear una conexión persistente «PSSession», en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Crear una nueva sesión remota</span>
+<span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-PSSession</span> <span class="n">-ComputerName</span> <span class="n">WC06TUNOMBRE</span>
+
+<span class="c"># Ejecutar un comando en la sesión remota</span>
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Get-PSSessionConfiguration</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nv">$a</span> <span class="p">=</span> <span class="n">1</span> <span class="p">}</span>
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="p">}</span>
+<span class="n">1</span>
+</pre></div>
+</div>
+<p>Podemos cargar el script de la siguiente manera:</p>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
+<p><a class="reference external" href="https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting">https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting</a></p>
 </section>
 <section id="habilitar-scripts">
 <h2>Habilitar scripts<a class="headerlink" href="#habilitar-scripts" title="Enlace permanente a este encabezado">#</a></h2>
@@ -578,24 +640,23 @@ document.write(`
 <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
 
 <span class="c">#Nuestro cliente esta en:</span>
-<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 
 <span class="c">#tenemos las siguientes unidades organizativas</span>
-<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+<span class="nb">Get-ADOrganizationalUnit</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 
-<span class="c">#Movemos el equi al &quot;DespachoX&quot;</span>
-<span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC05TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
+<span class="c">#Movemos el equipi al &quot;DespachoX&quot;</span>
+<span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
 
 <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
 <p>Vamos a crear un script para que se ejecute al inicio de la sesión:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cat </span><span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount_H</span><span class="p">.</span><span class="n">ps1</span>
-<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;H&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\compartida_tunombre&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s1">&#39;New-PSDrive -Name &quot;X&quot; -PSProvider &quot;FileSystem&quot; -Root &quot;\\WS22TUNOMBRE\X&quot;&#39;</span> <span class="p">&gt;</span> <span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount</span><span class="p">.</span><span class="n">ps1</span>
 </pre></div>
 </div>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
-<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span>
+<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>
 
 <span class="c"># Asignar la configuración de inicio de sesión a la GPO</span>
 <span class="nb">Set-GPRegistryValue</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span> <span class="n">-Key</span> <span class="s2">&quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span> <span class="n">-ValueName</span> <span class="s2">&quot;ScriptName&quot;</span> <span class="n">-Type</span> <span class="n">String</span> <span class="n">-Value</span> <span class="s2">&quot;\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1&quot;</span>
@@ -681,12 +742,12 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="08_Caso_practico_AD.html"
+       href="08_Caso_practico_AD_redint.html"
        title="página anterior">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Casos prácticos : Active Directory</p>
+        <p class="prev-next-title">Casos prácticos : Active Directory con red interna</p>
       </div>
     </a>
     <a class="right-next"
@@ -719,6 +780,7 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-y-usuarios">Grupos y usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>

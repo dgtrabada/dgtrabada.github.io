@@ -124,6 +124,18 @@ Podemos comprobar que se han creado los grupos y los usuarios:
 
 .. image:: imagenes/WS22NGUI02.png
 
+En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan un menor complejidad para hacer pruebas:
+
+.. code-block:: powershell
+
+  # Obtener la directiva de contraseñas actua
+  $pwdPolicy = Get-ADDefaultDomainPasswordPolicy 
+  # Deshabilitar los requisitos de complejidad
+  Set-ADDefaultDomainPasswordPolicy -Identity (Get-ADDomain).DistinguishedName -ComplexityEnabled $false 
+  # le damos la nueva contraseña
+  Set-ADAccountPassword -Identity tunombreX1 -NewPassword (ConvertTo-SecureString "1234" -AsPlainText -Force) -Reset
+
+
 Unir equipo al dominio
 ----------------------
 
@@ -157,7 +169,7 @@ En el caso de que quieras hacerlo sin exportar el diplay:
 
   Add-Computer -DomainName "tunombre.local" -Credential $credenciales -Restart -Force
 
-Es posible que al haber clonado los equipos no os deje por tener el mismo SID, para cambiarlo:
+Es posible que al clonar los equipos, puedan surgir problemas debido a que comparten el mismo SID. Para solucionarlo:
 
 .. image:: imagenes/sysprep.png
 
@@ -174,30 +186,101 @@ En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un
 .. code-block:: powershell
   
   w32tm /resync
+  
+  #darla a mano:
+  Set-Date -Date "lunes, 6 de mayo de 2024 9:27:57"
 
 
 Carpeta compartida
 ------------------
 
-Creamos una carpeta en el servidor y la compartimos:
+Creamos una carpeta en el servidor 
 
 .. code-block:: powershell
 
-  #Desde el servidor
-  mkdir C:\Users\compartida_tunombre
-  New-SmbShare -Name "compartida_tunombre"  -Path "C:\Users\compartida_tunombre\" -ReadAccess "Todos" -FullAccess "Administradores"
+  C:\XY-TUNOMBRE
+  ├───X-tunombre
+  └───Y-tunombre
 
-.. image:: imagenes/WS22NGUI04.png
+y la compartimos:
+
+.. code-block:: powershell
+
+  PS C:\XY-tunombre> New-SmbShare -Name "X"  -Path "C:\XY-tunombre\X-tunombre" -FullAccess "X", "Administradores" 
+
+  Name ScopeName Path                      Description
+  ---- --------- ----                      -----------
+  X    *         C:\XY-tunombre\X-tunombre
+
 
 .. code-block:: powershell
    
   #Podemos ver que esta en:
-  ls "\\WS22TUNOMBRE\compartida_tunombre"
+  ls "\\WS22TUNOMBRE\X"
    
-  #La montamos en el cliente en la unidad Z
-  New-PSDrive -Name "Z" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\compartida_tunombre" 
+  #Podmeos montar en el cliente en la unidad Z
+  New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X" 
   
+  #Para ver las carpetas que hay compartidas ejecuta en el servidor:
+  net share
+  
+  #Para dejar de compartir la carpeta, utiliza el siguiente comando:
+  net share NombreRecurso /delete
+
+.. image:: imagenes/WS22NGUI04.png
+
+
+Administración remota
+---------------------------------------
+
+WinRM (Windows Remote Management) es un conjunto de servicios de administración remota que permite a los administradores de sistemas administrar y ejecutar comandos en sistemas Windows de forma remota, utiliza el protocolo WS-Management (WSMan) para establecer conexiones remotas y ejecutar comandos de manera segura. 
+
+Para permitir la administración remota del cliente, configuramos WinRM:
+
+.. code-block:: powershell
+   
+  winrm quickconfig 
+  
+  
+Desde el servidor pordemos ejecutar comandos:
+
+.. code-block:: powershell
+   
+  Invoke-Command -ComputerName WC05TUNOMBRE,WC06TUNOMBRE -ScriptBlock {HOSTNAME.EXE}
+
+Invoke-Command se comunicará con hasta 32 equipos a la vez, si ponemos más comenzará hasta terminar los 32 primeros.
+
+Si queremos abrir una sesisión
+
+.. code-block:: powershell
+   
+  Enter-PSSession WC06TUNOMBRE
+  Exit-PSSession
+  
+También ofrece la opción de crear una conexión persistente "PSSession", en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.
+
+.. code-block:: powershell
+   
+  # Crear una nueva sesión remota
+  $session = New-PSSession -ComputerName WC06TUNOMBRE
+
+  # Ejecutar un comando en la sesión remota
+  Invoke-Command -Session $session -ScriptBlock { Get-PSSessionConfiguration }
+
+Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.
+
+.. code-block:: powershell
+   
+  Invoke-Command -Session $session -ScriptBlock { $a = 1 }          
+  Invoke-Command -Session $session -ScriptBlock { echo $a }    
+  1
+
+Podemos cargar el script de la siguiente manera:
+
 .. image:: imagenes/WS22NGUI05.png
+
+
+https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting
 
 Habilitar scripts
 -----------------
@@ -219,13 +302,13 @@ Lo primero que heremos es mover los ordenadores a la unidad organizativa donde v
   Get-ADComputer -Filter * | Select-Object Name, DistinguishedName
 
   #Nuestro cliente esta en:
-  Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
+  Get-ADComputer -Filter {Name  -eq "WC06TUNOMBRE"} | FT DistinguishedName
  
   #tenemos las siguientes unidades organizativas
-  Get-ADComputer -Filter {Name  -eq "WC05TUNOMBRE"} | FT DistinguishedName
+  Get-ADOrganizationalUnit -Filter * -SearchBase "DC=tunombre,DC=local" | FT DistinguishedName
   
-  #Movemos el equi al "DespachoX"
-  $IdentidadEquipo = $(Get-ADComputer -Identity "WC05TUNOMBRE").DistinguishedName
+  #Movemos el equipi al "DespachoX"
+  $IdentidadEquipo = $(Get-ADComputer -Identity "WC06TUNOMBRE").DistinguishedName
   
   Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
 
@@ -233,13 +316,12 @@ Vamos a crear un script para que se ejecute al inicio de la sesión:
 
 .. code-block:: powershell
 
-  cat \\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1
-  New-PSDrive -Name "H" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\compartida_tunombre"
-
+  echo 'New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X"' > \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1
+  
 .. code-block:: powershell
 
   #Creamos la politica de grupo:
-  New-GPO -Name "Mapear en H"
+  New-GPO -Name "MapearX"
   
   # Asignar la configuración de inicio de sesión a la GPO
   Set-GPRegistryValue -Name "Mapear en H" -Key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ValueName "ScriptName" -Type String -Value "\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1"

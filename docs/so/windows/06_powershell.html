@@ -186,7 +186,8 @@
 <li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_bat.html">Scripting .bat</a></li>
@@ -854,8 +855,11 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p><strong>Instalar el servidor ssh</strong></p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Primero buscamos características disponibles en línea que coincidan con el patrón</span>
+<li><p><strong>Instalar el servidor ssh</strong></p></li>
+</ul>
+<hr class="docutils" />
+<blockquote>
+<div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Primero buscamos características disponibles en línea que coincidan con el patrón</span>
 <span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
 
 <span class="c">#Luego la añadimos:</span>
@@ -877,7 +881,8 @@ document.write(`
 <span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
 </pre></div>
 </div>
-</li>
+</div></blockquote>
+<ul>
 <li><p><strong>Instalar edior vi</strong></p>
 <ul>
 <li><p>Con Chocolatey:</p>
