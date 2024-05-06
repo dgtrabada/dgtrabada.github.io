@@ -402,6 +402,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-el-servidor-ssh">Instalar el servidor ssh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-edior-vi">Instalar edior vi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 </ul>
@@ -855,11 +857,11 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p><strong>Instalar el servidor ssh</strong></p></li>
 </ul>
-<hr class="docutils" />
-<blockquote>
-<div><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Primero buscamos características disponibles en línea que coincidan con el patrón</span>
+</section>
+<section id="instalar-el-servidor-ssh">
+<h2>Instalar el servidor ssh<a class="headerlink" href="#instalar-el-servidor-ssh" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Primero buscamos características disponibles en línea que coincidan con el patrón</span>
 <span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH*&#39;</span>
 
 <span class="c">#Luego la añadimos:</span>
@@ -881,9 +883,9 @@ document.write(`
 <span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul>
-<li><p><strong>Instalar edior vi</strong></p>
+</section>
+<section id="instalar-edior-vi">
+<h2>Instalar edior vi<a class="headerlink" href="#instalar-edior-vi" title="Enlace permanente a este encabezado">#</a></h2>
 <ul>
 <li><p>Con Chocolatey:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Instalar Chocolatey (si aún no lo tienes):</span>
@@ -905,8 +907,6 @@ document.write(`
 <span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </li>
 </ul>
 <p class="rubric">Footnotes</p>
@@ -1081,6 +1081,8 @@ $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-el-servidor-ssh">Instalar el servidor ssh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-edior-vi">Instalar edior vi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl">Gestión de ACL</a></li>
 </ul>

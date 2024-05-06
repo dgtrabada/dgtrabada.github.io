@@ -483,59 +483,61 @@ Configuración de Windows (PowerShell)
   
    netsh advfirewall firewall add rule name="Habilitar respuesta ICMP IPv4" protocol=icmpv4:8,any dir=in action=allow
 
-* **Instalar el servidor ssh**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. marca:: windows_ssh
+
+Instalar el servidor ssh
+========================
+
+.. code-block:: powershell
+
+ #Primero buscamos características disponibles en línea que coincidan con el patrón 
+ Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+ 
+ #Luego la añadimos:
+ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+   
+ #Iniciar el servicio ssh :
+ Start-Service sshd
+   
+ #Para reiniciarlo
+ Restart-Service sshd
+   
+ #Para iniciar el servicio ssh durante el arranque de forma automática:
+ Set-Service -Name sshd -StartupType Automatic
+   
+ #Para conectarse sin contraseña primero copia tu clave publica 
+ scp -P22 .ssh/id_rsa.pub Administrador@IP:C:\Users\Administrador\.ssh\authorized_keys
+   
+ #Después ya te puedes conectar sin meter contraseña
+ ssh -X Administrador@IP
+
+
+Instalar edior vi
+=================
+
+* Con Chocolatey:
 
   .. code-block:: powershell
-
-   #Primero buscamos características disponibles en línea que coincidan con el patrón 
-   Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
-   
-   #Luego la añadimos:
-   Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-   
-   #Iniciar el servicio ssh :
-   Start-Service sshd
-   
-   #Para reiniciarlo
-   Restart-Service sshd
-   
-   #Para iniciar el servicio ssh durante el arranque de forma automática:
-   Set-Service -Name sshd -StartupType Automatic
-   
-   #Para conectarse sin contraseña primero copia tu clave publica 
-   scp -P22 .ssh/id_rsa.pub Administrador@IP:C:\Users\Administrador\.ssh\authorized_keys
-   
-   #Después ya te puedes conectar sin meter contraseña
-   ssh -X Administrador@IP
-    
-* **Instalar edior vi**
-
-  * Con Chocolatey:
-
-    .. code-block:: powershell
   
-      #Instalar Chocolatey (si aún no lo tienes):
-      Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    #Instalar Chocolatey (si aún no lo tienes):
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
   
-      choco install vim
+    choco install vim
   
-  * Sin Chocolatey [#alias]_:
+* Sin Chocolatey [#alias]_:
 
-    .. code-block:: powershell
+  .. code-block:: powershell
   
-      # Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php
-      # Descarga el instalador adecuado para tu sistema, en mi caso:
-      curl.exe https://ftp.nluug.nl/pub/vim/pc/gvim90.exe -o gvim90.exe
+    # Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php
+    # Descarga el instalador adecuado para tu sistema, en mi caso:
+    curl.exe https://ftp.nluug.nl/pub/vim/pc/gvim90.exe -o gvim90.exe
   
-      # Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display
-      ./gvim90.exe
+    # Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display
+    ./gvim90.exe
   
-      # Crea un alias:
-      Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe'
+    # Crea un alias:
+    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe'
    
-
-
 .. rubric:: Footnotes
 
 .. [#alias] 

@@ -623,7 +623,17 @@ document.write(`
 <span class="n">1</span>
 </pre></div>
 </div>
-<p>Podemos cargar el script de la siguiente manera:</p>
+<p>Podemos cargar un script:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$scriptBlock</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="nb">echo </span><span class="s2">&quot;hola </span><span class="p">$(</span><span class="n">whoami</span><span class="p">.</span><span class="n">exe</span><span class="p">)</span><span class="s2">&quot;</span>
+  <span class="nb">echo </span><span class="s2">&quot;hoy es </span><span class="p">$(</span><span class="n">date</span><span class="p">)</span><span class="s2">&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="nv">$scriptBlock</span>
+</pre></div>
+</div>
+<p>También podemos cargarlo de un archivo, para editar el archivo podemos hacerlo con el editor vi utilizando una conexión ssh</p>
+<p>Para editar el script lo podemos hacer directamente con el editor vim <span class="xref std std-ref">editorVI</span>  por ssh… para instalarlo necsitaras tener acceso al entorno gráfico</p>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
 <p><a class="reference external" href="https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting">https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting</a></p>
 </section>

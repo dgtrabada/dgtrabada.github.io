@@ -231,7 +231,7 @@ y la compartimos:
 
 
 Administración remota
----------------------------------------
+----------------------
 
 WinRM (Windows Remote Management) es un conjunto de servicios de administración remota que permite a los administradores de sistemas administrar y ejecutar comandos en sistemas Windows de forma remota, utiliza el protocolo WS-Management (WSMan) para establecer conexiones remotas y ejecutar comandos de manera segura. 
 
@@ -275,7 +275,22 @@ Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son m
   Invoke-Command -Session $session -ScriptBlock { echo $a }    
   1
 
-Podemos cargar el script de la siguiente manera:
+Podemos cargar un script:
+
+.. code-block:: powershell
+   
+  $scriptBlock = {
+    echo "hola $(whoami.exe)"
+    echo "hoy es $(date)"
+  }
+
+  Invoke-Command -Session $session -ScriptBlock $scriptBlock
+
+También podemos cargarlo de un archivo, para editar el archivo podemos hacerlo con el editor vi utilizando una conexión ssh
+
+
+
+Para editar el script lo podemos hacer directamente con el editor vim :ref:`editorVI`  por ssh... para instalarlo necsitaras tener acceso al entorno gráfico
 
 .. image:: imagenes/WS22NGUI05.png
 
@@ -342,8 +357,6 @@ Instalación de software utilizando directivas de grupo
 
 Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.
 
-
- 
   
 Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:
 
