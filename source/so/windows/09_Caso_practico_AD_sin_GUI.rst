@@ -8,6 +8,8 @@ Crea los siguiente clones enlazados:
 
 * Clon enlazado 2 de "`Windows Server 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
+* Clon enlazado 3 de "`Windows Server 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+
 Configurar servicio de enrutamiento
 -----------------------------------
 
@@ -130,8 +132,10 @@ En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo
 
   # Obtener la directiva de contraseñas actua
   $pwdPolicy = Get-ADDefaultDomainPasswordPolicy 
+  
   # Deshabilitar los requisitos de complejidad
   Set-ADDefaultDomainPasswordPolicy -Identity (Get-ADDomain).DistinguishedName -ComplexityEnabled $false 
+  
   # le damos la nueva contraseña
   Set-ADAccountPassword -Identity tunombreX1 -NewPassword (ConvertTo-SecureString "1234" -AsPlainText -Force) -Reset
 
@@ -139,7 +143,7 @@ En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo
 Unir equipo al dominio
 ----------------------
 
-Para añadir el equipo al dominio **WC05tunombre** primero tendremos que cambiar el DNS:
+Para añadir el equipo al dominio **WC05tunombre** primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en "Configuración/Sistema/Información/Dominio o grupo de trabajo"  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:
 
 .. code-block:: powershell
 
@@ -206,12 +210,20 @@ y la compartimos:
 
 .. code-block:: powershell
 
-  PS C:\XY-tunombre> New-SmbShare -Name "X"  -Path "C:\XY-tunombre\X-tunombre" -FullAccess "X", "Administradores" 
+  New-SmbShare -Name "X"  -Path "C:\XY-TUNOMRE\X-tunombre" -FullAccess "X", "Administradores" 
 
   Name ScopeName Path                      Description
   ---- --------- ----                      -----------
-  X    *         C:\XY-tunombre\X-tunombre
+  X    *         C:\XY-TUNOMRE\X-tunombre
 
+
+Podemos comprobar las carpetas que hay compartidas, ejecutando en el servidor:
+
+.. code-block:: powershell
+   
+  net share
+
+Para acceder a ellas:
 
 .. code-block:: powershell
    
@@ -221,17 +233,20 @@ y la compartimos:
   #Podmeos montar en el cliente en la unidad Z
   New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X" 
   
-  #Para ver las carpetas que hay compartidas ejecuta en el servidor:
-  net share
-  
-  #Para dejar de compartir la carpeta, utiliza el siguiente comando:
-  net share NombreRecurso /delete
+Utilizando el entorno gráfico
 
 .. image:: imagenes/WS22NGUI04.png
 
+Para dejar de compartir la carpeta: 
+
+.. code-block:: powershell
+   
+  net share NombreRecurso /delete
+
+
 
 Administración remota
-----------------------
+---------------------
 
 WinRM (Windows Remote Management) es un conjunto de servicios de administración remota que permite a los administradores de sistemas administrar y ejecutar comandos en sistemas Windows de forma remota, utiliza el protocolo WS-Management (WSMan) para establecer conexiones remotas y ejecutar comandos de manera segura. 
 
@@ -240,7 +255,6 @@ Para permitir la administración remota del cliente, configuramos WinRM:
 .. code-block:: powershell
    
   winrm quickconfig 
-  
   
 Desde el servidor pordemos ejecutar comandos:
 
@@ -266,6 +280,14 @@ También ofrece la opción de crear una conexión persistente "PSSession", en es
 
   # Ejecutar un comando en la sesión remota
   Invoke-Command -Session $session -ScriptBlock { Get-PSSessionConfiguration }
+  
+  # Habilitar la ejecución de scripts en los equipos
+  Invoke-Command -Session $session -ScriptBlock { Set-ExecutionPolicy Unrestricted }
+
+  # Podemos instalar el servidor ssh de forma remota:
+  Invoke-Command -Session $session -ScriptBlock { Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.server*' | Select-Object  Name| Select-Object -Index 0) }
+  
+  Invoke-Command -Session $session -ScriptBlock { Get-Service sshd }
 
 Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.
 
@@ -275,32 +297,73 @@ Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son m
   Invoke-Command -Session $session -ScriptBlock { echo $a }    
   1
 
+
 Podemos cargar un script:
 
 .. code-block:: powershell
    
-  $scriptBlock = {
+   $scriptBlock = {
     echo "hola $(whoami.exe)"
     echo "hoy es $(date)"
   }
 
   Invoke-Command -Session $session -ScriptBlock $scriptBlock
 
-También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el `editor vim <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi>`_ utilizando una conexión por ssh... para instalarlo necsitaras tener acceso al entorno gráfico
+También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el `editor vim <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi>`_ utilizando una conexión por `ssh <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh>`_
+
+.. code-block:: powershell
+     
+  PS C:\Users\Administrador> cat script.ps1  
+  echo "hola $(whoami.exe)"
+  echo "hoy es $(date)"
+  
+  PS C:\Users\Administrador> Invoke-Command -FilePath script.ps1 -Session $session
+  hola tunombre\administrador
+  hoy es 05/06/2024 10:52:12
+
+Para tener acceso a un recurso compartido de red en una sesión remota. utilizamos `Enable-WSManCredSSP <https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples>`_, sirve para habilitar el delegado de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente. 
+
+.. code-block:: powershell
+     
+  Enable-WSManCredSSP -Role client -DelegateComputer WC06TUNOMBRE
+  # usamos la $session  creada 
+  Invoke-Command -Session $session -ScriptBlock { Enable-WSManCredSSP -Role Server -Force }
+
+  $parameters = @{
+    ComputerName   = 'WC06TUNOMBRE'
+    ScriptBlock    = { Get-Item \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1 }
+    Authentication = 'CredSSP'
+    Credential     = 'tunombre\Administrador'  
+    }
+    
+    Invoke-Command @parameters
+    
+Ten encuenta que necesitaras acceso al entorno gráfico:
 
 .. image:: imagenes/WS22NGUI05.png
 
+De esta forma podemos instalar programas que se ecuentren en una carpeta compartida
 
-https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting
+.. code-block:: powershell
+     
+  Invoke-Command -Credential tunombre\Administrador -ComputerName WC06TUNOMBRE -Authentication CredSSP -ScriptBlock {Start-Process msiexec.exe -ArgumentList "/i \\WS22tunombre\sysvol\tunombre.local\vlc-3.0.20-win64.msi /qn" -Wait}
 
-Habilitar scripts
------------------
-New-GPO -Name "Habilitar Ejecución de Scripts"
+Sería lo mismo que:
 
-Set-GPRegistryValue -Name "Habilitar Ejecución de Scripts" -Key "HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptExecution" -ValueName "ExecutionPolicy" -Type String -Value "AllSigned"
+.. code-block:: powershell
+     
+  $parameters = @{
+  Credential = 'tunombre\Administrador'
+  ComputerName = 'WC06TUNOMBRE'
+  Authentication = 'CredSSP'
+  ScriptBlock = {
+    param($dirmsi)
+    Start-Process msiexec.exe -ArgumentList "/i $dirmsi /qn" -Wait
+    }
+    ArgumentList = '\\WS22tunombre\sysvol\tunombre.local\vlc-3.0.20-win64.msi'
+  }
 
-Get-GPO -Name "Habilitar Ejecución de Scripts"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
-
+  Invoke-Command  @parameters
 
 Mapear unidades de red a las carpetas compartidas utilizando GPO
 ----------------------------------------------------------------

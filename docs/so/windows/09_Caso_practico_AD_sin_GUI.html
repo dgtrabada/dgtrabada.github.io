@@ -402,7 +402,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>
@@ -422,6 +421,7 @@ document.write(`
 <ul class="simple">
 <li><p>Clon enlazado 1 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>» llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
 <li><p>Clon enlazado 2 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <section id="configurar-servicio-de-enrutamiento">
 <h2>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Enlace permanente a este encabezado">#</a></h2>
@@ -515,8 +515,10 @@ document.write(`
 <p>En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan un menor complejidad para hacer pruebas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Obtener la directiva de contraseñas actua</span>
 <span class="nv">$pwdPolicy</span> <span class="p">=</span> <span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+
 <span class="c"># Deshabilitar los requisitos de complejidad</span>
 <span class="nb">Set-ADDefaultDomainPasswordPolicy</span> <span class="n">-Identity</span> <span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">DistinguishedName</span> <span class="n">-ComplexityEnabled</span> <span class="nv">$false</span>
+
 <span class="c"># le damos la nueva contraseña</span>
 <span class="nb">Set-ADAccountPassword</span> <span class="n">-Identity</span> <span class="n">tunombreX1</span> <span class="n">-NewPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="s2">&quot;1234&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-Reset</span>
 </pre></div>
@@ -524,7 +526,7 @@ document.write(`
 </section>
 <section id="unir-equipo-al-dominio">
 <h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS:</p>
+<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en «Configuración/Sistema/Información/Dominio o grupo de trabajo»  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS del cliente</span>
 <span class="nb">Get-DnsClientServerAddress</span>
 
@@ -570,27 +572,31 @@ document.write(`
 </pre></div>
 </div>
 <p>y la compartimos:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">XY-tunombre</span><span class="p">&gt;</span> <span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\XY-tunombre\X-tunombre&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Administradores&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\XY-TUNOMRE\X-tunombre&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Administradores&quot;</span>
 
 <span class="n">Name</span> <span class="n">ScopeName</span> <span class="n">Path</span>                      <span class="n">Description</span>
 <span class="p">----</span> <span class="p">---------</span> <span class="p">----</span>                      <span class="p">-----------</span>
-<span class="n">X</span>    <span class="p">*</span>         <span class="n">C</span><span class="p">:\</span><span class="n">XY-tunombre</span><span class="p">\</span><span class="n">X-tunombre</span>
+<span class="n">X</span>    <span class="p">*</span>         <span class="n">C</span><span class="p">:\</span><span class="n">XY-TUNOMRE</span><span class="p">\</span><span class="n">X-tunombre</span>
 </pre></div>
 </div>
+<p>Podemos comprobar las carpetas que hay compartidas, ejecutando en el servidor:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">share</span>
+</pre></div>
+</div>
+<p>Para acceder a ellas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Podemos ver que esta en:</span>
 <span class="nb">ls </span><span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
 
 <span class="c">#Podmeos montar en el cliente en la unidad Z</span>
 <span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
-
-<span class="c">#Para ver las carpetas que hay compartidas ejecuta en el servidor:</span>
-<span class="n">net</span> <span class="n">share</span>
-
-<span class="c">#Para dejar de compartir la carpeta, utiliza el siguiente comando:</span>
-<span class="n">net</span> <span class="n">share</span> <span class="n">NombreRecurso</span> <span class="p">/</span><span class="n">delete</span>
 </pre></div>
 </div>
+<p>Utilizando el entorno gráfico</p>
 <img alt="../../_images/WS22NGUI04.png" src="../../_images/WS22NGUI04.png" />
+<p>Para dejar de compartir la carpeta:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">share</span> <span class="n">NombreRecurso</span> <span class="p">/</span><span class="n">delete</span>
+</pre></div>
+</div>
 </section>
 <section id="administracion-remota">
 <h2>Administración remota<a class="headerlink" href="#administracion-remota" title="Enlace permanente a este encabezado">#</a></h2>
@@ -615,6 +621,14 @@ document.write(`
 
 <span class="c"># Ejecutar un comando en la sesión remota</span>
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Get-PSSessionConfiguration</span> <span class="p">}</span>
+
+<span class="c"># Habilitar la ejecución de scripts en los equipos</span>
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Set-ExecutionPolicy</span> <span class="n">Unrestricted</span> <span class="p">}</span>
+
+<span class="c"># Podemos instalar el servidor ssh de forma remota:</span>
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="p">$(</span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH.server*&#39;</span> <span class="p">|</span> <span class="nb">Select-Object</span>  <span class="n">Name</span><span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Get-Service</span> <span class="n">sshd</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.</p>
@@ -624,7 +638,7 @@ document.write(`
 </pre></div>
 </div>
 <p>Podemos cargar un script:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$scriptBlock</span> <span class="p">=</span> <span class="p">{</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$scriptBlock</span> <span class="p">=</span> <span class="p">{</span>
   <span class="nb">echo </span><span class="s2">&quot;hola </span><span class="p">$(</span><span class="n">whoami</span><span class="p">.</span><span class="n">exe</span><span class="p">)</span><span class="s2">&quot;</span>
   <span class="nb">echo </span><span class="s2">&quot;hoy es </span><span class="p">$(</span><span class="n">date</span><span class="p">)</span><span class="s2">&quot;</span>
 <span class="p">}</span>
@@ -632,16 +646,52 @@ document.write(`
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="nv">$scriptBlock</span>
 </pre></div>
 </div>
-<p>También podemos cargarlo de un archivo, para editar el archivo podemos hacerlo con el editor vi utilizando una conexión ssh</p>
-<p>Para editar el script lo podemos hacer directamente con el editor vim <span class="xref std std-ref">editorVI</span>  por ssh… para instalarlo necsitaras tener acceso al entorno gráfico</p>
+<p>También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi">editor vim</a> utilizando una conexión por <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh">ssh</a></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="n">script</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">echo </span><span class="s2">&quot;hola </span><span class="p">$(</span><span class="n">whoami</span><span class="p">.</span><span class="n">exe</span><span class="p">)</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="s2">&quot;hoy es </span><span class="p">$(</span><span class="n">date</span><span class="p">)</span><span class="s2">&quot;</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">&gt;</span> <span class="nb">Invoke-Command</span> <span class="n">-FilePath</span> <span class="n">script</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Session</span> <span class="nv">$session</span>
+<span class="n">hola</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">administrador</span>
+<span class="n">hoy</span> <span class="n">es</span> <span class="n">05</span><span class="p">/</span><span class="n">06</span><span class="p">/</span><span class="n">2024</span> <span class="n">10</span><span class="p">:</span><span class="n">52</span><span class="p">:</span><span class="n">12</span>
+</pre></div>
+</div>
+<p>Para tener acceso a un recurso compartido de red en una sesión remota. utilizamos <a class="reference external" href="https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples">Enable-WSManCredSSP</a>, sirve para habilitar el delegado de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">client</span> <span class="n">-DelegateComputer</span> <span class="n">WC06TUNOMBRE</span>
+<span class="c"># usamos la $session  creada</span>
+<span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">Server</span> <span class="n">-Force</span> <span class="p">}</span>
+
+<span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
+  <span class="n">ComputerName</span>   <span class="p">=</span> <span class="s1">&#39;WC06TUNOMBRE&#39;</span>
+  <span class="n">ScriptBlock</span>    <span class="p">=</span> <span class="p">{</span> <span class="nb">Get-Item</span> <span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount</span><span class="p">.</span><span class="n">ps1</span> <span class="p">}</span>
+  <span class="n">Authentication</span> <span class="p">=</span> <span class="s1">&#39;CredSSP&#39;</span>
+  <span class="n">Credential</span>     <span class="p">=</span> <span class="s1">&#39;tunombre\Administrador&#39;</span>
+  <span class="p">}</span>
+
+  <span class="nb">Invoke-Command</span> <span class="nv">@parameters</span>
+</pre></div>
+</div>
+<p>Ten encuenta que necesitaras acceso al entorno gráfico:</p>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
-<p><a class="reference external" href="https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting">https://leanpub.com/secrets-of-powershell-remoting-spanish/read#leanpub-auto-habilitando-remoting</a></p>
-</section>
-<section id="habilitar-scripts">
-<h2>Habilitar scripts<a class="headerlink" href="#habilitar-scripts" title="Enlace permanente a este encabezado">#</a></h2>
-<p>New-GPO -Name «Habilitar Ejecución de Scripts»</p>
-<p>Set-GPRegistryValue -Name «Habilitar Ejecución de Scripts» -Key «HKLMSOFTWAREPoliciesMicrosoftWindowsPowerShellScriptExecution» -ValueName «ExecutionPolicy» -Type String -Value «AllSigned»</p>
-<p>Get-GPO -Name «Habilitar Ejecución de Scripts»  | New-GPLink -Target «OU=DespachoX,DC=tunombre,DC=local»</p>
+<p>De esta forma podemos instalar programas que se ecuentren en una carpeta compartida</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-Credential</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">Administrador</span> <span class="n">-ComputerName</span> <span class="n">WC06TUNOMBRE</span> <span class="n">-Authentication</span> <span class="n">CredSSP</span> <span class="n">-ScriptBlock</span> <span class="p">{</span><span class="nb">Start-Process</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;/i \\WS22tunombre\sysvol\tunombre.local\vlc-3.0.20-win64.msi /qn&quot;</span> <span class="n">-Wait</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Sería lo mismo que:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
+<span class="n">Credential</span> <span class="p">=</span> <span class="s1">&#39;tunombre\Administrador&#39;</span>
+<span class="n">ComputerName</span> <span class="p">=</span> <span class="s1">&#39;WC06TUNOMBRE&#39;</span>
+<span class="n">Authentication</span> <span class="p">=</span> <span class="s1">&#39;CredSSP&#39;</span>
+<span class="n">ScriptBlock</span> <span class="p">=</span> <span class="p">{</span>
+  <span class="k">param</span><span class="p">(</span><span class="nv">$dirmsi</span><span class="p">)</span>
+  <span class="nb">Start-Process</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;/i $dirmsi /qn&quot;</span> <span class="n">-Wait</span>
+  <span class="p">}</span>
+  <span class="n">ArgumentList</span> <span class="p">=</span> <span class="s1">&#39;\\WS22tunombre\sysvol\tunombre.local\vlc-3.0.20-win64.msi&#39;</span>
+<span class="p">}</span>
+
+<span class="nb">Invoke-Command</span>  <span class="nv">@parameters</span>
+</pre></div>
+</div>
 </section>
 <section id="mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">
 <h2>Mapear unidades de red a las carpetas compartidas utilizando GPO<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo" title="Enlace permanente a este encabezado">#</a></h2>
@@ -791,7 +841,6 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-scripts">Habilitar scripts</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
 </ul>

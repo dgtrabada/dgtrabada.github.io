@@ -883,6 +883,17 @@ document.write(`
 <span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
 </pre></div>
 </div>
+<p>Para instalarlo con un solo comando:
+.. code-block:: powershell</p>
+<blockquote>
+<div><p>Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like “OpenSSH.server*” | Select-Object  Name| Select-Object -Index 0)</p>
+</div></blockquote>
+<p>En el caso que que quieras conectarte a una sesión de powershell, abre el archivo .ssh/config. Si no existe, puedes crearlo y agrega las siguientes líneas, sonde la &lt;ip&gt; es la <strong>ip o el nombre del equipo al que nos conectamos</strong> y queremos loguarnos directamente con powershell:</p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="p">&lt;</span><span class="n">ip</span><span class="p">&gt;</span>
+  <span class="n">RequestTTY</span> <span class="n">force</span>
+  <span class="n">RemoteCommand</span> <span class="n">powershell</span> <span class="n">-NoLogo</span> <span class="n">-NoProfile</span>
+</pre></div>
+</div>
 </section>
 <section id="instalar-edior-vi">
 <h2>Instalar edior vi<a class="headerlink" href="#instalar-edior-vi" title="Enlace permanente a este encabezado">#</a></h2>

@@ -511,6 +511,20 @@ Instalar el servidor ssh
  #Después ya te puedes conectar sin meter contraseña
  ssh -X Administrador@IP
 
+Para instalarlo con un solo comando:
+.. code-block:: powershell
+
+  Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.server*' | Select-Object  Name| Select-Object -Index 0)
+
+
+En el caso que que quieras conectarte a una sesión de powershell, abre el archivo .ssh/config. Si no existe, puedes crearlo y agrega las siguientes líneas, sonde la \<ip\> es la **ip o el nombre del equipo al que nos conectamos** y queremos loguarnos directamente con powershell:
+
+.. code-block:: PowerShell
+ 
+  Host <ip>
+    RequestTTY force
+    RemoteCommand powershell -NoLogo -NoProfile
+
 
 Instalar edior vi
 =================
