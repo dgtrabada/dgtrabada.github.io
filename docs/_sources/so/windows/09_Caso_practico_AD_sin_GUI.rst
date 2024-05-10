@@ -365,43 +365,73 @@ Sería lo mismo que:
 
   Invoke-Command  @parameters
 
-Mapear unidades de red a las carpetas compartidas utilizando GPO
-----------------------------------------------------------------
-
-Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO
+Mapear unidades de red a las carpetas compartidas 
+-------------------------------------------------
 
 .. code-block:: powershell
 
-  #En AD tenemos los siguientes clientes
+  cat \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1
+  New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X"
+ 
+En el caso que queramos que el cambio sea permanente:
+
+.. code-block:: powershell
+
+  New-PSDrive -Persist -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X" -Scope Global 
+  
+  
+  
+Mover objetos entre las diferentes unidades organizativas
+---------------------------------------------------------
+
+Vamos a mover un equipo de Computers a DespachoX, primero vemos los clientes que tenemos:
+
+.. code-block:: powershell
+
   Get-ADComputer -Filter * | Select-Object Name, DistinguishedName
 
   #Nuestro cliente esta en:
   Get-ADComputer -Filter {Name  -eq "WC06TUNOMBRE"} | FT DistinguishedName
- 
-  #tenemos las siguientes unidades organizativas
+
+Vemos las siguientes unidades organizativas:
+
+.. code-block:: powershell
+
+  #Tenemos las siguientes unidades organizativas
   Get-ADOrganizationalUnit -Filter * -SearchBase "DC=tunombre,DC=local" | FT DistinguishedName
   
-  #Movemos el equipi al "DespachoX"
-  $IdentidadEquipo = $(Get-ADComputer -Identity "WC06TUNOMBRE").DistinguishedName
+Movemos el equipo al "DespachoX"
+
+.. code-block:: powershell
+
+   $IdentidadEquipo = $(Get-ADComputer -Identity "WC06TUNOMBRE").DistinguishedName
   
   Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
 
 Vamos a crear un script para que se ejecute al inicio de la sesión:
 
-.. code-block:: powershell
+Crear y vinculamos GPO
+----------------------
 
-  echo 'New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X"' > \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1
-  
 .. code-block:: powershell
 
   #Creamos la politica de grupo:
   New-GPO -Name "MapearX"
   
   # Asignar la configuración de inicio de sesión a la GPO
-  Set-GPRegistryValue -Name "Mapear en H" -Key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -ValueName "ScriptName" -Type String -Value "\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1"
+  $parameters = @{
+  Name = 'MapearX'
+  Key  = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
+  ValueName = "ScriptName" 
+  Type = "String"
+  Value = "\\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1"
+  }
+  
+  Set-GPRegistryValue @parameters 
+
   
   #La vinculamos:
-  Get-GPO -Name "Mapear en H"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
+  Get-GPO -Name "MapearX"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
   
   #Si queremos desvincular: 
   #Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
@@ -409,48 +439,8 @@ Vamos a crear un script para que se ejecute al inicio de la sesión:
   #Remove-GPO -Name <Nombre> -Domain <dominio>
 
 
-
-
-Instalación de software utilizando directivas de grupo
-------------------------------------------------------
-
-Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.
-
-  
-Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:
-
-.. code-block:: powershell
-
-  #es posible que el link de descarga haya cambiado...
-  cd C:\Windows\SYSVOL\sysvol\tunombre.local
-Invoke-WebRequest -Uri "https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi" -OutFile "vlc-3.0.20-win64.msi"
-
-
-Creamos la GPO y la vinculamos a la OU correspondiente:  
-
-.. code-block:: powershell
-
-  #Creamos la politica de grupo:
-  New-GPO -Name "Instalar VLC"
-  
-  #La vinculamos:
-  Get-GPO -Name "Instalar VLC"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
-  
-  #Si queremos desvincular: 
-  #Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
-  #Borrarla:
-  #Remove-GPO -Name <Nombre> -Domain <dominio>
-  
-  #creamod el script en \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1:
-  $rutaMSI = "\\WS22TUNOMBRE\sysvol\tunombre.local\vlc-3.0.20-win64.msi"
-  # Instalar el MSI
-  Start-Process msiexec.exe -ArgumentList "/i `"$rutaMSI`" /qn" -Wait
-
-  Set-GPRegistryValue -Name "Instalar VLC" -Key "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" -ValueName "Instalar VLC" -Type String -Value "powershell.exe -File \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1"
-
- 
-
-
+Modificar ACL con powershell
+----------------------------
 
 rm -r C:\Users\XY
 

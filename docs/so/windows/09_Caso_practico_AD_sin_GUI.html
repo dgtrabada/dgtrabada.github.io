@@ -402,8 +402,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modificar-acl-con-powershell">Modificar ACL con powershell</a></li>
 </ul>
             </nav>
         </div>
@@ -693,36 +695,58 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">
-<h2>Mapear unidades de red a las carpetas compartidas utilizando GPO<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Lo primero que heremos es mover los ordenadores a la unidad organizativa donde vamos a vincular la GPO</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#En AD tenemos los siguientes clientes</span>
-<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
+<section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
+<h2>Mapear unidades de red a las carpetas compartidas<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Enlace permanente a este encabezado">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cat </span><span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
+</pre></div>
+</div>
+<p>En el caso que queramos que el cambio sea permanente:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-PSDrive</span> <span class="n">-Persist</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span> <span class="n">-Scope</span> <span class="n">Global</span>
+</pre></div>
+</div>
+</section>
+<section id="mover-objetos-entre-las-diferentes-unidades-organizativas">
+<h2>Mover objetos entre las diferentes unidades organizativas<a class="headerlink" href="#mover-objetos-entre-las-diferentes-unidades-organizativas" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Vamos a mover un equipo de Computers a DespachoX, primero vemos los clientes que tenemos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
 
 <span class="c">#Nuestro cliente esta en:</span>
 <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
-
-<span class="c">#tenemos las siguientes unidades organizativas</span>
+</pre></div>
+</div>
+<p>Vemos las siguientes unidades organizativas:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Tenemos las siguientes unidades organizativas</span>
 <span class="nb">Get-ADOrganizationalUnit</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
-
-<span class="c">#Movemos el equipi al &quot;DespachoX&quot;</span>
-<span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
+</pre></div>
+</div>
+<p>Movemos el equipo al «DespachoX»</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
 
 <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
 <p>Vamos a crear un script para que se ejecute al inicio de la sesión:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s1">&#39;New-PSDrive -Name &quot;X&quot; -PSProvider &quot;FileSystem&quot; -Root &quot;\\WS22TUNOMBRE\X&quot;&#39;</span> <span class="p">&gt;</span> <span class="p">\\</span><span class="n">WS22tunombre</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span><span class="p">\</span><span class="n">scripts</span><span class="p">\</span><span class="n">mount</span><span class="p">.</span><span class="n">ps1</span>
-</pre></div>
-</div>
+</section>
+<section id="crear-y-vinculamos-gpo">
+<h2>Crear y vinculamos GPO<a class="headerlink" href="#crear-y-vinculamos-gpo" title="Enlace permanente a este encabezado">#</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
 <span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>
 
 <span class="c"># Asignar la configuración de inicio de sesión a la GPO</span>
-<span class="nb">Set-GPRegistryValue</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span> <span class="n">-Key</span> <span class="s2">&quot;HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span> <span class="n">-ValueName</span> <span class="s2">&quot;ScriptName&quot;</span> <span class="n">-Type</span> <span class="n">String</span> <span class="n">-Value</span> <span class="s2">&quot;\\WS22tunombre\sysvol\tunombre.local\scripts\mount_H.ps1&quot;</span>
+<span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
+<span class="n">Name</span> <span class="p">=</span> <span class="s1">&#39;MapearX&#39;</span>
+<span class="n">Key</span>  <span class="p">=</span> <span class="s2">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span>
+<span class="n">ValueName</span> <span class="p">=</span> <span class="s2">&quot;ScriptName&quot;</span>
+<span class="nb">Type </span><span class="p">=</span> <span class="s2">&quot;String&quot;</span>
+<span class="n">Value</span> <span class="p">=</span> <span class="s2">&quot;\\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">Set-GPRegistryValue</span> <span class="nv">@parameters</span>
+
 
 <span class="c">#La vinculamos:</span>
-<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Mapear en H&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
+<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
 
 <span class="c">#Si queremos desvincular:</span>
 <span class="c">#Remove-GPLink -Name &lt;Nombre&gt; -Target &lt;Path_OU_Dominio&gt;</span>
@@ -731,35 +755,8 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="instalacion-de-software-utilizando-directivas-de-grupo">
-<h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Enlace permanente a este encabezado">#</a></h2>
-<p>Vamos a crear una GPO para instalar un programa, para ello tendremos que vincularla a una unidad organizativa.</p>
-<p>Nos bajamos el programa, y lo ponemos en una carpeta que se compartida:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#es posible que el link de descarga haya cambiado...</span>
-<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">SYSVOL</span><span class="p">\</span><span class="n">sysvol</span><span class="p">\</span><span class="n">tunombre</span><span class="p">.</span><span class="n">local</span>
-</pre></div>
-</div>
-<p>Invoke-WebRequest -Uri «<a class="reference external" href="https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi">https://mirrors.up.pt/pub/videolan/vlc/3.0.20/win64/vlc-3.0.20-win64.msi</a>» -OutFile «vlc-3.0.20-win64.msi»</p>
-<p>Creamos la GPO y la vinculamos a la OU correspondiente:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
-<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span>
-
-<span class="c">#La vinculamos:</span>
-<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
-
-<span class="c">#Si queremos desvincular:</span>
-<span class="c">#Remove-GPLink -Name &lt;Nombre&gt; -Target &lt;Path_OU_Dominio&gt;</span>
-<span class="c">#Borrarla:</span>
-<span class="c">#Remove-GPO -Name &lt;Nombre&gt; -Domain &lt;dominio&gt;</span>
-
-<span class="c">#creamod el script en \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1:</span>
-<span class="nv">$rutaMSI</span> <span class="p">=</span> <span class="s2">&quot;\\WS22TUNOMBRE\sysvol\tunombre.local\vlc-3.0.20-win64.msi&quot;</span>
-<span class="c"># Instalar el MSI</span>
-<span class="nb">Start-Process</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;/i </span><span class="se">`&quot;</span><span class="s2">$rutaMSI</span><span class="se">`&quot;</span><span class="s2"> /qn&quot;</span> <span class="n">-Wait</span>
-
-<span class="nb">Set-GPRegistryValue</span> <span class="n">-Name</span> <span class="s2">&quot;Instalar VLC&quot;</span> <span class="n">-Key</span> <span class="s2">&quot;HKLM\Software\Microsoft\Windows\CurrentVersion\Run&quot;</span> <span class="n">-ValueName</span> <span class="s2">&quot;Instalar VLC&quot;</span> <span class="n">-Type</span> <span class="n">String</span> <span class="n">-Value</span> <span class="s2">&quot;powershell.exe -File \\WS22TUNOMBRE\sysvol\tunombre.local\scripts\InstallVLC.ps1&quot;</span>
-</pre></div>
-</div>
+<section id="modificar-acl-con-powershell">
+<h2>Modificar ACL con powershell<a class="headerlink" href="#modificar-acl-con-powershell" title="Enlace permanente a este encabezado">#</a></h2>
 <p>rm -r C:UsersXY</p>
 <p>mkdir C:UsersXY
 mkdir C:UsersXYX
@@ -841,8 +838,10 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-equipo-al-dominio">Unir equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpeta-compartida">Carpeta compartida</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas-utilizando-gpo">Mapear unidades de red a las carpetas compartidas utilizando GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-software-utilizando-directivas-de-grupo">Instalación de software utilizando directivas de grupo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modificar-acl-con-powershell">Modificar ACL con powershell</a></li>
 </ul>
   </nav></div>
 
