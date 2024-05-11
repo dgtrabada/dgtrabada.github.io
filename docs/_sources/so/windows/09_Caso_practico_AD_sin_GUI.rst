@@ -408,17 +408,19 @@ Movemos el equipo al "DespachoX"
   
   Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
 
-Vamos a crear un script para que se ejecute al inicio de la sesión:
-
 Crear y vinculamos GPO
 ----------------------
 
+Creamos la politica de grupo:
+
 .. code-block:: powershell
 
-  #Creamos la politica de grupo:
   New-GPO -Name "MapearX"
   
-  # Asignar la configuración de inicio de sesión a la GPO
+Asignar la configuración de inicio de sesión a la GPO
+
+.. code-block:: powershell
+
   $parameters = @{
   Name = 'MapearX'
   Key  = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
@@ -430,13 +432,23 @@ Crear y vinculamos GPO
   Set-GPRegistryValue @parameters 
 
   
-  #La vinculamos:
+La vinculamos:
+
+.. code-block:: powershell
+
   Get-GPO -Name "MapearX"  | New-GPLink -Target "OU=DespachoX,DC=tunombre,DC=local"
   
-  #Si queremos desvincular: 
-  #Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
-  #Borrarla:
-  #Remove-GPO -Name <Nombre> -Domain <dominio>
+Si queremos desvincular:  
+
+.. code-block:: powershell
+
+  Remove-GPLink -Name <Nombre> -Target <Path_OU_Dominio>
+  
+Borrarla:
+
+.. code-block:: powershell
+
+  Remove-GPO -Name <Nombre> -Domain <dominio>
 
 Gestión de ACL sin entorno gráfico
 ----------------------------------
@@ -489,50 +501,70 @@ Ejemplo de como dar permisos de RW a un grupo completo:
   Set-Acl -Path A -AclObject $acl
   
   
+Otro ejemplo, vamos a crear una carpeta llamada 'XY', dentro  dos subcarpetas llamadas 'X' y 'Y'.  Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'."
 
 
-rm -r C:\Users\XY
+Creamos las carpetas:
 
-mkdir C:\Users\XY
-mkdir C:\Users\XY\X
-mkdir C:\Users\XY\Y
+.. code-block:: powershell
 
-# Obtener el objeto ACL actual de la carpeta XY
-$acl= Get-Acl -Path "C:\Users\XY"
+  rm -r C:\Users\XY
 
-# Permisos para la carpeta principal (lectura y escritura)
-$permisos= "ReadAndExecute", "ListDirectory"
+  mkdir C:\Users\XY
+  mkdir C:\Users\XY\X
+  mkdir C:\Users\XY\Y
 
-# Crear la regla de acceso para el grupo X
-$reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
-$reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
+Obtenemos el objeto ACL actual de la carpeta XY
 
+.. code-block:: powershell
 
-# Agregar las reglas de acceso 
-$acl.AddAccessRule($reglaX)
-$acl.AddAccessRule($reglaY)
-Set-Acl -Path "C:\Users\XY" -AclObject $acl
+  $acl= Get-Acl -Path "C:\Users\XY"
 
-cd C:\Users\XY
+Damos permisos para la carpeta principal (lectura y escritura)
 
-$acl= Get-Acl -Path "C:\Users\XY\X"
-$permisos = "Modify"
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+.. code-block:: powershell
 
-$acl.AddAccessRule($regla)
-Set-Acl -Path "C:\Users\XY\X" -AclObject $acl
+  $permisos= "ReadAndExecute", "ListDirectory"
 
-$acl= Get-Acl -Path "C:\Users\XY\Y"
-$permisos = "Modify"
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
+Crear la regla de acceso para el grupo X
 
-$acl.AddAccessRule($regla)
-Set-Acl -Path "C:\Users\XY\Y" -AclObject $acl
+.. code-block:: powershell
+
+  $reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+  $reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
 
 
-$usuario = "tunombreX1"
-$password = ConvertTo-SecureString "@lumn0X1" -AsPlainText -Force
-$credenciales = New-Object System.Management.Automation.PSCredential($usuario, $password)
+Agregamos las reglas de acceso a la carpeta "XY"
 
-Start-Process powershell.exe -Credential $credenciales 
+.. code-block:: powershell
+
+  $acl.AddAccessRule($reglaX)
+  $acl.AddAccessRule($reglaY)
+  Set-Acl -Path "C:\Users\XY" -AclObject $acl
+
+Agregamos permisos para para la carpeta "X" pueda ser modificada por el grupo "X"
+
+.. code-block:: powershell
+
+  cd C:\Users\XY
+
+  $acl= Get-Acl -Path "C:\Users\XY\X"
+  $permisos = "Modify"
+  $regla = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+
+  $acl.AddAccessRule($regla)
+  Set-Acl -Path "C:\Users\XY\X" -AclObject $acl
+
+Agregamos permisos para para la carpeta "Y" pueda ser modificada por el grupo "Y"
+
+.. code-block:: powershell
+
+  $acl= Get-Acl -Path "C:\Users\XY\Y"
+  $permisos = "Modify"
+  $regla = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
+
+  $acl.AddAccessRule($regla)
+  Set-Acl -Path "C:\Users\XY\Y" -AclObject $acl
+
+
 

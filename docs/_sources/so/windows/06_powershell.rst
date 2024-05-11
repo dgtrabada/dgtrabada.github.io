@@ -512,6 +512,7 @@ Instalar el servidor ssh
  ssh -X Administrador@IP
 
 Para instalarlo con un solo comando:
+
 .. code-block:: powershell
 
   Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.server*' | Select-Object  Name| Select-Object -Index 0)

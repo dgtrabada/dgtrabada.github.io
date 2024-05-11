@@ -882,11 +882,10 @@ document.write(`
 <span class="n">ssh</span> <span class="n">-X</span> <span class="n">Administrador</span><span class="nv">@IP</span>
 </pre></div>
 </div>
-<p>Para instalarlo con un solo comando:
-.. code-block:: powershell</p>
-<blockquote>
-<div><p>Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like “OpenSSH.server*” | Select-Object  Name| Select-Object -Index 0)</p>
-</div></blockquote>
+<p>Para instalarlo con un solo comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-WindowsCapability</span> <span class="n">-Online</span> <span class="n">-Name</span> <span class="p">$(</span><span class="nb">Get-WindowsCapability</span> <span class="n">-Online</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Name</span> <span class="o">-like</span> <span class="s1">&#39;OpenSSH.server*&#39;</span> <span class="p">|</span> <span class="nb">Select-Object</span>  <span class="n">Name</span><span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>En el caso que que quieras conectarte a una sesión de powershell, abre el archivo .ssh/config. Si no existe, puedes crearlo y agrega las siguientes líneas, sonde la &lt;ip&gt; es la <strong>ip o el nombre del equipo al que nos conectamos</strong> y queremos loguarnos directamente con powershell:</p>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="p">&lt;</span><span class="n">ip</span><span class="p">&gt;</span>
   <span class="n">RequestTTY</span> <span class="n">force</span>

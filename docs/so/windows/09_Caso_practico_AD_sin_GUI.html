@@ -726,15 +726,15 @@ document.write(`
 <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
-<p>Vamos a crear un script para que se ejecute al inicio de la sesión:</p>
 </section>
 <section id="crear-y-vinculamos-gpo">
 <h2>Crear y vinculamos GPO<a class="headerlink" href="#crear-y-vinculamos-gpo" title="Enlace permanente a este encabezado">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Creamos la politica de grupo:</span>
-<span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>
-
-<span class="c"># Asignar la configuración de inicio de sesión a la GPO</span>
-<span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
+<p>Creamos la politica de grupo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>
+</pre></div>
+</div>
+<p>Asignar la configuración de inicio de sesión a la GPO</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
 <span class="n">Name</span> <span class="p">=</span> <span class="s1">&#39;MapearX&#39;</span>
 <span class="n">Key</span>  <span class="p">=</span> <span class="s2">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span>
 <span class="n">ValueName</span> <span class="p">=</span> <span class="s2">&quot;ScriptName&quot;</span>
@@ -743,15 +743,18 @@ document.write(`
 <span class="p">}</span>
 
 <span class="nb">Set-GPRegistryValue</span> <span class="nv">@parameters</span>
-
-
-<span class="c">#La vinculamos:</span>
-<span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
-
-<span class="c">#Si queremos desvincular:</span>
-<span class="c">#Remove-GPLink -Name &lt;Nombre&gt; -Target &lt;Path_OU_Dominio&gt;</span>
-<span class="c">#Borrarla:</span>
-<span class="c">#Remove-GPO -Name &lt;Nombre&gt; -Domain &lt;dominio&gt;</span>
+</pre></div>
+</div>
+<p>La vinculamos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>  <span class="p">|</span> <span class="nb">New-GPLink</span> <span class="n">-Target</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span>
+</pre></div>
+</div>
+<p>Si queremos desvincular:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-GPLink</span> <span class="n">-Name</span> <span class="p">&lt;</span><span class="n">Nombre</span><span class="p">&gt;</span> <span class="n">-Target</span> <span class="p">&lt;</span><span class="n">Path_OU_Dominio</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Borrarla:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-GPO</span> <span class="n">-Name</span> <span class="p">&lt;</span><span class="n">Nombre</span><span class="p">&gt;</span> <span class="n">-Domain</span> <span class="p">&lt;</span><span class="n">dominio</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 </section>
@@ -797,36 +800,54 @@ document.write(`
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>rm -r C:UsersXY</p>
-<p>mkdir C:UsersXY
-mkdir C:UsersXYX
-mkdir C:UsersXYY</p>
-<p># Obtener el objeto ACL actual de la carpeta XY
-$acl= Get-Acl -Path «C:UsersXY»</p>
-<p># Permisos para la carpeta principal (lectura y escritura)
-$permisos= «ReadAndExecute», «ListDirectory»</p>
-<p># Crear la regla de acceso para el grupo X
-$reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)
-$reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)</p>
-<p># Agregar las reglas de acceso
-$acl.AddAccessRule($reglaX)
-$acl.AddAccessRule($reglaY)
-Set-Acl -Path «C:UsersXY» -AclObject $acl</p>
-<p>cd C:UsersXY</p>
-<p>$acl= Get-Acl -Path «C:UsersXYX»
-$permisos = «Modify»
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)</p>
-<p>$acl.AddAccessRule($regla)
-Set-Acl -Path «C:UsersXYX» -AclObject $acl</p>
-<p>$acl= Get-Acl -Path «C:UsersXYY»
-$permisos = «Modify»
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)</p>
-<p>$acl.AddAccessRule($regla)
-Set-Acl -Path «C:UsersXYY» -AclObject $acl</p>
-<p>$usuario = «tunombreX1»
-$password = ConvertTo-SecureString «&#64;lumn0X1» -AsPlainText -Force
-$credenciales = New-Object System.Management.Automation.PSCredential($usuario, $password)</p>
-<p>Start-Process powershell.exe -Credential $credenciales</p>
+<p>Otro ejemplo, vamos a crear una carpeta llamada “XY”, dentro  dos subcarpetas llamadas “X” y “Y”.  Definiremos los permisos para que solo el grupo “X” tenga acceso de entrada a la carpeta “X” dentro de “XY”.»</p>
+<p>Creamos las carpetas:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">rm </span><span class="n">-r</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
+
+<span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
+<span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span><span class="p">\</span><span class="n">X</span>
+<span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span><span class="p">\</span><span class="n">Y</span>
+</pre></div>
+</div>
+<p>Obtenemos el objeto ACL actual de la carpeta XY</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY&quot;</span>
+</pre></div>
+</div>
+<p>Damos permisos para la carpeta principal (lectura y escritura)</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permisos</span><span class="p">=</span> <span class="s2">&quot;ReadAndExecute&quot;</span><span class="p">,</span> <span class="s2">&quot;ListDirectory&quot;</span>
+</pre></div>
+</div>
+<p>Crear la regla de acceso para el grupo X</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$reglaX</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+<span class="nv">$reglaY</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Agregamos las reglas de acceso a la carpeta «XY»</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$reglaX</span><span class="p">)</span>
+<span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$reglaY</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
+<p>Agregamos permisos para para la carpeta «X» pueda ser modificada por el grupo «X»</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
+
+<span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span>
+<span class="nv">$permisos</span> <span class="p">=</span> <span class="s2">&quot;Modify&quot;</span>
+<span class="nv">$regla</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$regla</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
+<p>Agregamos permisos para para la carpeta «Y» pueda ser modificada por el grupo «Y»</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\Y&quot;</span>
+<span class="nv">$permisos</span> <span class="p">=</span> <span class="s2">&quot;Modify&quot;</span>
+<span class="nv">$regla</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$regla</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\Y&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
 </section>
 </section>
 
