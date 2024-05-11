@@ -438,9 +438,58 @@ Crear y vinculamos GPO
   #Borrarla:
   #Remove-GPO -Name <Nombre> -Domain <dominio>
 
+Gestión de ACL sin entorno gráfico
+----------------------------------
 
-Modificar ACL con powershell
-----------------------------
+Access Control List o "Lista de Control de Acceso" es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.
+
+.. code-block:: powershell
+
+  PS C:\Users> Get-Acl A
+
+  Path Owner                   Access
+  ---- -----                   ------
+  A    BUILTIN\Administradores NT AUTHORITY\SYSTEM Allow  FullControl...
+
+  PS C:\Users> $(Get-Acl A).Owner
+  BUILTIN\Administradores
+  PS C:\Users> $(Get-Acl A).Group
+  WC22TUNOMBRE\Ninguno
+
+Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.
+
+.. code-block:: powershell
+
+  #Cambiar permisos en un archivo o carpeta:
+  PS C:\Users> icacls A /grant "wc22tunombre\tu_nombrea1:(OI)(CI)RW"           
+  PS C:\Users> Get-Acl A
+
+  Path Owner                   Access
+  ---- -----                   ------
+  A    BUILTIN\Administradores WC22TUNOMBRE\tu_nombreA1 Allow  Write, Read, Synchronize...
+
+  #le hemos dado permisos de RW al usuario tu_nombreA1
+  
+  #Para cambiar propietario
+  icacls A /setowner "wc22tunombre\tu_nombrea1"
+  
+
+Ejemplo de como dar permisos de RW a un grupo completo:
+
+.. code-block:: powershell
+
+  $permissions = "Read", "Write" 
+
+  $acl = Get-Acl -Path A
+
+  # Crear una regla de acceso para el grupo A
+  $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("A", $permissions, "ContainerInherit, ObjectInherit", "None", "Allow")
+
+  $acl.SetAccessRule($accessRule)
+  Set-Acl -Path A -AclObject $acl
+  
+  
+
 
 rm -r C:\Users\XY
 
@@ -462,20 +511,23 @@ $reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$per
 # Agregar las reglas de acceso 
 $acl.AddAccessRule($reglaX)
 $acl.AddAccessRule($reglaY)
-
+Set-Acl -Path "C:\Users\XY" -AclObject $acl
 
 cd C:\Users\XY
 
 $acl= Get-Acl -Path "C:\Users\XY\X"
 $permisos = "Modify"
 $regla = New-Object System.Security.AccessControl.FileSystemAccessRule("X",$permisos, "Allow")
+
 $acl.AddAccessRule($regla)
+Set-Acl -Path "C:\Users\XY\X" -AclObject $acl
 
 $acl= Get-Acl -Path "C:\Users\XY\Y"
 $permisos = "Modify"
 $regla = New-Object System.Security.AccessControl.FileSystemAccessRule("Y",$permisos, "Allow")
-$acl.AddAccessRule($regla)
 
+$acl.AddAccessRule($regla)
+Set-Acl -Path "C:\Users\XY\Y" -AclObject $acl
 
 
 $usuario = "tunombreX1"
@@ -484,6 +536,3 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 
 Start-Process powershell.exe -Credential $credenciales 
 
-Set-ADUser -Identity "nombreusuario" -ChangePasswordAtLogon $False
-
-Start-Process powershell.exe -Credential $credenciales

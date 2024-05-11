@@ -405,7 +405,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modificar-acl-con-powershell">Modificar ACL con powershell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl-sin-entorno-grafico">Gestión de ACL sin entorno gráfico</a></li>
 </ul>
             </nav>
         </div>
@@ -755,8 +755,48 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="modificar-acl-con-powershell">
-<h2>Modificar ACL con powershell<a class="headerlink" href="#modificar-acl-con-powershell" title="Enlace permanente a este encabezado">#</a></h2>
+<section id="gestion-de-acl-sin-entorno-grafico">
+<h2>Gestión de ACL sin entorno gráfico<a class="headerlink" href="#gestion-de-acl-sin-entorno-grafico" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">NT</span> <span class="n">AUTHORITY</span><span class="p">\</span><span class="n">SYSTEM</span> <span class="n">Allow</span>  <span class="n">FullControl</span><span class="p">...</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
+<span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
+<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
+</pre></div>
+</div>
+<p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
+
+<span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
+<span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
+
+<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
+
+<span class="c">#Para cambiar propietario</span>
+<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
+</pre></div>
+</div>
+<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
+
+<span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
+
+<span class="c"># Crear una regla de acceso para el grupo A</span>
+<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+
+<span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
+<span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
+</pre></div>
+</div>
 <p>rm -r C:UsersXY</p>
 <p>mkdir C:UsersXY
 mkdir C:UsersXYX
@@ -770,21 +810,22 @@ $reglaX = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$p
 $reglaY = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)</p>
 <p># Agregar las reglas de acceso
 $acl.AddAccessRule($reglaX)
-$acl.AddAccessRule($reglaY)</p>
+$acl.AddAccessRule($reglaY)
+Set-Acl -Path «C:UsersXY» -AclObject $acl</p>
 <p>cd C:UsersXY</p>
 <p>$acl= Get-Acl -Path «C:UsersXYX»
 $permisos = «Modify»
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)
-$acl.AddAccessRule($regla)</p>
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«X»,$permisos, «Allow»)</p>
+<p>$acl.AddAccessRule($regla)
+Set-Acl -Path «C:UsersXYX» -AclObject $acl</p>
 <p>$acl= Get-Acl -Path «C:UsersXYY»
 $permisos = «Modify»
-$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)
-$acl.AddAccessRule($regla)</p>
+$regla = New-Object System.Security.AccessControl.FileSystemAccessRule(«Y»,$permisos, «Allow»)</p>
+<p>$acl.AddAccessRule($regla)
+Set-Acl -Path «C:UsersXYY» -AclObject $acl</p>
 <p>$usuario = «tunombreX1»
 $password = ConvertTo-SecureString «&#64;lumn0X1» -AsPlainText -Force
 $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $password)</p>
-<p>Start-Process powershell.exe -Credential $credenciales</p>
-<p>Set-ADUser -Identity «nombreusuario» -ChangePasswordAtLogon $False</p>
 <p>Start-Process powershell.exe -Credential $credenciales</p>
 </section>
 </section>
@@ -841,7 +882,7 @@ $credenciales = New-Object System.Management.Automation.PSCredential($usuario, $
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modificar-acl-con-powershell">Modificar ACL con powershell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl-sin-entorno-grafico">Gestión de ACL sin entorno gráfico</a></li>
 </ul>
   </nav></div>
 
