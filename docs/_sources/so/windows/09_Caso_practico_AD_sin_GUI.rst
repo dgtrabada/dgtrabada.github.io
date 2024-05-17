@@ -10,6 +10,8 @@ Crea los siguiente clones enlazados:
 
 * Clon enlazado 3 de "`Windows Server 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
+Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/68dserxf2iosogqv>`_
+
 Configurar servicio de enrutamiento
 -----------------------------------
 
