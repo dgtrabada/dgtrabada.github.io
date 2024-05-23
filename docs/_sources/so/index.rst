@@ -12,6 +12,7 @@ Sistemas Operativos
    ../hardware/raid.rst
    GNULinux/index
    windows/index
+   clonacion.rst
    
 .. * :ref:`Medida y representación de la información`
 .. * :ref:`Fundamentos de Sistemas Operaticos`
