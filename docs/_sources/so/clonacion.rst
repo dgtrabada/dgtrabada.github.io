@@ -99,4 +99,6 @@ Por otro lado crearemos tres maquinas virtuales más, con 50GB de disco duro y c
 
 .. image:: imagenes/clon23.png
 
+Aqui se ve el proceso de clonación:
+
 .. image:: imagenes/clon24.png
