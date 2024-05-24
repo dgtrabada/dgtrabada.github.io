@@ -410,24 +410,64 @@ document.write(`
                   
   <section id="clonacion">
 <h1>Clonación<a class="headerlink" href="#clonacion" title="Enlace permanente a este encabezado">#</a></h1>
-<p>La clonación de sistemas operativos es el proceso de crear una copia exacta de un sistema operativo, incluyendo todos sus archivos, configuraciones, aplicaciones y datos.</p>
+<p>La clonación es la creación de una copia exacta de un sistema, disco duro, partición, o conjunto de datos. Este proceso es comúnmente utilizado para respaldos, migraciones de sistemas, despliegues de múltiples estaciones de trabajo, y recuperación ante desastres.</p>
+<ul>
+<li><p><strong>Tipos de Clonación</strong></p>
+<ul>
+<li><p>Clonación de Disco Completo:</p>
+<p>Copia todos los datos, incluyendo el sistema operativo, aplicaciones y archivos personales, de un disco duro a otro. El disco clonado puede ser utilizado para arrancar el sistema exactamente como el disco original.</p>
+</li>
+<li><p>Clonación de Partición:</p>
+<p>Similar a la clonación de disco, pero se enfoca en una partición específica del disco en lugar de todo el disco.</p>
+</li>
+<li><p>Clonación Incremental/Diferencial:</p>
+<p>Clona solo los cambios realizados desde la última clonación, lo que ahorra tiempo y espacio en disco. La clonación incremental se basa en la última copia incremental o completa, mientras que la clonación diferencial se basa en la última copia completa.</p>
+</li>
+<li><p>Clonación en Red:</p>
+<p>Permite clonar discos a través de una red, útil para desplegar sistemas operativos en múltiples computadoras simultáneamente, como se realiza con herramientas como Clonezilla y DRBL.</p>
+</li>
+</ul>
+</li>
+</ul>
 <section id="caso-practico-clonacion-con-drbl">
 <h2>Caso práctico: Clonación con DRBL<a class="headerlink" href="#caso-practico-clonacion-con-drbl" title="Enlace permanente a este encabezado">#</a></h2>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/6dr12pgqtozm9hd6">vídeo</a></p>
 <p>DRBL (Diskless Remote Boot in Linux) es un sistema de software que permite a las computadoras arrancar y operar sin un disco duro local, utilizando en su lugar una red para obtener el sistema operativo y los datos necesarios. DRBL incluye Clonezilla, una herramienta de clonación de discos y particiones. Clonezilla puede usarse para clonar discos y particiones de manera eficiente en múltiples computadoras simultáneamente, lo que es útil para despliegues masivos.</p>
-<p>Primero instalamos un sistema ligero, para este caso instalremos la versión minima de Xubuntu (xubuntu-24.04-minimal-amd64.iso ). Xubuntu es una variante oficial de Ubuntu que utiliza el entorno de escritorio XFCE, conocido por ser ligero y adecuado para sistemas con recursos limitados.</p>
-<p>Utiliza 2GB de RAM con un disco duro de 50GB y haz que el usuario se llame <strong>XUbuntu 24.04</strong></p>
-<p>Vamos a crear otra maquina virtual con 2GB de RAM con un disco duro de 50GB y llamada <strong>SERVER</strong>, la iniciaremos con el disco de drbl-live-xfce, primero instalaremos y confiraremos un servidor de ssh, y montaremos el disco duro en /home/partimages</p>
-<p>La primera parte sera crear una imagen de la maquina «Ubuntu 24.04» en el SERVER:/home/partimag, para ello iniciaremos «XUbuntu 24.04» con la iso de drbl-live-xfce e iniciamos el clonecilla, haciendo que cree una imagen del discoduro entero. Para ello seleccionamos la siguiente opción de Clonezilla live</p>
-<ul class="simple">
-<li><p>device-image work-with disks or partititios using images</p></li>
-<li><p>ssh_server Use SSH server</p></li>
-<li><p>Beginner</p></li>
-<li><p>savedisk</p></li>
-</ul>
+<p>Primero instalamos un sistema ligero, para este caso instalremos la versión minima de <strong>XUbuntu 24.04</strong> (xubuntu-24.04-minimal-amd64.iso ). Xubuntu es una variante oficial de Ubuntu que utiliza el entorno de escritorio XFCE, conocido por ser ligero y adecuado para sistemas con recursos limitados.</p>
+<p>Utiliza 2GB de RAM con un disco duro de 50GB y haz que el usuario se llame <strong>tunombre</strong></p>
+<img alt="../_images/clon01.png" src="../_images/clon01.png" />
+<p>Vamos a crear otra maquina virtual en la que depositar las imagenes, para ello usaremos 2GB de RAM y un disco duro de 50GB, llamada <strong>SERVER</strong>, la iniciaremos con el disco de drbl-live-xfce. En el caso de que la opción por defecto <strong>DRBL Live (Default settings)</strong> te de problemas utiliza:</p>
+<img alt="../_images/clon02.png" src="../_images/clon02.png" />
+<img alt="../_images/clon03.png" src="../_images/clon03.png" />
+<p>Lo primero que haremos es instalar y confirar un servidor de ssh, además de montar y formatear el disco duro en <code class="docutils literal notranslate"><span class="pre">/home/partimag</span></code>. Para ello la tendremos que poner la Red en modo <strong>Adaptador puente</strong> o <strong>NAT</strong>, instalar, montar y luego cambiarla a <strong>Red interna</strong> para que las demás maquinas puedan verla.</p>
+<img alt="../_images/clon04.png" src="../_images/clon04.png" />
+<img alt="../_images/clon05.png" src="../_images/clon05.png" />
+<img alt="../_images/clon06.png" src="../_images/clon06.png" />
+<p>Ahora vamos a crear una imagen de <strong>XUbuntu 24.04</strong> en el <strong>SERVER</strong> dentro de <code class="docutils literal notranslate"><span class="pre">/home/partimag</span></code>, para ello iniciaremos «XUbuntu 24.04» con la iso de drbl-live-xfce e iniciamos  Clonezilla, haciendo que cree una imagen del discoduro entero. Para ello seleccionamos la siguiente opción de Clonezilla live</p>
+<img alt="../_images/clon07.png" src="../_images/clon07.png" />
+<img alt="../_images/clon08.png" src="../_images/clon08.png" />
+<img alt="../_images/clon09.png" src="../_images/clon09.png" />
+<img alt="../_images/clon09.png" src="../_images/clon09.png" />
+<img alt="../_images/clon10.png" src="../_images/clon10.png" />
+<img alt="../_images/clon11.png" src="../_images/clon11.png" />
+<img alt="../_images/clon12.png" src="../_images/clon12.png" />
+<img alt="../_images/clon13.png" src="../_images/clon13.png" />
+<img alt="../_images/clon14.png" src="../_images/clon14.png" />
 <p>Creamos una nueva maquina virtual llamada «XUbuntu 01», con disco duro de 50GB y red interna, la iniciamos con drbl-live-xfce y restauramos la imágen que hemos creado. Para ello seleccionamos las mismas opciones  de Clonezilla live, cambiando savedisk por restoredisk</p>
-<p>En la segunda parte, clonaremos varias maquinas al mismo tiempo, para ello iniciaremos el Clonezilla server, lo configuraremos para que restaure tres equipos y restaure la imágen que hemos creado antes.</p>
+<img alt="../_images/clon15.png" src="../_images/clon15.png" />
+<p>seleccionamos la imagen que hemos creado:</p>
+<img alt="../_images/clon16.png" src="../_images/clon16.png" />
+<img alt="../_images/clon17.png" src="../_images/clon17.png" />
+<p>En la segunda parte, clonaremos varias maquinas al mismo tiempo, para ello iniciaremos el Clonezilla server, lo configuraremos para que restaure tres equipos «X01, X02, X03» y restaure la imágen que hemos creado antes.</p>
+<img alt="../_images/clon18.png" src="../_images/clon18.png" />
+<p>Iniciamos en el <strong>SERVER</strong> el Clonezilla server.</p>
+<img alt="../_images/clon19.png" src="../_images/clon19.png" />
+<img alt="../_images/clon20.png" src="../_images/clon20.png" />
+<img alt="../_images/clon21.png" src="../_images/clon21.png" />
+<img alt="../_images/clon22.png" src="../_images/clon22.png" />
 <p>Por otro lado crearemos tres maquinas virtuales más, con 50GB de disco duro y con red interna, las iniciaremos con drbl-live con la opción Network boot via iPXE, para que se inicie la clonación</p>
+<img alt="../_images/clon23.png" src="../_images/clon23.png" />
+<img alt="../_images/clon24.png" src="../_images/clon24.png" />
 </section>
 </section>
 

@@ -19,9 +19,9 @@ La clonación es la creación de una copia exacta de un sistema, disco duro, par
 
     Clona solo los cambios realizados desde la última clonación, lo que ahorra tiempo y espacio en disco. La clonación incremental se basa en la última copia incremental o completa, mientras que la clonación diferencial se basa en la última copia completa.
 
-   * Clonación en Red:
+  * Clonación en Red:
      
-     Permite clonar discos a través de una red, útil para desplegar sistemas operativos en múltiples computadoras simultáneamente, como se realiza con herramientas como Clonezilla y DRBL.
+    Permite clonar discos a través de una red, útil para desplegar sistemas operativos en múltiples computadoras simultáneamente, como se realiza con herramientas como Clonezilla y DRBL.
 
 Caso práctico: Clonación con DRBL
 =================================
