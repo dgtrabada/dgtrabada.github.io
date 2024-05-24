@@ -40,6 +40,8 @@ Vamos a crear otra maquina virtual en la que depositar las imagenes, para ello u
 
 .. image:: imagenes/clon02.png
 
+----
+
 .. image:: imagenes/clon03.png
 
 
@@ -47,7 +49,11 @@ Lo primero que haremos es instalar y confirar un servidor de ssh, además de mon
 
 .. image:: imagenes/clon04.png
 
+----
+
 .. image:: imagenes/clon05.png
+
+----
 
 .. image:: imagenes/clon06.png
 
@@ -55,19 +61,35 @@ Ahora vamos a crear una imagen de **XUbuntu 24.04** en el **SERVER** dentro de `
 
 .. image:: imagenes/clon07.png
 
+----
+
 .. image:: imagenes/clon08.png
 
+----
+    
 .. image:: imagenes/clon09.png
 
+----
+
 .. image:: imagenes/clon09.png
+
+----
 
 .. image:: imagenes/clon10.png
 
+----
+
 .. image:: imagenes/clon11.png
+
+----
 
 .. image:: imagenes/clon12.png
 
+----
+
 .. image:: imagenes/clon13.png
+
+----
 
 .. image:: imagenes/clon14.png
 
@@ -79,6 +101,8 @@ seleccionamos la imagen que hemos creado:
 
 .. image:: imagenes/clon16.png
 
+----
+
 .. image:: imagenes/clon17.png
 
 En la segunda parte, clonaremos varias maquinas al mismo tiempo, para ello iniciaremos el Clonezilla server, lo configuraremos para que restaure tres equipos "X01, X02, X03" y restaure la imágen que hemos creado antes.
@@ -89,9 +113,15 @@ Iniciamos en el **SERVER** el Clonezilla server.
 
 .. image:: imagenes/clon19.png
 
+----
+
 .. image:: imagenes/clon20.png
 
+----
+
 .. image:: imagenes/clon21.png
+
+----
 
 .. image:: imagenes/clon22.png
 
