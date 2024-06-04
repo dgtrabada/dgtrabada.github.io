@@ -186,12 +186,14 @@
 <li class="toctree-l3"><a class="reference internal" href="windows/05_comandos_dos.html">Comandos ms-dos</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/06_powershell.html">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/11_bat.html">Scripting .bat</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="clonacion.html">Clonación</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../hardware/index.html">Hardware</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -394,11 +396,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-docker-en-ubuntu-24-04-lts">Instalación de Docker en Ubuntu 24.04 LTS</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -447,7 +457,8 @@ document.write(`
 <p>La virtualización se utiliza en diversos entornos, como servidores, redes, almacenamiento y escritorios, proporcionando flexibilidad, eficiencia y mayor aprovechamiento de los recursos informáticos.</p>
 <p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual</p>
 <p>Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..</p>
-<p>En clase utilizaremos VirtualBox:</p>
+<section id="virtualbox">
+<h2>VirtualBox<a class="headerlink" href="#virtualbox" title="Enlace permanente a este encabezado">#</a></h2>
 <img alt="../_images/virtualbox.png" src="../_images/virtualbox.png" />
 <p>Resumen:</p>
 <p><strong>OVF/OVA</strong> : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).</p>
@@ -477,7 +488,7 @@ Para utilizarlo tenemos que crear la red NAT : Desde el menú Archivo -&gt; Pref
 </li>
 </ul>
 <section id="comandos-utiles-virtualbox">
-<h2>Comandos útiles virtualBox:<a class="headerlink" href="#comandos-utiles-virtualbox" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Comandos útiles virtualBox:<a class="headerlink" href="#comandos-utiles-virtualbox" title="Enlace permanente a este encabezado">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
 VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
 VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;Ubuntu Server 16.04&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
@@ -493,7 +504,7 @@ VBoxManage<span class="w"> </span>controlvm<span class="w"> </span><span class="
 </ul>
 </section>
 <section id="caso-practico-mv-ubuntu-server-22-04">
-<h2>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: MV Ubuntu Server 22.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-22-04" title="Enlace permanente a este encabezado">#</a></h3>
 <ul>
 <li><p>Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial</p></li>
 <li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
@@ -508,7 +519,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </ul>
 </section>
 <section id="caso-practico-windows-11">
-<h2>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Enlace permanente a este encabezado">#</a></h3>
 <ul>
 <li><p>Descarte la ISO de Windwos 11 de la página de <a class="reference external" href="https://www.microsoft.com/es-es/software-download/windows11">Microsoft</a></p></li>
 <li><p>Creamos una nueva maquina virtual llamada <strong>Windows11</strong></p></li>
@@ -550,7 +561,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </aside>
 </section>
 <section id="caso-practico-windows-server-2022">
-<h2>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.</p>
 <ul class="simple">
 <li><p><strong>Windows Server Standard:</strong> permite ejecutar como máximo dos VMs en hasta dos procesadores y 64GB RAM. Es ideal para un entorno no virtualizado o poco virtualizado en el que se desee incluir características de alta disponibilidad.</p></li>
@@ -574,7 +585,7 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 </ul>
 </section>
 <section id="caso-practico-windows-server-2022-sin-gui">
-<h2>Caso práctico: Windows Server 2022 sin GUI<a class="headerlink" href="#caso-practico-windows-server-2022-sin-gui" title="Enlace permanente a este encabezado">#</a></h2>
+<h3>Caso práctico: Windows Server 2022 sin GUI<a class="headerlink" href="#caso-practico-windows-server-2022-sin-gui" title="Enlace permanente a este encabezado">#</a></h3>
 <ul class="simple">
 <li><p>Creamos una maquina virtual llamada <strong>WS22tunombre</strong>, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
 <li><p>Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)</p></li>
@@ -587,6 +598,209 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
 <li><p>Instala el editor vi</p></li>
 </ul>
 <p>ayuda: <a class="reference internal" href="windows/06_powershell.html#configuracion-de-windows-powershell"><span class="std std-ref">Configuración de Windows (PowerShell)</span></a></p>
+</section>
+</section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Enlace permanente a este encabezado">#</a></h2>
+<p>Docker es una plataforma de código abierto en la que se usan contenedores que permite empaquetar, distribuir y ejecutar aplicaciones en entornos aislados</p>
+<p>A diferencia de las máquinas virtuales, los contenedores comparten el kernel del sistema operativo subyacente y solo virtualizan los recursos a nivel de aplicación, lo que los hace más ligeros y rápidos.</p>
+<p><strong>Componentes principales</strong></p>
+<ul class="simple">
+<li><p><strong>Imagen</strong>: Plantilla de solo lectura que contiene el sistema operativo, el entorno de ejecución y la aplicación.</p></li>
+<li><p><strong>Contenedor</strong>: Instancia en ejecución de una imagen.</p></li>
+<li><p><strong>Docker Engine</strong>: Motor que gestiona los contenedores, incluida la creación, ejecución y eliminación.</p></li>
+<li><p><strong>Dockerfile</strong>: Archivo de texto que contiene las instrucciones para construir una imagen.</p></li>
+</ul>
+<p><strong>Dockerfile y construcción de imágenes</strong></p>
+<ul class="simple">
+<li><p>Un Dockerfile especifica cómo se debe ensamblar una imagen.</p></li>
+<li><p>Se utiliza el comando <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> para construir una imagen a partir de un Dockerfile.</p></li>
+</ul>
+<p><strong>Docker Hub</strong></p>
+<p>Registro público de imágenes Docker donde puedes encontrar imágenes preconstruidas para muchas aplicaciones y sistemas operativos.</p>
+<p><strong>Redes y volúmenes</strong></p>
+<ul class="simple">
+<li><p>Docker permite la creación de redes virtuales para conectar contenedores entre sí.</p></li>
+<li><p>Los volúmenes permiten persistir datos más allá del ciclo de vida de un contenedor.</p></li>
+</ul>
+<p><strong>Orquestación de contenedores</strong></p>
+<p>Herramientas como Docker Swarm y Kubernetes permiten gestionar y escalar grandes clústeres de contenedores.</p>
+<p><strong>Tipos de redes</strong></p>
+<ul class="simple">
+<li><p><strong>Bridge (puente)</strong></p>
+<ul>
+<li><p>Es la red predeterminada en Docker.</p></li>
+<li><p>Permite la comunicación entre los contenedores en el mismo host.</p></li>
+<li><p>Cada contenedor tiene su propia dirección IP en la subred de la red puente.</p></li>
+<li><p>Útil para aplicaciones que se ejecutan en un solo host y necesitan comunicarse entre sí.</p></li>
+</ul>
+</li>
+<li><p><strong>Host (anfitrión)</strong></p>
+<ul>
+<li><p>Los contenedores comparten el espacio de red con el host.</p></li>
+<li><p>No hay aislamiento de red entre los contenedores y el host.</p></li>
+<li><p>Los contenedores pueden acceder a los mismos puertos que el host.</p></li>
+<li><p>Proporciona un mejor rendimiento en comparación con las redes puente para aplicaciones que necesitan acceder a recursos del host.</p></li>
+</ul>
+</li>
+<li><p><strong>Overlay (superposición)</strong></p>
+<ul>
+<li><p>Permite la comunicación entre contenedores en hosts diferentes en un clúster de Docker Swarm.</p></li>
+<li><p>Utiliza la tecnología de redes de superposición para conectar contenedores en diferentes hosts.</p></li>
+<li><p>Proporciona una red virtualizada única para el clúster, independiente de la infraestructura subyacente.</p></li>
+</ul>
+</li>
+<li><p><strong>Macvlan</strong></p>
+<ul>
+<li><p>Asigna una dirección MAC única a cada contenedor, esto hace aparecer como dispositivos físicos en la red.</p></li>
+<li><p>Los contenedores tienen su propia dirección IP en la red física.</p></li>
+<li><p>Útil para integrar contenedores en redes existentes que dependen de la comunicación a nivel de capa 2.</p></li>
+</ul>
+</li>
+<li><p><strong>None (ninguna)</strong></p>
+<ul>
+<li><p>No se asigna ninguna red al contenedor.</p></li>
+<li><p>Útil para contenedores que no necesitan acceso de red en absoluto.</p></li>
+</ul>
+</li>
+</ul>
+<section id="gestion-de-imagenes-y-contenedores">
+<h3>Gestión de imágenes y contenedores<a class="headerlink" href="#gestion-de-imagenes-y-contenedores" title="Enlace permanente a este encabezado">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>: construir una imagen a partir de un Dockerfile.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span></code>: Etiquetamos la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">push</span></code>: Subimos la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code>: Descarga una imagen de Docker Hub u otro repositorio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>: lista las imagenes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span></code>: Elimina una imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>: Crea y ejecuta un contenedor a partir de una imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code>: Muestra los contenedores en ejecución.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code>: Muestra todos los contenedores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stop</span></code> / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span></code>: Detiene o inicia un contenedor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Mandamos los cambios a la imagen</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>: Elimina un contenedor.</p></li>
+</ul>
+</section>
+<section id="instalacion-de-docker-en-ubuntu-24-04-lts">
+<h3>Instalación de Docker en Ubuntu 24.04 LTS<a class="headerlink" href="#instalacion-de-docker-en-ubuntu-24-04-lts" title="Enlace permanente a este encabezado">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Desinstalación de versiones antiguas</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker.io
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-doc
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-compose
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-compose-v2
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>podman-docker
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>containerd
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>runc
+
+<span class="c1"># Añade la clave GPG oficial de Docker:</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>curl
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-d<span class="w"> </span>/etc/apt/keyrings
+sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.asc
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.asc
+
+<span class="c1"># Añadir el repositorio a las fuentes de APT:</span>
+<span class="nb">echo</span><span class="w"> </span><span class="se">\</span>
+<span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \</span>
+<span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION_CODENAME</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2"> stable&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+
+<span class="c1">#Instalar los paquetes de Docker Engine</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span><span class="se">\</span>
+docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
+
+<span class="c1">#Asignación de permisos al usuario para ejecutar docker cli</span>
+sudo<span class="w"> </span>groupadd<span class="w"> </span>docker
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+newgrp<span class="w"> </span>docker
+
+<span class="c1">#Configuración del arranque automático de los servicios</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>containerd.service
+
+<span class="c1">#Comprobaciones</span>
+docker<span class="w"> </span>ps
+</pre></div>
+</div>
+<p>Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile</p>
+<p>Las instrucciones más comunes en un Dockerfile:</p>
+<ol class="arabic simple">
+<li><p><strong>FROM</strong>: Define la imagen base desde la cual se construirá la nueva imagen.</p></li>
+<li><p><strong>COPY</strong> o <strong>ADD</strong>: Copian archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.</p></li>
+<li><p><strong>RUN</strong>: Ejecuta comandos en el contenedor durante la fase de construcción.</p></li>
+<li><p><strong>WORKDIR</strong>: Establece el directorio de trabajo para las instrucciones <cite>RUN</cite>, <cite>CMD</cite>, <cite>ENTRYPOINT</cite>, <cite>COPY</cite> y <cite>ADD</cite>.</p></li>
+<li><p><strong>CMD</strong>: Especifica un comando que se ejecuta cuando se inicia un contenedor.</p></li>
+<li><p><strong>ENTRYPOINT</strong>: Configura un contenedor para que se ejecute como un ejecutable.</p></li>
+<li><p><strong>EXPOSE</strong>: Indica que el contenedor escucha en puertos específicos en tiempo de ejecución.</p></li>
+<li><p><strong>ENV</strong>: Establece variables de entorno.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>dockerfile
+<span class="c1"># Usar la versión oficial de Ubuntu 22.04 como imagen base</span>
+FROM<span class="w"> </span>ubuntu:22.04
+
+<span class="c1"># Actualizar la lista de paquetes e instalar actualizaciones</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>dist-upgrade<span class="w"> </span>-y
+
+<span class="c1"># Actualizar los repositorios para apuntar a la versión 24.04</span>
+RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/jammy/lunar/g&#39;</span><span class="w"> </span>/etc/apt/sources.list
+
+<span class="c1"># Actualizar nuevamente la lista de paquetes e instalar actualizaciones</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>dist-upgrade<span class="w"> </span>-y
+
+<span class="c1"># Limpiar los archivos temporales de instalación</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</pre></div>
+</div>
+<p>Construimos la imágen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>ubuntu:24.04<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Etiquetamos la imagen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>tag<span class="w"> </span>ubuntu:24.04<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<p>Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos <code class="docutils literal notranslate"><span class="pre">push</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>login
+
+docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<p>Vamos a instalar el editor vim y la actualizamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Listar imagenes:</span>
+$<span class="w"> </span>docker<span class="w"> </span>images
+
+REPOSITORY<span class="w">         </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">          </span>SIZE
+dgtrabada/ubuntu<span class="w">   </span><span class="m">24</span>.04<span class="w">     </span>be2e2ddde820<span class="w">   </span><span class="m">10</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>267MB
+
+<span class="c1">#Creamos un nuevo contendor</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+
+<span class="c1">#con -d lo ejecutas en segundo plano</span>
+
+<span class="c1">#instalamos el editor vim (apt-get install vim)</span>
+root@0d952d586d43:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>vim
+
+<span class="c1">#listamos los contendores que estan ejecutandose:</span>
+$<span class="w"> </span>docker<span class="w"> </span>ps
+CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                    </span>COMMAND<span class="w">         </span>CREATED<span class="w">         </span>STATUS<span class="w">         </span>PORTS<span class="w">     </span>NAMES
+0d952d586d43<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes
+
+<span class="c1">#mandamos los cambios a la imagen</span>
+$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>0d952d586d43<span class="w"> </span>dgtrabada/ubuntu:24.04
+sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+
+<span class="c1">#subimos la imagen a Docker Hub</span>
+$<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<p>Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico que tenemos que hacer es:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+<span class="c1">#Se bajará la imagen y ejecutara un nuevo contendor.</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -632,11 +846,19 @@ Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo <
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-22-04">Caso práctico: MV Ubuntu Server 22.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-docker-en-ubuntu-24-04-lts">Instalación de Docker en Ubuntu 24.04 LTS</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

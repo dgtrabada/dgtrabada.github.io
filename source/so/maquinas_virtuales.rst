@@ -43,7 +43,8 @@ Que sus componentes sean virtuales no quiere decir necesariamente que no existan
 
 Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..
 
-En clase utilizaremos VirtualBox:
+VirtualBox
+==========
 
 .. image:: imagenes/virtualbox.png
 
@@ -89,7 +90,7 @@ En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambo
 
 
 Comandos útiles virtualBox:
-=====
+---------------------------
 
 .. code-block:: bash
     
@@ -106,7 +107,7 @@ En modo gráfico:
 * Ctrl_derecho + c = pasar/volver modo escalado
 
 Caso práctico: MV Ubuntu Server 22.04
-=====
+-------------------------------------
 
 * Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial
 
@@ -127,7 +128,7 @@ Caso práctico: MV Ubuntu Server 22.04
 
 
 Caso práctico: Windows 11
-=====
+-------------------------
 
 * Descarte la ISO de Windwos 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
 
@@ -171,7 +172,7 @@ Caso práctico: Windows 11
 .. [#f1] En el caso de que no aparezca haz la instalación como si fuera a ser parte de un Dominio
 
 Caso práctico: Windows Server 2022
-==================================
+----------------------------------
 
 Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.
 
@@ -203,7 +204,7 @@ Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de for
 * Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar
 
 Caso práctico: Windows Server 2022 sin GUI
-==========================================
+------------------------------------------
 
 * Creamos una maquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
 
@@ -225,3 +226,225 @@ Caso práctico: Windows Server 2022 sin GUI
 
 
 ayuda: :ref:`Configuración de Windows (PowerShell)`
+
+
+
+Docker
+======
+
+Docker es una plataforma de código abierto en la que se usan contenedores que permite empaquetar, distribuir y ejecutar aplicaciones en entornos aislados
+
+A diferencia de las máquinas virtuales, los contenedores comparten el kernel del sistema operativo subyacente y solo virtualizan los recursos a nivel de aplicación, lo que los hace más ligeros y rápidos.
+
+**Componentes principales**
+
+- **Imagen**: Plantilla de solo lectura que contiene el sistema operativo, el entorno de ejecución y la aplicación.
+- **Contenedor**: Instancia en ejecución de una imagen.
+- **Docker Engine**: Motor que gestiona los contenedores, incluida la creación, ejecución y eliminación.
+- **Dockerfile**: Archivo de texto que contiene las instrucciones para construir una imagen.
+
+
+**Dockerfile y construcción de imágenes**
+
+- Un Dockerfile especifica cómo se debe ensamblar una imagen.
+- Se utiliza el comando ``docker build`` para construir una imagen a partir de un Dockerfile.
+
+**Docker Hub**
+
+Registro público de imágenes Docker donde puedes encontrar imágenes preconstruidas para muchas aplicaciones y sistemas operativos.
+
+**Redes y volúmenes**
+
+- Docker permite la creación de redes virtuales para conectar contenedores entre sí.
+- Los volúmenes permiten persistir datos más allá del ciclo de vida de un contenedor.
+
+**Orquestación de contenedores**
+
+Herramientas como Docker Swarm y Kubernetes permiten gestionar y escalar grandes clústeres de contenedores.
+
+**Tipos de redes**
+
+* **Bridge (puente)**
+
+  - Es la red predeterminada en Docker.
+  - Permite la comunicación entre los contenedores en el mismo host.
+  - Cada contenedor tiene su propia dirección IP en la subred de la red puente.
+  - Útil para aplicaciones que se ejecutan en un solo host y necesitan comunicarse entre sí.
+
+* **Host (anfitrión)**
+
+  - Los contenedores comparten el espacio de red con el host.
+  - No hay aislamiento de red entre los contenedores y el host.
+  - Los contenedores pueden acceder a los mismos puertos que el host.
+  - Proporciona un mejor rendimiento en comparación con las redes puente para aplicaciones que necesitan acceder a recursos del host.
+
+* **Overlay (superposición)**
+
+  - Permite la comunicación entre contenedores en hosts diferentes en un clúster de Docker Swarm.
+  - Utiliza la tecnología de redes de superposición para conectar contenedores en diferentes hosts.
+  - Proporciona una red virtualizada única para el clúster, independiente de la infraestructura subyacente.
+
+* **Macvlan**
+
+  - Asigna una dirección MAC única a cada contenedor, esto hace aparecer como dispositivos físicos en la red.
+  - Los contenedores tienen su propia dirección IP en la red física.
+  - Útil para integrar contenedores en redes existentes que dependen de la comunicación a nivel de capa 2.
+
+* **None (ninguna)**
+
+  - No se asigna ninguna red al contenedor.
+  - Útil para contenedores que no necesitan acceso de red en absoluto.
+
+Gestión de imágenes y contenedores
+----------------------------------
+
+- ``docker build``: construir una imagen a partir de un Dockerfile.
+- ``docker tag``: Etiquetamos la imagen.
+- ``docker push``: Subimos la imagen.
+- ``docker pull``: Descarga una imagen de Docker Hub u otro repositorio.
+- ``docker images``: lista las imagenes.
+- ``docker rmi``: Elimina una imagen.
+- ``docker run``: Crea y ejecuta un contenedor a partir de una imagen.
+- ``docker ps``: Muestra los contenedores en ejecución.
+- ``docker ps -a``: Muestra todos los contenedores.
+- ``docker stop`` / ``docker start``: Detiene o inicia un contenedor.
+- ``docker commit``: Mandamos los cambios a la imagen
+- ``docker rm``: Elimina un contenedor.
+
+Instalación de Docker en Ubuntu 24.04 LTS
+-----------------------------------------
+
+.. code-block:: bash
+
+  # Desinstalación de versiones antiguas
+  sudo apt-get remove docker.io
+  sudo apt-get remove docker-doc
+  sudo apt-get remove docker-compose
+  sudo apt-get remove docker-compose-v2
+  sudo apt-get remove podman-docker
+  sudo apt-get remove containerd
+  sudo apt-get remove runc
+  
+  # Añade la clave GPG oficial de Docker:
+  sudo apt update
+  sudo apt install -y ca-certificates curl
+  sudo install -m 0755 -d /etc/apt/keyrings
+  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+  # Añadir el repositorio a las fuentes de APT:
+  echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+ 
+  sudo apt update
+
+  #Instalar los paquetes de Docker Engine
+  sudo apt install -y docker-ce docker-ce-cli containerd.io \
+  docker-buildx-plugin docker-compose-plugin
+
+  #Asignación de permisos al usuario para ejecutar docker cli
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  newgrp docker
+
+  #Configuración del arranque automático de los servicios
+  sudo systemctl enable docker.service
+  sudo systemctl enable containerd.service
+
+  #Comprobaciones
+  docker ps
+
+
+
+Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile
+
+Las instrucciones más comunes en un Dockerfile:
+
+1. **FROM**: Define la imagen base desde la cual se construirá la nueva imagen.
+2. **COPY** o **ADD**: Copian archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.
+3. **RUN**: Ejecuta comandos en el contenedor durante la fase de construcción.
+4. **WORKDIR**: Establece el directorio de trabajo para las instrucciones `RUN`, `CMD`, `ENTRYPOINT`, `COPY` y `ADD`.
+5. **CMD**: Especifica un comando que se ejecuta cuando se inicia un contenedor.
+6. **ENTRYPOINT**: Configura un contenedor para que se ejecute como un ejecutable.
+7. **EXPOSE**: Indica que el contenedor escucha en puertos específicos en tiempo de ejecución.
+8. **ENV**: Establece variables de entorno.
+
+
+.. code-block:: bash
+
+  cat dockerfile 
+  # Usar la versión oficial de Ubuntu 22.04 como imagen base
+  FROM ubuntu:22.04
+
+  # Actualizar la lista de paquetes e instalar actualizaciones
+  RUN apt-get update && apt-get dist-upgrade -y
+
+  # Actualizar los repositorios para apuntar a la versión 24.04
+  RUN sed -i 's/jammy/lunar/g' /etc/apt/sources.list
+
+  # Actualizar nuevamente la lista de paquetes e instalar actualizaciones
+  RUN apt-get update && apt-get dist-upgrade -y
+
+  # Limpiar los archivos temporales de instalación
+  RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+Construimos la imágen:
+
+.. code-block:: bash
+
+  docker build -t ubuntu:24.04 .
+
+Etiquetamos la imagen:
+
+.. code-block:: bash
+
+  docker tag ubuntu:24.04 dgtrabada/ubuntu:24.04
+
+
+Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos ``push``:
+
+.. code-block:: bash
+
+  docker login
+
+  docker push dgtrabada/ubuntu:24.04
+
+Vamos a instalar el editor vim y la actualizamos:
+
+.. code-block:: bash
+
+  #Listar imagenes:
+  $ docker images
+  
+  REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
+  dgtrabada/ubuntu   24.04     be2e2ddde820   10 minutes ago   267MB
+
+  #Creamos un nuevo contendor
+  docker run -it dgtrabada/ubuntu:24.04 /bin/bash
+
+  #con -d lo ejecutas en segundo plano
+  
+  #instalamos el editor vim (apt-get install vim)
+  root@0d952d586d43:/# apt-get install vim
+  
+  #listamos los contendores que estan ejecutandose:
+  $ docker ps
+  CONTAINER ID   IMAGE                    COMMAND         CREATED         STATUS         PORTS     NAMES
+  0d952d586d43   dgtrabada/ubuntu:24.04   "/bin/bash"   2 minutes ago   Up 2 minutes   
+
+  #mandamos los cambios a la imagen
+  $ docker commit 0d952d586d43 dgtrabada/ubuntu:24.04
+  sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+  
+  #subimos la imagen a Docker Hub
+  $ docker push dgtrabada/ubuntu:24.04
+
+Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico que tenemos que hacer es:
+
+.. code-block:: bash
+
+  docker run -it dgtrabada/ubuntu:24.04 /bin/bash
+  #Se bajará la imagen y ejecutara un nuevo contendor. 
