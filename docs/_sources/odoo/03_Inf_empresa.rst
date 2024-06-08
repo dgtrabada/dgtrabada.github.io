@@ -102,7 +102,6 @@ Ejemplos:
 
   * Simpsons
   * Aerodeslizadores
-  * Upload 
   * Corporación Acme
   * OCP (Omni Productos de Consumo)
   * Umbrella Corporation

@@ -257,9 +257,31 @@
 <li class="toctree-l2"><a class="reference internal" href="05_Directorio_fotos.html">Directorio Fotos</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Instalación odoo y backup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Usuarios_sistema.html">Ususarios del sistema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_empleados.html">Empleados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10_copia_seguridad.html">Copia de seguridad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_mantenimineto.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="27_modulo.html">Crear un modulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="32_presentacion.html">Presentación</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
@@ -409,9 +431,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-instalacion-de-odoo">Ejercicio instalación de odoo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-en-windows-docker">Instalación en Windows (docker):</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles">Comandos útiles:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#realiza-el-ejercicio-instalacion-de-odoo">Realiza el ejercicio instalación de odoo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-en-xubuntu-24-04">Instalación en XUbuntu 24.04:</a></li>
 </ul>
             </nav>
@@ -426,10 +448,23 @@ document.write(`
                   
   <section id="instalacion-odoo-y-backup">
 <h1>Instalación odoo y backup<a class="headerlink" href="#instalacion-odoo-y-backup" title="Enlace permanente a este encabezado">#</a></h1>
+<section id="ejercicio-instalacion-de-odoo">
+<h2>Ejercicio instalación de odoo<a class="headerlink" href="#ejercicio-instalacion-de-odoo" title="Enlace permanente a este encabezado">#</a></h2>
+<ul class="simple">
+<li><p>Cuando termines responde la siguiente pregunta en el curso:</p>
+<ul>
+<li><p>Master Password :</p></li>
+<li><p>Database Name :</p></li>
+<li><p>Email :</p></li>
+<li><p>Password :</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="instalacion-en-windows-docker">
 <h2>Instalación en Windows (docker):<a class="headerlink" href="#instalacion-en-windows-docker" title="Enlace permanente a este encabezado">#</a></h2>
 <ul class="simple">
-<li><p>Descarga el archivo <a class="reference external" href="imagenes/docker-compose.yml">docker-compose.yml</a></p></li>
+<li><p>Descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/odoo/imagenes/docker-compose.yml">docker-compose.yml</a></p></li>
 <li><p>crea las carpetas correspondientes <strong>odooodoo-web-data, config, addons</strong></p></li>
 <li><p>ejecuta el comando : <strong>docker-compose up -d</strong></p></li>
 </ul>
@@ -443,16 +478,6 @@ document.write(`
 <li><p>docker ps -a                            # ver todos los contenedores</p></li>
 <li><p>docker rm &lt;CONTAINER ID&gt;</p></li>
 <li><p>docker start/stop container</p></li>
-</ul>
-</section>
-<section id="realiza-el-ejercicio-instalacion-de-odoo">
-<h2>Realiza el ejercicio instalación de odoo<a class="headerlink" href="#realiza-el-ejercicio-instalacion-de-odoo" title="Enlace permanente a este encabezado">#</a></h2>
-<ul class="simple">
-<li><p>Cuando termines responde la siguiente pregunta en el curso:
-* Master Password :
-* Database Name :
-* Email :
-* Password :</p></li>
 </ul>
 </section>
 <section id="instalacion-en-xubuntu-24-04">
@@ -541,9 +566,9 @@ docker rm $(docker ps -a -q)</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-instalacion-de-odoo">Ejercicio instalación de odoo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-en-windows-docker">Instalación en Windows (docker):</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles">Comandos útiles:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#realiza-el-ejercicio-instalacion-de-odoo">Realiza el ejercicio instalación de odoo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-en-xubuntu-24-04">Instalación en XUbuntu 24.04:</a></li>
 </ul>
   </nav></div>

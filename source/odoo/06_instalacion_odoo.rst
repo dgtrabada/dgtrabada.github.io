@@ -2,9 +2,20 @@
 Instalación odoo y backup
 *************************
 
+Ejercicio instalación de odoo
+------------------------------
+
+* Cuando termines responde la siguiente pregunta en el curso:
+
+  * Master Password :
+  * Database Name :
+  * Email :
+  * Password :
+  
+
 Instalación en Windows (docker):
 ---------------------------------
-* Descarga el archivo `docker-compose.yml <imagenes/docker-compose.yml>`_ 
+* Descarga el archivo `docker-compose.yml <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/odoo/imagenes/docker-compose.yml>`_ 
 * crea las carpetas correspondientes **odooodoo-web-data, config, addons**
 * ejecuta el comando : **docker-compose up -d**
 
@@ -17,15 +28,7 @@ Comandos útiles:
 * docker rm <CONTAINER ID>
 * docker start/stop container
 
-Realiza el ejercicio instalación de odoo
-----------------------------------------
 
-* Cuando termines responde la siguiente pregunta en el curso:
-  * Master Password :
-  * Database Name :
-  * Email :
-  * Password :
-  
   
 Instalación en XUbuntu 24.04:
 -----------------------------
