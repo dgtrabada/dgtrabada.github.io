@@ -36,3 +36,5 @@ Odoo
    29_infomod.rst
    30_selfenvuser.rst
    31_menuitem.rst
+   32_presentacion.rst
+   

@@ -91,6 +91,7 @@ Piensa que la empresa tiene que tener:
 Ejemplos:
 
 * Empresas
+
   * Concesionario de coches
   * Peluquería
   * Portal inmobiliario
@@ -98,6 +99,7 @@ Ejemplos:
   * Club deportivo
   
 * Series / películas
+
   * Simpsons
   * Aerodeslizadores
   * Upload 
