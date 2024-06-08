@@ -18,4 +18,5 @@ Apuntes
    so/index
    hardware/index
    redes/index
+   odoo/index
    python/index
