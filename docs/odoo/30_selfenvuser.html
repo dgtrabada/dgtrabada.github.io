@@ -257,12 +257,15 @@
 <li class="toctree-l2"><a class="reference internal" href="05_Directorio_fotos.html">Directorio Fotos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_instalacion_odoo.html">Instalación odoo y backup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Usuarios_sistema.html">Usuarios del sistema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_empleados.html">Empleados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10_copia_seguridad.html">Copia de seguridad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_Inventario.html">Inventario</a></li>
 <li class="toctree-l2"><a class="reference internal" href="12_ventas.html">Ventas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_proyecto.html">Proyecto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16_ausencias.html">Ausencias</a></li>
 <li class="toctree-l2"><a class="reference internal" href="17_tableros.html">Tableros</a></li>
 <li class="toctree-l2"><a class="reference internal" href="18_mantenimineto.html">Mantenimiento</a></li>
 <li class="toctree-l2"><a class="reference internal" href="19_notas.html">Notas</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="29_infomod.html">Información del módulo</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">self.env.user</a></li>
 <li class="toctree-l2"><a class="reference internal" href="31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="32_presentacion.html">Presentación</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
@@ -432,17 +436,14 @@ document.write(`
   <section id="self-env-user">
 <h1>self.env.user<a class="headerlink" href="#self-env-user" title="Enlace permanente a este encabezado">#</a></h1>
 <p>Crea una campo en que se puedan seleccionar los usuarios del sistema:</p>
-<p>ayuda:
-models.py :</p>
-<blockquote>
-<div><p>user_id = fields.Many2one(“res.users”,”Responsable”, default=lambda self: self.env.user)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>views.xml :</dt><dd><p>&lt;field name=»user_id»/&gt;</p>
-</dd>
-</dl>
+<p>ayuda:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>models.py<span class="w"> </span>:
+<span class="w">  </span><span class="nv">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>fields.Many2one<span class="o">(</span><span class="s1">&#39;res.users&#39;</span>,<span class="s1">&#39;Responsable&#39;</span>,<span class="w"> </span><span class="nv">default</span><span class="o">=</span>lambda<span class="w"> </span>self:<span class="w"> </span>self.env.user<span class="o">)</span>
+views.xml<span class="w"> </span>:
+<span class="w">  </span>&lt;field<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;user_id&quot;</span>/&gt;
+</pre></div>
+</div>
 <p>Sube un pantallazo en el que se vea que puedes seleccionar a los usuarios:</p>
-<p>Ir a…</p>
 <img alt="../_images/24_selfuser.png" src="../_images/24_selfuser.png" />
 <img alt="../_images/24_seluser2.png" src="../_images/24_seluser2.png" />
 </section>

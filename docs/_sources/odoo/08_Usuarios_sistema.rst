@@ -1,5 +1,5 @@
 *********************
-Ususarios del sistema
+Usuarios del sistema
 *********************
 
 No todos los empleados necesitan tender usuarios en el sistema, podríamos tener usuarios sin tener que ser usuarios, o tener usuarios sin tener empleados asociados

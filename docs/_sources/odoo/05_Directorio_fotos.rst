@@ -7,6 +7,7 @@ Crea un directorio con fotos de:
 * Empleados
 * Fotos de tu compañía, logo y productos
 * Clientes
+
   * Individuales
   * Compañías
 

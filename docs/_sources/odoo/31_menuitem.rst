@@ -10,6 +10,8 @@ Sube un par de pantallazos como el siguiente:
 
 ayuda:
 
+.. code-block:: bash
+
     <!-- menu categories -->
     <menuitem name="Menu 1" id="desechos.menu_1" parent="desechos.menu_root"/>
     <menuitem name="Menu 2" id="desechos.menu_2" parent="desechos.menu_root"/>

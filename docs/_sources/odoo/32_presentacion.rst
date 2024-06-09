@@ -6,10 +6,12 @@ Hacer una presentación sobre tu empresa, para ello sube un archivo PDF de la pr
 
 * En la primera página tiene que aparecer el título y el autor.
 * Al menos tiene que aparecer los siguientes pantallazos:
+
   * Sitio Web
   * Empleados y departamento
   * Inventario
   * Punto de venta
+  
 * En la segunda página tiene que aparecer el nombre de la empresa y su ubicación (busca una real y ponla como si trabajaras en ella)
 * **Ortografía**
 * La presentación tiene que durar <10 minutos

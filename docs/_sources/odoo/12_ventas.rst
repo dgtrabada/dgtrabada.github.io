@@ -4,10 +4,10 @@ Ventas
 
 .. image:: imagenes/08_Ventas1.png
 
-Ventas / Pedidos / Clientes
-Crea un cliente.
-Clientes / Escuela Primaria de Springfield /  Presupuestos y pedidos
-Le hacemos un presupuesto:
+* Ventas / Pedidos / Clientes
+* Crea un cliente.
+* Clientes / Escuela Primaria de Springfield /  Presupuestos y pedidos
+* Le hacemos un presupuesto:
 
 .. image:: imagenes/08_Ventas2.png
 

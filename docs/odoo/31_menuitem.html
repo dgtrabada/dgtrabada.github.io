@@ -45,7 +45,7 @@
     <link rel="icon" href="../_static/ico.png"/>
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
-    <link rel="next" title="Python" href="../python/index.html" />
+    <link rel="next" title="Presentación" href="32_presentacion.html" />
     <link rel="prev" title="self.env.user" href="30_selfenvuser.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -257,12 +257,15 @@
 <li class="toctree-l2"><a class="reference internal" href="05_Directorio_fotos.html">Directorio Fotos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_instalacion_odoo.html">Instalación odoo y backup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_Usuarios_sistema.html">Usuarios del sistema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="09_empleados.html">Empleados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10_copia_seguridad.html">Copia de seguridad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11_Inventario.html">Inventario</a></li>
 <li class="toctree-l2"><a class="reference internal" href="12_ventas.html">Ventas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_proyecto.html">Proyecto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="16_ausencias.html">Ausencias</a></li>
 <li class="toctree-l2"><a class="reference internal" href="17_tableros.html">Tableros</a></li>
 <li class="toctree-l2"><a class="reference internal" href="18_mantenimineto.html">Mantenimiento</a></li>
 <li class="toctree-l2"><a class="reference internal" href="19_notas.html">Notas</a></li>
@@ -278,6 +281,7 @@
 <li class="toctree-l2"><a class="reference internal" href="29_infomod.html">Información del módulo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="30_selfenvuser.html">self.env.user</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="32_presentacion.html">Presentación</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
@@ -435,25 +439,21 @@ document.write(`
 <p>Sube un par de pantallazos como el siguiente:</p>
 <img alt="../_images/25_Menuitem.png" src="../_images/25_Menuitem.png" />
 <p>ayuda:</p>
-<blockquote>
-<div><p>&lt;!– menu categories –&gt;
-&lt;menuitem name=»Menu 1» id=»desechos.menu_1» parent=»desechos.menu_root»/&gt;
-&lt;menuitem name=»Menu 2» id=»desechos.menu_2» parent=»desechos.menu_root»/&gt;
-&lt;!– actions –&gt;
-&lt;menuitem name=»menuitem 1» id=»desechos.menu_1_list» parent=»desechos.menu_1»</p>
-<blockquote>
-<div><p>action=»desechos.action_window»/&gt;</p>
-</div></blockquote>
-<dl class="simple">
-<dt>&lt;menuitem name=»menuitem 2» id=»desechos.menu_2_list» parent=»desechos.menu_1»</dt><dd><p>action=»desechos.action_window»/&gt;</p>
-</dd>
-<dt>&lt;menuitem name=»menuitem 3» id=»desechos.menu_3_list» parent=»desechos.menu_2»</dt><dd><p>action=»desechos.action_window»/&gt;</p>
-</dd>
-<dt>&lt;menuitem name=»menuitem 4» id=»desechos.menu_4_list» parent=»desechos.menu_2»</dt><dd><p>action=»desechos.action_window»/&gt;</p>
-</dd>
-</dl>
-<p>&lt;!–</p>
-</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;!--<span class="w"> </span>menu<span class="w"> </span>categories<span class="w"> </span>--&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Menu 1&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_1&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_root&quot;</span>/&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Menu 2&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_2&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_root&quot;</span>/&gt;
+&lt;!--<span class="w"> </span>actions<span class="w"> </span>--&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;menuitem 1&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_1_list&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_1&quot;</span>
+<span class="w">    </span><span class="nv">action</span><span class="o">=</span><span class="s2">&quot;desechos.action_window&quot;</span>/&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;menuitem 2&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_2_list&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_1&quot;</span>
+<span class="w">  </span><span class="nv">action</span><span class="o">=</span><span class="s2">&quot;desechos.action_window&quot;</span>/&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;menuitem 3&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_3_list&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_2&quot;</span>
+<span class="w">    </span><span class="nv">action</span><span class="o">=</span><span class="s2">&quot;desechos.action_window&quot;</span>/&gt;
+&lt;menuitem<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;menuitem 4&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;desechos.menu_4_list&quot;</span><span class="w"> </span><span class="nv">parent</span><span class="o">=</span><span class="s2">&quot;desechos.menu_2&quot;</span>
+<span class="w">    </span><span class="nv">action</span><span class="o">=</span><span class="s2">&quot;desechos.action_window&quot;</span>/&gt;
+&lt;!--
+</pre></div>
+</div>
 </section>
 
 
@@ -475,11 +475,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../python/index.html"
+       href="32_presentacion.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">Python</p>
+        <p class="prev-next-title">Presentación</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
