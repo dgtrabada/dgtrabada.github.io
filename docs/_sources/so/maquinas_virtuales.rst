@@ -92,24 +92,22 @@ En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambo
 Comandos útiles virtualBox:
 ---------------------------
 
-.. code-block:: bash
-    
- VBoxManage list vms
- VBoxManage list runningvms
- VBoxManage startvm 'Ubuntu Server 16.04' --type headless
- VBoxManage controlvm 'Ubuntu Server 16.04' savestate
+- ``VBoxManage list vms``: Listar maquinas virtuales
+- ``VBoxManage list vms runningvms``: Listar maquinas virtuales que estan ejecutasdose
+- ``VBoxManage startvm 'Ubuntu Server 22.04' --type headless``: Ejecutarla sin entorno gráfico
+- ``VBoxManage controlvm 'Ubuntu Server 16.04' savestate``: Guardar el estado
 
 En modo gráfico:
 
-* Ctrl_derecho + Supr = Ctrl + Atl + Supr
-* Ctrl_derecho = Salir de pantalla
-* Ctrl_derecho + f = pasar/volver de pantalla completa
-* Ctrl_derecho + c = pasar/volver modo escalado
+* ``Ctrl_derecho + Supr`` : Ctrl + Atl + Supr
+* ``Ctrl_derecho`` : Salir de pantalla
+* ``Ctrl_derecho + f`` : pasar/volver de pantalla completa
+* ``Ctrl_derecho + c``: pasar/volver modo escalado
 
-Caso práctico: MV Ubuntu Server 22.04
+Caso práctico: MV Ubuntu Server 24.04
 -------------------------------------
 
-* Descárgate el sistema operativo Ubuntu Server 22.04 en formato (ISO) de su página oficial
+* Descárgate el sistema operativo Ubuntu Server 24.04 en formato (ISO) de su página oficial
 
 * Utiliza un disco de 200 GB y 2G de RAM
 
@@ -124,7 +122,7 @@ Caso práctico: MV Ubuntu Server 22.04
   .. image:: imagenes/MV_Ubuntu_Server_22.04.jpg
 
 * Usuario: tunombre y utiliza de contraseña: alumno
-  Para el nombre del servidor utiliza compute-0-0, para ello modifica el archivo **/etc/hostname** 
+  Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
 
 Caso práctico: Windows 11
@@ -311,8 +309,8 @@ Gestión de imágenes y contenedores
 - ``docker commit``: Mandamos los cambios a la imagen
 - ``docker rm``: Elimina un contenedor.
 
-Instalación de Docker en Ubuntu 24.04 LTS
------------------------------------------
+Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
+---------------------------------------------------------
 
 .. code-block:: bash
 
@@ -357,6 +355,8 @@ Instalación de Docker en Ubuntu 24.04 LTS
   docker ps
 
 
+Caso práctico construir una imágen de docker:
+---------------------------------------------
 
 Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile
 
@@ -446,5 +446,73 @@ Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico qu
 
 .. code-block:: bash
 
+  #Se bajará la imagen
+  $ docker pull dgtrabada/ubuntu:24.04
+  
+  #Crear un nuevo contendor
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
-  #Se bajará la imagen y ejecutara un nuevo contendor. 
+  
+  #Si queremos voler a usar este contenedor:
+  socker start <CONTAIVER ID>
+  
+   #lo paramos:
+   socker stop <CONTAIVER ID>
+    
+   #vamos a renombrarlo y abrir una sesión bash 
+   $ docker ps -a
+   CONTAINER ID   IMAGE                    COMMAND       CREATED         STATUS                       PORTS     NAMES
+   48fef748513d   dgtrabada/ubuntu:24.04   "/bin/bash"   7 minutes ago   Exited (137) 2 minutes ago             nice_merkle
+   
+   $ docker rename nice_merkle compute-0-0
+    
+   $ docker start  compute-0-0
+   compute-0-0
+    
+   $ docker exec -it compute-0-0 /bin/bash
+   root@48fef748513d:/#
+
+.. image:: imagenes/docker.png
+
+Caso práctico: Instalar el comando ip y el comando ping
+-------------------------------------------------------
+
+Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos::
+
+.. code-block:: bash
+
+  root@5b5d4a416397:/# apt update
+  root@5b5d4a416397:/# apt-get install -y iproute2
+  root@5b5d4a416397:/# apt-get install iputils-ping
+
+Salimos del contendor y mandamos los cambios a la imagen
+
+.. code-block:: bash
+
+  $ docker commit 5b5d4a416397 dgtrabada/ubuntu:24.04
+  sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+  
+  #subimos la imagen a Docker Hub
+  $ docker push dgtrabada/ubuntu:24.04
+  
+Caso práctico: Cluster de docker en Ubuntu Server 24.04
+-------------------------------------------------------
+
+Para que un contenedor Docker actúe como si fuera un ordenador más en tu red local (LAN), puedes utilizar el modo de red macvlan. 
+
+Primero creamos la red **redmacvlan**:
+
+.. code-block:: bash
+
+  docker network create -d macvlan --subnet=10.0.0.0/8  --gateway=10.0.0.2  -o parent=enp0s3   redmacvlan
+
+  #Ver las redes disponibles:
+  docker network ls
+  
+  #Inspeccionar la red Macvlan
+  docker network inspect redmacvlan
+
+Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.4.X.Y
+
+.. code-block:: bash
+
+  docker run -it --network redmacvlan --ip 10.4.104.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
