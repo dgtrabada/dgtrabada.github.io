@@ -356,7 +356,7 @@ Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
   docker ps
 
 
-Caso práctico: construir una imágen de docker y subirla al repositorio
+Caso práctico: construir una imagen de docker y subirla al repositorio
 ----------------------------------------------------------------------
 
 Lo primero que haremos es darnos de alta en `Docker Hub <https://hub.docker.com/>`_ es un repositorio de imágenes de contenedores público y centralizado, donde los usuarios pueden:
