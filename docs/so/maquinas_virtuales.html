@@ -448,7 +448,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>
 </ul>
@@ -922,26 +921,23 @@ docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102</p>
-<p><strong>AQUI</strong></p>
-</section>
-<section id="caso-practico-cluster-de-docker-en-ubuntu-server-24-04">
-<h3>Caso práctico: Cluster de docker en Ubuntu Server 24.04<a class="headerlink" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Para que un contenedor Docker actúe como si fuera un ordenador más en tu red local (LAN), puedes utilizar el modo de red macvlan.</p>
-<p>Primero creamos la red <strong>redmacvlan</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>-d<span class="w"> </span>macvlan<span class="w"> </span>--subnet<span class="o">=</span><span class="m">10</span>.0.0.0/8<span class="w">  </span>--gateway<span class="o">=</span><span class="m">10</span>.0.0.2<span class="w">  </span>-o<span class="w"> </span><span class="nv">parent</span><span class="o">=</span>enp0s3<span class="w">   </span>redmacvlan
-
-<span class="c1">#Ver las redes disponibles:</span>
-docker<span class="w"> </span>network<span class="w"> </span>ls
-
-<span class="c1">#Inspeccionar la red Macvlan</span>
-docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>redmacvlan
+<p>Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102, lanza los tres contenedores <a class="footnote-reference brackets" href="#c3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> y haz que se pueda acceder por ssh sin contraseña desde compute-0-0 a compute-0-1 y compute-0-2</p>
+<img alt="../_images/docker_sshkeygen.png" src="../_images/docker_sshkeygen.png" />
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="c3" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Levantar los tres contenedores</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-1
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-1<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-2
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-2<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.5.X.Y</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>redmacvlan<span class="w"> </span>--ip<span class="w"> </span><span class="m">10</span>.5.104.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
-</pre></div>
-</div>
+</aside>
+</aside>
 </section>
 </section>
 </section>
@@ -1008,7 +1004,6 @@ docker<span class="w"> </span>network<span class="w"> </span>inspect<span class=
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>
 </ul>

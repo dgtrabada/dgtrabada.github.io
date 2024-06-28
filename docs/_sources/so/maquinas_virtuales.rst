@@ -477,7 +477,6 @@ Configuramos ssh para poder logearnos como root:
 
 .. image:: imagenes/docker_ssh.png
 
-
 Salimos del contendor y mandamos los cambios a la imagen
 
 .. code-block:: bash
@@ -549,32 +548,24 @@ Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0
   #levantamos el servidor ssh
   docker exec -it compute-0-0 /usr/sbin/sshd -D &
   
-Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102
+Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102, lanza los tres contenedores [#c3]_ y haz que se pueda acceder por ssh sin contraseña desde compute-0-0 a compute-0-1 y compute-0-2
+
+.. image:: imagenes/docker_sshkeygen.png
+
+.. rubric:: Footnotes
+
+.. [#c3] Levantar los tres contenedores
+
+  .. code-block:: bash
   
-**AQUI**
-
-Caso práctico: Cluster de docker en Ubuntu Server 24.04
--------------------------------------------------------
-
-Para que un contenedor Docker actúe como si fuera un ordenador más en tu red local (LAN), puedes utilizar el modo de red macvlan. 
-
-Primero creamos la red **redmacvlan**:
-
-.. code-block:: bash
-
-  docker network create -d macvlan --subnet=10.0.0.0/8  --gateway=10.0.0.2  -o parent=enp0s3   redmacvlan
-
-  #Ver las redes disponibles:
-  docker network ls
+    docker start  compute-0-0 
+    docker exec -it compute-0-0 /usr/sbin/sshd -D &
+    docker start  compute-0-1 
+    docker exec -it compute-0-1 /usr/sbin/sshd -D &
+    docker start  compute-0-2 
+    docker exec -it compute-0-2 /usr/sbin/sshd -D &
   
-  #Inspeccionar la red Macvlan
-  docker network inspect redmacvlan
 
-Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.5.X.Y
-
-.. code-block:: bash
-
-  docker run -it --network redmacvlan --ip 10.5.104.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
  
  
  
