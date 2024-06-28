@@ -447,7 +447,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-contenedores-en-una-misma-red">Caso práctico: Tres contenedores en una misma red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>
@@ -865,7 +865,7 @@ root@4e7e1f17f985:/#<span class="w"> </span>sed<span class="w"> </span>-i<span c
 root@4e7e1f17f985:/#<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
-<img alt="../_images/docker.png" src="../_images/docker.png" />
+<img alt="../_images/docker_ssh.png" src="../_images/docker_ssh.png" />
 <p>Salimos del contendor y mandamos los cambios a la imagen</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>4e7e1f17f985<span class="w"> </span>dgtrabada/ubuntu:24.04
 sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
@@ -897,8 +897,8 @@ RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span>
 </pre></div>
 </div>
 </section>
-<section id="caso-practico-tres-contenedores-en-una-misma-red">
-<h3>Caso práctico: Tres contenedores en una misma red<a class="headerlink" href="#caso-practico-tres-contenedores-en-una-misma-red" title="Enlace permanente a este encabezado">#</a></h3>
+<section id="caso-practico-contenedores-en-una-misma-subred">
+<h3>Caso práctico: Contenedores en una misma subred<a class="headerlink" href="#caso-practico-contenedores-en-una-misma-subred" title="Enlace permanente a este encabezado">#</a></h3>
 <p>docker tiene por defecto 3 redes</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@UStunombre:~#<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>ls
 NETWORK<span class="w"> </span>ID<span class="w">     </span>NAME<span class="w">      </span>DRIVER<span class="w">    </span>SCOPE
@@ -1007,7 +1007,7 @@ docker<span class="w"> </span>network<span class="w"> </span>inspect<span class=
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-contenedores-en-una-misma-red">Caso práctico: Tres contenedores en una misma red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>

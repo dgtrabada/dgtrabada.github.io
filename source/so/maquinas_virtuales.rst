@@ -475,7 +475,7 @@ Configuramos ssh para poder logearnos como root:
   #Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh
   root@4e7e1f17f985:/# /usr/sbin/sshd -D &
 
-.. image:: imagenes/docker.png
+.. image:: imagenes/docker_ssh.png
 
 
 Salimos del contendor y mandamos los cambios a la imagen
@@ -516,8 +516,8 @@ Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:
 
 
 
-Caso práctico: Tres contenedores en una misma red
--------------------------------------------------
+Caso práctico: Contenedores en una misma subred
+-----------------------------------------------
 
 docker tiene por defecto 3 redes                        
 
