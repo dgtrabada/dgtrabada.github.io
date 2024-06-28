@@ -305,8 +305,9 @@ Gestión de imágenes y contenedores
 - ``docker run``: Crea y ejecuta un contenedor a partir de una imagen.
 - ``docker ps``: Muestra los contenedores en ejecución.
 - ``docker ps -a``: Muestra todos los contenedores.
+- ``docker exec -it compute-0-0 /bin/bash`` : Acceder a una shell Bash dentro de un contenedor.
 - ``docker stop`` / ``docker start``: Detiene o inicia un contenedor.
-- ``docker commit``: Mandamos los cambios a la imagen
+- ``docker commit``: Mandamos los cambios a la imagen.
 - ``docker rm``: Elimina un contenedor.
 
 Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
@@ -355,10 +356,25 @@ Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
   docker ps
 
 
-Caso práctico construir una imágen de docker:
----------------------------------------------
+Caso práctico: construir una imágen de docker y subirla al repositorio
+----------------------------------------------------------------------
 
-Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile
+Lo primero que haremos es darnos de alta en `Docker Hub <https://hub.docker.com/>`_ es un repositorio de imágenes de contenedores público y centralizado, donde los usuarios pueden:
+
+* Almacenar y compartir imágenes de contenedores
+* Descubrir imágenes de contenedores
+* Colaborar en proyectos 
+* Automatizar flujos de trabajo
+
+Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:
+
+.. code-block:: bash
+
+  # Usar Ubuntu 24.04 como imagen base
+  FROM ubuntu:24.04
+
+  # Actualizar los repositorios y paquetes
+  RUN apt-get update && apt-get upgrade -y
 
 Las instrucciones más comunes en un Dockerfile:
 
@@ -370,25 +386,6 @@ Las instrucciones más comunes en un Dockerfile:
 6. **ENTRYPOINT**: Configura un contenedor para que se ejecute como un ejecutable.
 7. **EXPOSE**: Indica que el contenedor escucha en puertos específicos en tiempo de ejecución.
 8. **ENV**: Establece variables de entorno.
-
-
-.. code-block:: bash
-
-  cat dockerfile 
-  # Usar la versión oficial de Ubuntu 22.04 como imagen base
-  FROM ubuntu:22.04
-
-  # Actualizar la lista de paquetes e instalar actualizaciones
-  RUN apt-get update && apt-get dist-upgrade -y
-
-  # Actualizar los repositorios para apuntar a la versión 24.04
-  RUN sed -i 's/jammy/lunar/g' /etc/apt/sources.list
-
-  # Actualizar nuevamente la lista de paquetes e instalar actualizaciones
-  RUN apt-get update && apt-get dist-upgrade -y
-
-  # Limpiar los archivos temporales de instalación
-  RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 Construimos la imágen:
@@ -411,6 +408,9 @@ Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos `
   docker login
 
   docker push dgtrabada/ubuntu:24.04
+  
+  
+.. image:: imagenes/docker_pull.png
 
 Vamos a instalar el editor vim y la actualizamos:
 
@@ -420,24 +420,23 @@ Vamos a instalar el editor vim y la actualizamos:
   $ docker images
   
   REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
-  dgtrabada/ubuntu   24.04     be2e2ddde820   10 minutes ago   267MB
+  dgtrabada/ubuntu   24.04     e9b7aed9fff2   10 minutes ago   267MB
 
   #Creamos un nuevo contendor
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
-
-  #con -d lo ejecutas en segundo plano
   
   #instalamos el editor vim (apt-get install vim)
-  root@0d952d586d43:/# apt-get install vim
+  root@e9b7aed9fff2:/# apt-get install -y vim
   
-  #listamos los contendores que estan ejecutandose:
-  $ docker ps
+  #nos salidmos del contenedor (Ctrl+d)
+  #listamos los contendores:
+  $ docker ps -a
   CONTAINER ID   IMAGE                    COMMAND         CREATED         STATUS         PORTS     NAMES
-  0d952d586d43   dgtrabada/ubuntu:24.04   "/bin/bash"   2 minutes ago   Up 2 minutes   
+  406694d11d68   dgtrabada/ubuntu:24.04   "/bin/bash"   2 minutes ago   Up 2 minutes   
 
   #mandamos los cambios a la imagen
-  $ docker commit 0d952d586d43 dgtrabada/ubuntu:24.04
-  sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+  $ docker commit 406694d11d68 dgtrabada/ubuntu:24.04
+  sha256:bffbb89703458ec685907be409c758e07207a3420d513780b247aa9d4ebe1d2a
   
   #subimos la imagen a Docker Hub
   $ docker push dgtrabada/ubuntu:24.04
@@ -451,49 +450,109 @@ Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico qu
   
   #Crear un nuevo contendor
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
-  
-  #Si queremos voler a usar este contenedor:
-  socker start <CONTAIVER ID>
-  
-   #lo paramos:
-   socker stop <CONTAIVER ID>
-    
-   #vamos a renombrarlo y abrir una sesión bash 
-   $ docker ps -a
-   CONTAINER ID   IMAGE                    COMMAND       CREATED         STATUS                       PORTS     NAMES
-   48fef748513d   dgtrabada/ubuntu:24.04   "/bin/bash"   7 minutes ago   Exited (137) 2 minutes ago             nice_merkle
-   
-   $ docker rename nice_merkle compute-0-0
-    
-   $ docker start  compute-0-0
-   compute-0-0
-    
-   $ docker exec -it compute-0-0 /bin/bash
-   root@48fef748513d:/#
 
 .. image:: imagenes/docker.png
 
-Caso práctico: Instalar el comando ip y el comando ping
--------------------------------------------------------
+Caso práctico: Instalar servidor de ssh, ip y ping
+--------------------------------------------------
 
-Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos::
+Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos:
 
 .. code-block:: bash
 
-  root@5b5d4a416397:/# apt update
-  root@5b5d4a416397:/# apt-get install -y iproute2
-  root@5b5d4a416397:/# apt-get install iputils-ping
+  root@4e7e1f17f985:/# apt update
+  root@4e7e1f17f985:/# apt-get install -y iproute2 iputils-ping
+  root@4e7e1f17f985:/# apt-get install -y openssh-server
+  
+Configuramos ssh para poder logearnos como root:
+
+.. code-block:: bash
+
+  root@4e7e1f17f985:/# mkdir /var/run/sshd
+  root@4e7e1f17f985:/# echo 'root:alumno' | chpasswd
+  root@4e7e1f17f985:/# sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+  #Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh
+  root@4e7e1f17f985:/# /usr/sbin/sshd -D &
+
+.. image:: imagenes/docker.png
+
 
 Salimos del contendor y mandamos los cambios a la imagen
 
 .. code-block:: bash
 
-  $ docker commit 5b5d4a416397 dgtrabada/ubuntu:24.04
-  sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+  $ docker commit 4e7e1f17f985 dgtrabada/ubuntu:24.04
+  sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
   
   #subimos la imagen a Docker Hub
   $ docker push dgtrabada/ubuntu:24.04
   
+  #podemos lanzar el contedor con ssh:
+  docker exec -it 4e7e1f17f985 /usr/sbin/sshd
+  
+
+Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:
+
+.. code-block:: bash
+
+  # Usar Ubuntu 24.04 como imagen base
+  FROM ubuntu:24.04
+
+  # Actualizar los repositorios y paquetes
+  RUN apt-get update && apt-get upgrade -y
+
+  # Instalamos
+  RUN apt-get install -y vim iproute2 iputils-ping openssh-server
+ 
+  RUN mkdir /var/run/sshd
+
+  # Cambiar la contraseña del usuario root 
+  RUN echo 'root:alumno' | chpasswd
+
+  # Permitir el acceso por SSH al root
+  RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+
+
+
+Caso práctico: Tres contenedores en una misma red
+-------------------------------------------------
+
+docker tiene por defecto 3 redes                        
+
+.. code-block:: bash
+
+  root@UStunombre:~# docker network ls
+  NETWORK ID     NAME      DRIVER    SCOPE
+  e6ab6d5cdeea   bridge    bridge    local
+  a39dbd6d158e   host      host      local
+  1092da8fd7e1   none      null      local
+  
+  
+Vamos a crear una nueva subnet llamada red16, que por defecto se creara en modo bridge:
+
+.. code-block:: bash
+
+  docker network create --subnet=172.16.0.0/16 red16
+
+Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0
+
+.. code-block:: bash
+
+  #primero lo creamos
+  docker run -it --network red16 --ip 172.16.0.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
+  
+  #Para lanzamos el contenedor:
+  docker start  compute-0-0 
+  
+  #levantamos el servidor ssh
+  docker exec -it compute-0-0 /usr/sbin/sshd -D &
+  
+Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102
+  
+**AQUI**
+
 Caso práctico: Cluster de docker en Ubuntu Server 24.04
 -------------------------------------------------------
 
@@ -511,8 +570,11 @@ Primero creamos la red **redmacvlan**:
   #Inspeccionar la red Macvlan
   docker network inspect redmacvlan
 
-Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.4.X.Y
+Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.5.X.Y
 
 .. code-block:: bash
 
-  docker run -it --network redmacvlan --ip 10.4.104.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
+  docker run -it --network redmacvlan --ip 10.5.104.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
+ 
+ 
+ 

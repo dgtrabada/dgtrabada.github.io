@@ -445,8 +445,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker">Caso práctico construir una imágen de docker:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-el-comando-ip-y-el-comando-ping">Caso práctico: Instalar el comando ip y el comando ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-contenedores-en-una-misma-red">Caso práctico: Tres contenedores en una misma red</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>
@@ -717,8 +718,9 @@ Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la i
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>: Crea y ejecuta un contenedor a partir de una imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code>: Muestra los contenedores en ejecución.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code>: Muestra todos los contenedores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">compute-0-0</span> <span class="pre">/bin/bash</span></code> : Acceder a una shell Bash dentro de un contenedor.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stop</span></code> / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span></code>: Detiene o inicia un contenedor.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Mandamos los cambios a la imagen</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Mandamos los cambios a la imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>: Elimina un contenedor.</p></li>
 </ul>
 </section>
@@ -766,9 +768,23 @@ docker<span class="w"> </span>ps
 </pre></div>
 </div>
 </section>
-<section id="caso-practico-construir-una-imagen-de-docker">
-<h3>Caso práctico construir una imágen de docker:<a class="headerlink" href="#caso-practico-construir-una-imagen-de-docker" title="Enlace permanente a este encabezado">#</a></h3>
-<p>Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile</p>
+<section id="caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">
+<h3>Caso práctico: construir una imágen de docker y subirla al repositorio<a class="headerlink" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio" title="Enlace permanente a este encabezado">#</a></h3>
+<p>Lo primero que haremos es darnos de alta en <a class="reference external" href="https://hub.docker.com/">Docker Hub</a> es un repositorio de imágenes de contenedores público y centralizado, donde los usuarios pueden:</p>
+<ul class="simple">
+<li><p>Almacenar y compartir imágenes de contenedores</p></li>
+<li><p>Descubrir imágenes de contenedores</p></li>
+<li><p>Colaborar en proyectos</p></li>
+<li><p>Automatizar flujos de trabajo</p></li>
+</ul>
+<p>Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
+FROM<span class="w"> </span>ubuntu:24.04
+
+<span class="c1"># Actualizar los repositorios y paquetes</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+</pre></div>
+</div>
 <p>Las instrucciones más comunes en un Dockerfile:</p>
 <ol class="arabic simple">
 <li><p><strong>FROM</strong>: Define la imagen base desde la cual se construirá la nueva imagen.</p></li>
@@ -780,23 +796,6 @@ docker<span class="w"> </span>ps
 <li><p><strong>EXPOSE</strong>: Indica que el contenedor escucha en puertos específicos en tiempo de ejecución.</p></li>
 <li><p><strong>ENV</strong>: Establece variables de entorno.</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>dockerfile
-<span class="c1"># Usar la versión oficial de Ubuntu 22.04 como imagen base</span>
-FROM<span class="w"> </span>ubuntu:22.04
-
-<span class="c1"># Actualizar la lista de paquetes e instalar actualizaciones</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>dist-upgrade<span class="w"> </span>-y
-
-<span class="c1"># Actualizar los repositorios para apuntar a la versión 24.04</span>
-RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/jammy/lunar/g&#39;</span><span class="w"> </span>/etc/apt/sources.list
-
-<span class="c1"># Actualizar nuevamente la lista de paquetes e instalar actualizaciones</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>dist-upgrade<span class="w"> </span>-y
-
-<span class="c1"># Limpiar los archivos temporales de instalación</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</pre></div>
-</div>
 <p>Construimos la imágen:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>ubuntu:24.04<span class="w"> </span>.
 </pre></div>
@@ -811,29 +810,29 @@ RUN<span class="w"> </span>apt-get<span class="w"> </span>clean<span class="w"> 
 docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
 </pre></div>
 </div>
+<img alt="../_images/docker_pull.png" src="../_images/docker_pull.png" />
 <p>Vamos a instalar el editor vim y la actualizamos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Listar imagenes:</span>
 $<span class="w"> </span>docker<span class="w"> </span>images
 
 REPOSITORY<span class="w">         </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">          </span>SIZE
-dgtrabada/ubuntu<span class="w">   </span><span class="m">24</span>.04<span class="w">     </span>be2e2ddde820<span class="w">   </span><span class="m">10</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>267MB
+dgtrabada/ubuntu<span class="w">   </span><span class="m">24</span>.04<span class="w">     </span>e9b7aed9fff2<span class="w">   </span><span class="m">10</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>267MB
 
 <span class="c1">#Creamos un nuevo contendor</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
 
-<span class="c1">#con -d lo ejecutas en segundo plano</span>
-
 <span class="c1">#instalamos el editor vim (apt-get install vim)</span>
-root@0d952d586d43:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>vim
+root@e9b7aed9fff2:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim
 
-<span class="c1">#listamos los contendores que estan ejecutandose:</span>
-$<span class="w"> </span>docker<span class="w"> </span>ps
+<span class="c1">#nos salidmos del contenedor (Ctrl+d)</span>
+<span class="c1">#listamos los contendores:</span>
+$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
 CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                    </span>COMMAND<span class="w">         </span>CREATED<span class="w">         </span>STATUS<span class="w">         </span>PORTS<span class="w">     </span>NAMES
-0d952d586d43<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes
+406694d11d68<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes
 
 <span class="c1">#mandamos los cambios a la imagen</span>
-$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>0d952d586d43<span class="w"> </span>dgtrabada/ubuntu:24.04
-sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>406694d11d68<span class="w"> </span>dgtrabada/ubuntu:24.04
+sha256:bffbb89703458ec685907be409c758e07207a3420d513780b247aa9d4ebe1d2a
 
 <span class="c1">#subimos la imagen a Docker Hub</span>
 $<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
@@ -845,48 +844,86 @@ $<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </sp
 
 <span class="c1">#Crear un nuevo contendor</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
-
-<span class="c1">#Si queremos voler a usar este contenedor:</span>
-socker<span class="w"> </span>start<span class="w"> </span>&lt;CONTAIVER<span class="w"> </span>ID&gt;
-
-<span class="w"> </span><span class="c1">#lo paramos:</span>
-<span class="w"> </span>socker<span class="w"> </span>stop<span class="w"> </span>&lt;CONTAIVER<span class="w"> </span>ID&gt;
-
-<span class="w"> </span><span class="c1">#vamos a renombrarlo y abrir una sesión bash</span>
-<span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
-<span class="w"> </span>CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                    </span>COMMAND<span class="w">       </span>CREATED<span class="w">         </span>STATUS<span class="w">                       </span>PORTS<span class="w">     </span>NAMES
-<span class="w"> </span>48fef748513d<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">7</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Exited<span class="w"> </span><span class="o">(</span><span class="m">137</span><span class="o">)</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">             </span>nice_merkle
-
-<span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>rename<span class="w"> </span>nice_merkle<span class="w"> </span>compute-0-0
-
-<span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
-<span class="w"> </span>compute-0-0
-
-<span class="w"> </span>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/bin/bash
-<span class="w"> </span>root@48fef748513d:/#
 </pre></div>
 </div>
 <img alt="../_images/docker.png" src="../_images/docker.png" />
 </section>
-<section id="caso-practico-instalar-el-comando-ip-y-el-comando-ping">
-<h3>Caso práctico: Instalar el comando ip y el comando ping<a class="headerlink" href="#caso-practico-instalar-el-comando-ip-y-el-comando-ping" title="Enlace permanente a este encabezado">#</a></h3>
+<section id="caso-practico-instalar-servidor-de-ssh-ip-y-ping">
+<h3>Caso práctico: Instalar servidor de ssh, ip y ping<a class="headerlink" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping" title="Enlace permanente a este encabezado">#</a></h3>
 <p>Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">code</span><span class="o">-</span><span class="n">block</span><span class="p">::</span> <span class="n">bash</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@4e7e1f17f985:/#<span class="w"> </span>apt<span class="w"> </span>update
+root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping
+root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssh-server
 </pre></div>
 </div>
-<blockquote>
-<div><p><a class="reference external" href="mailto:root&#37;&#52;&#48;5b5d4a416397">root<span>&#64;</span>5b5d4a416397</a>:/# apt update
-<a class="reference external" href="mailto:root&#37;&#52;&#48;5b5d4a416397">root<span>&#64;</span>5b5d4a416397</a>:/# apt-get install -y iproute2
-<a class="reference external" href="mailto:root&#37;&#52;&#48;5b5d4a416397">root<span>&#64;</span>5b5d4a416397</a>:/# apt-get install iputils-ping</p>
-</div></blockquote>
+<p>Configuramos ssh para poder logearnos como root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@4e7e1f17f985:/#<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+root@4e7e1f17f985:/#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+root@4e7e1f17f985:/#<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+
+<span class="c1">#Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh</span>
+root@4e7e1f17f985:/#<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<img alt="../_images/docker.png" src="../_images/docker.png" />
 <p>Salimos del contendor y mandamos los cambios a la imagen</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>5b5d4a416397<span class="w"> </span>dgtrabada/ubuntu:24.04
-sha256:a9f9f96125ac1b9de37ed1b4e2216aaf137c7163b2310730220858b9ff4a5492
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>4e7e1f17f985<span class="w"> </span>dgtrabada/ubuntu:24.04
+sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
 
 <span class="c1">#subimos la imagen a Docker Hub</span>
 $<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+
+<span class="c1">#podemos lanzar el contedor con ssh:</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>4e7e1f17f985<span class="w"> </span>/usr/sbin/sshd
 </pre></div>
 </div>
+<p>Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
+FROM<span class="w"> </span>ubuntu:24.04
+
+<span class="c1"># Actualizar los repositorios y paquetes</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+
+<span class="c1"># Instalamos</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping<span class="w"> </span>openssh-server
+
+RUN<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+
+<span class="c1"># Cambiar la contraseña del usuario root</span>
+RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+
+<span class="c1"># Permitir el acceso por SSH al root</span>
+RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+</pre></div>
+</div>
+</section>
+<section id="caso-practico-tres-contenedores-en-una-misma-red">
+<h3>Caso práctico: Tres contenedores en una misma red<a class="headerlink" href="#caso-practico-tres-contenedores-en-una-misma-red" title="Enlace permanente a este encabezado">#</a></h3>
+<p>docker tiene por defecto 3 redes</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@UStunombre:~#<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>ls
+NETWORK<span class="w"> </span>ID<span class="w">     </span>NAME<span class="w">      </span>DRIVER<span class="w">    </span>SCOPE
+e6ab6d5cdeea<span class="w">   </span>bridge<span class="w">    </span>bridge<span class="w">    </span><span class="nb">local</span>
+a39dbd6d158e<span class="w">   </span>host<span class="w">      </span>host<span class="w">      </span><span class="nb">local</span>
+1092da8fd7e1<span class="w">   </span>none<span class="w">      </span>null<span class="w">      </span><span class="nb">local</span>
+</pre></div>
+</div>
+<p>Vamos a crear una nueva subnet llamada red16, que por defecto se creara en modo bridge:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--subnet<span class="o">=</span><span class="m">172</span>.16.0.0/16<span class="w"> </span>red16
+</pre></div>
+</div>
+<p>Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#primero lo creamos</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>red16<span class="w"> </span>--ip<span class="w"> </span><span class="m">172</span>.16.0.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+
+<span class="c1">#Para lanzamos el contenedor:</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
+
+<span class="c1">#levantamos el servidor ssh</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102</p>
+<p><strong>AQUI</strong></p>
 </section>
 <section id="caso-practico-cluster-de-docker-en-ubuntu-server-24-04">
 <h3>Caso práctico: Cluster de docker en Ubuntu Server 24.04<a class="headerlink" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04" title="Enlace permanente a este encabezado">#</a></h3>
@@ -901,8 +938,8 @@ docker<span class="w"> </span>network<span class="w"> </span>ls
 docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>redmacvlan
 </pre></div>
 </div>
-<p>Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.4.X.Y</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>redmacvlan<span class="w"> </span>--ip<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+<p>Vamos a borrar el contenedor compute-0-0 si existe y volver a crearlo en nuestra redmacvlan con ip 10.5.X.Y</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>redmacvlan<span class="w"> </span>--ip<span class="w"> </span><span class="m">10</span>.5.104.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
 </pre></div>
 </div>
 </section>
@@ -968,8 +1005,9 @@ docker<span class="w"> </span>network<span class="w"> </span>inspect<span class=
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker">Caso práctico construir una imágen de docker:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-el-comando-ip-y-el-comando-ping">Caso práctico: Instalar el comando ip y el comando ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imágen de docker y subirla al repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-contenedores-en-una-misma-red">Caso práctico: Tres contenedores en una misma red</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-de-docker-en-ubuntu-server-24-04">Caso práctico: Cluster de docker en Ubuntu Server 24.04</a></li>
 </ul>
 </li>
