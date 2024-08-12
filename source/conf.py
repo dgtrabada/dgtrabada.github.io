@@ -52,6 +52,7 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx_md',
     'sphinxcontrib.tikz',
+    'sphinx_tabs.tabs'
 ]
 
 
@@ -199,7 +200,7 @@ epub_exclude_files = ['search.html']
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+#intersphinx_mapping = {'https://docs.python.org/': None}
 
 # -- Options for todo extension ----------------------------------------------
 

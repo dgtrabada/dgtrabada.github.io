@@ -1,6 +1,6 @@
-******************
+*****************
 La virtualización
-******************
+*****************
 
 La virtualización es una tecnología que permite la creación de entornos virtuales o máquinas virtuales (VM) que funcionan de manera independiente en un mismo sistema físico. Consiste en la abstracción de los recursos físicos, como la CPU, la memoria, el almacenamiento y los dispositivos de entrada/salida, para asignarlos y compartirlos entre varias máquinas virtuales.
 
@@ -452,6 +452,7 @@ Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico qu
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
 
 .. image:: imagenes/docker.png
+  :width: 400px
 
 Caso práctico: Instalar servidor de ssh, ip y ping
 --------------------------------------------------
@@ -564,8 +565,162 @@ Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.1
     docker exec -it compute-0-1 /usr/sbin/sshd -D &
     docker start  compute-0-2 
     docker exec -it compute-0-2 /usr/sbin/sshd -D &
+ 
+  Apagar las maquinas:
+    
+  .. code-block:: bash
   
+    docker stop  compute-0-0 
+    docker stop  compute-0-1 
+    docker stop  compute-0-2 
 
- 
- 
- 
+docker-compose.yml
+------------------
+
+Docker Compose es una herramienta que permite definir y gestionar aplicaciones de múltiples contenedores de Docker, usa un archivo YAML para definir los servicios, redes y volúmenes que necesita tu aplicación, y luego usar un solo comando para crear e iniciar todos estos servicios.
+
+Típicamente contiene varias secciones importantes:
+
+* **Version**: Define la versión del formato de archivo de Docker Compose.
+* **Services**: Define los servicios (contenedores) que forman parte de tu aplicación.
+* **Networks** (opcional): Define las redes personalizadas que se utilizarán.
+* **Volumes** (opcional): Define los volúmenes personalizados que se utilizarán para almacenar datos.
+
+En los ejemploas anteriores podríamos levantar las tres maquinas con el siguiente ``docker-compose.yml`` ejecutando **docker-compose up -d**, para este ejemplo tienes que tener red16 ya creada 
+
+.. code-block:: bash
+
+  version: '3.8'
+  services:
+
+    compute-0-0:
+      image: dgtrabada/ubuntu:24.04
+      container_name: compute-0-0
+      hostname: compute-0-0
+      networks:
+        red16:
+          ipv4_address: 172.16.0.100
+      tty: true
+      stdin_open: true
+
+    compute-0-1:
+      image: dgtrabada/ubuntu:24.04
+      container_name: compute-0-1
+      hostname: compute-0-1
+      networks:
+        red16:
+          ipv4_address: 172.16.0.101
+      tty: true
+      stdin_open: true
+
+    compute-0-2:
+      image: dgtrabada/ubuntu:24.04
+      container_name: compute-0-2
+      hostname: compute-0-2
+      networks:
+        red16:
+          ipv4_address: 172.16.0.102
+      tty: true
+      stdin_open: true
+
+  networks:
+    red16:
+      external: true
+
+Kubernetes
+----------
+
+También conocido como **K8s** es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones contenorizadas.
+
+Fue desarrollado originalmente por Google y ahora es mantenido por la Cloud Native Computing Foundation (CNCF).
+
+Partes Principales
+^^^^^^^^^^^^^^^^^^
+
+- **Nodo (Node)**:
+
+  - **Nodos Maestro (Master Nodes)**: Administran el clúster y toman decisiones sobre la gestión del clúster.
+  - **Nodos de Trabajo (Worker Nodes)**: Ejecutan las aplicaciones en contenedores.
+
+- **Pod**:
+  - La unidad de despliegue más pequeña en Kubernetes, que puede contener uno o varios contenedores.
+
+- **Controlador (Controller)**: Mantienen el estado deseado del clúster. Tipos de controladores incluyen:
+    
+  - **Deployment**: Administra la creación y escalado de un conjunto de pods.
+  - **ReplicaSet**: Asegura que un número específico de pods estén corriendo.
+  - **StatefulSet**: Administra la persistencia y el orden de los pods.
+  - **DaemonSet**: Asegura que todos (o algunos) nodos ejecuten una copia de un pod.
+
+- **Servicio (Service)**: Define un conjunto lógico de pods y una política para acceder a ellos. Tipos de servicios incluyen:
+
+  - **ClusterIP**: Expone el servicio en una IP interna del clúster.
+  - **NodePort**: Expone el servicio en el mismo puerto en cada nodo del clúster.
+  - **LoadBalancer**: Utiliza un balanceador de carga externo.
+
+- **ConfigMap y Secret**:
+
+  - **ConfigMap**: Separa la configuración estática del código de la aplicación.
+  - **Secret**: Almacena y gestiona información sensible.
+
+- **Volumen (Volume)**: Permiten el almacenamiento persistente de datos en los contenedores.
+
+- **Ingress**: Gestiona el acceso externo a los servicios en un clúster, típicamente mediante HTTP.
+
+- **Namespace**: Divide un clúster de Kubernetes en secciones virtuales para separar ambientes como desarrollo, testing y producción.
+
+Funcionamiento Básico
+^^^^^^^^^^^^^^^^^^^^^
+
+1. **Planificación**: El planificador asigna pods a los nodos de trabajo basándose en la disponibilidad de recursos.
+
+2. **Orquestación y Gestión**: Kubernetes garantiza que la aplicación esté en el estado deseado y reprograma pods en caso de fallos.
+
+3. **Escalado**: Kubernetes puede escalar automáticamente la cantidad de instancias de una aplicación.
+
+4. **Mantenimiento y Actualización**: Kubernetes permite actualizaciones sin tiempo de inactividad mediante controladores como Deployment que gestionan actualizaciones de manera gradual.
+
+
+Caso práctico: Instalar kubernetes en Ubuntu 24.04
+--------------------------------------------------
+
+
+  #actualizamos
+  sudo apt-get update
+  sudo apt-get upgrade -y
+
+  #Desactivamos la swap
+  sudo swapoff -a
+  
+  #Para que no se active cuandose reinicie el sistema comenta la linea en el /etc/fstab, El kubelet, que es el agente principal de Kubernetes que corre en cada nodo del clúster, requiere que el swap esté desactivado. Kubernetes asume que el swap está desactivado para garantizar un rendimiento consistente y predecible de las aplicaciones. Si el swap está habilitado, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, lo que puede causar una degradación significativa del rendimiento y afectar la estabilidad de las aplicaciones.
+  
+  #Configurar el enrutamiento IP
+  sudo modprobe br_netfilter
+echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward
+
+  #Instalar dependencias necesarias
+  sudo apt-get install -y apt-transport-https ca-certificates curl
+  
+  #Instalar docker
+  sudo apt-get install -y docker.io
+  sudo systemctl enable docker #habilitamos
+  sudo systemctl start docker #iniciamos
+  
+  #Añadir la clave GPG de Kubernetes
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  #Añadir el repositorio de Kubernetes
+  sudo bash -c 'cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF'
+  
+  #Actualizar el repositorio e instalar kubeadm, kubelet y kubectl
+  sudo apt-get update
+  sudo apt-get install -y kubelet kubeadm kubectl
+  #si da problemas intenta:
+  #snap install kubeadm --classic
+  #snap install kubectl --classic
+  #snap install kubelet --classic
+
+  
+  sudo apt-mark hold kubelet kubeadm kubectl
+   

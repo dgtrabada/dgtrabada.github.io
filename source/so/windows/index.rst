@@ -16,5 +16,6 @@ Windows
    08_Caso_practico_AD_redint.rst
    09_Caso_practico_AD_sin_GUI.rst
    10_powershell_scripting.rst
+   10_ejercicios_powershell.rst
    11_bat.rst
 
