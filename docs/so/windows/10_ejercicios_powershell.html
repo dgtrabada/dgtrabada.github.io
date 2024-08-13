@@ -468,7 +468,7 @@ document.write(`
   <section id="ejercicios-de-powershell">
 <h1>Ejercicios de PowerShell<a class="headerlink" href="#ejercicios-de-powershell" title="Link to this heading">#</a></h1>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">disk.ps1</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Ver solución</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>disk.ps1</strong> que imprima por pantalla el porcentaje que esta ocupada la partición C:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">disk.ps1</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>disk.ps1</strong> que imprima por pantalla el porcentaje que esta ocupada la partición C:</p>
 </div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># disk.ps1</span>
 
 <span class="c"># Obtener la información de la partición C:</span>
@@ -483,7 +483,7 @@ document.write(`
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">mem.ps1</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Ver solución</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>mem.ps1</strong>, obtiene solamente la memoria en MB ocupada  y se escriban en un archivo llamado free.log cada vez que se ejecute, sin borrar el anterior registro.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">mem.ps1</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>mem.ps1</strong>, obtiene solamente la memoria en MB ocupada  y se escriban en un archivo llamado free.log cada vez que se ejecute, sin borrar el anterior registro.</p>
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mem.ps1</span>
 
 <span class="c"># Obtener la memoria física total y la memoria libre</span>
@@ -504,10 +504,52 @@ document.write(`
 </pre></div>
 </div>
 </div></div>
-<ol class="arabic simple">
-<li><p>Crea un script llamado mac.ps1 que obtiene la MAC de tu tarjeta de red</p></li>
-<li><p>Crea un script llamado cpu.ps1que saque por pantalla el nombre del procesador instalado en el equipo</p></li>
-</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">mac.ps1</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>mac.ps1</strong> que obtiene la MAC de tu tarjeta de red</p>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mac.ps1</span>
+
+<span class="c"># Obtener todos los adaptadores de red en el sistema</span>
+<span class="nv">$networkAdapters</span> <span class="p">=</span> <span class="nb">Get-NetAdapter</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Status</span> <span class="o">-eq</span> <span class="s1">&#39;Up&#39;</span> <span class="p">}</span>
+
+<span class="c"># Iterar sobre cada adaptador para obtener la dirección MAC</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$adapter</span> <span class="k">in</span> <span class="nv">$networkAdapters</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$macAddress</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">MacAddress</span>
+    <span class="nv">$adapterName</span> <span class="p">=</span> <span class="nv">$adapter</span><span class="p">.</span><span class="n">Name</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;Adaptador: $adapterName&quot;</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;MAC: $macAddress&quot;</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;---------------------------&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">cpu.ps1</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>cpu.ps1</strong> que saque por pantalla el nombre del procesador instalado en el equipo</p>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># cpu.ps1</span>
+
+<span class="c"># Obtener el nombre del procesador</span>
+<span class="nv">$cpuName</span> <span class="p">=</span> <span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Name</span>
+
+<span class="c"># Mostrar el nombre del procesador en la pantalla</span>
+<span class="nb">Write-Host</span> <span class="s2">&quot;CPU: $cpuName&quot;</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">mult.ps1</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>mult.ps1</strong> que pide un número al usuario y muestre su tabla de multiplicar</p>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mult.ps1</span>
+
+<span class="nv">$number</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Introduce un nÃºmero para mostrar su tabla de multiplicar&quot;</span>
+<span class="nv">$n</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$number</span>
+
+<span class="nb">Write-Host</span> <span class="s2">&quot;Tabla de multiplicar de $n&quot;</span>
+<span class="nb">Write-Host</span> <span class="s2">&quot;--------------------------&quot;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">10</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+    <span class="nv">$r</span> <span class="p">=</span> <span class="nv">$n</span> <span class="p">*</span> <span class="nv">$i</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;$n x $i = $r&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
 </section>
 
 
