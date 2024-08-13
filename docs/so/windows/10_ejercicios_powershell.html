@@ -538,7 +538,7 @@ document.write(`
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">mult.ps1</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>mult.ps1</strong> que pide un número al usuario y muestre su tabla de multiplicar</p>
 </div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mult.ps1</span>
 
-<span class="nv">$number</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Introduce un nÃºmero para mostrar su tabla de multiplicar&quot;</span>
+<span class="nv">$number</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Introduce un número para mostrar su tabla de multiplicar&quot;</span>
 <span class="nv">$n</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$number</span>
 
 <span class="nb">Write-Host</span> <span class="s2">&quot;Tabla de multiplicar de $n&quot;</span>
@@ -547,6 +547,140 @@ document.write(`
     <span class="nv">$r</span> <span class="p">=</span> <span class="nv">$n</span> <span class="p">*</span> <span class="nv">$i</span>
     <span class="nb">Write-Host</span> <span class="s2">&quot;$n x $i = $r&quot;</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">ext.ps1</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea una carpeta llamada Ejercicio, dentro ejecuta lo siguiente:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">Ejercicio</span>
+
+<span class="nb">cd </span><span class="p">.\</span><span class="n">Ejercicio</span><span class="p">\</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+  <span class="nb">echo </span><span class="n">archivo</span> <span class="nv">$i</span> <span class="p">&gt;</span> <span class="n">archivo_</span><span class="nv">$i</span><span class="p">.</span><span class="n">dat</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Si hacemos (C:Users….Ejercicio ls) veremos que se han creado 10 archivos.
+Puedes también recorrerlos de la siguiente forma:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">In</span> <span class="p">$(</span><span class="nb">Get-ChildItem</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">dat</span> <span class="p">)){</span>
+  <span class="nb">echo </span><span class="s2">&quot;i = $i&quot;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>Haz un script llamado <strong>ext.ps1</strong> que cambie a todos los archivos la extensión .dat por .txt</p>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># ext.ps1</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">In</span> <span class="p">$(</span><span class="nb">Get-ChildItem</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">txt</span> <span class="p">)){</span>
+    <span class="nv">$newName</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-replace</span> <span class="s1">&#39;\.dat$&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span>
+    <span class="nb">Rename-Item</span> <span class="nv">$_</span><span class="p">.</span><span class="n">FullName</span> <span class="nv">$newName</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">rnd.ps1</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.ps1</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.</p>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd.ps1</span>
+
+<span class="c"># Generar un número aleatorio entre 1 y 20</span>
+<span class="nv">$randomNumber</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">21</span>
+
+<span class="c"># Inicializar el contador de intentos</span>
+<span class="nv">$attempts</span> <span class="p">=</span> <span class="n">0</span>
+
+<span class="nb">Write-Output</span> <span class="s2">&quot;He generado un número entre 1 y 20. ¡Intenta adivinarlo!&quot;</span>
+
+<span class="k">do</span> <span class="p">{</span>
+    <span class="c"># Solicitar al usuario que ingrese su suposición</span>
+    <span class="nv">$userGuess</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Introduce tu suposición&quot;</span>
+
+    <span class="c"># Incrementar el contador de intentos</span>
+    <span class="nv">$attempts</span><span class="p">++</span>
+
+    <span class="c"># Convertir la entrada del usuario a un número entero</span>
+    <span class="nv">$userGuess</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$userGuess</span>
+
+    <span class="c"># Comprobar si la suposición es correcta</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$userGuess</span> <span class="o">-lt</span> <span class="nv">$randomNumber</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El número es mayor que $userGuess. Intenta de nuevo.&quot;</span>
+    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$userGuess</span> <span class="o">-gt</span> <span class="nv">$randomNumber</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El nÃºmero es menor que $userGuess. Intenta de nuevo.&quot;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;¡Felicidades! Has adivinado el nÃºmero.&quot;</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;Número de intentos: $attempts&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$userGuess</span> <span class="o">-ne</span> <span class="nv">$randomNumber</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
+<p>Haz que el número de tiradas lo reciba como un argumento, por ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">100</span>
+</pre></div>
+</div>
+<p>En el caso de que no reciba ningún argumento haz que pregunte cuantas tiradas quieres.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="err">¿</span><span class="n">Cuántas</span> <span class="n">tiradas</span> <span class="n">quieres</span> <span class="n">hacer</span><span class="p">?</span>
+<span class="n">100</span>
+</pre></div>
+</div>
+<p>En el caso de que reciba el argumento help, muestre la siguiente ayuda:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">help</span>
+
+<span class="n">Uso</span> <span class="nb">del </span><span class="n">script</span> <span class="n">dados</span><span class="p">.</span><span class="n">ps1</span><span class="p">:</span>
+<span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="p">&lt;</span><span class="n">número_de_tiradas</span><span class="p">&gt;</span>
+<span class="n">Ejemplo</span><span class="p">:</span> <span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">100</span>
+<span class="nb">Si </span><span class="n">no</span> <span class="n">se</span> <span class="n">proporciona</span> <span class="n">ningún</span> <span class="n">argumento</span><span class="p">,</span> <span class="n">se</span> <span class="n">preguntará</span> <span class="n">cuántas</span> <span class="n">tiradas</span> <span class="n">deseas</span> <span class="n">hacer</span><span class="p">.</span>
+<span class="nb">Si </span><span class="n">se</span> <span class="n">usa</span> <span class="n">el</span> <span class="n">argumento</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">se</span> <span class="n">mostrará</span> <span class="n">esta</span> <span class="n">ayuda</span><span class="p">.</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># dados.ps1</span>
+
+<span class="k">param</span> <span class="p">(</span>
+    <span class="no">[string]</span> <span class="nv">$Tiradas</span>
+<span class="p">)</span>
+
+<span class="c"># Función para mostrar la ayuda</span>
+<span class="k">function</span> <span class="nb">Show-Help</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Uso del script dados.ps1:&quot;</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;.\dados.ps1 &lt;número_de_tiradas&gt;&quot;</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Ejemplo: .\dados.ps1 100&quot;</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Si no se proporciona ningún argumento, se preguntará cuántas tiradas deseas hacer.&quot;</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Si se usa el argumento &#39;help&#39;, se mostrará esta ayuda.&quot;</span>
+<span class="p">}</span>
+
+<span class="c"># Verificar si el argumento es &#39;help&#39;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$Tiradas</span> <span class="o">-eq</span> <span class="s1">&#39;help&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Show-Help</span>
+    <span class="n">exit</span>
+<span class="p">}</span>
+
+<span class="c"># Si no se proporciona argumento, preguntar cuántas tiradas hacer</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="nv">$Tiradas</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$Tiradas</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;¿Cuántas tiradas quieres hacer?&quot;</span>
+<span class="p">}</span>
+
+<span class="c"># Convertir el número de tiradas a entero</span>
+<span class="nv">$Tiradas</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Tiradas</span>
+
+<span class="c"># Inicializar el archivo CSV con los encabezados de las columnas</span>
+<span class="s2">&quot;Dados 1,Dado 2,Suma&quot;</span> <span class="p">&gt;</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
+
+<span class="c"># Generar el número de tiradas especificado</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="nv">$Tiradas</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+    <span class="c"># Obtener dos números aleatorios entre 1 y 6</span>
+    <span class="nv">$dado1</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">7</span>
+    <span class="nv">$dado2</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">7</span>
+    
+    <span class="c"># Calcular la suma de los dos dados</span>
+    <span class="nv">$suma</span> <span class="p">=</span> <span class="nv">$dado1</span> <span class="p">+</span> <span class="nv">$dado2</span>
+    
+    <span class="c"># Escribir la tirada en el archivo CSV</span>
+    <span class="s2">&quot;$dado1,$dado2,$suma&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
+<span class="p">}</span>
+
+<span class="nb">Write-Output</span> <span class="s2">&quot;$Tiradas tiradas generadas y guardadas en tiradas.csv&quot;</span>
 </pre></div>
 </div>
 </div></div>

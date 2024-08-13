@@ -8,9 +8,9 @@ Según el medio de transmisión podemos tener:
 
   * :ref:`Cable de par trenzado`
   
-    * :ref:`Cable directo` 
+    * Cable directo
     
-    * :ref:`Cable cruzado`
+    * Cable cruzado
     
   * :ref:`Cable coaxial`
   
