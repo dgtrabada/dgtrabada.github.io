@@ -152,5 +152,122 @@ Ejercicios de PowerShell
 
 
 
+.. tabs::
+
+    .. tab:: analisis.ps1
+      
+        Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo
+        
+        .. code-block:: powershell
+        
+          $ ./analisis.ps1
+          
+          De 1000 tiradas : 2(1%) 3(7%) 4(10%) 5(12%) 6(14%) 7(17%) 8(14%) 9(12%) 10(10%) 11(7%) 12(1%)
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/analisis.ps1
+           :language: powershell
+
+
+
+.. tabs::
+
+    .. tab:: crear_usuarios_grupos.ps1
+      
+        Crea un script llamado **crear_usuarios_grupos.ps1** que cree los siguientes grupos:
+
+        * GPWS01
+        * GPWS02
+        * ...
+        * GPWS09
+
+        En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:
+        
+        **"El grupo $nombre_grupo no existe, se crea"**
+        
+        En el caso de que el grupo exista haz que no lo intente y saque por pantalla:
+        
+        **"El grupo $nombre_grupo existe, no se crea"**
+        
+        ayuda : $nombre_grupo="GPWS03" ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/crear_usuarios_grupos_ini.ps1
+           :language: powershell
+
+
+
+.. tabs::
+
+    .. tab:: crear_usuarios_grupos.ps1
+      
+        Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico
+
+        * GPWS01
+        
+          * tunombre_gpws01_01
+          * tunombre_gpws01_02
+          * ...
+          * tunombre_gpws01_08
+          * tunombre_gpws01_09
+          
+        * GPWS02
+        
+          * tunombre_gpws02_01
+          * tunombre_gpws02_02
+          * ..
+          * tunombre_gpws02_08
+          * tunombre_gpws02_09
+      
+          ...
+          ...
+          ...
+          
+        * GPWS09
+        
+          * tunombre_gpws09_01
+          * tunombre_gpws09_02
+          ..
+          * tunombre_gpws09_08
+          * tunombre_gpws09_09
+
+        En el caso de que el usuario no exista, haz que lo cree  y lo incorpore a su grupo, finalmente saque por pantalla:
+        
+        **"El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea"**
+        
+        
+        En el caso de que el usuario exista haz que no lo intente y saque por pantalla:
+        
+        **"El usuario $nombre_usuario existe, no se crea"**
+        
+        
+        En el caso de que el usuario no este en el grupo, haz que lo menta dentro del grupo y saque por pantalla:
+        
+        **"El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro"**
+        
+        
+        En el caso de que el usuario este en el grupo, haz que saque por pantalla:
+        
+        **"El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada"**
+
+
+        ayuda: Puedes borrar los usuarios y grupos :
+        
+        .. code-block:: powershell
+        
+          foreach ($i in  $(Get-LocalUser |sls -Pattern "tunombre_")){ 
+            Remove-LocalUser -Name $i
+            }
+
+          foreach ($i in  $(Get-LocalGroup |sls -Pattern  "GPWS")){      
+            Remove-LocalGroup -Name $i
+            }
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/crear_usuarios_grupos.ps1
+           :language: powershell
 
 

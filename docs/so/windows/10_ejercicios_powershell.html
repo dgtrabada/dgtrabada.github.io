@@ -684,6 +684,197 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </pre></div>
 </div>
 </div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">analisis.ps1</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">$</span> <span class="p">./</span><span class="n">analisis</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="n">De</span> <span class="n">1000</span> <span class="n">tiradas</span> <span class="p">:</span> <span class="n">2</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span> <span class="n">3</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">4</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">5</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">6</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">7</span><span class="p">(</span><span class="n">17</span><span class="p">%)</span> <span class="n">8</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">9</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">10</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">11</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">12</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
+
+<span class="c"># Leer el archivo tiradas.csv, excluyendo la primera línea de encabezado</span>
+<span class="nv">$tiradas</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="s2">&quot;tiradas.csv&quot;</span>
+
+<span class="c"># Crear un diccionario para contar las ocurrencias de cada suma</span>
+<span class="nv">$sumaConteo</span> <span class="p">=</span> <span class="p">@{}</span>
+
+<span class="c"># Recorrer cada tirada y contar la suma</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$tirada</span> <span class="k">in</span> <span class="nv">$tiradas</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$suma</span> <span class="p">=</span> <span class="no">[int]</span><span class="nv">$tirada</span><span class="p">.</span><span class="n">Suma</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$sumaConteo</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="nv">$suma</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$sumaConteo</span><span class="p">[</span><span class="nv">$suma</span><span class="p">]++</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nv">$sumaConteo</span><span class="p">[</span><span class="nv">$suma</span><span class="p">]</span> <span class="p">=</span> <span class="n">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Obtener el número total de tiradas</span>
+<span class="nv">$totalTiradas</span> <span class="p">=</span> <span class="nv">$tiradas</span><span class="p">.</span><span class="n">Count</span>
+
+<span class="c"># Mostrar el número total de tiradas</span>
+<span class="nb">Write-Output</span> <span class="s2">&quot;De $totalTiradas tiradas: &quot;</span>
+
+<span class="c"># Calcular y mostrar el porcentaje de cada suma</span>
+
+<span class="nv">$salida</span><span class="p">=</span><span class="s1">&#39;&#39;</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$suma</span> <span class="k">in</span> <span class="nv">$sumaConteo</span><span class="p">.</span><span class="n">Keys</span> <span class="p">|</span> <span class="nb">Sort-Object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$conteo</span> <span class="p">=</span> <span class="nv">$sumaConteo</span><span class="p">[</span><span class="nv">$suma</span><span class="p">]</span>
+    <span class="nv">$porcentaje</span> <span class="p">=</span> <span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$conteo</span> <span class="p">/</span> <span class="nv">$totalTiradas</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">2</span><span class="p">)</span>
+    <span class="nv">$salida</span><span class="p">=</span><span class="nv">$salida</span><span class="p">+</span><span class="s2">&quot;$suma($porcentaje%) &quot;</span>
+<span class="p">}</span>
+
+<span class="nb">Write-Output</span> <span class="nv">$salida</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<ul class="simple">
+<li><p>GPWS01</p></li>
+<li><p>GPWS02</p></li>
+<li><p>…</p></li>
+<li><p>GPWS09</p></li>
+</ul>
+<p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
+<p><strong>«El grupo $nombre_grupo no existe, se crea»</strong></p>
+<p>En el caso de que el grupo exista haz que no lo intente y saque por pantalla:</p>
+<p><strong>«El grupo $nombre_grupo existe, no se crea»</strong></p>
+<p>ayuda : $nombre_grupo=»GPWS03» ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
+</div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+
+<span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+    
+    <span class="nv">$nombre_grupo</span> <span class="p">=</span> <span class="s2">&quot;GPWS{0:D2}&quot;</span> <span class="o">-f</span> <span class="nv">$i</span>
+    <span class="nv">$grupo_existe</span> <span class="p">=</span>  <span class="nb">Get-LocalGroup</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="nv">$nombre_grupo</span> <span class="n">-Quiet</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$grupo_existe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El grupo $nombre_grupo existe, no se crea&quot;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c"># Si el grupo no existe, crear el grupo</span>
+        <span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="nv">$nombre_grupo</span> <span class="n">-Description</span> <span class="s2">&quot;Grupo $nombre_grupo creado&quot;</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El grupo $nombre_grupo no existe, se crea&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<ul>
+<li><p>GPWS01</p>
+<ul class="simple">
+<li><p>tunombre_gpws01_01</p></li>
+<li><p>tunombre_gpws01_02</p></li>
+<li><p>…</p></li>
+<li><p>tunombre_gpws01_08</p></li>
+<li><p>tunombre_gpws01_09</p></li>
+</ul>
+</li>
+<li><p>GPWS02</p>
+<ul class="simple">
+<li><p>tunombre_gpws02_01</p></li>
+<li><p>tunombre_gpws02_02</p></li>
+<li></li>
+<li><p>tunombre_gpws02_08</p></li>
+<li><p>tunombre_gpws02_09</p></li>
+</ul>
+<p>…</p>
+</li>
+<li><p>GPWS09</p>
+<ul class="simple">
+<li><p>tunombre_gpws09_01</p></li>
+<li><p>tunombre_gpws09_02</p></li>
+</ul>
+<ul class="simple">
+<li><p>tunombre_gpws09_08</p></li>
+<li><p>tunombre_gpws09_09</p></li>
+</ul>
+</li>
+</ul>
+<p>En el caso de que el usuario no exista, haz que lo cree  y lo incorpore a su grupo, finalmente saque por pantalla:</p>
+<p><strong>«El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea»</strong></p>
+<p>En el caso de que el usuario exista haz que no lo intente y saque por pantalla:</p>
+<p><strong>«El usuario $nombre_usuario existe, no se crea»</strong></p>
+<p>En el caso de que el usuario no este en el grupo, haz que lo menta dentro del grupo y saque por pantalla:</p>
+<p><strong>«El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro»</strong></p>
+<p>En el caso de que el usuario este en el grupo, haz que saque por pantalla:</p>
+<p><strong>«El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada»</strong></p>
+<p>ayuda: Puedes borrar los usuarios y grupos :</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span>  <span class="p">$(</span><span class="nb">Get-LocalUser</span> <span class="p">|</span><span class="nb">sls </span><span class="n">-Pattern</span> <span class="s2">&quot;tunombre_&quot;</span><span class="p">)){</span>
+  <span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="nv">$i</span>
+  <span class="p">}</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span>  <span class="p">$(</span><span class="nb">Get-LocalGroup</span> <span class="p">|</span><span class="nb">sls </span><span class="n">-Pattern</span>  <span class="s2">&quot;GPWS&quot;</span><span class="p">)){</span>
+  <span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="nv">$i</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+
+<span class="nv">$nombre_base</span> <span class="p">=</span> <span class="s2">&quot;tunombre_gpws&quot;</span>
+
+<span class="c">#Si da problemas poner una contraseña más compleja</span>
+<span class="nv">$contraseña</span> <span class="p">=</span> <span class="s2">&quot;alumno&quot;</span>
+
+<span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+    <span class="c"># Formatear el nombre del grupo</span>
+    <span class="nv">$nombre_grupo</span> <span class="p">=</span> <span class="s2">&quot;GPWS{0:D2}&quot;</span> <span class="o">-f</span> <span class="nv">$i</span>
+    
+    <span class="c"># Verificar si el grupo ya existe</span>
+    <span class="nv">$grupo_existe</span> <span class="p">=</span> <span class="nb">Get-LocalGroup</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="nv">$nombre_grupo</span> <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$grupo_existe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El grupo $nombre_grupo existe, no se crea&quot;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="nv">$nombre_grupo</span> <span class="n">-Description</span> <span class="s2">&quot;Grupo $nombre_grupo creado automáticamente&quot;</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;El grupo $nombre_grupo no existe, se crea&quot;</span>
+    <span class="p">}</span>
+
+    <span class="c"># Bucle para crear los usuarios tunombre_gpwsXX_01 a tunombre_gpwsXX_09</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$j</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$j</span><span class="p">++)</span> <span class="p">{</span>
+        <span class="c"># Formatear el nombre del usuario</span>
+        <span class="nv">$nombre_usuario</span> <span class="p">=</span> <span class="s2">&quot;{0}{1:D2}_{2:D2}&quot;</span> <span class="o">-f</span> <span class="nv">$nombre_base</span><span class="p">,</span> <span class="nv">$i</span><span class="p">,</span> <span class="nv">$j</span>
+        
+        <span class="c"># Verificar si el usuario ya existe</span>
+        <span class="nv">$usuario_existe</span> <span class="p">=</span> <span class="nb">Get-LocalUser</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="nv">$nombre_usuario</span> <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$usuario_existe</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario existe, no se crea&quot;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c"># Crear el usuario con la contraseña especificada</span>
+            <span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="nv">$nombre_usuario</span> <span class="n">-Password</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="nv">$contraseña</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-FullName</span> <span class="s2">&quot;$nombre_usuario&quot;</span> 
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea&quot;</span>
+        <span class="p">}</span>
+        
+        <span class="c"># Verificar si el usuario pertenece al grupo específico</span>
+        <span class="nv">$miembro_del_grupo</span> <span class="p">=</span> <span class="nb">Get-LocalGroupMember</span> <span class="n">-Group</span> <span class="nv">$nombre_grupo</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="nv">$nombre_usuario</span> <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$miembro_del_grupo</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario ya está en el grupo $nombre_grupo, no se hace nada&quot;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="nv">$nombre_grupo</span> <span class="n">-Member</span> <span class="nv">$nombre_usuario</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario no está en el grupo $nombre_grupo, se hace miembro&quot;</span>
+        <span class="p">}</span>
+        
+        <span class="c"># Verificar si el usuario pertenece al grupo Usuarios, para que pueda  tener acceso con entorno gráfico</span>
+        <span class="nv">$miembro_de_usuarios</span> <span class="p">=</span> <span class="nb">Get-LocalGroupMember</span> <span class="n">-Group</span> <span class="s2">&quot;Usuarios&quot;</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="nv">$nombre_usuario</span> <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$miembro_de_usuarios</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario ya está en el grupo Usuarios, no se hace nada&quot;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="s2">&quot;Usuarios&quot;</span> <span class="n">-Member</span> <span class="nv">$nombre_usuario</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;El usuario $nombre_usuario no está en el grupo Usuarios, se hace miembro&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
 </section>
 
 
