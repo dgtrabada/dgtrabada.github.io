@@ -182,15 +182,15 @@ Ejercicios de PowerShell
         * ...
         * GPWS09
 
-        En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:
+        1) En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:
         
-        **"El grupo $nombre_grupo no existe, se crea"**
+           **El grupo $nombre_grupo no existe, se crea**
         
-        En el caso de que el grupo exista haz que no lo intente y saque por pantalla:
+        #) En el caso de que el grupo exista haz que no lo intente y saque por pantalla:
         
-        **"El grupo $nombre_grupo existe, no se crea"**
+           **El grupo $nombre_grupo existe, no se crea**
         
-        ayuda : $nombre_grupo="GPWS03" ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet
+        ayuda : $nombre_grupo='GPWS03' ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet
 
     .. tab:: Solución
 
@@ -220,10 +220,9 @@ Ejercicios de PowerShell
           * ..
           * tunombre_gpws02_08
           * tunombre_gpws02_09
-      
-          ...
-          ...
-          ...
+          '. . .
+          '. . .
+          '. . .
           
         * GPWS09
         
@@ -233,24 +232,24 @@ Ejercicios de PowerShell
           * tunombre_gpws09_08
           * tunombre_gpws09_09
 
-        En el caso de que el usuario no exista, haz que lo cree  y lo incorpore a su grupo, finalmente saque por pantalla:
-        
-        **"El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea"**
-        
-        
-        En el caso de que el usuario exista haz que no lo intente y saque por pantalla:
-        
-        **"El usuario $nombre_usuario existe, no se crea"**
+        1) En el caso de que el usuario no exista, haz que lo cree  y lo incorpore a su grupo, finalmente saque por pantalla:
+          
+           **El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea**
         
         
-        En el caso de que el usuario no este en el grupo, haz que lo menta dentro del grupo y saque por pantalla:
+        #) En el caso de que el usuario exista haz que no lo intente y saque por pantalla:
         
-        **"El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro"**
+           **El usuario $nombre_usuario existe, no se crea**
         
         
-        En el caso de que el usuario este en el grupo, haz que saque por pantalla:
+        #) En el caso de que el usuario no este en el grupo, haz que lo menta dentro del grupo y saque por pantalla:
         
-        **"El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada"**
+           **El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro**
+        
+        
+        #) En el caso de que el usuario este en el grupo, haz que saque por pantalla:
+        
+           **El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada**
 
 
         ayuda: Puedes borrar los usuarios y grupos :
@@ -269,5 +268,52 @@ Ejercicios de PowerShell
 
         .. literalinclude:: 10_powershell/crear_usuarios_grupos.ps1
            :language: powershell
+
+
+
+
+.. tabs::
+
+    .. tab:: crear_usuarios_grupos_csv.ps1
+      
+        Haz un script  llamado **crear_usuarios_grupos_csv.ps1**, que cree los usuarios que encontraras en  el archivo `users.csv <https://github.com/dgtrabada/dgtrabada.github.io/blob/3f72b8e18b914188c5dbbe3591006a6524d76b72/source/so/fundamentos/imagenes/Plantilla.odt>`_, tiene que cumplir las siguientes condiciones:
+        
+        #) En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:
+        
+           **El grupo $nombre_grupo no existe, se crea**
+          
+        #) En el caso de que el grupo exista haz que no lo intente y saque por pantalla:
+
+           **El grupo $nombre_grupo existe, no se crea**
+          
+        #) En el caso de que el usuario exista haz que no lo intente y saque por pantalla:
+
+           **El usuario $nombre_usuario existe, no se crea**
+           
+        #) En el caso de que el usuario no este en el grupo, haz que lo meta dentro del grupo y saque por pantalla:
+
+           **El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro**
+          
+        #) En el caso de que el usuario este en el grupo, haz que saque por pantalla:
+
+           **El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada**
+          
+        #) En el caso de que el usuario no exista, haz que lo cree y lo incorpore a su grupo, finalmente haz que saque por pantalla:
+
+           **El usuario $nombre_usuario con grupo $nombre_grupo no existe, se crea**
+          
+        #) Además se añada a un archivo el mensaje:
+
+           **El usuario $nombre_usuario con $passwrd en el grupo $nombre_grupo se ha creado >> lista_usuarios_creados.dat**
+          
+        #) En el caso de que el usuario este en el grupo, haz que saque por pantalla:
+
+           **El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada**
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/crear_usuarios_grupos_csv.ps1
+           :language: powershell
+
 
 
