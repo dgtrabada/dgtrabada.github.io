@@ -53,6 +53,18 @@ Ejercicios de PowerShell
 
 .. tabs::
 
+    .. tab:: edad.ps1
+      
+        Haz un script llamado **edad.ps1** que te pregunte en que año naciste y te diga la edad que tienes
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/edad.ps1
+           :language: powershell
+
+
+.. tabs::
+
     .. tab:: mult.ps1
       
         Haz un script llamado **mult.ps1** que pide un número al usuario y muestre su tabla de multiplicar
@@ -96,6 +108,30 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/ext.ps1
            :language: powershell
 
+
+.. tabs::
+
+    .. tab:: puerta.ps1
+      
+        Haz un script llamado **puerta.ps1**, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario ingresa un código diferente de 1 a 4, se mostrará un mensaje indicando que la puerta es incorrecta.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/puerta.ps1
+           :language: powershell
+
+
+.. tabs::
+
+    .. tab:: puerta2.ps1
+      
+        Haz un script llamado **puerta2.ps1** parecido al anterior, en este caso si el usuario selecciona una puerta que no sea la verde, se muestra un mensaje indicando que ha perdido. Si selecciona la puerta verde, se le permite lanzar una moneda para ver si gana o pierde.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/puerta2.ps1
+           :language: powershell
+           
 
 .. tabs::
 
@@ -217,18 +253,21 @@ Ejercicios de PowerShell
         
           * tunombre_gpws02_01
           * tunombre_gpws02_02
-          * ..
+          * ...
           * tunombre_gpws02_08
           * tunombre_gpws02_09
-          '. . .
-          '. . .
-          '. . .
+
+        * ...
+          
+          * ...
+          * ...
+          
           
         * GPWS09
         
           * tunombre_gpws09_01
           * tunombre_gpws09_02
-          ..
+          * ...
           * tunombre_gpws09_08
           * tunombre_gpws09_09
 
@@ -276,7 +315,7 @@ Ejercicios de PowerShell
 
     .. tab:: crear_usuarios_grupos_csv.ps1
       
-        Haz un script  llamado **crear_usuarios_grupos_csv.ps1**, que cree los usuarios que encontraras en  el archivo `users.csv <https://github.com/dgtrabada/dgtrabada.github.io/blob/3f72b8e18b914188c5dbbe3591006a6524d76b72/source/so/fundamentos/imagenes/Plantilla.odt>`_, tiene que cumplir las siguientes condiciones:
+        Haz un script  llamado **crear_usuarios_grupos_csv.ps1**, que cree los usuarios que encontraras en  el archivo `users.csv <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv>`_, tiene que cumplir las siguientes condiciones:
         
         #) En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:
         
@@ -316,4 +355,45 @@ Ejercicios de PowerShell
            :language: powershell
 
 
+
+.. tabs::
+
+    .. tab:: grupos.ps1
+      
+         Haz un script llamado **usuarios.ps1**, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.
+         
+         Menú de Usuarios:
+          
+         1) Listar usuarios
+         #) Crear usuario
+         #) Eliminar usuario
+         #) Modificar usuario
+         #) Salir
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/usuarios.ps1
+           :language: powershell
+
+
+.. tabs::
+
+    .. tab:: grupos.ps1
+      
+         Haz el script **grupos.ps1**, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.
+          
+         Menú de Grupos:
+          
+         1) Listar grupos
+         #) Ver miembros de un grupo
+         #) Crear grupo (pide nombre grupo)
+         #) Elimina grupo (pide nombre grupo)
+         #) Crea miembro de un grupo (pide grupo y usuario)
+         #) Elimina miembro de un grupo (pide grupo y usuario)
+         #) Salir
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/grupo.ps1
+           :language: powershell
 
