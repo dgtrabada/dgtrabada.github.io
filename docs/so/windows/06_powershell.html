@@ -466,6 +466,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajando-con-objetos">Trabajando con objetos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>
@@ -485,7 +486,99 @@ document.write(`
                   
   <section id="powershell">
 <h1>PowerShell<a class="headerlink" href="#powershell" title="Link to this heading">#</a></h1>
-<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la licencia MIT, que es una licencia de software libre y de código abierto</p>
+<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la <strong>licencia MIT</strong>, que es una licencia de software libre y de código abierto</p>
+<p>Los <strong>cmdlets</strong> (comandos) de PowerShell son comandos simples que se utilizan para realizar tareas específicas dentro de PowerShell,  trabajan directamente con objetos .NET y sus métodos, podemos ver todos los los cmdlets, funciones u scripts con <strong>Get-Command</strong></p>
+<p>Un objeto es una instancia de una clase, los objetos tienen propiedades (atributos o campos) y métodos, por ejemplo :</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Obtener la fecha y hora actuales</span>
+<span class="nv">$date</span> <span class="p">=</span> <span class="nb">Get-Date</span>
+
+<span class="c"># Acceder a una propiedad</span>
+<span class="nv">$day</span> <span class="p">=</span> <span class="nv">$date</span><span class="p">.</span><span class="n">Day</span>             <span class="c"># Obtiene el día del mes</span>
+<span class="nv">$year</span> <span class="p">=</span> <span class="nv">$date</span><span class="p">.</span><span class="n">Year</span>           <span class="c"># Obtiene el año</span>
+
+<span class="c"># Llamar a un método</span>
+<span class="nv">$newDate</span> <span class="p">=</span> <span class="nv">$date</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(</span><span class="n">5</span><span class="p">)</span>  <span class="c"># Añade 5 días a la fecha actual</span>
+</pre></div>
+</div>
+<p>Podemos ver todas las propiedades de un cmdlet con <strong>Get-Member</strong>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Member</span> <span class="n">-InputObject</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">)</span> <span class="n">-MemberType</span> <span class="n">Properties</span>
+
+
+   <span class="n">TypeName</span><span class="p">:</span> <span class="n">System</span><span class="p">.</span><span class="n">DateTime</span>
+
+<span class="n">Name</span>        <span class="n">MemberType</span>     <span class="n">Definition</span>
+<span class="p">----</span>        <span class="p">----------</span>     <span class="p">----------</span>
+<span class="n">DisplayHint</span> <span class="n">NoteProperty</span>   <span class="n">DisplayHintType</span> <span class="n">DisplayHint</span><span class="p">=</span><span class="n">DateTime</span>
+<span class="n">Date</span>        <span class="n">Property</span>       <span class="n">datetime</span> <span class="n">Date</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="hll"><span class="n">Day</span>         <span class="n">Property</span>       <span class="n">int</span> <span class="n">Day</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span><span class="n">DayOfWeek</span>   <span class="n">Property</span>       <span class="n">System</span><span class="p">.</span><span class="n">DayOfWeek</span> <span class="n">DayOfWeek</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">DayOfYear</span>   <span class="n">Property</span>       <span class="n">int</span> <span class="n">DayOfYear</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Hour</span>        <span class="n">Property</span>       <span class="n">int</span> <span class="n">Hour</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Kind</span>        <span class="n">Property</span>       <span class="n">System</span><span class="p">.</span><span class="n">DateTimeKind</span> <span class="n">Kind</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Millisecond</span> <span class="n">Property</span>       <span class="n">int</span> <span class="n">Millisecond</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Minute</span>      <span class="n">Property</span>       <span class="n">int</span> <span class="n">Minute</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Month</span>       <span class="n">Property</span>       <span class="n">int</span> <span class="n">Month</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Second</span>      <span class="n">Property</span>       <span class="n">int</span> <span class="n">Second</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">Ticks</span>       <span class="n">Property</span>       <span class="n">long</span> <span class="n">Ticks</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="n">TimeOfDay</span>   <span class="n">Property</span>       <span class="n">timespan</span> <span class="n">TimeOfDay</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+<span class="hll"><span class="n">Year</span>        <span class="n">Property</span>       <span class="n">int</span> <span class="n">Year</span> <span class="p">{</span><span class="n">get</span><span class="p">;}</span>
+</span><span class="n">DateTime</span>    <span class="n">ScriptProperty</span> <span class="n">System</span><span class="p">.</span><span class="n">Object</span> <span class="n">DateTime</span> <span class="p">{</span><span class="n">get</span><span class="p">=</span><span class="k">if</span> <span class="p">((&amp;</span> <span class="p">{</span> <span class="nb">Set-StrictMode</span> <span class="n">-Version</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$this</span><span class="p">.</span><span class="n">Di</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Tambén los metodos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">&gt;</span> <span class="nb">Get-Member</span> <span class="n">-InputObject</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">)</span> <span class="n">-MemberType</span> <span class="n">Method</span>
+
+
+  <span class="n">TypeName</span><span class="p">:</span> <span class="n">System</span><span class="p">.</span><span class="n">DateTime</span>
+
+<span class="n">Name</span>                 <span class="n">MemberType</span> <span class="n">Definition</span>
+<span class="p">----</span>                 <span class="p">----------</span> <span class="p">----------</span>
+<span class="n">Add</span>                  <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">Add</span><span class="p">(</span><span class="n">timespan</span> <span class="n">value</span><span class="p">)</span>
+<span class="hll"><span class="n">AddDays</span>              <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddDays</span><span class="p">(</span><span class="n">double</span> <span class="n">value</span><span class="p">)</span>
+</span><span class="n">AddHours</span>             <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddHours</span><span class="p">(</span><span class="n">double</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">AddMilliseconds</span>      <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddMilliseconds</span><span class="p">(</span><span class="n">double</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">AddMinutes</span>           <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddMinutes</span><span class="p">(</span><span class="n">double</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">AddMonths</span>            <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddMonths</span><span class="p">(</span><span class="n">int</span> <span class="n">months</span><span class="p">)</span>
+<span class="n">AddSeconds</span>           <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddSeconds</span><span class="p">(</span><span class="n">double</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">AddTicks</span>             <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddTicks</span><span class="p">(</span><span class="n">long</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">AddYears</span>             <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">AddYears</span><span class="p">(</span><span class="n">int</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">CompareTo</span>            <span class="n">Method</span>     <span class="n">int</span> <span class="n">CompareTo</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Object</span> <span class="n">value</span><span class="p">),</span> <span class="n">int</span> <span class="n">CompareTo</span><span class="p">(</span><span class="n">datetime</span> <span class="n">value</span><span class="p">),</span> <span class="p">...</span>
+<span class="n">Equals</span>               <span class="n">Method</span>     <span class="n">bool</span> <span class="n">Equals</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Object</span> <span class="n">value</span><span class="p">),</span> <span class="n">bool</span> <span class="n">Equals</span><span class="p">(</span><span class="n">datetime</span> <span class="n">value</span><span class="p">),</span> <span class="n">bool</span><span class="p">...</span>
+<span class="n">GetDateTimeFormats</span>   <span class="n">Method</span>     <span class="n">string</span><span class="p">[]</span> <span class="n">GetDateTimeFormats</span><span class="p">(),</span> <span class="n">string</span><span class="p">[]</span> <span class="n">GetDateTimeFormats</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">I</span><span class="p">...</span>
+<span class="n">GetHashCode</span>          <span class="n">Method</span>     <span class="n">int</span> <span class="n">GetHashCode</span><span class="p">()</span>
+<span class="n">GetObjectData</span>        <span class="n">Method</span>     <span class="n">void</span> <span class="n">ISerializable</span><span class="p">.</span><span class="n">GetObjectData</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">Serialization</span><span class="p">.</span><span class="n">Seria</span><span class="p">...</span>
+<span class="n">GetType</span>              <span class="n">Method</span>     <span class="nb">type </span><span class="n">GetType</span><span class="p">()</span>
+<span class="n">GetTypeCode</span>          <span class="n">Method</span>     <span class="n">System</span><span class="p">.</span><span class="n">TypeCode</span> <span class="n">GetTypeCode</span><span class="p">(),</span> <span class="n">System</span><span class="p">.</span><span class="n">TypeCode</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">GetType</span><span class="p">...</span>
+<span class="n">IsDaylightSavingTime</span> <span class="n">Method</span>     <span class="n">bool</span> <span class="n">IsDaylightSavingTime</span><span class="p">()</span>
+<span class="n">Subtract</span>             <span class="n">Method</span>     <span class="n">timespan</span> <span class="n">Subtract</span><span class="p">(</span><span class="n">datetime</span> <span class="n">value</span><span class="p">),</span> <span class="n">datetime</span> <span class="n">Subtract</span><span class="p">(</span><span class="n">timespan</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">ToBinary</span>             <span class="n">Method</span>     <span class="n">long</span> <span class="n">ToBinary</span><span class="p">()</span>
+<span class="n">ToBoolean</span>            <span class="n">Method</span>     <span class="n">bool</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToBoolean</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToByte</span>               <span class="n">Method</span>     <span class="n">byte</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToByte</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToChar</span>               <span class="n">Method</span>     <span class="n">char</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToChar</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToDateTime</span>           <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToDateTime</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToDecimal</span>            <span class="n">Method</span>     <span class="n">decimal</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToDecimal</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToDouble</span>             <span class="n">Method</span>     <span class="n">double</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToDouble</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToFileTime</span>           <span class="n">Method</span>     <span class="n">long</span> <span class="n">ToFileTime</span><span class="p">()</span>
+<span class="n">ToFileTimeUtc</span>        <span class="n">Method</span>     <span class="n">long</span> <span class="n">ToFileTimeUtc</span><span class="p">()</span>
+<span class="n">ToInt16</span>              <span class="n">Method</span>     <span class="n">int16</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToInt16</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToInt32</span>              <span class="n">Method</span>     <span class="n">int</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToInt64</span>              <span class="n">Method</span>     <span class="n">long</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToInt64</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToLocalTime</span>          <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">ToLocalTime</span><span class="p">()</span>
+<span class="n">ToLongDateString</span>     <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToLongDateString</span><span class="p">()</span>
+<span class="n">ToLongTimeString</span>     <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToLongTimeString</span><span class="p">()</span>
+<span class="n">ToOADate</span>             <span class="n">Method</span>     <span class="n">double</span> <span class="n">ToOADate</span><span class="p">()</span>
+<span class="n">ToSByte</span>              <span class="n">Method</span>     <span class="n">sbyte</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToSByte</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToShortDateString</span>    <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToShortDateString</span><span class="p">()</span>
+<span class="n">ToShortTimeString</span>    <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToShortTimeString</span><span class="p">()</span>
+<span class="n">ToSingle</span>             <span class="n">Method</span>     <span class="n">float</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToSingle</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToString</span>             <span class="n">Method</span>     <span class="n">string</span> <span class="n">ToString</span><span class="p">(),</span> <span class="n">string</span> <span class="n">ToString</span><span class="p">(</span><span class="n">string</span> <span class="n">format</span><span class="p">),</span> <span class="n">string</span> <span class="n">ToString</span><span class="p">(...</span>
+<span class="n">ToType</span>               <span class="n">Method</span>     <span class="n">System</span><span class="p">.</span><span class="n">Object</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToType</span><span class="p">(</span><span class="nb">type </span><span class="n">conversionType</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">IForm</span><span class="p">...</span>
+<span class="n">ToUInt16</span>             <span class="n">Method</span>     <span class="n">uint16</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToUInt16</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToUInt32</span>             <span class="n">Method</span>     <span class="n">uint32</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToUInt32</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToUInt64</span>             <span class="n">Method</span>     <span class="n">uint64</span> <span class="n">IConvertible</span><span class="p">.</span><span class="n">ToUInt64</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">IFormatProvider</span> <span class="n">provider</span><span class="p">)</span>
+<span class="n">ToUniversalTime</span>      <span class="n">Method</span>     <span class="n">datetime</span> <span class="n">ToUniversalTime</span><span class="p">()</span>
+</pre></div>
+</div>
 <section id="control-de-procesos-y-servicios">
 <h2>Control de procesos y servicios<a class="headerlink" href="#control-de-procesos-y-servicios" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -508,7 +601,7 @@ document.write(`
 <section id="alias">
 <h2>Alias <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>New-Alias -Name «ver» -Value Get-ChildItem</strong></p></li>
+<li><p><strong>New-Alias -Name &quot;ver&quot; -Value Get-ChildItem</strong></p></li>
 <li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
 </ul>
 </section>
@@ -647,9 +740,91 @@ document.write(`
 </pre></div>
 </div>
 </li>
-<li><p><strong>|</strong> (Tubo o pipe):</p>
-<p>Se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar:</p>
+<li><p><strong>$_</strong> (Token) y la <strong>|</strong> (Tubería o pipe):</p>
+<p>El token es una variable automática del objeto actual y la tubería se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s2">&quot;explorer&quot;</span> <span class="p">}</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">CPU</span> <span class="o">-gt</span> <span class="n">100</span> <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="trabajando-con-objetos">
+<h2>Trabajando con objetos<a class="headerlink" href="#trabajando-con-objetos" title="Link to this heading">#</a></h2>
+<p>Hemos visto algunos ejemplos como <strong>Get-Command</strong>, <strong>Get-Member</strong>, encontramos mas cmdlets interesante para la manipulació de objetos:</p>
+<ul>
+<li><p><strong>Select-Object</strong> Selecciona propiedades específicas de un objeto o un conjunto de objetos, permitiendo filtrar y proyectar datos.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">CPU</span>
+
+<span class="c"># Name                                        CPU</span>
+<span class="c"># ----                                        ---</span>
+<span class="c"># cmd                                           0</span>
+<span class="c"># conhost                                  0,0625</span>
+<span class="c"># conhost                                     0,5</span>
+<span class="c"># csrss                                  0,546875</span>
+<span class="c"># csrss                                     0,125</span>
+<span class="c"># .</span>
+<span class="c"># .</span>
+<span class="c"># .</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Where-Object</strong> Filtra objetos en una colección basándose en una condición lógica.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">CPU</span> <span class="o">-gt</span> <span class="n">100</span> <span class="p">}</span>
+
+<span class="c"># Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span>
+<span class="c"># -------  ------    -----      -----     ------     --  -- -----------</span>
+<span class="c"># 1523     113    56432      62976     179,81    528   0 lsass</span>
+<span class="c">#  688     199   220020     129600     161,33   1800   0 MsMpEng</span>
+<span class="c">#  280      20    10876      12840     119,36   1604   0 svchost</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Sort-Object</strong> Ordena una colección de objetos según una o más propiedades.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="n">CPU</span> <span class="n">-Descending</span>
+
+<span class="c"># Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span>
+<span class="c"># -------  ------    -----      -----     ------     --  -- -----------</span>
+<span class="c"># 1521     113    56476      63008     179,89    528   0 lsass</span>
+<span class="c">#  687     198   224592     141488     161,36   1800   0 MsMpEng</span>
+<span class="c">#  253      14    10544      12600     119,41   1604   0 svchost</span>
+<span class="c">#  993      39    22360      44860      95,70    360   0 svchost</span>
+<span class="c">#  401      33    20508      28288      30,86   1632   0 dfsrs</span>
+<span class="c">#  760      43     8184      24432      18,48    836   0 svchost</span>
+<span class="c"># 1055       0       40        140       8,22      4   0 System</span>
+<span class="c">#  470      19     4100      10436       5,36    844   0 svchost</span>
+<span class="c"># .</span>
+<span class="c"># .</span>
+<span class="c"># .</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>New-Object</strong> Crea una instancia de un objeto .NET u otro tipo de objeto.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$obj</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">PSObject</span> <span class="n">-Property</span> <span class="p">@{</span><span class="n">Name</span><span class="p">=</span><span class="s2">&quot;Tutankamón&quot;</span><span class="p">;</span> <span class="n">Age</span><span class="p">=</span><span class="n">3358</span><span class="p">}</span>
+
+<span class="c"># PS C:&gt; $obj</span>
+<span class="c">#</span>
+<span class="c"># Age Name</span>
+<span class="c">#  --- ----</span>
+<span class="c"># 3358 Tutankamón</span>
+<span class="c">#</span>
+<span class="c"># PS C:&gt; $obj.Name</span>
+<span class="c"># Tutankamón</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>ForEach-Object</strong> Ejecuta un bloque de script en cada objeto de una colección que pasa a través del pipeline.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span> <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Measure-Object</strong> Calcula propiedades estadísticas de objetos como el recuento, suma, promedio, etc.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Measure-Object</span> <span class="n">CPU</span> <span class="n">-Sum</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Group-Object</strong> Agrupa los procesos por su nombre.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Group-Object</span> <span class="n">Name</span>
 </pre></div>
 </div>
 </li>
@@ -666,7 +841,6 @@ document.write(`
 <li><p><strong>select -&gt; Select-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
 <p><strong>Get-Content -head 3 archivo.dat | select -Last 1</strong></p>
 </li>
-<li><p><strong>sort -&gt; Sort-Object</strong> ordenar</p></li>
 <li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
 <li><p><strong>Select-String -Pattern &lt;texto&gt;</strong> -Quiet nos devuelve el texto o nada</p></li>
 <li><p><strong>ft -&gt; Format-Table</strong> dar a la salida formato de tabla :</p>
@@ -794,12 +968,15 @@ document.write(`
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$particion_C</span><span class="p">=$(</span><span class="nb">Get-PSDrive</span> <span class="n">-PSProvider</span> <span class="n">FileSystem</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Used</span><span class="p">,</span> <span class="n">Free</span> <span class="p">|</span>  <span class="nb">Select-Object</span> <span class="n">-Index</span> <span class="n">0</span><span class="p">)</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span>
 <span class="n">8886775808</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">)</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
 <span class="n">8</span><span class="p">,</span><span class="n">33112827263359</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$porcentaje</span><span class="p">=</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">(</span><span class="n">100</span><span class="p">*</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">/(</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Used</span><span class="p">+</span><span class="nv">$particion_C</span><span class="p">.</span><span class="n">Free</span><span class="p">),</span><span class="n">2</span><span class="p">)</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$porcentaje</span>
 <span class="n">8</span><span class="p">,</span><span class="n">33</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="s2">&quot;El $porcentaje % de la partición C esta ocupada&quot;</span>
 <span class="n">El</span> <span class="n">8</span><span class="p">.</span><span class="n">33</span> <span class="p">%</span> <span class="n">de</span> <span class="n">la</span> <span class="n">partición</span> <span class="n">C</span> <span class="n">esta</span> <span class="n">ocupada</span>
 </pre></div>
@@ -807,12 +984,16 @@ document.write(`
 <p>Ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">caption</span>
  <span class="n">Intel64</span> <span class="n">Family</span> <span class="n">6</span> <span class="n">Model</span> <span class="n">142</span> <span class="n">Stepping</span> <span class="n">10</span>
+
  <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_ComputerSystem</span><span class="p">).</span><span class="n">SystemType</span>
  <span class="n">x64-based</span> <span class="n">PC</span>
+
  <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">(</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span>
  <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Core</span><span class="p">(</span><span class="n">TM</span><span class="p">)</span> <span class="n">i5</span><span class="p">-</span><span class="n">8250U</span> <span class="n">CPU</span> <span class="p">@</span> <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+
  <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">((</span><span class="nb">Get-WmiObject</span> <span class="n">Win32_Processor</span><span class="p">).</span><span class="n">name</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="n">1</span><span class="p">]</span>
  <span class="n">1</span><span class="p">.</span><span class="n">60GHz</span>
+
  <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">Win32_Processor</span> <span class="p">|</span> <span class="nb">Select </span><span class="n">-Property</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Number</span><span class="p">*</span>
 
  <span class="n">Name</span>                                     <span class="n">NumberOfCores</span> <span class="n">NumberOfEnabledCore</span> <span class="n">NumberOfLogicalProcessors</span>
@@ -868,16 +1049,22 @@ document.write(`
 
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">FreePhysicalMemory</span>
 <span class="n">986776</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">TotalVirtualMemorySize</span>
 <span class="n">3276340</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">NumberOfUsers</span>
 <span class="n">6</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">BootDevice</span>
 <span class="p">\</span><span class="n">Device</span><span class="p">\</span><span class="n">HarddiskVolume1</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">Version</span>
 <span class="n">10</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">20348</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">WindowsDirectory</span>
 <span class="n">C</span><span class="p">:\</span><span class="n">Windows</span>
+
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">$(</span><span class="nb">Get-CimInstance</span> <span class="n">-ClassName</span> <span class="n">Win32_OperatingSystem</span><span class="p">).</span><span class="n">CountryCode</span>
 <span class="n">34</span>
 </pre></div>
@@ -1033,7 +1220,7 @@ document.write(`
 <span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
 
 <span class="c">#Sin que pida confirmación</span>
-<span class="nv">$Password</span> <span class="p">=</span> <span class="nb">ConvertTo-SecureString</span> <span class="err">«</span><span class="n">alumno</span><span class="err">»</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
+<span class="nv">$Password</span> <span class="p">=</span> <span class="nb">ConvertTo-SecureString</span> <span class="s2">&quot;alumno&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
 </pre></div>
 </div>
 </li>
@@ -1114,6 +1301,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajando-con-objetos">Trabajando con objetos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-windows-powershell">Configuración de Windows (PowerShell)</a></li>

@@ -2,7 +2,110 @@
 PowerShell
 **********
 
-PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la licencia MIT, que es una licencia de software libre y de código abierto
+PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la **licencia MIT**, que es una licencia de software libre y de código abierto
+
+Los **cmdlets** (comandos) de PowerShell son comandos simples que se utilizan para realizar tareas específicas dentro de PowerShell,  trabajan directamente con objetos .NET y sus métodos, podemos ver todos los los cmdlets, funciones u scripts con **Get-Command**
+
+Un objeto es una instancia de una clase, los objetos tienen propiedades (atributos o campos) y métodos, por ejemplo :
+
+.. code-block:: powershell
+  
+ # Obtener la fecha y hora actuales
+ $date = Get-Date
+
+ # Acceder a una propiedad
+ $day = $date.Day             # Obtiene el día del mes
+ $year = $date.Year           # Obtiene el año
+
+ # Llamar a un método
+ $newDate = $date.AddDays(5)  # Añade 5 días a la fecha actual
+
+
+Podemos ver todas las propiedades de un cmdlet con **Get-Member**:
+
+.. code-block:: powershell
+ :emphasize-lines: 10, 21
+
+ PS C:\> Get-Member -InputObject (Get-Date) -MemberType Properties
+ 
+  
+    TypeName: System.DateTime
+ 
+ Name        MemberType     Definition
+ ----        ----------     ----------
+ DisplayHint NoteProperty   DisplayHintType DisplayHint=DateTime
+ Date        Property       datetime Date {get;}
+ Day         Property       int Day {get;}
+ DayOfWeek   Property       System.DayOfWeek DayOfWeek {get;}
+ DayOfYear   Property       int DayOfYear {get;}
+ Hour        Property       int Hour {get;}
+ Kind        Property       System.DateTimeKind Kind {get;}
+ Millisecond Property       int Millisecond {get;}
+ Minute      Property       int Minute {get;}
+ Month       Property       int Month {get;}
+ Second      Property       int Second {get;}
+ Ticks       Property       long Ticks {get;}
+ TimeOfDay   Property       timespan TimeOfDay {get;}
+ Year        Property       int Year {get;}
+ DateTime    ScriptProperty System.Object DateTime {get=if ((& { Set-StrictMode -Version 1; $this.Di.
+
+Tambén los metodos:
+
+.. code-block:: powershell
+ :emphasize-lines: 9
+
+ PS C:\Users\Administrador> Get-Member -InputObject (Get-Date) -MemberType Method    
+
+
+   TypeName: System.DateTime
+
+ Name                 MemberType Definition
+ ----                 ---------- ----------
+ Add                  Method     datetime Add(timespan value)
+ AddDays              Method     datetime AddDays(double value)
+ AddHours             Method     datetime AddHours(double value)
+ AddMilliseconds      Method     datetime AddMilliseconds(double value)
+ AddMinutes           Method     datetime AddMinutes(double value)
+ AddMonths            Method     datetime AddMonths(int months)
+ AddSeconds           Method     datetime AddSeconds(double value)
+ AddTicks             Method     datetime AddTicks(long value)
+ AddYears             Method     datetime AddYears(int value)
+ CompareTo            Method     int CompareTo(System.Object value), int CompareTo(datetime value), ... 
+ Equals               Method     bool Equals(System.Object value), bool Equals(datetime value), bool... 
+ GetDateTimeFormats   Method     string[] GetDateTimeFormats(), string[] GetDateTimeFormats(System.I... 
+ GetHashCode          Method     int GetHashCode()
+ GetObjectData        Method     void ISerializable.GetObjectData(System.Runtime.Serialization.Seria... 
+ GetType              Method     type GetType()
+ GetTypeCode          Method     System.TypeCode GetTypeCode(), System.TypeCode IConvertible.GetType... 
+ IsDaylightSavingTime Method     bool IsDaylightSavingTime()
+ Subtract             Method     timespan Subtract(datetime value), datetime Subtract(timespan value)   
+ ToBinary             Method     long ToBinary()
+ ToBoolean            Method     bool IConvertible.ToBoolean(System.IFormatProvider provider)
+ ToByte               Method     byte IConvertible.ToByte(System.IFormatProvider provider)
+ ToChar               Method     char IConvertible.ToChar(System.IFormatProvider provider)
+ ToDateTime           Method     datetime IConvertible.ToDateTime(System.IFormatProvider provider)      
+ ToDecimal            Method     decimal IConvertible.ToDecimal(System.IFormatProvider provider)        
+ ToDouble             Method     double IConvertible.ToDouble(System.IFormatProvider provider)
+ ToFileTime           Method     long ToFileTime()
+ ToFileTimeUtc        Method     long ToFileTimeUtc()
+ ToInt16              Method     int16 IConvertible.ToInt16(System.IFormatProvider provider)
+ ToInt32              Method     int IConvertible.ToInt32(System.IFormatProvider provider)
+ ToInt64              Method     long IConvertible.ToInt64(System.IFormatProvider provider)
+ ToLocalTime          Method     datetime ToLocalTime()
+ ToLongDateString     Method     string ToLongDateString()
+ ToLongTimeString     Method     string ToLongTimeString()
+ ToOADate             Method     double ToOADate()
+ ToSByte              Method     sbyte IConvertible.ToSByte(System.IFormatProvider provider)
+ ToShortDateString    Method     string ToShortDateString()
+ ToShortTimeString    Method     string ToShortTimeString()
+ ToSingle             Method     float IConvertible.ToSingle(System.IFormatProvider provider)
+ ToString             Method     string ToString(), string ToString(string format), string ToString(... 
+ ToType               Method     System.Object IConvertible.ToType(type conversionType, System.IForm... 
+ ToUInt16             Method     uint16 IConvertible.ToUInt16(System.IFormatProvider provider)
+ ToUInt32             Method     uint32 IConvertible.ToUInt32(System.IFormatProvider provider)
+ ToUInt64             Method     uint64 IConvertible.ToUInt64(System.IFormatProvider provider)
+ ToUniversalTime      Method     datetime ToUniversalTime()
+ 
 
 Control de procesos y servicios
 ===============================
@@ -29,7 +132,7 @@ Ejemplo:
 Alias [#alias]_
 ===============
 
-* **New-Alias -Name "ver" -Value Get-ChildItem**
+* **New-Alias -Name \"ver\" -Value Get-ChildItem**
 * **Get-Alias** ver los alias que hay en el sistema
 
 
@@ -183,15 +286,110 @@ Caracteres especiales
    Get-Date >> registro.txt
 
 
-* **\|** (Tubo o pipe):
+* **$_** (Token) y la **\|** (Tubería o pipe):
+  
+  El token es una variable automática del objeto actual y la tubería se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar: 
+  
+  .. code-block:: powershell
 
-  Se utiliza para pasar la salida de un comando como entrada a otro comando, por ejemplo, para filtrar la salida de un comando usando Where-Object, puedes usar:
+   Get-Process | Where-Object { $_.Name -eq "explorer" } 
+   Get-Process | Where-Object { $_.CPU -gt 100 }
+
+
+Trabajando con objetos
+======================
+
+Hemos visto algunos ejemplos como **Get-Command**, **Get-Member**, encontramos mas cmdlets interesante para la manipulació de objetos:
+  
+* **Select-Object** Selecciona propiedades específicas de un objeto o un conjunto de objetos, permitiendo filtrar y proyectar datos.
 
   .. code-block:: powershell
 
-   Get-Process | Where-Object { $_.Name -eq "explorer" }
+   Get-Process | Select-Object Name, CPU
+   
+   # Name                                        CPU
+   # ----                                        ---
+   # cmd                                           0
+   # conhost                                  0,0625
+   # conhost                                     0,5
+   # csrss                                  0,546875
+   # csrss                                     0,125
+   # .
+   # .
+   # .
+
+* **Where-Object** Filtra objetos en una colección basándose en una condición lógica.
 
 
+  .. code-block:: powershell
+
+   Get-Process | Where-Object { $_.CPU -gt 100 }
+
+   # Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName     
+   # -------  ------    -----      -----     ------     --  -- -----------     
+   # 1523     113    56432      62976     179,81    528   0 lsass
+   #  688     199   220020     129600     161,33   1800   0 MsMpEng
+   #  280      20    10876      12840     119,36   1604   0 svchost
+
+
+
+* **Sort-Object** Ordena una colección de objetos según una o más propiedades.
+
+
+  .. code-block:: powershell
+
+   Get-Process | Sort-Object CPU -Descending
+
+   # Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName     
+   # -------  ------    -----      -----     ------     --  -- -----------     
+   # 1521     113    56476      63008     179,89    528   0 lsass
+   #  687     198   224592     141488     161,36   1800   0 MsMpEng
+   #  253      14    10544      12600     119,41   1604   0 svchost
+   #  993      39    22360      44860      95,70    360   0 svchost
+   #  401      33    20508      28288      30,86   1632   0 dfsrs
+   #  760      43     8184      24432      18,48    836   0 svchost
+   # 1055       0       40        140       8,22      4   0 System
+   #  470      19     4100      10436       5,36    844   0 svchost
+   # .
+   # .
+   # .
+
+
+* **New-Object** Crea una instancia de un objeto .NET u otro tipo de objeto.
+
+  .. code-block:: powershell
+
+   $obj = New-Object -TypeName PSObject -Property @{Name="Tutankamón"; Age=3358}
+
+   # PS C:> $obj
+   # 
+   # Age Name      
+   #  --- ----
+   # 3358 Tutankamón
+   #
+   # PS C:> $obj.Name
+   # Tutankamón
+
+* **ForEach-Object** Ejecuta un bloque de script en cada objeto de una colección que pasa a través del pipeline.
+   
+  .. code-block:: powershell
+  
+   Get-Process | ForEach-Object { $_.Name.ToUpper() }
+   
+* **Measure-Object** Calcula propiedades estadísticas de objetos como el recuento, suma, promedio, etc.
+
+  .. code-block:: powershell
+  
+   Get-Process | Measure-Object CPU -Sum
+   
+   
+* **Group-Object** Agrupa los procesos por su nombre.
+  
+  .. code-block:: powershell
+  
+   Get-Process | Group-Object Name
+   
+   
 Visualizadores de archivos, filtros y búsqueda de información
 =============================================================
 
@@ -206,7 +404,6 @@ Visualizadores de archivos, filtros y búsqueda de información
 
   **Get-Content -head 3 archivo.dat | select -Last 1**
   
-* **sort -> Sort-Object** ordenar
 * **sls -> Select-String = grep** filtrar,
 * **Select-String -Pattern <texto>** -Quiet nos devuelve el texto o nada
 * **ft -> Format-Table** dar a la salida formato de tabla :
@@ -339,12 +536,15 @@ Ejemplo:
   PS C:\> $particion_C=$(Get-PSDrive -PSProvider FileSystem |  Select-Object Name, Used, Free |  Select-Object -Index 0)
   PS C:\> echo $particion_C.Used
   8886775808
+  
   PS C:\> $porcentaje=100*$particion_C.Used/($particion_C.Used+$particion_C.Free)
   PS C:\> echo $porcentaje
   8,33112827263359
+  
   PS C:\> $porcentaje=[math]::Round(100*$particion_C.Used/($particion_C.Used+$particion_C.Free),2)
   PS C:\> echo $porcentaje
   8,33
+  
   PS C:\> echo "El $porcentaje % de la partición C esta ocupada"
   El 8.33 % de la partición C esta ocupada
  
@@ -356,12 +556,16 @@ Ejemplo:
 
   PS C:\> (Get-WmiObject Win32_Processor).caption
   Intel64 Family 6 Model 142 Stepping 10
+  
   PS C:\> (Get-WmiObject Win32_ComputerSystem).SystemType
   x64-based PC
+  
   PS C:\> (Get-WmiObject Win32_Processor).name
   Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+  
   PS C:\> ((Get-WmiObject Win32_Processor).name).split("@")[1]
   1.60GHz
+  
   PS C:\> Get-WmiObject -Class Win32_Processor | Select -Property Name, Number* 
 
   Name                                     NumberOfCores NumberOfEnabledCore NumberOfLogicalProcessors
@@ -420,16 +624,22 @@ Ejemplo:
    
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).FreePhysicalMemory                       
   986776
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).TotalVirtualMemorySize
   3276340
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).NumberOfUsers                             
   6
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).BootDevice   
   \Device\HarddiskVolume1
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).Version   
   10.0.20348
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).WindowsDirectory
   C:\Windows
+  
   PS C:\> $(Get-CimInstance -ClassName Win32_OperatingSystem).CountryCode                              
   34
 
@@ -617,7 +827,7 @@ Para ser administrador
     New-LocalUser -Name nombre_usuario -Password $Password
   
     #Sin que pida confirmación
-    $Password = ConvertTo-SecureString «alumno» -AsPlainText -Force 
+    $Password = ConvertTo-SecureString "alumno" -AsPlainText -Force 
     
 * **Crear un usuario sin contraseña**
 

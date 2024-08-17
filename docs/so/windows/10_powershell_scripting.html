@@ -462,10 +462,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-y-cadenas">Variables y cadenas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-ejecucion-de-scripts">Habilitar ejecución de scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos">Tipos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asignacion-y-tipado">Asignación y Tipado</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores">Operadores</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-de-asignacion">Operadores de asignación</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host">Argumentos de entrada Read-Host</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-argst-ps1">Argumentos de entrada Read-Host argst.ps1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-param-ps1">Argumentos de entrada Read-Host param.ps1</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-condiciones">Evaluación de condiciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-logicos">Operadores lógicos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-cadenas">Comparación de cadenas</a></li>
@@ -490,12 +497,109 @@ document.write(`
                   
   <section id="powershell-scripting">
 <h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Link to this heading">#</a></h1>
-<p>Habilitar ejecución de scripts</p>
+<section id="habilitar-ejecucion-de-scripts">
+<h2>Habilitar ejecución de scripts<a class="headerlink" href="#habilitar-ejecucion-de-scripts" title="Link to this heading">#</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Unrestricted</span>
 </pre></div>
 </div>
-<section id="variables-y-cadenas">
-<h2>Variables y cadenas<a class="headerlink" href="#variables-y-cadenas" title="Link to this heading">#</a></h2>
+</section>
+<section id="tipos">
+<h2>Tipos<a class="headerlink" href="#tipos" title="Link to this heading">#</a></h2>
+<p>Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShell son:</p>
+<ul>
+<li><p>Números enteros <strong>(Integers)</strong>. Un entero es un número sin parte decimal</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$number</span> <span class="p">=</span> <span class="n">42</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">&gt;</span> <span class="nb">echo </span><span class="nv">$number</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span>
+
+<span class="n">IsPublic</span> <span class="n">IsSerial</span> <span class="n">Name</span>
+<span class="p">--------</span> <span class="p">--------</span> <span class="p">----</span>
+<span class="n">True</span>     <span class="n">True</span>     <span class="n">Int32</span>
+</pre></div>
+</div>
+</li>
+<li><p>Números de coma flotante <strong>(Floating-Point)</strong>. Los números de coma flotante son números que incluyen una parte decimal</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$number</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">14</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$number</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Double</span>
+</pre></div>
+</div>
+</li>
+<li><p>Cadenas de texto <strong>(Strings)</strong>. Una cadena es una secuencia de caracteres utilizada para representar texto.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span><span class="nv">$cadena</span> <span class="p">=</span> <span class="s2">&quot;Hola, Mundo!&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$cadena</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">String</span>
+</pre></div>
+</div>
+</li>
+<li><p>Booleanos (<strong>Booleans</strong>). Un valor booleano puede ser True o False.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span><span class="nv">$B</span><span class="p">=</span><span class="nv">$true</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$B</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Boolean</span>
+</pre></div>
+</div>
+</li>
+<li><p>Arreglos <strong>(Arrays)</strong>. Un arreglo es una colección de elementos, que pueden ser de cualquier tipo de dato. Los elementos están indexados comenzando desde cero.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$numbers</span> <span class="p">=</span> <span class="p">@(</span><span class="n">1</span><span class="p">,</span> <span class="n">2</span><span class="p">,</span> <span class="n">3</span><span class="p">,</span> <span class="n">4</span><span class="p">,</span> <span class="n">5</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Object</span><span class="p">[]</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+<span class="n">1</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Int32</span>
+</pre></div>
+</div>
+</li>
+<li><p>Hash Tables <strong>(Tablas hash)</strong>. Una tabla hash es una colección de pares clave-valor. Las claves deben ser únicas dentro de la tabla.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span> <span class="p">=</span> <span class="p">@{</span>
+ <span class="n">Name</span> <span class="p">=</span> <span class="s2">&quot;Tutankamón&quot;</span>
+ <span class="n">Age</span> <span class="p">=</span> <span class="n">3358</span>
+ <span class="n">City</span> <span class="p">=</span> <span class="s2">&quot;Egipto&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$person</span><span class="p">.</span><span class="n">Name</span>
+<span class="n">Tutankamón</span>
+
+<span class="c">#Agregar una nueva clave</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span><span class="p">.</span><span class="n">Estado</span> <span class="p">=</span> <span class="s2">&quot;momificado&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nv">$person</span>
+
+<span class="n">Name</span>                           <span class="n">Value</span>
+<span class="p">----</span>                           <span class="p">-----</span>
+<span class="n">Estado</span>                         <span class="n">momificado</span>
+<span class="n">Name</span>                           <span class="n">Tutankamón</span>
+<span class="n">Age</span>                            <span class="n">3358</span>
+<span class="n">City</span>                           <span class="n">Egipto</span>
+
+<span class="c">#eliminar la clave</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span>
+
+<span class="n">Name</span>                           <span class="n">Value</span>
+<span class="p">----</span>                           <span class="p">-----</span>
+<span class="n">Estado</span>                         <span class="n">momificado</span>
+<span class="n">Name</span>                           <span class="n">Tutankamón</span>
+<span class="n">City</span>                           <span class="n">Egipto</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>ScriptBlocks</strong>. Un ScriptBlock es un bloque de código que se puede ejecutar más tarde o pasar como un parámetro.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nv">$script</span> <span class="p">=</span> <span class="p">{</span> <span class="k">param</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="s2">&quot;Hola, $name!&quot;</span> <span class="p">}</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">&amp;</span> <span class="nv">$script</span> <span class="s2">&quot;Tutankamón&quot;</span>
+<span class="n">Hola</span><span class="p">,</span> <span class="n">Tutankamón</span><span class="p">!</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="asignacion-y-tipado">
+<h2>Asignación y Tipado<a class="headerlink" href="#asignacion-y-tipado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Asignación Implícita</strong>: En PowerShell, no es necesario declarar explícitamente el tipo de una variable; PowerShell infiere el tipo automáticamente al asignar un valor.</p></li>
+<li><p><strong>Asignación Explícita</strong>: Si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].</p></li>
+</ul>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="nv">$edad</span> <span class="p">=</span> <span class="n">25</span>
+</pre></div>
+</div>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">5</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="n">a</span>
 <span class="n">a</span>
@@ -615,6 +719,8 @@ document.write(`
 </section>
 <section id="argumentos-de-entrada">
 <h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Link to this heading">#</a></h2>
+<section id="argumentos-de-entrada-read-host">
+<h3>Argumentos de entrada Read-Host<a class="headerlink" href="#argumentos-de-entrada-read-host" title="Link to this heading">#</a></h3>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">read_host</span><span class="p">.</span><span class="n">ps1</span>
 <span class="nb">echo </span><span class="s2">&quot;Dame un entero&quot;</span>
 <span class="nv">$Name</span><span class="p">=</span><span class="nb">Read-Host</span>
@@ -636,6 +742,9 @@ document.write(`
 <span class="n">4</span>
 </pre></div>
 </div>
+</section>
+<section id="argumentos-de-entrada-read-host-argst-ps1">
+<h3>Argumentos de entrada Read-Host argst.ps1<a class="headerlink" href="#argumentos-de-entrada-read-host-argst-ps1" title="Link to this heading">#</a></h3>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
 <span class="nb">echo </span><span class="s2">&quot;tenemos $args parámetros de entrada&quot;</span>
 <span class="nb">echo </span><span class="s2">&quot;El argumento 0: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&quot;</span>
@@ -657,6 +766,85 @@ document.write(`
 <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
 </pre></div>
 </div>
+</section>
+<section id="argumentos-de-entrada-read-host-param-ps1">
+<h3>Argumentos de entrada Read-Host param.ps1<a class="headerlink" href="#argumentos-de-entrada-read-host-param-ps1" title="Link to this heading">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+<span class="k">param</span> <span class="p">(</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span>
+<span class="p">)</span>
+
+<span class="c"># Calcular la edad</span>
+<span class="nv">$Edad</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+
+<span class="nb">Write-Output</span> <span class="s2">&quot;Hola $Nombre, Tienes $Edad&quot;</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1334</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">2024</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Hola</span> <span class="p">,</span> <span class="n">Tienes</span> <span class="n">2024</span>
+</pre></div>
+</div>
+<p>En el caso de que queramos darle un valor por defecto cambiamos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span> <span class="p">=</span> <span class="s2">&quot;Tutankamón&quot;</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span> <span class="p">=</span> <span class="s2">&quot;-1334&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>y cuando lo ejecutamos obtenemos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Name</span> <span class="n">Nefertiti</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1370</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3394</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">\</span><span class="n">powershell</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Name</span> <span class="n">Nefertiti</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+</pre></div>
+</div>
+<p>Podemos completar la declaracion de un parámetro en un script de PowerShell utilizando <strong>[Parameter()]</strong>, el argumento <strong>Mandatory=$true</strong> dentro de la directiva parameter indica que el parámetro es obligatorio. Si el usuario no proporciona un valor para este parámetro al ejecutar el script, PowerShell solicitará que se ingrese uno. Si se omite, PowerShell genera un error pidiendo al usuario que proporcione el valor. <strong>HelpMessage</strong> especifica un mensaje de ayuda que se mostrará al usuario si el parámetro obligatorio no se proporciona.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+ <span class="k">param</span> <span class="p">(</span>
+<span class="hll">     <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">HelpMessage</span><span class="p">=</span><span class="s2">&quot;Cómo te llamas?&quot;</span><span class="p">)]</span>
+</span>     <span class="no">[string]</span><span class="nv">$Nombre</span><span class="p">,</span>
+
+<span class="hll">     <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">HelpMessage</span><span class="p">=</span><span class="s2">&quot;¿En qué año naciste?&quot;</span><span class="p">)]</span>
+</span>     <span class="no">[int]</span><span class="nv">$Nacimiento</span>
+ <span class="p">)</span>
+
+ <span class="c"># Calcular la edad</span>
+ <span class="nv">$Edad</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+
+ <span class="nb">Write-Output</span> <span class="s2">&quot;Hola $Nombre, Tienes $Edad&quot;</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span>
+ <span class="n">cmdlet</span> <span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">en</span> <span class="n">la</span> <span class="n">posición</span> <span class="n">1</span> <span class="n">de</span> <span class="n">la</span> <span class="n">canalización</span> <span class="n">de</span> <span class="n">comandos</span>
+ <span class="n">Proporcione</span> <span class="n">valores</span> <span class="n">para</span> <span class="n">los</span> <span class="n">parámetros</span> <span class="n">siguientes</span><span class="p">:</span>
+ <span class="p">(</span><span class="n">Escriba</span> <span class="p">!?</span> <span class="n">para</span> <span class="n">obtener</span> <span class="n">Ayuda</span><span class="p">).</span>
+ <span class="n">Nacimiento</span><span class="p">:</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+
+ <span class="n">cmdlet</span> <span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">en</span> <span class="n">la</span> <span class="n">posición</span> <span class="n">1</span> <span class="n">de</span> <span class="n">la</span> <span class="n">canalización</span> <span class="n">de</span> <span class="n">comandos</span>
+ <span class="n">Proporcione</span> <span class="n">valores</span> <span class="n">para</span> <span class="n">los</span> <span class="n">parámetros</span> <span class="n">siguientes</span><span class="p">:</span>
+ <span class="p">(</span><span class="n">Escriba</span> <span class="p">!?</span> <span class="n">para</span> <span class="n">obtener</span> <span class="n">Ayuda</span><span class="p">).</span>
+ <span class="n">Nombre</span><span class="p">:</span> <span class="p">!?</span>
+ <span class="n">Cómo</span> <span class="n">te</span> <span class="n">llamas</span><span class="p">?</span>
+ <span class="n">Nombre</span><span class="p">:</span> <span class="n">Tutankamón</span>
+ <span class="n">Nacimiento</span><span class="p">:</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="evaluacion-de-condiciones">
 <h2>Evaluación de condiciones<a class="headerlink" href="#evaluacion-de-condiciones" title="Link to this heading">#</a></h2>
@@ -696,24 +884,38 @@ document.write(`
   <span class="p">}</span><span class="k">else</span><span class="p">{</span>
   <span class="nb">echo </span><span class="s2">&quot;$numero es negativo&quot;</span>
   <span class="p">}</span>
+
+ <span class="c">#-10 es negativo</span>
 </pre></div>
 </div>
 </section>
 <section id="bucles-con-for">
 <h2>Bucles con for<a class="headerlink" href="#bucles-con-for" title="Link to this heading">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
-  <span class="nb">echo </span><span class="nv">$i</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">5</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
   <span class="p">}</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
 </pre></div>
 </div>
 </section>
 <section id="bucles-con-while">
 <h2>Bucles con While<a class="headerlink" href="#bucles-con-while" title="Link to this heading">#</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span>
-<span class="k">While</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-le</span> <span class="n">10</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">While</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">5</span><span class="p">)</span> <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$i</span>
 <span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
 <span class="p">}</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
 </pre></div>
 </div>
 </section>
@@ -721,16 +923,36 @@ document.write(`
 <h2>Bucles con Until<a class="headerlink" href="#bucles-con-until" title="Link to this heading">#</a></h2>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span><span class="p">;</span>
 <span class="k">do</span> <span class="p">{</span>
-<span class="nb">echo </span><span class="nv">$i</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
 <span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
 <span class="p">}</span>
-<span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-gt</span> <span class="n">10</span><span class="p">)</span>
+<span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-ge</span> <span class="n">5</span><span class="p">)</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
 </pre></div>
 </div>
 </section>
 <section id="bucles-con-foreach">
 <h2>Bucles con Foreach<a class="headerlink" href="#bucles-con-foreach" title="Link to this heading">#</a></h2>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$num</span> <span class="k">in</span> <span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s2">&quot;hola&quot;</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="n">5</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$items</span> <span class="p">=</span> <span class="n">0</span><span class="p">..</span><span class="n">4</span>
+ <span class="nv">$items</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+   <span class="nv">$i</span><span class="p">=</span><span class="s2">&quot;$_&quot;</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
+ <span class="p">}</span>
+
+  <span class="c"># 0</span>
+  <span class="c"># 1</span>
+  <span class="c"># 2</span>
+  <span class="c"># 3</span>
+  <span class="c"># 4</span>
+
+
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$num</span> <span class="k">in</span> <span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s2">&quot;hola&quot;</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="n">5</span><span class="p">)</span> <span class="p">{</span>
 <span class="nb">echo </span><span class="nv">$num</span>
 <span class="p">}</span>
 </pre></div>
@@ -824,10 +1046,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-y-cadenas">Variables y cadenas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-ejecucion-de-scripts">Habilitar ejecución de scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos">Tipos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asignacion-y-tipado">Asignación y Tipado</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores">Operadores</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-de-asignacion">Operadores de asignación</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host">Argumentos de entrada Read-Host</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-argst-ps1">Argumentos de entrada Read-Host argst.ps1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-param-ps1">Argumentos de entrada Read-Host param.ps1</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-condiciones">Evaluación de condiciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-logicos">Operadores lógicos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-cadenas">Comparación de cadenas</a></li>
