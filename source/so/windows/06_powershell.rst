@@ -153,7 +153,7 @@ Ficheros y directorios
   * h (oculto)
   * s (sistema)
 
-* **echo** repetir salida estándar
+* **echo -> Write-Output** repetir salida estándar
 * **Test-Path -Path <archivo>** nos dice si exite el archivo o carpeta
 * **Get-Help -Name Get-ChildItem** obtener ayuda
 
@@ -294,6 +294,7 @@ Caracteres especiales
 
    Get-Process | Where-Object { $_.Name -eq "explorer" } 
    Get-Process | Where-Object { $_.CPU -gt 100 }
+   
 
 
 Trabajando con objetos
@@ -323,16 +324,37 @@ Hemos visto algunos ejemplos como **Get-Command**, **Get-Member**, encontramos m
 
   .. code-block:: powershell
 
-   Get-Process | Where-Object { $_.CPU -gt 100 }
+   # Filtrar los procesos que están usando más de 100 segundos de tiempo de CPU
+   PS C:\A> Get-Process | Where-Object { $_.CPU -gt 100 }
 
-   # Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName     
-   # -------  ------    -----      -----     ------     --  -- -----------     
-   # 1523     113    56432      62976     179,81    528   0 lsass
-   #  688     199   220020     129600     161,33   1800   0 MsMpEng
-   #  280      20    10876      12840     119,36   1604   0 svchost
+   Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName     
+   -------  ------    -----      -----     ------     --  -- -----------     
+   1523     113    56432      62976     179,81    528   0 lsass
+    688     199   220020     129600     161,33   1800   0 MsMpEng
+    280      20    10876      12840     119,36   1604   0 svchost
 
 
+   # Obtener los procesos que han estado ejecutándose por más de una hora
+   PS C:\> Get-Process | Where-Object { $_.StartTime -lt (Get-Date).AddHours(-1) }
+   
+   Handles  NPM(K)    PM(K)      WS(K)     CPU(s) Id
+   -------  ------    -----      -----     ------ --
+        71       5     2216       4060       0,00 04
+       151      11     6704      16640       0,06 72
+        89       7     1172       5524       0,25 88
+       333      15     1796       5992       0,59 68
+       190      12     1744       8884       0,13 44
+       402      33    21376      29240      40,86 32
 
+   # Filtrar los procesos que están utilizando más de 100 MB de memoria
+   Get-Process | Where-Object { $_.WorkingSet -gt 100MB }
+   
+   # Filtrar procesos ejecutados por un usuario específico
+   Get-Process | Where-Object { $_.StartInfo.UserName -eq "Usuario1" }
+   
+   # Filtrar procesos que no responden
+   Get-Process | Where-Object { $_.Responding -eq $false }
+   
 * **Sort-Object** Ordena una colección de objetos según una o más propiedades.
 
 
@@ -400,7 +422,9 @@ Visualizadores de archivos, filtros y búsqueda de información
   
   **(Get-Content archivo.dat)[2]** podemos ver la linea 3
 
-* **select -> Select-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
+* **select -> Select-Object**  se utiliza para procesar cada objeto en un flujo de datos.
+
+* **% -> ForEach-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
 
   **Get-Content -head 3 archivo.dat | select -Last 1**
   
@@ -427,15 +451,13 @@ Ejemplo:
  
   PS C:\> Get-Content -head 3 archivo.dat | select -last 1 
   3 linea   
-  True
-  2
  
   PS C:\> Get-Content -head 3 archivo.dat | select -First 3
   1 linea
   2 linea
   3 linea
 
-  PS C:\> vi .\archivo.dat                                      
+  PS C:\> vi .\archivo.dat         # % -> ForEach-Object   
   PS C:\>  Get-Content archivo.dat | %{ $_ -replace '2', 'B' }
   1 linea
   B linea
@@ -790,6 +812,10 @@ Instalar edior vi
   .. code-block:: powershell
 
     C:\Program Files (x86)\Vim\vim90\vim.exe $PROFILE
+    
+  .. code-block:: powershell
+
+    notepad $PROFILE
 
   Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:
 
@@ -817,7 +843,7 @@ Para ser administrador
 
    Get-LocalUser
    Get-LocalGroup
-   Get-LocalGroupMember -Name nombre_grupo
+   Get-LocalGroupMember -Name "nombre_grupo"
   
 * **Crear un usuario con contraseña**
 
@@ -833,27 +859,28 @@ Para ser administrador
 
   .. code-block:: PowerShell
   
-   New-LocalUser -Name nombre_usuario -NoPassword
+   New-LocalUser -Name "nombre_usuario" -NoPassword
    
    #Se la podemos asignar después: 
-   Set-LocalUser -Name nombre_usuario -Password $Password
+   Set-LocalUser -Name "nombre_usuario" -Password $Password
    
 * **Asignar usuario a un grupo**
 
   .. code-block:: PowerShell
   
-   Add-LocalGroupMember -Group nombre_grupo -Member nombre_usuario
+   Add-LocalGroupMember -Group "nombre_grupo" -Member "nombre_usuario"
   
 * **Eliminar un usuario**
 
   .. code-block:: PowerShell
   
-   Remove-LocalUser -Name nombre_usuario
+   Remove-LocalUser -Name "nombre_usuario"
   
 * **Crear y borrar un grupo**
 
   .. code-block:: PowerShell
   
-   New-LocalGroup -Name nombre_grupo
-   Remove-LocalGroup -Name nombre_grupo
+   New-LocalGroup -Name "nombre_grupo"
+   Remove-LocalGroup -Name "nombre_grupo"
 
+* `Configuración en AD <https://dgtrabada.github.io/so/windows/09_Caso_practico_AD_sin_GUI.html>`_

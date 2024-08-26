@@ -9,8 +9,49 @@ Habilitar ejecución de scripts
  
  Set-ExecutionPolicy Unrestricted
 
-Tipos
-=====
+Tipos y colecciones
+===================
+
+En PowerShell, no es necesario declarar explícitamente el tipo de una variable, infiere el tipo automáticamente al asignar un valor. No obtantes si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
+
+.. code-block:: powershell
+
+  PS C:\> $number = 42
+  PS C:\> echo $number.GetType()   
+  
+  IsPublic IsSerial Name
+  -------- -------- ----
+  True     True     Int32
+
+  PS C:\> [int]$a = 4                 
+  PS C:\> $a.GetType().Name     
+  Int32
+    
+Podemos convertir los diferentes tipos por ejemplo:
+
+.. code-block:: powershell
+
+  PS C:\> $a=4             
+  PS C:\> $cadena=$a.ToString()      
+  PS C:\> $cadena.GetType().Name     
+  String
+  
+  #TryParse nos devuelve si es posible
+  PS C:\> [int]$b
+  PS C:\> [int]::TryParse($cadena, [ref]$b)
+  True
+  PS C:\> echo $b
+  4
+  PS C:\> [int]::TryParse("2w", [ref]$b)   
+  False
+  PS C:\> echo $b
+  0
+  
+  #Podemos hacerlo directamente, pero si hay algún error se parará el script
+  PS C:\> $b = [int]::Parse($cadena)
+  PS C:\> echo $b
+  4
+    
 
 Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShell son:
 
@@ -18,12 +59,9 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
 
   .. code-block:: powershell
 
-    PS C:\> $number = 42
-    PS C:\Users\Administrador> echo $number.GetType()   
-    
-    IsPublic IsSerial Name
-    -------- -------- ----
-    True     True     Int32
+    PS C:\> [int]$a = 4                 
+    PS C:\> $a.GetType().Name     
+    Int32
 
 
 * Números de coma flotante **(Floating-Point)**. Los números de coma flotante son números que incluyen una parte decimal
@@ -42,6 +80,124 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     PS C:\> echo $cadena.GetType().Name   
     String
  
+  .. code-block:: powershell
+
+   PS C:\> $a="cadena"
+   PS C:\> echo $a
+   cadena
+   PS C:\> echo $a.Replace("ca","CC")
+   CCdena
+   PS C:\> echo $a.split("a")
+   c
+   den
+ 
+   PS C:\> echo $a.Split("a")[0]
+   c
+   PS C:\> echo $a
+   cadena
+   PS C:\> echo $a.Substring(2,4)
+   dena
+   PS C:\> echo $a.Remove(2,4)
+   ca
+   PS C:\> echo $a.Contains("a")
+   True
+   PS C:\> echo $a.IndexOf("a")
+   1
+   PS C:\> echo $a.Replace("ca","Ca")
+   Cadena
+   PS C:\> echo $a.Equals("cadena")
+   True
+   PS C:\> echo $a.Length
+   6
+   PS C:\> echo $a.Contains("an")
+   False
+   PS C:\> echo $a.ToLower() 
+   cadena
+   PS C:\> echo $a.ToUpper()
+   CADENA
+   PS C:\> $a.Replace("ca","  ").Replace("na","  ")
+    de  
+   #Trim() elimina espacios al final y al princio
+   PS C:\> $a.Replace("ca","  ").Replace("na","  ").Trim()
+   de
+
+  **Format:** Formatea una cadena usando marcadores de posición {n} que se reemplazan por los valores proporcionados.
+
+  .. code-block:: powershell
+
+   PS C:\> $nombre = "Tutankamón"
+   PS C:\> $edad = 3394
+   PS C:\> $cadena = [string]::Format("Nombre: {0}, Edad: {1}", $nombre, $edad)
+
+  Redondeo a Dos Decimales
+  
+  .. code-block:: powershell
+ 
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0:F2}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 3,14
+  
+  Formato de Moneda
+ 
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0:C2}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 3,14 €
+
+  Formato Científico
+ 
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0:E2}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 3,14E+000
+
+  Formato de Porcentaje
+ 
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0:P2}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 314,16 %
+
+  Formato de Longitud Fija (Relleno a la Izquierda)
+ 
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0,10}" -f $pi
+   PS C:\> Write-Output $out
+   pi :   3,141592
+
+  Formato de Longitud Fija (Relleno a la Derecha)
+ 
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0,-10}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 3,141592
+
+  Formato con Cero Padding (Relleno con ceros)  
+  
+  .. code-block:: powershell
+
+   PS C:\> $pi = 3.141592
+   PS C:\> $out = "pi : {0:000.000}" -f $pi
+   PS C:\> Write-Output $out
+   pi : 003,142
+
+   PS C:\> $out = "pi : {0:00}" -f $pi     
+   PS C:\> Write-Output $out
+   pi : 03
+
+  
+ 
 * Booleanos (**Booleans**). Un valor booleano puede ser True o False.
 
   .. code-block:: powershell
@@ -57,10 +213,50 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     PS C:\> $numbers = @(1, 2, 3, 4, 5) 
     PS C:\> echo $numbers.GetType().Name
     Object[]
+    
     PS C:\> echo $numbers[0]
     1   
+    
     PS C:\> echo $numbers[0].GetType().Name
     Int32
+    
+    PS C:> echo $numbers.Length
+    5
+    PS C:\>  echo $numbers.Count 
+    5
+    
+    echo $numbers.Contains(2)   
+    True
+    
+    #podemos añadir nuevos elementos
+    PS C:\>  $numbers+="hola"
+    PS C:\>  echo $numbers
+    1
+    2
+    3
+    4
+    5
+    hola
+    PS C:\> echo $numbers.Length
+    6
+
+  Arrays multidimimensionales
+    
+  .. code-block:: powershell
+
+    
+    PS C:> $XY = @(@(1, 2), @(3, 4))                   
+    PS C:>  echo $XY.Length
+    2
+
+    PS C:>  echo $XY[0] 1  
+    2
+    
+    PS C:>  echo $XY[0].Length
+    2
+    
+    PS C:>  echo $XY[0][0]    
+    1
 
 
 * Hash Tables **(Tablas hash)**. Una tabla hash es una colección de pares clave-valor. Las claves deben ser únicas dentro de la tabla.
@@ -107,95 +303,6 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     Hola, Tutankamón!
 
 
-Asignación y Tipado
-===================
-
-* **Asignación Implícita**: En PowerShell, no es necesario declarar explícitamente el tipo de una variable; PowerShell infiere el tipo automáticamente al asignar un valor.
-
-* **Asignación Explícita**: Si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
-
-.. code-block:: powershell
-
- PS C:\> [int]$edad = 25
- 
- 
-
-.. code-block:: powershell
-
- PS C:\> $a=5  
- PS C:\> echo a 
- a        
- PS C:\> echo $a 
- 5 
- 
-.. code-block:: powershell 
-
- PS C:\> $a=2 
- PS C:\> $b=3
- PS C:\> $c=$b+$a 
- PS C:\> echo $c
- 5
- 
-.. code-block:: powershell
-
- PS C:\> $a="cadena"
- PS C:\> echo $a
- cadena
- PS C:\> echo $a.Replace("ca","CC")
- CCdena
- PS C:\> echo $a.split("a")
- c
- den
- 
- PS C:\> echo $a.Split("a")[0]
- c
- PS C:\> echo $a
- cadena
- PS C:\> echo $a.Substring(2,4)
- dena
- PS C:\> echo $a.Remove(2,4)
- ca
- PS C:\> echo $a.Contains("a")
- True
- PS C:\> echo $a.IndexOf("a")
- 1
- PS C:\> echo $a.Replace("ca","Ca")
- Cadena
- PS C:\> echo $a.Equals("cadena")
- True
- PS C:\> echo $a.Length
- 6
- PS C:\> echo $a.Contains("an")
- False
- PS C:\> echo $a.ToLower() 
- cadena
- PS C:\> echo $a.ToUpper()
- CADENA
-
-* **Números aleatorios**
-
-  .. code-block:: powershell
-
-   Get-Random # numero aletorio
-   Get-Random -Minimum 1 -Maximum 10
-
-* **Conversiones**
-
-  .. code-block:: powershell
-
-   #si queremos pasar la cadena $Name a un entero:
-   $a = $Name -as [int]
-   # otra forma:
-   $a = [int] $Name
- 
-   #pasar a binario
-   [Convert]::ToString($decimal, 2) 
-   
-   $a="$pwd" #obtenemos la salida del comando pwd, no es lo mismo que $a=$(pwd)
-   
-   #Podemos ejecutar un texto como si fuese un comando &
-   $a="notepad"
-   &$a 
 
 Operadores
 ==========
@@ -241,7 +348,26 @@ Operadores de asignación
  PS C:\> $a%=3 ; echo $a   # $a=$a%3
  0
 
+* **Números aleatorios**
 
+  .. code-block:: powershell
+
+   Get-Random # numero aletorio
+   Get-Random -Minimum 1 -Maximum 10
+
+* **Otras conversiones**
+
+  .. code-block:: powershell
+
+   #pasar a binario
+   [Convert]::ToString($decimal, 2) 
+   
+   $a="$pwd" 
+   
+   #Podemos ejecutar un texto como si fuese un comando &
+   $a="notepad"
+   &$a 
+   
 Argumentos de entrada
 =====================
 
@@ -288,15 +414,34 @@ Argumentos de entrada Read-Host argst.ps1
 
 .. code-block:: powershell
 
+ PS C:\> cat .\args.ps1
+ for($i=0;$i -lt $args.Length;$i++)
+ {
+   $salida = $args[$i]
+   Write-Output "i = $salida"
+ }
+ 
+ PS C:\> .\args.ps1 1 dos tres
+       i = 1
+       i = dos
+       i = tres
+
+
+.. code-block:: powershell
+
  PS C:\> cat .\argst.ps1
  foreach ($i in $args)
  {
  echo $i
  }
  
- PS C:\> .\argst.ps1
- 1 dos tres 1 dos tres
-  
+ PS C:\> .\argst.ps1 1 dos tres 1 dos tres
+ 1 
+ dos 
+ tres 
+ 1 
+ dos 
+ tres 
   
 Argumentos de entrada Read-Host param.ps1
 -----------------------------------------  
@@ -543,6 +688,28 @@ Funciones
    }
  foo 1 3 5
  # a: 1; b: 3; c: 5
+ 
+Ejemplo de función con recurrencia:
+
+.. code-block:: powershell
+
+ function Get-Factorial {
+    param (
+        [int]$n
+    )
+
+    if ($n -le 1) {
+        return 1
+    } else {
+        return $n * (Get-Factorial -n ($n - 1))
+    }
+ }
+
+ $number = 5
+ $result = Get-Factorial -n 5
+ Write-Output "El factorial de $number es $result"
+
+ #El factorial de 5 es 120
  
 
 Windows PowerShell ISE

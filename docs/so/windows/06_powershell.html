@@ -623,7 +623,7 @@ document.write(`
 <li><p>s (sistema)</p></li>
 </ul>
 </li>
-<li><p><strong>echo</strong> repetir salida estándar</p></li>
+<li><p><strong>echo -&gt; Write-Output</strong> repetir salida estándar</p></li>
 <li><p><strong>Test-Path -Path &lt;archivo&gt;</strong> nos dice si exite el archivo o carpeta</p></li>
 <li><p><strong>Get-Help -Name Get-ChildItem</strong> obtener ayuda</p></li>
 </ul>
@@ -770,13 +770,36 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Where-Object</strong> Filtra objetos en una colección basándose en una condición lógica.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">CPU</span> <span class="o">-gt</span> <span class="n">100</span> <span class="p">}</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Filtrar los procesos que están usando más de 100 segundos de tiempo de CPU</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">A</span><span class="p">&gt;</span> <span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">CPU</span> <span class="o">-gt</span> <span class="n">100</span> <span class="p">}</span>
 
-<span class="c"># Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span>
-<span class="c"># -------  ------    -----      -----     ------     --  -- -----------</span>
-<span class="c"># 1523     113    56432      62976     179,81    528   0 lsass</span>
-<span class="c">#  688     199   220020     129600     161,33   1800   0 MsMpEng</span>
-<span class="c">#  280      20    10876      12840     119,36   1604   0 svchost</span>
+<span class="n">Handles</span>  <span class="n">NPM</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>    <span class="n">PM</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>      <span class="n">WS</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>     <span class="n">CPU</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>     <span class="n">Id</span>  <span class="nb">SI </span><span class="n">ProcessName</span>
+<span class="p">-------</span>  <span class="p">------</span>    <span class="p">-----</span>      <span class="p">-----</span>     <span class="p">------</span>     <span class="p">--</span>  <span class="p">--</span> <span class="p">-----------</span>
+<span class="n">1523</span>     <span class="n">113</span>    <span class="n">56432</span>      <span class="n">62976</span>     <span class="n">179</span><span class="p">,</span><span class="n">81</span>    <span class="n">528</span>   <span class="n">0</span> <span class="n">lsass</span>
+ <span class="n">688</span>     <span class="n">199</span>   <span class="n">220020</span>     <span class="n">129600</span>     <span class="n">161</span><span class="p">,</span><span class="n">33</span>   <span class="n">1800</span>   <span class="n">0</span> <span class="n">MsMpEng</span>
+ <span class="n">280</span>      <span class="n">20</span>    <span class="n">10876</span>      <span class="n">12840</span>     <span class="n">119</span><span class="p">,</span><span class="n">36</span>   <span class="n">1604</span>   <span class="n">0</span> <span class="n">svchost</span>
+
+
+<span class="c"># Obtener los procesos que han estado ejecutándose por más de una hora</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">StartTime</span> <span class="o">-lt</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">AddHours</span><span class="p">(-</span><span class="n">1</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">Handles</span>  <span class="n">NPM</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>    <span class="n">PM</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>      <span class="n">WS</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>     <span class="n">CPU</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">Id</span>
+<span class="p">-------</span>  <span class="p">------</span>    <span class="p">-----</span>      <span class="p">-----</span>     <span class="p">------</span> <span class="p">--</span>
+     <span class="n">71</span>       <span class="n">5</span>     <span class="n">2216</span>       <span class="n">4060</span>       <span class="n">0</span><span class="p">,</span><span class="n">00</span> <span class="n">04</span>
+    <span class="n">151</span>      <span class="n">11</span>     <span class="n">6704</span>      <span class="n">16640</span>       <span class="n">0</span><span class="p">,</span><span class="n">06</span> <span class="n">72</span>
+     <span class="n">89</span>       <span class="n">7</span>     <span class="n">1172</span>       <span class="n">5524</span>       <span class="n">0</span><span class="p">,</span><span class="n">25</span> <span class="n">88</span>
+    <span class="n">333</span>      <span class="n">15</span>     <span class="n">1796</span>       <span class="n">5992</span>       <span class="n">0</span><span class="p">,</span><span class="n">59</span> <span class="n">68</span>
+    <span class="n">190</span>      <span class="n">12</span>     <span class="n">1744</span>       <span class="n">8884</span>       <span class="n">0</span><span class="p">,</span><span class="n">13</span> <span class="n">44</span>
+    <span class="n">402</span>      <span class="n">33</span>    <span class="n">21376</span>      <span class="n">29240</span>      <span class="n">40</span><span class="p">,</span><span class="n">86</span> <span class="n">32</span>
+
+<span class="c"># Filtrar los procesos que están utilizando más de 100 MB de memoria</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">WorkingSet</span> <span class="o">-gt</span> <span class="n">100MB</span> <span class="p">}</span>
+
+<span class="c"># Filtrar procesos ejecutados por un usuario específico</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">StartInfo</span><span class="p">.</span><span class="n">UserName</span> <span class="o">-eq</span> <span class="s2">&quot;Usuario1&quot;</span> <span class="p">}</span>
+
+<span class="c"># Filtrar procesos que no responden</span>
+<span class="nb">Get-Process</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Responding</span> <span class="o">-eq</span> <span class="nv">$false</span> <span class="p">}</span>
 </pre></div>
 </div>
 </li>
@@ -838,7 +861,8 @@ document.write(`
 <p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p>
 <p><strong>(Get-Content archivo.dat)[2]</strong> podemos ver la linea 3</p>
 </li>
-<li><p><strong>select -&gt; Select-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
+<li><p><strong>select -&gt; Select-Object</strong>  se utiliza para procesar cada objeto en un flujo de datos.</p></li>
+<li><p><strong>% -&gt; ForEach-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
 <p><strong>Get-Content -head 3 archivo.dat | select -Last 1</strong></p>
 </li>
 <li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
@@ -860,15 +884,13 @@ document.write(`
 
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">-head</span> <span class="n">3</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-last</span> <span class="n">1</span>
 <span class="n">3</span> <span class="n">linea</span>
-<span class="n">True</span>
-<span class="n">2</span>
 
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">-head</span> <span class="n">3</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="nb">select </span><span class="n">-First</span> <span class="n">3</span>
 <span class="n">1</span> <span class="n">linea</span>
 <span class="n">2</span> <span class="n">linea</span>
 <span class="n">3</span> <span class="n">linea</span>
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="n">vi</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="n">vi</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>         <span class="c"># % -&gt; ForEach-Object</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
 <span class="n">1</span> <span class="n">linea</span>
 <span class="n">B</span> <span class="n">linea</span>
@@ -1192,6 +1214,9 @@ document.write(`
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
 </pre></div>
 </div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">notepad</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
 <p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
 </pre></div>
@@ -1211,7 +1236,7 @@ document.write(`
 <li><p><strong>Listar usuarios, grupos y usuarios del grupo</strong></p>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-LocalUser</span>
 <span class="nb">Get-LocalGroup</span>
-<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+<span class="nb">Get-LocalGroupMember</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_grupo&quot;</span>
 </pre></div>
 </div>
 </li>
@@ -1225,29 +1250,30 @@ document.write(`
 </div>
 </li>
 <li><p><strong>Crear un usuario sin contraseña</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-NoPassword</span>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalUser</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_usuario&quot;</span> <span class="n">-NoPassword</span>
 
 <span class="c">#Se la podemos asignar después:</span>
-<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span> <span class="n">-Password</span> <span class="nv">$Password</span>
+<span class="nb">Set-LocalUser</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_usuario&quot;</span> <span class="n">-Password</span> <span class="nv">$Password</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Asignar usuario a un grupo</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">nombre_grupo</span> <span class="n">-Member</span> <span class="n">nombre_usuario</span>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-LocalGroupMember</span> <span class="n">-Group</span> <span class="s2">&quot;nombre_grupo&quot;</span> <span class="n">-Member</span> <span class="s2">&quot;nombre_usuario&quot;</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Eliminar un usuario</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="n">nombre_usuario</span>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-LocalUser</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_usuario&quot;</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Crear y borrar un grupo</strong></p>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
-<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="n">nombre_grupo</span>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-LocalGroup</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_grupo&quot;</span>
+<span class="nb">Remove-LocalGroup</span> <span class="n">-Name</span> <span class="s2">&quot;nombre_grupo&quot;</span>
 </pre></div>
 </div>
 </li>
+<li><p><a class="reference external" href="https://dgtrabada.github.io/so/windows/09_Caso_practico_AD_sin_GUI.html">Configuración en AD</a></p></li>
 </ul>
 </section>
 </section>
