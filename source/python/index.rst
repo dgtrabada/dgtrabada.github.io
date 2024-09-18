@@ -7,7 +7,10 @@ Python
    * `Ejercicios <https://github.com/dgtrabada/python/blob/main/01_Tipos/01_Ejercicios_Tipos.ipynb>`_
    * `Soluciones <https://github.com/dgtrabada/python/blob/main/01_Tipos/01_Ejercicios_Tipos_sol.ipynb>`_    
 
-* `Colecciones <https://github.com/dgtrabada/python/tree/main/02_Colecciones/Colecciones.ipynb>`_ (`Ejercicios de colecciones <https://github.com/dgtrabada/python/blob/main/02_Colecciones/02_Ejercicios_Colecciones.ipynb>`_ )
+* `Colecciones <https://github.com/dgtrabada/python/tree/main/02_Colecciones/Colecciones.ipynb>`_ 
+
+  * `Ejercicios de colecciones <https://github.com/dgtrabada/python/blob/main/02_Colecciones/02_Ejercicios_Colecciones.ipynb>`_
+  * `Soluciones  <https://github.com/dgtrabada/python/blob/main/02_Colecciones/02_Ejercicios_Colecciones_SOL.ipynb>`_
 
 * `Control_flujo <https://github.com/dgtrabada/python/tree/main/03_Control_flujo/Control_flujo.ipynb>`_ (`Ejercicios de control_flujo <https://github.com/dgtrabada/python/blob/main/03_Control_flujo/03_Ejercicios_Control_flujo.ipynb>`_) 
 
