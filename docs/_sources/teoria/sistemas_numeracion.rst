@@ -111,7 +111,7 @@ Ejemplo de **base decimal a base hexadecimal** 61 :sub:`10) → 16)`
     
     3 : 16 &= 0 \ resto\  \textbf{3} 
     
-    61_{10)} &= 3D_{8)}
+    61_{10)} &= 3D_{16)}
 
 
 
