@@ -38,8 +38,9 @@ La secuencia del POST pueden varíar segun el fabricante, la placa base y la ver
 8. Verificar la memoria RAM y la memoria caché
 9. Instalar todas las funciones del BIOS
 10. Verificar todas las configuraciones (unidades de disco y discos rígidos)
-  .. image:: imagenes/BIOS/post.jpg
-     :width: 400
+
+.. image:: imagenes/BIOS/post.jpg
+   :width: 400
     
 Si en algún momento el POST encuentra un error, intentará continuar con el inicio del ordenador. Sin embargo, si el error es serio, el BIOS detendrá la carga del sistema y:
 
@@ -91,7 +92,7 @@ Este es el procesador instalado en la placa base
 Memoria DRAM instalada
 Pulsado la tecla <Supr> se entra en el SETUP
 
-**Energy Star** es un programa de la Agencia de Protección Ambiental de los Estados Unidos para promover los productos eléctricos con consumo eficiente de electricidad, reduciendo de esta forma la emisión de gas de efecto invernadero por parte de las centrales eléctricas.
+**Energy Star** es un programa para promover los productos eléctricos con consumo eficiente de electricidad, reduciendo de esta forma la emisión de gas de efecto invernadero.
 
 A través del menú principal del Setup puedes acceder a los diferentes submenús mediante los que llevarás a cabo la configuración de la BIOS
 
@@ -100,19 +101,19 @@ A través del menú principal del Setup puedes acceder a los diferentes submenú
 
 * **Standard CMOS Setup**: desde esta pantalla accederemos a la configuración de nuestros discos y disqueteras, así como la hora y fecha del sistema.
 * **Advanced CMOS Setup**: (Configuraciones Avanzadas de la BIOS) puedes, por ejemplo, escoger si, al encender el ordenador, se lleva a cabo una autocompro bación rápida o profunda. O determinar cuál es la secuencia de arranque, el orden en el que la BIOS debe buscar el sistema operativo en las distintas unidades de disco.
-* **Advanced Chipset Setup**: , o Configuraciones Avanzadas del chispset. A través de él podrás, entre otras cosas, determinar la velocidad a la que se puede acceder a la RAM.
+* **Advanced Chipset Setup**: A través de él podrás, entre otras cosas, determinar la velocidad a la que se puede acceder a la RAM.
 * **Integrated Peripherals** (Periféricos Integrados) puedes configurar todos los puertos y dispositivos que forman parte de la placa base, como las conexiones del disco duro, los puertos USB, o las tarjetas gráficas, de red o sonido integradas.
 * **Power Management Setup**: la gestión de energía es uno de los apartados más importantes en los modernos PCs. Desde este menú controlamos todas sus opciones.
 * **PCI / Plug and Play Setup**: puedes determinar si los componentes independientes de tu ordenador, es decir, las tarjetas de expansión, deben configurarse desde laBIOS o desde el sistema operativo
 * **Fail-Safe Defaults**, prueba a cargar los Valores Optimizados, u Optimized Defaults.Esta configuración es la que el fabricante de la placa base considera como la mejor en la mayor parte de los casos (ten en cuenta que los componentes conectados a la placa pueden ser muy diferentes, por lo que existe la posibilidad de que esta opción no sea siempre la óptima)
 * **Set User Password**, Supervisor Password, o Contraseña de Administrador
 * **Change Language Setting**: en determinadas BIOS muy concretas nos permite seleccionar un idioma distinto al inglés. Así, muy pronto veremos BIOS en castellano.
-* **Auto Configuration** with Optimal Settings: tendremos la posibilidad de reconfigurar todas las opciones a los valores teóricamente más óptimos, es decir, con los que el equipo debería obtener las mejores prestaciones. Esta es, sin embargo, una opción arriesgada, dada la inmensa variedad de configuraciones existentes. .
-* **Auto Configuration** with Fail Safe Settings: desde aquí lograremos algo parecido al caso anterior, aunque colocándose los valores en los ajustes de fábrica. Resulta perfecto para solucionar errores o problemas de configuración si modificamos varios valores y no sabemos cuál de ellos falla.
+* **Auto Configuration with Optimal Settings**: tendremos la posibilidad de reconfigurar todas las opciones a los valores teóricamente más óptimos, es decir, con los que el equipo debería obtener las mejores prestaciones. Esta es, sin embargo, una opción arriesgada, dada la inmensa variedad de configuraciones existentes. .
+* **Auto Configuration with Fail Safe Settings**: desde aquí lograremos algo parecido al caso anterior, aunque colocándose los valores en los ajustes de fábrica. Resulta perfecto para solucionar errores o problemas de configuración si modificamos varios valores y no sabemos cuál de ellos falla.
 * **Save Settings and Exit**: grabar los valores modificados y salir es tan sencillo como pulsar Enter sobre esta opción.
 * **Exit Without Saving**: seleccionado esta función saldremos de la utilidad de configuración de la BIOS, aunque sin grabar ninguno de los cambios que hayamos realizado.
-* **Load Optimized Defaults**; Cargar los valores por defecto
-* **Cómo saltarse la password de la BIOS**. Qué hacer si sufre una repentina amnesia o si la BIOS trae una password ya introducida. Mediante un jumper en la placa base: en algunas, no todas, existe un jumper que al cerrarse (al conectarse ambas patillas), y tras unos minutos de espera, permite borrar la BIOS limpiamente, en el caso de que no exista el jumper desconecte la pila
+* **Load Optimized Defaults**; cargar los valores por defecto
+* **Cómo saltarse la password de la BIOS**. qué hacer si sufre una repentina amnesia o si la BIOS trae una password ya introducida. Mediante un jumper en la placa base: en algunas, no todas, existe un jumper que al cerrarse (al conectarse ambas patillas), y tras unos minutos de espera, permite borrar la BIOS limpiamente, en el caso de que no exista el jumper desconecte la pila
 
 Standard CMOS Features
 ======================
@@ -151,10 +152,12 @@ Utilice este menú para configurar la secuencia de arranque de los dispositivos,
    :width: 400
 
 * **Boot Sequence**: Mediante esta opción estableceremos el orden en el que el ordenador intentará cargar un sistema operativo desde las distintas unidades.
+
   * **1st Boot Device**: desde aquí indicaremos cuál es la primera unidad que se utilizará para buscar un sistema de arranque.
   * **2st Boot Device**: indicaremos cuál será la segunda unidad en la que se buscará un sistema de arranque en caso de que la primera falle.
   * **3st Boot Device**: en último caso siempre podremos indicar que busque el sistema en un tercer soporte, a elegir entre discos duros, disquetera, CD-ROM, LS-120 o SCSI.
   * **PXE Boot to LAN** nos permite arrancar sistemas operativos a través de una red
+  
 * **Anti-Virus Protection** Si activas la protección antivirus, la BIOS sólo evita, sinpreguntar, que se pueda sobrescribir en el sector MBR.
 * **CPU Internal Cache / CPU External Cache**. Sirven para activar o desactivar las memoria temporales (cachés) que incorpora el procesador, las denominadas cachés de nivel 1, o caché L1, y de segundo nivel o L2.
 * **S.M.A.R.T. For Hard Disks**: activa o desactiva la característica SMART de predicción de fallos en los discos duros que lo soporten.
