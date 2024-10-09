@@ -17,7 +17,10 @@ Python
   * `Ejercicios de control_flujo <https://github.com/dgtrabada/python/blob/main/03_Control_flujo/03_Ejercicios_Control_flujo.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/03_Control_flujo/03_Ejercicios_Control_flujo_sol.ipynb>`_
 
-* `RW <https://github.com/dgtrabada/python/tree/main/04_RW/rw.ipynb>`_ (`Ejercicios de lectura y escritura <https://github.com/dgtrabada/python/blob/main/04_RW/04_Ejercicios_rw.ipynb>`_)
+* `RW <https://github.com/dgtrabada/python/tree/main/04_RW/rw.ipynb>`_ 
+
+  * `Ejercicios de lectura y escritura <https://github.com/dgtrabada/python/blob/main/04_RW/04_Ejercicios_rw.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/04_RW/04_Ejercicios_rw_sol.ipynb>`_
 
 * `POO <https://github.com/dgtrabada/python/tree/main/05_POO/OOP.ipynb>`_ (`Ejercicios de POO <https://github.com/dgtrabada/python/blob/main/05_POO/05_Ejercicios_OOP.ipynb>`_)
 
