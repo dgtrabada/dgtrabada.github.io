@@ -27,7 +27,11 @@ Algunas de las características básicas de los procesadores son las siguientes:
     
 * **Litografía** se refiere a la tecnología de semiconducción que se utiliza para fabricar el circuito integrado, indicada en nanómetros (nm), y es un indicador del tamaño de las funciones incluidas en el semiconductor.
 * **TDP** es una medida de la cantidad máxima de energía térmica que un procesador, puede generar sin sufrir daños. La TDP se mide en vatios (W) y representa el límite superior de la potencia que el dispositivo puede consumir mientras se encuentra en un estado de operación normal. La TDP se utiliza a menudo como una medida de la capacidad de un dispositivo para manejar la carga de trabajo y determinar si es necesario proporcionar un enfriamiento adecuado para evitar sobrecalentamiento.
-* **Cantidad de núcleos** de un procesador es el número de unidades de procesamiento que se encuentran en un solo chip de procesador
+* **Cantidad de núcleos** de un procesador es el número de unidades de procesamiento que se encuentran en un solo chip de procesador, 
+ 
+  * **Performance-cores (P-cores)**, diseñados para alto rendimiento: Estos núcleos están optimizados para tareas que requieren mucho poder de procesamiento, como videojuegos, edición de video, diseño 3D, simulaciones y otras cargas de trabajo intensas y funcionan a frecuencias más altas, lo que les permite realizar cálculos más rápidos. Por otro lado encontramos los  
+  * **Efficient-cores (E-cores)** estos núcleos están diseñados para maximizar la eficiencia energética y manejar tareas de fondo o de baja prioridad.
+  
 * **Hyper-Threading** permite a un procesador de un solo núcleo realizar varias tareas de forma simultánea, lo que se conoce como procesamiento de múltiples hilos. Esto se logra mediante la división de cada núcleo físico en dos núcleos lógicos, cada uno de los cuales puede realizar operaciones de manera independiente. Esto permite que el procesador maneje mejor la carga de trabajo y mejore el rendimiento del sistema.
 * **Overclocking** es el acto de aumentar la velocidad de reloj de un procesador por encima de su velocidad de fábrica con el fin de mejorar el rendimiento del sistema. El overclocking se realiza a menudo por usuarios experimentados y requiere ajustes en la configuración del BIOS
 * **Turbo Boost**. es una característica incorporada en algunos procesadores Intel que aumenta la velocidad de reloj del procesador cuando se detecta una demanda de carga de trabajo elevada. El Turbo Boost aumenta la velocidad de reloj hasta un límite predeterminado "Frecuencia turbo máxima" y se activa y desactiva automáticamente según sea necesario.
@@ -37,7 +41,7 @@ Algunas de las características básicas de los procesadores son las siguientes:
   * **Caché de 2º nivel (L2)**: Integrada también en el procesador, aunque no directamente en el núcleo de este, tiene las mismas ventajas que la caché L1, aunque es algo más lenta que esta. La caché L2 puede superar los 2MB.
   * **Caché de 3er nivel (L3)**: Es un tipo de memoria caché más lenta que la L2, hoy en día también esta dentro del procesador y suele ser compartida por los diferentes cores ~8MB
   
-* **Arquitectura**: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 232 direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 232 direcciones * 1 palabra "byte" = 232 B = 22 GB = 4 GB)El conjunto de instrucciones que utilizan:
+* **Arquitectura**: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 232 direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 :sup:`32` direcciones * 1 palabra **byte** = 2 :sup:`32` B = 2 :sup:`2` GB = 4 GB)El conjunto de instrucciones que utilizan:
 
   * **CISC** (complex instruction set computer) Computadoras con un conjunto de instrucciones complejo. Se refiere a los microprocesadores tradicionales que operan con grupos grandes de instrucciones de procesador (lenguaje de maquina). Los microprocesadores INTEL 80xxx estan dentro de esta categoría (incluido el PENTIUM). Los procesadores CISC tienen un Set de instrucciones complejas por naturaleza que requieren varios a muchos ciclos para completarse. En la actualidad CISC tiene a x86 como su mayor exponente (Motorola 68000, Zilog Z80 y toda la familia Intel x86, AMD x86-64)
   * **RISC** (reduced instruction set computer) Computadoras con un conjunto de instrucciones reducido, los procesadores RISC tienen un grupo de o Set de instrucciones simples requiriendo uno o pocos ciclos de ejecución. Estas instrucciones pueden ser utilizadas más eficientemente que la de los procesadores CISC con el diseño de software apropiado, resultando en operaciones más rapídas. En la actualidad el mayor ejemplo de procesador RISC son los productos ARM, utilizados ampliamente en dispositivos móviles pero también en otros campos como los supercomputadores. (PowerPC, DEC Alpha, MIPS, ARM, SPARC )
@@ -64,7 +68,7 @@ Características de INTEL
 
 * **Brand** = Intel® Core™, Celeron®,  Pentium®
 * **Brand Modifies** = i3, i5, i7, and i9
-* **Generation indicator** = generación a la que pertencen, en este cato a la 10th ,11th-10th generación están diseñados para portátiles.
+* **Generation indicator** = generación a la que pertencen
 * **SKU** = sirve  catalogarlo dentro de su generación
 * **Produc Line Suffix** = indica capacidades especiales
 

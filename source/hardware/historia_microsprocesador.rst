@@ -10,7 +10,7 @@ Una fecha señalada en la historia del microprocesador fue en el 2000 cuando Int
 
 Se fabricaron muchas variantes, entre ellas se desarrollo el Hyper-Threading un "doble núcleo virtual" además de aumentar el bus has 800 Mhz y llegar a 1MB de cache L2.
 
-La respuesta de AMD fue en el 2003 con lo **Opteron**, fueron los primeros procesadores de 64bits en triunfar en el mundo del PC. Después de los Opteron sacaron los **Athlon 64** que tenían la ventaja de incluir el controlador de memoria dentro del micro en lugar de tenerlo en el northbridge. Además sacaron un novedoso bus frontal llamado HyperTransport que gracias al doble aprovechamiento de la señal llego hasta los 2 GHz. La ventaja de los procesadores de 64 bits, es que pueden direccionar hasta 264 = 16 exabytes de memoria, mientras que los procesadores de 32 bits solo pueden direccionar 232 = 4 GB de memoria RAM
+La respuesta de AMD fue en el 2003 con lo **Opteron**, fueron los primeros procesadores de 64bits en triunfar en el mundo del PC. Después de los Opteron sacaron los **Athlon 64** que tenían la ventaja de incluir el controlador de memoria dentro del micro en lugar de tenerlo en el northbridge. Además sacaron un novedoso bus frontal llamado HyperTransport que gracias al doble aprovechamiento de la señal llego hasta los 2 GHz. La ventaja de los procesadores de 64 bits, es que pueden direccionar hasta 2 :sup:`64` = 16 exabytes de memoria, mientras que los procesadores de 32 bits solo pueden direccionar 2 :sup:`32` = 4 GB de memoria RAM
 
 Intel saca el **Pentium D**, estos serían los primeros procesadores de doble núcleo, aunque en realidad eran 2 núcleos juntos con 1 MB de cache L2 cada uno y 3.2 GHz.
 
@@ -28,11 +28,11 @@ Sin embargo,  AMD dejo el mercado de los ordenadores en un segundo plano ha faci
 
 **Actualidad:**
 
-Los nuevos **Intel Core i9** se basa en la arquitectura Skylake, son compatibles con la memoria RAM DDR4, utilizan la tecnología Intel Turbo Boost y la tecnología Hiper-Threading y se realizan en el proceso de 14 nm, y su potencia máxima es de 140 W, en condiciones ideales puede llegar hasta los 5 GHz
+Los nuevos **Intel Core i9 14ª generación** en condiciones ideales puede llegar hasta los 6 Ghz, con capacidad para hasta 80 Gbps de ancho de banda bidireccional. Los procesadores de escritorio desbloqueados de última generación ahora incluyen la nueva función Intel® XTU AI Assist para overclocking guiado por IA, así como compatibilidad con velocidades DDR5 XMP.
 
-**AMD Ryzen** son los procesadores más de moda en la actualidad. Este nombre hace referencia a la microarquitectura de nueva generación de AMD, “Zen”, 14nm - 7nm, y al resurgir de AMD gracias a estos nuevos procesadores. AMD Ryzen llegó al mercado después de que AMD pasará más de cinco largos años sin poder competir con Intel, pues sus anteriores procesadores, los AMD FX, no resultaron ser competitivos ni en rendimiento ni en eficiencia energética, haciendo que la compañía perdiera casi toda su cuota de mercado.
+**AMD Ryzen** son los procesadores más de moda en la actualidad. Este nombre hace referencia a la microarquitectura de nueva generación de AMD, “Zen 5”, 4nm, y al resurgir de AMD gracias a estos nuevos procesadores. AMD Ryzen llegó al mercado después de que AMD pasará más de cinco largos años sin poder competir con Intel, pues sus anteriores procesadores, los AMD FX, no resultaron ser competitivos ni en rendimiento ni en eficiencia energética, haciendo que la compañía perdiera casi toda su cuota de mercado.
 
-hoy en día  tenemos encontramos el i9 11900K y Ryzen 7 5800X, son los procesadores de gama alta, con 8 núcleos (16 hilos).
+Hoy en día  tenemos encontramos el Core i7-13700T y Ryzen 7 7800X, son los procesadores de gama alta, con 8 núcleos (16 hilos).
 
 Fabricación de un procesador
 ----------------------------
@@ -43,27 +43,18 @@ Fabricación de un procesador
 Evolución del tamaño en la fabricación de transistores
 ------------------------------------------------------
 
+.. image:: imagenes/micros/evotra.png
+
 * 10 µm – 1971
-* 6 µm – 1974
-* 3 µm – 1977
 * 1.5 µm – 1981
-* 1 µm – 1984
-* 800 nm – 1987
 * 600 nm – 1990
-* 350 nm – 1993
-* 250 nm – 1996
-* 180 nm – 1999
 * 130 nm – 2001
-* 90 nm – 2003
-* 65 nm – 2005
-* 45 nm – 2007
 * 32 nm – 2009
 * 22 nm – 2012
 * 14 nm – 2014
 * 10 nm – 2016
 * 7 nm – 2018
 * 5 nm – 2020
-* 3 nm ~ 2022
-* 2 nm ≥ 2023
+* 4 nm ~ 2024
 
 .. image:: imagenes/micros/nm.png
