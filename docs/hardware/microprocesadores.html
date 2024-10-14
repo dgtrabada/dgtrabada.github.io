@@ -513,12 +513,12 @@ document.write(`
 <li><p><strong>Turbo Boost</strong>. es una característica incorporada en algunos procesadores Intel que aumenta la velocidad de reloj del procesador cuando se detecta una demanda de carga de trabajo elevada. El Turbo Boost aumenta la velocidad de reloj hasta un límite predeterminado «Frecuencia turbo máxima» y se activa y desactiva automáticamente según sea necesario.</p></li>
 <li><p><strong>Memoria caché</strong>. Es una memoria en la que se almacena una serie de datos para su rápido acceso. Básicamente, la memoria caché de un procesador es un tipo de memoria volátil (del tipo RAM), pero de una gran velocidad. Hay tres tipos diferentes de memoria caché para procesadores:</p>
 <ul class="simple">
-<li><p><strong>Caché de 1er nivel (L1)</strong>: Esta caché está integrada en el núcleo del procesador, trabajando a la misma velocidad que este. Normalmente tiene de unos 64KB a 256KB.</p></li>
-<li><p><strong>Caché de 2º nivel (L2)</strong>: Integrada también en el procesador, aunque no directamente en el núcleo de este, tiene las mismas ventajas que la caché L1, aunque es algo más lenta que esta. La caché L2 puede superar los 2MB.</p></li>
-<li><p><strong>Caché de 3er nivel (L3)</strong>: Es un tipo de memoria caché más lenta que la L2, hoy en día también esta dentro del procesador y suele ser compartida por los diferentes cores ~8MB</p></li>
+<li><p><strong>Caché de 1er nivel (L1)</strong>: Esta caché está integrada en el núcleo del procesador, trabajando a la misma velocidad que este. Normalmente tiene de unos 64KB a 512KB.</p></li>
+<li><p><strong>Caché de 2º nivel (L2)</strong>: Integrada también en el procesador, aunque no directamente en el núcleo de este, tiene las mismas ventajas que la caché L1, aunque es algo más lenta que esta. La caché L2 puede superar los 8MB.</p></li>
+<li><p><strong>Caché de 3er nivel (L3)</strong>: Es un tipo de memoria caché más lenta que la L2, hoy en día también esta dentro del procesador y suele ser compartida por los diferentes cores ~64MB</p></li>
 </ul>
 </li>
-<li><p><strong>Arquitectura</strong>: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 232 direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 <sup>32</sup> direcciones * 1 palabra <strong>byte</strong> = 2 <sup>32</sup> B = 2 <sup>2</sup> GB = 4 GB)El conjunto de instrucciones que utilizan:</p>
+<li><p><strong>Arquitectura</strong>: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32 bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 2 <sup>32</sup> direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 <sup>32</sup> direcciones * 1 palabra (byte) = 2 <sup>32</sup> B = 2 <sup>2</sup> GB = 4 GB)El conjunto de instrucciones que utilizan:</p>
 <ul class="simple">
 <li><p><strong>CISC</strong> (complex instruction set computer) Computadoras con un conjunto de instrucciones complejo. Se refiere a los microprocesadores tradicionales que operan con grupos grandes de instrucciones de procesador (lenguaje de maquina). Los microprocesadores INTEL 80xxx estan dentro de esta categoría (incluido el PENTIUM). Los procesadores CISC tienen un Set de instrucciones complejas por naturaleza que requieren varios a muchos ciclos para completarse. En la actualidad CISC tiene a x86 como su mayor exponente (Motorola 68000, Zilog Z80 y toda la familia Intel x86, AMD x86-64)</p></li>
 <li><p><strong>RISC</strong> (reduced instruction set computer) Computadoras con un conjunto de instrucciones reducido, los procesadores RISC tienen un grupo de o Set de instrucciones simples requiriendo uno o pocos ciclos de ejecución. Estas instrucciones pueden ser utilizadas más eficientemente que la de los procesadores CISC con el diseño de software apropiado, resultando en operaciones más rapídas. En la actualidad el mayor ejemplo de procesador RISC son los productos ARM, utilizados ampliamente en dispositivos móviles pero también en otros campos como los supercomputadores. (PowerPC, DEC Alpha, MIPS, ARM, SPARC )</p></li>
@@ -526,8 +526,8 @@ document.write(`
 </li>
 <li><p><strong>FBS (front-side bus)</strong> El bus frontal es un canal de comunicación que se utiliza para transferir datos y comandos entre el procesador y la memoria principal. La velocidad del bus frontal se mide en MHz y determina la cantidad de datos que pueden transferirse entre el procesador y la memoria principal en un segundo.</p>
 <ul class="simple">
-<li><p><strong>Hyper-Transport (HT)</strong> = Bus que sustituye al FSB (Front Side Bus), gracias al doble aprovechamiento ofrece hasta 7.2 GB/s</p></li>
-<li><p><strong>Quick Path Interconnect (QPI)</strong> = Como el Hyper-Transport aprovecha la señal en ambos sentidos y además bidireccional, full-fuplex llega hasta 12GB/s</p></li>
+<li><p><strong>Hyper-Transport (HT)</strong> = Bus que sustituye al FSB (Front Side Bus), gracias al doble aprovechamiento en suversión más reciente HT 3.1 ofrece hasta 51.2 GB/s, hoy en día sea sustituido por <strong>Infinity Fabric (AMD) y PCIe Gen 4 o Gen 5</strong> son tecnologías que ahora dominan el mercado, con velocidades de hasta 64 GB/s (PCIe Gen 4) y más de 128 GB/s (PCIe Gen 5), mucho más rápidas que las versiones más avanzadas de HyperTransport.</p></li>
+<li><p><strong>Quick Path Interconnect (QPI)</strong> = Como el Hyper-Transport aprovecha la señal en ambos sentidos y además bidireccional, full-fuplex. En procesadores más modernos, Intel ha empezado a utilizar su <strong>Ultra Path Interconnect (UPI)</strong>, que es una evolución de QPI con mayor ancho de banda y menores latencias. UPI se introdujo con las arquitecturas Skylake y posteriores para servidores, y está diseñado para ofrecer un mejor rendimiento en configuraciones multiprocesador,el ancho de banda total puede alcanzar hasta up to 25.6 GB/s por dirección en configuraciones de múltiples enlaces. En configuraciones de dos vías, el ancho de banda total puede duplicarse, alcanzando hasta 51.2 GB/s</p></li>
 </ul>
 </li>
 <li><p><strong>BSB (Back-side bus)</strong> El bus posterior es un canal de comunicación que se utiliza para transferir datos y comandos entre el cache L2 y la memoria principal.</p></li>
@@ -564,7 +564,7 @@ document.write(`
 </ul>
 <a class="reference internal image-reference" href="../_images/zen.png"><img alt="../_images/zen.png" src="../_images/zen.png" style="height: 200px;" />
 </a>
-<p>La arquitectura “Zen 3” es una transición a un nuevo diseño «complejo unificado» que  incorpora 8 núcleos y 32 MB de caché L3 en un solo grupo de recursos.
+<p>La arquitectura <strong>Zen 3</strong> es una transición a un nuevo diseño complejo unificado que  incorpora 8 núcleos y 32 MB de caché L3 en un solo grupo de recursos.
 El chipset</p>
 <a class="reference internal image-reference" href="../_images/chiplet.png"><img alt="../_images/chiplet.png" src="../_images/chiplet.png" style="height: 150px;" />
 </a>

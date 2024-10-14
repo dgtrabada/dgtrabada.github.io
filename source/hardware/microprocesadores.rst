@@ -37,19 +37,20 @@ Algunas de las características básicas de los procesadores son las siguientes:
 * **Turbo Boost**. es una característica incorporada en algunos procesadores Intel que aumenta la velocidad de reloj del procesador cuando se detecta una demanda de carga de trabajo elevada. El Turbo Boost aumenta la velocidad de reloj hasta un límite predeterminado "Frecuencia turbo máxima" y se activa y desactiva automáticamente según sea necesario.
 * **Memoria caché**. Es una memoria en la que se almacena una serie de datos para su rápido acceso. Básicamente, la memoria caché de un procesador es un tipo de memoria volátil (del tipo RAM), pero de una gran velocidad. Hay tres tipos diferentes de memoria caché para procesadores:
 
-  * **Caché de 1er nivel (L1)**: Esta caché está integrada en el núcleo del procesador, trabajando a la misma velocidad que este. Normalmente tiene de unos 64KB a 256KB.
-  * **Caché de 2º nivel (L2)**: Integrada también en el procesador, aunque no directamente en el núcleo de este, tiene las mismas ventajas que la caché L1, aunque es algo más lenta que esta. La caché L2 puede superar los 2MB.
-  * **Caché de 3er nivel (L3)**: Es un tipo de memoria caché más lenta que la L2, hoy en día también esta dentro del procesador y suele ser compartida por los diferentes cores ~8MB
+  * **Caché de 1er nivel (L1)**: Esta caché está integrada en el núcleo del procesador, trabajando a la misma velocidad que este. Normalmente tiene de unos 64KB a 512KB.
+  * **Caché de 2º nivel (L2)**: Integrada también en el procesador, aunque no directamente en el núcleo de este, tiene las mismas ventajas que la caché L1, aunque es algo más lenta que esta. La caché L2 puede superar los 8MB.
+  * **Caché de 3er nivel (L3)**: Es un tipo de memoria caché más lenta que la L2, hoy en día también esta dentro del procesador y suele ser compartida por los diferentes cores ~64MB
   
-* **Arquitectura**: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 232 direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 :sup:`32` direcciones * 1 palabra **byte** = 2 :sup:`32` B = 2 :sup:`2` GB = 4 GB)El conjunto de instrucciones que utilizan:
+* **Arquitectura**: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32 bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 2 :sup:`32` direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 :sup:`32` direcciones * 1 palabra (byte) = 2 :sup:`32` B = 2 :sup:`2` GB = 4 GB)El conjunto de instrucciones que utilizan:
 
   * **CISC** (complex instruction set computer) Computadoras con un conjunto de instrucciones complejo. Se refiere a los microprocesadores tradicionales que operan con grupos grandes de instrucciones de procesador (lenguaje de maquina). Los microprocesadores INTEL 80xxx estan dentro de esta categoría (incluido el PENTIUM). Los procesadores CISC tienen un Set de instrucciones complejas por naturaleza que requieren varios a muchos ciclos para completarse. En la actualidad CISC tiene a x86 como su mayor exponente (Motorola 68000, Zilog Z80 y toda la familia Intel x86, AMD x86-64)
   * **RISC** (reduced instruction set computer) Computadoras con un conjunto de instrucciones reducido, los procesadores RISC tienen un grupo de o Set de instrucciones simples requiriendo uno o pocos ciclos de ejecución. Estas instrucciones pueden ser utilizadas más eficientemente que la de los procesadores CISC con el diseño de software apropiado, resultando en operaciones más rapídas. En la actualidad el mayor ejemplo de procesador RISC son los productos ARM, utilizados ampliamente en dispositivos móviles pero también en otros campos como los supercomputadores. (PowerPC, DEC Alpha, MIPS, ARM, SPARC )
   
 * **FBS (front-side bus)** El bus frontal es un canal de comunicación que se utiliza para transferir datos y comandos entre el procesador y la memoria principal. La velocidad del bus frontal se mide en MHz y determina la cantidad de datos que pueden transferirse entre el procesador y la memoria principal en un segundo.
 
-  * **Hyper-Transport (HT)** = Bus que sustituye al FSB (Front Side Bus), gracias al doble aprovechamiento ofrece hasta 7.2 GB/s
-  * **Quick Path Interconnect (QPI)** = Como el Hyper-Transport aprovecha la señal en ambos sentidos y además bidireccional, full-fuplex llega hasta 12GB/s
+  * **Hyper-Transport (HT)** = Bus que sustituye al FSB (Front Side Bus), gracias al doble aprovechamiento en suversión más reciente HT 3.1 ofrece hasta 51.2 GB/s, hoy en día sea sustituido por **Infinity Fabric (AMD) y PCIe Gen 4 o Gen 5** son tecnologías que ahora dominan el mercado, con velocidades de hasta 64 GB/s (PCIe Gen 4) y más de 128 GB/s (PCIe Gen 5), mucho más rápidas que las versiones más avanzadas de HyperTransport.
+  
+  * **Quick Path Interconnect (QPI)** = Como el Hyper-Transport aprovecha la señal en ambos sentidos y además bidireccional, full-fuplex. En procesadores más modernos, Intel ha empezado a utilizar su **Ultra Path Interconnect (UPI)**, que es una evolución de QPI con mayor ancho de banda y menores latencias. UPI se introdujo con las arquitecturas Skylake y posteriores para servidores, y está diseñado para ofrecer un mejor rendimiento en configuraciones multiprocesador,el ancho de banda total puede alcanzar hasta up to 25.6 GB/s por dirección en configuraciones de múltiples enlaces. En configuraciones de dos vías, el ancho de banda total puede duplicarse, alcanzando hasta 51.2 GB/s
   
 * **BSB (Back-side bus)** El bus posterior es un canal de comunicación que se utiliza para transferir datos y comandos entre el cache L2 y la memoria principal.
 * **Multiplicador** (multiplier factor) es la relación que hay entre la velocidad interna(micro) y externa(FSB) BSB/FSB
@@ -88,7 +89,7 @@ En diciembre de 2019, AMD comenzó a lanzar productos Ryzen de primera generaci�
 .. image:: imagenes/micros/zen.png
     :height: 200 
 
-La arquitectura “Zen 3” es una transición a un nuevo diseño "complejo unificado" que  incorpora 8 núcleos y 32 MB de caché L3 en un solo grupo de recursos.
+La arquitectura **Zen 3** es una transición a un nuevo diseño complejo unificado que  incorpora 8 núcleos y 32 MB de caché L3 en un solo grupo de recursos.
 El chipset
 
 .. image:: imagenes/micros/chiplet.png
