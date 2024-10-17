@@ -72,7 +72,7 @@ En la actualidad, encontramos en el mercado procesadores de gama media y alta qu
   
   * **LPDDR** (abreviatura de Low-Power Double Data Rate), también conocida como Low-Power DDR SDRAM o LPDDR SDRAM, es un tipo de memoria de acceso aleatorio dinámico síncrona de doble velocidad de datos que consume menos energía y está destinada a dispositivos móviles. También se conoce como Mobile DDR y se abrevia como mDDR.
   
-  * **XMP** , o eXtreme Memory Profile es una característica de la memoria RAM de ordenador que permite a los usuarios configurar y ajustar la velocidad y otras opciones avanzadas de la memoria de forma sencilla
+  * **XMP** , o Extreme Memory Profile es una característica de la memoria RAM de ordenador que permite a los usuarios configurar y ajustar la velocidad y otras opciones avanzadas de la memoria de forma sencilla
   
   * **SPD**, Serial Presence Detect, es una característica de la memoria RAM de ordenador que permite a la placa base detectar y leer información sobre la memoria instalada en el sistema. La información incluida en el SPD típicamente incluye la marca y modelo de la memoria, su capacidad, su frecuencia y otros ajustes técnicos.
     

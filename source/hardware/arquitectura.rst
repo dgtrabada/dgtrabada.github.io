@@ -45,7 +45,7 @@ Funcionamiento:
 ===============
 
 * `VonNewmann.pdf <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VonNewmann.pdf>`_
-* `Contador + decodificador <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/contador%2Bdecodificador.sim1>`_
-* `Sumador con acarreo <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/ALU.sim1>`_
-* `CPU sin direccionamiento <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/CPU.sim1>`_
+* `Contador + decodificador <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/contador%2Bdecodificador.sim1>`_
+* `Sumador con acarreo <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/ALU.sim1>`_
+* `CPU sin direccionamiento https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/CPU.sim1>`_
          
