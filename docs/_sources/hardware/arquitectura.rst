@@ -4,11 +4,11 @@ Arquitectura del ordenador
 
 Fíjate en el siguiente ordeandor:
 
-* `zx80 sinclair anuncio pag1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80advert.jpg>`_
-* `zx80 sinclair anuncio pag2 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_advert.jpg>`_
-* `zx80 sinclair <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair.jpg>`_
-* `zx80 inside <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/sinclair2.jpg>`_
-* `zx80 circuit diagram <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/zx80_circuit.gif>`_
+* `zx80 sinclair anuncio pag1 <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/zx80advert.jpg>`_
+* `zx80 sinclair anuncio pag2 <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/zx80_advert.jpg>`_
+* `zx80 sinclair <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/sinclair.jpg>`_
+* `zx80 inside <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/sinclair2.jpg>`_
+* `zx80 circuit diagram <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/zx80_circuit.gif>`_
 
 
 
@@ -30,7 +30,7 @@ Ejemplo:
 .. image:: imagenes/arquitectura/VN_sencillo.gif
 
 
-`Paso a paso pdf <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VN_sencillo.pdf>`_
+`Paso a paso pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_sencillo.pdf>`_
 
 Instrucciones para hacer los cuestionarios.
 ===========================================
