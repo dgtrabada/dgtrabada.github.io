@@ -44,8 +44,8 @@ En el caso de que quieras practicar utilizando un papel como haremos en el exam√
 Funcionamiento:
 ===============
 
-* `VonNewmann.pdf <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/docsrc/source/hardware/imagenes/arquitectura/VonNewmann.pdf>`_
+* `VonNewmann.pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/9d4cb4a90040e1a2aaef405191bf3de6111d948a/source/hardware/imagenes/arquitectura/VonNewmann.pdf>`_
 * `Contador + decodificador <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/contador%2Bdecodificador.sim1>`_
 * `Sumador con acarreo <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/ALU.sim1>`_
-* `CPU sin direccionamiento https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/CPU.sim1>`_
+* `CPU sin direccionamiento <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/CPU.sim1>`_
          
