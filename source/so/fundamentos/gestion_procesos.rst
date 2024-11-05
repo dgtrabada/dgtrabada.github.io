@@ -121,24 +121,24 @@ Una forma de disminuir el coste de los cambios de contexto es utilizando threads
 Planificación de procesos
 =========================
 
-Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene que decidir que proceso listo va a empezar a pasar a ejecución, vamos a ver el siguiente ejemplo con 2 procesos que ocupan (4,6), en el caso de ejecutar primero el de 4 y luego el de 6 el tiempo de espera medio será de (0+4)/2=2, sin embargo si primero ejecutamos el de 6, tendremos un tiempo de espera medio de (0+6)/2=3
+Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene que decidir que proceso listo va a empezar a pasar a ejecución, vamos a ver el siguiente ejemplo con 2 procesos que ocupan (4,6), en el caso de ejecutar primero el de 4 y luego el de 6 el tiempo de espera será de (0+4)=4, sin embargo si primero ejecutamos el de 6, tendremos un tiempo de espera medio de (0+6)=6
 
 Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritmos:
 
 * **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bolqueado.
 
-* **SJN** (Shortest-job-nest) toma como siguiente el proceso que va ha terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))/3=(2a+b)/3, de hacerlo al revés tendríamos (2c+b)/3 es decir la diferencia es de 2/3(a-c). 
+* **SJN** (Shortest-job-nest) toma como siguiente el proceso que va ha terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
   El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.
   
   Ejemplo : (2,4,8)
 
   .. image:: imagenes/procesos_1.png 
   
-  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera medio TE = (2+(2+4))/3 = 2.66 y el tiempo medio de ejecución es TR = (2+6+14)/3 = 7.333
+  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera medio TE = 2+(2+4) = 8 y el tiempo de ejecución es TR = 2+6+14 = 22
   
   .. image:: imagenes/procesos_2.png 
 
-  si lo hacemos al reves TE = (8+(8+4))/3 = 6.66 y el tiempo medio de ejecución es  TR = (14+12+8)/3 = 11.33
+  si lo hacemos al reves TE = 8+(8+4) = 20 y el tiempo de ejecución es  TR = 14+12+8 = 34
 
   .. image:: imagenes/procesos_3.png 
 

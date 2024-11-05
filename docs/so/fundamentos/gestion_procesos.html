@@ -556,17 +556,17 @@ $<span class="w"> </span><span class="nb">jobs</span>
 <p>Una forma de disminuir el coste de los cambios de contexto es utilizando threads o hilos. Los hilos de un mismo proceso comparten el mismo espacio de direccionamiento, así como también los recursos abiertos y la información del proceso (PCB) gracias a esto consiguen que su creación y el cambio de contexto sea mucho más barato.</p>
 <section id="planificacion-de-procesos">
 <h2>Planificación de procesos<a class="headerlink" href="#planificacion-de-procesos" title="Link to this heading">#</a></h2>
-<p>Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene que decidir que proceso listo va a empezar a pasar a ejecución, vamos a ver el siguiente ejemplo con 2 procesos que ocupan (4,6), en el caso de ejecutar primero el de 4 y luego el de 6 el tiempo de espera medio será de (0+4)/2=2, sin embargo si primero ejecutamos el de 6, tendremos un tiempo de espera medio de (0+6)/2=3</p>
+<p>Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene que decidir que proceso listo va a empezar a pasar a ejecución, vamos a ver el siguiente ejemplo con 2 procesos que ocupan (4,6), en el caso de ejecutar primero el de 4 y luego el de 6 el tiempo de espera será de (0+4)=4, sin embargo si primero ejecutamos el de 6, tendremos un tiempo de espera medio de (0+6)=6</p>
 <p>Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritmos:</p>
 <ul>
 <li><p><strong>FIFO</strong> (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bolqueado.</p></li>
-<li><p><strong>SJN</strong> (Shortest-job-nest) toma como siguiente el proceso que va ha terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a&lt;b&lt;c, para este caso tendríamos un tiempo de espera de: (a+(a+b))/3=(2a+b)/3, de hacerlo al revés tendríamos (2c+b)/3 es decir la diferencia es de 2/3(a-c).
+<li><p><strong>SJN</strong> (Shortest-job-nest) toma como siguiente el proceso que va ha terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a&lt;b&lt;c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c).
 El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.</p>
 <p>Ejemplo : (2,4,8)</p>
 <img alt="../../_images/procesos_1.png" src="../../_images/procesos_1.png" />
-<p>Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera medio TE = (2+(2+4))/3 = 2.66 y el tiempo medio de ejecución es TR = (2+6+14)/3 = 7.333</p>
+<p>Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera medio TE = 2+(2+4) = 8 y el tiempo de ejecución es TR = 2+6+14 = 22</p>
 <img alt="../../_images/procesos_2.png" src="../../_images/procesos_2.png" />
-<p>si lo hacemos al reves TE = (8+(8+4))/3 = 6.66 y el tiempo medio de ejecución es  TR = (14+12+8)/3 = 11.33</p>
+<p>si lo hacemos al reves TE = 8+(8+4) = 20 y el tiempo de ejecución es  TR = 14+12+8 = 34</p>
 <img alt="../../_images/procesos_3.png" src="../../_images/procesos_3.png" />
 </li>
 <li><p><strong>RR</strong> (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza esta quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si en demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.</p></li>
