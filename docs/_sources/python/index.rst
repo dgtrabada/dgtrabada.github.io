@@ -22,9 +22,15 @@ Python
   * `Ejercicios de lectura y escritura <https://github.com/dgtrabada/python/blob/main/04_RW/04_Ejercicios_rw.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/04_RW/04_Ejercicios_rw_sol.ipynb>`_
 
-* `POO <https://github.com/dgtrabada/python/tree/main/05_POO/OOP.ipynb>`_ (`Ejercicios de POO <https://github.com/dgtrabada/python/blob/main/05_POO/05_Ejercicios_OOP.ipynb>`_)
+* `POO <https://github.com/dgtrabada/python/tree/main/05_POO/OOP.ipynb>`_ 
+   
+  * `Ejercicios de POO <https://github.com/dgtrabada/python/blob/main/05_POO/05_Ejercicios_OOP.ipynb>`_
+  * `Soluciones  <https://github.com/dgtrabada/python/blob/main/05_POO/05_Ejercicios_OOP_sol.ipynb>`_
 
-* `NumPy <https://github.com/dgtrabada/python/tree/main/06_NumPy/NumPy.ipynb>`_ (`Ejercicios de NumPy <https://github.com/dgtrabada/python/blob/main/06_NumPy/06_Ejercicios_NumPy.ipynb>`_)
+* `NumPy <https://github.com/dgtrabada/python/tree/main/06_NumPy/NumPy.ipynb>`_ 
+
+  * `Ejercicios de NumPy <https://github.com/dgtrabada/python/blob/main/06_NumPy/06_Ejercicios_NumPy.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/06_NumPy/06_Ejercicios_NumPy_sol.ipynb>`_  
 
 * `Matplotlib <https://github.com/dgtrabada/python/tree/main/07_Matplotlib/Matplotlib.ipynb>`_ (`Ejercicios de Matplotlib <https://github.com/dgtrabada/python/blob/main/07_Matplotlib/07_Ejercicios_Matplotlib.ipynb>`_)
 
