@@ -29,18 +29,6 @@ Ejercicios de PowerShell
 
 .. tabs::
 
-    .. tab:: mac.ps1
-      
-        Crea un script llamado **mac.ps1** que obtiene la MAC de tu tarjeta de red
-
-    .. tab:: Solución
-
-        .. literalinclude:: 10_powershell/mac.ps1
-           :language: powershell
-
-
-.. tabs::
-
     .. tab:: cpu.ps1
       
         Crea un script llamado **cpu.ps1** que saque por pantalla el nombre del procesador instalado en el equipo
@@ -50,6 +38,22 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/cpu.ps1
            :language: powershell
 
+
+.. tabs::
+
+    .. tab:: mac.ps1
+      
+        Crea un script llamado **mac.ps1** que obtiene la MAC de las tarjetas de red que estén en estado Up
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/mac.ps1
+           :language: powershell
+
+    .. tab:: Solución (foreach)
+
+        .. literalinclude:: 10_powershell/mac2.ps1
+           :language: powershell
 
 .. tabs::
 

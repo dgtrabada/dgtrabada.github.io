@@ -1,0 +1,1222 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PowerShell Scripting &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/.ipynb_checkpoints/10_powershell_scripting-checkpoint';</script>
+    <link rel="icon" href="../../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">Sistemas Operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../hardware/diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/06_instalacion_odoo.html">Instalación odoo y backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/08_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/09_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/10_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/18_mantenimineto.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/27_modulo.html">Crear un modulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/so/windows/.ipynb_checkpoints/10_powershell_scripting-checkpoint.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PowerShell Scripting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-ejecucion-de-scripts">Habilitar ejecución de scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-y-colecciones">Tipos y colecciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores">Operadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-de-asignacion">Operadores de asignación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host">Argumentos de entrada Read-Host</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-argst-ps1">Argumentos de entrada Read-Host argst.ps1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-param-ps1">Argumentos de entrada Read-Host param.ps1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-condiciones">Evaluación de condiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-logicos">Operadores lógicos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-cadenas">Comparación de cadenas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructuras-condicionales-con-if">Estructuras condicionales con if</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-for">Bucles con for</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-while">Bucles con While</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-until">Bucles con Until</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-foreach">Bucles con Foreach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#archivos">Archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-powershell-ise">Windows PowerShell ISE</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="powershell-scripting">
+<h1>PowerShell Scripting<a class="headerlink" href="#powershell-scripting" title="Link to this heading">#</a></h1>
+<section id="habilitar-ejecucion-de-scripts">
+<h2>Habilitar ejecución de scripts<a class="headerlink" href="#habilitar-ejecucion-de-scripts" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">Unrestricted</span>
+</pre></div>
+</div>
+</section>
+<section id="tipos-y-colecciones">
+<h2>Tipos y colecciones<a class="headerlink" href="#tipos-y-colecciones" title="Link to this heading">#</a></h2>
+<p>En PowerShell, no es necesario declarar explícitamente el tipo de una variable, infiere el tipo automáticamente al asignar un valor. No obtantes si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$number</span> <span class="p">=</span> <span class="n">42</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$number</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span>
+
+<span class="n">IsPublic</span> <span class="n">IsSerial</span> <span class="n">Name</span>
+<span class="p">--------</span> <span class="p">--------</span> <span class="p">----</span>
+<span class="n">True</span>     <span class="n">True</span>     <span class="n">Int32</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="nv">$a</span> <span class="p">=</span> <span class="n">4</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Int32</span>
+</pre></div>
+</div>
+<p>Podemos convertir los diferentes tipos por ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">4</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$cadena</span><span class="p">=</span><span class="nv">$a</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$cadena</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">String</span>
+
+<span class="c">#TryParse nos devuelve si es posible</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="nv">$b</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="p">::</span><span class="n">TryParse</span><span class="p">(</span><span class="nv">$cadena</span><span class="p">,</span> <span class="no">[ref]</span><span class="nv">$b</span><span class="p">)</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$b</span>
+<span class="n">4</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="p">::</span><span class="n">TryParse</span><span class="p">(</span><span class="s2">&quot;2w&quot;</span><span class="p">,</span> <span class="no">[ref]</span><span class="nv">$b</span><span class="p">)</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$b</span>
+<span class="n">0</span>
+
+<span class="c">#Podemos hacerlo directamente, pero si hay algún error se parará el script</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$b</span> <span class="p">=</span> <span class="no">[int]</span><span class="p">::</span><span class="n">Parse</span><span class="p">(</span><span class="nv">$cadena</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$b</span>
+<span class="n">4</span>
+</pre></div>
+</div>
+<p>Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShell son:</p>
+<ul>
+<li><p>Números enteros <strong>(Integers)</strong>. Un entero es un número sin parte decimal</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="no">[int]</span><span class="nv">$a</span> <span class="p">=</span> <span class="n">4</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Int32</span>
+</pre></div>
+</div>
+</li>
+<li><p>Números de coma flotante <strong>(Floating-Point)</strong>. Los números de coma flotante son números que incluyen una parte decimal</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$number</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">14</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$number</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Double</span>
+</pre></div>
+</div>
+</li>
+<li><p>Cadenas de texto <strong>(Strings)</strong>. Una cadena es una secuencia de caracteres utilizada para representar texto.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span><span class="nv">$cadena</span> <span class="p">=</span> <span class="s2">&quot;Hola, Mundo!&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$cadena</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">String</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;cadena&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;CC&quot;</span><span class="p">)</span>
+<span class="n">CCdena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">c</span>
+<span class="n">den</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="n">0</span><span class="p">]</span>
+<span class="n">c</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>
+<span class="n">dena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">2</span><span class="p">,</span><span class="n">4</span><span class="p">)</span>
+<span class="n">ca</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">IndexOf</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">1</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;Ca&quot;</span><span class="p">)</span>
+<span class="n">Cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="s2">&quot;cadena&quot;</span><span class="p">)</span>
+<span class="n">True</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Length</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s2">&quot;an&quot;</span><span class="p">)</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span>
+<span class="n">cadena</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$a</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span>
+<span class="n">CADENA</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;  &quot;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;na&quot;</span><span class="p">,</span><span class="s2">&quot;  &quot;</span><span class="p">)</span>
+ <span class="n">de</span>
+<span class="c">#Trim() elimina espacios al final y al princio</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;ca&quot;</span><span class="p">,</span><span class="s2">&quot;  &quot;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s2">&quot;na&quot;</span><span class="p">,</span><span class="s2">&quot;  &quot;</span><span class="p">).</span><span class="n">Trim</span><span class="p">()</span>
+<span class="n">de</span>
+</pre></div>
+</div>
+<p><strong>Format:</strong> Formatea una cadena usando marcadores de posición {n} que se reemplazan por los valores proporcionados.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$nombre</span> <span class="p">=</span> <span class="s2">&quot;Tutankamón&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$edad</span> <span class="p">=</span> <span class="n">3394</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$cadena</span> <span class="p">=</span> <span class="no">[string]</span><span class="p">::</span><span class="n">Format</span><span class="p">(</span><span class="s2">&quot;Nombre: {0}, Edad: {1}&quot;</span><span class="p">,</span> <span class="nv">$nombre</span><span class="p">,</span> <span class="nv">$edad</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Redondeo a Dos Decimales</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:F2}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">3</span><span class="p">,</span><span class="n">14</span>
+</pre></div>
+</div>
+<p>Formato de Moneda</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:C2}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">3</span><span class="p">,</span><span class="n">14</span> <span class="err">€</span>
+</pre></div>
+</div>
+<p>Formato Científico</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:E2}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">3</span><span class="p">,</span><span class="n">14E</span><span class="p">+</span><span class="n">000</span>
+</pre></div>
+</div>
+<p>Formato de Porcentaje</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:P2}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">314</span><span class="p">,</span><span class="n">16</span> <span class="p">%</span>
+</pre></div>
+</div>
+<p>Formato de Longitud Fija (Relleno a la Izquierda)</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0,10}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span>   <span class="n">3</span><span class="p">,</span><span class="n">141592</span>
+</pre></div>
+</div>
+<p>Formato de Longitud Fija (Relleno a la Derecha)</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0,-10}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">3</span><span class="p">,</span><span class="n">141592</span>
+</pre></div>
+</div>
+<p>Formato con Cero Padding (Relleno con ceros)</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$pi</span> <span class="p">=</span> <span class="n">3</span><span class="p">.</span><span class="n">141592</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:000.000}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">003</span><span class="p">,</span><span class="n">142</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$out</span> <span class="p">=</span> <span class="s2">&quot;pi : {0:00}&quot;</span> <span class="o">-f</span> <span class="nv">$pi</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Write-Output</span> <span class="nv">$out</span>
+<span class="n">pi</span> <span class="p">:</span> <span class="n">03</span>
+</pre></div>
+</div>
+</li>
+<li><p>Booleanos (<strong>Booleans</strong>). Un valor booleano puede ser True o False.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span><span class="nv">$B</span><span class="p">=</span><span class="nv">$true</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$B</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Boolean</span>
+</pre></div>
+</div>
+</li>
+<li><p>Arreglos <strong>(Arrays)</strong>. Un arreglo es una colección de elementos, que pueden ser de cualquier tipo de dato. Los elementos están indexados comenzando desde cero.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$numbers</span> <span class="p">=</span> <span class="p">@(</span><span class="n">1</span><span class="p">,</span> <span class="n">2</span><span class="p">,</span> <span class="n">3</span><span class="p">,</span> <span class="n">4</span><span class="p">,</span> <span class="n">5</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Object</span><span class="p">[]</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+<span class="n">1</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">GetType</span><span class="p">().</span><span class="n">Name</span>
+<span class="n">Int32</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">Length</span>
+<span class="n">5</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">Count</span>
+<span class="n">5</span>
+
+<span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">2</span><span class="p">)</span>
+<span class="n">True</span>
+
+<span class="c">#podemos añadir nuevos elementos</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nv">$numbers</span><span class="p">+=</span><span class="s2">&quot;hola&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">echo </span><span class="nv">$numbers</span>
+<span class="n">1</span>
+<span class="n">2</span>
+<span class="n">3</span>
+<span class="n">4</span>
+<span class="n">5</span>
+<span class="n">hola</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$numbers</span><span class="p">.</span><span class="n">Length</span>
+<span class="n">6</span>
+</pre></div>
+</div>
+<p>Arrays multidimimensionales</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span> <span class="nv">$XY</span> <span class="p">=</span> <span class="p">@(@(</span><span class="n">1</span><span class="p">,</span> <span class="n">2</span><span class="p">),</span> <span class="p">@(</span><span class="n">3</span><span class="p">,</span> <span class="n">4</span><span class="p">))</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span>  <span class="nb">echo </span><span class="nv">$XY</span><span class="p">.</span><span class="n">Length</span>
+<span class="n">2</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span>  <span class="nb">echo </span><span class="nv">$XY</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="n">1</span>
+<span class="n">2</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span>  <span class="nb">echo </span><span class="nv">$XY</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">Length</span>
+<span class="n">2</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span>  <span class="nb">echo </span><span class="nv">$XY</span><span class="p">[</span><span class="n">0</span><span class="p">][</span><span class="n">0</span><span class="p">]</span>
+<span class="n">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Hash Tables <strong>(Tablas hash)</strong>. Una tabla hash es una colección de pares clave-valor. Las claves deben ser únicas dentro de la tabla.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span> <span class="p">=</span> <span class="p">@{</span>
+ <span class="n">Name</span> <span class="p">=</span> <span class="s2">&quot;Tutankamón&quot;</span>
+ <span class="n">Age</span> <span class="p">=</span> <span class="n">3358</span>
+ <span class="n">City</span> <span class="p">=</span> <span class="s2">&quot;Egipto&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$person</span><span class="p">.</span><span class="n">Name</span>
+<span class="n">Tutankamón</span>
+
+<span class="c">#Agregar una nueva clave</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span><span class="p">.</span><span class="n">Estado</span> <span class="p">=</span> <span class="s2">&quot;momificado&quot;</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nv">$person</span>
+
+<span class="n">Name</span>                           <span class="n">Value</span>
+<span class="p">----</span>                           <span class="p">-----</span>
+<span class="n">Estado</span>                         <span class="n">momificado</span>
+<span class="n">Name</span>                           <span class="n">Tutankamón</span>
+<span class="n">Age</span>                            <span class="n">3358</span>
+<span class="n">City</span>                           <span class="n">Egipto</span>
+
+<span class="c">#eliminar la clave</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$person</span>
+
+<span class="n">Name</span>                           <span class="n">Value</span>
+<span class="p">----</span>                           <span class="p">-----</span>
+<span class="n">Estado</span>                         <span class="n">momificado</span>
+<span class="n">Name</span>                           <span class="n">Tutankamón</span>
+<span class="n">City</span>                           <span class="n">Egipto</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>ScriptBlocks</strong>. Un ScriptBlock es un bloque de código que se puede ejecutar más tarde o pasar como un parámetro.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nv">$script</span> <span class="p">=</span> <span class="p">{</span> <span class="k">param</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="s2">&quot;Hola, $name!&quot;</span> <span class="p">}</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">&amp;</span> <span class="nv">$script</span> <span class="s2">&quot;Tutankamón&quot;</span>
+<span class="n">Hola</span><span class="p">,</span> <span class="n">Tutankamón</span><span class="p">!</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="operadores">
+<h2>Operadores<a class="headerlink" href="#operadores" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">11</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$b</span><span class="p">=</span><span class="n">5</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">-</span><span class="nv">$b</span>     <span class="c"># resta</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">+</span><span class="nv">$b</span>     <span class="c"># suma</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">16</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$b</span>     <span class="c"># multiplicación</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">55</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">/</span><span class="nv">$b</span>     <span class="c"># división</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">2</span><span class="p">,</span><span class="n">2</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$c</span><span class="p">=</span><span class="nv">$a</span><span class="p">%</span><span class="nv">$b</span>     <span class="c"># resto o modulo</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">echo </span><span class="nv">$c</span>
+<span class="n">1</span>
+</pre></div>
+</div>
+</section>
+<section id="operadores-de-asignacion">
+<h2>Operadores de asignación<a class="headerlink" href="#operadores-de-asignacion" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">=</span><span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">+=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a+2</span>
+<span class="n">8</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">-=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a-2</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">++</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a+1</span>
+<span class="n">7</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">--</span>  <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a-1</span>
+<span class="n">6</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">/=</span><span class="n">2</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a/2</span>
+<span class="n">3</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">*=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a*3</span>
+<span class="n">9</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nv">$a</span><span class="p">%=</span><span class="n">3</span> <span class="p">;</span> <span class="nb">echo </span><span class="nv">$a</span>   <span class="c"># $a=$a%3</span>
+<span class="n">0</span>
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Números aleatorios</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-Random</span> <span class="c"># numero aletorio</span>
+<span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">10</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Otras conversiones</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#pasar a binario</span>
+<span class="no">[Convert]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$decimal</span><span class="p">,</span> <span class="n">2</span><span class="p">)</span>
+
+<span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;$pwd&quot;</span>
+
+<span class="c">#Podemos ejecutar un texto como si fuese un comando &amp;</span>
+<span class="nv">$a</span><span class="p">=</span><span class="s2">&quot;notepad&quot;</span>
+<span class="p">&amp;</span><span class="nv">$a</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="argumentos-de-entrada">
+<h2>Argumentos de entrada<a class="headerlink" href="#argumentos-de-entrada" title="Link to this heading">#</a></h2>
+<section id="argumentos-de-entrada-read-host">
+<h3>Argumentos de entrada Read-Host<a class="headerlink" href="#argumentos-de-entrada-read-host" title="Link to this heading">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="n">read_host</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">echo </span><span class="s2">&quot;Dame un entero&quot;</span>
+<span class="nv">$Name</span><span class="p">=</span><span class="nb">Read-Host</span>
+<span class="nb">echo </span><span class="s2">&quot;Sin pasar a int ($Name*$Name) = &quot;</span>
+<span class="nb">echo </span><span class="p">$(</span><span class="nv">$Name</span><span class="p">*</span><span class="nv">$Name</span><span class="p">)</span>
+<span class="nb">echo </span><span class="s2">&quot;&quot;</span>
+<span class="nv">$a</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$Name</span>
+<span class="nb">echo </span><span class="s2">&quot;Pasando a int ($Name*$Name) = &quot;</span>
+<span class="nb">echo </span><span class="p">$(</span><span class="nv">$a</span><span class="p">*</span><span class="nv">$a</span><span class="p">)</span>
+<span class="nb">echo </span><span class="s2">&quot;&quot;</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">read_host</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Dame</span> <span class="n">un</span> <span class="n">entero</span>
+<span class="n">2</span>
+<span class="n">Sin</span> <span class="n">pasar</span> <span class="n">a</span> <span class="n">int</span> <span class="p">(</span><span class="n">2</span><span class="p">*</span><span class="n">2</span><span class="p">)</span> <span class="p">=</span>
+<span class="n">22</span>
+
+<span class="n">Pasando</span> <span class="n">a</span> <span class="n">int</span> <span class="p">(</span><span class="n">2</span><span class="p">*</span><span class="n">2</span><span class="p">)</span> <span class="p">=</span>
+<span class="n">4</span>
+</pre></div>
+</div>
+</section>
+<section id="argumentos-de-entrada-read-host-argst-ps1">
+<h3>Argumentos de entrada Read-Host argst.ps1<a class="headerlink" href="#argumentos-de-entrada-read-host-argst-ps1" title="Link to this heading">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
+<span class="nb">echo </span><span class="s2">&quot;tenemos $args parámetros de entrada&quot;</span>
+<span class="nb">echo </span><span class="s2">&quot;El argumento 0: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">])</span><span class="s2">&quot;</span>
+<span class="nb">echo </span><span class="s2">&quot;El argumento 1: </span><span class="p">$(</span><span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">])</span><span class="s2">&quot;</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span>
+<span class="n">tenemos</span> <span class="n">1</span> <span class="n">2</span> <span class="n">3</span> <span class="n">parámetros</span> <span class="n">de</span> <span class="n">entrada</span>
+<span class="n">El</span> <span class="n">argumento</span> <span class="n">0</span><span class="p">:</span> <span class="n">1</span>
+<span class="n">El</span> <span class="n">argumento</span> <span class="n">1</span><span class="p">:</span> <span class="n">2</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">args</span><span class="p">.</span><span class="n">ps1</span>
+<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$args</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span><span class="nv">$i</span><span class="p">++)</span>
+<span class="p">{</span>
+  <span class="nv">$salida</span> <span class="p">=</span> <span class="nv">$args</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span>
+  <span class="nb">Write-Output</span> <span class="s2">&quot;i = $salida&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">args</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
+      <span class="n">i</span> <span class="p">=</span> <span class="n">1</span>
+      <span class="n">i</span> <span class="p">=</span> <span class="n">dos</span>
+      <span class="n">i</span> <span class="p">=</span> <span class="n">tres</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nv">$args</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nb">echo </span><span class="nv">$i</span>
+<span class="p">}</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">argst</span><span class="p">.</span><span class="n">ps1</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span> <span class="n">1</span> <span class="n">dos</span> <span class="n">tres</span>
+<span class="n">1</span>
+<span class="n">dos</span>
+<span class="n">tres</span>
+<span class="n">1</span>
+<span class="n">dos</span>
+<span class="n">tres</span>
+</pre></div>
+</div>
+</section>
+<section id="argumentos-de-entrada-read-host-param-ps1">
+<h3>Argumentos de entrada Read-Host param.ps1<a class="headerlink" href="#argumentos-de-entrada-read-host-param-ps1" title="Link to this heading">#</a></h3>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+<span class="k">param</span> <span class="p">(</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span>
+<span class="p">)</span>
+
+<span class="c"># Calcular la edad</span>
+<span class="nv">$Edad</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+
+<span class="nb">Write-Output</span> <span class="s2">&quot;Hola $Nombre, Tienes $Edad&quot;</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1334</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">2024</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Hola</span> <span class="p">,</span> <span class="n">Tienes</span> <span class="n">2024</span>
+</pre></div>
+</div>
+<p>En el caso de que queramos darle un valor por defecto cambiamos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span> <span class="p">=</span> <span class="s2">&quot;Tutankamón&quot;</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span> <span class="p">=</span> <span class="s2">&quot;-1334&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>y cuando lo ejecutamos obtenemos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Name</span> <span class="n">Nefertiti</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1370</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3394</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">\</span><span class="n">powershell</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Name</span> <span class="n">Nefertiti</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="n">param_def</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+</pre></div>
+</div>
+<p>Podemos completar la declaracion de un parámetro en un script de PowerShell utilizando <strong>[Parameter()]</strong>, el argumento <strong>Mandatory=$true</strong> dentro de la directiva parameter indica que el parámetro es obligatorio. Si el usuario no proporciona un valor para este parámetro al ejecutar el script, PowerShell solicitará que se ingrese uno. Si se omite, PowerShell genera un error pidiendo al usuario que proporcione el valor. <strong>HelpMessage</strong> especifica un mensaje de ayuda que se mostrará al usuario si el parámetro obligatorio no se proporciona.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+ <span class="k">param</span> <span class="p">(</span>
+<span class="hll">     <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">HelpMessage</span><span class="p">=</span><span class="s2">&quot;Cómo te llamas?&quot;</span><span class="p">)]</span>
+</span>     <span class="no">[string]</span><span class="nv">$Nombre</span><span class="p">,</span>
+
+<span class="hll">     <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">HelpMessage</span><span class="p">=</span><span class="s2">&quot;¿En qué año naciste?&quot;</span><span class="p">)]</span>
+</span>     <span class="no">[int]</span><span class="nv">$Nacimiento</span>
+ <span class="p">)</span>
+
+ <span class="c"># Calcular la edad</span>
+ <span class="nv">$Edad</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+
+ <span class="nb">Write-Output</span> <span class="s2">&quot;Hola $Nombre, Tienes $Edad&quot;</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span>
+ <span class="n">cmdlet</span> <span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">en</span> <span class="n">la</span> <span class="n">posición</span> <span class="n">1</span> <span class="n">de</span> <span class="n">la</span> <span class="n">canalización</span> <span class="n">de</span> <span class="n">comandos</span>
+ <span class="n">Proporcione</span> <span class="n">valores</span> <span class="n">para</span> <span class="n">los</span> <span class="n">parámetros</span> <span class="n">siguientes</span><span class="p">:</span>
+ <span class="p">(</span><span class="n">Escriba</span> <span class="p">!?</span> <span class="n">para</span> <span class="n">obtener</span> <span class="n">Ayuda</span><span class="p">).</span>
+ <span class="n">Nacimiento</span><span class="p">:</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>
+
+ <span class="n">cmdlet</span> <span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">en</span> <span class="n">la</span> <span class="n">posición</span> <span class="n">1</span> <span class="n">de</span> <span class="n">la</span> <span class="n">canalización</span> <span class="n">de</span> <span class="n">comandos</span>
+ <span class="n">Proporcione</span> <span class="n">valores</span> <span class="n">para</span> <span class="n">los</span> <span class="n">parámetros</span> <span class="n">siguientes</span><span class="p">:</span>
+ <span class="p">(</span><span class="n">Escriba</span> <span class="p">!?</span> <span class="n">para</span> <span class="n">obtener</span> <span class="n">Ayuda</span><span class="p">).</span>
+ <span class="n">Nombre</span><span class="p">:</span> <span class="p">!?</span>
+ <span class="n">Cómo</span> <span class="n">te</span> <span class="n">llamas</span><span class="p">?</span>
+ <span class="n">Nombre</span><span class="p">:</span> <span class="n">Tutankamón</span>
+ <span class="n">Nacimiento</span><span class="p">:</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="evaluacion-de-condiciones">
+<h2>Evaluación de condiciones<a class="headerlink" href="#evaluacion-de-condiciones" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">7</span> <span class="o">-eq</span> <span class="n">7</span> <span class="c">#True</span>
+<span class="n">7</span> <span class="o">-eq</span> <span class="n">8</span> <span class="c">#False</span>
+<span class="n">3</span> <span class="o">-gt</span> <span class="n">2</span> <span class="c">#True</span>
+</pre></div>
+</div>
+</section>
+<section id="operadores-logicos">
+<h2>Operadores lógicos<a class="headerlink" href="#operadores-logicos" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
+<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-And</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">10</span><span class="p">)</span>  <span class="c">#True</span>
+<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="o">-Or</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>    <span class="c">#True</span>
+<span class="p">(</span><span class="n">5</span> <span class="o">-gt</span> <span class="n">1</span><span class="p">)</span> <span class="n">-Xor</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>   <span class="c">#True</span>
+<span class="o">-Not</span> <span class="p">(</span><span class="n">5</span> <span class="o">-lt</span> <span class="n">1</span><span class="p">)</span>             <span class="c">#True</span>
+</pre></div>
+</div>
+</section>
+<section id="comparacion-de-cadenas">
+<h2>Comparación de cadenas<a class="headerlink" href="#comparacion-de-cadenas" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;hola&quot;</span> <span class="o">-eq</span> <span class="s2">&quot;hola&quot;</span>    <span class="c">#True</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-eq</span> <span class="s2">&quot;hoa&quot;</span>     <span class="c">#False</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-ne</span> <span class="s2">&quot;hoa&quot;</span>     <span class="c">#True</span>
+<span class="s2">&quot;hola&quot;</span> <span class="o">-ne</span> <span class="s2">&quot;hola&quot;</span>    <span class="c">#False</span>
+</pre></div>
+</div>
+</section>
+<section id="estructuras-condicionales-con-if">
+<h2>Estructuras condicionales con if<a class="headerlink" href="#estructuras-condicionales-con-if" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero</span> <span class="p">=</span> <span class="p">-</span><span class="n">10</span>
+<span class="k">If</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">echo </span><span class="s2">&quot;$numero es mayor que 0&quot;</span>
+  <span class="p">}</span>
+<span class="k">If</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">echo </span><span class="s2">&quot;$numero es mayor que 0&quot;</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+  <span class="nb">echo </span><span class="s2">&quot;$numero es negativo&quot;</span>
+  <span class="p">}</span>
+
+ <span class="c">#-10 es negativo</span>
+</pre></div>
+</div>
+</section>
+<section id="bucles-con-for">
+<h2>Bucles con for<a class="headerlink" href="#bucles-con-for" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">5</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
+  <span class="p">}</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
+</pre></div>
+</div>
+</section>
+<section id="bucles-con-while">
+<h2>Bucles con While<a class="headerlink" href="#bucles-con-while" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span>
+<span class="k">While</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="n">5</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">echo </span><span class="nv">$i</span>
+<span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
+<span class="p">}</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
+</pre></div>
+</div>
+</section>
+<section id="bucles-con-until">
+<h2>Bucles con Until<a class="headerlink" href="#bucles-con-until" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span><span class="p">;</span>
+<span class="k">do</span> <span class="p">{</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
+<span class="nv">$i</span> <span class="p">+=</span><span class="n">1</span>
+<span class="p">}</span>
+<span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-ge</span> <span class="n">5</span><span class="p">)</span>
+
+<span class="c"># 0</span>
+<span class="c"># 1</span>
+<span class="c"># 2</span>
+<span class="c"># 3</span>
+<span class="c"># 4</span>
+</pre></div>
+</div>
+</section>
+<section id="bucles-con-foreach">
+<h2>Bucles con Foreach<a class="headerlink" href="#bucles-con-foreach" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$items</span> <span class="p">=</span> <span class="n">0</span><span class="p">..</span><span class="n">4</span>
+ <span class="nv">$items</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+   <span class="nv">$i</span><span class="p">=</span><span class="s2">&quot;$_&quot;</span>
+   <span class="nb">Write-Host</span> <span class="nv">$i</span>
+ <span class="p">}</span>
+
+  <span class="c"># 0</span>
+  <span class="c"># 1</span>
+  <span class="c"># 2</span>
+  <span class="c"># 3</span>
+  <span class="c"># 4</span>
+
+
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$num</span> <span class="k">in</span> <span class="n">1</span><span class="p">,</span><span class="n">2</span><span class="p">,</span><span class="s2">&quot;hola&quot;</span><span class="p">,</span><span class="n">4</span><span class="p">,</span><span class="n">5</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">echo </span><span class="nv">$num</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="archivos">
+<h2>Archivos<a class="headerlink" href="#archivos" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo </span><span class="s2">&quot;usuario,grupo&quot;</span> <span class="p">&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">echo </span><span class="s2">&quot;user01,group01&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">echo </span><span class="s2">&quot;user02,group02&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">echo </span><span class="s2">&quot;user03,group03&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">echo </span><span class="s2">&quot;user04,group04&quot;</span> <span class="p">&gt;&gt;</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">Test-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>  <span class="c">#True ver si existe</span>
+
+<span class="c">#Leer el archivo linea a linea</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nb">get-content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span><span class="p">){</span>
+  <span class="nb">echo </span><span class="nv">$i</span>
+  <span class="p">}</span>
+
+<span class="c">#Podemos importarlo desde un csv</span>
+<span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">echo </span><span class="nv">$A</span><span class="p">.</span><span class="n">usuario</span>
+
+<span class="c">#Podemos recorrer los valores</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span>  <span class="nv">$A</span><span class="p">){</span>
+  <span class="nv">$u</span><span class="p">=</span><span class="nv">$i</span><span class="p">.</span><span class="n">usuario</span> <span class="p">;</span> <span class="nb">echo </span><span class="s2">&quot;usuario = $u&quot;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Link to this heading">#</a></h2>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="n">foo</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="s2">&quot;a: $a; b: $b; c: $c&quot;</span>
+  <span class="p">}</span>
+<span class="n">foo</span> <span class="n">1</span> <span class="n">3</span> <span class="n">5</span>
+<span class="c"># a: 1; b: 3; c: 5</span>
+</pre></div>
+</div>
+<p>Ejemplo de función con recurrencia:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> <span class="nb">Get-Factorial</span> <span class="p">{</span>
+   <span class="k">param</span> <span class="p">(</span>
+       <span class="no">[int]</span><span class="nv">$n</span>
+   <span class="p">)</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="nv">$n</span> <span class="o">-le</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="n">1</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nv">$n</span> <span class="p">*</span> <span class="p">(</span><span class="nb">Get-Factorial</span> <span class="n">-n</span> <span class="p">(</span><span class="nv">$n</span> <span class="p">-</span> <span class="n">1</span><span class="p">))</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$number</span> <span class="p">=</span> <span class="n">5</span>
+<span class="nv">$result</span> <span class="p">=</span> <span class="nb">Get-Factorial</span> <span class="n">-n</span> <span class="n">5</span>
+<span class="nb">Write-Output</span> <span class="s2">&quot;El factorial de $number es $result&quot;</span>
+
+<span class="c">#El factorial de 5 es 120</span>
+</pre></div>
+</div>
+</section>
+<section id="windows-powershell-ise">
+<h2>Windows PowerShell ISE<a class="headerlink" href="#windows-powershell-ise" title="Link to this heading">#</a></h2>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/powersheelISE.png" src="so/windows/.ipynb_checkpoints/imagenes/powersheelISE.png" />
+<img alt="so/windows/.ipynb_checkpoints/imagenes/powersheelISE1.png" src="so/windows/.ipynb_checkpoints/imagenes/powersheelISE1.png" />
+<img alt="so/windows/.ipynb_checkpoints/imagenes/powersheelISE2.png" src="so/windows/.ipynb_checkpoints/imagenes/powersheelISE2.png" />
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#habilitar-ejecucion-de-scripts">Habilitar ejecución de scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-y-colecciones">Tipos y colecciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores">Operadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-de-asignacion">Operadores de asignación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada">Argumentos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host">Argumentos de entrada Read-Host</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-argst-ps1">Argumentos de entrada Read-Host argst.ps1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#argumentos-de-entrada-read-host-param-ps1">Argumentos de entrada Read-Host param.ps1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-condiciones">Evaluación de condiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operadores-logicos">Operadores lógicos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-cadenas">Comparación de cadenas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructuras-condicionales-con-if">Estructuras condicionales con if</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-for">Bucles con for</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-while">Bucles con While</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-until">Bucles con Until</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bucles-con-foreach">Bucles con Foreach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#archivos">Archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-powershell-ise">Windows PowerShell ISE</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
