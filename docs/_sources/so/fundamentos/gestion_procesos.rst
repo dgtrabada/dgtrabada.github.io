@@ -134,7 +134,7 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
   .. image:: imagenes/procesos_1.png 
   
-  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera medio TE = 2+(2+4) = 8 y el tiempo de ejecución es TR = 2+6+14 = 22
+  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera TE = 2+(2+4) = 8 y el tiempo de ejecución es TR = 2+6+14 = 22
   
   .. image:: imagenes/procesos_2.png 
 
