@@ -574,10 +574,10 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 <p>Haz un script llamado <strong>ext.ps1</strong> que cambie a todos los archivos la extensión .dat por .txt</p>
 </div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># ext.ps1</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">In</span> <span class="p">$(</span><span class="nb">Get-ChildItem</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">txt</span> <span class="p">)){</span>
-    <span class="nv">$newName</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-replace</span> <span class="s1">&#39;\.dat$&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span>
-    <span class="nb">Rename-Item</span> <span class="nv">$_</span><span class="p">.</span><span class="n">FullName</span> <span class="nv">$newName</span>
-<span class="p">}</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">In</span> <span class="p">$(</span><span class="nb">Get-ChildItem</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">dat</span> <span class="p">)){</span>
+  <span class="nv">$newName</span> <span class="p">=</span> <span class="nv">$i</span><span class="p">.</span><span class="n">Name</span> <span class="o">-replace</span> <span class="s1">&#39;\.dat$&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span>
+  <span class="nb">Rename-Item</span> <span class="nv">$i</span><span class="p">.</span><span class="n">Name</span> <span class="nv">$newName</span>
+  <span class="p">}</span>
 </pre></div>
 </div>
 </div></div>

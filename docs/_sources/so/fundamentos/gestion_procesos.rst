@@ -127,7 +127,7 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
 * **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bolqueado.
 
-* **SJN** (Shortest-job-nest) toma como siguiente el proceso que va ha terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
+* **SJN** (Shortest-job-nest) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
   El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.
   
   Ejemplo : (2,4,8)

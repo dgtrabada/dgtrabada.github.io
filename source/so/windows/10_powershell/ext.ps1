@@ -1,6 +1,6 @@
 # ext.ps1
-foreach ($i In $(Get-ChildItem -Filter *.txt )){
-    $newName = $_.Name -replace '\.dat$', '.txt'
-    Rename-Item $_.FullName $newName
-}
+foreach ($i In $(Get-ChildItem -Filter *.dat )){
+  $newName = $i.Name -replace '\.dat$', '.txt'
+  Rename-Item $i.Name $newName
+  }
 
