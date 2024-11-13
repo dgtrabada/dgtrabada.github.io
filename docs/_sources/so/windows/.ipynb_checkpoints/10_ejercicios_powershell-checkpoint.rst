@@ -119,7 +119,12 @@ Ejercicios de PowerShell
       
         Haz un script llamado **puerta.ps1**, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario ingresa un código diferente de 1 a 4, se mostrará un mensaje indicando que la puerta es incorrecta.
 
-    .. tab:: Solución
+    .. tab:: Solución (if)
+
+        .. literalinclude:: 10_powershell/puerta_if.ps1
+           :language: powershell
+
+    .. tab:: Solución (switch)
 
         .. literalinclude:: 10_powershell/puerta.ps1
            :language: powershell

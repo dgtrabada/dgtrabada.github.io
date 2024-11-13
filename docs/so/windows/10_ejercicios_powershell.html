@@ -582,13 +582,44 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">puerta.ps1</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>puerta.ps1</strong>, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario ingresa un código diferente de 1 a 4, se mostrará un mensaje indicando que la puerta es incorrecta.</p>
-</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: puerta.ps1</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">puerta.ps1</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-7-7-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-2" name="7-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>puerta.ps1</strong>, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario ingresa un código diferente de 1 a 4, se mostrará un mensaje indicando que la puerta es incorrecta.</p>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: puerta_if.ps1</span>
 
-<span class="c"># Solicitar al usuario que seleccione una puerta ingresando un número del 1 al 4</span>
-<span class="nv">$codigo</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Seleccione una puerta (1 - puerta roja, 2 - puerta azul, 3 - puerta verde, 4 - puerta amarilla)&quot;</span>
+<span class="nv">$codigo</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot; </span>
+<span class="s2">1 - puerta roja</span>
+<span class="s2">2 - puerta azul</span>
+<span class="s2">3 - puerta verde</span>
+<span class="s2">4 - puerta amarilla</span>
 
-<span class="c"># Usar switch para seleccionar la puerta según el código ingresado</span>
+<span class="s2">Seleccione una puerta&quot;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$codigo</span> <span class="o">-eq</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta roja.&quot;</span>
+<span class="p">}</span>
+<span class="k">elseif</span> <span class="p">(</span><span class="nv">$codigo</span> <span class="o">-eq</span> <span class="n">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta azul.&quot;</span>
+<span class="p">}</span>
+<span class="k">elseif</span> <span class="p">(</span><span class="nv">$codigo</span> <span class="o">-eq</span> <span class="n">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta verde.&quot;</span>
+<span class="p">}</span>
+<span class="k">elseif</span> <span class="p">(</span><span class="nv">$codigo</span> <span class="o">-eq</span> <span class="n">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta amarilla.&quot;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Puerta incorrecta.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-7-2" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-2" name="7-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: puerta.ps1</span>
+
+<span class="nv">$codigo</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot; </span>
+<span class="s2">1 - puerta roja</span>
+<span class="s2">2 - puerta azul</span>
+<span class="s2">3 - puerta verde</span>
+<span class="s2">4 - puerta amarilla</span>
+
+<span class="s2">Seleccione una puerta&quot;</span>
+
 <span class="k">switch</span> <span class="p">(</span><span class="nv">$codigo</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">1</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta roja.&quot;</span> <span class="p">}</span>
     <span class="n">2</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta azul.&quot;</span> <span class="p">}</span>

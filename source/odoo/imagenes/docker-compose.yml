@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   web:
-    image: odoo:16.0
+    image: odoo:latest
     depends_on:
       - db
     ports:
@@ -11,7 +11,7 @@ services:
       - /C/Users/dani/Desktop/odoo/config:/etc/odoo
       - /C/Users/dani/Desktop/odoo/addons:/mnt/extra-addons
   db:
-    image: postgres:15
+    image: postgres:latest
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
