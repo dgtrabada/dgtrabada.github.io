@@ -158,6 +158,10 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/rnd_do_while.ps1
            :language: powershell
 
+    .. tab:: Solución (do while)
+
+        .. literalinclude:: 10_powershell/rnd_do_until.ps1
+           :language: powershell
 
 
 .. tabs::
