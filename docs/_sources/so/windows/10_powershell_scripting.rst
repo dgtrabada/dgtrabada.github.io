@@ -610,6 +610,18 @@ Bucles con While
  # 2
  # 3
  # 4
+ 
+ $i = 0
+ do {
+ echo $i
+ $i +=1
+ } While ($i -lt 5)
+
+ # 0
+ # 1
+ # 2
+ # 3
+ # 4
 
 Bucles con Until
 ================

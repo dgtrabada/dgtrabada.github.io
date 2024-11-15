@@ -198,13 +198,15 @@ Ejercicios de PowerShell
           Si se usa el argumento 'help', se mostrará esta ayuda.
 
         
-        
-    .. tab:: Solución
+    .. tab:: Solución (args)
 
         .. literalinclude:: 10_powershell/dados.ps1
            :language: powershell
 
+    .. tab:: Solución (param)
 
+        .. literalinclude:: 10_powershell/dados_param.ps1
+           :language: powershell
 
 
 .. tabs::

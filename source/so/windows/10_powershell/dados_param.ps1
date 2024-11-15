@@ -1,4 +1,7 @@
 # dados.ps1
+param (
+    [string] $Tiradas
+)
 
 function Show-Help {
     Write-Output "Uso del script dados.ps1:"
@@ -8,15 +11,15 @@ function Show-Help {
     Write-Output "Si se usa el argumento 'help', se mostrará esta ayuda."
 }
 
-[int] $Tiradas = 0
+# Verificar si el argumento es 'help'
+if ($Tiradas -eq 'help') {
+    Show-Help
+    exit
+}
 
-if ($args.Length -eq 0) {
-    $Tiradas = Read-Host "¿Cuántas tiradas quieres hacer?"
-    }elseif ($args[0] -eq "help"){
-        Show-Help
-        exit
-    }else{
-        $Tiradas = [int] $args[0]
+# Si no se proporciona argumento, preguntar cuántas tiradas hacer
+if (-not $Tiradas) {
+    $Tiradas = [int] Read-Host "¿Cuántas tiradas quieres hacer?"
 }
 
 
