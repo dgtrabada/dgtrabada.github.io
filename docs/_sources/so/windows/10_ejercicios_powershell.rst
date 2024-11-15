@@ -148,10 +148,16 @@ Ejercicios de PowerShell
       
         Haz un script llamado **rnd.ps1** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.
 
-    .. tab:: Solución
+    .. tab:: Solución (while)
 
         .. literalinclude:: 10_powershell/rnd.ps1
            :language: powershell
+
+    .. tab:: Solución (do while)
+
+        .. literalinclude:: 10_powershell/rnd_do_while.ps1
+           :language: powershell
+
 
 
 .. tabs::
