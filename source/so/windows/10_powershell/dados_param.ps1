@@ -3,6 +3,17 @@ param (
     [string] $Tiradas
 )
 
+function Tirar_dados([int] $Tiradas){
+    "Dados 1,Dado 2,Suma" > tiradas.csv
+    for ($i = 1; $i -le $Tiradas; $i++) {
+        $dado1 = Get-Random -Minimum 1 -Maximum 7
+        $dado2 = Get-Random -Minimum 1 -Maximum 7
+        $suma = $dado1 + $dado2
+        "$dado1,$dado2,$suma" >> tiradas.csv
+        }
+        Write-Output "$Tiradas tiradas generadas y guardadas en tiradas.csv"
+    }
+
 function Show-Help {
     Write-Output "Uso del script dados.ps1:"
     Write-Output ".\dados.ps1 <número_de_tiradas>"
@@ -11,25 +22,15 @@ function Show-Help {
     Write-Output "Si se usa el argumento 'help', se mostrará esta ayuda."
 }
 
-# Verificar si el argumento es 'help'
-if ($Tiradas -eq 'help') {
-    Show-Help
-    exit
-}
 
-# Si no se proporciona argumento, preguntar cuántas tiradas hacer
 if (-not $Tiradas) {
-    $Tiradas = [int] Read-Host "¿Cuántas tiradas quieres hacer?"
-}
 
+    $Tiradas = Read-Host "¿Cuántas tiradas quieres hacer?"
+    Tirar_dados($Tiradas)
 
-"Dados 1,Dado 2,Suma" > tiradas.csv
-for ($i = 1; $i -le $Tiradas; $i++) {
-    $dado1 = Get-Random -Minimum 1 -Maximum 7
-    $dado2 = Get-Random -Minimum 1 -Maximum 7
-    $suma = $dado1 + $dado2
-    "$dado1,$dado2,$suma" >> tiradas.csv
-}
-
-Write-Output "$Tiradas tiradas generadas y guardadas en tiradas.csv"
+    }elseif ($Tiradas -eq "help"){
+        Show-Help        
+    }else{
+        Tirar_dados($Tiradas)
+    }
 
