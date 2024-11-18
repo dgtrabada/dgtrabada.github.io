@@ -210,6 +210,13 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
 
   .. code-block:: powershell
 
+    PS C:> $A = @(0)*4
+    PS C:> echo $A
+    0
+    0
+    0
+    0
+
     PS C:\> $numbers = @(1, 2, 3, 4, 5) 
     PS C:\> echo $numbers.GetType().Name
     Object[]
@@ -239,6 +246,8 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     hola
     PS C:\> echo $numbers.Length
     6
+  
+
 
   Arrays multidimimensionales
     

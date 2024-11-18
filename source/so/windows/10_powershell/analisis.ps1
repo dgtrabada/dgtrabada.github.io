@@ -1,36 +1,26 @@
 # analisis.ps1
 
-# Leer el archivo tiradas.csv, excluyendo la primera línea de encabezado
-$tiradas = Import-Csv -Path "tiradas.csv"
+$A = Import-Csv -Path tiradas.csv
+$total=$A.Count
+echo "leemos $total tiradas"
 
-# Crear un diccionario para contar las ocurrencias de cada suma
-$sumaConteo = @{}
+#inicializamos la matriz con 13 elementos
+$s = @(0)*13
 
-# Recorrer cada tirada y contar la suma
-foreach ($tirada in $tiradas) {
-    $suma = [int]$tirada.Suma
-
-    if ($sumaConteo.ContainsKey($suma)) {
-        $sumaConteo[$suma]++
-    } else {
-        $sumaConteo[$suma] = 1
+for ($i=2;$i -lt 13;$i++){
+    $s[$i]=0
     }
-}
 
-# Obtener el número total de tiradas
-$totalTiradas = $tiradas.Count
+foreach ($i in $A.Suma){
+    $s[$i]++
+    }
 
-# Mostrar el número total de tiradas
-Write-Output "De $totalTiradas tiradas: "
+$salida=""
 
-# Calcular y mostrar el porcentaje de cada suma
-
-$salida=''
-
-foreach ($suma in $sumaConteo.Keys | Sort-Object) {
-    $conteo = $sumaConteo[$suma]
-    $porcentaje = [math]::Round(($conteo / $totalTiradas) * 100, 2)
-    $salida=$salida+"$suma($porcentaje%) "
-}
-
-Write-Output $salida
+for ($i=2;$i -lt 13;$i++){
+    $salida+="$i ($([math]::Round(($s[$i] / $total) * 100, 0))%)"
+    if($i -lt 12) {
+        $salida+=", "
+        }
+    }
+echo $salida  

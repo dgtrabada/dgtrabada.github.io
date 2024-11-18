@@ -1,7 +1,7 @@
 # dados.ps1
 
 function Tirar_dados($Tiradas){
-    "Dados 1,Dado 2,Suma" > tiradas.csv
+    "dado1,dado2,suma" > tiradas.csv
     for ($i = 1; $i -le $Tiradas; $i++) {
         $dado1 = Get-Random -Minimum 1 -Maximum 7
         $dado2 = Get-Random -Minimum 1 -Maximum 7

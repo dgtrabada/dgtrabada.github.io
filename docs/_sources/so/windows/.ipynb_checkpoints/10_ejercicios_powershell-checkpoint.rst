@@ -221,12 +221,16 @@ Ejercicios de PowerShell
           
           De 1000 tiradas : 2(1%) 3(7%) 4(10%) 5(12%) 6(14%) 7(17%) 8(14%) 9(12%) 10(10%) 11(7%) 12(1%)
 
-    .. tab:: Solución
+
+    .. tab:: Solución (variables)
+
+        .. literalinclude:: 10_powershell/analisis_variables.ps1
+           :language: powershell
+
+    .. tab:: Solución 
 
         .. literalinclude:: 10_powershell/analisis.ps1
            :language: powershell
-
-
 
 .. tabs::
 
