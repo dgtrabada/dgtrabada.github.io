@@ -32,7 +32,10 @@ Python
   * `Ejercicios de NumPy <https://github.com/dgtrabada/python/blob/main/06_NumPy/06_Ejercicios_NumPy.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/06_NumPy/06_Ejercicios_NumPy_sol.ipynb>`_  
 
-* `Matplotlib <https://github.com/dgtrabada/python/tree/main/07_Matplotlib/Matplotlib.ipynb>`_ (`Ejercicios de Matplotlib <https://github.com/dgtrabada/python/blob/main/07_Matplotlib/07_Ejercicios_Matplotlib.ipynb>`_)
+* `Matplotlib <https://github.com/dgtrabada/python/tree/main/07_Matplotlib/Matplotlib.ipynb>`_ 
+
+  * `Ejercicios de Matplotlib <https://github.com/dgtrabada/python/blob/main/07_Matplotlib/07_Ejercicios_Matplotlib.ipynb>`_
+  * `Ejercicios de Matplotlib <https://github.com/dgtrabada/python/blob/main/07_Matplotlib/07_Ejercicios_Matplotlib_sol.ipynb>`_
 
 * `Modulos <https://github.com/dgtrabada/python/tree/main/08_Modulos/Modulo.ipynb>`_ (`Ejercicios de Modulos  <https://github.com/dgtrabada/python/blob/main/08_Modulos/Ejercicios_Modulo.ipynb>`_)
 

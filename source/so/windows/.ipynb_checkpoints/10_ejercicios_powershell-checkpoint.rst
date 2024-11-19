@@ -138,9 +138,21 @@ Ejercicios de PowerShell
 
     .. tab:: Solución
 
-        .. literalinclude:: 10_powershell/puerta2.ps1
+        .. literalinclude:: 10_powershell/monedas.ps1
            :language: powershell
            
+
+.. tabs::
+
+    .. tab:: monedas.ps1
+      
+        Haz un script llamado **monedas.ps1** que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/puerta2.ps1
+           :language: powershell
+
 
 .. tabs::
 
@@ -227,7 +239,7 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/analisis_variables.ps1
            :language: powershell
 
-    .. tab:: Solución 
+    .. tab:: Solución (arrays)
 
         .. literalinclude:: 10_powershell/analisis.ps1
            :language: powershell
