@@ -153,6 +153,11 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/monedas.ps1
            :language: powershell
 
+    .. tab:: Solución (n monedas)
+
+        .. literalinclude:: 10_powershell/n_monedas.ps1
+           :language: powershell
+
 
 .. tabs::
 

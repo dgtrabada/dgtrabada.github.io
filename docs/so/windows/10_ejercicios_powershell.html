@@ -661,7 +661,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-9-9-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-2" name="9-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
 </div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
 <span class="nv">$tres_caras</span><span class="p">=</span><span class="n">0</span>
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$numero_tiradas</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
@@ -673,6 +673,34 @@ Puedes también recorrerlos de la siguiente forma:</p>
         <span class="nv">$tres_caras</span><span class="p">++</span>
         <span class="p">}</span>
 <span class="p">}</span>
+
+<span class="nb">echo </span><span class="s2">&quot;La probabilidad es (</span><span class="p">$(</span><span class="nv">$tres_caras</span><span class="p">/</span><span class="nv">$numero_tiradas</span><span class="p">)</span><span class="s2">)&quot;</span> 
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-9-9-2" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-2" name="9-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
+<span class="nv">$tres_caras</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$N_monedas</span><span class="p">=</span><span class="n">3</span>
+
+<span class="nv">$m</span> <span class="p">=</span> <span class="p">@(</span><span class="n">0</span><span class="p">)*</span><span class="nv">$N_monedas</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nv">$j</span><span class="p">=</span><span class="n">0</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">-lt</span> <span class="nv">$numero_tiradas</span><span class="p">;</span> <span class="nv">$j</span><span class="p">++){</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$N_monedas</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+        <span class="nv">$m</span><span class="p">[</span><span class="nv">$i</span><span class="p">]=$(</span><span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">0</span> <span class="n">-Maximum</span> <span class="n">2</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="nv">$todas_cara</span><span class="p">=</span><span class="nv">$true</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$N_monedas</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$m</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">-eq</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$todas_cara</span><span class="p">=</span><span class="nv">$false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$todas_cara</span><span class="p">){</span>
+        <span class="nv">$tres_caras</span><span class="p">++</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
 <span class="nb">echo </span><span class="s2">&quot;La probabilidad es (</span><span class="p">$(</span><span class="nv">$tres_caras</span><span class="p">/</span><span class="nv">$numero_tiradas</span><span class="p">)</span><span class="s2">)&quot;</span> 
 </pre></div>
