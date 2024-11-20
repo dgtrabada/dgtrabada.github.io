@@ -138,7 +138,7 @@ Ejercicios de PowerShell
 
     .. tab:: Solución
 
-        .. literalinclude:: 10_powershell/monedas.ps1
+        .. literalinclude:: 10_powershell/puerta2.ps1
            :language: powershell
            
 
