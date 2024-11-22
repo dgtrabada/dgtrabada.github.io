@@ -163,7 +163,7 @@ Ejercicios de PowerShell
 
     .. tab:: Solución (args)
 
-        .. literalinclude:: 10_powershell/puerta2.ps1
+        .. literalinclude:: 10_powershell/usuario_args.ps1
            :language: powershell
 
 
