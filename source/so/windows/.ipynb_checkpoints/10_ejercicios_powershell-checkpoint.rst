@@ -151,15 +151,15 @@ Ejercicios de PowerShell
 
           usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 200
 
-    El script debe:
+        El script debe:
 
-    Calcular la edad del usuario.
-        Si el usuario tiene 14 años o más:
-            Mostrar el mensaje:
-            Se ha creado a [Nombre] [Apellido] el usuario [Usuario]
-        Si el usuario tiene menos de 14 años:
-            Mostrar el mensaje:
-            No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14
+        Calcular la edad del usuario.
+            Si el usuario tiene 14 años o más:
+                Mostrar el mensaje:
+                Se ha creado a [Nombre] [Apellido] el usuario [Usuario]
+            Si el usuario tiene menos de 14 años:
+                Mostrar el mensaje:
+                No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14
 
     .. tab:: Solución (args)
 
