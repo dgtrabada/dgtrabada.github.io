@@ -141,6 +141,32 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/puerta2.ps1
            :language: powershell
            
+.. tabs::
+
+    .. tab:: usuario.ps1
+      
+        Haz un script llamado **usuario.ps1** que reciba los siguientes parámetros:
+
+        .. code-block:: powershell
+
+          usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 200
+
+    El script debe:
+
+    Calcular la edad del usuario.
+        Si el usuario tiene 14 años o más:
+            Mostrar el mensaje:
+            Se ha creado a [Nombre] [Apellido] el usuario [Usuario]
+        Si el usuario tiene menos de 14 años:
+            Mostrar el mensaje:
+            No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14
+
+    .. tab:: Solución (args)
+
+        .. literalinclude:: 10_powershell/puerta2.ps1
+           :language: powershell
+
+
 
 .. tabs::
 

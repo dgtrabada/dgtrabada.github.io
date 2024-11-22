@@ -661,8 +661,53 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-9-9-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-2" name="9-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
-</div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">usuario.ps1</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución (args)</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuario.ps1</strong> que reciba los siguientes parámetros:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">usuario</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Mario</span> <span class="n">-Apellido</span> <span class="n">López</span> <span class="n">-Usuario</span> <span class="n">mario33</span> <span class="n">-Nacimiento</span> <span class="n">200</span>
+</pre></div>
+</div>
+</div><p>El script debe:</p>
+<dl class="simple">
+<dt>Calcular la edad del usuario.</dt><dd><dl class="simple">
+<dt>Si el usuario tiene 14 años o más:</dt><dd><p>Mostrar el mensaje:
+Se ha creado a [Nombre] [Apellido] el usuario [Usuario]</p>
+</dd>
+<dt>Si el usuario tiene menos de 14 años:</dt><dd><p>Mostrar el mensaje:
+No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: puerta.ps1</span>
+
+<span class="c"># Solicitar al usuario que seleccione una puerta ingresando un número del 1 al 4</span>
+<span class="nv">$codigo</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Seleccione una puerta (1 - puerta roja, 2 - puerta azul, 3 - puerta verde, 4 - puerta amarilla)&quot;</span>
+
+<span class="c"># Usar switch para seleccionar la puerta según el código ingresado</span>
+<span class="k">switch</span> <span class="p">(</span><span class="nv">$codigo</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">1</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta roja. Has perdido.&quot;</span> <span class="p">}</span>
+    <span class="n">2</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta azul. Has perdido.&quot;</span> <span class="p">}</span>
+    <span class="n">3</span> <span class="p">{</span> 
+        <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta verde.&quot;</span>
+
+        <span class="c"># Solicitar al usuario que seleccione entre cara (0) o cruz (1)</span>
+        <span class="nv">$moneda</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Lanza la moneda: selecciona cara (0) o cruz (1)&quot;</span>
+
+        <span class="c"># Verificar el resultado de la moneda</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$moneda</span> <span class="o">-eq</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;Has ganado.&quot;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;Has perdido.&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">4</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Has seleccionado la puerta amarilla. Has perdido.&quot;</span> <span class="p">}</span>
+    <span class="k">Default</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;Puerta incorrecta.&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-10-10-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-2" name="10-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
+</div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
 <span class="nv">$tres_caras</span><span class="p">=</span><span class="n">0</span>
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$numero_tiradas</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
     <span class="nv">$m1</span><span class="p">=$(</span><span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">0</span> <span class="n">-Maximum</span> <span class="n">2</span><span class="p">)</span>
@@ -677,7 +722,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <span class="nb">echo </span><span class="s2">&quot;La probabilidad es (</span><span class="p">$(</span><span class="nv">$tres_caras</span><span class="p">/</span><span class="nv">$numero_tiradas</span><span class="p">)</span><span class="s2">)&quot;</span> 
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-9-9-2" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-2" name="9-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
+</div><div aria-labelledby="tab-10-10-2" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-2" name="10-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="p">=</span><span class="n">1000</span>
 <span class="nv">$tres_caras</span><span class="p">=</span><span class="n">0</span>
 <span class="nv">$N_monedas</span><span class="p">=</span><span class="n">3</span>
 
@@ -707,8 +752,8 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">rnd.ps1</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución (while)</button><button aria-controls="panel-10-10-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-2" name="10-2" role="tab" tabindex="-1">Solución (do while)</button><button aria-controls="panel-10-10-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-3" name="10-3" role="tab" tabindex="-1">Solución (do while)</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.ps1</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.</p>
-</div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd.ps1</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">rnd.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (while)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (do while)</button><button aria-controls="panel-11-11-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-3" name="11-3" role="tab" tabindex="-1">Solución (do while)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.ps1</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.</p>
+</div><div aria-labelledby="tab-11-11-1" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-1" name="11-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd.ps1</span>
 
 <span class="c"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">21</span>
@@ -741,7 +786,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-10-10-2" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-2" name="10-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd_do_while.ps1</span>
+</div><div aria-labelledby="tab-11-11-2" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-2" name="11-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd_do_while.ps1</span>
 
 <span class="c"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">21</span>
@@ -772,7 +817,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$respuesta</span> <span class="o">-ne</span> <span class="nv">$NumeroAleatorio</span><span class="p">)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-10-10-3" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-3" name="10-3" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd_do_until.ps1</span>
+</div><div aria-labelledby="tab-11-11-3" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-3" name="11-3" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># rnd_do_until.ps1</span>
 
 <span class="c"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span> <span class="p">=</span> <span class="nb">Get-Random</span> <span class="n">-Minimum</span> <span class="n">1</span> <span class="n">-Maximum</span> <span class="n">21</span>
@@ -805,7 +850,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-12-12-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-2" name="12-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento, por ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">100</span>
 </pre></div>
@@ -827,7 +872,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <span class="nb">Si </span><span class="n">se</span> <span class="n">usa</span> <span class="n">el</span> <span class="n">argumento</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">se</span> <span class="n">mostrará</span> <span class="n">esta</span> <span class="n">ayuda</span><span class="p">.</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-11-11-1" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-1" name="11-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># dados.ps1</span>
+</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># dados.ps1</span>
 
 <span class="k">function</span> <span class="n">Tirar_dados</span><span class="p">(</span><span class="nv">$Tiradas</span><span class="p">){</span>
     <span class="s2">&quot;dado1,dado2,suma&quot;</span> <span class="p">&gt;</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
@@ -863,7 +908,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
     <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-11-11-2" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-2" name="11-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># dados.ps1</span>
+</div><div aria-labelledby="tab-12-12-2" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-2" name="12-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># dados.ps1</span>
 <span class="k">param</span> <span class="p">(</span>
     <span class="no">[string]</span> <span class="nv">$Tiradas</span>
 <span class="p">)</span>
@@ -902,13 +947,13 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">analisis.ps1</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución (variables)</button><button aria-controls="panel-12-12-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-2" name="12-2" role="tab" tabindex="-1">Solución (arrays)</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">analisis.ps1</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución (variables)</button><button aria-controls="panel-13-13-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-2" name="13-2" role="tab" tabindex="-1">Solución (arrays)</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">$</span> <span class="p">./</span><span class="n">analisis</span><span class="p">.</span><span class="n">ps1</span>
 
 <span class="n">De</span> <span class="n">1000</span> <span class="n">tiradas</span> <span class="p">:</span> <span class="n">2</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span> <span class="n">3</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">4</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">5</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">6</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">7</span><span class="p">(</span><span class="n">17</span><span class="p">%)</span> <span class="n">8</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">9</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">10</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">11</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">12</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
+</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
 
 <span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
 <span class="nv">$total</span><span class="p">=</span><span class="nv">$A</span><span class="p">.</span><span class="n">Count</span>
@@ -956,7 +1001,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <span class="nb">echo </span><span class="nv">$salida</span> 
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-2" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-2" name="12-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
+</div><div aria-labelledby="tab-13-13-2" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-2" name="13-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
 
 <span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
 <span class="nv">$total</span><span class="p">=</span><span class="nv">$A</span><span class="p">.</span><span class="n">Count</span>
@@ -986,7 +1031,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
@@ -1002,7 +1047,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </li>
 </ol>
 <p>ayuda : $nombre_grupo=”GPWS03” ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
-</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
@@ -1022,7 +1067,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
 <ul class="simple">
 <li><p>GPWS01</p>
 <ul>
@@ -1082,7 +1127,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
   <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="nv">$nombre_base</span> <span class="p">=</span> <span class="s2">&quot;tunombre_gpws&quot;</span>
 
@@ -1145,7 +1190,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
 <ol class="arabic">
 <li><p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
 <p><strong>El grupo $nombre_grupo no existe, se crea</strong></p>
@@ -1172,7 +1217,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <p><strong>El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada</strong></p>
 </li>
 </ol>
-</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
+</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
 
 <span class="c"># Leer el archivo CSV</span>
 <span class="nv">$users</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="s2">&quot;users.csv&quot;</span>
@@ -1232,7 +1277,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
 <p>Menú de Usuarios:</p>
 <ol class="arabic simple">
 <li><p>Listar usuarios</p></li>
@@ -1241,7 +1286,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <li><p>Modificar usuario</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
+</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Usuarios</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Usuarios en el sistema:&quot;</span>
@@ -1305,7 +1350,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
 <p>Menú de Grupos:</p>
 <ol class="arabic simple">
 <li><p>Listar grupos</p></li>
@@ -1316,7 +1361,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 <li><p>Elimina miembro de un grupo (pide grupo y usuario)</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Grupos</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Grupos disponibles:&quot;</span>
