@@ -166,6 +166,10 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/usuario_args.ps1
            :language: powershell
 
+    .. tab:: Solución (args sin importar el orden)
+
+        .. literalinclude:: 10_powershell/usuario_args2.ps1
+           :language: powershell
 
 
 .. tabs::
