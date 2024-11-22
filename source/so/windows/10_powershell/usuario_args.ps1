@@ -1,7 +1,7 @@
-$Nombre = $args[0]
-$Apellido = $args[1]
-$Usuario = $args[2]
-$Nacimiento = [int]$args[3]
+$Nombre = $args[1]
+$Apellido = $args[3]
+$Usuario = $args[5]
+$Nacimiento = [int]$args[7]
 
 $AñoActual = (Get-Date).Year
 
