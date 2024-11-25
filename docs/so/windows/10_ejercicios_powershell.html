@@ -1080,15 +1080,21 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <p>Funcionalidad:</p>
 <p>El script debe agregar una entrada al archivo usuarios.csv (si no existe, debe crearlo).
 El archivo usuarios.csv tendrá el siguiente formato:</p>
-<p>usuario,grupo,password
-alice,B,12D7087D61
-bob,A,5CD356CE5</p>
-<p>La contraseña debe generarse de forma aleatoria. Puede ser una cadena alfanumérica de 8 caracteres.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">usuario</span><span class="p">,</span><span class="n">grupo</span><span class="p">,</span><span class="n">password</span>
+<span class="n">alice</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">12D7087D61</span>
+<span class="n">bob</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">5CD356CE5</span>
+</pre></div>
+</div>
+<p>La contraseña debe generarse de forma aleatoria, haz que sea una cadena alfanumérica de 8 caracteres.</p>
 <p>Salida en Pantalla:</p>
 <p>Al ejecutar el script, debe mostrar un mensaje en la terminal indicando que el usuario ha sido creado. El mensaje debe seguir el formato:</p>
-<p>El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">El</span> <span class="n">usuario</span> <span class="no">[usuario] ha sido creado con la password [password] en el grupo [grupo]</span><span class="p">.</span>
+</pre></div>
+</div>
 <p>En el caso de que el usuario exista, la salida será :</p>
-<p>El usuario [usuario] ya existe, no se puede crear.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">El</span> <span class="n">usuario</span> <span class="no">[usuario]</span> <span class="n">ya</span> <span class="n">existe</span><span class="p">,</span> <span class="n">no</span> <span class="n">se</span> <span class="n">puede</span> <span class="n">crear</span><span class="p">.</span>
+</pre></div>
+</div>
 </div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
 
 <span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>

@@ -300,21 +300,28 @@ Ejercicios de PowerShell
         El script debe agregar una entrada al archivo usuarios.csv (si no existe, debe crearlo).
         El archivo usuarios.csv tendrá el siguiente formato:
 
-        usuario,grupo,password
-        alice,B,12D7087D61
-        bob,A,5CD356CE5
+        .. code-block:: powershell
 
-        La contraseña debe generarse de forma aleatoria. Puede ser una cadena alfanumérica de 8 caracteres.
+            usuario,grupo,password
+            alice,B,12D7087D61
+            bob,A,5CD356CE5
+
+        La contraseña debe generarse de forma aleatoria, haz que sea una cadena alfanumérica de 8 caracteres.
 
         Salida en Pantalla:
 
         Al ejecutar el script, debe mostrar un mensaje en la terminal indicando que el usuario ha sido creado. El mensaje debe seguir el formato:
 
-        El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].
+        .. code-block:: powershell
 
+            El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].
+
+            
         En el caso de que el usuario exista, la salida será :
 
-        El usuario [usuario] ya existe, no se puede crear.
+        .. code-block:: powershell
+
+            El usuario [usuario] ya existe, no se puede crear.
 
 
     .. tab:: Solución
