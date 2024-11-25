@@ -1,12 +1,18 @@
 param (
-    [Parameter(Mandatory = $true)]
+    #[Parameter(Mandatory = $true)] en el caso de que ingreses usuario, te lo pregunta
     [string]$usuario,
-    
-    [Parameter(Mandatory = $true)]
-    [string]$grupo
+       
+    [string]$grupo="A"
 )
 
 $archivoCSV = "usuarios.csv"
+
+
+if(! $usuario){ #caso de no recibir nombre de usuario se para
+echo "no me han dado usuario"
+exit
+}
+
 
 function GenerarPassword {
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#~$%&"
@@ -21,8 +27,6 @@ function GenerarPassword {
 # Si no existe crear el encabezado
 if (!(Test-Path $archivoCSV)) {
     Write-Output "usuario,grupo,password" >  $archivoCSV 
-    #$nuevaEntrada = "$usuario,$grupo,$password"
-    #Add-Content -Path $archivoCSV -Value $nuevaEntrada
 }
 
 # Si el usuario ya existe
@@ -36,3 +40,4 @@ if ($usuariosExistentes | Where-Object { $_.usuario -eq $usuario })
     Write-Output "$usuario,$grupo,$password" >> $archivoCSV
     Write-Output "El usuario $usuario ha sido creado con la password $password en el grupo $grupo."
 }
+

@@ -295,7 +295,6 @@ Ejercicios de PowerShell
         
             csv.ps1 -usuario [nombre usuario] -grupo [grupo]
           
-        Funcionalidad:
 
         El script debe agregar una entrada al archivo usuarios.csv (si no existe, debe crearlo).
         El archivo usuarios.csv tendrá el siguiente formato:
@@ -313,19 +312,26 @@ Ejercicios de PowerShell
         .. code-block:: powershell
 
             El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].
-
-            
+  
         En el caso de que el usuario exista, la salida será :
 
         .. code-block:: powershell
 
             El usuario [usuario] ya existe, no se puede crear.
 
-
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/csv.ps1
            :language: powershell
+
+    .. tab:: -delete
+
+        En el caso de que pongamos **-delete** borrara el usuario del archvio csv
+
+        .. code-block:: powershell
+
+            csv.ps1 -usuario [nombre usuario] -delete
+            El usuario [usuario] ha sido borrado
 
 
 
