@@ -289,7 +289,7 @@ Ejercicios de PowerShell
 
     .. tab:: csv.ps1
       
-        Crea un script en PowerShell llamado csv.ps1 que cumpla con las siguientes características:
+        Crea un script en PowerShell llamado **csv.ps1** que cumpla con las siguientes características:
         
         .. code-block:: powershell
         
@@ -308,8 +308,6 @@ Ejercicios de PowerShell
 
         La contraseña debe generarse de forma aleatoria, haz que sea una cadena alfanumérica de 8 caracteres.
 
-        Salida en Pantalla:
-
         Al ejecutar el script, debe mostrar un mensaje en la terminal indicando que el usuario ha sido creado. El mensaje debe seguir el formato:
 
         .. code-block:: powershell
@@ -326,7 +324,7 @@ Ejercicios de PowerShell
 
     .. tab:: Solución
 
-        .. literalinclude:: 10_powershell/analisis_variables.ps1
+        .. literalinclude:: 10_powershell/csv.ps1
            :language: powershell
 
 
