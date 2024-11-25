@@ -1073,7 +1073,73 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado csv.ps1 que cumpla con las siguientes características:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-usuario</span> <span class="no">[nombre usuario]</span> <span class="n">-grupo</span> <span class="no">[grupo]</span>
+</pre></div>
+</div>
+<p>Funcionalidad:</p>
+<p>El script debe agregar una entrada al archivo usuarios.csv (si no existe, debe crearlo).
+El archivo usuarios.csv tendrá el siguiente formato:</p>
+<p>usuario,grupo,password
+alice,B,12D7087D61
+bob,A,5CD356CE5</p>
+<p>La contraseña debe generarse de forma aleatoria. Puede ser una cadena alfanumérica de 8 caracteres.</p>
+<p>Salida en Pantalla:</p>
+<p>Al ejecutar el script, debe mostrar un mensaje en la terminal indicando que el usuario ha sido creado. El mensaje debe seguir el formato:</p>
+<p>El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].</p>
+<p>En el caso de que el usuario exista, la salida será :</p>
+<p>El usuario [usuario] ya existe, no se puede crear.</p>
+</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># analisis.ps1</span>
+
+<span class="nv">$A</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">tiradas</span><span class="p">.</span><span class="n">csv</span>
+<span class="nv">$total</span><span class="p">=</span><span class="nv">$A</span><span class="p">.</span><span class="n">Count</span>
+<span class="nb">echo </span><span class="s2">&quot;leemos $total tiradas&quot;</span>
+
+<span class="nv">$s2</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s3</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s4</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s5</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s6</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s7</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s8</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s9</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s10</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s11</span><span class="p">=</span><span class="n">0</span>
+<span class="nv">$s12</span><span class="p">=</span><span class="n">0</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="nv">$A</span><span class="p">.</span><span class="n">Suma</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">2</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s2</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">3</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s3</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">4</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s4</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">5</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s5</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">6</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s6</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">7</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s7</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">8</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s8</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">9</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s9</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">10</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s10</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">11</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s11</span><span class="p">++}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">-eq</span> <span class="n">12</span><span class="p">)</span> <span class="p">{</span><span class="nv">$s12</span><span class="p">++}</span>
+
+<span class="p">}</span>
+
+<span class="nv">$salida</span><span class="p">=</span><span class="s2">&quot;2 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s2</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;3 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s3</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;4 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s4</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;5 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s5</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;6 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s6</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;7 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s7</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;8 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s8</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;9 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s9</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;10 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s10</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;11 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s11</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%), &quot;</span>
+<span class="nv">$salida</span><span class="p">+=</span><span class="s2">&quot;12 (</span><span class="p">$(</span><span class="no">[math]</span><span class="p">::</span><span class="n">Round</span><span class="p">((</span><span class="nv">$s12</span> <span class="p">/</span> <span class="nv">$total</span><span class="p">)</span> <span class="p">*</span> <span class="n">100</span><span class="p">,</span> <span class="n">0</span><span class="p">))</span><span class="s2">%)&quot;</span>
+
+<span class="nb">echo </span><span class="nv">$salida</span> 
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
@@ -1089,7 +1155,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </li>
 </ol>
 <p>ayuda : $nombre_grupo=”GPWS03” ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
-</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
@@ -1109,7 +1175,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
 <ul class="simple">
 <li><p>GPWS01</p>
 <ul>
@@ -1169,7 +1235,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
   <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="nv">$nombre_base</span> <span class="p">=</span> <span class="s2">&quot;tunombre_gpws&quot;</span>
 
@@ -1232,7 +1298,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
 <ol class="arabic">
 <li><p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
 <p><strong>El grupo $nombre_grupo no existe, se crea</strong></p>
@@ -1259,7 +1325,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <p><strong>El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada</strong></p>
 </li>
 </ol>
-</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
+</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
 
 <span class="c"># Leer el archivo CSV</span>
 <span class="nv">$users</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="s2">&quot;users.csv&quot;</span>
@@ -1319,7 +1385,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
 <p>Menú de Usuarios:</p>
 <ol class="arabic simple">
 <li><p>Listar usuarios</p></li>
@@ -1328,7 +1394,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <li><p>Modificar usuario</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Usuarios</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Usuarios en el sistema:&quot;</span>
@@ -1392,7 +1458,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
 <p>Menú de Grupos:</p>
 <ol class="arabic simple">
 <li><p>Listar grupos</p></li>
@@ -1403,7 +1469,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <li><p>Elimina miembro de un grupo (pide grupo y usuario)</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
+</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Grupos</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Grupos disponibles:&quot;</span>
