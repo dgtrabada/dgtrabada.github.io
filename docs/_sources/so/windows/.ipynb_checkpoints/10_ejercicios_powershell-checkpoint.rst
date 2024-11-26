@@ -333,6 +333,10 @@ Ejercicios de PowerShell
             csv.ps1 -usuario [nombre usuario] -delete
             El usuario [usuario] ha sido borrado
 
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/csv_delete.ps1
+           :language: powershell
 
 
 .. tabs::

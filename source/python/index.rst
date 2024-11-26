@@ -39,7 +39,10 @@ Python
 
 * `Modulos <https://github.com/dgtrabada/python/tree/main/08_Modulos/Modulo.ipynb>`_ (`Ejercicios de Modulos  <https://github.com/dgtrabada/python/blob/main/08_Modulos/Ejercicios_Modulo.ipynb>`_)
 
-* `Random <https://github.com/dgtrabada/python/tree/main/09_random/numeros_pseudo_aleatorios.ipynb>`_ (`Ejercicios de Random <https://github.com/dgtrabada/python/blob/main/09_random/09_Ejercicios_numeros_pseudo_aleatorios.ipynb>`_)
+* `Random <https://github.com/dgtrabada/python/tree/main/09_random/numeros_pseudo_aleatorios.ipynb>`_ 
+
+  * `Ejercicios de Random <https://github.com/dgtrabada/python/blob/main/09_random/09_Ejercicios_numeros_pseudo_aleatorios.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/09_random/09_Ejercicios_numeros_pseudo_aleatorios_sol.ipynb>`_
 
 * `Pandas <https://github.com/dgtrabada/python/tree/main/10_Pandas/01_pandas.ipynb>`_ (`Ejercicios de Pandas <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas.ipynb>`_)
 
