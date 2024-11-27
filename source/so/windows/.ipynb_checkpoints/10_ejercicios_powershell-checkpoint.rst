@@ -293,7 +293,7 @@ Ejercicios de PowerShell
         Un jugador comienza con 100 € para jugar en una máquina tragamonedas. El funcionamiento de la máquina es el siguiente:
 
         * Cada partida cuesta 1 €.
-        * La máquina tiene 3 rulos. $rulos = @('limon', 'manzana', 'platano', 'siete')
+        * La máquina tiene 3 rulos. ``$rulos = @('limon', 'manzana', 'platano', 'siete')``
 
           * Tres frutas iguales (por ejemplo, 3 limones): el jugador gana 1 €.
           * Tres sietes: el jugador gana 100 €.
