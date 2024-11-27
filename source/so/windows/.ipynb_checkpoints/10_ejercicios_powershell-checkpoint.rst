@@ -5,7 +5,7 @@ Ejercicios de PowerShell
 .. tabs::
 
     .. tab:: disk.ps1
-      
+
         Crea un script llamado **disk.ps1** que imprima por pantalla el porcentaje que esta ocupada la partición C:
 
     .. tab:: Solución
