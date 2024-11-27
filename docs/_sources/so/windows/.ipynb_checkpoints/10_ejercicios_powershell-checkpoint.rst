@@ -285,6 +285,30 @@ Ejercicios de PowerShell
            :language: powershell
 
 
+
+.. tabs::
+
+    .. tab:: tragaperras.ps1
+
+        Un jugador comienza con 100 € para jugar en una máquina tragamonedas. El funcionamiento de la máquina es el siguiente:
+
+        * Cada partida cuesta 1 €.
+        * La máquina tiene 3 rulos. $rulos = @('limon', 'manzana', 'platano', 'siete')
+
+          * Tres frutas iguales (por ejemplo, 3 limones): el jugador gana 1 €.
+          * Tres sietes: el jugador gana 100 €.
+
+        * Si el jugador no tiene suficiente dinero para jugar (menos de 1 €), deja de jugar.
+
+        Simula la evolución del dinero del jugador durante 1000 partidas o hasta que su dinero se agote, lo que ocurra primero.
+
+        El objetivo es determinar cuánto dinero tiene el jugador al final de las 1000 partidas y cuántas partidas logró jugar en total.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/tragaperras.ps1
+           :language: powershell
+
 .. tabs::
 
     .. tab:: csv.ps1
