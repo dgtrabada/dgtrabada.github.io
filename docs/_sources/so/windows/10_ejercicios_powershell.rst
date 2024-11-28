@@ -66,6 +66,22 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/edad.ps1
            :language: powershell
 
+.. tabs::
+
+    .. tab:: tres_numeros.ps1
+      
+        Haz un script llamado **tres_numeros.ps1** que te pregunte al usuario tres numero enteros y devuelva la suma:
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/tres_numeros.ps1
+           :language: powershell
+
+    .. tab:: Solución (usanmos decimales)
+
+        .. literalinclude:: 10_powershell/tres_numeros_decimales.ps1
+           :language: powershell
+
 
 .. tabs::
 
