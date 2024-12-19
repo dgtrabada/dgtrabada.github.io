@@ -40,8 +40,8 @@ Python
 * `Modulos <https://github.com/dgtrabada/python/tree/main/08_Modulos/Modulo.ipynb>`_ 
 
   * `Ejercicios de Modulos  <https://github.com/dgtrabada/python/blob/main/08_Modulos/Ejercicios_Modulo.ipynb>`_
-  * 'Solucion ejercicio ajedrez <https://github.com/dgtrabada/python/tree/main/08_Modulos/ajedrez>`_
-  * 'Solucion ejercicio xyz <https://github.com/dgtrabada/python/tree/main/08_Modulos/modulo>`_
+  * `Solucion ejercicio ajedrez <https://github.com/dgtrabada/python/tree/main/08_Modulos/ajedrez>`_
+  * `Solucion ejercicio xyz <https://github.com/dgtrabada/python/tree/main/08_Modulos/modulo>`_
 
 * `Random <https://github.com/dgtrabada/python/tree/main/09_random/numeros_pseudo_aleatorios.ipynb>`_ 
 
