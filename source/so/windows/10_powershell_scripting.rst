@@ -602,6 +602,15 @@ Bucles con for
  # 2
  # 3
  # 4
+
+ $A = @(1, 2, 3)
+ for ($i = 0; $i -lt $A.Length; $i++) {
+   Write-Host "Elemento $i : $($A[$i])"       
+   }
+ 
+  # Elemento 0 : 1
+  # Elemento 1 : 2
+  # Elemento 2 : 3
  
 Bucles con While
 ================ 

@@ -77,7 +77,7 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/tres_numeros.ps1
            :language: powershell
 
-    .. tab:: Solución (usanmos decimales)
+    .. tab:: Solución (usamos decimales)
 
         .. literalinclude:: 10_powershell/tres_numeros_decimales.ps1
            :language: powershell
@@ -530,7 +530,7 @@ Ejercicios de PowerShell
 
 .. tabs::
 
-    .. tab:: grupos.ps1
+    .. tab:: usuarios.ps1
       
          Haz un script llamado **usuarios.ps1**, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.
          

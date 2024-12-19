@@ -784,6 +784,10 @@ Instalar edior vi
   
     # Crea un alias:
     Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe'
+
+    # Configuración de vi:
+    cat .vimrc 
+    filetype plugin indent off
    
 .. rubric:: Footnotes
 
