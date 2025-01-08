@@ -47,6 +47,8 @@ Python
 
   * `Ejercicios de Random <https://github.com/dgtrabada/python/blob/main/09_random/09_Ejercicios_numeros_pseudo_aleatorios.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/09_random/09_Ejercicios_numeros_pseudo_aleatorios_sol.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/09_random/red_neuronal.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/09_random/red_neuronal_sol.ipynb>`_
 
 * `Pandas <https://github.com/dgtrabada/python/tree/main/10_Pandas/01_pandas.ipynb>`_ (`Ejercicios de Pandas <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas.ipynb>`_)
 
