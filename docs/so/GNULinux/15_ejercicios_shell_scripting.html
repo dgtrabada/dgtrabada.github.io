@@ -490,6 +490,43 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 </pre></div>
 </div>
 </div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">lastlog_ip.sh</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog_ip.sh</strong> que muestre un listado ordenado con el nº de veces que se a logueado cada ip, por ejemplo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">16</span><span class="w"> </span><span class="m">10</span>.2.104.100
+<span class="m">11</span><span class="w"> </span><span class="m">10</span>.2.3.100
+<span class="m">10</span><span class="w"> </span><span class="m">139</span>.47.103.76
+<span class="m">9</span><span class="w"> </span><span class="m">10</span>.2.105.100
+<span class="m">8</span><span class="w"> </span><span class="m">2</span>.153.195.106
+<span class="m">8</span><span class="w"> </span><span class="m">10</span>.2.4.100
+<span class="m">8</span><span class="w"> </span><span class="m">10</span>.2.105.106
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w">  </span>grep<span class="w"> </span><span class="s1">&#39;\.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="k">)</span><span class="p">;</span><span class="w"> </span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$i</span><span class="k">)</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>
+<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">lastlog.sh</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog.sh</strong> que muestre un listado ordenado con el nº de veces que se a logueado cada usuario y el grupo al que pertenecen, por ejemplo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">44</span><span class="w"> </span>alumno1<span class="w"> </span>smr1
+<span class="m">32</span><span class="w"> </span>alumno2<span class="w"> </span>smr1
+<span class="m">14</span><span class="w"> </span>alumno3<span class="w"> </span>asir1
+<span class="m">4</span><span class="w"> </span>alumno4<span class="w"> </span>asir2
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span>reboot<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w">  </span>wtmp<span class="k">)</span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$i</span><span class="k">)</span><span class="w"> </span><span class="nv">$i</span><span class="w">  </span><span class="k">$(</span>groups<span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+</pre></div>
+</div>
+</div></div>
 </section>
 
 

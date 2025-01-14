@@ -57,3 +57,49 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/listar_usuario_grupo.sh
            :language: shell
+
+
+
+.. tabs::
+
+    .. tab:: lastlog_ip.sh
+
+        Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se a logueado cada ip, por ejemplo
+
+        .. code-block:: bash
+          
+           16 10.2.104.100
+           11 10.2.3.100
+           10 139.47.103.76
+           9 10.2.105.100
+           8 2.153.195.106
+           8 10.2.4.100
+           8 10.2.105.106
+
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/lastlog_ip.sh
+           :language: shell
+
+
+.. tabs::
+
+    .. tab:: lastlog.sh
+
+        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se a logueado cada usuario y el grupo al que pertenecen, por ejemplo
+
+        .. code-block:: bash
+          
+           44 alumno1 smr1
+           32 alumno2 smr1
+           14 alumno3 asir1
+           4 alumno4 asir2
+
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/lastlog.sh
+           :language: shell
+
+

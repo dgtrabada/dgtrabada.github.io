@@ -622,7 +622,7 @@ Ejercicios de PowerShell
 
             .. image:: imagenes/local_users_05.png
 
-         #) Por ultimo ejecuta el script `test_local_users.ps1 <images/test_local_users.ps1>`_. para probar el script
+         #) Por ultimo ejecuta el script `test_local_users.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/test_local_users.ps1>`_. para probar el script
 
             .. image:: imagenes/local_users_06.png
 
@@ -668,7 +668,7 @@ Ejercicios de PowerShell
 
             .. image:: imagenes/AD_06.png
 
-         #) Por ultimo ejecuta el script test_AD.ps1 para probar el script
+         #) Por ultimo ejecuta el script `test_AD.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/AD.ps1>`_ para probar el script
 
             .. image:: imagenes/AD_07.png
 
