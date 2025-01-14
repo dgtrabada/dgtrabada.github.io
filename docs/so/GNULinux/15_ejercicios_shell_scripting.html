@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Ejercicios de PowerShell &#8212; dgtrabada</title>
+    <title>Ejercicios de shell scripting &#8212; dgtrabada</title>
   
   
   
@@ -194,7 +194,7 @@
 <li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Ejercicios de shell scripting</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -433,7 +433,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Ejercicios de PowerShell</h1>
+    <h1>Ejercicios de shell scripting</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -447,8 +447,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ejercicios-de-powershell">
-<h1>Ejercicios de PowerShell<a class="headerlink" href="#ejercicios-de-powershell" title="Link to this heading">#</a></h1>
+  <section id="ejercicios-de-shell-scripting">
+<h1>Ejercicios de shell scripting<a class="headerlink" href="#ejercicios-de-shell-scripting" title="Link to this heading">#</a></h1>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">disk.sh</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>disk.sh</strong> que imprima por pantalla el porcentaje que esta ocupada la partición <code class="docutils literal notranslate"><span class="pre">/home</span></code>. Tiene que quedar:</p>
 <p><code class="docutils literal notranslate"><span class="pre">75%</span> <span class="pre">/home</span></code></p>
@@ -463,6 +463,30 @@ df<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><spa
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 free<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Mem<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f4<span class="w"> </span>&gt;&gt;<span class="w"> </span>free.log
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">mac.sh</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>mac.sh</strong> que obtiene la MAC de tu tarjeta de red</p>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>enp2s0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w">  </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">listar_usuario_grupo.sh</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>listar_usuario_grupo.sh</strong> que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alumno1<span class="w"> </span>:<span class="w"> </span>smr1
+alumno2<span class="w"> </span>:<span class="w"> </span>smr1
+alumno3<span class="w"> </span>:<span class="w"> </span>asir1
+alumno4<span class="w"> </span>:<span class="w"> </span>asir2
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>bash<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>root<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span>groups<span class="w"> </span><span class="nv">$i</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>
