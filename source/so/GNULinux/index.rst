@@ -21,4 +21,4 @@ GNU/Linux
    13_ldap.rst
    14_rockylinux.rst
    15_shell_scripting.rst
-
+   15_ejercicios_shell_scripting.rst

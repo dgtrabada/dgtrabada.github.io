@@ -94,7 +94,7 @@ Comandos útiles virtualBox:
 
 - ``VBoxManage list vms``: Listar maquinas virtuales
 - ``VBoxManage list vms runningvms``: Listar maquinas virtuales que estan ejecutasdose
-- ``VBoxManage startvm 'Ubuntu Server 22.04' --type headless``: Ejecutarla sin entorno gráfico
+- ``VBoxManage startvm 'Ubuntu Server 24.04' --type headless``: Ejecutarla sin entorno gráfico
 - ``VBoxManage controlvm 'Ubuntu Server 16.04' savestate``: Guardar el estado
 
 En modo gráfico:
@@ -111,7 +111,7 @@ Caso práctico: MV Ubuntu Server 24.04
 
 * Utiliza un disco de 200 GB y 2G de RAM
 
-* Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 22.04**
+* Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 24.04**
 
 * Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
 
