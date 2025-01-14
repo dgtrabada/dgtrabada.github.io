@@ -727,6 +727,68 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <li><p>Salir</p></li>
 </ol>
 </div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"></div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
+<ol class="arabic">
+<li><p>Si ejecutamos la ayuda:</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_01.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_01.png" />
+</li>
+<li><p>Si creamos un nuevo grupo, y listamos los grupos vemos que aparece.</p>
+<p>Si volvemos a intentar crearlo vemos que no nos deja, recoge el error y sácalo por pantalla como se muestra a continuación.</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_02.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_02.png" />
+<p>Finalmente crea el grupo grupo_tuapellido</p>
+<p>En el caso de intentar borrar un grupo que no existe haz que saque el mensaje por pantalla:</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_03.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_03.png" />
+</li>
+<li><p>Si creamos un nuevo usuario llamado <strong>tunombre</strong>, se creara con la contraseña <code class="docutils literal notranslate"><span class="pre">&#64;lumn0</span></code></p>
+<p>Después crea un usuario llamado <strong>tunombre1</strong> con una contraseña que no cumpla con las políticas de seguridad y haz que saque el error que muestra en el pantallazo sin crear el usuario.</p>
+<p>Vuelve a crear el usuario <strong>tunombre1</strong> con una contraseña que cumpla con las políticas de seguridad</p>
+<p>Crear el usuario <strong>tunombre2</strong> con una contraseña que cumpla con las políticas de seguridad en el grupo que no existe <strong>G2</strong>, en este caso el script deberá crear el grupo de forma automática.</p>
+<p>Crear el usuario <strong>tunombre3</strong> con una contraseña que cumpla con las políticas de seguridad en el grupo que ahora si existe <strong>G2</strong>.</p>
+<p>Por ultimo lista los miembros del grupo <strong>G2</strong></p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_04.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_04.png" />
+</li>
+<li><p>Mete al usuario <strong>tunombre3</strong> en grupo <strong>G3</strong> que no existe sin poner <strong>-usuario</strong> ni <strong>-grupo</strong>, haz que salga el mensaje de error.</p>
+<p>Mete al usuario <strong>tunombre3</strong> en grupo <strong>G3</strong> que no existe sin poner  <strong>-grupo</strong>, haz que salga el mensaje de error.</p>
+<p>Mete al usuario <strong>tunombre3</strong> en grupo <strong>G3</strong>  haz que salga el mensaje de error.</p>
+<p>Crea el grupo <strong>G3</strong> y mete finalmente al usuario <strong>tunombre3</strong> en grupo <strong>G3</strong>.</p>
+<p>Lista los usuarios del grupo <strong>G3</strong></p>
+<p>Elimina el usuario <strong>tunombre3</strong> del grupo <strong>G3</strong> (haz que se recojan los mismo errores cuando eliminamos usuarios de un grupo que cuando los metemos)</p>
+<p>Lista los usuarios del grupo <strong>G3</strong> y <strong>G2</strong></p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_05.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_05.png" />
+</li>
+<li><p>Por ultimo ejecuta el script <a class="reference external" href="images/test_local_users.ps1">test_local_users.ps1</a>. para probar el script</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/local_users_06.png" src="so/windows/.ipynb_checkpoints/imagenes/local_users_06.png" />
+</li>
+</ol>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"></div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
+<ol class="arabic">
+<li><p>Instala el Active directory utiliza como nombre de dominio : <strong>tunombre.local</strong></p>
+<p>Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: <code class="docutils literal notranslate"><span class="pre">$dirAD=&quot;DC=tunombre,DC=local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">$mail=&quot;&#64;tunombre.local&quot;</span></code></p>
+</li>
+<li><p>Si ejecutamos:</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_01.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_01.png" />
+</li>
+<li><p>Si ejecutamos:</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_02.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_02.png" />
+</li>
+<li><p>Haz que cree, borre y liste las unidades organizativas, si intenta crearlas y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla.</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_03.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_03.png" />
+</li>
+<li><p>Haz que cree, borre y liste los grupos del AD, si intenta crearlos y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla.</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_04.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_04.png" />
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_05.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_05.png" />
+</li>
+<li><p>Haz que cree, borre y liste los usuarios del AD, si intenta crearlos y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla, al igual que antes si intenta crear usuarios con una contraseña insegura que de te un error, si intenta crearlo en un grupo que no existe que cree el grupo antes:</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_06.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_06.png" />
+</li>
+<li><p>Por ultimo ejecuta el script test_AD.ps1 para probar el script</p>
+<img alt="so/windows/.ipynb_checkpoints/imagenes/AD_07.png" src="so/windows/.ipynb_checkpoints/imagenes/AD_07.png" />
+</li>
+</ol>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"></div></div>
 </section>
 
 

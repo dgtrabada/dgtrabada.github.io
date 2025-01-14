@@ -569,3 +569,112 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/grupo.ps1
            :language: powershell
 
+
+.. tabs::
+
+    .. tab:: local_users.ps1
+      
+         Crea un script llamado **local_users.ps1**, que cumpla las siguientes condiciones
+                
+         1) Si ejecutamos la ayuda:
+
+            .. image:: imagenes/local_users_01.png
+
+         #) Si creamos un nuevo grupo, y listamos los grupos vemos que aparece. 
+            
+            Si volvemos a intentar crearlo vemos que no nos deja, recoge el error y sácalo por pantalla como se muestra a continuación.
+
+            .. image:: imagenes/local_users_02.png
+
+            Finalmente crea el grupo grupo_tuapellido  
+
+            En el caso de intentar borrar un grupo que no existe haz que saque el mensaje por pantalla:
+
+            .. image:: imagenes/local_users_03.png
+
+         #) Si creamos un nuevo usuario llamado **tunombre**, se creara con la contraseña ``@lumn0``
+
+            Después crea un usuario llamado **tunombre1** con una contraseña que no cumpla con las políticas de seguridad y haz que saque el error que muestra en el pantallazo sin crear el usuario.
+
+            Vuelve a crear el usuario **tunombre1** con una contraseña que cumpla con las políticas de seguridad
+
+            Crear el usuario **tunombre2** con una contraseña que cumpla con las políticas de seguridad en el grupo que no existe **G2**, en este caso el script deberá crear el grupo de forma automática.
+
+            Crear el usuario **tunombre3** con una contraseña que cumpla con las políticas de seguridad en el grupo que ahora si existe **G2**.
+
+            Por ultimo lista los miembros del grupo **G2**
+
+            .. image:: imagenes/local_users_04.png
+
+         #) Mete al usuario **tunombre3** en grupo **G3** que no existe sin poner **-usuario** ni **-grupo**, haz que salga el mensaje de error.
+
+            Mete al usuario **tunombre3** en grupo **G3** que no existe sin poner  **-grupo**, haz que salga el mensaje de error.
+
+            Mete al usuario **tunombre3** en grupo **G3**  haz que salga el mensaje de error.
+
+            Crea el grupo **G3** y mete finalmente al usuario **tunombre3** en grupo **G3**.
+
+            Lista los usuarios del grupo **G3**
+
+            Elimina el usuario **tunombre3** del grupo **G3** (haz que se recojan los mismo errores cuando eliminamos usuarios de un grupo que cuando los metemos)
+
+            Lista los usuarios del grupo **G3** y **G2**
+
+            .. image:: imagenes/local_users_05.png
+
+         #) Por ultimo ejecuta el script `test_local_users.ps1 <images/test_local_users.ps1>`_. para probar el script
+
+            .. image:: imagenes/local_users_06.png
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/local_users.ps1
+           :language: powershell
+
+
+
+
+
+
+.. tabs::
+
+    .. tab:: AD.ps1
+      
+         Crea un script llamado **AD.ps1**, que cumpla las siguientes condiciones
+                
+         1) Instala el Active directory utiliza como nombre de dominio : **tunombre.local**
+
+            Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: ``$dirAD="DC=tunombre,DC=local"``, ``$mail="@tunombre.local"``
+
+         #) Si ejecutamos:
+
+            .. image:: imagenes/AD_01.png
+            
+         #) Si ejecutamos:
+
+            .. image:: imagenes/AD_02.png
+
+         #) Haz que cree, borre y liste las unidades organizativas, si intenta crearlas y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla.
+
+            .. image:: imagenes/AD_03.png
+
+         #) Haz que cree, borre y liste los grupos del AD, si intenta crearlos y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla.
+
+            .. image:: imagenes/AD_04.png
+
+            .. image:: imagenes/AD_05.png
+
+         #) Haz que cree, borre y liste los usuarios del AD, si intenta crearlos y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla, al igual que antes si intenta crear usuarios con una contraseña insegura que de te un error, si intenta crearlo en un grupo que no existe que cree el grupo antes:
+
+            .. image:: imagenes/AD_06.png
+
+         #) Por ultimo ejecuta el script test_AD.ps1 para probar el script
+
+            .. image:: imagenes/AD_07.png
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/AD.ps1
+           :language: powershell
+
+
