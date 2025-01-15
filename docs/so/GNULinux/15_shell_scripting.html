@@ -699,7 +699,7 @@ c
 </pre></div>
 </div>
 </li>
-<li><p>Juntar expresiones and y or</p>
+<li><p>Juntar expresiones <strong>and</strong> y <strong>or</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
 <span class="k">do</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span>j<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
@@ -720,6 +720,32 @@ b<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<sp
 b<span class="w"> </span>b<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
 c<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
 c<span class="w"> </span>c<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+</pre></div>
+</div>
+</li>
+<li><p>Estructura básica de <strong>if</strong>, <strong>elif</strong>, <strong>else</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición1<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si condición1 es verdadera</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición2<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si condición2 es verdadera y condición1 es falsa</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si ninguna de las condiciones anteriores es verdadera</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sintaxis básica de <strong>case</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="nv">$variable</span><span class="w"> </span><span class="k">in</span>
+<span class="w">   </span>patrón1<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón1</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span>patrón2<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón2</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span>*<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si no coincide con ninguno de los patrones anteriores</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="k">esac</span>
 </pre></div>
 </div>
 </li>

@@ -256,7 +256,7 @@ Bucles y condicionales
      date
    done
 
-* Juntar expresiones and y or
+* Juntar expresiones **and** y **or**
 
   .. code-block:: bash
 
@@ -281,6 +281,33 @@ Bucles y condicionales
    c a ,i j son iguales o j = a
    c c ,i j son iguales o j = a
 
+* Estructura básica de **if**, **elif**, **else**
+
+  .. code-block:: bash
+
+   if [ condición1 ]; then
+      # Código a ejecutar si condición1 es verdadera
+   elif [ condición2 ]; then
+      # Código a ejecutar si condición2 es verdadera y condición1 es falsa
+   else
+      # Código a ejecutar si ninguna de las condiciones anteriores es verdadera
+   fi
+
+* Sintaxis básica de **case**
+
+  .. code-block:: bash
+
+   case $variable in
+      patrón1)
+        # Código a ejecutar si $variable coincide con patrón1
+        ;;
+      patrón2)
+        # Código a ejecutar si $variable coincide con patrón2
+        ;;
+      *)
+        # Código a ejecutar si no coincide con ninguno de los patrones anteriores
+        ;; 
+   esac
 
 Propiedades de archivos y carpetas
 **********************************

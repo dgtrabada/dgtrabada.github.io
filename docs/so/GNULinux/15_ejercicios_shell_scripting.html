@@ -506,7 +506,9 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w">  </span>grep<span class="w"> </span><span class="s1">&#39;\.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="k">)</span><span class="p">;</span><span class="w"> </span>
 <span class="k">do</span><span class="w"> </span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$i</span><span class="k">)</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>
-<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span>
+<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+
+<span class="c1">#last -w | tr -s &#39; &#39;  | cut -d&#39; &#39; -f3 | grep &#39;\.&#39; | sort | uniq -c | sort -r</span>
 </pre></div>
 </div>
 </div></div>
@@ -524,6 +526,43 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 <span class="k">do</span><span class="w"> </span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$i</span><span class="k">)</span><span class="w"> </span><span class="nv">$i</span><span class="w">  </span><span class="k">$(</span>groups<span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
 <span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+
+<span class="c1">#last -w | tr -s &#39; &#39;  | cut -d&#39; &#39; -f1 | sort | uniq  -c | sort -r</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">tabla_multiplicar_read.sh</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar_read.sh</strong> que pide un número al usuario y muestre su tabla de multiplicar</p>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Introduce un número para mostrar su tabla de multiplicar: &quot;</span>
+<span class="nb">read</span><span class="w"> </span>numero
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">11</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nv">resultado</span><span class="o">=</span><span class="k">$((</span><span class="nv">numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$resultado</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntara por el numero al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
+<ul class="simple">
+<li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">--help</span></code> mostrara un mensaje de ayuda (consejo utiliza una función)</p></li>
+<li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicar.sh</span> <span class="pre">X</span> <span class="pre">Y</span> <span class="pre">Z</span> <span class="pre">...</span></code> , es decir con más de un argumento saldrá un mensaje <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">se</span> <span class="pre">puede</span> <span class="pre">dar</span> <span class="pre">más</span> <span class="pre">de</span> <span class="pre">un</span> <span class="pre">argumento</span></code></p></li>
+<li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicar.sh</span></code> sin argumentos se ejecutara la opción de –help</p></li>
+</ul>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Introduce un número para mostrar su tabla de multiplicar: &quot;</span>
+<span class="nb">read</span><span class="w"> </span>numero
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">11</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nv">resultado</span><span class="o">=</span><span class="k">$((</span><span class="nv">numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$resultado</span><span class="s2">&quot;</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>

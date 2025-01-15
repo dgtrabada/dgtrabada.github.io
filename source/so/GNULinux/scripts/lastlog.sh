@@ -4,3 +4,6 @@ for i in $(last -w | sort | cut -d' ' -f1 | uniq | egrep -v reboot | egrep -v  w
 do 
   echo $(last -w| grep -c $i) $i  $(groups $i | cut -d':' -f2)
 done | sort -rn
+
+#last -w | tr -s ' '  | cut -d' ' -f1 | sort | uniq  -c | sort -r
+
