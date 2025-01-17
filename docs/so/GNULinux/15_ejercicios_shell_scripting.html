@@ -555,14 +555,49 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 </ul>
 </div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Introduce un número para mostrar su tabla de multiplicar: &quot;</span>
-<span class="nb">read</span><span class="w"> </span>numero
+mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 
-<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">11</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: ./tabla_multiplicar.sh [número]</span>
+<span class="s2">    Este script muestra la tabla de multiplicar del número que se le pase como argumento.</span>
+<span class="s2">    Opciones:</span>
+<span class="s2">      --help   Muestra este mensaje de ayuda.</span>
+
+<span class="s2">    Ejemplos:</span>
+<span class="s2">    ./tabla_multiplicar.sh 4   Muestra la tabla de multiplicar del 4.&quot;</span>
+<span class="o">}</span>
+
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="c1"># Sin argumentos: mostrar ayuda</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;--help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">numero</span><span class="o">=</span><span class="nv">$1</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">11</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">      </span><span class="nv">resultado</span><span class="o">=</span><span class="k">$((</span><span class="nv">numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$resultado</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">imag.sh</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>Crea una carpeta llamada imagenes, entra dentro y ejecuta los siguiente comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>jpeg<span class="w"> </span>jpg<span class="w"> </span>png<span class="w"> </span>gif<span class="w"> </span>tiff<span class="w"> </span>bmp<span class="w"> </span>svg
 <span class="k">do</span>
-<span class="w">    </span><span class="nv">resultado</span><span class="o">=</span><span class="k">$((</span><span class="nv">numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$resultado</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="k">for</span><span class="o">((</span><span class="nv">j</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>j&lt;<span class="m">10</span><span class="p">;</span>j++<span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>imag_<span class="si">${</span><span class="nv">RANDOM</span><span class="si">}</span>.<span class="nv">$i</span><span class="w"> </span>&gt;<span class="w"> </span>imag_<span class="si">${</span><span class="nv">RANDOM</span><span class="si">}</span>.<span class="nv">$i</span>
+<span class="w">  </span><span class="k">done</span>
 <span class="k">done</span>
+</pre></div>
+</div>
+<p>Crea un script llamado <strong>imag.sh</strong> que cambie todas extensiones de todos los archivos a png conservando el nombre</p>
+</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>

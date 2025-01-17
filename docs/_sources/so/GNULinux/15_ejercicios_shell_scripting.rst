@@ -129,8 +129,36 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/tabla_multiplicar_read.sh
+        .. literalinclude:: scripts/tabla_multiplicar.sh
            :language: shell
+
+
+
+.. tabs::
+
+    .. tab:: imag.sh
+
+        Crea una carpeta llamada imagenes, entra dentro y ejecuta los siguiente comandos:
+
+        .. code-block:: bash
+          
+           for i in jpeg jpg png gif tiff bmp svg
+           do
+             for((j=0;j<10;j++))
+             do
+               echo imag_${RANDOM}.$i > imag_${RANDOM}.$i 
+             done
+           done
+
+        Crea un script llamado **imag.sh** que cambie todas extensiones de todos los archivos a png conservando el nombre
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+
+
 
 
 
