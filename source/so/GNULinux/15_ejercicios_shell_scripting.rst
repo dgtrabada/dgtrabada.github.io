@@ -157,7 +157,28 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/a.sh
            :language: shell
 
+.. tabs::
 
+    .. tab:: rnd.sh
+
+        Haz un script llamado **rnd.sh** que muestre 5 números aleatorios del 1 al 10 seguidos de el mismo número de As,
+
+        .. code-block:: bash
+
+           1 A
+           3 AAA
+           1 A
+           6 AAAAAA
+           2 AA
+
+        Haz que el reciba como argumento de entrada en numero de intentos, es decir ./rnd.sh 5
+
+        En el caso de no recibir ningún numero haz que saque 5
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
 
 
 
