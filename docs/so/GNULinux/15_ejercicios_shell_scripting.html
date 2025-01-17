@@ -616,9 +616,29 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="m">2</span><span class="w"> </span>AA
 </pre></div>
 </div>
-<p>Haz que el reciba como argumento de entrada en numero de intentos, es decir ./rnd.sh 5</p>
+<p>Haz que el reciba como argumento de entrada en numero de intentos, es decir <code class="docutils literal notranslate"><span class="pre">./rnd.sh</span> <span class="pre">5</span></code></p>
 <p>En el caso de no recibir ningún numero haz que saque 5</p>
 </div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">n</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">5</span><span class="si">}</span>
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="w"> </span>n<span class="w"> </span><span class="p">;</span><span class="w"> </span>i++<span class="w"> </span><span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">x</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="nv">out</span><span class="o">=</span><span class="nv">$x</span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">j</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>j&lt;x<span class="w"> </span><span class="p">;</span><span class="w"> </span>j++<span class="w"> </span><span class="o">))</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">      </span><span class="nv">out</span><span class="o">=</span><span class="si">${</span><span class="nv">out</span><span class="si">}</span>A
+<span class="w">    </span><span class="k">done</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$out</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">rnd.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>adivina.sh</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.</p>
+<p>Cuando el usuario acierte haz que muestre el número de intentos.</p>
+</div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>

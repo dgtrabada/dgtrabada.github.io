@@ -171,14 +171,39 @@ Ejercicios de shell scripting
            6 AAAAAA
            2 AA
 
-        Haz que el reciba como argumento de entrada en numero de intentos, es decir ./rnd.sh 5
+        Haz que el reciba como argumento de entrada en numero de intentos, es decir ``./rnd.sh 5``
 
         En el caso de no recibir ningún numero haz que saque 5
 
     .. tab:: Solución
 
+        .. literalinclude:: scripts/rnd.sh
+           :language: shell
+
+
+
+.. tabs::
+
+    .. tab:: rnd.sh
+
+        Haz un script llamado **adivina.sh** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.
+
+        Cuando el usuario acierte haz que muestre el número de intentos.
+
+    .. tab:: Solución
+
         .. literalinclude:: scripts/a.sh
            :language: shell
+
+
+
+
+
+
+
+
+
+
 
 
 
