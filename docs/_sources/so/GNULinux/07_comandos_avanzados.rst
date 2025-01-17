@@ -68,6 +68,7 @@ Comandos avanzados
    $ b=$((a%2)) #obtenemos 0 o 1
    $ echo $b
    1
+   $ x=$((RANDOM % 10 + 1)) #obtenemos números del 1 al 10
   
 
 * **Tratamiento de candenas**
