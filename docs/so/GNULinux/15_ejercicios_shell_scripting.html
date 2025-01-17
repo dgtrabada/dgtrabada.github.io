@@ -598,6 +598,12 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </div>
 <p>Crea un script llamado <strong>imag.sh</strong> que cambie todas extensiones de todos los archivos a png conservando el nombre</p>
 </div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>imag_*<span class="w"> </span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span>mv<span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;.&#39;</span><span class="w"> </span>-f1<span class="k">)</span>.png
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>

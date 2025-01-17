@@ -154,7 +154,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/imag.sh
            :language: shell
 
 .. tabs::
