@@ -192,7 +192,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/adivina.sh
            :language: shell
 
 

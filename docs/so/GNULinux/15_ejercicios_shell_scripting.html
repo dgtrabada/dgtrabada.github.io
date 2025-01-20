@@ -639,6 +639,31 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">adivina.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>adivina.sh</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.</p>
 <p>Cuando el usuario acierte haz que muestre el número de intentos.</p>
 </div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Generar un número aleatorio entre 1 y 20</span>
+<span class="nv">numero_secreto</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$numero_secreto</span>
+<span class="nv">intentos</span><span class="o">=</span><span class="m">0</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Adivina el número entre 1 y 20!&quot;</span>
+
+<span class="nv">acertado</span><span class="o">=</span><span class="m">0</span>
+<span class="k">while</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$acertado</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">intentos</span><span class="o">=</span><span class="k">$((</span><span class="nv">intentos</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Introduce tu número: &quot;</span><span class="w"> </span>respuesta
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># Comparar el número ingresado con el número secreto</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$respuesta</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$numero_secreto</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;El número es más grande.&quot;</span>
+<span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$respuesta</span><span class="w"> </span>-gt<span class="w"> </span><span class="nv">$numero_secreto</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;El número es más pequeño.&quot;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Correcto! El número era </span><span class="nv">$numero_secreto</span><span class="s2">.&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Lo has adivinado en </span><span class="nv">$intentos</span><span class="s2"> intento(s).&quot;</span>
+<span class="w">    </span><span class="nv">acertado</span><span class="o">=</span><span class="m">1</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>
