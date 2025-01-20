@@ -184,7 +184,7 @@ Ejercicios de shell scripting
 
 .. tabs::
 
-    .. tab:: rnd.sh
+    .. tab:: adivina.sh
 
         Haz un script llamado **adivina.sh** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.
 
@@ -198,6 +198,61 @@ Ejercicios de shell scripting
 
 
 
+.. tabs::
+
+    .. tab:: usuarios.sh
+
+        Haz un script llamado **usuarios.sh** utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"
+
+        .. code-block:: bash
+
+           ./usuarios.sh -addgroup GA
+           El script tiene que crear el grupo GA si no existe, en el caso de que exista devuelve "No se crea el grupo el grupo GA existe"
+
+           ./usuarios.sh -delgroup GA
+           El script tiene que borrar el grupo GA si existe, en el caso de que no exista devuelve "No se borra el grupo el grupo GA no existe"
+           
+           ./usuarios.sh -adduser usuario1 GA
+           El script tiene que crear el usuario usuario1 en el grupo GA, si el grupo no existe lo crea primero, 
+           en el caso de que exista el usuario no lo crea y sale por pantalla "No se crea el usuario usuario", 
+           haz que la contraseña por defecto sea 
+           cambiame='$6$.D89Ce1upwYwLoRk$uSabT3Fp47BJpixZfuY6KAGyn8S9tYDTDYZPeCgeW4VU1I3OyLlS6No34EZmNIDE9/bspwAKftSVMbu9P/z0X/'
+           
+           En el caso de que se ejecute sin grupo 
+           ./usuarios.sh -adduser usuario1
+           El sistema lo creara por defecto en grupo usuario1
+
+
+           ./usuarios.sh -deluser usuario1
+           El script tiene que borrar el usuario usuario1 si no existe devuelve "No se borra el usuario usuario1 no existe"
+
+
+           ./usuarios.sh -lista
+           El script lista todos los grupos con todos los usuarios que tiene
+
+        Chequea tu script con las siguientes instrucciones y sube un pantallazo de su ejecución
+
+        .. code-block:: bash
+
+           cat usuarios.sh
+           for g in GA GB GC GD
+           do
+             ./usuarios.sh -addgroup $g
+             for u in 01 02 03 04
+               do
+               usuario=usuario_${g}_${u}
+               ./usuarios.sh -adduser ${usuario} ${g}
+             done
+           done
+           ./usuarios.sh -lista
+
+           ./usuarios.sh -help
+           El script muestra una ayuda con las opciones que puede tiene
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
 
 
 

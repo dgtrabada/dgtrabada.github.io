@@ -636,9 +636,57 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">rnd.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>adivina.sh</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">adivina.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>adivina.sh</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.</p>
 <p>Cuando el usuario acierte haz que muestre el número de intentos.</p>
 </div><div aria-labelledby="tab-10-10-1" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-1" name="10-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.sh</strong> utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>GA
+El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se crea el grupo el grupo GA existe&quot;</span>
+
+./usuarios.sh<span class="w"> </span>-delgroup<span class="w"> </span>GA
+El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>borrar<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>no<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se borra el grupo el grupo GA no existe&quot;</span>
+
+./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span>usuario1<span class="w"> </span>GA
+El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>usuario1<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA,<span class="w"> </span>si<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>no<span class="w"> </span>existe<span class="w"> </span>lo<span class="w"> </span>crea<span class="w"> </span>primero,
+en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>no<span class="w"> </span>lo<span class="w"> </span>crea<span class="w"> </span>y<span class="w"> </span>sale<span class="w"> </span>por<span class="w"> </span>pantalla<span class="w"> </span><span class="s2">&quot;No se crea el usuario usuario&quot;</span>,
+haz<span class="w"> </span>que<span class="w"> </span>la<span class="w"> </span>contraseña<span class="w"> </span>por<span class="w"> </span>defecto<span class="w"> </span>sea
+<span class="nv">cambiame</span><span class="o">=</span><span class="s1">&#39;$6$.D89Ce1upwYwLoRk$uSabT3Fp47BJpixZfuY6KAGyn8S9tYDTDYZPeCgeW4VU1I3OyLlS6No34EZmNIDE9/bspwAKftSVMbu9P/z0X/&#39;</span>
+
+En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>ejecute<span class="w"> </span>sin<span class="w"> </span>grupo
+./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span>usuario1
+El<span class="w"> </span>sistema<span class="w"> </span>lo<span class="w"> </span>creara<span class="w"> </span>por<span class="w"> </span>defecto<span class="w"> </span>en<span class="w"> </span>grupo<span class="w"> </span>usuario1
+
+
+./usuarios.sh<span class="w"> </span>-deluser<span class="w"> </span>usuario1
+El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>borrar<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>usuario1<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se borra el usuario usuario1 no existe&quot;</span>
+
+
+./usuarios.sh<span class="w"> </span>-lista
+El<span class="w"> </span>script<span class="w"> </span>lista<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>con<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>usuarios<span class="w"> </span>que<span class="w"> </span>tiene
+</pre></div>
+</div>
+<p>Chequea tu script con las siguientes instrucciones y sube un pantallazo de su ejecución</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>usuarios.sh
+<span class="k">for</span><span class="w"> </span>g<span class="w"> </span><span class="k">in</span><span class="w"> </span>GA<span class="w"> </span>GB<span class="w"> </span>GC<span class="w"> </span>GD
+<span class="k">do</span>
+<span class="w">  </span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span><span class="nv">$g</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="m">02</span><span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">04</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">usuario</span><span class="o">=</span>usuario_<span class="si">${</span><span class="nv">g</span><span class="si">}</span>_<span class="si">${</span><span class="nv">u</span><span class="si">}</span>
+<span class="w">    </span>./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span><span class="si">${</span><span class="nv">usuario</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">g</span><span class="si">}</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+./usuarios.sh<span class="w"> </span>-lista
+
+./usuarios.sh<span class="w"> </span>-help
+El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-11-1" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-1" name="11-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>

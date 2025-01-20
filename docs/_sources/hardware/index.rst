@@ -46,12 +46,12 @@ Hardware
 .. * :ref:`Encapsulados`
 .. * :ref:`Ventilación`
 .. * :ref:`Memoria RAM`
-.. * :ref:`Puertas lógicas`
-.. * :ref:`Arquitectura del ordenador`
 .. * :ref:`Conceptos eléctricos - electrónicos y elementos básicos`
 .. * :ref:`Fuentes de Alimentación`
 .. * :ref:`Cableado y conectores de potencia`
 .. * :ref:`Sistemas de alimentación interrumpida`
+.. * :ref:`Puertas lógicas`
+.. * :ref:`Arquitectura del ordenador`
 .. * :ref:`La carcasa`
 .. * :ref:`La placa base, el “chipset”, la EPROM`
 .. * :ref:`Conectores y buses externos`
