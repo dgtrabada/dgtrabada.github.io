@@ -30,7 +30,7 @@ then
   then
     usuario=$2
     grupo=${3:-$usuario}
-
+    echo "creamos el $usuario en $grupo"
     if [[ $(grep -c $usuario /etc/passwd) -gt 0 ]]
     then
       echo "No se crea el usuario, el usuario $usuario ya existe."
@@ -56,7 +56,15 @@ then
   fi
   if [[ "$1" == "-lista" ]]
   then
-    cat /etc/group | cut -d':' -f1,4 | grep -v ':$'
+    #solo listamos los grupos que tienen usuarios
+    for g in $(cut -d':' -f1 /etc/group)
+    do
+      if [[ $(members $g ) != "" ]]
+      then
+        echo ----- $g------
+        members $g
+      fi
+    done
   fi
 
 else
