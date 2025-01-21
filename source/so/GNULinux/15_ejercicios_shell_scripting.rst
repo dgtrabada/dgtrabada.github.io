@@ -223,7 +223,6 @@ Ejercicios de shell scripting
         #) El número de alumnos que han suspendido dos módulo.
 
         #) El número de alumnos que han suspendido tres módulos o más.
-
         #) Indicar el número de alumnos aprobados/suspensos en porcentaje.
 
     .. tab:: Solución
