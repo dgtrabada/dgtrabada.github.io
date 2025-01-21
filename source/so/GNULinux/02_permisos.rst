@@ -21,7 +21,7 @@ El sistema de permisos en Linux se basa en un esquema de usuarios/grupos. A esto
    
  $ ls -la fecha.sh
  
- - rw- rw- r-- 1 alumno alumno 5 ene 4 19:02 fecha.sh
+ - rw- rw- r-- 1 alumno GA     5 ene 4 19:02 fecha.sh
  ↑ ↑   ↑   ↑   ↑ ↑      ↑      ↑ ↑           ↑
  1 2   3   4   5 6      7      8 9           10
  1 : Tipo de archivo = - es un archivo regular [d = directorio; l = enlace simbólico; ...]

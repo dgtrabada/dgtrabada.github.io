@@ -50,7 +50,7 @@ Python
   * `Ejercicio red neuronal <https://github.com/dgtrabada/python/blob/main/09_random/red_neuronal.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/09_random/red_neuronal_sol.ipynb>`_
 
-* `Pandas <https://github.com/dgtrabada/python/tree/main/10_Pandas/01_pandas.ipynb>`_ (`Ejercicios de Pandas <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas.ipynb>`_)
+* `Pandas <https://github.com/dgtrabada/python/tree/main/10_Pandas/Pandas.ipynb>`_ (`Ejercicios de Pandas <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas.ipynb>`_)
 
 * `Seaborn <https://github.com/dgtrabada/python/tree/main/11_Seaborn/Seaborn.ipynb>`_ (`Ejercicios de Seaborn <https://github.com/dgtrabada/python/blob/main/11_Seaborn/11_Ejercicios_Seaborn.ipynb>`_)
 

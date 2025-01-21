@@ -121,7 +121,7 @@ Caso práctico: MV Ubuntu Server 24.04
 
   .. image:: imagenes/MV_Ubuntu_Server_22.04.jpg
 
-* Usuario: tunombre y utiliza de contraseña: alumno
+* Usuario: **tunombre** y utiliza de contraseña: **alumno**
   Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
 

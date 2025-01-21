@@ -196,6 +196,40 @@ Ejercicios de shell scripting
            :language: shell
 
 
+.. tabs::
+
+    .. tab:: notas.sh
+
+        Haz un script llamado **notas.sh** que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado calificaciones.txt con el siguiente formato:
+
+        .. code-block:: bash
+
+           Lucía Sánchez: 10, 6, 6, 5, 8
+           María Vargas: 9, 7, 4, 4, 7
+           Lucía Pérez: 7, 5, 10, 8, 4
+           Miguel González: 9, 7, 10, 3, 5
+           Miguel López: 6, 4, 6, 10, 9
+           Elena García: 3, 3, 3, 10, 4
+           Pedro Torres: 6, 4, 10, 9, 4
+
+        Se pide:
+    
+        1) El número de alumnos matriculados.
+
+        #) El número de alumnos que han aprobado todos los módulos.
+
+        #) El número de alumnos que han suspendido sólo un módulo.
+
+        #) El número de alumnos que han suspendido dos módulo.
+
+        #) El número de alumnos que han suspendido tres módulos o más.
+
+        #) Indicar el número de alumnos aprobados/suspensos en porcentaje.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
 
 
 .. tabs::
@@ -215,17 +249,13 @@ Ejercicios de shell scripting
            ./usuarios.sh -adduser usuario1 GA
            El script tiene que crear el usuario usuario1 en el grupo GA, si el grupo no existe lo crea primero, 
            en el caso de que exista el usuario no lo crea y sale por pantalla "No se crea el usuario usuario", 
-           haz que la contraseña por defecto sea 
-           cambiame='$6$.D89Ce1upwYwLoRk$uSabT3Fp47BJpixZfuY6KAGyn8S9tYDTDYZPeCgeW4VU1I3OyLlS6No34EZmNIDE9/bspwAKftSVMbu9P/z0X/'
-           
-           En el caso de que se ejecute sin grupo 
+           haz que la contraseña por defecto sea cambiame.
+       
            ./usuarios.sh -adduser usuario1
-           El sistema lo creara por defecto en grupo usuario1
-
+           En el caso de que se ejecute sin grupo el sistema lo creara por defecto en grupo usuario1
 
            ./usuarios.sh -deluser usuario1
            El script tiene que borrar el usuario usuario1 si no existe devuelve "No se borra el usuario usuario1 no existe"
-
 
            ./usuarios.sh -lista
            El script lista todos los grupos con todos los usuarios que tiene
@@ -251,7 +281,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/usuarios.sh
            :language: shell
 
 
