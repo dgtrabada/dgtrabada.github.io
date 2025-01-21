@@ -215,19 +215,15 @@ Ejercicios de shell scripting
         Se pide:
     
         1) El número de alumnos matriculados.
-
         #) El número de alumnos que han aprobado todos los módulos.
-
         #) El número de alumnos que han suspendido sólo un módulo.
-
         #) El número de alumnos que han suspendido dos módulo.
-
         #) El número de alumnos que han suspendido tres módulos o más.
         #) Indicar el número de alumnos aprobados/suspensos en porcentaje.
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/notas.sh
            :language: shell
 
 
