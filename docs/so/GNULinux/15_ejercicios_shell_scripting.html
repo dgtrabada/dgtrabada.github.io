@@ -744,7 +744,112 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.sh</strong> utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">analizar_cal.sh</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Descarga el archivo <strong>calendario.dat</strong>, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita</p>
+<p>Crea una script llamado <strong>analizar_cal.sh</strong> que considere las siguientes entradas:</p>
+<ul>
+<li><p>Muestra un mensaje de ayuda</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_cal.sh<span class="w"> </span>--help
+salida:
+Uso<span class="w"> </span>:<span class="w"> </span>analizar<span class="w"> </span><span class="o">[</span>OPCION<span class="o">]</span>
+Options:
+-<span class="w"> </span>mes<span class="w"> </span>&lt;mes&gt;<span class="w">  </span>muestra<span class="w"> </span>el<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>citas<span class="w"> </span>que<span class="w"> </span>hay<span class="w"> </span>en<span class="w"> </span>un<span class="w"> </span>mes
+-<span class="w"> </span>d<span class="w"> </span>&lt;día&gt;<span class="w"> </span>muestra<span class="w"> </span>el<span class="w"> </span>numero<span class="w"> </span>de<span class="w"> </span>citas<span class="w"> </span>que<span class="w"> </span>hay<span class="w"> </span>para<span class="w"> </span>ese<span class="w"> </span>día<span class="w"> </span>para<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>meses
+</pre></div>
+</div>
+</li>
+<li><p>En el caso de no dar ninguna entrada tambien mostrará el mensaje de ayuda</p></li>
+<li><p>Muestra el número de citas que hay por mes</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_cal.sh<span class="w"> </span>-mes<span class="w"> </span>Julio
+<span class="m">39</span>
+</pre></div>
+</div>
+</li>
+<li><p>Muestra el número de citas que hay por un determinado día para todos los meses</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_cal.sh<span class="w"> </span>-d<span class="w"> </span><span class="m">4</span>
+<span class="m">11</span>
+</pre></div>
+</div>
+</li>
+<li><p>Muestra el número de citas que se han producido durante todo el año de forma ordenada</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_cal.sh<span class="w"> </span>-resumen<span class="w"> </span>citas<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+<span class="m">23</span><span class="w"> </span>Reunión<span class="w"> </span>de<span class="w"> </span>trabajo.
+<span class="m">16</span><span class="w"> </span>Cita<span class="w"> </span>con<span class="w"> </span>el<span class="w"> </span>médico.
+<span class="m">14</span><span class="w"> </span>Llamada<span class="w"> </span>con<span class="w"> </span>un<span class="w"> </span>cliente.
+<span class="m">14</span><span class="w"> </span>Entrega<span class="w"> </span>de<span class="w"> </span>proyectos.
+<span class="m">14</span><span class="w"> </span>Cumpleaños<span class="w"> </span>de<span class="w"> </span>un<span class="w"> </span>amigo.
+<span class="m">14</span><span class="w"> </span>Clase<span class="w"> </span>de<span class="w"> </span>yoga<span class="w"> </span>o<span class="w"> </span>ejercicio.
+<span class="m">14</span><span class="w"> </span>Cena<span class="w"> </span>con<span class="w"> </span>amigos.
+<span class="m">14</span><span class="w"> </span>Aniversario<span class="w"> </span>de<span class="w"> </span>boda.
+<span class="m">13</span><span class="w"> </span>Conferencia<span class="w"> </span>o<span class="w"> </span>seminario.
+<span class="m">10</span><span class="w"> </span>Visita<span class="w"> </span>al<span class="w"> </span>dentista.
+</pre></div>
+</div>
+</li>
+<li><p>Muestra el numero de citas que hay por diferentes franjas horarias</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_cal.sh<span class="w"> </span>-resumen<span class="w"> </span>horas
+De<span class="w"> </span><span class="m">10</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">87</span><span class="w"> </span>citas
+De<span class="w"> </span><span class="m">11</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">80</span><span class="w"> </span>citas
+De<span class="w"> </span><span class="m">12</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">99</span><span class="w"> </span>citas
+De<span class="w"> </span><span class="m">13</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">97</span><span class="w"> </span>citas
+De<span class="w"> </span><span class="m">14</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">79</span><span class="w"> </span>citas
+De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="m">101</span><span class="w"> </span>citas
+</pre></div>
+</div>
+</li>
+</ul>
+</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso : analizar [OPCION]&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Options:&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- mes &lt;mes&gt; muestra el numero de citas que hay en un mes&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- d &lt;dia&gt; muestra el numero de citas que hay para ese dia para todos los meses&quot;</span>
+<span class="o">}</span>
+<span class="nv">archivo</span><span class="o">=</span>calendario.dat
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;--help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>show_help
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-mes&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-d&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>cat<span class="w"> </span>calendario.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot; </span><span class="nv">$2</span><span class="s2"> &quot;</span><span class="w">         </span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-resumen&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>citas<span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span>cat<span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f4-<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w">  </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-r
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>horas<span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">hora</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="k">)</span>
+<span class="w">      </span><span class="nv">c</span><span class="o">=</span><span class="m">0</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$hora</span>
+<span class="w">      </span><span class="k">do</span>
+<span class="w">        </span><span class="nv">c</span><span class="o">=</span><span class="k">$((</span><span class="nv">c</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">        </span><span class="nv">cita</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-<span class="nv">$c</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>De<span class="w"> </span><span class="nv">$i</span>:00-10:59<span class="w"> </span>hay<span class="w"> </span><span class="nv">$cita</span><span class="w"> </span>citas
+<span class="w">      </span><span class="k">done</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">else</span>
+<span class="w"> </span>show_help
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.sh</strong> utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>GA
 El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se crea el grupo el grupo GA existe&quot;</span>
 
@@ -783,7 +888,7 @@ El<span class="w"> </span>script<span class="w"> </span>lista<span class="w"> </
 El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>

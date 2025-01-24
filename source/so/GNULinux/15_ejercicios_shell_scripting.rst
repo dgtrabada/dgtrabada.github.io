@@ -227,6 +227,80 @@ Ejercicios de shell scripting
            :language: shell
 
 
+
+.. tabs::
+
+    .. tab:: analizar_cal.sh
+
+        Descarga el archivo **calendario.dat**, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita
+
+        Crea una script llamado **analizar_cal.sh** que considere las siguientes entradas:
+
+        
+        * Muestra un mensaje de ayuda
+
+          .. code-block:: bash
+
+           ./analizar_cal.sh --help
+           salida:
+           Uso : analizar [OPCION]
+           Options:
+           - mes <mes>  muestra el número de citas que hay en un mes
+           - d <día> muestra el numero de citas que hay para ese día para todos los meses
+
+        * En el caso de no dar ninguna entrada tambien mostrará el mensaje de ayuda
+
+        * Muestra el número de citas que hay por mes
+
+          .. code-block:: bash
+
+           ./analizar_cal.sh -mes Julio
+           39
+
+        * Muestra el número de citas que hay por un determinado día para todos los meses
+
+          .. code-block:: bash
+
+           ./analizar_cal.sh -d 4
+           11
+
+        * Muestra el número de citas que se han producido durante todo el año de forma ordenada
+
+          .. code-block:: bash
+
+           ./analizar_cal.sh -resumen citas | head
+           23 Reunión de trabajo.
+           16 Cita con el médico.
+           14 Llamada con un cliente.
+           14 Entrega de proyectos.
+           14 Cumpleaños de un amigo.
+           14 Clase de yoga o ejercicio.
+           14 Cena con amigos.
+           14 Aniversario de boda.
+           13 Conferencia o seminario.
+           10 Visita al dentista.
+
+
+        * Muestra el numero de citas que hay por diferentes franjas horarias
+
+          .. code-block:: bash
+
+           ./analizar_cal.sh -resumen horas
+           De 10:00-10:59 hay 87 citas
+           De 11:00-10:59 hay 80 citas
+           De 12:00-10:59 hay 99 citas
+           De 13:00-10:59 hay 97 citas
+           De 14:00-10:59 hay 79 citas
+           De 15:00-10:59 hay 101 citas
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/analizar_cal.sh
+           :language: shell
+
+
+
+
 .. tabs::
 
     .. tab:: usuarios.sh
