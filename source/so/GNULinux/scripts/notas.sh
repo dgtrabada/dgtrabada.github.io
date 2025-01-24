@@ -10,7 +10,7 @@ num_alumnos=$(wc -l $archivo | cut -d' ' -f1)
 
 for ((i=1; i<=num_alumnos; i++))
     do
-    linea=$(sed -n "${i}p" "$archivo")
+    linea=$(sed -n ${i}p $archivo)
     aprobado_1=0 
     aprobado_2=0 
     aprobado_3=0 
@@ -44,11 +44,11 @@ porcentaje_aprobados=$(echo "scale=2; ($todos_aprobados / $num_alumnos) * 100" |
 porcentaje_suspensos=$(echo "scale=2; (($num_alumnos-$todos_aprobados) / $num_alumnos) * 100" | bc)
 
 echo -e "\033[34m-------------- Resultados ---------------- \033[0m"
-echo "Número total de alumnos matriculados: $total_alumnos"
-echo "Número de alumnos que han aprobado todos los módulos: $todos_aprobados"
-echo "Número de alumnos que han suspendido solo un módulo: $un_suspenso"
-echo "Número de alumnos que han suspendido dos módulos: $dos_suspensos"
-echo "Número de alumnos que han suspendido tres módulos o más: $tres_o_mas_suspensos"
-echo "Porcentaje de alumnos aprobados: $porcentaje_aprobados%"
-echo "Porcentaje de alumnos suspensos: $porcentaje_suspensos%"
+echo -e "Número total de alumnos matriculados:\033[32m $num_alumnos \033[0m"
+echo -e "Número de alumnos que han aprobado todos los módulos:\033[32m $todos_aprobados\033[0m"
+echo -e "Número de alumnos que han suspendido solo un módulo:\033[32m $un_suspenso\033[0m"
+echo -e "Número de alumnos que han suspendido dos módulos:\033[32m $dos_suspensos\033[0m"
+echo -e "Número de alumnos que han suspendido tres módulos o más:\033[32m $tres_o_mas_suspensos\033[0m"
+echo -e "Porcentaje de alumnos aprobados:\033[35m  $porcentaje_aprobados %\033[0m"
+echo -e "Porcentaje de alumnos suspensos:\033[35m  $porcentaje_suspensos %\033[0m"
 

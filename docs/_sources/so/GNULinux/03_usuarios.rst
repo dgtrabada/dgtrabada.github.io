@@ -35,7 +35,7 @@ Gestión de usuarios
     
    sudo useradd -g grupo -d /home/usuario -m -s /bin/bash usuario
  
-  * Para asignar una contraseña podemos al usuario podemos ingresarla despues de crear el usuario ``sudo passwd usuario`` o durante la creación del usuario con la opción ``-p $( mkpasswd -m sha-512 -s cambiame)`` tambien podríamos poner la contraseña encritada directamente.
+  * Para asignar una contraseña podemos al usuario podemos ingresarla despues de crear el usuario ``sudo passwd usuario`` o durante la creación del usuario con la opción ``-p $( mkpasswd -m sha-512 -s cambiame)`` tambien podríamos poner la contraseña encritada directamente. Podemos instalar mkpasswd con ``apt install whois``
 
 * **passwd usuario** establecer la contraseña del usuario o cambiarla
 

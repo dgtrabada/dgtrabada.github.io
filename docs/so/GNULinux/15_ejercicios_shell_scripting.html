@@ -699,7 +699,7 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 
 <span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span>i&lt;<span class="o">=</span>num_alumnos<span class="p">;</span><span class="w"> </span>i++<span class="o">))</span>
 <span class="w">    </span><span class="k">do</span>
-<span class="w">    </span><span class="nv">linea</span><span class="o">=</span><span class="k">$(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">p&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">linea</span><span class="o">=</span><span class="k">$(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span>p<span class="w"> </span><span class="nv">$archivo</span><span class="k">)</span>
 <span class="w">    </span><span class="nv">aprobado_1</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>
 <span class="w">    </span><span class="nv">aprobado_2</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>
 <span class="w">    </span><span class="nv">aprobado_3</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>
@@ -733,13 +733,13 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 <span class="nv">porcentaje_suspensos</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;scale=2; ((</span><span class="nv">$num_alumnos</span><span class="s2">-</span><span class="nv">$todos_aprobados</span><span class="s2">) / </span><span class="nv">$num_alumnos</span><span class="s2">) * 100&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="k">)</span>
 
 <span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m-------------- Resultados ---------------- \033[0m&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Número total de alumnos matriculados: </span><span class="nv">$total_alumnos</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Número de alumnos que han aprobado todos los módulos: </span><span class="nv">$todos_aprobados</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido solo un módulo: </span><span class="nv">$un_suspenso</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido dos módulos: </span><span class="nv">$dos_suspensos</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido tres módulos o más: </span><span class="nv">$tres_o_mas_suspensos</span><span class="s2">&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos aprobados: </span><span class="nv">$porcentaje_aprobados</span><span class="s2">%&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos suspensos: </span><span class="nv">$porcentaje_suspensos</span><span class="s2">%&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número total de alumnos matriculados:\033[32m </span><span class="nv">$num_alumnos</span><span class="s2"> \033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número de alumnos que han aprobado todos los módulos:\033[32m </span><span class="nv">$todos_aprobados</span><span class="s2">\033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido solo un módulo:\033[32m </span><span class="nv">$un_suspenso</span><span class="s2">\033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido dos módulos:\033[32m </span><span class="nv">$dos_suspensos</span><span class="s2">\033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido tres módulos o más:\033[32m </span><span class="nv">$tres_o_mas_suspensos</span><span class="s2">\033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos aprobados:\033[35m  </span><span class="nv">$porcentaje_aprobados</span><span class="s2"> %\033[0m&quot;</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos suspensos:\033[35m  </span><span class="nv">$porcentaje_suspensos</span><span class="s2"> %\033[0m&quot;</span>
 </pre></div>
 </div>
 </div></div>
@@ -831,7 +831,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="w">  </span><span class="k">fi</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-deluser&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$usuario</span><span class="w"> </span>/etc/passwd<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$2</span><span class="w"> </span>/etc/passwd<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">    </span><span class="k">then</span>
 <span class="w">      </span>userdel<span class="w"> </span>-r<span class="w"> </span><span class="nv">$2</span>
 <span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usuario </span><span class="nv">$2</span><span class="s2"> eliminado.&quot;</span>

@@ -46,7 +46,7 @@ then
   fi
   if [[ $1 == "-deluser" ]]
   then
-    if [[ $(grep -c $usuario /etc/passwd) -gt 0 ]]
+    if [[ $(grep -c $2 /etc/passwd) -gt 0 ]]
     then
       userdel -r $2
       echo "Usuario $2 eliminado."
