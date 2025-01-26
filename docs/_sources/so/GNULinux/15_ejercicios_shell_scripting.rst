@@ -200,7 +200,7 @@ Ejercicios de shell scripting
 
     .. tab:: notas.sh
 
-        Haz un script llamado **notas.sh** que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado calificaciones.txt con el siguiente formato:
+        Haz un script llamado **notas.sh** que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado `calificaciones.txt <scripts/calificaciones.txt>`_ con el siguiente formato:
 
         .. code-block:: bash
 
@@ -232,7 +232,7 @@ Ejercicios de shell scripting
 
     .. tab:: analizar_cal.sh
 
-        Descarga el archivo **calendario.dat**, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita
+        Descarga el archivo `calendario.dat <scripts/calendario.dat>`_, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita
 
         Crea una script llamado **analizar_cal.sh** que considere las siguientes entradas:
 

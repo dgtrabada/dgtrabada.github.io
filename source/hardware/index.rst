@@ -19,12 +19,12 @@ Hardware
    encapsuladors.rst
    ventilacion.rst
    ram.rst
-   puertas_logicas.rst
-   arquitectura.rst 
    conceptos_electronicos.rst
    fuente_alimentacion.rst
    conectores_potencia.rst
    sai.rst
+   puertas_logicas.rst
+   arquitectura.rst 
    carcasa.rst
    placa_base.rst
    conectores.rst     
