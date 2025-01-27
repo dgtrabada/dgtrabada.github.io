@@ -305,7 +305,7 @@ Ejercicios de shell scripting
 
     .. tab:: usuarios.sh
 
-        Haz un script llamado **usuarios.sh** utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"
+        Crea un script llamado **usuarios.sh** utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"
 
         .. code-block:: bash
 
@@ -329,7 +329,7 @@ Ejercicios de shell scripting
            ./usuarios.sh -lista
            El script lista todos los grupos con todos los usuarios que tiene
 
-        Chequea tu script con las siguientes instrucciones y sube un pantallazo de su ejecución
+        Chequea tu script con las siguientes características:
 
         .. code-block:: bash
 
@@ -354,9 +354,47 @@ Ejercicios de shell scripting
            :language: shell
 
 
+.. tabs::
 
+    .. tab:: crear y borrar_usuarios_lista.sh 
 
+        Genera la siguiente lista de usuarios en el archivo **lista.dat**
 
+        .. code-block:: bash
+      
+           for((i=0;i<40;i++))
+           do
+             R=$RANDOM
+             echo tunombre_$R G$(($R%4))
+           done > lista.dat
+
+        1) Crea un script llamado **crear_usuarios_lista.sh** que genere por defecto los usuarios que encuentra en el archivo **lista.dat**, con la contraseña ``cambiame``, haz que si recibe el nombre de otro archivo como lista lo utilice. En el caso de que el grupo no exista haz que lo cree en el sistema
+
+        2) Crea otro script llamado **borrar_usuarios_lista.sh** que borre los usuarios que aparecen en el archivo **lista.dat**, haz que utilice este archivo por defecto en el caso de no recibir ningun archivo.
+
+        3) Crea otro script llamdo **crear_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, creará todos los usuarios dentro del grupo llamado **nombre_grupo**, en el caso de que no exista creara primero el grupo.
+
+        4) Crea otro script llamdo **borrar_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio nos preguntara si queremos borrarlo también.
+
+    .. tab:: Solución(1)
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+    .. tab:: Solución(2)
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+    .. tab:: Solución(3)
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+    .. tab:: Solución(4)
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
 
 
 

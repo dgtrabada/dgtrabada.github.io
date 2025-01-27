@@ -849,7 +849,7 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.sh</strong> utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong> utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>GA
 El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se crea el grupo el grupo GA existe&quot;</span>
 
@@ -871,7 +871,7 @@ El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </
 El<span class="w"> </span>script<span class="w"> </span>lista<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>con<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>usuarios<span class="w"> </span>que<span class="w"> </span>tiene
 </pre></div>
 </div>
-<p>Chequea tu script con las siguientes instrucciones y sube un pantallazo de su ejecución</p>
+<p>Chequea tu script con las siguientes características:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>usuarios.sh
 <span class="k">for</span><span class="w"> </span>g<span class="w"> </span><span class="k">in</span><span class="w"> </span>GA<span class="w"> </span>GB<span class="w"> </span>GC<span class="w"> </span>GD
 <span class="k">do</span>
@@ -960,6 +960,34 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">else</span>
 <span class="w">  </span>show_help
 <span class="k">fi</span>
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">crear y borrar_usuarios_lista.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución(1)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución(2)</button><button aria-controls="panel-14-14-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-3" name="14-3" role="tab" tabindex="-1">Solución(3)</button><button aria-controls="panel-14-14-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-4" name="14-4" role="tab" tabindex="-1">Solución(4)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>tunombre_<span class="nv">$R</span><span class="w"> </span>G<span class="k">$((</span><span class="nv">$R</span><span class="o">%</span><span class="m">4</span><span class="k">))</span>
+<span class="k">done</span><span class="w"> </span>&gt;<span class="w"> </span>lista.dat
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Crea un script llamado <strong>crear_usuarios_lista.sh</strong> que genere por defecto los usuarios que encuentra en el archivo <strong>lista.dat</strong>, con la contraseña <code class="docutils literal notranslate"><span class="pre">cambiame</span></code>, haz que si recibe el nombre de otro archivo como lista lo utilice. En el caso de que el grupo no exista haz que lo cree en el sistema</p></li>
+<li><p>Crea otro script llamado <strong>borrar_usuarios_lista.sh</strong> que borre los usuarios que aparecen en el archivo <strong>lista.dat</strong>, haz que utilice este archivo por defecto en el caso de no recibir ningun archivo.</p></li>
+<li><p>Crea otro script llamdo <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
+<li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio nos preguntara si queremos borrarlo también.</p></li>
+</ol>
+</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-14-3" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-3" name="14-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-14-4" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-4" name="14-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>
