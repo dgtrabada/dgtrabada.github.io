@@ -378,17 +378,17 @@ Ejercicios de shell scripting
 
     .. tab:: Solución(1)
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/crear_usuarios_lista.sh
            :language: shell
 
     .. tab:: Solución(2)
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/borrar_usuarios_lista.sh
            :language: shell
 
     .. tab:: Solución(3)
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/crear_usuarios_grupo_lista.sh
            :language: shell
 
     .. tab:: Solución(4)
