@@ -356,7 +356,7 @@ Ejercicios de shell scripting
 
 .. tabs::
 
-    .. tab:: crear y borrar_usuarios_lista.sh 
+    .. tab:: crear y borrar desde una lista 
 
         Genera la siguiente lista de usuarios en el archivo **lista.dat**
 
@@ -374,26 +374,26 @@ Ejercicios de shell scripting
 
         3) Crea otro script llamdo **crear_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, creará todos los usuarios dentro del grupo llamado **nombre_grupo**, en el caso de que no exista creara primero el grupo.
 
-        4) Crea otro script llamdo **borrar_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio nos preguntara si queremos borrarlo también.
+        4) Crea otro script llamdo **borrar_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.
 
-    .. tab:: Solución(1)
+    .. tab:: crear_usuarios_lista.sh
 
         .. literalinclude:: scripts/crear_usuarios_lista.sh
            :language: shell
 
-    .. tab:: Solución(2)
+    .. tab:: borrar_usuarios_lista.sh
 
         .. literalinclude:: scripts/borrar_usuarios_lista.sh
            :language: shell
 
-    .. tab:: Solución(3)
+    .. tab:: crear_usuarios_grupo_lista.sh
 
         .. literalinclude:: scripts/crear_usuarios_grupo_lista.sh
            :language: shell
 
-    .. tab:: Solución(4)
+    .. tab:: borrar_usuarios_grupo_lista.sh
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/borrar_usuarios_grupo_lista.sh
            :language: shell
 
 

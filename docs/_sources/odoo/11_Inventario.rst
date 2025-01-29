@@ -16,7 +16,7 @@ Crea al menos un par de almacenes
 
 .. image:: imagenes/07_Inventario2.png
 
-Crea 100 tazas en uno de los dos almacenes y haz una transferencia de 30 tazas al otro almacén
+Crea 100 tazas en uno de los dos almacenes y haz una transferencia de 30 tazas al otro almacén. Para ello vete a productos, selecciona la taza y entra en Stock real
 
 .. image:: imagenes/07_Inventario3.png
 

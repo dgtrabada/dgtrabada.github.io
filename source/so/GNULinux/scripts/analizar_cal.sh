@@ -22,7 +22,7 @@ then
 
   if [[ $1 == "-d" ]]
   then
-    cat calendario.dat | grep -c " $2 "         
+    cat $archivo  | grep -c " $2 "         
   fi
 
   if [[ $1 == "-resumen" ]]
