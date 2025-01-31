@@ -299,13 +299,15 @@ Ejercicios de shell scripting
            :language: shell
 
 
+Gestión de usuarios locales
+===========================
 
 
 .. tabs::
 
     .. tab:: usuarios.sh
 
-        Crea un script llamado **usuarios.sh** utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"
+        Crea un script llamado **usuarios.sh**, utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"
 
         .. code-block:: bash
 
@@ -399,6 +401,59 @@ Ejercicios de shell scripting
 
 
 
+Gestión de usuarios LDAP
+========================
 
 
+.. tabs::
+
+    .. tab:: usuarios_ldap.sh
+
+        Crea un script llamado **usuarios_ldap.sh**, utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04" con un ldap configurado `aqui <https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap>`_
+
+        .. code-block:: bash
+
+           ./usuarios.sh -addgroup GA
+           El script tiene que crear el grupo GA si no existe, en el caso de que exista devuelve "No se crea el grupo el grupo GA existe"
+
+           ./usuarios.sh -delgroup GA
+           El script tiene que borrar el grupo GA si existe, en el caso de que no exista devuelve "No se borra el grupo el grupo GA no existe"
+           
+           ./usuarios.sh -adduser usuario1 GA
+           El script tiene que crear el usuario usuario1 en el grupo GA, si el grupo no existe lo crea primero, 
+           en el caso de que exista el usuario no lo crea y sale por pantalla "No se crea el usuario usuario", 
+           haz que la contraseña por defecto sea cambiame.
+       
+           ./usuarios.sh -adduser usuario1
+           En el caso de que se ejecute sin grupo el sistema lo creara por defecto en grupo usuario1
+
+           ./usuarios.sh -deluser usuario1
+           El script tiene que borrar el usuario usuario1 si no existe devuelve "No se borra el usuario usuario1 no existe"
+
+           ./usuarios.sh -lista
+           El script lista todos los grupos con todos los usuarios que tiene
+
+        Chequea tu script con las siguientes características:
+
+        .. code-block:: bash
+
+           cat usuarios.sh
+           for g in GA GB GC GD
+           do
+             ./usuarios.sh -addgroup $g
+             for u in 01 02 03 04
+               do
+               usuario=usuario_${g}_${u}
+               ./usuarios.sh -adduser ${usuario} ${g}
+             done
+           done
+           ./usuarios.sh -lista
+
+           ./usuarios.sh -help
+           El script muestra una ayuda con las opciones que puede tiene
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/usuarios.sh
+           :language: shell
 

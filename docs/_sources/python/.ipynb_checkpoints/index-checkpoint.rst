@@ -55,7 +55,10 @@ Python
   * `Ejercicios de Pandas <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/10_Pandas/10_Ejercicios_pandas_sol.ipynb>`_
 
-* `Seaborn <https://github.com/dgtrabada/python/tree/main/11_Seaborn/Seaborn.ipynb>`_ (`Ejercicios de Seaborn <https://github.com/dgtrabada/python/blob/main/11_Seaborn/11_Ejercicios_Seaborn.ipynb>`_)
+* `Seaborn <https://github.com/dgtrabada/python/tree/main/11_Seaborn/Seaborn.ipynb>`_ 
+
+  * `Ejercicios de Seaborn <https://github.com/dgtrabada/python/blob/main/11_Seaborn/11_Ejercicios_Seaborn.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/11_Seaborn/11_Ejercicios_Seaborn_sol.ipynb>`_
 
 * `Scikit_learn <https://github.com/dgtrabada/python/tree/main/12_Scikit_learn>`_
 
