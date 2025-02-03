@@ -82,11 +82,6 @@ En general podemos decir que los materiales pueden ser :
 
 .. image:: imagenes/conceptos_electronicos/circuito.png
 
-Más ejemplos:
-
-* `Ejercicios resistencias serie <http://www.aulataller.es/ejercicios/resistencias-serie/ejercicio-resistencias-serie.html>`_
-* `Ejercicios resistencias paralelo <http://www.aulataller.es/ejercicios/resistencias-paralelo/ejercicio-resistencias-paralelo.html>`_
-
 Vemos a continuación la comparación de un circuito electrico con un circuito hidráulico
 
 .. image:: imagenes/conceptos_electronicos/tuberia.png
@@ -117,11 +112,6 @@ Utilizando la Ley de Ohm : I = V/R = 12 V / 6 Ω = 2 A
 
 Utilizando la Ley de Ohm : V=RI = 2 Ω 4 A = 8V
 
-Enlaces interesantes:
-
-* `Ejercicios ley Ohm <http://www.aulataller.es/ejercicios/ley-de-ohm/ley-de-ohm-corriente-continua.html>`_
-* `Ejercicios ley Ohm <http://phet.colorado.edu/sims/ohms-law/ohms-law_en.html>`_
-
 Potencia
 ========
 
@@ -147,10 +137,6 @@ La potencia de los ordenadores se encuentran entre los siguientes rangos:
 Si tomamos que 1 kWh esta a 0,3 € ¿Cuánto costaría tener el monitor encendido durante una hora?
 
 0.3 €/kWh * 0.03 kW * 1h = 0.009 €
-
-Más ejemplos:
-
-`Ejercicios potencia electrica <http://www.aulataller.es/ejercicios/potencia-electrica/potencia-corriente-continua.html>`_
 
 Componentes electrónicos
 ========================

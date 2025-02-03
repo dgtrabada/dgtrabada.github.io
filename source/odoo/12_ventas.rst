@@ -21,7 +21,7 @@ App / Vamos al sitio web e instalamos
 
 .. image:: imagenes/08_Ventas4.png
 
-Tenemos que publicar los productos que queramos Sitio web y vas a la tienda
+Tenemos que publicar los productos que queramos Sitio web, para ello en Inventario / Producto, seleccionamos el producto que queremos y en ventas seleccionamos (Está publicado)
 
 .. image:: imagenes/08_Ventas5.png
 
