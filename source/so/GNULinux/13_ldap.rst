@@ -95,7 +95,7 @@ Vamos insertar los siguientes objetos en el LDAP
 
 .. code-block:: bash
 
- $ sudo cat tunombre.ldif
+ $ cat tunombre.ldif
 
  dn: ou=usuarios, dc=ldap, dc=tunombre, dc=local
  objectClass: organizationalUnit
@@ -110,22 +110,39 @@ Añadimos la información a la base de datos OpenLDAP. Con el comando ldapadd:
 
 .. code-block:: bash
 
- sudo ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f tunombre.ldif
+ ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f tunombre.ldif
 
 
 Para comprobar que todo esta bien, podemos ejecutar:
 
 .. code-block:: bash
 
- sudo ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
+ ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
+
+Para añadir un grupo
+
+.. code-block:: bash
+
+ $ cat grupo.ldif 
+ 
+ dn: cn=tuapellido,ou=grupos,dc=ldap,dc=tunombre,dc=local
+ objectClass: posixGroup
+ cn: GA
+ gidNumber: 501 
+
+Para añadir la información al ldap
+
+.. code-block:: bash
+
+ ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f grupo.ldif
 
 Para añadir nuevos usuarios
 
 .. code-block:: bash
 
- $ sudo cat usuarios.ldif 
+ $ cat usuarios.ldif 
 
- dn: uid=tunombre1,dc=ldap,dc=tunombre,dc=local
+ dn: uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local
  objectClass: inetOrgPerson
  objectClass: posixAccount
  objectClass: shadowAccount
@@ -152,24 +169,7 @@ Para cargar el nuevo usuario en el directorio.
 
 .. code-block:: bash
 
- sudo ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f usuarios.ldif
-
-Para añadir un grupo
-
-.. code-block:: bash
-
- $ sudo cat grupo.ldif 
- 
- dn: cn=tuapellido,ou=grupos,dc=ldap,dc=tunombre,dc=local
- objectClass: posixGroup
- cn: GA
- gidNumber: 501 
-
-Para añadir la información al ldap
-
-.. code-block:: bash
-
- sudo ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f grupo.ldif
+ ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f usuarios.ldif
 
 Cuando añadas nuevos usuarios, recuerda que los valores para los atributos uidNumber y homeDirectory deben ser diferentes para cada usuario.
 
@@ -181,7 +181,7 @@ Ahora podemos comprobar que el contenido anterior se ha añadido correctamente. 
 
 .. code-block:: bash
 
- sudo ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local" uid=tunombre1
+  ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local" uid=tunombre1
 
 Otra opción interesante para comprobar el contenido del directorio es utilizar el comando slapcat. Su cometido es mostrar el contenido completo del directorio LDAP. Además, esta información se obtiene en formato LDIF, lo que nos permitirá volcarla a un fichero y exportar la base de datos de un modo muy sencillo.
 
@@ -196,7 +196,7 @@ Editar Objetos:
  replace: uidNumber
  uidNumber: 1014
 
- $ sudo ldapmodify -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -f change.ldif -W
+ $ ldapmodify -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -f change.ldif -W
 
 Añadir Objetos:
 
@@ -209,21 +209,21 @@ Añadir Objetos:
  add: homePhone
  homePhone: 1234567
 
- $ sudo ldapmodify -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -f add.ldif -W
+ $ ldapmodify -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -f add.ldif -W
 
 Para borrar por ejemplo el objeto tunombre1 : 
 
 
 .. code-block:: bash
 
- sudo ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1,dc=ldap,dc=tunombre,dc=local"
+ ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1,dc=ldap,dc=tunombre,dc=local"
 
 Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no esta
 
 
 .. code-block:: bash
 
- sudo ldapsearch -xLL -b "dc=ldap,dc=tunombre,dc=local" uid=tunombre1
+ ldapsearch -xLL -b "dc=ldap,dc=tunombre,dc=local" uid=tunombre1
 
 Para hacer copias de seguridad y restaurarlas utilizamos:
 

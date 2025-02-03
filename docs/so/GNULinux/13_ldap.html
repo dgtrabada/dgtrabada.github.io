@@ -238,12 +238,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsuladors.html">Encapsulados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
@@ -551,10 +551,23 @@ ou:<span class="w"> </span>grupos
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 </pre></div>
 </div>
-<p>Para añadir nuevos usuarios</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>usuarios.ldif
+<p>Para añadir un grupo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>grupo.ldif
 
-dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>tuapellido,ou<span class="o">=</span>grupos,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>posixGroup
+cn:<span class="w"> </span>GA
+gidNumber:<span class="w"> </span><span class="m">501</span>
+</pre></div>
+</div>
+<p>Para añadir la información al ldap</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>grupo.ldif
+</pre></div>
+</div>
+<p>Para añadir nuevos usuarios</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>usuarios.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
 objectClass:<span class="w"> </span>inetOrgPerson
 objectClass:<span class="w"> </span>posixAccount
 objectClass:<span class="w"> </span>shadowAccount
@@ -579,27 +592,14 @@ postalCode:<span class="w"> </span><span class="m">28027</span>
 </pre></div>
 </div>
 <p>Para cargar el nuevo usuario en el directorio.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>usuarios.ldif
-</pre></div>
-</div>
-<p>Para añadir un grupo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>grupo.ldif
-
-dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>tuapellido,ou<span class="o">=</span>grupos,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
-objectClass:<span class="w"> </span>posixGroup
-cn:<span class="w"> </span>GA
-gidNumber:<span class="w"> </span><span class="m">501</span>
-</pre></div>
-</div>
-<p>Para añadir la información al ldap</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>grupo.ldif
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>usuarios.ldif
 </pre></div>
 </div>
 <p>Cuando añadas nuevos usuarios, recuerda que los valores para los atributos uidNumber y homeDirectory deben ser diferentes para cada usuario.</p>
 <p>Lo mismo ocurre con el atributo gidNumber de los grupos.</p>
 <p>Además, los valores de los campos uidNumber y gidNumber no deben coincidir con el UID y GID de ningún usuario y grupo local.</p>
 <p>Ahora podemos comprobar que el contenido anterior se ha añadido correctamente. Para lograrlo podemos utilizar, por ejemplo, el comando ldapsearch , que nos permite hacer una búsqueda en el directorio.:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
 </pre></div>
 </div>
 <p>Otra opción interesante para comprobar el contenido del directorio es utilizar el comando slapcat. Su cometido es mostrar el contenido completo del directorio LDAP. Además, esta información se obtiene en formato LDIF, lo que nos permitirá volcarla a un fichero y exportar la base de datos de un modo muy sencillo.</p>
@@ -611,7 +611,7 @@ changetype:<span class="w"> </span>modify
 replace:<span class="w"> </span>uidNumber
 uidNumber:<span class="w"> </span><span class="m">1014</span>
 
-$<span class="w"> </span>sudo<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>change.ldif<span class="w"> </span>-W
+$<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>change.ldif<span class="w"> </span>-W
 </pre></div>
 </div>
 <p>Añadir Objetos:</p>
@@ -622,15 +622,15 @@ changetype:<span class="w"> </span>modify
 add:<span class="w"> </span>homePhone
 homePhone:<span class="w"> </span><span class="m">1234567</span>
 
-$<span class="w"> </span>sudo<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>add.ldif<span class="w"> </span>-W
+$<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-f<span class="w"> </span>add.ldif<span class="w"> </span>-W
 </pre></div>
 </div>
 <p>Para borrar por ejemplo el objeto tunombre1 :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-W<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="s2">&quot;uid=tunombre1,dc=ldap,dc=tunombre,dc=local&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-W<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="s2">&quot;uid=tunombre1,dc=ldap,dc=tunombre,dc=local&quot;</span>
 </pre></div>
 </div>
 <p>Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no esta</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-xLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1
 </pre></div>
 </div>
 <p>Para hacer copias de seguridad y restaurarlas utilizamos:</p>
