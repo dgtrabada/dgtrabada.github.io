@@ -171,15 +171,28 @@ Editor vi
    
 Compresión
 ==========
-
-* **tar** se utiliza para comprimir una colección de archivos y carpetas                
+            
+* **tar, gzip, gunzip, zip** combina una colección de archivos y carpetas en un solo archivo (conocido como "tarball"). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar
 
   .. code-block:: bash
-  
-   tar -cf new.tar archivo
-   tar -xvf new.tar
+
+   tar -cf A.tar A
+   $ ls
+   A  A.tar
+   $ gzip A.tar 
+   $ ls
+   A  A.tar.gz
+   $ rm -fr A
+   $ gunzip A.tar.gz 
+   $ ls
+   A.tar
+   $ tar -xvf A.tar 
+   A/
+   A/B/
+   A/B/C/
+   $ ls
+   A  A.tar
    
-* **gzip, gunzip, zip**
 
 Instalar software
 =================

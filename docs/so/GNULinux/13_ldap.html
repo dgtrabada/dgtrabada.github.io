@@ -532,7 +532,7 @@ dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>al
 </pre></div>
 </div>
 <p>Vamos insertar los siguientes objetos en el LDAP</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>tunombre.ldif
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>tunombre.ldif
 
 dn:<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>usuarios,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>ldap,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span>tunombre,<span class="w"> </span><span class="nv">dc</span><span class="o">=</span><span class="nb">local</span>
 objectClass:<span class="w"> </span>organizationalUnit
@@ -544,17 +544,17 @@ ou:<span class="w"> </span>grupos
 </pre></div>
 </div>
 <p>Añadimos la información a la base de datos OpenLDAP. Con el comando ldapadd:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>tunombre.ldif
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>tunombre.ldif
 </pre></div>
 </div>
 <p>Para comprobar que todo esta bien, podemos ejecutar:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 </pre></div>
 </div>
 <p>Para añadir un grupo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>cat<span class="w"> </span>grupo.ldif
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>grupo.ldif
 
-dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>tuapellido,ou<span class="o">=</span>grupos,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>GA,ou<span class="o">=</span>grupos,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
 objectClass:<span class="w"> </span>posixGroup
 cn:<span class="w"> </span>GA
 gidNumber:<span class="w"> </span><span class="m">501</span>

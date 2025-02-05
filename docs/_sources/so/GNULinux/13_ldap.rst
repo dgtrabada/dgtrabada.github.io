@@ -95,7 +95,7 @@ Vamos insertar los siguientes objetos en el LDAP
 
 .. code-block:: bash
 
- $ sudo cat tunombre.ldif
+ $ cat tunombre.ldif
 
  dn: ou=usuarios, dc=ldap, dc=tunombre, dc=local
  objectClass: organizationalUnit
@@ -110,22 +110,22 @@ Añadimos la información a la base de datos OpenLDAP. Con el comando ldapadd:
 
 .. code-block:: bash
 
- sudo ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f tunombre.ldif
+ ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f tunombre.ldif
 
 
 Para comprobar que todo esta bien, podemos ejecutar:
 
 .. code-block:: bash
 
- sudo ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
+ ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
 
 Para añadir un grupo
 
 .. code-block:: bash
 
- $ sudo cat grupo.ldif 
+ $ cat grupo.ldif 
  
- dn: cn=tuapellido,ou=grupos,dc=ldap,dc=tunombre,dc=local
+ dn: cn=GA,ou=grupos,dc=ldap,dc=tunombre,dc=local
  objectClass: posixGroup
  cn: GA
  gidNumber: 501 

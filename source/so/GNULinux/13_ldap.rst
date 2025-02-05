@@ -125,7 +125,7 @@ Para añadir un grupo
 
  $ cat grupo.ldif 
  
- dn: cn=tuapellido,ou=grupos,dc=ldap,dc=tunombre,dc=local
+ dn: cn=GA,ou=grupos,dc=ldap,dc=tunombre,dc=local
  objectClass: posixGroup
  cn: GA
  gidNumber: 501 

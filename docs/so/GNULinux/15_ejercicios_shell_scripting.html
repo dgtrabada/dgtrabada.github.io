@@ -558,7 +558,7 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntara por el numero al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-7-7-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-2" name="7-2" role="tab" tabindex="-1">Solución (arrray)</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntara por el numero al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
 <ul class="simple">
 <li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">--help</span></code> mostrara un mensaje de ayuda (consejo utiliza una función)</p></li>
 <li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicar.sh</span> <span class="pre">X</span> <span class="pre">Y</span> <span class="pre">Z</span> <span class="pre">...</span></code> , es decir con más de un argumento saldrá un mensaje <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">se</span> <span class="pre">puede</span> <span class="pre">dar</span> <span class="pre">más</span> <span class="pre">de</span> <span class="pre">un</span> <span class="pre">argumento</span></code></p></li>
@@ -592,6 +592,40 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="w">      </span><span class="nv">resultado</span><span class="o">=</span><span class="k">$((</span><span class="nv">numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">i</span><span class="k">))</span>
 <span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="nv">$i</span><span class="s2"> = </span><span class="nv">$resultado</span><span class="s2">&quot;</span>
 <span class="w">    </span><span class="k">done</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-7-2" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-2" name="7-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: ./tabla_multiplicar_array.sh [número]</span>
+<span class="s2">    Este script muestra la tabla de multiplicar del número que se le pase como argumento.</span>
+<span class="s2">    Opciones:</span>
+<span class="s2">      --help   Muestra este mensaje de ayuda.</span>
+
+<span class="s2">    Ejemplos:</span>
+<span class="s2">    ./tabla_multiplicar.sh 4   Muestra la tabla de multiplicar del 4.&quot;</span>
+<span class="o">}</span>
+
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="c1"># Sin argumentos: mostrar ayuda</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;--help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">numero</span><span class="o">=</span><span class="nv">$1</span>
+<span class="w">   </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="m">11</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">   </span><span class="k">do</span>
+<span class="w">     </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="nv">$i</span>
+<span class="w">   </span><span class="k">done</span>
+<span class="w">   </span><span class="nv">longitud</span><span class="o">=</span><span class="si">${#</span><span class="nv">A</span><span class="p">[@]</span><span class="si">}</span>
+<span class="w">   </span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="nv">$longitud</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">   </span><span class="k">do</span>
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$numero</span><span class="s2"> x </span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2"> = </span><span class="k">$((</span><span class="nv">$numero</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="k">))</span><span class="s2">&quot;</span>
+<span class="w">   </span><span class="k">done</span>
 <span class="k">fi</span>
 </pre></div>
 </div>
@@ -1115,111 +1149,150 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <h2>Gestión de usuarios LDAP<a class="headerlink" href="#gestion-de-usuarios-ldap" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04» con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>GA
-El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se crea el grupo el grupo GA existe&quot;</span>
-
-./usuarios.sh<span class="w"> </span>-delgroup<span class="w"> </span>GA
-El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>borrar<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>no<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se borra el grupo el grupo GA no existe&quot;</span>
-
-./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span>usuario1<span class="w"> </span>GA
-El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>usuario1<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA,<span class="w"> </span>si<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>no<span class="w"> </span>existe<span class="w"> </span>lo<span class="w"> </span>crea<span class="w"> </span>primero,
-en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>no<span class="w"> </span>lo<span class="w"> </span>crea<span class="w"> </span>y<span class="w"> </span>sale<span class="w"> </span>por<span class="w"> </span>pantalla<span class="w"> </span><span class="s2">&quot;No se crea el usuario usuario&quot;</span>,
-haz<span class="w"> </span>que<span class="w"> </span>la<span class="w"> </span>contraseña<span class="w"> </span>por<span class="w"> </span>defecto<span class="w"> </span>sea<span class="w"> </span>cambiame.
-
-./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span>usuario1
-En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>se<span class="w"> </span>ejecute<span class="w"> </span>sin<span class="w"> </span>grupo<span class="w"> </span>el<span class="w"> </span>sistema<span class="w"> </span>lo<span class="w"> </span>creara<span class="w"> </span>por<span class="w"> </span>defecto<span class="w"> </span>en<span class="w"> </span>grupo<span class="w"> </span>usuario1
-
-./usuarios.sh<span class="w"> </span>-deluser<span class="w"> </span>usuario1
-El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>borrar<span class="w"> </span>el<span class="w"> </span>usuario<span class="w"> </span>usuario1<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se borra el usuario usuario1 no existe&quot;</span>
-
-./usuarios.sh<span class="w"> </span>-lista
-El<span class="w"> </span>script<span class="w"> </span>lista<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>con<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>usuarios<span class="w"> </span>que<span class="w"> </span>tiene
-</pre></div>
-</div>
-<p>Chequea tu script con las siguientes características:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>usuarios.sh
-<span class="k">for</span><span class="w"> </span>g<span class="w"> </span><span class="k">in</span><span class="w"> </span>GA<span class="w"> </span>GB<span class="w"> </span>GC<span class="w"> </span>GD
-<span class="k">do</span>
-<span class="w">  </span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span><span class="nv">$g</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="m">02</span><span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">04</span>
-<span class="w">    </span><span class="k">do</span>
-<span class="w">    </span><span class="nv">usuario</span><span class="o">=</span>usuario_<span class="si">${</span><span class="nv">g</span><span class="si">}</span>_<span class="si">${</span><span class="nv">u</span><span class="si">}</span>
-<span class="w">    </span>./usuarios.sh<span class="w"> </span>-adduser<span class="w"> </span><span class="si">${</span><span class="nv">usuario</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">g</span><span class="si">}</span>
-<span class="w">  </span><span class="k">done</span>
-<span class="k">done</span>
-./usuarios.sh<span class="w"> </span>-lista
-
-./usuarios.sh<span class="w"> </span>-help
-El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
+./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
+./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
+./usuarios_ldap.sh<span class="w"> </span>-lsgroup<span class="w">                  </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
+./usuarios_ldap.sh<span class="w"> </span>-adduser<span class="w"> </span>&lt;usuario&gt;<span class="w"> </span><span class="o">[</span>grupo<span class="o">]</span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>usuario<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>especificado
+./usuarios_ldap.sh<span class="w"> </span>-deluser<span class="w"> </span>&lt;usuario&gt;<span class="w">        </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>usuario<span class="w"> </span>si<span class="w"> </span>existe
+./usuarios_ldap.sh<span class="w"> </span>-lista<span class="w">                    </span>:<span class="w"> </span>Lista<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>y<span class="w"> </span>sus<span class="w"> </span>usuarios
+./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                  </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
+<span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="nv">password</span><span class="o">=</span>alumno
+<span class="nv">passwd_defecto_usuario</span><span class="o">=</span>cambiame
+
+<span class="k">function</span><span class="w"> </span>crear_grupo<span class="o">(){</span>
+<span class="nv">NAMEG</span><span class="o">=</span><span class="nv">$1</span><span class="w">       </span><span class="c1">#GA</span>
+<span class="nv">NUMBERGID</span><span class="o">=</span><span class="nv">$2</span><span class="w">   </span><span class="c1">#501</span>
+
+cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; grupo.ldif</span>
+<span class="s">dn: cn=${NAMEG},ou=grupos,$LDAP</span>
+<span class="s">objectClass: posixGroup</span>
+<span class="s">cn: ${NAMEG}</span>
+<span class="s">gidNumber: ${NUMBERGID}</span>
+<span class="s">EOF</span>
+
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-f<span class="w"> </span>grupo.ldif
+rm<span class="w"> </span>-fr<span class="w"> </span>grupo.ldif
+<span class="o">}</span>
+
+<span class="k">function</span><span class="w"> </span>crear_usuario<span class="o">(){</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="nv">$1</span><span class="w">      </span><span class="c1">#tunombre1</span>
+<span class="nv">NUMBERID</span><span class="o">=</span><span class="nv">$2</span><span class="w">  </span><span class="c1">#1001</span>
+<span class="nv">NUMBERGID</span><span class="o">=</span><span class="k">$(</span><span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$3</span><span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w">  </span>gid<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+
+cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; usuarios.ldif</span>
+<span class="s">dn: uid=${NAME},ou=usuarios,$LDAP</span>
+<span class="s">objectClass: inetOrgPerson</span>
+<span class="s">objectClass: posixAccount</span>
+<span class="s">objectClass: shadowAccount</span>
+<span class="s">uid: ${NAME}</span>
+<span class="s">cn: ${NAME}</span>
+<span class="s">sn: ${NAME}</span>
+<span class="s">gidNumber: ${NUMBERGID}</span>
+<span class="s">uidNumber: ${NUMBERID}</span>
+<span class="s">userPassword: $passwd_defecto_usuario</span>
+<span class="s">homeDirectory: /home/$NAME</span>
+<span class="s">loginShell: /bin/bash</span>
+<span class="s">EOF</span>
+
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-f<span class="w"> </span>usuarios.ldif
+<span class="c1">#rm -fr usuarios.ldif</span>
+<span class="o">}</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;./usuarios.sh -addgroup &lt;grupo&gt;         : Crea un grupo si no existe&quot;</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;./usuarios.sh -delgroup &lt;grupo&gt;         : Elimina un grupo si existe&quot;</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;./usuarios.sh -adduser &lt;usuario&gt; [grupo]: Crea un usuario en el grupo especificado (o en uno con su mismo nombre)&quot;</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;./usuarios.sh -deluser &lt;usuario&gt;        : Elimina un usuario si existe&quot;</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;./usuarios.sh -lista                    : Lista todos los grupos y sus usuarios&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Uso del script:\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -addgroup &lt;grupo&gt;         : Crea un grupo si no existe\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -delgroup &lt;grupo&gt;         : Elimina un grupo si existe\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -lsgroup                  : Elimina un grupo si existe\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -adduser &lt;usuario&gt; [grupo]: Crea un usuario en el grupo especificado \033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -deluser &lt;usuario&gt;        : Elimina un usuario si existe\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -lista                    : Lista todos los grupos y sus usuarios\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m ./usuarios_ldap.sh -lsuser                  : Elimina un grupo si existe\033[0m&quot;</span>
 <span class="o">}</span>
+
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-addgroup&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$2</span><span class="w"> </span>/etc/group<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">    </span><span class="k">then</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No se crea el grupo, el grupo </span><span class="nv">$2</span><span class="s2"> existe.&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se crea el grupo, el grupo </span><span class="nv">$2</span><span class="s2"> existe. \033[0m&quot;</span>
 <span class="w">    </span><span class="k">else</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creamos el grupo </span><span class="nv">$2</span><span class="s2">&quot;</span>
-<span class="w">      </span>groupadd<span class="w"> </span><span class="nv">$2</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Creamos el grupo </span><span class="nv">$2</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">      </span><span class="c1">#tomamos el ultimo gidNumbrer:</span>
+<span class="w">      </span><span class="nv">gidN</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="nv">$gidN</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="c1">#-z indica que la variable esta vacía</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">gidN</span><span class="o">=</span><span class="m">500</span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">      </span><span class="nv">gidN</span><span class="o">=</span><span class="k">$((</span><span class="nv">gidN</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">      </span>crear_grupo<span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="nv">$gidN</span>
 <span class="w">    </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-delgroup&quot;</span><span class="w"> </span><span class="o">]]</span>
-<span class="w">  </span><span class="k">then</span>
-<span class="w">    </span>groupdel<span class="w"> </span><span class="nv">$2</span>
 <span class="w">  </span><span class="k">fi</span>
 
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-delgroup&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span><span class="s2">&quot;cn=</span><span class="nv">$2</span><span class="s2">,ou=grupos,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Borramos el grupo </span><span class="nv">$2</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se borra el grupo, el grupo </span><span class="nv">$2</span><span class="s2"> no existe. \033[0m&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-lsgroup&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="s2">&quot;(objectClass=posixGroup)&quot;</span><span class="w"> </span>cn<span class="w"> </span>gidNumber
+<span class="w">  </span><span class="k">fi</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-adduser&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="nv">usuario</span><span class="o">=</span><span class="nv">$2</span>
-<span class="w">    </span><span class="nv">grupo</span><span class="o">=</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="nv">$usuario</span><span class="si">}</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;creamos el </span><span class="nv">$usuario</span><span class="s2"> en </span><span class="nv">$grupo</span><span class="s2">&quot;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$usuario</span><span class="w"> </span>/etc/passwd<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">    </span><span class="k">then</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No se crea el usuario, el usuario </span><span class="nv">$usuario</span><span class="s2"> ya existe.&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se crea el usuario, </span><span class="nv">$2</span><span class="s2"> existe. \033[0m&quot;</span>
 <span class="w">    </span><span class="k">else</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>/etc/group<span class="k">)</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">      </span><span class="c1">#tomamos el ultimo gidNumbrer:</span>
+<span class="w">      </span><span class="nv">uidN</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>uidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="nv">$uidN</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="c1">#-z indica que la variable esta vacía</span>
 <span class="w">      </span><span class="k">then</span>
-<span class="w">        </span>groupadd<span class="w"> </span><span class="nv">$grupo</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creamos el grupo </span><span class="nv">$grupo</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="nv">uidN</span><span class="o">=</span><span class="m">1000</span>
 <span class="w">      </span><span class="k">fi</span>
-<span class="w">      </span>useradd<span class="w"> </span>-g<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-d<span class="w"> </span>/home/<span class="nv">$usuario</span><span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span><span class="w"> </span>mkpasswd<span class="w"> </span>-m<span class="w"> </span>sha-512<span class="w"> </span>-s<span class="w"> </span>cambiame<span class="k">)</span><span class="w"> </span><span class="nv">$usuario</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usuario </span><span class="nv">$usuario</span><span class="s2"> creado en el grupo </span><span class="nv">$grupo</span><span class="s2"> con contraseña por defecto &#39;cambiame&#39;.&quot;</span>
+<span class="w">      </span><span class="nv">uidN</span><span class="o">=</span><span class="k">$((</span><span class="nv">uidN</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">      </span><span class="nv">grupo</span><span class="o">=</span><span class="nv">$3</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span><span class="o">]</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se crea el usuario, necesitamos un grupo. \033[0m&quot;</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Creamos el usuario </span><span class="nv">$2</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">        </span>crear_usuario<span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="nv">$uidN</span><span class="w"> </span><span class="nv">$grupo</span>
+<span class="w">      </span><span class="k">fi</span>
 <span class="w">    </span><span class="k">fi</span>
 <span class="w">  </span><span class="k">fi</span>
+
+
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-deluser&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$2</span><span class="w"> </span>/etc/passwd<span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">uid</span><span class="o">=</span><span class="nv">$2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">    </span><span class="k">then</span>
-<span class="w">      </span>userdel<span class="w"> </span>-r<span class="w"> </span><span class="nv">$2</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usuario </span><span class="nv">$2</span><span class="s2"> eliminado.&quot;</span>
+<span class="w">      </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span><span class="s2">&quot;uid=</span><span class="nv">$2</span><span class="s2">,ou=usuarios,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Borramos el usuario </span><span class="nv">$2</span><span class="s2"> \033[0m&quot;</span>
 <span class="w">    </span><span class="k">else</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;No se borra el usuario, el usuario </span><span class="nv">$2</span><span class="s2"> no existe.&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se borra el usuario, el usuario </span><span class="nv">$2</span><span class="s2"> no existe. \033[0m&quot;</span>
 <span class="w">    </span><span class="k">fi</span>
 <span class="w">  </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-lista&quot;</span><span class="w"> </span><span class="o">]]</span>
+
+
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-lsuser&quot;</span><span class="w"> </span><span class="o">]]</span>
 <span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="c1">#solo listamos los grupos que tienen usuarios</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span>g<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="w"> </span>/etc/group<span class="k">)</span>
-<span class="w">    </span><span class="k">do</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>members<span class="w"> </span><span class="nv">$g</span><span class="w"> </span><span class="k">)</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="o">]]</span>
-<span class="w">      </span><span class="k">then</span>
-<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>-----<span class="w"> </span><span class="nv">$g</span>------
-<span class="w">        </span>members<span class="w"> </span><span class="nv">$g</span>
-<span class="w">      </span><span class="k">fi</span>
-<span class="w">    </span><span class="k">done</span>
+<span class="w">    </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="s2">&quot;(objectClass=posixAccount)&quot;</span><span class="w"> </span>cn<span class="w"> </span>uidNumber
 <span class="w">  </span><span class="k">fi</span>
 
 <span class="k">else</span>
