@@ -16,7 +16,7 @@ Crea al menos un par de almacenes
 
 .. image:: imagenes/07_Inventario2.png
 
-Crea 100 tazas en uno de los dos almacenes y haz una transferencia de 30 tazas al otro almacén. Para ello vete a productos, selecciona la taza y entra en Stock real
+Crea 100 tazas en uno de los dos almacenes y haz una transferencia de 30 tazas al otro almacén. Para ello vete a productos, selecciona la taza y entra en Stock real. Si no aparece Stock real, selecciona rastrear inventario,  sirve para llevar un control detallado de los productos, lo que ayuda en la gestión de stock, la trazabilidad y el cumplimiento normativo. Una vez que lo hayas marcado ya puedes Actualizar la cantidad.
 
 .. image:: imagenes/07_Inventario3.png
 

@@ -5,7 +5,7 @@ Ventas
 .. image:: imagenes/08_Ventas1.png
 
 * Ventas / Pedidos / Clientes
-* Crea un cliente.
+* Crea un cliente 
 * Clientes / Escuela Primaria de Springfield /  Presupuestos y pedidos
 * Le hacemos un presupuesto:
 
@@ -33,7 +33,15 @@ Abre otro navegador y vamos a registrar entrada en la web
 
 .. image:: imagenes/08_Ventas8.png
 
-Ponemos que no tenemos cuenta y generamos un nuevo cliente, compramos uno o varios productos, firmamos el presupuesto y desde la web confirmamos que esta pagado para hacer la factura
+Ponemos que no tenemos cuenta y generamos un nuevo cliente, compramos uno o varios productos
+
+.. image:: imagenes/08_Ventas81.png
+
+En facturación, vamos a confifuración y proveedores de pagos, activamos Demostración
+
+.. image:: imagenes/08_Ventas82.png
+
+Firmamos el presupuesto y desde la web confirmamos que esta pagado para hacer la factura (Si no tienes ningún método de pago disponible, añade uno y configura sus detalles según lo necesites. Vetans / configuración / Métodos de pago)
 
 .. image:: imagenes/08_Ventas9.png
 
