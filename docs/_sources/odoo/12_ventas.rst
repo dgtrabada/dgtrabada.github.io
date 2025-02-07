@@ -43,28 +43,7 @@ En facturación, vamos a confifuración y proveedores de pagos, activamos Demost
 
 Firmamos el presupuesto y desde la web confirmamos que esta pagado para hacer la factura (Si no tienes ningún método de pago disponible, añade uno y configura sus detalles según lo necesites. Vetans / configuración / Métodos de pago)
 
-.. image:: imagenes/08_Ventas9.png
-
 Sube al curso la factura creada:
 
-.. image:: imagenes/08_Ventas91.png
-
-Cambia CASA por solo su nombre manda el pedido a facturar, para eso modifica los datos del cliente y ponle una foto
-
-.. image:: imagenes/08_Ventas92.png
-
-por ultimo registra el pago
-
-.. image:: imagenes/08_Ventas93.png
-
-.. image:: imagenes/08_Ventas94.png
-
-Personaliza las facturas y sube una en pdf
-
-.. image:: imagenes/08_Ventas95.png
-
-Para que los clientes puedan crearse cuentas, habilitar:
-
-Ajustes/Ventas/Precio/Cuenta de cliente/[x]Registro gatris
-
+.. image:: imagenes/08_Ventas9.png
 
