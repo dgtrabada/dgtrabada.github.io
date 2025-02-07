@@ -157,8 +157,21 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/imag.sh
+        .. literalinclude:: scripts/temperatura.sh
            :language: shell
+
+.. tabs::
+
+    .. tab:: temperatura.sh
+
+        Crea un script llamado **temperatura.sh**, que lea las temperatura del archivo `temperatura.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/temperatura.dat>`_ y saque por pantalla la temperatura media
+
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
 
 .. tabs::
 
