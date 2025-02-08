@@ -87,6 +87,7 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
   * La contaminación sonora: Algunas fuentes de alimentación son silenciosas incluso en carga, otras no tanto... Lo mejor es permanecer debajo de 45dB, se debe evitar las fuentes que superan los 50dB en carga.
 
 * **GAMA BAJA**:
+
   * Peso muy reducido y baja calidad de chasis de la fuente de alimentación
   * Ventilador de baja calidad y muy ruidoso
   * Los disipadores muy finos y pequeños
@@ -94,7 +95,9 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
   * PCB medio-vacía, se nota la economía total en los componentes
   * No disponen de PFC ni de ningún otro tipo de filtro (o en caso contrario, está incompleto).
   * Las características técnicas “falsas”, incumplimiento de especificaciones ATX.
+
 * **GAMA MEDIA**:
+
   * Chasis de calidad y un peso considerable (1,2-1,5 kg)
   * Ventilador con control automático en función de carga o temperatura.
   * Grandes disipadores
@@ -103,7 +106,9 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
   * Las características técnicas indicadas corresponden con la realidad y cumplen con especificaciones ATX (en mayoría de ocasiones).
   * Incorporan PFC activo con filtros.
   * Son fuentes con una eficiencia medio-alta.
+
 * **GAMA ALTA**:
+
   * Chasis de alta calidad y un gran peso (más de 1,8 kg).
   * Ventilador de alta calidad (de un fabricante conocido) con un control de velocidad muy efectivo.
   * Disipadores muy grandes que cubren todos los elementos de la fuente de alimentación.

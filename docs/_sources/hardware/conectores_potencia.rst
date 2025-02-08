@@ -82,8 +82,8 @@ Sirve para alimentar los dispositivos Serial ATA
 .. image:: imagenes/fuentes/sata.png
     :width: 800
  
-El conector "PCI express"
-=========================
+El conector PCI express
+=======================
 
 Este conector es usado por lo general para conectar tarjetas gráficas
 
