@@ -370,7 +370,7 @@ Para que se inicie automáticamente utilizamos el sistema systemctl
  $ cat /etc/systemd/system/encendido.service
  
  [Unit]
- Description=Inicia enrutamiento
+ Description=Inicia registro encendido
  After=syslog.target 
 
  [Service]
