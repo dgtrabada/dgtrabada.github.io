@@ -200,6 +200,10 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/rnd.sh
            :language: shell
 
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/rnd_array.sh
+           :language: shell
 
 
 .. tabs::
@@ -333,6 +337,24 @@ Ejercicios de shell scripting
     .. tab:: Solución (array)
 
         .. literalinclude:: scripts/rep_array.sh
+           :language: shell
+
+
+.. tabs::
+
+    .. tab:: dados.sh
+
+       Sube al curso un script llamado  **dados.sh** que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo
+
+        .. code-block:: bash
+
+           $ ./dados.sh
+
+           De 1000 tiradas : 2(1%) 3(7%) 4(10%) 5(12%) 6(14%) 7(17%) 8(14%) 9(12%) 10(10%) 11(7%) 12(1%)
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
            :language: shell
 
 

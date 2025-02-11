@@ -690,7 +690,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">rnd.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.sh</strong> que muestre 5 números aleatorios del 1 al 10 seguidos de el mismo número de As,</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-10-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-10-10-0" name="10-0" role="tab" tabindex="0">rnd.sh</button><button aria-controls="panel-10-10-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-1" name="10-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-10-10-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-10-10-2" name="10-2" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-10-10-0" class="sphinx-tabs-panel" id="panel-10-10-0" name="10-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.sh</strong> que muestre 5 números aleatorios del 1 al 10 seguidos de el mismo número de As,</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">1</span><span class="w"> </span>A
 <span class="m">3</span><span class="w"> </span>AAA
 <span class="m">1</span><span class="w"> </span>A
@@ -714,6 +714,27 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="w">    </span><span class="k">done</span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$out</span>
 <span class="k">done</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-10-10-2" class="sphinx-tabs-panel" hidden="true" id="panel-10-10-2" name="10-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">n</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">5</span><span class="si">}</span>
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="w"> </span>n<span class="w"> </span><span class="p">;</span><span class="w"> </span>i++<span class="w"> </span><span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">x</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="nv">$x</span><span class="s1">&#39; &#39;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">j</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>j&lt;x<span class="w"> </span><span class="p">;</span><span class="w"> </span>j++<span class="w"> </span><span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>A
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="w"> </span>n<span class="w"> </span><span class="p">;</span><span class="w"> </span>i++<span class="w"> </span><span class="o">))</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+<span class="k">done</span><span class="w"> </span>
 </pre></div>
 </div>
 </div></div>
@@ -982,10 +1003,23 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 </pre></div>
 </div>
 </div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./dados.sh
+
+De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tiradas<span class="w"> </span>:<span class="w"> </span><span class="m">2</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span><span class="w"> </span><span class="m">3</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">4</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">5</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">6</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">7</span><span class="o">(</span><span class="m">17</span>%<span class="o">)</span><span class="w"> </span><span class="m">8</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">9</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">10</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">11</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">12</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</pre></div>
+</div>
+</div></div>
 <section id="gestion-de-usuarios-locales">
 <h2>Gestión de usuarios locales<a class="headerlink" href="#gestion-de-usuarios-locales" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>GA
 El<span class="w"> </span>script<span class="w"> </span>tiene<span class="w"> </span>que<span class="w"> </span>crear<span class="w"> </span>el<span class="w"> </span>grupo<span class="w"> </span>GA<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe,<span class="w"> </span>en<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>exista<span class="w"> </span>devuelve<span class="w"> </span><span class="s2">&quot;No se crea el grupo el grupo GA existe&quot;</span>
 
@@ -1024,7 +1058,7 @@ El<span class="w"> </span>script<span class="w"> </span>lista<span class="w"> </
 El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>
@@ -1100,7 +1134,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-16-16-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-2" name="16-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-16-16-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-3" name="16-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-16-16-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-4" name="16-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-17-17-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-2" name="17-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-17-17-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-3" name="17-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-17-17-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-4" name="17-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
@@ -1114,7 +1148,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <li><p>Crea otro script llamdo <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
 <li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.</p></li>
 </ol>
-</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 <span class="c1">#$cat listda.dat</span>
@@ -1142,7 +1176,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-2" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-2" name="16-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-17-17-2" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-2" name="17-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 
@@ -1161,7 +1195,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-3" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-3" name="16-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-17-17-3" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-3" name="17-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en el archvio grupo.dat</span>
 
@@ -1196,7 +1230,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-4" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-4" name="16-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-17-17-4" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-4" name="17-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
@@ -1237,7 +1271,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <section id="gestion-de-usuarios-ldap">
 <h2>Gestión de usuarios LDAP<a class="headerlink" href="#gestion-de-usuarios-ldap" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04» con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04» con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -1248,7 +1282,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 ./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                  </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
 <span class="nv">password</span><span class="o">=</span>alumno
