@@ -323,7 +323,7 @@ Ejercicios de shell scripting
 
     .. tab:: rep.sh
 
-        Crea un script llamado **rep.sh** que diga el numero de veces que estan repetidos los siguientes nombres del archivo nombres.dat
+        Crea un script llamado **rep.sh** que diga el numero de veces que estan repetidos los siguientes nombres del archivo `nombres.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat>`_
 
     .. tab:: Solución
 
@@ -332,7 +332,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución (array)
 
-        .. literalinclude:: scripts/rep_arrays.sh
+        .. literalinclude:: scripts/rep_array.sh
            :language: shell
 
 

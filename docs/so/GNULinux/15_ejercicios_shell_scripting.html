@@ -931,13 +931,57 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el numero de veces que estan repetidos los siguientes nombres del archivo nombres.dat</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el numero de veces que estan repetidos los siguientes nombres del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat">nombres.dat</a></p>
 </div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-nr<span class="w"> </span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"></div></div>
+</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="nv">$nlineas</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span><span class="w">  </span>
+<span class="w">  </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="k">done</span>
+
+<span class="nv">count</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="nv">$nlineas</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span><span class="nv">encontrado</span><span class="o">=</span><span class="m">0</span>
+<span class="w">  </span><span class="k">for</span><span class="o">((</span><span class="nv">j</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>j&lt;<span class="o">=</span><span class="si">${#</span><span class="nv">B</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span>j++<span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">B</span><span class="p">[j]</span><span class="si">}</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[i]</span><span class="si">}</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">encontrado</span><span class="o">=</span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$encontrado</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">count</span><span class="o">=</span><span class="k">$((</span><span class="nv">count</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">    </span>B<span class="o">[</span><span class="nv">$count</span><span class="o">]=</span><span class="si">${</span><span class="nv">A</span><span class="p">[i]</span><span class="si">}</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="si">${#</span><span class="nv">B</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span>C<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="m">0</span>
+<span class="w">  </span><span class="k">for</span><span class="o">((</span><span class="nv">j</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>j&lt;<span class="o">=</span><span class="si">${#</span><span class="nv">A</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span>j++<span class="o">))</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">B</span><span class="p">[i]</span><span class="si">}</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="si">${</span><span class="nv">A</span><span class="p">[j]</span><span class="si">}</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">       </span>C<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="k">$((</span><span class="si">${</span><span class="nv">C</span><span class="p">[i]</span><span class="si">}</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="si">${#</span><span class="nv">B</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span><span class="w">  </span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">C</span><span class="p">[i]</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">B</span><span class="p">[i]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+</pre></div>
+</div>
+</div></div>
 <section id="gestion-de-usuarios-locales">
 <h2>Gestión de usuarios locales<a class="headerlink" href="#gestion-de-usuarios-locales" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
