@@ -169,9 +169,13 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/temperatura.sh
            :language: shell
 
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/temperatura_array.sh
+           :language: shell
 
 .. tabs::
 
@@ -312,6 +316,23 @@ Ejercicios de shell scripting
     .. tab:: Solución
 
         .. literalinclude:: scripts/analizar_cal.sh
+           :language: shell
+
+
+.. tabs::
+
+    .. tab:: rep.sh
+
+        Crea un script llamado **rep.sh** que diga el numero de veces que estan repetidos los siguientes nombres del archivo nombres.dat
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/rep.sh
+           :language: shell
+
+    .. tab:: Solución (array)
+
+        .. literalinclude:: scripts/rep_arrays.sh
            :language: shell
 
 
