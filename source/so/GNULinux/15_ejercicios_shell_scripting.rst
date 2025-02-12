@@ -344,12 +344,13 @@ Ejercicios de shell scripting
 
     .. tab:: dados.sh
 
-       Sube al curso un script llamado  **dados.sh** que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo
+        Sube al curso un script llamado  **dados.sh** que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.
+
+        Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas
 
         .. code-block:: bash
 
            $ ./dados.sh
-
            De 1000 tiradas : 2(1%) 3(7%) 4(10%) 5(12%) 6(14%) 7(17%) 8(14%) 9(12%) 10(10%) 11(7%) 12(1%)
 
     .. tab:: Solución
@@ -361,7 +362,6 @@ Ejercicios de shell scripting
 Gestión de usuarios locales
 ===========================
 
-
 .. tabs::
 
     .. tab:: usuarios.sh
@@ -370,26 +370,17 @@ Gestión de usuarios locales
 
         .. code-block:: bash
 
-           ./usuarios.sh -addgroup GA
-           El script tiene que crear el grupo GA si no existe, en el caso de que exista devuelve "No se crea el grupo el grupo GA existe"
+           ./usuarios.sh -help  
+             usuarios.sh -addgroup <grupo>         : Crea un grupo si no existe
+             usuarios.sh -delgroup <grupo>         : Elimina un grupo si existe
+             usuarios.sh -adduser <usuario> [grupo]: Crea un usuario en el grupo especificado
+                                                   : Si el grupo no existe lo crea primero
+                                                   : Si no damos grupo usa por defecto el grupo usuario1 
+             usuarios.sh -deluser <usuario>        : Elimina un usuario si existe
+             usuarios.sh -lista                    : Lista todos los grupos y sus usuarios
 
-           ./usuarios.sh -delgroup GA
-           El script tiene que borrar el grupo GA si existe, en el caso de que no exista devuelve "No se borra el grupo el grupo GA no existe"
-           
-           ./usuarios.sh -adduser usuario1 GA
-           El script tiene que crear el usuario usuario1 en el grupo GA, si el grupo no existe lo crea primero, 
-           en el caso de que exista el usuario no lo crea y sale por pantalla "No se crea el usuario usuario", 
-           haz que la contraseña por defecto sea cambiame.
+           En el caso de ejecutar ./usuarios.sh sin argumentos obtendremos el mensaje de ayuda.
        
-           ./usuarios.sh -adduser usuario1
-           En el caso de que se ejecute sin grupo el sistema lo creara por defecto en grupo usuario1
-
-           ./usuarios.sh -deluser usuario1
-           El script tiene que borrar el usuario usuario1 si no existe devuelve "No se borra el usuario usuario1 no existe"
-
-           ./usuarios.sh -lista
-           El script lista todos los grupos con todos los usuarios que tiene
-
         Chequea tu script con las siguientes características:
 
         .. code-block:: bash
@@ -468,7 +459,7 @@ Gestión de usuarios LDAP
 
     .. tab:: usuarios_ldap.sh
 
-        Crea un script llamado **usuarios_ldap.sh**, utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04" con un ldap configurado `aqui <https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap>`_
+        Crea un script llamado **usuarios_ldap.sh**, utiliza para ello un clon enlazado de la 'MV Ubuntu Server 24.04' con un ldap configurado `aqui <https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap>`_
 
         .. code-block:: bash
 
@@ -479,10 +470,52 @@ Gestión de usuarios LDAP
            ./usuarios_ldap.sh -adduser <usuario> [grupo]: Crea un usuario en el grupo especificado 
            ./usuarios_ldap.sh -deluser <usuario>        : Elimina un usuario si existe
            ./usuarios_ldap.sh -lista                    : Lista todos los grupos y sus usuarios
-           ./usuarios_ldap.sh -lsuser                  : Elimina un grupo si existe
+           ./usuarios_ldap.sh -lsuser                   : Elimina un grupo si existe
 
     .. tab:: Solución
 
         .. literalinclude:: scripts/crear_usuarios_ldap.sh
            :language: shell
 
+.. tabs::
+
+    .. tab:: crear_usuarios_lista_ldap.sh
+
+        Crea un script llamado **crear_usuarios_lista_ldap.sh**, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.
+
+        En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir usuario1@gmail.com creara el usuario usuario1
+
+        .. code-block:: bash
+
+           Uso del script:
+           ./crear_usuarios_lista_ldap.sh grupo.dat
+
+           head -2 grupo.dat
+           usuario1@gmail.com
+           usuario2@gmail.com
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+.. tabs::
+
+    .. tab:: borrar_usuarios_lista_ldap.sh
+
+        Crea un script llamado **borrar_usuarios_lista_ldap.sh**, cuando termmine de borrar todos los usuarios del archivo grupo.dat comprobará si el grupo no tiene usuarios, en ese caso lo borrará también.
+
+        .. code-block:: bash
+
+           Uso del script:
+           ./crear_usuarios_lista_ldap.sh grupo.dat
+
+           head -2 grupo.dat
+           usuario1@gmail.com
+           usuario2@gmail.com           
+           
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell

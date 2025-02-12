@@ -2,32 +2,16 @@
 Crear un modulo/app
 *******************
 
-Para el ejemplo crearemos la aplicación llamada desechos, la utilizaremos para gestionar los desechos nucleares, en tu caso crea una aplicación que se ajuste a tu empresa
-
-https://www.odoo.com/documentation/14.0/administration/odoo_sh/getting_started/first_module.html
+Para el ejemplo crearemos la aplicación llamada desechos, en tu caso crea una aplicación que se ajuste a tu empresa
 
 .. code-block:: bash
 
   /usr/bin/python3 /usr/bin/odoo scaffold --help
 
   server: /usr/bin/python3 /usr/bin/odoo scaffold desechos
-  docker: /usr/bin/python3 /usr/bin/odoo scaffold desechos /mnt/extra-addons #desechos /usr/lib/python3/dist-packages/odoo/addons
+  docker: /usr/bin/python3 /usr/bin/odoo scaffold desechos /mnt/extra-addons
 
 En el caso de que hayamos tenido problemas para montar de forma local la carpeta extra-addons y /var/lib/odoo podemos abrir una consola:
-
-.. code-block:: bash
-
-  docker ps (anotamos CONTAINER ID)
-  docker exec -i -t "CONTAINER ID" /bin/bash
-
-Para loguearse como root: 
-
-.. code-block:: bash
-
-  docker exec -i -u root -t 19621416140d /bin/bash
-  
-Una vez logueados podemos instalar por ejemplo el editor vi  ``apt-get install vim`` y crear el modulo ejecutanto ``python3 /usr/bin/odoo scaffold desechos /mnt/extra-addons``
-
 
 .. code-block:: bash
 
@@ -72,14 +56,19 @@ Aplicaciones/Actualizaciones/Actualizar lista de aplicaciones
 
 .. image:: imagenes/22_modulo2.png
 
-En el archivo models/models.py cambiamos:
-``value = fields.Integer() por : cantidad = fields.Float()``
-quitamos la linea de ``value2`` y  ``@api.depends('cantidad')....``
+En el archivo **models/models.py**
 
+* Cambiamos **value = fields.Integer()** por **cantidad = fields.Float()**
+* Quitamos la linea de **value2** y  **api.depends('cantidad')....**
 
-En ``views/views.xml <field name="value"/>`` por ``<field name="cantidad"/>`` y quitamos ``value2``
+En **views/views.xml**
 
-En ``demo/demo.xml`` cambiamos ``value`` por ``cantidad``
+* Cambiamos **<field name='value'/>** por **<field name='cantidad'/>**
+* Quitamos **value2**
+
+En **demo/demo.xml** 
+
+* Cambiamos **value** por **cantidad**
 
 .. image:: imagenes/22_modulo3.png
 

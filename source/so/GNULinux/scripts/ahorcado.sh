@@ -88,18 +88,15 @@ while [[ "$oculta" != "$secreta" && $fallos -lt $max_fallos ]]; do
   echo "Palabra: $oculta"
   echo "Letras intentadas: ${letras_intentadas[@]}"
   read -p "Introduce una letra: " letra
-  letra=$(echo "$letra" | tr '[:lower:]' '[:upper:]') # Convertir a mayúscula
+  letra=$(echo "$letra" | tr '[:lower:]' '[:upper:]') 
 
-  # Comprobar si la letra ya fue intentada
   if [[ " ${letras_intentadas[@]} " =~ " $letra " ]]; then
     echo "Ya intentaste esa letra. Prueba otra."
     continue
   fi
 
-  # Añadir letra a las intentadas
   letras_intentadas+=("$letra")
 
-  # Comprobar si la letra está en la palabra
   if [[ "$secreta" =~ "$letra" ]]; then
     # Reemplazar guiones bajos por la letra adivinada
     for ((i = 0; i < $longitud; i++)); do
@@ -112,12 +109,9 @@ while [[ "$oculta" != "$secreta" && $fallos -lt $max_fallos ]]; do
     ((fallos++))
     echo "La letra '$letra' no está en la palabra."
   fi
-
-  # Dibujar el ahorcado
   dibujar
 done
 
-# Fin del juego
 if [[ "$oculta" == "$secreta" ]]; then
   echo "¡Felicidades! Adivinaste la palabra: $secreta"
 else

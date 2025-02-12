@@ -238,12 +238,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../hardware/encapsuladors.html">Encapsulados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/ventilacion.html">Ventilación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/ram.html">Memoria RAM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hardware/puertas_logicas.html">Puertas lógicas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/carcasa.html">La carcasa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../hardware/conectores.html">Conectores y buses externos</a></li>
@@ -447,24 +447,14 @@
                   
   <section id="crear-un-modulo-app">
 <h1>Crear un modulo/app<a class="headerlink" href="#crear-un-modulo-app" title="Link to this heading">#</a></h1>
-<p>Para el ejemplo crearemos la aplicación llamada desechos, la utilizaremos para gestionar los desechos nucleares, en tu caso crea una aplicación que se ajuste a tu empresa</p>
-<p><a class="reference external" href="https://www.odoo.com/documentation/14.0/administration/odoo_sh/getting_started/first_module.html">https://www.odoo.com/documentation/14.0/administration/odoo_sh/getting_started/first_module.html</a></p>
+<p>Para el ejemplo crearemos la aplicación llamada desechos, en tu caso crea una aplicación que se ajuste a tu empresa</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/usr/bin/python3<span class="w"> </span>/usr/bin/odoo<span class="w"> </span>scaffold<span class="w"> </span>--help
 
 server:<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/odoo<span class="w"> </span>scaffold<span class="w"> </span>desechos
-docker:<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/odoo<span class="w"> </span>scaffold<span class="w"> </span>desechos<span class="w"> </span>/mnt/extra-addons<span class="w"> </span><span class="c1">#desechos /usr/lib/python3/dist-packages/odoo/addons</span>
+docker:<span class="w"> </span>/usr/bin/python3<span class="w"> </span>/usr/bin/odoo<span class="w"> </span>scaffold<span class="w"> </span>desechos<span class="w"> </span>/mnt/extra-addons
 </pre></div>
 </div>
 <p>En el caso de que hayamos tenido problemas para montar de forma local la carpeta extra-addons y /var/lib/odoo podemos abrir una consola:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>ps<span class="w"> </span><span class="o">(</span>anotamos<span class="w"> </span>CONTAINER<span class="w"> </span>ID<span class="o">)</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;CONTAINER ID&quot;</span><span class="w"> </span>/bin/bash
-</pre></div>
-</div>
-<p>Para loguearse como root:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-t<span class="w"> </span>19621416140d<span class="w"> </span>/bin/bash
-</pre></div>
-</div>
-<p>Una vez logueados podemos instalar por ejemplo el editor vi  <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">vim</span></code> y crear el modulo ejecutanto <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">/usr/bin/odoo</span> <span class="pre">scaffold</span> <span class="pre">desechos</span> <span class="pre">/mnt/extra-addons</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Dentro<span class="w"> </span>de<span class="w"> </span>...addons/desechos/<span class="w"> </span>se<span class="w"> </span>habrán<span class="w"> </span>creado<span class="w"> </span>los<span class="w"> </span>siguientes<span class="w"> </span>archivos<span class="w"> </span>y<span class="w"> </span>carpetas:
 ├──<span class="w"> </span>controllers
 │<span class="w">   </span>├──<span class="w"> </span>controllers.py
@@ -503,11 +493,20 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <li><p>Vamos a cambiar Value por Cantidad y quitar el Value2, en vuestro caso podréis usar * Cantidad u otro nombre que se ajuste mejor a vuestra empresa</p></li>
 </ul>
 <img alt="../_images/22_modulo2.png" src="../_images/22_modulo2.png" />
-<p>En el archivo models/models.py cambiamos:
-<code class="docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">fields.Integer()</span> <span class="pre">por</span> <span class="pre">:</span> <span class="pre">cantidad</span> <span class="pre">=</span> <span class="pre">fields.Float()</span></code>
-quitamos la linea de <code class="docutils literal notranslate"><span class="pre">value2</span></code> y  <code class="docutils literal notranslate"><span class="pre">&#64;api.depends('cantidad')....</span></code></p>
-<p>En <code class="docutils literal notranslate"><span class="pre">views/views.xml</span> <span class="pre">&lt;field</span> <span class="pre">name=&quot;value&quot;/&gt;</span></code> por <code class="docutils literal notranslate"><span class="pre">&lt;field</span> <span class="pre">name=&quot;cantidad&quot;/&gt;</span></code> y quitamos <code class="docutils literal notranslate"><span class="pre">value2</span></code></p>
-<p>En <code class="docutils literal notranslate"><span class="pre">demo/demo.xml</span></code> cambiamos <code class="docutils literal notranslate"><span class="pre">value</span></code> por <code class="docutils literal notranslate"><span class="pre">cantidad</span></code></p>
+<p>En el archivo <strong>models/models.py</strong></p>
+<ul class="simple">
+<li><p>Cambiamos <strong>value = fields.Integer()</strong> por <strong>cantidad = fields.Float()</strong></p></li>
+<li><p>Quitamos la linea de <strong>value2</strong> y  <strong>api.depends(“cantidad”)….</strong></p></li>
+</ul>
+<p>En <strong>views/views.xml</strong></p>
+<ul class="simple">
+<li><p>Cambiamos <strong>&lt;field name=”value”/&gt;</strong> por <strong>&lt;field name=”cantidad”/&gt;</strong></p></li>
+<li><p>Quitamos <strong>value2</strong></p></li>
+</ul>
+<p>En <strong>demo/demo.xml</strong></p>
+<ul class="simple">
+<li><p>Cambiamos <strong>value</strong> por <strong>cantidad</strong></p></li>
+</ul>
 <img alt="../_images/22_modulo3.png" src="../_images/22_modulo3.png" />
 <p>Creamos un desecho</p>
 <img alt="../_images/22_modulo4.png" src="../_images/22_modulo4.png" />

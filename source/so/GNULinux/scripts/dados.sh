@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tiradas=1000
+tiradas=${1:-1000}
 
 for ((i = 2; i <= 12; i++)); do
   frecuencias[$i]=0
