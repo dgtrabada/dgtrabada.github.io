@@ -238,12 +238,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsuladors.html">Encapsulados</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
@@ -449,6 +449,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays">Arrays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#awk">AWK</a></li>
 </ul>
             </nav>
         </div>
@@ -895,6 +896,118 @@ hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span
 </pre></div>
 </div>
 </section>
+<section id="awk">
+<h2>AWK<a class="headerlink" href="#awk" title="Link to this heading">#</a></h2>
+<p><strong>awk</strong> es una herramienta de procesamiento de texto y manipulación de datos,  la estructura básica es <code class="docutils literal notranslate"><span class="pre">awk</span> <span class="pre">'patrón</span> <span class="pre">{</span> <span class="pre">acción</span> <span class="pre">}'</span> <span class="pre">archivo</span></code>.</p>
+<p>Variables especiales de awk:</p>
+<ul class="simple">
+<li><p><strong>$0</strong>: Toda la línea actual.</p></li>
+<li><p><strong>$1, $2, …, $n</strong>: Campos (columnas) de la línea.</p></li>
+<li><p><strong>NR</strong>: Número de línea actual.</p></li>
+<li><p><strong>NF</strong>: Número de campos en la línea actual.</p></li>
+<li><p><strong>FS</strong>: Delimitador de campos (por defecto es espacio).</p></li>
+<li><p><strong>OFS</strong>: Delimitador de salida (por defecto es espacio).</p></li>
+</ul>
+<p>Vemos a continuación ejemplos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>datos.dat
+maria<span class="w">    </span><span class="m">8</span>.9<span class="w">   </span><span class="m">54</span>.2
+pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+ana<span class="w">      </span><span class="m">7</span>.6<span class="w">   </span><span class="m">5</span>.6
+carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
+elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+sergio<span class="w">   </span><span class="m">3</span>.4<span class="w">   </span><span class="m">4</span>.4
+laura<span class="w">    </span><span class="m">6</span>.7<span class="w">   </span><span class="m">5</span>.5
+david<span class="w">    </span><span class="m">9</span>.2<span class="w">   </span><span class="m">6</span>.6
+
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $1 }&#39;</span><span class="w"> </span>datos.dat
+maria
+pedro
+ana
+carlos
+elena
+sergio
+laura
+david
+
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $1,$3 }&#39;</span><span class="w"> </span>datos.dat
+maria<span class="w"> </span><span class="m">54</span>.2
+pedro<span class="w"> </span><span class="m">20</span>.2
+ana<span class="w"> </span><span class="m">5</span>.6
+carlos<span class="w"> </span><span class="m">8</span>.9
+elena<span class="w"> </span><span class="m">43</span>.2
+sergio<span class="w"> </span><span class="m">4</span>.4
+laura<span class="w"> </span><span class="m">5</span>.5
+david<span class="w"> </span><span class="m">6</span>.6
+
+<span class="c1">#sumar los valores de la columna 3</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ suma += $3 } END { print suma }&#39;</span><span class="w"> </span>datos.dat
+<span class="m">148</span>.6
+
+<span class="c1">#Calcular promedio</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ suma += $3 } END { print suma/NR }&#39;</span><span class="w"> </span>datos.dat
+<span class="m">18</span>.575
+
+<span class="c1">#contar el número de líneas</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;END { print NR }&#39;</span><span class="w"> </span>datos.dat
+<span class="m">8</span>
+
+<span class="c1">#imprimir lineas con un número específico de campos</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NF == 3 { print }&#39;</span><span class="w"> </span>datos.dat
+maria<span class="w">    </span><span class="m">8</span>.9<span class="w">   </span><span class="m">54</span>.2
+pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+ana<span class="w">      </span><span class="m">7</span>.6<span class="w">   </span><span class="m">5</span>.6
+carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
+elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+sergio<span class="w">   </span><span class="m">3</span>.4<span class="w">   </span><span class="m">4</span>.4
+laura<span class="w">    </span><span class="m">6</span>.7<span class="w">   </span><span class="m">5</span>.5
+david<span class="w">    </span><span class="m">9</span>.2<span class="w">   </span><span class="m">6</span>.6
+
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;NF == 2 { print }&#39;</span><span class="w"> </span>datos.dat
+
+<span class="c1">#agregar texto adicional a la salida</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print &quot;Linea:&quot;, $0 }&#39;</span><span class="w"> </span>datos.dat
+Linea:<span class="w"> </span>maria<span class="w">    </span><span class="m">8</span>.9<span class="w">   </span><span class="m">54</span>.2
+Linea:<span class="w"> </span>pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+Linea:<span class="w"> </span>ana<span class="w">      </span><span class="m">7</span>.6<span class="w">   </span><span class="m">5</span>.6
+Linea:<span class="w"> </span>carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
+Linea:<span class="w"> </span>elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+Linea:<span class="w"> </span>sergio<span class="w">   </span><span class="m">3</span>.4<span class="w">   </span><span class="m">4</span>.4
+Linea:<span class="w"> </span>laura<span class="w">    </span><span class="m">6</span>.7<span class="w">   </span><span class="m">5</span>.5
+Linea:<span class="w"> </span>david<span class="w">    </span><span class="m">9</span>.2<span class="w">   </span><span class="m">6</span>.6
+
+<span class="c1">#usar condiciones</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2 &gt; 10 { print }&#39;</span><span class="w"> </span>datos.dat
+pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
+elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+
+<span class="c1">#sumar columnas</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $2 + $3 }&#39;</span><span class="w"> </span>datos.dat
+<span class="m">63</span>.1
+<span class="m">35</span>.4
+<span class="m">13</span>.2
+<span class="m">29</span>.2
+<span class="m">54</span>
+<span class="m">7</span>.8
+<span class="m">12</span>.2
+<span class="m">15</span>.8
+
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{suma=$2+$3 ;  print $1, $2, $3, suma }&#39;</span><span class="w"> </span>datos.dat
+maria<span class="w"> </span><span class="m">8</span>.9<span class="w"> </span><span class="m">54</span>.2<span class="w"> </span><span class="m">63</span>.1
+pedro<span class="w"> </span><span class="m">15</span>.2<span class="w"> </span><span class="m">20</span>.2<span class="w"> </span><span class="m">35</span>.4
+ana<span class="w"> </span><span class="m">7</span>.6<span class="w"> </span><span class="m">5</span>.6<span class="w"> </span><span class="m">13</span>.2
+carlos<span class="w"> </span><span class="m">20</span>.3<span class="w"> </span><span class="m">8</span>.9<span class="w"> </span><span class="m">29</span>.2
+elena<span class="w"> </span><span class="m">10</span>.8<span class="w"> </span><span class="m">43</span>.2<span class="w"> </span><span class="m">54</span>
+sergio<span class="w"> </span><span class="m">3</span>.4<span class="w"> </span><span class="m">4</span>.4<span class="w"> </span><span class="m">7</span>.8
+laura<span class="w"> </span><span class="m">6</span>.7<span class="w"> </span><span class="m">5</span>.5<span class="w"> </span><span class="m">12</span>.2
+david<span class="w"> </span><span class="m">9</span>.2<span class="w"> </span><span class="m">6</span>.6<span class="w"> </span><span class="m">15</span>.8
+
+<span class="c1">#sumar la filas y mostrar solo al final el total</span>
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{suma +=$2+$3} END {print &quot;Total:&quot;,suma }&#39;</span><span class="w"> </span>datos.dat
+Total:<span class="w"> </span><span class="m">230</span>.7
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -949,6 +1062,7 @@ hoy<span class="w"> </span>es<span class="w"> </span>mié<span class="w"> </span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arrays">Arrays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritura-de-archivos">Escritura de archivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#awk">AWK</a></li>
 </ul>
   </nav></div>
 

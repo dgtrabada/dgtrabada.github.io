@@ -465,4 +465,120 @@ Podemos hacer lo mismo:
  $ echo "Mi nombre es $tunombre
  hoy es $(date)" >> new_file.dat
  
+AWK
+***
+
+**awk** es una herramienta de procesamiento de texto y manipulación de datos,  la estructura básica es ``awk 'patrón { acción }' archivo``.
+
+Variables especiales de awk:
+
+* **$0**: Toda la línea actual.
+* **$1, $2, ..., $n**: Campos (columnas) de la línea.
+* **NR**: Número de línea actual.
+* **NF**: Número de campos en la línea actual.
+* **FS**: Delimitador de campos (por defecto es espacio).
+* **OFS**: Delimitador de salida (por defecto es espacio).
+
+Vemos a continuación ejemplos
+
+.. code-block:: bash
+  
+ $ cat datos.dat 
+ maria    8.9   54.2
+ pedro    15.2  20.2 
+ ana      7.6   5.6 
+ carlos   20.3  8.9
+ elena    10.8  43.2
+ sergio   3.4   4.4
+ laura    6.7   5.5
+ david    9.2   6.6
+
+ $ awk '{ print $1 }' datos.dat 
+ maria
+ pedro
+ ana
+ carlos
+ elena
+ sergio
+ laura
+ david
+
+ $ awk '{ print $1,$3 }' datos.dat 
+ maria 54.2
+ pedro 20.2
+ ana 5.6
+ carlos 8.9
+ elena 43.2
+ sergio 4.4
+ laura 5.5
+ david 6.6
+
+ #sumar los valores de la columna 3
+ $ awk '{ suma += $3 } END { print suma }' datos.dat 
+ 148.6
+
+ #Calcular promedio
+ $ awk '{ suma += $3 } END { print suma/NR }' datos.dat
+ 18.575
+
+ #contar el número de líneas
+ $ awk 'END { print NR }' datos.dat 
+ 8
+
+ #imprimir lineas con un número específico de campos
+ $ awk 'NF == 3 { print }' datos.dat 
+ maria    8.9   54.2
+ pedro    15.2  20.2 
+ ana      7.6   5.6 
+ carlos   20.3  8.9
+ elena    10.8  43.2
+ sergio   3.4   4.4
+ laura    6.7   5.5
+ david    9.2   6.6
+
+ $ awk 'NF == 2 { print }' datos.dat 
+
+ #agregar texto adicional a la salida
+ $ awk '{print "Linea:", $0 }' datos.dat
+ Linea: maria    8.9   54.2
+ Linea: pedro    15.2  20.2 
+ Linea: ana      7.6   5.6 
+ Linea: carlos   20.3  8.9
+ Linea: elena    10.8  43.2
+ Linea: sergio   3.4   4.4
+ Linea: laura    6.7   5.5
+ Linea: david    9.2   6.6
+
+ #usar condiciones
+ $ awk '$2 > 10 { print }' datos.dat
+ pedro    15.2  20.2 
+ carlos   20.3  8.9
+ elena    10.8  43.2
+
+ #sumar columnas
+ $ awk '{ print $2 + $3 }' datos.dat 
+ 63.1
+ 35.4
+ 13.2
+ 29.2
+ 54
+ 7.8
+ 12.2
+ 15.8
+
+ $ awk '{suma=$2+$3 ;  print $1, $2, $3, suma }' datos.dat
+ maria 8.9 54.2 63.1
+ pedro 15.2 20.2 35.4
+ ana 7.6 5.6 13.2
+ carlos 20.3 8.9 29.2
+ elena 10.8 43.2 54
+ sergio 3.4 4.4 7.8
+ laura 6.7 5.5 12.2
+ david 9.2 6.6 15.8
+
+ #sumar la filas y mostrar solo al final el total
+ $ awk '{suma +=$2+$3} END {print "Total:",suma }' datos.dat 
+ Total: 230.7
  
+
+

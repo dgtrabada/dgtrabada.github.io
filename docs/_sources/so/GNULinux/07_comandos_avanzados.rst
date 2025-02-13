@@ -433,6 +433,9 @@ Comandos avanzados
    #cambiar tabulaciones por espacios
    sed -i 's/\t/ /g' archivo.txt
 
+   #sustituir cada carácter por un guion bajo
+   echo "Hola" | sed 's/./_/g'
+
 
 * **paste** muestra por pantalla el contenido de dos archivos
 
