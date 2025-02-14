@@ -339,6 +339,30 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/rep_array.sh
            :language: shell
 
+.. tabs::
+
+    .. tab:: monedas.sh
+
+        Sube al curso un script llamado  **monedas.sh** que tire tres monedas y escriba en un archivo el resultado.
+
+        Haz que lea el archivo y obtenga el porcentaje de veces que salen 3 caras.
+
+        En el caso de que no se proporcione el número de tiradas ni el archivo, tomara por defecto el archivo llamado tiradas.dat y hará 100 tiradas.
+
+        En el caso de que no encuntre el archivo cuando lo va a leer, tomara por defecto monedas.dat, si este no existe, mostrará que no existe.
+
+        .. code-block:: bash
+
+           $ ./monedas.sh -help
+           -n <tiradas> <archivo>
+           -read <archivo>
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+
 
 .. tabs::
 
