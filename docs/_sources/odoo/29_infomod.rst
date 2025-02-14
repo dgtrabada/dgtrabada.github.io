@@ -10,7 +10,7 @@ modifica el archivo ``__manifest__.py`` para que aparezcas como autor de la apli
   'application': True,
   'license': 'LGPL-3'
 
-Para que se cargue una imagen, copiamos la imagen en ``static/description/icon.png`` y en el modulo, en ``views.py``
+Para que se cargue una imagen, copiamos la imagen en ``static/description/icon.png`` y en el modulo, en ``views.xml``
 
 .. code-block:: bash
 

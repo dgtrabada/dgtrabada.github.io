@@ -80,14 +80,3 @@ Creamos un desecho
 
 Sube un pantallazo al curso de la aplicación que has creado
 
-ayuda:
-
-.. code-block:: bash
-
-  tail -f /var/log/odoo/odoo-server.log
-  systemctl restart odoo
-  systemctl stop odoo ; su -c "/usr/bin/python3  /usr/bin/odoo -u desechos -d odoo" odoo
-
-Es posible que tengas que comentar la parte de (server action) y (Server to list), esto implementa una forma de interactuar con el modelo mucho mas sencilla, de momento dejalo comentado o coméntalo si estaba comentado si te da problemas.
-
-
