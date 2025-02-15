@@ -11,6 +11,7 @@ GNU/Linux
    03_usuarios.rst
    04_ssh.rst
    05_samba.rst  
+   05_apache.rst  
    06_automatizacion_tareas.rst
    07_comandos_avanzados.rst
    08_NIS.rst
