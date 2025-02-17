@@ -53,7 +53,7 @@ Reiniciamos el servicio
 * Para acceder desde windows ``\\IP``
 
 
-En el caso de que queramos contruir un servidor samba seguro incluimos al final de ``/etc/samba/smb.con``:
+En el caso de que queramos contruir un servidor samba seguro incluimos al final de ``/etc/samba/smb.conf``:
 
 .. code-block:: bash
 

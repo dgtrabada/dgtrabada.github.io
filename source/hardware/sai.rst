@@ -31,20 +31,20 @@ La batería acumula corriente continua (DC), a diferencia de la alterna, que es 
 
 Análogamente, si desde la batería se debe proporcionar AC a un ordenador, pero la batería sólo puede proporcionar DC, se necesita un circuito llamado inversor, que toma la DC de la batería, y la convierte en AC, cambiando también la tensión de salida (desde los 12 o 24V que suele tener una batería de ácido a los 220V necesarios para un ordenador). A este circuito, también se le suele llamar rizador u ondulador.
 
-Tipos de UPS
-============
+Tipos
+=====
 
 Generalmente existen tres tipos de UPS:
 
-* "Los UPS "fuera de línea" se conectan a través de un relé eléctrico. Cuando todo funciona de manera adecuada, se utiliza el voltaje de la red eléctrica para recargar las baterías. Cuando la batería supera o se encuentra debajo de cierto nivel (máximo o mínimo), el relé se abre y el voltaje se regenera mediante el uso de la energía almacenada en la batería. Debido al tiempo que se necesita para que el relé se abra y se cierre, este tipo de UPS no ofrece protección contra interferencias en la red eléctrica.
+* Los SAI **fuera de línea** se conectan a través de un relé eléctrico. Cuando todo funciona de manera adecuada, se utiliza el voltaje de la red eléctrica para recargar las baterías. Cuando la batería supera o se encuentra debajo de cierto nivel (máximo o mínimo), el relé se abre y el voltaje se regenera mediante el uso de la energía almacenada en la batería. Debido al tiempo que se necesita para que el relé se abra y se cierre, este tipo de UPS no ofrece protección contra interferencias en la red eléctrica.
 
   .. image:: imagenes/fuentes/ups_in.png
   
-* "Los UPS "en línea"   se conectan en serie y regulan el voltaje constantemente.
+* Los SAI **en línea**   se conectan en serie y regulan el voltaje constantemente.
 
   .. image:: imagenes/fuentes/ups_out.png
   
-* "Los UPS "interactivos en línea cuentan con tecnología híbrida. Los UPS interactivos en línea se conectan en forma paralela a través de un relé, pero cuentan con un microprocesador que controla el voltaje constantemente. En caso de una caída de voltaje leve o una interferencia en la red eléctrica, el UPS puede inyectar voltaje para compensar. Sin embargo, en los casos en que se produzca un corte total de electricidad, el UPS funcionará como un UPS fuera de línea.
+* Los SAI **interactivos en línea** cuentan con tecnología híbrida. Los UPS interactivos en línea se conectan en forma paralela a través de un relé, pero cuentan con un microprocesador que controla el voltaje constantemente. En caso de una caída de voltaje leve o una interferencia en la red eléctrica, el UPS puede inyectar voltaje para compensar. Sin embargo, en los casos en que se produzca un corte total de electricidad, el UPS funcionará como un UPS fuera de línea.
 
 Características
 ===============
