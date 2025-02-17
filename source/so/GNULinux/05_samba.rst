@@ -58,7 +58,7 @@ En el caso de que queramos contruir un servidor samba seguro incluimos al final 
 .. code-block:: bash
 
  [secured]
-  path = /samba/secured
+  path = /etc/samba/secured
   valid users = @smbgrp
   guest ok = no
   writable = yes
@@ -68,8 +68,8 @@ Creamos la carpeta que pertenezca al grupo smbgrp
 
 .. code-block:: bash
 
- mkdir -p /samba/secured
- cd /samba
+ mkdir -p /etc/samba/secured
+ cd /etc/samba
  chmod -R 0770 secured
  chown root:smbgrp secured
 
