@@ -363,6 +363,32 @@ Ejercicios de shell scripting
            :language: shell
 
 
+.. tabs::
+
+    .. tab:: ip.sh
+
+        Crea un script en Bash llamado **ips.sh** que cumpla con los siguientes requisitos:
+
+        Si ejecutas el script con ``./ips.sh -help``, debe mostrar la siguiente ayuda:
+
+        .. code-block:: bash
+
+           -help                         : muestra la ayuda  
+           -file <archivo> <número_ips>  : Crea un archivo llamado <archivo> con <número_ips>.
+           -find <archivo> <ip>          : Muestra cuantas veces aparece la <ip>
+           -read <archivo>               : Muestra de forma ordenada las IPs por número de conexiones
+
+        * Si ejecutas el script sin argumentos ./ips.sh, también debe mostrar la ayuda.
+        * Si ejecutas el ./ips.sh -file sin indicar el <número_ips> tomara por defecto 50, en el caso de no darle el <archivo> tomará por defecto ip.dat.  Cada línea tendrá una IP aleatoria dentro del rango 192.168.2.0/28. La primera IP utilizable es 192.168.2.1 y la última es 192.168.2.14.
+        * Si ejecutas el ./ips.sh -find lee el <archivo>, si no existe o no se le indica, mostrará por pantalla "El archivo no existe", en el caso de que no se proporcione <ip> mostrará por pantalla "Proporcionar ip"
+        * Si ejecutas el ./ips.sh -read lee el <archivo>, si no existe o no se le indica, mostrará por pantalla "El archivo no existe"
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/ip.sh
+           :language: shell
+
+
 
 .. tabs::
 
