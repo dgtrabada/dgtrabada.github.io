@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NFS &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/09_GNULinux_NFS';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Slurm" href="10_slurm.html" />
+    <link rel="prev" title="NIS" href="08_NIS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">GNU/Linux</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_apache.html">Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_NIS.html">NIS</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/11_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo y backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimineto.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un modulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/09_GNULinux_NFS.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>NFS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs">Servidor NFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-nfs">Cliente NFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#montar-un-sistema-de-archivos-nfs-usando-autofs">Montar un sistema de archivos NFS usando autofs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna">Caso práctico: NFS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna-y-autofs">Caso práctico: NFS con red interna y autofs</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="nfs">
+<h1>NFS<a class="headerlink" href="#nfs" title="Link to this heading">#</a></h1>
+<p>Las siglas <strong>NFS</strong> provienen del inglés Network File System (Sistema de archivos de red). Se trata de un protocolo, implementado en 1984 por la empresa Sun Microsystems, que se utiliza en redes de área local para crear un sistema de archivos distribuido.
+El objetivo de NFS es que varios usuarios (o programas) de una red local puedan acceder a archivos y directorios compartidos como si fuesen locales. De esta forma, se puede centralizar la capacidad de almacenamiento de la red, pudiendo ser más reducida en los clientes.</p>
+<p>Actualmente, el protocolo NFS está incluido en la mayoría de las distribuciones Linux, y en las diferentes versiones del sistema operativo OSX de Apple.</p>
+<p>En los sistemas Microsoft, la situación es algo más confusa: Para las versiones 2000, 2003 y XP, había que descargar e instalar el paquete Windows Services for UNIX). En Windows 8 ya se incluye de fábrica, pero sólo en la versión Enterprise edition y, hasta el momento de escribir este documento, no existe forma de instalarlo en otras versiones más modestas. De hecho, los usuarios que actualizan desde las ediciones Windows 7 Ultimate o Windows 7 Enterprise a la edición Windows 8 Pro, no podrán seguir usando NFS.</p>
+<section id="servidor-nfs">
+<h2>Servidor NFS<a class="headerlink" href="#servidor-nfs" title="Link to this heading">#</a></h2>
+<p>Instalamos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>update
+apt<span class="w"> </span>install<span class="w"> </span>nfs-kernel-server
+</pre></div>
+</div>
+<p>Supongamos que queremos compartir la carpeta <strong>/home/tunombre1</strong> situada en un servidor con un cliente, para ello crearemos las siguientes líneas en el archivo <strong>/etc/exports</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/tunombre1<span class="w"> </span><span class="m">172</span>.16.0.11<span class="o">(</span>rw,sync,no_root_squash,no_subtree_check<span class="o">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>rw</strong>: Da permisos de lectura y escritura al cliente</p></li>
+<li><p><strong>sync</strong>: sincroniczar la escritura</p></li>
+<li><p><strong>no_subtree_check</strong>: permite que no se compruebe el camino hasta el directorio que se exporta, en el caso de que el usuario no tenga permisos sobre el directorio exportado</p></li>
+<li><p><strong>no_root_squash</strong>: permite que los usuarios root de los equipos cliente tengan acceso root en el servido</p></li>
+</ul>
+<p>Cada vez que cambiemos el archivo <strong>/etc/exports</strong> tendremos que reiniciar el servicio</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>nfs-kernel-server.service
+</pre></div>
+</div>
+<p>Una forma abreviada de incluir más nodos sería:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/tunombre1<span class="w"> </span><span class="m">172</span>.16.0.0/24<span class="o">(</span>rw,sync,no_root_squash,no_subtree_check<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="cliente-nfs">
+<h2>Cliente NFS<a class="headerlink" href="#cliente-nfs" title="Link to this heading">#</a></h2>
+<p>Instalamos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>nfs-common
+</pre></div>
+</div>
+<p>Para probar que funciona el nfs podemos montar a mano el directorio ejecutamos como root en el cliente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/home/tunombre1
+mount<span class="w"> </span><span class="m">172</span>.16.0.10:/home/tunombre1<span class="w"> </span>/home/tunombre1
+</pre></div>
+</div>
+<p>En el caso de que queramos que los cambios sean permanentes copiamos en /etc/fstab del cliente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">172</span>.16.0.10:/home/tunombre1<span class="w"> </span>/home/tunombre1<span class="w"> </span>nfs<span class="w"> </span>auto,noatime,nolock,bg,nfsvers<span class="o">=</span><span class="m">3</span>,intr,tcp,actimeo<span class="o">=</span><span class="m">1800</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Uno de los problemas que plantea el uso de NFS es que no permite validar a los usuarios que tratan de acceder a una carpeta compartida. En realidad, el servidor NFS envía al cliente los permisos de cada archivo y subcarpeta que encuentre dentro de la carpeta compartida. Además, también se envía el UID del usuario propietario y el GID de su grupo principal.</p>
+<p>El problema es que, cuando existan usuarios y/o grupos en los equipos cliente que tengan asignado el mismo UID o dispongan del mismo GID para su grupo principal, estos usuarios locales asumirán los permisos que tenían los usuarios del equipo servidor sobre el contenido de las carpetas compartidas. Este problema se puede corregir utilizando un sistema <strong>NIS</strong> o <strong>LDAP</strong></p>
+</section>
+<section id="montar-un-sistema-de-archivos-nfs-usando-autofs">
+<h2>Montar un sistema de archivos NFS usando autofs<a class="headerlink" href="#montar-un-sistema-de-archivos-nfs-usando-autofs" title="Link to this heading">#</a></h2>
+<p>Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs utiliza el demonio automount para controlar los puntos de montaje dinámicamente tan sólo montándolos cuando sea necesario.</p>
+<p>Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.</p>
+</section>
+<section id="caso-practico-nfs-con-red-interna">
+<h2>Caso práctico: NFS con red interna<a class="headerlink" href="#caso-practico-nfs-con-red-interna" title="Link to this heading">#</a></h2>
+<p>Partimos del <a class="reference internal" href="08_NIS.html#caso-practico-nis-con-red-interna"><span class="std std-ref">Caso práctico: NIS con red interna</span></a>, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente <strong>sudo pam-auth-update</strong>, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado, puedes configurarlo como se muestra en el siguiente  <a class="reference external" href="https://mediateca.educa.madrid.org/video/xcy1gscdrqt8w264">vídeo</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="w"> </span><span class="o">]</span><span class="w"> </span>Create<span class="w"> </span>home<span class="w"> </span>directory<span class="w"> </span>on<span class="w"> </span>login
+</pre></div>
+</div>
+<p>Borra los directorios de los usuarios que se hayan creado. Si nos conectamos ahora con cualquier usuario obtenemos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tunombre1@ubuntu-client:/home$<span class="w"> </span><span class="nb">cd</span>
+bash:<span class="w"> </span>cd:<span class="w"> </span>/home/tunombre1:<span class="w"> </span>No<span class="w"> </span>such<span class="w"> </span>file<span class="w"> </span>or<span class="w"> </span>directory
+</pre></div>
+</div>
+<p>Haz que el home del usuario1 situado en el servidor se exporte al cliente de forma permanente por medio de NFS</p>
+<p>Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiala (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh sin que te pida la contraseña</p>
+</section>
+<section id="caso-practico-nfs-con-red-interna-y-autofs">
+<h2>Caso práctico: NFS con red interna y autofs<a class="headerlink" href="#caso-practico-nfs-con-red-interna-y-autofs" title="Link to this heading">#</a></h2>
+<p>Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar al cliente <strong>compute-0-1</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>autofs
+</pre></div>
+</div>
+<p>En <strong>/etc/auto.master</strong> incluimos la siguiente linea</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home<span class="w"> </span>/etc/auto.home
+</pre></div>
+</div>
+<p>Donde el archivo  <strong>/etc/auto.home</strong> sería:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/auto.home</span>
+tunombre1<span class="w"> </span>compute-0-0:/home/tunombre1
+tunombre2<span class="w"> </span>compute-0-0:/home/tunombre2
+tunombre3<span class="w"> </span>compute-0-0:/home/tunombre3
+</pre></div>
+</div>
+<p>No lo hacemos así para exportar el home de los usuarios por separado, de otra forma cada vez que un usuarios se loguease en el cliente todas las carpetas se exportarían, podemos escribirlo de una forma más resumida:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*<span class="w">    </span>compute-0-0:/home/<span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>El asterico (*) se utiliza para remplazar el punto de montaje y (&amp;) lo que queremos montar</p>
+<p>Hacemos que se inicie cuando se reinicia el cliente <strong>compute-0-1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>autofs
+</pre></div>
+</div>
+<p>Fíjate como funcionaría:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>df<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tunombre
+root@compute-0-1:~#<span class="w"> </span>su<span class="w"> </span>tunombre1
+tunombre1@compute-0-1:/root$<span class="w"> </span>df<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tunombre
+compute-0-0:/home/tunombre1<span class="w"> </span>116G<span class="w">   </span>128K<span class="w">   </span>110G<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/home/tunombre1
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08_NIS.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">NIS</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10_slurm.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Slurm</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-nfs">Servidor NFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-nfs">Cliente NFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#montar-un-sistema-de-archivos-nfs-usando-autofs">Montar un sistema de archivos NFS usando autofs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna">Caso práctico: NFS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nfs-con-red-interna-y-autofs">Caso práctico: NFS con red interna y autofs</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

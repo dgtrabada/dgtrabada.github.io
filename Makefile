@@ -23,6 +23,6 @@ help:
 
 github:
 	@make html
-	#rsync -av --delete build/html/ docs
+	rsync -av --delete build/html/ docs
 	rsync -av --delete build/html/ /var/www/html/docs
 	#cp -a source/python/*html docs/python/

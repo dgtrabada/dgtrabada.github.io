@@ -1,0 +1,1224 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>La virtualización &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/maquinas_virtuales';</script>
+    <link rel="icon" href="../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="next" title="Particiones" href="particiones.html" />
+    <link rel="prev" title="Gestión arranque" href="fundamentos/gestion_arranque.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/electricicidad.html">Transición, la electricicidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/so_licencias.html">Tipos software y licencias</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/gestion_procesos.html">Gestión de procesos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/gestion_memoria.html">Gestión de memoria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/sistema_archivos.html">Sistema de archivos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamentos/gestion_arranque.html">Gestión arranque</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">La virtualización</a></li>
+<li class="toctree-l2"><a class="reference internal" href="particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/05_apache.html">Apache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/07_comandos_avanzados.html">Comandos avanzados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/10_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/11_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/medida_informacion.html">Medida de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_numeracion.html">Sistemas de numeración</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/cambio_base_decimales.html">Cambio de base con decimales</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/sistemas_codificacion.html">Sistemas de codificación</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/dispositivos_alamacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="particiones.html">Particiones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/raid.html">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/historia_microsprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/encapsuladors.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/sai.html">Sistemas de alimentación interrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/diagnostico.html">Herramientas de diagnostico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/06_instalacion_odoo.html">Instalación odoo y backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/08_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/09_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/10_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/18_mantenimineto.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/27_modulo.html">Crear un modulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/so/maquinas_virtuales.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>La virtualización</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-24-04">Caso práctico: MV Ubuntu Server 24.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imagen de docker y subirla al repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml">docker-compose.yml</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">Kubernetes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partes-principales">Partes Principales</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento-basico">Funcionamiento Básico</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04">Caso práctico: Instalar kubernetes en Ubuntu 24.04</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="la-virtualizacion">
+<h1>La virtualización<a class="headerlink" href="#la-virtualizacion" title="Link to this heading">#</a></h1>
+<p>La virtualización es una tecnología que permite la creación de entornos virtuales o máquinas virtuales (VM) que funcionan de manera independiente en un mismo sistema físico. Consiste en la abstracción de los recursos físicos, como la CPU, la memoria, el almacenamiento y los dispositivos de entrada/salida, para asignarlos y compartirlos entre varias máquinas virtuales.</p>
+<p>El objetivo principal de la virtualización es maximizar la utilización de los recursos físicos y mejorar la eficiencia de los sistemas informáticos. Al utilizar la virtualización, es posible ejecutar múltiples sistemas operativos y aplicaciones en un único servidor o computadora, lo que reduce la necesidad de hardware físico adicional.</p>
+<p>Algunos conceptos clave relacionados con la virtualización son:</p>
+<ul>
+<li><p><strong>Hipervisor</strong>: También conocido como monitor de máquina virtual (VMM), es el software o firmware responsable de crear y gestionar las máquinas virtuales. Se encarga de asignar y administrar los recursos físicos entre las VM.</p>
+<p>Existen dos tipos principales de hipervisores, también conocidos como monitores de máquina virtual (VMM):</p>
+<ul class="simple">
+<li><p><strong>Hipervisor de tipo 1 o «nativo»</strong> (Bare Metal Hypervisor): Este tipo de hipervisor se ejecuta directamente sobre el hardware físico sin depender de un sistema operativo anfitrión. Actúa como una capa de virtualización entre el hardware y las máquinas virtuales. Algunos ejemplos de hipervisores de tipo 1 son:</p>
+<ul>
+<li><p>VMware ESXi</p></li>
+<li><p>Microsoft Hyper-V</p></li>
+<li><p>Citrix XenServer</p></li>
+<li><p>KVM (Kernel-based Virtual Machine)</p></li>
+<li><p>Oracle VM Server</p></li>
+</ul>
+</li>
+<li><p><strong>Hipervisor de tipo 2 o «hosted»</strong> (Hosted Hypervisor): Este tipo de hipervisor se ejecuta como una aplicación dentro de un sistema operativo anfitrión. Utiliza los recursos y servicios del sistema operativo subyacente para proporcionar la virtualización. Algunos ejemplos de hipervisores de tipo 2 son:</p>
+<ul>
+<li><p>VMware Workstation</p></li>
+<li><p>Oracle VirtualBox</p></li>
+<li><p>Microsoft Virtual PC</p></li>
+<li><p>Parallels Desktop</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Máquina virtual (VM)</strong>: Es un entorno virtual que emula una computadora completa con su propio sistema operativo, aplicaciones y configuraciones. Cada VM se ejecuta de forma aislada y puede ser tratada como una entidad independiente.</p></li>
+<li><p><strong>Host</strong>: Es el sistema físico o servidor que ejecuta el hipervisor y aloja las máquinas virtuales.</p></li>
+<li><p><strong>Guest</strong>: Es la máquina virtual que se ejecuta dentro de un host. Puede ser un sistema operativo completo o una instancia de una aplicación específica.</p></li>
+<li><p><strong>Portabilidad</strong>: Las máquinas virtuales son independientes del hardware subyacente, lo que facilita su migración entre diferentes servidores físicos sin necesidad de modificar el sistema operativo o las aplicaciones.</p></li>
+<li><p><strong>Escalabilidad</strong>: La virtualización permite escalar verticalmente (aumentar los recursos asignados a una VM) o escalar horizontalmente (agregar más VM) según las necesidades de carga de trabajo.</p></li>
+</ul>
+<p>La virtualización se utiliza en diversos entornos, como servidores, redes, almacenamiento y escritorios, proporcionando flexibilidad, eficiencia y mayor aprovechamiento de los recursos informáticos.</p>
+<p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual</p>
+<p>Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..</p>
+<section id="virtualbox">
+<h2>VirtualBox<a class="headerlink" href="#virtualbox" title="Link to this heading">#</a></h2>
+<img alt="../_images/virtualbox.png" src="../_images/virtualbox.png" />
+<p>Resumen:</p>
+<p><strong>OVF/OVA</strong> : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).</p>
+<p><strong>Clonación completa</strong>, una copia exacta (incluyendo todos los archivos de disco duro virtual) de la máquina original serán creados.</p>
+<p><strong>Clonación enlazada</strong>, una nueva máquina será creada, pero los archivos de las unidades de disco duro virtuales serán vinculados a los archivos de disco duro virtual de la máquina original y no podrá mover la nueva máquina virtual a una computadora diferente sin mover los originales también.</p>
+<p><em>Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.</em></p>
+<p><strong>VirtualBox Guest Additions</strong> es un conjunto de controladores y aplicaciones del sistema que mejoran el rendimiento y la funcionalidad de un sistema operativo invitado que se ejecuta dentro de una máquina virtual de VirtualBox. Cuando instalas las Guest Additions en el sistema operativo invitado, se habilitan funciones como carpetas compartidas, integración de ratón sin problemas, mejor soporte de video y mejor rendimiento.</p>
+<p>El paquete de Guest Additions proporciona controladores adicionales para el hardware de tu máquina virtual, incluyendo gráficos, redes y dispositivos de entrada. También incluye utilidades que te permiten redimensionar la ventana de la máquina virtual dinámicamente, compartir carpetas entre el sistema anfitrión y el invitado, y habilitar el intercambio de portapapeles.</p>
+<p><strong>Las instantáneas (snapshots)</strong> en VirtualBox son una característica que te permite guardar el estado actual de una máquina virtual en un punto específico del tiempo. Con las instantáneas, puedes capturar una imagen completa de la máquina virtual, incluyendo su configuración, discos virtuales y memoria, y luego restaurarla posteriormente si es necesario.</p>
+<p>Al crear una instantánea, VirtualBox guarda una copia del estado actual de la máquina virtual, incluyendo los registros de la CPU, la memoria y el estado de los discos virtuales. Esto te permite revertir fácilmente a ese punto en el tiempo en caso de que realices cambios o configuraciones que desees deshacer más adelante.</p>
+<p><strong>Las tecnologías VT-x</strong> (Intel Virtualization Technology) y <strong>AMD-V</strong> (AMD Virtualization) son extensiones de hardware que proporcionan soporte para la virtualización en procesadores Intel y AMD, respectivamente. Estas tecnologías permiten que los hipervisores, como VirtualBox, ejecuten máquinas virtuales de manera más eficiente y segura. Si habilitamos esa opción, entonces también podremos habilitar «Habilitar <strong>paginación anidada</strong>» que mejorará aún más el rendimiento del sistema permitiendo gestionar la memoria por medio del hardware y no del software.</p>
+<p><strong>los discos duros estáticos</strong> tienen un tamaño fijo, ofrecen un rendimiento constante pero pueden ocupar más espacio en el almacenamiento del host. <strong>Los discos duros dinámicos</strong> crecen según sea necesario, permiten un uso eficiente del almacenamiento y son más fáciles de migrar y copiar, pero pueden experimentar fragmentación y pueden tener un rendimiento ligeramente inferior en comparación con los discos estáticos</p>
+<p><strong>La opción PAE/NX</strong> permite habilitar el acceso a más de 4 GB de memoria RAM en sistemas de 32 bits y se habilita la protección NX para mejorar la seguridad del sistema. Si se deshabilita, el sistema operativo y las aplicaciones estarán limitados a utilizar solo 4 GB de memoria y no se aprovechará la protección NX.</p>
+<p>En “<strong>Carpetas Compartidas</strong>”, podemos crear una carpeta compartida entre la máquina anfitrión y la invitada. Para ello, hacemos clic en “Agregar Carpeta compartida”…</p>
+<p>En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambos sistemas, el invitado y el anfitrión, puedan <strong>compartir el portapapeles</strong>, lo que permitirá copiar y pegar de uno a otro.</p>
+<ul class="simple">
+<li><p><strong>RED</strong></p>
+<ul>
+<li><p><strong>Cable conectado</strong> que se encuentra en la parte de opciones avanzadas en la sección de red de la MV (también en el menú contextual del icono de red que se encuentra en la parte inferior derecha de la ventana de la MV, eligiendo Connect Network Adapter, o a través del menú de la MV Dispositivos -&gt; Red).</p></li>
+<li><p><strong>Modo NAT</strong> es la forma más sencilla que tiene una MV para acceder a una red externa. Por lo general, no se requiere ninguna configuración en la red, ni en el anfitrión ni en el invitado. Por esta razón, es el modo de red por defecto en VB. En modo NAT, VB coloca un router entre el exterior (hacia donde hace NAT) y el invitado. Dicho router posee un servidor DHCP que sirve hacia el interior. Este router mapea el tráfico desde y hacia la MV de forma transparente. Cada MV en modo NAT tendrá su propio router, por lo que estarán en redes aisladas, lo que implica, que por defecto, las MMVV que tienen su tarjeta de red en modo NAT no pueden verse entre sí.</p></li>
+<li><p><strong>Modo Red NAT</strong>, el cual funciona como el router de nuestra casa, es decir, los equipos que estén dentro de la misma red NAT podrán comunicarse entre sí, y es aquí donde radica la diferencia con el modo NAT el cual siempre constituye una red con un único equipo y no de varios como ahora es el caso.
+Para utilizarlo tenemos que crear la red NAT : Desde el menú Archivo -&gt; Preferencias -&gt; Red -&gt; Redes NAT.</p></li>
+<li><p><strong>Modo Adaptador puente</strong> simula que la tarjeta virtual está conectada al mismo switch que la tarjeta física del anfitrión, por lo tanto, la MV se va a comportar como si fuese un equipo más dentro de la misma red física en la que está el equipo anfitrión.</p></li>
+<li><p><strong>Modo Red interna</strong>, podemos construir redes aisladas, en las cuales solo habrá comunicación entre las MsVs que pertenezcan a la misma red interna.</p></li>
+<li><p><strong>Modo Solo-anfitrión</strong> se utiliza para crear una red interna a la que pertenecerá también el equipo anfitrión, algo que no sucede en el modo Red interna.</p></li>
+</ul>
+</li>
+</ul>
+<section id="comandos-utiles-virtualbox">
+<h3>Comandos útiles virtualBox:<a class="headerlink" href="#comandos-utiles-virtualbox" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">list</span> <span class="pre">vms</span></code>: Listar maquinas virtuales</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">list</span> <span class="pre">vms</span> <span class="pre">runningvms</span></code>: Listar maquinas virtuales que estan ejecutasdose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">startvm</span> <span class="pre">'Ubuntu</span> <span class="pre">Server</span> <span class="pre">24.04'</span> <span class="pre">--type</span> <span class="pre">headless</span></code>: Ejecutarla sin entorno gráfico</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">controlvm</span> <span class="pre">'Ubuntu</span> <span class="pre">Server</span> <span class="pre">16.04'</span> <span class="pre">savestate</span></code>: Guardar el estado</p></li>
+</ul>
+<p>En modo gráfico:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">Supr</span></code> : Ctrl + Atl + Supr</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span></code> : Salir de pantalla</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">f</span></code> : pasar/volver de pantalla completa</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">c</span></code>: pasar/volver modo escalado</p></li>
+</ul>
+</section>
+<section id="caso-practico-mv-ubuntu-server-24-04">
+<h3>Caso práctico: MV Ubuntu Server 24.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-24-04" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Descárgate el sistema operativo Ubuntu Server 24.04 en formato (ISO) de su página oficial</p></li>
+<li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
+<li><p>Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual <strong>MV Ubuntu Server 24.04</strong></p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde <strong>X.Y</strong> son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.</p></li>
+<li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8,</p></li>
+<li><p>Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout</p>
+<img alt="../_images/MV_Ubuntu_Server_22.04.jpg" src="../_images/MV_Ubuntu_Server_22.04.jpg" />
+</li>
+<li><p>Usuario: <strong>tunombre</strong> y utiliza de contraseña: <strong>alumno</strong>
+Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo <strong>/etc/hostname</strong></p></li>
+</ul>
+</section>
+<section id="caso-practico-windows-11">
+<h3>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Descarte la ISO de Windwos 11 de la página de <a class="reference external" href="https://www.microsoft.com/es-es/software-download/windows11">Microsoft</a></p></li>
+<li><p>Creamos una nueva maquina virtual llamada <strong>Windows11</strong></p></li>
+<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y deshabilita EFI</p></li>
+<li><p>Para la instalación desconecta el cable de red virtual:</p>
+<p>Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado</p>
+</li>
+<li><p>En el caso de que aparezca el aviso de <strong>«startup.nsh»</strong> en Virtualbox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menu de instalación.</p></li>
+<li><p>Selecciona «No tengo clave de producto» y selecciona Windows 11 Education</p></li>
+<li><p>Selecciona la instalación personalizada : instalar solo Windows (avanzado)</p></li>
+<li><p>Configuramos Windows con una cuenta local <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, para ello :</p>
+<ul class="simple">
+<li><p>Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos «No tengo internet»,</p></li>
+<li><p>Seguimos con <strong>Continuar con la configuración limitada</strong></p></li>
+<li><p>Configuramos Windows con una cuenta local</p>
+<ul>
+<li><p>usuario : <strong>tunombre</strong></p></li>
+<li><p>contraseña : <strong>&#64;lumn0</strong></p></li>
+</ul>
+</li>
+<li><p>Preguntas de seguridad para esta cuenta:</p>
+<ul>
+<li><p>¿Cuál era el nombre de tu primera mascota? <strong>&#64;lumn0</strong></p></li>
+<li><p>¿Cuál es el nombre de la ciudad en la que naciste? <strong>&#64;lumn0</strong></p></li>
+<li><p>¿Cuál era tu apodo de infancia? <strong>&#64;lumn0</strong></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>No</strong> permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que «<strong>No</strong>» o «<strong>Solo los obligatorios</strong>»,  le daremos los mínimos permisos a Microsoft sobre nuestros datos y maquinas.</p></li>
+<li><p>De igual manera rechazamos la ayuda del asistente digital, ni usamos el reconocimiento de voz en línea</p></li>
+</ul>
+<p class="rubric">Notas</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>En el caso de que no aparezca haz la instalación como si fuera a ser parte de un Dominio</p>
+</aside>
+</aside>
+</section>
+<section id="caso-practico-windows-server-2022">
+<h3>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Link to this heading">#</a></h3>
+<p>Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.</p>
+<ul class="simple">
+<li><p><strong>Windows Server Standard:</strong> permite ejecutar como máximo dos VMs en hasta dos procesadores y 64GB RAM. Es ideal para un entorno no virtualizado o poco virtualizado en el que se desee incluir características de alta disponibilidad.</p></li>
+<li><p><strong>Windows Server  Datacenter:</strong> permite ejecutar un número ilimitado de VMs en hasta dos procesadores. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.</p></li>
+<li><p>Respecto a la interfaz de usuario, se ofrecen dos posibilidades pero siempre se podrá pasar de una opción a la otra libremente en cualquier momento.</p>
+<ul>
+<li><p><strong>Server Core:</strong> reduce el espacio requerido en el disco, la posible superficie expuesta a ataques y especialmente los requisitos de servicio y reinicio del servidor.</p></li>
+<li><p><strong>Servidor con una GUI:</strong> ofrece los elementos de la interfaz de usuario y las herramientas de administración de gráficos.</p></li>
+</ul>
+</li>
+</ul>
+<p>Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
+<ul class="simple">
+<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)</p></li>
+<li><p>Contraseña del Administrador: &#64;lumn0</p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
+<li><p>Configurar nombre: Panel / Servidor local : Cambiamos nombre equipo, le llamamos SRV-tunombre</p></li>
+<li><p>Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria</p></li>
+<li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar</p></li>
+</ul>
+</section>
+<section id="caso-practico-windows-server-2022-sin-gui">
+<h3>Caso práctico: Windows Server 2022 sin GUI<a class="headerlink" href="#caso-practico-windows-server-2022-sin-gui" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Creamos una maquina virtual llamada <strong>WS22tunombre</strong>, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)</p></li>
+<li><p>Instalación nueva : Personalizada, instalar solo Windows (avanzado) y usamos todo el disco.</p></li>
+<li><p>Contraseña del Administrador: &#64;lumn0</p></li>
+<li><p>Instala el servidor ssh</p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
+<li><p>Cambia el nombre por WS22tunombre</p></li>
+<li><p>Habilita el ping</p></li>
+<li><p>Instala el editor vi</p></li>
+</ul>
+<p>ayuda: <a class="reference internal" href="windows/06_powershell.html#configuracion-de-windows-powershell"><span class="std std-ref">Configuración de Windows (PowerShell)</span></a></p>
+</section>
+</section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading">#</a></h2>
+<p>Docker es una plataforma de código abierto en la que se usan contenedores que permite empaquetar, distribuir y ejecutar aplicaciones en entornos aislados</p>
+<p>A diferencia de las máquinas virtuales, los contenedores comparten el kernel del sistema operativo subyacente y solo virtualizan los recursos a nivel de aplicación, lo que los hace más ligeros y rápidos.</p>
+<p><strong>Componentes principales</strong></p>
+<ul class="simple">
+<li><p><strong>Imagen</strong>: Plantilla de solo lectura que contiene el sistema operativo, el entorno de ejecución y la aplicación.</p></li>
+<li><p><strong>Contenedor</strong>: Instancia en ejecución de una imagen.</p></li>
+<li><p><strong>Docker Engine</strong>: Motor que gestiona los contenedores, incluida la creación, ejecución y eliminación.</p></li>
+<li><p><strong>Dockerfile</strong>: Archivo de texto que contiene las instrucciones para construir una imagen.</p></li>
+</ul>
+<p><strong>Dockerfile y construcción de imágenes</strong></p>
+<ul class="simple">
+<li><p>Un Dockerfile especifica cómo se debe ensamblar una imagen.</p></li>
+<li><p>Se utiliza el comando <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> para construir una imagen a partir de un Dockerfile.</p></li>
+</ul>
+<p><strong>Docker Hub</strong></p>
+<p>Registro público de imágenes Docker donde puedes encontrar imágenes preconstruidas para muchas aplicaciones y sistemas operativos.</p>
+<p><strong>Redes y volúmenes</strong></p>
+<ul class="simple">
+<li><p>Docker permite la creación de redes virtuales para conectar contenedores entre sí.</p></li>
+<li><p>Los volúmenes permiten persistir datos más allá del ciclo de vida de un contenedor.</p></li>
+</ul>
+<p><strong>Orquestación de contenedores</strong></p>
+<p>Herramientas como Docker Swarm y Kubernetes permiten gestionar y escalar grandes clústeres de contenedores.</p>
+<p><strong>Tipos de redes</strong></p>
+<ul class="simple">
+<li><p><strong>Bridge (puente)</strong></p>
+<ul>
+<li><p>Es la red predeterminada en Docker.</p></li>
+<li><p>Permite la comunicación entre los contenedores en el mismo host.</p></li>
+<li><p>Cada contenedor tiene su propia dirección IP en la subred de la red puente.</p></li>
+<li><p>Útil para aplicaciones que se ejecutan en un solo host y necesitan comunicarse entre sí.</p></li>
+</ul>
+</li>
+<li><p><strong>Host (anfitrión)</strong></p>
+<ul>
+<li><p>Los contenedores comparten el espacio de red con el host.</p></li>
+<li><p>No hay aislamiento de red entre los contenedores y el host.</p></li>
+<li><p>Los contenedores pueden acceder a los mismos puertos que el host.</p></li>
+<li><p>Proporciona un mejor rendimiento en comparación con las redes puente para aplicaciones que necesitan acceder a recursos del host.</p></li>
+</ul>
+</li>
+<li><p><strong>Overlay (superposición)</strong></p>
+<ul>
+<li><p>Permite la comunicación entre contenedores en hosts diferentes en un clúster de Docker Swarm.</p></li>
+<li><p>Utiliza la tecnología de redes de superposición para conectar contenedores en diferentes hosts.</p></li>
+<li><p>Proporciona una red virtualizada única para el clúster, independiente de la infraestructura subyacente.</p></li>
+</ul>
+</li>
+<li><p><strong>Macvlan</strong></p>
+<ul>
+<li><p>Asigna una dirección MAC única a cada contenedor, esto hace aparecer como dispositivos físicos en la red.</p></li>
+<li><p>Los contenedores tienen su propia dirección IP en la red física.</p></li>
+<li><p>Útil para integrar contenedores en redes existentes que dependen de la comunicación a nivel de capa 2.</p></li>
+</ul>
+</li>
+<li><p><strong>None (ninguna)</strong></p>
+<ul>
+<li><p>No se asigna ninguna red al contenedor.</p></li>
+<li><p>Útil para contenedores que no necesitan acceso de red en absoluto.</p></li>
+</ul>
+</li>
+</ul>
+<section id="gestion-de-imagenes-y-contenedores">
+<h3>Gestión de imágenes y contenedores<a class="headerlink" href="#gestion-de-imagenes-y-contenedores" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code>: construir una imagen a partir de un Dockerfile.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span></code>: Etiquetamos la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">push</span></code>: Subimos la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code>: Descarga una imagen de Docker Hub u otro repositorio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>: lista las imagenes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span></code>: Elimina una imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>: Crea y ejecuta un contenedor a partir de una imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code>: Muestra los contenedores en ejecución.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code>: Muestra todos los contenedores.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">compute-0-0</span> <span class="pre">/bin/bash</span></code> : Acceder a una shell Bash dentro de un contenedor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stop</span></code> / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span></code>: Detiene o inicia un contenedor.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Mandamos los cambios a la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>: Elimina un contenedor.</p></li>
+</ul>
+</section>
+<section id="caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">
+<h3>Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS<a class="headerlink" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Desinstalación de versiones antiguas</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker.io
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-doc
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-compose
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>docker-compose-v2
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>podman-docker
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>containerd
+sudo<span class="w"> </span>apt-get<span class="w"> </span>remove<span class="w"> </span>runc
+
+<span class="c1"># Añade la clave GPG oficial de Docker:</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>curl
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-d<span class="w"> </span>/etc/apt/keyrings
+sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.asc
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.asc
+
+<span class="c1"># Añadir el repositorio a las fuentes de APT:</span>
+<span class="nb">echo</span><span class="w"> </span><span class="se">\</span>
+<span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \</span>
+<span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION_CODENAME</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2"> stable&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+
+<span class="c1">#Instalar los paquetes de Docker Engine</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span><span class="se">\</span>
+docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
+
+<span class="c1">#Asignación de permisos al usuario para ejecutar docker cli</span>
+sudo<span class="w"> </span>groupadd<span class="w"> </span>docker
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+newgrp<span class="w"> </span>docker
+
+<span class="c1">#Configuración del arranque automático de los servicios</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>containerd.service
+
+<span class="c1">#Comprobaciones</span>
+docker<span class="w"> </span>ps
+</pre></div>
+</div>
+</section>
+<section id="caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">
+<h3>Caso práctico: construir una imagen de docker y subirla al repositorio<a class="headerlink" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio" title="Link to this heading">#</a></h3>
+<p>Lo primero que haremos es darnos de alta en <a class="reference external" href="https://hub.docker.com/">Docker Hub</a> es un repositorio de imágenes de contenedores público y centralizado, donde los usuarios pueden:</p>
+<ul class="simple">
+<li><p>Almacenar y compartir imágenes de contenedores</p></li>
+<li><p>Descubrir imágenes de contenedores</p></li>
+<li><p>Colaborar en proyectos</p></li>
+<li><p>Automatizar flujos de trabajo</p></li>
+</ul>
+<p>Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
+FROM<span class="w"> </span>ubuntu:24.04
+
+<span class="c1"># Actualizar los repositorios y paquetes</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+</pre></div>
+</div>
+<p>Las instrucciones más comunes en un Dockerfile:</p>
+<ol class="arabic simple">
+<li><p><strong>FROM</strong>: Define la imagen base desde la cual se construirá la nueva imagen.</p></li>
+<li><p><strong>COPY</strong> o <strong>ADD</strong>: Copian archivos o directorios desde el sistema de archivos del host al sistema de archivos del contenedor.</p></li>
+<li><p><strong>RUN</strong>: Ejecuta comandos en el contenedor durante la fase de construcción.</p></li>
+<li><p><strong>WORKDIR</strong>: Establece el directorio de trabajo para las instrucciones <cite>RUN</cite>, <cite>CMD</cite>, <cite>ENTRYPOINT</cite>, <cite>COPY</cite> y <cite>ADD</cite>.</p></li>
+<li><p><strong>CMD</strong>: Especifica un comando que se ejecuta cuando se inicia un contenedor.</p></li>
+<li><p><strong>ENTRYPOINT</strong>: Configura un contenedor para que se ejecute como un ejecutable.</p></li>
+<li><p><strong>EXPOSE</strong>: Indica que el contenedor escucha en puertos específicos en tiempo de ejecución.</p></li>
+<li><p><strong>ENV</strong>: Establece variables de entorno.</p></li>
+</ol>
+<p>Construimos la imágen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>ubuntu:24.04<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Etiquetamos la imagen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>tag<span class="w"> </span>ubuntu:24.04<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<p>Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos <code class="docutils literal notranslate"><span class="pre">push</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>login
+
+docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<img alt="../_images/docker_pull.png" src="../_images/docker_pull.png" />
+<p>Vamos a instalar el editor vim y la actualizamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Listar imagenes:</span>
+$<span class="w"> </span>docker<span class="w"> </span>images
+
+REPOSITORY<span class="w">         </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">          </span>SIZE
+dgtrabada/ubuntu<span class="w">   </span><span class="m">24</span>.04<span class="w">     </span>e9b7aed9fff2<span class="w">   </span><span class="m">10</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>267MB
+
+<span class="c1">#Creamos un nuevo contendor</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+
+<span class="c1">#instalamos el editor vim (apt-get install vim)</span>
+root@e9b7aed9fff2:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim
+
+<span class="c1">#nos salidmos del contenedor (Ctrl+d)</span>
+<span class="c1">#listamos los contendores:</span>
+$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
+CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                    </span>COMMAND<span class="w">         </span>CREATED<span class="w">         </span>STATUS<span class="w">         </span>PORTS<span class="w">     </span>NAMES
+406694d11d68<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes
+
+<span class="c1">#mandamos los cambios a la imagen</span>
+$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>406694d11d68<span class="w"> </span>dgtrabada/ubuntu:24.04
+sha256:bffbb89703458ec685907be409c758e07207a3420d513780b247aa9d4ebe1d2a
+
+<span class="c1">#subimos la imagen a Docker Hub</span>
+$<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+</pre></div>
+</div>
+<p>Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico que tenemos que hacer es:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Se bajará la imagen</span>
+$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>dgtrabada/ubuntu:24.04
+
+<span class="c1">#Crear un nuevo contendor</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/docker.png"><img alt="../_images/docker.png" src="../_images/docker.png" style="width: 400px;" />
+</a>
+</section>
+<section id="caso-practico-instalar-servidor-de-ssh-ip-y-ping">
+<h3>Caso práctico: Instalar servidor de ssh, ip y ping<a class="headerlink" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping" title="Link to this heading">#</a></h3>
+<p>Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@4e7e1f17f985:/#<span class="w"> </span>apt<span class="w"> </span>update
+root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping
+root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssh-server
+</pre></div>
+</div>
+<p>Configuramos ssh para poder logearnos como root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@4e7e1f17f985:/#<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+root@4e7e1f17f985:/#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+root@4e7e1f17f985:/#<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+
+<span class="c1">#Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh</span>
+root@4e7e1f17f985:/#<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<img alt="../_images/docker_ssh.png" src="../_images/docker_ssh.png" />
+<p>Salimos del contendor y mandamos los cambios a la imagen</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>commit<span class="w"> </span>4e7e1f17f985<span class="w"> </span>dgtrabada/ubuntu:24.04
+sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
+
+<span class="c1">#subimos la imagen a Docker Hub</span>
+$<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
+
+<span class="c1">#podemos lanzar el contedor con ssh:</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>4e7e1f17f985<span class="w"> </span>/usr/sbin/sshd
+</pre></div>
+</div>
+<p>Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
+FROM<span class="w"> </span>ubuntu:24.04
+
+<span class="c1"># Actualizar los repositorios y paquetes</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+
+<span class="c1"># Instalamos</span>
+RUN<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping<span class="w"> </span>openssh-server
+
+RUN<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+
+<span class="c1"># Cambiar la contraseña del usuario root</span>
+RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+
+<span class="c1"># Permitir el acceso por SSH al root</span>
+RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+</pre></div>
+</div>
+</section>
+<section id="caso-practico-contenedores-en-una-misma-subred">
+<h3>Caso práctico: Contenedores en una misma subred<a class="headerlink" href="#caso-practico-contenedores-en-una-misma-subred" title="Link to this heading">#</a></h3>
+<p>docker tiene por defecto 3 redes</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@UStunombre:~#<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>ls
+NETWORK<span class="w"> </span>ID<span class="w">     </span>NAME<span class="w">      </span>DRIVER<span class="w">    </span>SCOPE
+e6ab6d5cdeea<span class="w">   </span>bridge<span class="w">    </span>bridge<span class="w">    </span><span class="nb">local</span>
+a39dbd6d158e<span class="w">   </span>host<span class="w">      </span>host<span class="w">      </span><span class="nb">local</span>
+1092da8fd7e1<span class="w">   </span>none<span class="w">      </span>null<span class="w">      </span><span class="nb">local</span>
+</pre></div>
+</div>
+<p>Vamos a crear una nueva subnet llamada red16, que por defecto se creara en modo bridge:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--subnet<span class="o">=</span><span class="m">172</span>.16.0.0/16<span class="w"> </span>red16
+</pre></div>
+</div>
+<p>Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#primero lo creamos</span>
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>red16<span class="w"> </span>--ip<span class="w"> </span><span class="m">172</span>.16.0.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
+
+<span class="c1">#Para lanzamos el contenedor:</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
+
+<span class="c1">#levantamos el servidor ssh</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.102, lanza los tres contenedores <a class="footnote-reference brackets" href="#c3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> y haz que se pueda acceder por ssh sin contraseña desde compute-0-0 a compute-0-1 y compute-0-2</p>
+<img alt="../_images/docker_sshkeygen.png" src="../_images/docker_sshkeygen.png" />
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="c3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Levantar los tres contenedores</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-0<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-1
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-1<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+docker<span class="w"> </span>start<span class="w">  </span>compute-0-2
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-2<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Apagar las maquinas:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stop<span class="w">  </span>compute-0-0
+docker<span class="w"> </span>stop<span class="w">  </span>compute-0-1
+docker<span class="w"> </span>stop<span class="w">  </span>compute-0-2
+</pre></div>
+</div>
+</aside>
+</aside>
+</section>
+<section id="docker-compose-yml">
+<h3>docker-compose.yml<a class="headerlink" href="#docker-compose-yml" title="Link to this heading">#</a></h3>
+<p>Docker Compose es una herramienta que permite definir y gestionar aplicaciones de múltiples contenedores de Docker, usa un archivo YAML para definir los servicios, redes y volúmenes que necesita tu aplicación, y luego usar un solo comando para crear e iniciar todos estos servicios.</p>
+<p>Típicamente contiene varias secciones importantes:</p>
+<ul class="simple">
+<li><p><strong>Version</strong>: Define la versión del formato de archivo de Docker Compose.</p></li>
+<li><p><strong>Services</strong>: Define los servicios (contenedores) que forman parte de tu aplicación.</p></li>
+<li><p><strong>Networks</strong> (opcional): Define las redes personalizadas que se utilizarán.</p></li>
+<li><p><strong>Volumes</strong> (opcional): Define los volúmenes personalizados que se utilizarán para almacenar datos.</p></li>
+</ul>
+<p>En los ejemploas anteriores podríamos levantar las tres maquinas con el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> ejecutando <strong>docker-compose up -d</strong>, para este ejemplo tienes que tener red16 ya creada</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>version:<span class="w"> </span><span class="s1">&#39;3.8&#39;</span>
+services:
+
+<span class="w">  </span>compute-0-0:
+<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-0
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-0
+<span class="w">    </span>networks:
+<span class="w">      </span>red16:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.100
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+
+<span class="w">  </span>compute-0-1:
+<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-1
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-1
+<span class="w">    </span>networks:
+<span class="w">      </span>red16:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.101
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+
+<span class="w">  </span>compute-0-2:
+<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-2
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-2
+<span class="w">    </span>networks:
+<span class="w">      </span>red16:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.102
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+
+networks:
+<span class="w">  </span>red16:
+<span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="kubernetes">
+<h3>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading">#</a></h3>
+<p>También conocido como <strong>K8s</strong> es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones contenorizadas.</p>
+<p>Fue desarrollado originalmente por Google y ahora es mantenido por la Cloud Native Computing Foundation (CNCF).</p>
+<section id="partes-principales">
+<h4>Partes Principales<a class="headerlink" href="#partes-principales" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Nodo (Node)</strong>:</p>
+<ul>
+<li><p><strong>Nodos Maestro (Master Nodes)</strong>: Administran el clúster y toman decisiones sobre la gestión del clúster.</p></li>
+<li><p><strong>Nodos de Trabajo (Worker Nodes)</strong>: Ejecutan las aplicaciones en contenedores.</p></li>
+</ul>
+</li>
+<li><p><strong>Pod</strong>:
+- La unidad de despliegue más pequeña en Kubernetes, que puede contener uno o varios contenedores.</p></li>
+<li><p><strong>Controlador (Controller)</strong>: Mantienen el estado deseado del clúster. Tipos de controladores incluyen:</p>
+<ul>
+<li><p><strong>Deployment</strong>: Administra la creación y escalado de un conjunto de pods.</p></li>
+<li><p><strong>ReplicaSet</strong>: Asegura que un número específico de pods estén corriendo.</p></li>
+<li><p><strong>StatefulSet</strong>: Administra la persistencia y el orden de los pods.</p></li>
+<li><p><strong>DaemonSet</strong>: Asegura que todos (o algunos) nodos ejecuten una copia de un pod.</p></li>
+</ul>
+</li>
+<li><p><strong>Servicio (Service)</strong>: Define un conjunto lógico de pods y una política para acceder a ellos. Tipos de servicios incluyen:</p>
+<ul>
+<li><p><strong>ClusterIP</strong>: Expone el servicio en una IP interna del clúster.</p></li>
+<li><p><strong>NodePort</strong>: Expone el servicio en el mismo puerto en cada nodo del clúster.</p></li>
+<li><p><strong>LoadBalancer</strong>: Utiliza un balanceador de carga externo.</p></li>
+</ul>
+</li>
+<li><p><strong>ConfigMap y Secret</strong>:</p>
+<ul>
+<li><p><strong>ConfigMap</strong>: Separa la configuración estática del código de la aplicación.</p></li>
+<li><p><strong>Secret</strong>: Almacena y gestiona información sensible.</p></li>
+</ul>
+</li>
+<li><p><strong>Volumen (Volume)</strong>: Permiten el almacenamiento persistente de datos en los contenedores.</p></li>
+<li><p><strong>Ingress</strong>: Gestiona el acceso externo a los servicios en un clúster, típicamente mediante HTTP.</p></li>
+<li><p><strong>Namespace</strong>: Divide un clúster de Kubernetes en secciones virtuales para separar ambientes como desarrollo, testing y producción.</p></li>
+</ul>
+</section>
+<section id="funcionamiento-basico">
+<h4>Funcionamiento Básico<a class="headerlink" href="#funcionamiento-basico" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Planificación</strong>: El planificador asigna pods a los nodos de trabajo basándose en la disponibilidad de recursos.</p></li>
+<li><p><strong>Orquestación y Gestión</strong>: Kubernetes garantiza que la aplicación esté en el estado deseado y reprograma pods en caso de fallos.</p></li>
+<li><p><strong>Escalado</strong>: Kubernetes puede escalar automáticamente la cantidad de instancias de una aplicación.</p></li>
+<li><p><strong>Mantenimiento y Actualización</strong>: Kubernetes permite actualizaciones sin tiempo de inactividad mediante controladores como Deployment que gestionan actualizaciones de manera gradual.</p></li>
+</ol>
+</section>
+</section>
+<section id="caso-practico-instalar-kubernetes-en-ubuntu-24-04">
+<h3>Caso práctico: Instalar kubernetes en Ubuntu 24.04<a class="headerlink" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p>#actualizamos
+sudo apt-get update
+sudo apt-get upgrade -y</p>
+<p>#Desactivamos la swap
+sudo swapoff -a</p>
+<p>#Para que no se active cuandose reinicie el sistema comenta la linea en el /etc/fstab, El kubelet, que es el agente principal de Kubernetes que corre en cada nodo del clúster, requiere que el swap esté desactivado. Kubernetes asume que el swap está desactivado para garantizar un rendimiento consistente y predecible de las aplicaciones. Si el swap está habilitado, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, lo que puede causar una degradación significativa del rendimiento y afectar la estabilidad de las aplicaciones.</p>
+<p>#Configurar el enrutamiento IP
+sudo modprobe br_netfilter</p>
+</div></blockquote>
+<p>echo “1” | sudo tee /proc/sys/net/ipv4/ip_forward</p>
+<blockquote>
+<div><p>#Instalar dependencias necesarias
+sudo apt-get install -y apt-transport-https ca-certificates curl</p>
+<p>#Instalar docker
+sudo apt-get install -y docker.io
+sudo systemctl enable docker #habilitamos
+sudo systemctl start docker #iniciamos</p>
+<p>#Añadir la clave GPG de Kubernetes
+curl -s <a class="reference external" href="https://packages.cloud.google.com/apt/doc/apt-key.gpg">https://packages.cloud.google.com/apt/doc/apt-key.gpg</a> | sudo apt-key add -
+#Añadir el repositorio de Kubernetes
+sudo bash -c “cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list</p>
+</div></blockquote>
+<p>deb <a class="reference external" href="http://apt.kubernetes.io/">http://apt.kubernetes.io/</a> kubernetes-xenial main
+EOF”</p>
+<blockquote>
+<div><p>#Actualizar el repositorio e instalar kubeadm, kubelet y kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+#si da problemas intenta:
+#snap install kubeadm –classic
+#snap install kubectl –classic
+#snap install kubelet –classic</p>
+<p>sudo apt-mark hold kubelet kubeadm kubectl</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="fundamentos/gestion_arranque.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Gestión arranque</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="particiones.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Particiones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-24-04">Caso práctico: MV Ubuntu Server 24.04</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-imagenes-y-contenedores">Gestión de imágenes y contenedores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-docker-en-ubuntu-24-04-lts">Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-construir-una-imagen-de-docker-y-subirla-al-repositorio">Caso práctico: construir una imagen de docker y subirla al repositorio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml">docker-compose.yml</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">Kubernetes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partes-principales">Partes Principales</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento-basico">Funcionamiento Básico</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04">Caso práctico: Instalar kubernetes en Ubuntu 24.04</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
