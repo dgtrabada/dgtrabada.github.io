@@ -18,7 +18,7 @@ Para poder loguearse por ssh con el usuario root, primero tendremos que asignarl
   [user1@server ~]$ sudo su
   [root@server ~]$  passwd
 
-En el archivo ``/etc/ssh/ssh_config`` del **servidor** descomentar o incluir la linea : ``PermitRootLogin yes``, y por ultimo reinicia el servicio sshd
+En el archivo ``/etc/ssh/sshd_config`` del **servidor** descomentar o incluir la linea : ``PermitRootLogin yes``, y por ultimo reinicia el servicio sshd
 
 .. code-block:: bash
 

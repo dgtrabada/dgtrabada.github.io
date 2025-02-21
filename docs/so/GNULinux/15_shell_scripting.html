@@ -982,6 +982,16 @@ pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </s
 carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
 elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
 
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2 &gt; 10 &amp;&amp; $3 &gt; 10 { print }&#39;</span><span class="w"> </span>datos.dat
+pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+
+$<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$2 &gt; 10 || $3 &gt; 10 { print }&#39;</span><span class="w"> </span>datos.dat
+maria<span class="w">    </span><span class="m">8</span>.9<span class="w">   </span><span class="m">54</span>.2
+pedro<span class="w">    </span><span class="m">15</span>.2<span class="w">  </span><span class="m">20</span>.2
+carlos<span class="w">   </span><span class="m">20</span>.3<span class="w">  </span><span class="m">8</span>.9
+elena<span class="w">    </span><span class="m">10</span>.8<span class="w">  </span><span class="m">43</span>.2
+
 <span class="c1">#sumar columnas</span>
 $<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print $2 + $3 }&#39;</span><span class="w"> </span>datos.dat
 <span class="m">63</span>.1
@@ -1006,6 +1016,9 @@ david<span class="w"> </span><span class="m">9</span>.2<span class="w"> </span><
 <span class="c1">#sumar la filas y mostrar solo al final el total</span>
 $<span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{suma +=$2+$3} END {print &quot;Total:&quot;,suma }&#39;</span><span class="w"> </span>datos.dat
 Total:<span class="w"> </span><span class="m">230</span>.7
+
+<span class="c1">#mostrar las columnas 1, 3 y 4 de /etc/passwd separadas por -</span>
+$<span class="w"> </span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;BEGIN{FS=&quot;:&quot;;OFS=&quot; - &quot;} {print $1,$3,$4}&#39;</span>
 </pre></div>
 </div>
 </section>

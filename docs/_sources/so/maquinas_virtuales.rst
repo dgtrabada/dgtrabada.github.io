@@ -366,7 +366,7 @@ Lo primero que haremos es darnos de alta en `Docker Hub <https://hub.docker.com/
 * Colaborar en proyectos 
 * Automatizar flujos de trabajo
 
-Para construir una imagen de Docker, necesitamos crear el archivo Dockerfile, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:
+Para construir una imagen de Docker, necesitamos crear el archivo ``Dockerfile``, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:
 
 .. code-block:: bash
 

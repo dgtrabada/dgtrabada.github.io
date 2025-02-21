@@ -13,6 +13,8 @@ Crea una encuesta de satisfacción con al menos una pregunta tipo matriz, otra d
 
 Dale a imprimir y sube un pantallazo de la encuesta
 
+.. image:: imagenes/11_encuesta6.png
+
 y sube un pantallazo de cada respuesta
 
 .. image:: imagenes/11_encuesta3.png
@@ -21,4 +23,3 @@ y sube un pantallazo de cada respuesta
 
 .. image:: imagenes/11_encuesta5.png
 
-.. image:: imagenes/11_encuesta6.png

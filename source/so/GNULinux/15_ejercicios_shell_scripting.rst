@@ -160,6 +160,7 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/temperatura.sh
            :language: shell
 
+
 .. tabs::
 
     .. tab:: temperatura.sh
@@ -172,7 +173,12 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/temperatura.sh
            :language: shell
 
-    .. tab:: Solución
+    .. tab:: Solución (awk)
+
+        .. literalinclude:: scripts/temperatura_awk.sh
+           :language: shell
+
+    .. tab:: Solución (array)
 
         .. literalinclude:: scripts/temperatura_array.sh
            :language: shell
@@ -200,7 +206,7 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/rnd.sh
            :language: shell
 
-    .. tab:: Solución
+    .. tab:: Solución (array)
 
         .. literalinclude:: scripts/rnd_array.sh
            :language: shell

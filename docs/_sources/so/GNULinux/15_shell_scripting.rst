@@ -555,6 +555,16 @@ Vemos a continuación ejemplos
  carlos   20.3  8.9
  elena    10.8  43.2
 
+ $ awk '$2 > 10 && $3 > 10 { print }' datos.dat
+ pedro    15.2  20.2 
+ elena    10.8  43.2
+
+ $ awk '$2 > 10 || $3 > 10 { print }' datos.dat 
+ maria    8.9   54.2
+ pedro    15.2  20.2 
+ carlos   20.3  8.9
+ elena    10.8  43.2
+
  #sumar columnas
  $ awk '{ print $2 + $3 }' datos.dat 
  63.1
@@ -579,6 +589,8 @@ Vemos a continuación ejemplos
  #sumar la filas y mostrar solo al final el total
  $ awk '{suma +=$2+$3} END {print "Total:",suma }' datos.dat 
  Total: 230.7
- 
 
+ #mostrar las columnas 1, 3 y 4 de /etc/passwd separadas por - 
+ $ cat /etc/passwd | awk 'BEGIN{FS=":";OFS=" - "} {print $1,$3,$4}'
+ 
 
