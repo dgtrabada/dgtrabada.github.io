@@ -8,8 +8,9 @@ Para añadir tu primer informe en este tablero, ve a cualquier menú, cambia la 
 
 .. image:: imagenes/13_Tableros2.png
 
-Sube al curso un pantallazo con al menos tres vistas agredadas al tablero
-
 .. image:: imagenes/13_Tableros3.png
+
+
+Sube al curso un pantallazo con al menos tres vistas agredadas al tablero
 
 .. image:: imagenes/13_Tableros4.png
