@@ -535,18 +535,19 @@ Gestión de usuarios LDAP
 
 .. tabs::
 
-    .. tab:: crear_usuarios_lista_ldap.sh
+    .. tab:: usuarios_lista_ldap.sh
 
-        Crea un script llamado **crear_usuarios_lista_ldap.sh**, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.
+        Crea un script llamado **usuarios_lista_ldap.sh**, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.
 
-        En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir usuario1@gmail.com creara el usuario usuario1
+        En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir usuario1@gmail.com creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo
 
         .. code-block:: bash
 
-           Uso del script:
-           ./crear_usuarios_lista_ldap.sh grupo.dat
+           ./usuarios_lista_ldap.sh -help
+           ./usuarios_lista_ldap.sh -crear <archivo.dat> 
+           ./usuarios_lista_ldap.sh -borrar <archivo.dat>
 
-           head -2 grupo.dat
+           #head -2 grupo.dat
            usuario1@gmail.com
            usuario2@gmail.com
 
@@ -555,23 +556,6 @@ Gestión de usuarios LDAP
         .. literalinclude:: scripts/a.sh
            :language: shell
 
-.. tabs::
+#listar y borrar los usuarios de un grupo entero
 
-    .. tab:: borrar_usuarios_lista_ldap.sh
 
-        Crea un script llamado **borrar_usuarios_lista_ldap.sh**, cuando termmine de borrar todos los usuarios del archivo grupo.dat comprobará si el grupo no tiene usuarios, en ese caso lo borrará también.
-
-        .. code-block:: bash
-
-           Uso del script:
-           ./crear_usuarios_lista_ldap.sh grupo.dat
-
-           head -2 grupo.dat
-           usuario1@gmail.com
-           usuario2@gmail.com           
-           
-
-    .. tab:: Solución
-
-        .. literalinclude:: scripts/a.sh
-           :language: shell

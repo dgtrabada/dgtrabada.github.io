@@ -225,6 +225,16 @@ Bucles y condicionales
    -n Str1      # Returns true if the string is not null
    -z Str1      # Returns true if the string is null
 
+   #Ejemplo:
+   cadena="Hola"
+   if [ -n "$cadena" ]     #no olvidar ""
+   then  
+     echo "La cadena no está vacía"
+   else
+     echo "La cadena está vacía"
+   fi
+   La cadena no está vacía
+
 
 * Otras forma de hacer bucles
 

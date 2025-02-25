@@ -1572,12 +1572,13 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">crear_usuarios_lista_ldap.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
-<p>En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
-./crear_usuarios_lista_ldap.sh<span class="w"> </span>grupo.dat
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
+<p>En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_lista_ldap.sh<span class="w"> </span>-help
+./usuarios_lista_ldap.sh<span class="w"> </span>-crear<span class="w"> </span>&lt;archivo.dat&gt;
+./usuarios_lista_ldap.sh<span class="w"> </span>-borrar<span class="w"> </span>&lt;archivo.dat&gt;
 
-head<span class="w"> </span>-2<span class="w"> </span>grupo.dat
+<span class="c1">#head -2 grupo.dat</span>
 usuario1@gmail.com
 usuario2@gmail.com
 </pre></div>
@@ -1586,20 +1587,7 @@ usuario2@gmail.com
 </pre></div>
 </div>
 </div></div>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">borrar_usuarios_lista_ldap.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>borrar_usuarios_lista_ldap.sh</strong>, cuando termmine de borrar todos los usuarios del archivo grupo.dat comprobará si el grupo no tiene usuarios, en ese caso lo borrará también.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
-./crear_usuarios_lista_ldap.sh<span class="w"> </span>grupo.dat
-
-head<span class="w"> </span>-2<span class="w"> </span>grupo.dat
-usuario1@gmail.com
-usuario2@gmail.com
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-</pre></div>
-</div>
-</div></div>
+<p>#listar y borrar los usuarios de un grupo entero</p>
 </section>
 </section>
 

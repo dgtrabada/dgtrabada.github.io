@@ -63,9 +63,9 @@ Python
 * `Scikit_learn <https://github.com/dgtrabada/python/tree/main/12_Scikit_learn>`_
 
   * `Ejercicios de regresión simple <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_01_regresion-simple.ipynb>`_
-  * `Soluciones <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_01_regresion-simple_sol.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_02_regresion-simple_sol.ipynb>`_
   * `Ejercicios de SVM <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_03_SVM.ipynb>`_
-  * `Soluciones<https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_03_SVM_sol.ipynb>`_
+  * `Soluciones <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_03_SVM_sol.ipynb>`_
   * `Ejercicios de Cluster <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_04_Cluster.ipynb>`_
   * `Soluciones <https://github.com/dgtrabada/python/blob/main/12_Scikit_learn/12_Ejercicios_04_Cluster_sol.ipynb>`_
 
