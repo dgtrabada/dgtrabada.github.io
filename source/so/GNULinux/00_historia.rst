@@ -2,7 +2,7 @@
 Historia GNU/Linux
 ******************
 
-GNU/Linux es la denominación técnica y generalizada que reciben los sistemas operativos están formados mediante la combinación de varios proyectos, entre los cuales destaca el entorno GNU llevado a cavo por la  Free Software Foundation, una fundación cuyo propósito es difundir el software libre, así como también el núcleo de sistema operativo conocido como «Linux», encabezado por el programador finlandés Linus Torvalds.
+GNU/Linux es la denominación técnica y generalizada que reciben los sistemas operativos están formados mediante la combinación de varios proyectos, entre los cuales destaca el entorno GNU llevado a cabo por la  Free Software Foundation, una fundación cuyo propósito es difundir el software libre, así como también el núcleo de sistema operativo conocido como «Linux», encabezado por el programador finlandés Linus Torvalds.
 
 El desarrollo de estos sistemas operativos es uno de los ejemplos más prominentes de software libre: todo su código fuente puede ser utilizado, modificado y redistribuido libremente por cualquier persona, empresa o institución, bajo los términos de la Licencia Pública General de GNU, así como de otra serie de licencias.
 

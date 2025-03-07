@@ -71,7 +71,7 @@ Comandos avanzados
    $ x=$((RANDOM % 10 + 1)) #obtenemos números del 1 al 10
   
 
-* **Tratamiento de candenas**
+* **Tratamiento de cadenas**
 
   .. code-block:: bash
 

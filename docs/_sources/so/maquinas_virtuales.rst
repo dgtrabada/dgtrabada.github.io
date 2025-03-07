@@ -441,7 +441,7 @@ Vamos a instalar el editor vim y la actualizamos:
   #subimos la imagen a Docker Hub
   $ docker push dgtrabada/ubuntu:24.04
 
-Para ejecutar este contenedor en cuanquier otro ordeandor con docker lo unico que tenemos que hacer es:
+Para ejecutar este contenedor en cuanquier otro ordenador con docker lo unico que tenemos que hacer es:
 
 .. code-block:: bash
 
