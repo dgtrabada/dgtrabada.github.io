@@ -9,6 +9,11 @@ El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden t
 
 .. image:: imagenes/puertas/puertas_logicas.png
 
+.. image:: imagenes/puertas/simplificacion_funciones_1.png
+
+.. image:: imagenes/puertas/simplificacion_funciones_2.png
+
+.. image:: imagenes/puertas/simplificacion_funciones_3.png
 
 Circuitos combinacionales:
 =========================
