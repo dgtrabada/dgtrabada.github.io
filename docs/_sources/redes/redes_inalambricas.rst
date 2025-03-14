@@ -1,4 +1,5 @@
 Tipos de redes 802.11
+=====================
 
 Las redes 802.11 son un conjunto de estándares para redes inalámbricas (Wi-Fi) desarrollados por el Institute of Electrical and Electronics Engineers (IEEE). Estos estándares definen las características técnicas de las redes Wi-Fi, como la frecuencia de operación, el ancho de banda, la velocidad de transmisión y el alcance.
 
