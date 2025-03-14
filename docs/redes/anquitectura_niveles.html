@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
     <link rel="next" title="Transporte de datos y equipos de interconexión" href="transporte_datos_equipos_interconexion.html" />
-    <link rel="prev" title="Redes inalámbricas 802.11" href="redes_inalambricas.html" />
+    <link rel="prev" title="El canal de una red 802.11" href="redes_inalambricas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -261,7 +261,9 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">El canal de una red 802.11</a></li>
+
+
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -511,21 +513,19 @@
 <li><p><strong>Datos</strong> : este campo contiene los datos a enviar, siendo su longitud múltiplo de 8 bits. El valor máximo de la longitud es 65.535 bytes (64 Kbytes). El campo comenzará con el contenido de la cabecera del protocolo de siguiente nivel: TCP o UDP.</p></li>
 </ul>
 <p><strong>TCP</strong> (Transmissión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:</p>
-<ul class="simple">
+<ul>
 <li><p>Iniciar la comunicación: mientras un programa “escucha” otro se conecta</p></li>
 <li><p>Terminar la comunicación: aunque un sentido de la comunicación esté cortado, el otro puede seguir activo</p></li>
 <li><p>Saber qué tramas ha recibido el otro extremo, cuales deben volver a enviarse,…</p></li>
 <li><p>TCP puede enviar varios paquetes sin confirmar (ventana) El otro extremo confirma sólo el último paquete recibido con su siguiente transmisión</p></li>
-<li><p>A veces se envían paquetes vacíos, sólo para confirmar al otro extremo. Por ejemplo, cuando se lleva un segundo sin emitir nada, pero recibiendo bytes</p></li>
-</ul>
+<li><p>A veces se envían paquetes vacíos, sólo para confirmar al otro extremo. Por ejemplo, cuando se lleva un segundo sin emitir nada, pero recibiendo bytes</p>
 <a class="reference internal image-reference" href="../_images/ventana.png"><img alt="../_images/ventana.png" src="../_images/ventana.png" style="width: 200px;" />
 </a>
 <img alt="../_images/TCP.png" src="../_images/TCP.png" />
-<ul class="simple">
-<li><p><strong>Puerto origen</strong> (16 bits). Puerto de la máquina origen. Al igual que el puerto destino es necesario para identificar la conexión actual. El uso de puertos permite la multiplexación y la demultiplexación</p></li>
-</ul>
+</li>
+<li><p><strong>Puerto origen</strong> (16 bits). Puerto de la máquina origen. Al igual que el puerto destino es necesario para identificar la conexión actual. El uso de puertos permite la multiplexación y la demultiplexación</p>
 <img alt="../_images/Puertos.png" src="../_images/Puertos.png" />
-<ul>
+</li>
 <li><p><strong>Puerto destino</strong>  (16 bits). Puerto de la máquina destino.</p></li>
 <li><p><strong>Número de secuencia</strong> (32 bits). Indica el número de secuencia del primer byte que trasporta el segmento.</p></li>
 <li><p><strong>Número de acuse de recibo</strong> (32 bits). Indica el número de secuencia del siguiente byte que se espera recibir. Con este campo se indica al otro extremo de la conexión que los bytes anteriores se han recibido correctamente.</p></li>
@@ -565,9 +565,8 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
 <li><p><strong>HTTP</strong> : Protocolo de transferencia de hipertexto, es el protocolo utilizado en las transacciones de páginas web. Define la sintaxis y la semántica que utilizan los elementos de software de la arquitectura web (clientes, servidores, proxies ) para comunicarse. Es un protocolo orientado a transacciones y sigue el esquema petición-respuesta entre un cliente y un servidor. Tiene una versión segura que es el  HTTPS</p></li>
 </ul>
 <p><strong>Conexiones abiertas: netstat</strong></p>
-<p>El comando netstat controla las conexiones TCP/UDP abiertas en el sistema</p>
-<p>Puertos utilizados, procesos conectados, estado de la conexión,…</p>
-<p>Ejemplos</p>
+<p>El comando netstat controla las conexiones TCP/UDP abiertas en el sistema Puertos utilizados, procesos conectados, estado de la conexión,…</p>
+<p>Ejemplos:</p>
 <ul class="simple">
 <li><p>Netstat /?: Ayuda</p></li>
 <li><p>Netstat -b: Conexiones actuales y el proceso que las maneja en el ordenador</p></li>
@@ -594,7 +593,7 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Redes inalámbricas 802.11</p>
+        <p class="prev-next-title">El canal de una red 802.11</p>
       </div>
     </a>
     <a class="right-next"

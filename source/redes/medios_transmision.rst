@@ -31,13 +31,13 @@ Medios de transmisión cableados
 Cable de par trenzado
 ---------------------
 
-Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pares trenzados. Puede tener un recubrimiento metálico externo STP( Shielded twister pair) o no tenerlo UTP (UnShielded twister pair)
+Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pares trenzados. Puede tener un recubrimiento metálico externo STP (Shielded twister pair) o no tenerlo UTP (UnShielded twister pair)
 
 .. image:: imagenes/cable_trenzado.png
 
 **PAR** : dos cables de cobre aislados, enlazados de dos en dos de forma helicoidal
 
-Tenemos 7 categorías diferentes, dependiendo del número de pares, el número de vueltas por metro de trenzado, materiales, etc
+**Tenemos 7 categorías diferentes**, dependiendo del número de pares, el número de vueltas por metro de trenzado, materiales, etc
 
 * **Categoría 1**,  Sin trenzar, paralelo, solo voz en total 4 cables
 
@@ -155,7 +155,7 @@ Las ondas electromagnéticas utilizadas en las emisiones de radio no requieren d
 
   .. image:: imagenes/tierra.png
   
-* **Microondas**, f ~ GHz (ancho de bandas más elevado) d ~ 50-100 Km por la superficie terrestre, veamos algunos ejemplos
+* **Microondas**, f ~ GHz (ancho de bandas más elevado) d ~ 50-100 Km por la superficie terrestre, se usan para transmitir señales entre satélites y estaciones terrestre, las redes Wi-Fi y 5G operan en frecuencias de microondas, los radares usan microondas para detectar objetos y medir distancias.
 
 * **Infrarrojos**, se enlazan transmisores y receptores que modulan la luz infrarroja no coherente. Deben estar alineados directamente o con una reflexión en una superficie. No pueden atravesar las paredes.
 

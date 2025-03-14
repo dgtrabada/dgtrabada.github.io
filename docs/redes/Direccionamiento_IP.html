@@ -261,7 +261,9 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">El canal de una red 802.11</a></li>
+
+
 <li class="toctree-l2"><a class="reference internal" href="anquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Direccionamiento IP</a></li>
@@ -471,35 +473,23 @@
 <p>Se reservaron ciertos rangos de direcciones IP de las clases A, B y C para permitir su uso interno o privado en redes de área local (LAN) como por ejemplo las de una casa o una oficina.</p>
 <img alt="../_images/clasesIP.png" src="../_images/clasesIP.png" />
 <img alt="../_images/ip_clases.png" src="../_images/ip_clases.png" />
-<p>Dirección red (Network)  es aquella en la que todos los bits de la porción de host están a cero, se obtiene <strong>Dirección IP (Addres) and Máscara de red(Network)</strong>, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Address</span><span class="p">:</span>   <span class="mf">128.192.224.240</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11110000</span>
-<span class="n">Netmask</span><span class="p">:</span>   <span class="mf">255.255.255.0</span> <span class="o">=</span> <span class="mi">24</span>   <span class="mf">11111111.11111111.11111111</span><span class="o">.</span> <span class="mi">00000000</span>
-<span class="n">Network</span><span class="p">:</span>   <span class="mf">128.192.224.0</span><span class="o">/</span><span class="mi">24</span>     <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">00000000</span>
-<span class="n">HostMin</span><span class="p">:</span>   <span class="mf">128.192.224.1</span>        <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">00000001</span>
-<span class="n">HostMax</span><span class="p">:</span>   <span class="mf">128.192.224.254</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11111110</span>
+<p>Dirección de red (Network) es la primera dirección de una subred y se usa para identificarla. No se puede asignar a un host,La dirección de red se obtiene estableciendo todos los bits de la parte de host en 0, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Address</span><span class="p">:</span>   <span class="mf">128.192.224.240</span>      <span class="mf">10000000.11000000</span><span class="o">.</span> <span class="mf">11100000.11110000</span>
+<span class="n">Netmask</span><span class="p">:</span>   <span class="mf">255.255.0.0</span> <span class="o">=</span> <span class="mi">16</span>     <span class="mf">11111111.11111111</span><span class="o">.</span> <span class="mf">00000000.00000000</span>
+<span class="n">Network</span><span class="p">:</span>   <span class="mf">128.192.0.0</span><span class="o">/</span><span class="mi">16</span>       <span class="mf">10000000.11000000</span><span class="o">.</span> <span class="mf">00000000.00000000</span>
+<span class="n">HostMin</span><span class="p">:</span>   <span class="mf">128.192.0.1</span>          <span class="mf">10000000.11000000</span><span class="o">.</span> <span class="mf">00000000.00000001</span>
+<span class="n">HostMax</span><span class="p">:</span>   <span class="mf">128.192.255.254</span>      <span class="mf">10000000.11000000</span><span class="o">.</span> <span class="mf">11111111.11111110</span>
 </pre></div>
 </div>
-<p>La dirección de broadcast es aquella en la que todos los bits de la porción de host están a 1, los mensajes se dirigen a todas las computadoras en una red</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Broadcast</span><span class="p">:</span> <span class="mf">128.192.224.255</span>      <span class="mf">10000000.11000000.11100000</span><span class="o">.</span> <span class="mi">11111111</span>
-<span class="n">Hosts</span><span class="o">/</span><span class="n">Net</span><span class="p">:</span> <span class="mi">2</span><span class="o">^</span><span class="mi">8</span><span class="o">-</span><span class="mi">2</span> <span class="o">=</span> <span class="mi">254</span>          <span class="n">Class</span> <span class="n">B</span>
+<p>La dirección de <strong>broadcast</strong> es la última dirección de una red IP y se usa para enviar mensajes a todos los dispositivos dentro de esa red.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Broadcast</span><span class="p">:</span> <span class="mf">128.192.255.255</span>      <span class="mf">10000000.11000000</span><span class="o">.</span> <span class="mf">11111111.11111111</span>
+<span class="n">Hosts</span><span class="o">/</span><span class="n">Net</span><span class="p">:</span> <span class="mi">65534</span>                 <span class="n">Class</span> <span class="n">B</span>
 </pre></div>
 </div>
-<p>En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 2²⁴ - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">10000000</span> <span class="o">=</span> <span class="mi">128</span>
-<span class="mi">11000000</span> <span class="o">=</span> <span class="mi">192</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span>
-<span class="mi">11100000</span> <span class="o">=</span> <span class="mi">224</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span>
-<span class="mi">11110000</span> <span class="o">=</span> <span class="mi">240</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span>
-<span class="mi">11111000</span> <span class="o">=</span> <span class="mi">248</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span>
-<span class="mi">11111100</span> <span class="o">=</span> <span class="mi">252</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span>
-<span class="mi">11111110</span> <span class="o">=</span> <span class="mi">254</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span>
-<span class="mi">11111111</span> <span class="o">=</span> <span class="mi">255</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">+</span> <span class="mi">64</span> <span class="o">+</span> <span class="mi">32</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<p>Ahora podemos hacernos una pregunta simple ¿que parte de la dirección 165.57.57.89 es la red y qué la dirección de host? Para eso se crearon las máscaras de red. Una máscara de red no es más que un número binario de 32 bits que contiene unos «1» en todos los bits de la dirección que identifica a la red, y ceros «0» en las posiciones de la dirección que corresponden al host.</p>
-<p>Las redes privadas son bastante comunes en esquemas de redes de área local (LAN) de oficinas, empresas y ámbito doméstico, debido a que no tienen la necesidad de usar direcciones IP públicas en sus dispositivos (PC, impresora, etcétera), compartiendo todos los dispositivos de la red privada la misma dirección pública, habitualmente la del módem del enrutador.</p>
+<p>Las redes privadas son bastante comunes en esquemas de redes de área local (LAN) de oficinas, empresas y ámbito doméstico, debido a que no tienen la necesidad de usar direcciones IP públicas en sus dispositivos y no son enrutables a través de Internet.</p>
 <p>Las direcciones de Internet privadas son:</p>
 <img alt="../_images/ip_privadas.png" src="../_images/ip_privadas.png" />
-<p>Esta última red de clase B queda reservada para equipos que tienen activa la configuración de la tarjeta de red automática (para que un servidor DHCP les responda y les ofrezca su configuración) y ningún servidor DHCP les responda (habitualmente este servidor está configurado en el enrutador), en ese caso estos equipos cogen aleatoriamente una ip de este rango de IP privadas para poder comunicarse con otros equipos de la red a los que tampoco les haya respondido el servidor DHCP.</p>
+<p>Esta última red de clase B, pertenece a las direcciones APIPA (Automatic Private IP Addressing), también llamadas link-local en IPv4, queda reservada para equipos que tienen activa la configuración de la tarjeta de red automática (para que un servidor DHCP les responda y les ofrezca su configuración) y ningún servidor DHCP les responda (habitualmente este servidor está configurado en el enrutador), en ese caso estos equipos cogen aleatoriamente una ip de este rango de IP privadas para poder comunicarse con otros equipos de la red a los que tampoco les haya respondido el servidor DHCP.</p>
 <section id="el-subnetting-ip">
 <h2>El subnetting IP<a class="headerlink" href="#el-subnetting-ip" title="Link to this heading">#</a></h2>
 <p>La subnetting (o subdivisión de redes) es una técnica utilizada para dividir una red de direcciones IP en subredes más pequeñas y eficientes. En otras palabras, se trata de dividir una red IP en varias subredes más pequeñas, para que los dispositivos puedan comunicarse de manera más eficiente.</p>

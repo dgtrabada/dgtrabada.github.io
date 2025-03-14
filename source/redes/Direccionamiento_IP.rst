@@ -12,46 +12,31 @@ Se reservaron ciertos rangos de direcciones IP de las clases A, B y C para permi
 
 .. image:: imagenes/ip_clases.png
 
-Dirección red (Network)  es aquella en la que todos los bits de la porción de host están a cero, se obtiene **Dirección IP (Addres) and Máscara de red(Network)**, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:
+Dirección de red (Network) es la primera dirección de una subred y se usa para identificarla. No se puede asignar a un host,La dirección de red se obtiene estableciendo todos los bits de la parte de host en 0, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:
 
 .. code-block::
 
-  Address:   128.192.224.240      10000000.11000000.11100000. 11110000
-  Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
-  Network:   128.192.224.0/24     10000000.11000000.11100000. 00000000
-  HostMin:   128.192.224.1        10000000.11000000.11100000. 00000001
-  HostMax:   128.192.224.254      10000000.11000000.11100000. 11111110
+  Address:   128.192.224.240      10000000.11000000. 11100000.11110000
+  Netmask:   255.255.0.0 = 16     11111111.11111111. 00000000.00000000
+  Network:   128.192.0.0/16       10000000.11000000. 00000000.00000000
+  HostMin:   128.192.0.1          10000000.11000000. 00000000.00000001
+  HostMax:   128.192.255.254      10000000.11000000. 11111111.11111110
 
 
-La dirección de broadcast es aquella en la que todos los bits de la porción de host están a 1, los mensajes se dirigen a todas las computadoras en una red
-
-.. code-block::
-
-    Broadcast: 128.192.224.255      10000000.11000000.11100000. 11111111
-    Hosts/Net: 2^8-2 = 254          Class B
-
-En la clase A, se asigna el primer octeto para identificar la red, reservando los tres últimos octetos (24 bits) para que sean asignados a los hosts,​ de modo que la cantidad máxima de hosts es 2²⁴ - 2 (se excluyen la dirección reservada para broadcast (últimos octetos a 1) y de red (últimos octetos a 0)), es decir, 16 777 214 host
+La dirección de **broadcast** es la última dirección de una red IP y se usa para enviar mensajes a todos los dispositivos dentro de esa red.
 
 .. code-block::
 
-    10000000 = 128
-    11000000 = 192 = 128 + 64
-    11100000 = 224 = 128 + 64 + 32
-    11110000 = 240 = 128 + 64 + 32 + 16
-    11111000 = 248 = 128 + 64 + 32 + 16 + 8
-    11111100 = 252 = 128 + 64 + 32 + 16 + 8 + 4
-    11111110 = 254 = 128 + 64 + 32 + 16 + 8 + 4 + 2
-    11111111 = 255 = 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1
+    Broadcast: 128.192.255.255      10000000.11000000. 11111111.11111111
+    Hosts/Net: 65534                 Class B
 
-Ahora podemos hacernos una pregunta simple ¿que parte de la dirección 165.57.57.89 es la red y qué la dirección de host? Para eso se crearon las máscaras de red. Una máscara de red no es más que un número binario de 32 bits que contiene unos «1» en todos los bits de la dirección que identifica a la red, y ceros «0» en las posiciones de la dirección que corresponden al host.
-
-Las redes privadas son bastante comunes en esquemas de redes de área local (LAN) de oficinas, empresas y ámbito doméstico, debido a que no tienen la necesidad de usar direcciones IP públicas en sus dispositivos (PC, impresora, etcétera), compartiendo todos los dispositivos de la red privada la misma dirección pública, habitualmente la del módem del enrutador.
+Las redes privadas son bastante comunes en esquemas de redes de área local (LAN) de oficinas, empresas y ámbito doméstico, debido a que no tienen la necesidad de usar direcciones IP públicas en sus dispositivos y no son enrutables a través de Internet.
 
 Las direcciones de Internet privadas son:
 
 .. image:: imagenes/ip_privadas.png
 
-Esta última red de clase B queda reservada para equipos que tienen activa la configuración de la tarjeta de red automática (para que un servidor DHCP les responda y les ofrezca su configuración) y ningún servidor DHCP les responda (habitualmente este servidor está configurado en el enrutador), en ese caso estos equipos cogen aleatoriamente una ip de este rango de IP privadas para poder comunicarse con otros equipos de la red a los que tampoco les haya respondido el servidor DHCP.
+Esta última red de clase B, pertenece a las direcciones APIPA (Automatic Private IP Addressing), también llamadas link-local en IPv4, queda reservada para equipos que tienen activa la configuración de la tarjeta de red automática (para que un servidor DHCP les responda y les ofrezca su configuración) y ningún servidor DHCP les responda (habitualmente este servidor está configurado en el enrutador), en ese caso estos equipos cogen aleatoriamente una ip de este rango de IP privadas para poder comunicarse con otros equipos de la red a los que tampoco les haya respondido el servidor DHCP.
 
 El subnetting IP
 ================

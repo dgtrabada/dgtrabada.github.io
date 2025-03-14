@@ -89,14 +89,14 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
     
 * A veces se envían paquetes vacíos, sólo para confirmar al otro extremo. Por ejemplo, cuando se lleva un segundo sin emitir nada, pero recibiendo bytes
     
-.. image:: imagenes/ventana.png
+  .. image:: imagenes/ventana.png
     :width: 200
     
-.. image:: imagenes/TCP.png
+  .. image:: imagenes/TCP.png
     
 * **Puerto origen** (16 bits). Puerto de la máquina origen. Al igual que el puerto destino es necesario para identificar la conexión actual. El uso de puertos permite la multiplexación y la demultiplexación
   
-.. image:: imagenes/Puertos.png
+  .. image:: imagenes/Puertos.png
     
 * **Puerto destino**  (16 bits). Puerto de la máquina destino.
   
@@ -162,11 +162,9 @@ Algunos de los protocolos de la capa de aplicación son:
 
 **Conexiones abiertas: netstat**
 
-El comando netstat controla las conexiones TCP/UDP abiertas en el sistema
+El comando netstat controla las conexiones TCP/UDP abiertas en el sistema Puertos utilizados, procesos conectados, estado de la conexión,…
 
-Puertos utilizados, procesos conectados, estado de la conexión,…
-
-Ejemplos
+Ejemplos:
 
 * Netstat /?: Ayuda
 * Netstat -b: Conexiones actuales y el proceso que las maneja en el ordenador
