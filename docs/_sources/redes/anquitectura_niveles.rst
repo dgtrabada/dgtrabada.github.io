@@ -28,7 +28,27 @@ Modelo de referencia OSI
 La transmisión de datos en el modelo OSI
 ----------------------------------------
 
-Cuando un proceso emisor desea enviar datos al proceso receptor, entrega a la capa de aplicación del nivel (7.) donde se le añade la cabecera en la parte delantera de los datos, que se entrega a la capa de presentación y de esa manera prosigue hasta que la capa física. Después de la transmisión de física, la maquina receptora se encarga de hacer los pasos para ir eliminando las cabeceras según las capas que vaya recorriendo la información hasta llegar al proceso receptor.
+Cuando un proceso emisor (como un navegador web) envía datos a un proceso receptor (como un servidor web), la información pasa a través de las 7 capas del modelo OSI, donde cada capa añade información extra (cabeceras) hasta llegar a la capa física para su transmisión.
+
+* Envío de Datos (Encapsulación)
+
+  * Capa de Aplicación (7): El proceso emisor genera los datos (ejemplo: solicitud HTTP).
+  * Capa de Presentación (6): Se encarga de la codificación y cifrado (ejemplo: SSL/TLS).
+  * Capa de Sesión (5): Maneja la comunicación entre los dispositivos.
+  * Capa de Transporte (4): Divide los datos en segmentos y añade información sobre puertos (TCP/UDP).
+  * Capa de Red (3): Agrega direcciones IP para que los datos lleguen al destino.
+  * Capa de Enlace de Datos (2): Añade direcciones MAC y crea tramas.
+  * Capa Física (1): Convierte los datos en señales eléctricas, ópticas o de radio para la transmisión.
+
+Cada capa añade su propia cabecera, lo que se llama encapsulación.
+
+* Recepción de Datos (Desencapsulación) Cuando los datos llegan a la máquina receptora, el proceso se invierte:
+
+  * La Capa Física recibe las señales y las convierte en datos.
+  * La Capa de Enlace de Datos verifica los errores y extrae las tramas.
+  * La Capa de Red analiza la dirección IP y entrega los paquetes.
+  * La Capa de Transporte reordena y entrega los segmentos al proceso correcto.
+  * Las capas superiores procesan la información hasta que los datos llegan al proceso receptor.
 
 Arquitectura TCP/IP
 ===================

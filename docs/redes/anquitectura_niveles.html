@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
     <link rel="next" title="Transporte de datos y equipos de interconexión" href="transporte_datos_equipos_interconexion.html" />
-    <link rel="prev" title="El canal de una red 802.11" href="redes_inalambricas.html" />
+    <link rel="prev" title="Tipos de redes 802.11" href="redes_inalambricas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -261,7 +261,8 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">El canal de una red 802.11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
+
 
 
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Arquitecturas basadas en niveles</a></li>
@@ -483,7 +484,32 @@
 </ol>
 <section id="la-transmision-de-datos-en-el-modelo-osi">
 <h3>La transmisión de datos en el modelo OSI<a class="headerlink" href="#la-transmision-de-datos-en-el-modelo-osi" title="Link to this heading">#</a></h3>
-<p>Cuando un proceso emisor desea enviar datos al proceso receptor, entrega a la capa de aplicación del nivel (7.) donde se le añade la cabecera en la parte delantera de los datos, que se entrega a la capa de presentación y de esa manera prosigue hasta que la capa física. Después de la transmisión de física, la maquina receptora se encarga de hacer los pasos para ir eliminando las cabeceras según las capas que vaya recorriendo la información hasta llegar al proceso receptor.</p>
+<p>Cuando un proceso emisor (como un navegador web) envía datos a un proceso receptor (como un servidor web), la información pasa a través de las 7 capas del modelo OSI, donde cada capa añade información extra (cabeceras) hasta llegar a la capa física para su transmisión.</p>
+<ul class="simple">
+<li><p>Envío de Datos (Encapsulación)</p>
+<ul>
+<li><p>Capa de Aplicación (7): El proceso emisor genera los datos (ejemplo: solicitud HTTP).</p></li>
+<li><p>Capa de Presentación (6): Se encarga de la codificación y cifrado (ejemplo: SSL/TLS).</p></li>
+<li><p>Capa de Sesión (5): Maneja la comunicación entre los dispositivos.</p></li>
+<li><p>Capa de Transporte (4): Divide los datos en segmentos y añade información sobre puertos (TCP/UDP).</p></li>
+<li><p>Capa de Red (3): Agrega direcciones IP para que los datos lleguen al destino.</p></li>
+<li><p>Capa de Enlace de Datos (2): Añade direcciones MAC y crea tramas.</p></li>
+<li><p>Capa Física (1): Convierte los datos en señales eléctricas, ópticas o de radio para la transmisión.</p></li>
+</ul>
+</li>
+</ul>
+<p>Cada capa añade su propia cabecera, lo que se llama encapsulación.</p>
+<ul class="simple">
+<li><p>Recepción de Datos (Desencapsulación) Cuando los datos llegan a la máquina receptora, el proceso se invierte:</p>
+<ul>
+<li><p>La Capa Física recibe las señales y las convierte en datos.</p></li>
+<li><p>La Capa de Enlace de Datos verifica los errores y extrae las tramas.</p></li>
+<li><p>La Capa de Red analiza la dirección IP y entrega los paquetes.</p></li>
+<li><p>La Capa de Transporte reordena y entrega los segmentos al proceso correcto.</p></li>
+<li><p>Las capas superiores procesan la información hasta que los datos llegan al proceso receptor.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 <section id="arquitectura-tcp-ip">
@@ -593,7 +619,7 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">El canal de una red 802.11</p>
+        <p class="prev-next-title">Tipos de redes 802.11</p>
       </div>
     </a>
     <a class="right-next"

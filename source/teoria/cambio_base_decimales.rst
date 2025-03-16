@@ -23,7 +23,7 @@ Base decimal a base N
 1. **Parte entera**; dividiendo hasta coeficiente más pequeño que n
 2. **Parte fraccionaria**; multiplicando por n
 
-* **Ejemplo** de base **decimal** a base **binaria** con decimales 10.625 :sub:`10) → 2)`
+* **Ejemplo** de base **decimal** a base **binaria** con decimales :math: `10.625_{10) \rightarrow 2)}`
 
   Parte entera
   
@@ -118,9 +118,9 @@ Octal
    --- &
    
    25.2_{8)} &= 21.25_{10}
-  
 
-ayuda: 5:sub:`8)` + 5:sub:`8)`  = 12:sub:`8)`, ponemos 2 y 1 de acarreo
+  
+ayuda: :math:`5_{8)} + 5_{8)} = 12_{8)}`, ponemos 2 y 1 de acarreo
 
 Hexadecimal
 

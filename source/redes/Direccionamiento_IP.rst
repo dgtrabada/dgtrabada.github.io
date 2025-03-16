@@ -43,16 +43,16 @@ El subnetting IP
 
 La subnetting (o subdivisión de redes) es una técnica utilizada para dividir una red de direcciones IP en subredes más pequeñas y eficientes. En otras palabras, se trata de dividir una red IP en varias subredes más pequeñas, para que los dispositivos puedan comunicarse de manera más eficiente.
 
-Por tanto si tengo por ejemplo la dirección de host 172.17.12.95 ya sabemos que es de clase B y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.
+Por tanto si tengo por ejemplo la dirección de host **172.17**.12.95 ya sabemos que es de **clase B** con mascara **255.255.0.0** y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.
 
 Ahora bien ¿Y si queremos disponer de redes más pequeñas que pertenezcan al espacio de direccionamiento 172.17.x.x?
 
 Nada impide hacer lo siguiente:
 
-- 172.17.1.0 255.255.255.0
-- 172.17.2.0 255.255.255.0
-- 172.17.3.0 255.255.255.0
-- ..etcétera.
+- **172.17.1**.0 con mascara 255.255.255.0
+- **172.17.2**.0 con mascara 255.255.255.0
+- **172.17.3**.0 con mascara 255.255.255.0
+- ...
 
 Pero claro la red 172.17.1.0 255.255.255.0 no es en realidad una red de clase C, sino que con la máscara hemos definido una subred (subnet) de tipo C dentro de la red 172.17.0.0 que es una red tipo B y mucho más amplia.
 
@@ -66,16 +66,14 @@ Además del subnetting, este juego con los bits de máscara permite hacer lo con
 CIDR
 ====
 
-CIDR, en esencia, aplica lo mismo que el subnetting pero ampliando el concepto. En CIDR no existen clases A, B o C. El valor de la dirección IP no implica ninguna máscara implícita, como sucedía antes con los primeros bits de la dirección. Toda definición de una red IP debe ser acompañada de una definición de máscara que concreta la red.
+Hoy en día, **CIDR (Classless Inter-Domain Routing)** es el estándar utilizado en redes IP para la asignación y gestión de direcciones, reemplazando en gran medida el sistema antiguo de clases A, B y C, en esencia, aplica lo mismo que el subnetting pero ampliando el concepto. En CIDR no existen clases A, B o C. El valor de la dirección IP no implica ninguna máscara implícita, como sucedía antes con los primeros bits de la dirección. **En CIDR toda definición de una red IP debe ser acompañada de una definición de máscara que concreta la red.** 
 
 Por ejemplo, cuando hablamos en términos de CIDR no podemos decir que la dirección 172.17.25.12 pertenezca a la red 172.17.0.0 a menos que se especifique como 172.16.25.12/16.
 
-En CIDR ya no se utiliza el término «clase de una red», ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red, utiliza la nomenclatura de barra invertida, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).
+En CIDR ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red, utiliza la nomenclatura de barra invertida, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).
 
 Así por ejemplo, hablando en términos de subnetting, podemos decir que la red:
 172.17.11.25 con máscara 255.255.255.0 (que no es en realidad una red de clase C) es una subred (o subnet) de la red de clase B 172.17.0.0.
-
-.. image:: imagenes/cdir.png
 
 La dirección de red sigue siendo la que tiene todos los bits del host a 0, y la de broadcast a 1, se utiliza una máscara de red, realizando la operación AND con la dirección IP para encontrar la dirección de red, por ejemplo:
 
@@ -93,77 +91,134 @@ La dirección IP es 192.168.20.100/26
   Broadcast: 192.168.20.127       11000000.10101000.00010100.01 111111
   Hosts/Net: 62                    Class C, Private Internet
 
-En el estándar CIDR se reserva la primera y última red de cada partición
-
-Por ejemplo, al dividir la red de clase C 192.168.20.0/24 en 4 redes (pasando a máscara /26), las redes 192.168.20.0/26 y 192.168.20.192/26 quedan reservadas
-
-La mayoría de routers e implementaciones de IP pueden trabajar con ellas, pero es mejor no utilizarlas para no tener problemas con equipos antiguos o quisquillosos.
+Cuando divides una red en subredes más pequeñas, la **primera subred** (la que comienza con la dirección de red original) y la **última subred** (la que termina con la dirección de broadcast de la red original) a menudo se reservan. Esto se debe a que algunos equipos antiguos o protocolos podrían confundirse al manejar estas subredes, ya que sus direcciones coinciden con la red original y su broadcast.
 
 Ejemplos
 --------
 
-Ejemplo de subneting clásico
+* **¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?**
 
-**¿ Qué máscara habría que aplicar para dividir la red 194.168.100.0 en 16 subredes ?**
+  La red 194.168.100.0 es una red de Clase C por defecto, lo que significa que su máscara de subred predeterminada es: 255.255.255.0 (o /24 en notación CIDR).
 
-2\ :sup:`n`\  ≥ 16 , es decir n ≥ 4
+  :math:`2^{n} \geq 16`, es decir :math:`n \geq 4`
 
-tomamos los 4 primeros bits
+  tomamos los 4 primeros bits
 
-**1111** 0000 = **128 + 64 + 32 + 16** + 0*8 + 4*0 + 2*0 + 1*0 = 240
+  **1111** 0000 = **128 + 64 + 32 + 16** + 0*8 + 4*0 + 2*0 + 1*0 = 240
 
-es decir 194.168.100.0/28 (255.255.255.240)
+  es decir 194.168.100.0/28 (255.255.255.240)
 
-hay 2⁴-2 = 14 hosts por subred
+  hay :math:`2^{4}-2 = 14` hosts por subred
 
-.. image:: imagenes/subred1.png
+  .. image:: imagenes/subred1.png
 
 
-VLSM (Máscara de Red de Longitud Variable) permite dividir un espacio de red en partes desiguales, es decir, la mascara de subred de una dirección IP variara según la cantidad de bits que se tomen prestados para una subred especifica, se conoce también como división de subredes en subredes.
+**VLSM (Máscara de Red de Longitud Variable)** permite dividir un espacio de red en partes desiguales, es decir, la mascara de subred de una dirección IP  variara según la cantidad de bits que se tomen prestados para una subred especifica, se conoce también como división de subredes en subredes. Veamos el siguiente ejemplo:
 
-Veamos el siguiente ejemplo, **una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0, las quieres repartir entre todas sus 8 departamentos, en el caso de que haga un subneting sin VLSM, quedaría (2 = 8) es decir n = 3 (11100000)**
+* **Una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0. Las quiere repartir entre sus 8 departamentos. En el caso de que haga un subnetting sin VLSM, quedaría** :math:`2^{n} = 8`, **es decir,** :math:`n = 3` **(11100000).**
 
-.. image:: imagenes/subred2.png
 
-Podemos hacer de nuevo subnetting con la primera subred, 200.1.1.0/27 para crear 4 subredes (/29)
+  .. image:: imagenes/subred2.png
 
-.. image:: imagenes/subred3.png
+  Podemos hacer de nuevo subnetting con la primera subred, 200.1.1.0/27 para crear 4 subredes (/29)
 
-Volvamos al caso anterior, 194.168.100.0 (Ejemplo de subneting clásico) y hagamos n=2, es decir 194.168.100.0/26 (255.255.255.192)
+  .. image:: imagenes/subred3.png
 
-hay 2⁶-2 = 60 hosts por subred
 
-.. image:: imagenes/subred4.png
+* **Volvamos al caso anterior, 194.168.100.0 (Ejemplo de subneting clásico)** y hagamos n=2, es decir 194.168.100.0/26 (255.255.255.192)
 
-Vamos hacer sugneting con las 3 ultimas redes, tomaremos n=1,2,3
+  Hay :math:`2^{6}-2 = 60` hosts por subred
 
-.. image:: imagenes/subred5.png
+  .. image:: imagenes/subred4.png
 
-.. image:: imagenes/subneting.png
+  Vamos hacer sugneting con las 3 ultimas redes, tomaremos n=1,2,3
 
-Tablas encaminamiento
-=====================
+  .. image:: imagenes/subred5.png
 
-Los routers confeccionan una tabla de encaminamiento en donde registran qué nodos y redes son alcanzables, estas rutas pueden ser estáticos (las programa el administrador de la red) o dinámicos (hacen de forma dinámica las de encaminamiento)
+  .. image:: imagenes/subneting.png
 
-* Cada nodo decide a que nodo (dirección de red) mandará cada paquete, para ello contiene pares, dirección IP destino y dirección del siguiente salto.
 
-* Para direccionar un único equipo (no una red) , se usa una máscara 255.255.255.255 (/32)
+Tablas de Encaminamiento
+=========================
 
-* Para establecer una ruta por defecto (dónde ir si no se encuentra destino), se usa una dirección 0.0.0.0/0 (izquierda)
+Los routers mantienen una tabla de encaminamiento en la que registran las rutas hacia nodos y redes alcanzables. Estas rutas pueden ser **estáticas** (definidas manualmente por el administrador de red) o **dinámicas** (aprendidas automáticamente por el router).
 
-* Si la red es directamente alcanzable, dirección del siguiente salto es una Interface del router, se indica por 0.0.0.0 (derecha)
+- Cada nodo decide a qué nodo (dirección de red) enviará un paquete, basándose en pares de dirección IP de destino y la dirección del siguiente salto.
 
-* Dirección de red la obtiene tomando la "dirección IP AND máscara"
+- Para direccionar un único equipo (no una red completa), se utiliza la máscara **255.255.255.255** o **/32**.
 
-* Si tienen la misma dirección de red "Dir_Red_1 XOR Dir_Red_2 = 0", los dos host están en la misma red.
+- Para establecer una ruta por defecto (hacia dónde enviar los paquetes si no se encuentra el destino), se utiliza la dirección **0.0.0.0/0**.
 
-* Dirección de Broadcast es "Dir_red OR NOT máscara", es siempre la última dirección de una red/subred.
+- Si la red es directamente alcanzable, la dirección del siguiente salto es una interfaz del router, que se indica como **0.0.0.0**.
 
-* El router necesita una dirección IP en cada subred a la que esté conectado y solo enrutará si el destino está en otra subred, si no puede resolver siguiente nodo manda de vuelta mensaje ICMP, destino inalcanzable
+- La **dirección de red** se obtiene realizando una operación lógica **AND** entre la dirección IP y la máscara de subred:  
+  `Dirección_de_red = Dirección_IP AND Máscara`.
+
+- Si dos direcciones IP pertenecen a la misma red, entonces **IP1 XOR IP2 = 0**. Esto indica que ambos hosts están en la misma red.
+
+- La **dirección de broadcast** se obtiene con la operación **OR** entre la dirección de red y el complemento de la máscara:  
+  `Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara`.
+
+  Esta es siempre la última dirección de una red o subred.
+
+- El router necesita tener una dirección IP en cada subred a la que esté conectado. Solo enrutará si el destino está en una subred diferente. Si no puede encontrar un siguiente salto, enviará un mensaje ICMP indicando que el destino es inalcanzable.
+
+
+Ejemplo de Tabla de Enrutamiento
+================================
+
+Una tabla de enrutamiento básica contiene las siguientes columnas:
+
+- **Destino**: La dirección IP de la red de destino.
+- **Máscara de subred**: La máscara de subred que define el rango de direcciones dentro de la red de destino.
+- **Gateway/Nodo siguiente**: La dirección IP del siguiente router o gateway al que se debe enviar el paquete.
+- **Interfaz**: La interfaz de red a través de la cual se enviará el paquete.
+
+Ejemplo de Tabla de Enrutamiento:
+
++-------------------+----------------------+-----------------------------+--------------+
+| **Destino**       | **Máscara de subred**| **Gateway/Nodo siguiente**  | **Interfaz** |
++===================+======================+=============================+==============+
+| 192.168.1.0       | 255.255.255.0        | 192.168.1.1                 | eth0         |
++-------------------+----------------------+-----------------------------+--------------+
+| 192.168.2.0       | 255.255.255.0        | 192.168.1.2                 | eth1         |
++-------------------+----------------------+-----------------------------+--------------+
+| 0.0.0.0           | 0.0.0.0              | 192.168.1.24                | eth0         |
++-------------------+----------------------+-----------------------------+--------------+
+
+Explicación de los campos:
+
+1. **Destino (Red de destino)**:
+
+   - La red a la que se dirige el paquete.
+   - Ejemplo: **192.168.1.0** es una red en la que están los dispositivos que queremos alcanzar.
+
+2. **Máscara de subred**:
+
+   - Define el tamaño de la red y se utiliza para determinar si una dirección IP pertenece a esa red.
+   - Ejemplo: **255.255.255.0** es una máscara de subred estándar para una red de clase C.
+
+3. **Gateway/Nodo siguiente**:
+
+   - Es la dirección IP del siguiente salto o router hacia el destino.
+   - Si la dirección de destino está en una red directamente conectada al router, la interfaz del router se utiliza como **gateway**.
+   - Ejemplo: **192.168.1.1** es el gateway para la red **192.168.1.0**.
+
+4. **Interfaz**:
+
+   - Es la interfaz de red del router a través de la cual el paquete será enviado.
+   - Ejemplo: **eth0** y **eth1** son las interfaces de red del router.
+
+Rutas de ejemplo:
+
+- La primera entrada indica que para llegar a la red **192.168.1.0/24**, el paquete se enviará al siguiente salto en **192.168.1.1** a través de la interfaz **eth0**.
+- La segunda entrada es para la red **192.168.2.0/24**, que se enviará a través de la interfaz **eth1** al siguiente salto en **192.168.1.2**.
+- La tercera entrada es una **ruta por defecto** (`0.0.0.0/0`), indicando que cualquier tráfico que no coincida con una de las rutas anteriores se enviará a través del gateway **192.168.1.254**.
+
+Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como **OSPF**, **RIP** o **BGP**.
 
 Caso práctico: Tres routers
----------------------------
+===========================
 
 Fíjate en la siguiente figura en la que se muestran 6 ordenadores unidos por 3 switch y 3 routers
 
