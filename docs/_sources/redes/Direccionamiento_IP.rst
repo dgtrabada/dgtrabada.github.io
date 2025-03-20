@@ -217,6 +217,120 @@ Rutas de ejemplo:
 
 Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como **OSPF**, **RIP** o **BGP**.
 
+Caso práctico: Router  Cisco 7200 
+=================================
+
+Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
+
+1. Descarga la imagen para el router `Cisco c7200-adventerprisek9-mz.153-3.XB12.image <https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG?tab=readme-ov-file>`_ 
+#. Añadelo a GNS3 ( New template / Install an appliance from the GNS3 server (recommended)
+#. En **Routers** selecciona **Cisco 7200**
+#. Install the appliance on your local computer 
+#. Cuando estes en (Required files) presiona Import y busca los archivos que te has descargado.
+
+
+
+Realiza la siguiente red, necesitaras añadir otro slots en el router (PA-FE-TX)
+
+.. image:: imagenes/cisco7200_01.png
+
+Configura los pcs virtuales (VPC)
+
+.. code-block:: bash
+
+  set pcname 192.168.1.10/24
+  ip 192.168.1.10/24 192.168.1.1
+
+  set pcname 192.168.1.11/24
+  ip 192.168.1.11/24 192.168.1.1
+
+  set pcname 192.168.2.10/24
+  ip 192.168.2.10/24 192.168.2.1
+
+Fíjate que los Pcs virtuales (VPC) no pueden verse los que estan en subredes diferentes
+
+.. image:: imagenes/cisco7200_02.png
+
+Vamos a configuración las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y FastEthernet0/1 para la ip 192.168.2.1
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+   interface FastEthernet0/0
+   ip address 192.168.1.1 255.255.255.0
+  no shutdown
+  exit
+  interface FastEthernet1/0
+   ip address 192.168.2.1 255.255.255.0
+   no shutdown
+  exit
+
+Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente
+
+.. image:: imagenes/cisco7200_03.png
+
+Para ver las tablas de enrutamiento ejecutamos el comando ``show ip route``
+
+.. image:: imagenes/cisco7200_04.png
+
+
+
+
+Caso práctico: Router MikroTik
+==============================
+
+ikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos `mikrotik-chr.gnsa y la chr-7.16.img <https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router>`_ 
+
+Para añadirlo a GNS3 New template / Import an appliance file (.gn3a extension) 
+
+.. image:: imagenes/MikroTik01.png
+
+Vamos a utilizar tres ordenadores con la siguiente configuración:
+
+.. image:: imagenes/MikroTik02.png
+
+La forma más rápida de confiruar los 3clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+
+.. code-block:: bash
+
+  set pcname 10.0.1.10/24
+  ip 10.0.1.10/24 10.0.1.1
+
+  set pcname 10.0.1.11/24
+  ip 10.0.1.11/24 10.0.1.1
+
+  set pcname 10.0.2.10/24
+  ip 10.0.2.10/24 10.0.2.1
+
+Haz un pantallazo como el siguiente donde se comprueba que la 10.0.1.10 no llega a la 10.0.2.10
+
+
+.. image:: imagenes/MikroTik03.png
+
+
+Asigna las IPs a las Interfaces de MikroTik
+
+.. code-block:: bash
+
+  /ip address add address=10.0.1.1/24 interface=ether1
+  /ip address add address=10.0.2.1/24 interface=ether2
+
+Puedes comprobar que todo esta bien con el comando ``/ip address print``
+
+Por defecto, MikroTik ya enruta paquetes entre interfaces con direcciones IP directamente conectadas.
+Para verificar que las rutas existen, utiliza:
+
+.. code-block:: bash
+
+  /ip route print
+  
+  #    DST-ADDRESS     GATEWAY    DISTANCE
+  0    10.0.1.0/24     ether1     0
+  1    10.0.2.0/24     ether2     0
+
+Comprueba que ahora si llega.
+
 Caso práctico: Tres routers
 ===========================
 
@@ -227,6 +341,8 @@ Fíjate en la siguiente figura en la que se muestran 6 ordenadores unidos por 3 
 Como podemos ver en la figura tenemos tres segmentos de red /24 y dos segmentos de red que unen los router en /30.
 
 Para este caso práctico vamos a utilizar **GNS3** que es un software de emulación de red de código abierto que permite a los usuarios simular topologías de red complejas y experimentar con diferentes configuraciones de red y **VyOS**, que es un sistema operativo de red de código abierto basado en el proyecto Vyatta. Está diseñado para ser utilizado como un enrutador de red, firewall, VPN y plataforma de virtualización de red.
+
+Para instalar un Router pulsaremos a (New
 
 La forma más rápida de confiruar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
 

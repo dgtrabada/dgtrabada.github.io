@@ -455,6 +455,8 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tablas-de-encaminamiento">Tablas de Encaminamiento</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-tabla-de-enrutamiento">Ejemplo de Tabla de Enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7200">Caso práctico: Router  Cisco 7200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-routers">Caso práctico: Tres routers</a></li>
 </ul>
             </nav>
@@ -650,12 +652,93 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 </ul>
 <p>Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como <strong>OSPF</strong>, <strong>RIP</strong> o <strong>BGP</strong>.</p>
 </section>
+<section id="caso-practico-router-cisco-7200">
+<h2>Caso práctico: Router  Cisco 7200<a class="headerlink" href="#caso-practico-router-cisco-7200" title="Link to this heading">#</a></h2>
+<p>Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:</p>
+<ol class="arabic simple">
+<li><p>Descarga la imagen para el router <a class="reference external" href="https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG?tab=readme-ov-file">Cisco c7200-adventerprisek9-mz.153-3.XB12.image</a></p></li>
+<li><p>Añadelo a GNS3 ( New template / Install an appliance from the GNS3 server (recommended)</p></li>
+<li><p>En <strong>Routers</strong> selecciona <strong>Cisco 7200</strong></p></li>
+<li><p>Install the appliance on your local computer</p></li>
+<li><p>Cuando estes en (Required files) presiona Import y busca los archivos que te has descargado.</p></li>
+</ol>
+<p>Realiza la siguiente red, necesitaras añadir otro slots en el router (PA-FE-TX)</p>
+<img alt="../_images/cisco7200_01.png" src="../_images/cisco7200_01.png" />
+<p>Configura los pcs virtuales (VPC)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">192</span>.168.1.10/24
+ip<span class="w"> </span><span class="m">192</span>.168.1.10/24<span class="w"> </span><span class="m">192</span>.168.1.1
+
+<span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">192</span>.168.1.11/24
+ip<span class="w"> </span><span class="m">192</span>.168.1.11/24<span class="w"> </span><span class="m">192</span>.168.1.1
+
+<span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">192</span>.168.2.10/24
+ip<span class="w"> </span><span class="m">192</span>.168.2.10/24<span class="w"> </span><span class="m">192</span>.168.2.1
+</pre></div>
+</div>
+<p>Fíjate que los Pcs virtuales (VPC) no pueden verse los que estan en subredes diferentes</p>
+<img alt="../_images/cisco7200_02.png" src="../_images/cisco7200_02.png" />
+<p>Vamos a configuración las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y FastEthernet0/1 para la ip 192.168.2.1</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
+configure<span class="w"> </span>terminal
+<span class="w"> </span>interface<span class="w"> </span>FastEthernet0/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="m">255</span>.255.255.0
+no<span class="w"> </span>shutdown
+<span class="nb">exit</span>
+interface<span class="w"> </span>FastEthernet1/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.2.1<span class="w"> </span><span class="m">255</span>.255.255.0
+<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente</p>
+<img alt="../_images/cisco7200_03.png" src="../_images/cisco7200_03.png" />
+<p>Para ver las tablas de enrutamiento ejecutamos el comando <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">route</span></code></p>
+<img alt="../_images/cisco7200_04.png" src="../_images/cisco7200_04.png" />
+</section>
+<section id="caso-practico-router-mikrotik">
+<h2>Caso práctico: Router MikroTik<a class="headerlink" href="#caso-practico-router-mikrotik" title="Link to this heading">#</a></h2>
+<p>ikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos <a class="reference external" href="https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router">mikrotik-chr.gnsa y la chr-7.16.img</a></p>
+<p>Para añadirlo a GNS3 New template / Import an appliance file (.gn3a extension)</p>
+<img alt="../_images/MikroTik01.png" src="../_images/MikroTik01.png" />
+<p>Vamos a utilizar tres ordenadores con la siguiente configuración:</p>
+<img alt="../_images/MikroTik02.png" src="../_images/MikroTik02.png" />
+<p>La forma más rápida de confiruar los 3clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">10</span>.0.1.10/24
+ip<span class="w"> </span><span class="m">10</span>.0.1.10/24<span class="w"> </span><span class="m">10</span>.0.1.1
+
+<span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">10</span>.0.1.11/24
+ip<span class="w"> </span><span class="m">10</span>.0.1.11/24<span class="w"> </span><span class="m">10</span>.0.1.1
+
+<span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">10</span>.0.2.10/24
+ip<span class="w"> </span><span class="m">10</span>.0.2.10/24<span class="w"> </span><span class="m">10</span>.0.2.1
+</pre></div>
+</div>
+<p>Haz un pantallazo como el siguiente donde se comprueba que la 10.0.1.10 no llega a la 10.0.2.10</p>
+<img alt="redes/imagenes/MikroTik03.png" src="redes/imagenes/MikroTik03.png" />
+<p>Asigna las IPs a las Interfaces de MikroTik</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="nv">address</span><span class="o">=</span><span class="m">10</span>.0.1.1/24<span class="w"> </span><span class="nv">interface</span><span class="o">=</span>ether1
+/ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="nv">address</span><span class="o">=</span><span class="m">10</span>.0.2.1/24<span class="w"> </span><span class="nv">interface</span><span class="o">=</span>ether2
+</pre></div>
+</div>
+<p>Puedes comprobar que todo esta bien con el comando <code class="docutils literal notranslate"><span class="pre">/ip</span> <span class="pre">address</span> <span class="pre">print</span></code></p>
+<p>Por defecto, MikroTik ya enruta paquetes entre interfaces con direcciones IP directamente conectadas.
+Para verificar que las rutas existen, utiliza:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/ip<span class="w"> </span>route<span class="w"> </span>print
+
+<span class="c1">#    DST-ADDRESS     GATEWAY    DISTANCE</span>
+<span class="m">0</span><span class="w">    </span><span class="m">10</span>.0.1.0/24<span class="w">     </span>ether1<span class="w">     </span><span class="m">0</span>
+<span class="m">1</span><span class="w">    </span><span class="m">10</span>.0.2.0/24<span class="w">     </span>ether2<span class="w">     </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Comprueba que ahora si llega.</p>
+</section>
 <section id="caso-practico-tres-routers">
 <h2>Caso práctico: Tres routers<a class="headerlink" href="#caso-practico-tres-routers" title="Link to this heading">#</a></h2>
 <p>Fíjate en la siguiente figura en la que se muestran 6 ordenadores unidos por 3 switch y 3 routers</p>
 <img alt="../_images/Routers.png" src="../_images/Routers.png" />
 <p>Como podemos ver en la figura tenemos tres segmentos de red /24 y dos segmentos de red que unen los router en /30.</p>
 <p>Para este caso práctico vamos a utilizar <strong>GNS3</strong> que es un software de emulación de red de código abierto que permite a los usuarios simular topologías de red complejas y experimentar con diferentes configuraciones de red y <strong>VyOS</strong>, que es un sistema operativo de red de código abierto basado en el proyecto Vyatta. Está diseñado para ser utilizado como un enrutador de red, firewall, VPN y plataforma de virtualización de red.</p>
+<p>Para instalar un Router pulsaremos a (New</p>
 <p>La forma más rápida de confiruar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">10</span>.0.1.10/24
 ip<span class="w"> </span><span class="m">10</span>.0.1.10<span class="w"> </span><span class="m">10</span>.0.1.254<span class="w"> </span><span class="m">24</span>
@@ -891,6 +974,8 @@ Destination<span class="w">     </span>Gateway<span class="w">         </span>Ge
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tablas-de-encaminamiento">Tablas de Encaminamiento</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-de-tabla-de-enrutamiento">Ejemplo de Tabla de Enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7200">Caso práctico: Router  Cisco 7200</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-tres-routers">Caso práctico: Tres routers</a></li>
 </ul>
   </nav></div>
