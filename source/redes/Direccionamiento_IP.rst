@@ -217,8 +217,8 @@ Rutas de ejemplo:
 
 Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como **OSPF**, **RIP** o **BGP**.
 
-Caso práctico: Router  Cisco 7200 
-=================================
+Caso práctico: Router Cisco 
+===========================
 
 Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
 
@@ -227,8 +227,6 @@ Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
 #. En **Routers** selecciona **Cisco 7200**
 #. Install the appliance on your local computer 
 #. Cuando estes en (Required files) presiona Import y busca los archivos que te has descargado.
-
-
 
 Realiza la siguiente red, necesitaras añadir otro slots en el router (PA-FE-TX)
 
@@ -266,15 +264,106 @@ Vamos a configuración las interfaces de red del router, pondremos a FastEtherne
    no shutdown
   exit
 
-Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente
+Puedes comprobar que las interfaces de red estan configruadas correctamente con el comando ``show ip interface brief``. Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente
 
 .. image:: imagenes/cisco7200_03.png
+
 
 Para ver las tablas de enrutamiento ejecutamos el comando ``show ip route``
 
 .. image:: imagenes/cisco7200_04.png
 
 
+Caso práctico: Router Cisco (DHCP)
+==================================
+
+Vamos a crear un servidor dhcp para la red 10.0.0.0/26
+
+.. image:: imagenes/cisco_dhcp.png
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+   service dhcp
+   ip dhcp pool tu_nombre
+   network 10.0.0.0 255.255.255.192
+   default-router 10.0.0.1
+   dns-server 8.8.8.8
+   lease 2
+    ip dhcp excluded-address 10.0.0.1 10.0.0.9
+    interface FastEthernet0/0
+    ip address 10.0.0.1 255.255.255.192
+    no shutdown
+   exit
+  end
+
+La opción ``lease 2``, establece un período de arrendamiento de 2 días para las direcciones IP asignadas.
+
+.. code-block:: bash
+
+  show ip dhcp pool  # Muestra los pools creados
+  show ip dhcp binding # Lista las asignaciones de IP
+  debug ip dhcp server # Depuración en tiempo real
+
+Caso práctico: Router Cisco (Enrutamiento estático)
+===================================================
+
+.. image:: imagenes/cisco3R.png
+
+R1
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  interface FastEthernet0/0
+   ip address 10.0.1.1 255.255.255.0
+   no shutdown
+  interface FastEthernet1/0
+   ip address 10.0.0.1 255.255.255.252
+   no shutdown
+  ip route 10.0.2.0 255.255.255.0 10.0.0.2
+  ip route 10.0.3.0 255.255.255.0 10.0.0.2
+  end
+  write memory
+
+R2
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  interface FastEthernet0/0
+   ip address 10.0.2.1 255.255.255.0
+   no shutdown
+  interface Ethernet1/0
+   ip address 10.0.0.2 255.255.255.252
+   no shutdown
+  interface FastEthernet2/0
+   ip address 10.0.0.5 255.255.255.252
+   no shutdown
+  ip route 10.0.1.0 255.255.255.0 10.0.0.1
+  ip route 10.0.3.0 255.255.255.0 10.0.0.6
+  end
+  write memory
+
+R3
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  interface Ethernet0/0
+   ip address 10.0.3.1 255.255.255.0
+   no shutdown
+  interface Ethernet1/0
+   ip address 10.0.0.6 255.255.255.252
+   no shutdown
+  ip route 10.0.1.0 255.255.255.0 10.0.0.5
+  ip route 10.0.2.0 255.255.255.0 10.0.0.5
+  end
+  write memory
 
 
 Caso práctico: Router MikroTik
@@ -290,7 +379,7 @@ Vamos a utilizar tres ordenadores con la siguiente configuración:
 
 .. image:: imagenes/MikroTik02.png
 
-La forma más rápida de confiruar los 3clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+La forma más rápida de confiruar los 3 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
 
 .. code-block:: bash
 
@@ -303,11 +392,7 @@ La forma más rápida de confiruar los 3clientes es utilizando el botón de la d
   set pcname 10.0.2.10/24
   ip 10.0.2.10/24 10.0.2.1
 
-Haz un pantallazo como el siguiente donde se comprueba que la 10.0.1.10 no llega a la 10.0.2.10
-
-
-.. image:: imagenes/MikroTik03.png
-
+Haz un pantallazo como el siguiente donde se vea que la 10.0.1.10 no llega a la 10.0.2.10
 
 Asigna las IPs a las Interfaces de MikroTik
 
@@ -329,10 +414,10 @@ Para verificar que las rutas existen, utiliza:
   0    10.0.1.0/24     ether1     0
   1    10.0.2.0/24     ether2     0
 
-Comprueba que ahora si llega.
+Comprueba que ahora si llega y sube un pantallazo del ping y de las tablas de enrutamiento.
 
-Caso práctico: Tres routers
-===========================
+Caso práctico: Vyos
+===================
 
 Fíjate en la siguiente figura en la que se muestran 6 ordenadores unidos por 3 switch y 3 routers
 
@@ -555,3 +640,5 @@ y las interfaces de red como
   loopback lo {
   }
  [edit]
+
+Ejecuta los siguientes comandos ``ping 10.0.3.10`` y ``trace 10.0.2.10`` en la 10.0.1.10, sube un pantallazo
