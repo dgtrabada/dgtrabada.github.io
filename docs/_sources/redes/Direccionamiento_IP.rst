@@ -151,15 +151,13 @@ Los routers mantienen una tabla de encaminamiento en la que registran las rutas 
 
 - Si la red es directamente alcanzable, la dirección del siguiente salto es una interfaz del router, que se indica como **0.0.0.0**.
 
-- La **dirección de red** se obtiene realizando una operación lógica **AND** entre la dirección IP y la máscara de subred:  
+- La **dirección de red** se obtiene realizando una operación lógica **AND** entre la **dirección IP** y la **máscara de subred**:  
   `Dirección_de_red = Dirección_IP AND Máscara`.
 
 - Si dos direcciones IP pertenecen a la misma red, entonces **IP1 XOR IP2 = 0**. Esto indica que ambos hosts están en la misma red.
 
 - La **dirección de broadcast** se obtiene con la operación **OR** entre la dirección de red y el complemento de la máscara:  
-  `Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara`.
-
-  Esta es siempre la última dirección de una red o subred.
+  `Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara`.  **Esta es siempre la última dirección de una red o subred**.
 
 - El router necesita tener una dirección IP en cada subred a la que esté conectado. Solo enrutará si el destino está en una subred diferente. Si no puede encontrar un siguiente salto, enviará un mensaje ICMP indicando que el destino es inalcanzable.
 
@@ -174,8 +172,6 @@ Una tabla de enrutamiento básica contiene las siguientes columnas:
 - **Gateway/Nodo siguiente**: La dirección IP del siguiente router o gateway al que se debe enviar el paquete.
 - **Interfaz**: La interfaz de red a través de la cual se enviará el paquete.
 
-Ejemplo de Tabla de Enrutamiento:
-
 +-------------------+----------------------+-----------------------------+--------------+
 | **Destino**       | **Máscara de subred**| **Gateway/Nodo siguiente**  | **Interfaz** |
 +===================+======================+=============================+==============+
@@ -186,34 +182,11 @@ Ejemplo de Tabla de Enrutamiento:
 | 0.0.0.0           | 0.0.0.0              | 192.168.1.24                | eth0         |
 +-------------------+----------------------+-----------------------------+--------------+
 
-Explicación de los campos:
-
-1. **Destino (Red de destino)**:
-
-   - La red a la que se dirige el paquete.
-   - Ejemplo: **192.168.1.0** es una red en la que están los dispositivos que queremos alcanzar.
-
-2. **Máscara de subred**:
-
-   - Define el tamaño de la red y se utiliza para determinar si una dirección IP pertenece a esa red.
-   - Ejemplo: **255.255.255.0** es una máscara de subred estándar para una red de clase C.
-
-3. **Gateway/Nodo siguiente**:
-
-   - Es la dirección IP del siguiente salto o router hacia el destino.
-   - Si la dirección de destino está en una red directamente conectada al router, la interfaz del router se utiliza como **gateway**.
-   - Ejemplo: **192.168.1.1** es el gateway para la red **192.168.1.0**.
-
-4. **Interfaz**:
-
-   - Es la interfaz de red del router a través de la cual el paquete será enviado.
-   - Ejemplo: **eth0** y **eth1** son las interfaces de red del router.
-
 Rutas de ejemplo:
 
 - La primera entrada indica que para llegar a la red **192.168.1.0/24**, el paquete se enviará al siguiente salto en **192.168.1.1** a través de la interfaz **eth0**.
 - La segunda entrada es para la red **192.168.2.0/24**, que se enviará a través de la interfaz **eth1** al siguiente salto en **192.168.1.2**.
-- La tercera entrada es una **ruta por defecto** (`0.0.0.0/0`), indicando que cualquier tráfico que no coincida con una de las rutas anteriores se enviará a través del gateway **192.168.1.254**.
+- La tercera entrada es una **ruta por defecto** (`0.0.0.0/0`), indicando que cualquier tráfico que no coincida con una de las rutas anteriores se enviará a través del gateway **192.168.1.24**. Si 192.168.1.24 está conectado a Internet, cualquier dispositivo que use esta tabla de enrutamiento podrá navegar en la web.
 
 Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como **OSPF**, **RIP** o **BGP**.
 

@@ -172,6 +172,8 @@ Algunos de los protocolos de la capa de aplicación son:
 
 * **DNS** : Servicio de nombres de dominio, es el sistema utilizado en Internet para convertir los nombres de los nodos de red en direcciones de red.
 
+* **DHCP** :  Es un protocolo de red que asigna automáticamente direcciones IP y otros parámetros de configuración a dispositivos en una red, simplificando la administración y evitando conflictos de direcciones
+
 * **SMTP** : Protocolo simple de trasnferencia de correo, basado en texto y utilizado para el intercambio de mensajes de correo. Está basado en el concepto cliente-servidor, donde un cliente envía un mensaje a uno o carios servidores.
 
 * **POP**: Protocolo de oficina de correo, se utiliza en los clientes de correo para obtener los mensajes de correo almacenados en un servidor.

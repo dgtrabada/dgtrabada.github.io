@@ -566,18 +566,16 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <section id="tablas-de-encaminamiento">
 <h2>Tablas de Encaminamiento<a class="headerlink" href="#tablas-de-encaminamiento" title="Link to this heading">#</a></h2>
 <p>Los routers mantienen una tabla de encaminamiento en la que registran las rutas hacia nodos y redes alcanzables. Estas rutas pueden ser <strong>estáticas</strong> (definidas manualmente por el administrador de red) o <strong>dinámicas</strong> (aprendidas automáticamente por el router).</p>
-<ul>
+<ul class="simple">
 <li><p>Cada nodo decide a qué nodo (dirección de red) enviará un paquete, basándose en pares de dirección IP de destino y la dirección del siguiente salto.</p></li>
 <li><p>Para direccionar un único equipo (no una red completa), se utiliza la máscara <strong>255.255.255.255</strong> o <strong>/32</strong>.</p></li>
 <li><p>Para establecer una ruta por defecto (hacia dónde enviar los paquetes si no se encuentra el destino), se utiliza la dirección <strong>0.0.0.0/0</strong>.</p></li>
 <li><p>Si la red es directamente alcanzable, la dirección del siguiente salto es una interfaz del router, que se indica como <strong>0.0.0.0</strong>.</p></li>
-<li><p>La <strong>dirección de red</strong> se obtiene realizando una operación lógica <strong>AND</strong> entre la dirección IP y la máscara de subred:
+<li><p>La <strong>dirección de red</strong> se obtiene realizando una operación lógica <strong>AND</strong> entre la <strong>dirección IP</strong> y la <strong>máscara de subred</strong>:
 <cite>Dirección_de_red = Dirección_IP AND Máscara</cite>.</p></li>
 <li><p>Si dos direcciones IP pertenecen a la misma red, entonces <strong>IP1 XOR IP2 = 0</strong>. Esto indica que ambos hosts están en la misma red.</p></li>
 <li><p>La <strong>dirección de broadcast</strong> se obtiene con la operación <strong>OR</strong> entre la dirección de red y el complemento de la máscara:
-<cite>Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara</cite>.</p>
-<p>Esta es siempre la última dirección de una red o subred.</p>
-</li>
+<cite>Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara</cite>.  <strong>Esta es siempre la última dirección de una red o subred</strong>.</p></li>
 <li><p>El router necesita tener una dirección IP en cada subred a la que esté conectado. Solo enrutará si el destino está en una subred diferente. Si no puede encontrar un siguiente salto, enviará un mensaje ICMP indicando que el destino es inalcanzable.</p></li>
 </ul>
 </section>
@@ -590,7 +588,6 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 <li><p><strong>Gateway/Nodo siguiente</strong>: La dirección IP del siguiente router o gateway al que se debe enviar el paquete.</p></li>
 <li><p><strong>Interfaz</strong>: La interfaz de red a través de la cual se enviará el paquete.</p></li>
 </ul>
-<p>Ejemplo de Tabla de Enrutamiento:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Destino</strong></p></th>
@@ -618,39 +615,11 @@ A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola r
 </tbody>
 </table>
 </div>
-<p>Explicación de los campos:</p>
-<ol class="arabic simple">
-<li><p><strong>Destino (Red de destino)</strong>:</p>
-<ul class="simple">
-<li><p>La red a la que se dirige el paquete.</p></li>
-<li><p>Ejemplo: <strong>192.168.1.0</strong> es una red en la que están los dispositivos que queremos alcanzar.</p></li>
-</ul>
-</li>
-<li><p><strong>Máscara de subred</strong>:</p>
-<ul class="simple">
-<li><p>Define el tamaño de la red y se utiliza para determinar si una dirección IP pertenece a esa red.</p></li>
-<li><p>Ejemplo: <strong>255.255.255.0</strong> es una máscara de subred estándar para una red de clase C.</p></li>
-</ul>
-</li>
-<li><p><strong>Gateway/Nodo siguiente</strong>:</p>
-<ul class="simple">
-<li><p>Es la dirección IP del siguiente salto o router hacia el destino.</p></li>
-<li><p>Si la dirección de destino está en una red directamente conectada al router, la interfaz del router se utiliza como <strong>gateway</strong>.</p></li>
-<li><p>Ejemplo: <strong>192.168.1.1</strong> es el gateway para la red <strong>192.168.1.0</strong>.</p></li>
-</ul>
-</li>
-<li><p><strong>Interfaz</strong>:</p>
-<ul class="simple">
-<li><p>Es la interfaz de red del router a través de la cual el paquete será enviado.</p></li>
-<li><p>Ejemplo: <strong>eth0</strong> y <strong>eth1</strong> son las interfaces de red del router.</p></li>
-</ul>
-</li>
-</ol>
 <p>Rutas de ejemplo:</p>
 <ul class="simple">
 <li><p>La primera entrada indica que para llegar a la red <strong>192.168.1.0/24</strong>, el paquete se enviará al siguiente salto en <strong>192.168.1.1</strong> a través de la interfaz <strong>eth0</strong>.</p></li>
 <li><p>La segunda entrada es para la red <strong>192.168.2.0/24</strong>, que se enviará a través de la interfaz <strong>eth1</strong> al siguiente salto en <strong>192.168.1.2</strong>.</p></li>
-<li><p>La tercera entrada es una <strong>ruta por defecto</strong> (<cite>0.0.0.0/0</cite>), indicando que cualquier tráfico que no coincida con una de las rutas anteriores se enviará a través del gateway <strong>192.168.1.254</strong>.</p></li>
+<li><p>La tercera entrada es una <strong>ruta por defecto</strong> (<cite>0.0.0.0/0</cite>), indicando que cualquier tráfico que no coincida con una de las rutas anteriores se enviará a través del gateway <strong>192.168.1.24</strong>. Si 192.168.1.24 está conectado a Internet, cualquier dispositivo que use esta tabla de enrutamiento podrá navegar en la web.</p></li>
 </ul>
 <p>Además de estas rutas estáticas, las rutas dinámicas pueden ser aprendidas automáticamente mediante protocolos como <strong>OSPF</strong>, <strong>RIP</strong> o <strong>BGP</strong>.</p>
 </section>
