@@ -138,6 +138,54 @@ Ejemplos
   .. image:: imagenes/subneting.png
 
 
+**Ejemplo de direccionamiento VLSM para 192.168.0.0/24**
+
+Vamos a optimizar el espacio de direcciones utilizando VLSM para cumplir con los siguientes requisitos:
+
+* 1 subred para 30 hosts (VLAN 1)
+* 1 subred para 10 hosts (VLAN 2)
+* 3 subredes para 2 hosts cada una (enlaces entre routers)
+
+1. Empezamos asignar la subred más grande **(30 hosts)**.
+
+   Para 30 hosts necesitamos: :math:`2^{n} - 2 \geq 30` es decir n = 5 
+
+   * Máscara: /27 (255.255.255.224)
+   * Subred asignada: **192.168.0.0/27**
+   * Rango útil: 192.168.0.1 - 192.168.0.30  (:math:`2^{5} - 2 = 30` hosts por red)
+   * Broadcast: 192.168.0.31
+
+#. Asignamos la subred **(10 hosts)**.
+
+   Para 10 hosts necesitamos: :math:`2^{n} - 2 \geq 10` es decir n = 4 
+
+   * Máscara: /28 (255.255.255.240)
+   * Subred asignada: **192.168.0.32/28**
+   * Rango útil: 192.168.0.33 - 192.168.0.46  (:math:`2^{4} - 2 = 14` hosts por red)
+   * Broadcast: 192.168.0.47
+
+#. Asignamos las tres subredes **(2 hosts)**.
+
+   Para 2 hosts necesitamos: :math:`2^{n} - 2 \geq 2` es decir n = 2 
+
+   * Máscara: /30 (255.255.255.252)
+   * Subredes asignadas: (:math:`2^{2} - 2 = 2` hosts por red)
+
+     1. **192.168.0.48/30**
+
+        * Rango útil: 192.168.0.49 - 192.168.0.50
+        * Broadcast: 192.168.0.51
+
+     1. **192.168.0.52/30**
+
+        * Rango útil: 192.168.0.53 - 192.168.0.54
+        * Broadcast: 192.168.0.55
+
+     1. **192.168.0.56/30**
+
+        * Rango útil: 192.168.0.57 - 192.168.0.58
+        * Broadcast: 192.168.0.59
+
 Tablas de Encaminamiento
 =========================
 
@@ -279,6 +327,35 @@ La opción ``lease 2``, establece un período de arrendamiento de 2 días para l
   show ip dhcp binding # Lista las asignaciones de IP
   debug ip dhcp server # Depuración en tiempo real
 
+Caso práctico: Router Cisco (Cloud)
+==================================
+
+En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exterior, es decir, con tu computadora anfitriona (host) y, a través de ella, con Internet o redes físicas reales.
+
+
+Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip.
+
+.. image:: imagenes/cisco_cloud.png
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  access-list 100 permit ip 20.0.0.0 0.0.0.255 any
+  ip nat inside source list 100 interface FastEthernet1/0 overload
+  interface FastEthernet0/0
+   ip address 20.0.0.1 255.255.255.0
+   no shutdown
+   ip nat inside
+  interface FastEthernet1/0
+   ip address 10.4.104.100 255.0.0.0
+   no shutdown
+   ip nat outside
+  ip route 0.0.0.0 0.0.0.0 10.0.0.2
+  end
+  write memory
+
+
 Caso práctico: Router Cisco (Enrutamiento estático)
 ===================================================
 
@@ -291,13 +368,15 @@ R1
   enable
   configure terminal
   interface FastEthernet0/0
-   ip address 10.0.1.1 255.255.255.0
+   ip address 192.168.1.1 255.255.255.0
    no shutdown
   interface FastEthernet1/0
-   ip address 10.0.0.1 255.255.255.252
+   ip address 192.168.2.1 255.255.255.252
    no shutdown
-  ip route 10.0.2.0 255.255.255.0 10.0.0.2
-  ip route 10.0.3.0 255.255.255.0 10.0.0.2
+  ip route 172.16.0.0 255.255.255.0 192.168.2.2 
+  ip route 20.0.0.0 255.255.255.0 192.168.2.2
+  ip route 192.168.4.0 255.255.252.0 192.168.1.1
+  ip route 0.0.0.0 0.0.0.0 192.168.2.2
   end
   write memory
 
@@ -308,16 +387,18 @@ R2
   enable
   configure terminal
   interface FastEthernet0/0
-   ip address 10.0.2.1 255.255.255.0
+   ip address 172.16.0.1 255.255.255.0
    no shutdown
-  interface Ethernet1/0
-   ip address 10.0.0.2 255.255.255.252
+  interface FastEthernet1/0
+   ip address 192.168.2.2 255.255.255.252
    no shutdown
   interface FastEthernet2/0
-   ip address 10.0.0.5 255.255.255.252
+   ip address 192.168.3.1 255.255.255.252
    no shutdown
-  ip route 10.0.1.0 255.255.255.0 10.0.0.1
-  ip route 10.0.3.0 255.255.255.0 10.0.0.6
+  ip route 192.168.1.0 255.255.255.0 192.168.2.1
+  ip route 20.0.0.0 255.255.255.0 192.168.3.2
+  ip route 172.16.0.0 255.255.255.0 172.16.0.1
+  ip route 0.0.0.0 0.0.0.0 192.168.3.2
   end
   write memory
 
@@ -327,14 +408,26 @@ R3
 
   enable
   configure terminal
-  interface Ethernet0/0
-   ip address 10.0.3.1 255.255.255.0
+  access-list 100 permit ip 20.0.0.0 0.0.0.255 any
+  access-list 100 permit ip 172.16.0.0 0.0.0.255 any
+  access-list 100 permit ip 192.168.1.0 0.0.0.255 any 
+  ip nat inside source list 100 interface FastEthernet2/0 overload
+  interface FastEthernet0/0
+   ip address 20.0.0.1 255.255.255.0
    no shutdown
-  interface Ethernet1/0
-   ip address 10.0.0.6 255.255.255.252
+   ip nat inside
+  interface FastEthernet1/0
+   ip address 192.168.3.2 255.255.255.252
    no shutdown
-  ip route 10.0.1.0 255.255.255.0 10.0.0.5
-  ip route 10.0.2.0 255.255.255.0 10.0.0.5
+   ip nat inside
+  interface FastEthernet2/0
+   ip address 10.4.104.100 255.0.0.0
+   no shutdown
+   ip nat outside
+  ip route 192.168.1.0 255.255.255.0 192.168.3.1
+  ip route 172.16.0.0 255.255.255.0 192.168.3.1
+  ip route 192.168.2.0 255.255.255.252 192.168.3.1
+  ip route 0.0.0.0 0.0.0.0 10.0.0.2
   end
   write memory
 
