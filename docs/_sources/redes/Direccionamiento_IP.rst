@@ -243,7 +243,7 @@ Caso práctico: Router Cisco
 
 Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
 
-1. Descarga la imagen para el router `Cisco c7200-adventerprisek9-mz.153-3.XB12.image <https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG?tab=readme-ov-file>`_ 
+1. Descarga la imagen para el router **Cisco c7200-adventerprisek9-mz.153-3.XB12.image** 
 #. Añadelo a GNS3 ( New template / Install an appliance from the GNS3 server (recommended)
 #. En **Routers** selecciona **Cisco 7200**
 #. Install the appliance on your local computer 
