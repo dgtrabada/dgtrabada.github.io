@@ -318,6 +318,7 @@ Vamos a crear un servidor dhcp para la red 10.0.0.0/26
     no shutdown
    exit
   end
+  write memory
 
 La opción ``lease 2``, establece un período de arrendamiento de 2 días para las direcciones IP asignadas.
 
@@ -333,7 +334,7 @@ Caso práctico: Router Cisco (Cloud)
 En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exterior, es decir, con tu computadora anfitriona (host) y, a través de ella, con Internet o redes físicas reales.
 
 
-Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip.
+Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1
 
 .. image:: imagenes/cisco_cloud.png
 
@@ -361,7 +362,7 @@ Caso práctico: Router Cisco (Enrutamiento estático)
 
 .. image:: imagenes/cisco3R.png
 
-R1
+**R1**
 
 .. code-block:: bash
 
@@ -380,7 +381,7 @@ R1
   end
   write memory
 
-R2
+**R2**
 
 .. code-block:: bash
 
@@ -402,7 +403,7 @@ R2
   end
   write memory
 
-R3
+**R3**
 
 .. code-block:: bash
 
@@ -411,7 +412,7 @@ R3
   access-list 100 permit ip 20.0.0.0 0.0.0.255 any
   access-list 100 permit ip 172.16.0.0 0.0.0.255 any
   access-list 100 permit ip 192.168.1.0 0.0.0.255 any 
-  ip nat inside source list 100 interface FastEthernet2/0 overload
+   ip nat inside source list 100 interface FastEthernet2/0 overload
   interface FastEthernet0/0
    ip address 20.0.0.1 255.255.255.0
    no shutdown
@@ -431,6 +432,99 @@ R3
   end
   write memory
 
+
+
+Caso práctico: Router Cisco (Enrutamiento dinamico)
+===================================================
+
+vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First) es un protocolo de enrutamiento dinámico link-state utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red. 
+
+
+**R1**
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  interface FastEthernet0/0
+   ip address 192.168.1.1 255.255.255.0
+   no shutdown
+  interface FastEthernet1/0
+   ip address 192.168.2.1 255.255.255.252
+   no shutdown
+  router ospf 1
+   network 192.168.1.0 0.0.0.255 area 0
+   network 192.168.2.0 0.0.0.3 area 0
+ 
+  redistribute static subnets
+  redistribute connected subnets
+  default-information originate  ! Para propagar la ruta por defecto
+  end
+  write memory
+
+**R2**
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  interface FastEthernet0/0
+   ip address 172.16.0.1 255.255.255.0
+   no shutdown
+  interface FastEthernet1/0
+   ip address 192.168.2.2 255.255.255.252
+   no shutdown
+  interface FastEthernet2/0
+   ip address 192.168.3.1 255.255.255.252
+   no shutdown
+  router ospf 1
+   network 172.16.0.0 0.0.0.255 area 0 
+   network 192.168.2.0 0.0.0.3 area 0
+   network 192.168.3.0 0.0.0.3 area 0
+  default-information originate
+  end
+  write memory
+
+
+**R3**
+
+.. code-block:: bash
+
+  enable
+  configure terminal
+  access-list 100 permit ip 20.0.0.0 0.0.0.255 any
+  access-list 100 permit ip 172.16.0.0 0.0.0.255 any
+  access-list 100 permit ip 192.168.1.0 0.0.0.255 any
+   ip nat inside source list 100 interface FastEthernet2/0 overload
+  interface FastEthernet0/0
+   ip address 20.0.0.1 255.255.255.0
+   no shutdown
+   ip nat inside  ! Zona interna (NAT)
+  interface FastEthernet1/0
+   ip address 192.168.3.2 255.255.255.252
+   no shutdown
+   ip nat inside  ! Zona interna (NAT)
+  interface FastEthernet2/0
+   ip address 10.4.104.100 255.0.0.0
+   no shutdown
+   ip nat outside ! Zona externa (Internet/salida NAT)
+  router ospf 1
+   network 20.0.0.0 0.0.0.255 area 0 
+   network 192.168.3.0 0.0.0.3 area 0
+   passive-interface FastEthernet0/0
+   default-information originate 
+  ip route 0.0.0.0 0.0.0.0 10.0.0.2
+  end
+  write memory
+
+Podemos diagnosticar el funcionamiento con los siguientes comandos:
+
+.. code-block:: bash
+
+  show ip ospf neighbor                  # Lista de routers vecinos OSPF y su estado.
+  show ip route ospf                     # La base de datos de enlaces (LSDB) con todos los LSA (Link-State Advertisements).
+  show ip ospf interface FastEthernet1/0 # Rutas en la tabla de enrutamiento aprendidas por OSPF 
+  show ip ospf database summary          #Muestra información general
 
 Caso práctico: Router MikroTik
 ==============================

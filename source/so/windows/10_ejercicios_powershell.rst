@@ -82,6 +82,29 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/tres_numeros_decimales.ps1
            :language: powershell
 
+    .. tab:: Solución (param)
+
+        .. literalinclude:: 10_powershell/tres_numeros_param.ps1
+           :language: powershell
+
+
+.. tabs::
+
+    .. tab:: impar.ps1
+      
+        Haz un script llamado **impar.ps1** que pide un número al usuario y muestre los números impares hasta ese número
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/impart.ps1
+           :language: powershell
+
+    .. tab:: Solución (param)
+
+        .. literalinclude:: 10_powershell/impart_param.ps1
+           :language: powershell
+
+
 
 .. tabs::
 
@@ -94,6 +117,10 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/mult.ps1
            :language: powershell
 
+    .. tab:: Solución (param)
+
+        .. literalinclude:: 10_powershell/mult_param.ps1
+           :language: powershell
 
 .. tabs::
 

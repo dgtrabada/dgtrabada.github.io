@@ -459,6 +459,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-dhcp">Caso práctico: Router Cisco (DHCP)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-cloud">Caso práctico: Router Cisco (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>
@@ -744,6 +745,7 @@ configure<span class="w"> </span>terminal
 <span class="w">  </span>no<span class="w"> </span>shutdown
 <span class="w"> </span><span class="nb">exit</span>
 end
+write<span class="w"> </span>memory
 </pre></div>
 </div>
 <p>La opción <code class="docutils literal notranslate"><span class="pre">lease</span> <span class="pre">2</span></code>, establece un período de arrendamiento de 2 días para las direcciones IP asignadas.</p>
@@ -756,7 +758,7 @@ debug<span class="w"> </span>ip<span class="w"> </span>dhcp<span class="w"> </sp
 <section id="caso-practico-router-cisco-cloud">
 <h2>Caso práctico: Router Cisco (Cloud)<a class="headerlink" href="#caso-practico-router-cisco-cloud" title="Link to this heading">#</a></h2>
 <p>En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exterior, es decir, con tu computadora anfitriona (host) y, a través de ella, con Internet o redes físicas reales.</p>
-<p>Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip.</p>
+<p>Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1</p>
 <img alt="../_images/cisco_cloud.png" src="../_images/cisco_cloud.png" />
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
@@ -779,7 +781,7 @@ write<span class="w"> </span>memory
 <section id="caso-practico-router-cisco-enrutamiento-estatico">
 <h2>Caso práctico: Router Cisco (Enrutamiento estático)<a class="headerlink" href="#caso-practico-router-cisco-enrutamiento-estatico" title="Link to this heading">#</a></h2>
 <img alt="../_images/cisco3R.png" src="../_images/cisco3R.png" />
-<p>R1</p>
+<p><strong>R1</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 interface<span class="w"> </span>FastEthernet0/0
@@ -796,7 +798,7 @@ end
 write<span class="w"> </span>memory
 </pre></div>
 </div>
-<p>R2</p>
+<p><strong>R2</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 interface<span class="w"> </span>FastEthernet0/0
@@ -816,13 +818,13 @@ end
 write<span class="w"> </span>memory
 </pre></div>
 </div>
-<p>R3</p>
+<p><strong>R3</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
 access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
 access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
-ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list<span class="w"> </span><span class="m">100</span><span class="w"> </span>interface<span class="w"> </span>FastEthernet2/0<span class="w"> </span>overload
+<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list<span class="w"> </span><span class="m">100</span><span class="w"> </span>interface<span class="w"> </span>FastEthernet2/0<span class="w"> </span>overload
 interface<span class="w"> </span>FastEthernet0/0
 <span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">20</span>.0.0.1<span class="w"> </span><span class="m">255</span>.255.255.0
 <span class="w"> </span>no<span class="w"> </span>shutdown
@@ -841,6 +843,87 @@ ip<span class="w"> </span>route<span class="w"> </span><span class="m">192</span
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">10</span>.0.0.2
 end
 write<span class="w"> </span>memory
+</pre></div>
+</div>
+</section>
+<section id="caso-practico-router-cisco-enrutamiento-dinamico">
+<h2>Caso práctico: Router Cisco (Enrutamiento dinamico)<a class="headerlink" href="#caso-practico-router-cisco-enrutamiento-dinamico" title="Link to this heading">#</a></h2>
+<p>vamos a configurar los anteriores routers con <strong>OSPF</strong> (Open Shortest Path First) es un protocolo de enrutamiento dinámico link-state utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.</p>
+<p><strong>R1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
+configure<span class="w"> </span>terminal
+interface<span class="w"> </span>FastEthernet0/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="m">255</span>.255.255.0
+<span class="w"> </span>no<span class="w"> </span>shutdown
+interface<span class="w"> </span>FastEthernet1/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.2.1<span class="w"> </span><span class="m">255</span>.255.255.252
+<span class="w"> </span>no<span class="w"> </span>shutdown
+router<span class="w"> </span>ospf<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">192</span>.168.2.0<span class="w"> </span><span class="m">0</span>.0.0.3<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+
+redistribute<span class="w"> </span>static<span class="w"> </span>subnets
+redistribute<span class="w"> </span>connected<span class="w"> </span>subnets
+default-information<span class="w"> </span>originate<span class="w">  </span>!<span class="w"> </span>Para<span class="w"> </span>propagar<span class="w"> </span>la<span class="w"> </span>ruta<span class="w"> </span>por<span class="w"> </span>defecto
+end
+write<span class="w"> </span>memory
+</pre></div>
+</div>
+<p><strong>R2</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
+configure<span class="w"> </span>terminal
+interface<span class="w"> </span>FastEthernet0/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">172</span>.16.0.1<span class="w"> </span><span class="m">255</span>.255.255.0
+<span class="w"> </span>no<span class="w"> </span>shutdown
+interface<span class="w"> </span>FastEthernet1/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.2.2<span class="w"> </span><span class="m">255</span>.255.255.252
+<span class="w"> </span>no<span class="w"> </span>shutdown
+interface<span class="w"> </span>FastEthernet2/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.3.1<span class="w"> </span><span class="m">255</span>.255.255.252
+<span class="w"> </span>no<span class="w"> </span>shutdown
+router<span class="w"> </span>ospf<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">192</span>.168.2.0<span class="w"> </span><span class="m">0</span>.0.0.3<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">192</span>.168.3.0<span class="w"> </span><span class="m">0</span>.0.0.3<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+default-information<span class="w"> </span>originate
+end
+write<span class="w"> </span>memory
+</pre></div>
+</div>
+<p><strong>R3</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
+configure<span class="w"> </span>terminal
+access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
+access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
+access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
+<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w"> </span><span class="nb">source</span><span class="w"> </span>list<span class="w"> </span><span class="m">100</span><span class="w"> </span>interface<span class="w"> </span>FastEthernet2/0<span class="w"> </span>overload
+interface<span class="w"> </span>FastEthernet0/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">20</span>.0.0.1<span class="w"> </span><span class="m">255</span>.255.255.0
+<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w">  </span>!<span class="w"> </span>Zona<span class="w"> </span>interna<span class="w"> </span><span class="o">(</span>NAT<span class="o">)</span>
+interface<span class="w"> </span>FastEthernet1/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">192</span>.168.3.2<span class="w"> </span><span class="m">255</span>.255.255.252
+<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w">  </span>!<span class="w"> </span>Zona<span class="w"> </span>interna<span class="w"> </span><span class="o">(</span>NAT<span class="o">)</span>
+interface<span class="w"> </span>FastEthernet2/0
+<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
+<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>outside<span class="w"> </span>!<span class="w"> </span>Zona<span class="w"> </span>externa<span class="w"> </span><span class="o">(</span>Internet/salida<span class="w"> </span>NAT<span class="o">)</span>
+router<span class="w"> </span>ospf<span class="w"> </span><span class="m">1</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>network<span class="w"> </span><span class="m">192</span>.168.3.0<span class="w"> </span><span class="m">0</span>.0.0.3<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
+<span class="w"> </span>passive-interface<span class="w"> </span>FastEthernet0/0
+<span class="w"> </span>default-information<span class="w"> </span>originate
+ip<span class="w"> </span>route<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">10</span>.0.0.2
+end
+write<span class="w"> </span>memory
+</pre></div>
+</div>
+<p>Podemos diagnosticar el funcionamiento con los siguientes comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>neighbor<span class="w">                  </span><span class="c1"># Lista de routers vecinos OSPF y su estado.</span>
+show<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>ospf<span class="w">                     </span><span class="c1"># La base de datos de enlaces (LSDB) con todos los LSA (Link-State Advertisements).</span>
+show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>interface<span class="w"> </span>FastEthernet1/0<span class="w"> </span><span class="c1"># Rutas en la tabla de enrutamiento aprendidas por OSPF</span>
+show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>database<span class="w"> </span>summary<span class="w">          </span><span class="c1">#Muestra información general</span>
 </pre></div>
 </div>
 </section>
@@ -1127,6 +1210,7 @@ Destination<span class="w">     </span>Gateway<span class="w">         </span>Ge
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-dhcp">Caso práctico: Router Cisco (DHCP)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-cloud">Caso práctico: Router Cisco (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>
