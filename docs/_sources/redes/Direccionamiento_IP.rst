@@ -334,11 +334,13 @@ Caso práctico: Router Cisco (Cloud)
 En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exterior, es decir, con tu computadora anfitriona (host) y, a través de ella, con Internet o redes físicas reales.
 
 
-Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1
-
 .. image:: imagenes/cisco_cloud.png
 
+
+Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1
+
 .. code-block:: bash
+  :emphasize-lines: 10
 
   enable
   configure terminal
@@ -405,7 +407,10 @@ Caso práctico: Router Cisco (Enrutamiento estático)
 
 **R3**
 
+Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip
+
 .. code-block:: bash
+  :emphasize-lines: 16
 
   enable
   configure terminal
@@ -437,7 +442,9 @@ Caso práctico: Router Cisco (Enrutamiento estático)
 Caso práctico: Router Cisco (Enrutamiento dinamico)
 ===================================================
 
-vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First) es un protocolo de enrutamiento dinámico link-state utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red. 
+vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First) es un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red. 
+
+Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip
 
 
 **R1**
@@ -489,6 +496,7 @@ vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First
 **R3**
 
 .. code-block:: bash
+  :emphasize-lines: 16
 
   enable
   configure terminal

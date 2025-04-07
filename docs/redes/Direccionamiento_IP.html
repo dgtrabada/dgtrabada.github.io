@@ -758,8 +758,8 @@ debug<span class="w"> </span>ip<span class="w"> </span>dhcp<span class="w"> </sp
 <section id="caso-practico-router-cisco-cloud">
 <h2>Caso práctico: Router Cisco (Cloud)<a class="headerlink" href="#caso-practico-router-cisco-cloud" title="Link to this heading">#</a></h2>
 <p>En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exterior, es decir, con tu computadora anfitriona (host) y, a través de ella, con Internet o redes físicas reales.</p>
-<p>Crea el diguiente esquema, configura el erouter con la ip 10.4.X.Y, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1</p>
 <img alt="../_images/cisco_cloud.png" src="../_images/cisco_cloud.png" />
+<p>Configura el router con la ip <strong>10.4.X.Y</strong>, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
@@ -769,8 +769,8 @@ interface<span class="w"> </span>FastEthernet0/0
 <span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside
 interface<span class="w"> </span>FastEthernet1/0
-<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
-<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="hll"><span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
+</span><span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>outside
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">10</span>.0.0.2
 end
@@ -819,6 +819,7 @@ write<span class="w"> </span>memory
 </pre></div>
 </div>
 <p><strong>R3</strong></p>
+<p>Configura el router con la ip <strong>10.4.X.Y</strong>, siendo X e Y los valores de tu ip</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 access-list<span class="w"> </span><span class="m">100</span><span class="w"> </span>permit<span class="w"> </span>ip<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>any
@@ -834,8 +835,8 @@ interface<span class="w"> </span>FastEthernet1/0
 <span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside
 interface<span class="w"> </span>FastEthernet2/0
-<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
-<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="hll"><span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
+</span><span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>outside
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.3.1
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.3.1
@@ -848,7 +849,8 @@ write<span class="w"> </span>memory
 </section>
 <section id="caso-practico-router-cisco-enrutamiento-dinamico">
 <h2>Caso práctico: Router Cisco (Enrutamiento dinamico)<a class="headerlink" href="#caso-practico-router-cisco-enrutamiento-dinamico" title="Link to this heading">#</a></h2>
-<p>vamos a configurar los anteriores routers con <strong>OSPF</strong> (Open Shortest Path First) es un protocolo de enrutamiento dinámico link-state utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.</p>
+<p>vamos a configurar los anteriores routers con <strong>OSPF</strong> (Open Shortest Path First) es un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.</p>
+<p>Configura el router con la ip <strong>10.4.X.Y</strong>, siendo X e Y los valores de tu ip</p>
 <p><strong>R1</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
@@ -906,8 +908,8 @@ interface<span class="w"> </span>FastEthernet1/0
 <span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>inside<span class="w">  </span>!<span class="w"> </span>Zona<span class="w"> </span>interna<span class="w"> </span><span class="o">(</span>NAT<span class="o">)</span>
 interface<span class="w"> </span>FastEthernet2/0
-<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
-<span class="w"> </span>no<span class="w"> </span>shutdown
+<span class="hll"><span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span><span class="m">10</span>.4.104.100<span class="w"> </span><span class="m">255</span>.0.0.0
+</span><span class="w"> </span>no<span class="w"> </span>shutdown
 <span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span>outside<span class="w"> </span>!<span class="w"> </span>Zona<span class="w"> </span>externa<span class="w"> </span><span class="o">(</span>Internet/salida<span class="w"> </span>NAT<span class="o">)</span>
 router<span class="w"> </span>ospf<span class="w"> </span><span class="m">1</span>
 <span class="w"> </span>network<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.255<span class="w"> </span>area<span class="w"> </span><span class="m">0</span>
