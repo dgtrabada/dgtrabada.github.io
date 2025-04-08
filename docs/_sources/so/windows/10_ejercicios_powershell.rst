@@ -258,6 +258,23 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/rnd_do_until.ps1
            :language: powershell
 
+.. tabs::
+
+    .. tab:: piedra_papel_tijera.ps1
+      
+        Haz un script llamado **piedra_papel_tijera.ps1** que
+
+    .. tab:: Solución (if)
+
+        .. literalinclude:: 10_powershell/piedra_papel_tijera.ps1
+           :language: powershell
+
+    .. tab:: Solución (--)
+
+        .. literalinclude:: 10_powershell/a.ps1
+           :language: powershell
+
+
 
 .. tabs::
 
