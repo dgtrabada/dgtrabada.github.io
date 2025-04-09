@@ -959,7 +959,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (–)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>piedra_papel_tijera.ps1</strong> que</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>piedra_papel_tijera.ps1</strong> que</p>
 </div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
 <span class="c">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
     <span class="no">[string]</span><span class="nv">$Opcion_usuario</span> <span class="p">=</span> <span class="s2">&quot;tijeras&quot;</span>
@@ -982,7 +982,44 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <span class="k">if</span><span class="p">(</span><span class="nv">$Opcion_usuario</span> <span class="o">-eq</span> <span class="s2">&quot;tijeras&quot;</span>  <span class="o">-And</span> <span class="nv">$Opcion_CPU</span> <span class="o">-eq</span> <span class="s2">&quot;piedra&quot;</span>  <span class="p">){</span> <span class="nb">Write-Host</span> <span class="s2">&quot;Gana CPU&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"></div></div>
+</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+<span class="c">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
+    <span class="no">[string]</span><span class="nv">$OpcionUsuario</span> <span class="p">=</span> <span class="s2">&quot;tijeras&quot;</span>
+<span class="p">)</span>
+
+<span class="nv">$OpcionCPU</span>  <span class="p">=</span> <span class="s2">&quot;piedra&quot;</span><span class="p">,</span> <span class="s2">&quot;papel&quot;</span><span class="p">,</span> <span class="s2">&quot;tijeras&quot;</span> <span class="p">|</span> <span class="nb">Get-Random</span>
+<span class="nv">$OpcionUsuario</span><span class="p">=</span><span class="nv">$Opcion_usuario</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()</span> 
+<span class="nb">Write-Output</span> <span class="s2">&quot;CPU: $OpcionCPU &quot;</span>
+<span class="nb">Write-Output</span> <span class="s2">&quot;Usuario : $OpcionUsuario&quot;</span>
+
+ <span class="k">switch</span>  <span class="p">(</span><span class="nv">$OpcionCPU</span><span class="p">){</span>
+    <span class="s2">&quot;piedra&quot;</span>  <span class="p">{</span>
+         <span class="k">switch</span> <span class="p">(</span><span class="nv">$OpcionUsuario</span><span class="p">){</span> 
+             <span class="s2">&quot;piedra&quot;</span>  <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Empate&quot;</span>      <span class="p">}</span> 
+             <span class="s2">&quot;papel&quot;</span>   <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana usuario&quot;</span><span class="p">}</span> 
+             <span class="s2">&quot;tijeras&quot;</span> <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana CPU&quot;</span>    <span class="p">}</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+
+    <span class="s2">&quot;papel&quot;</span> <span class="p">{</span>
+         <span class="k">switch</span><span class="p">(</span><span class="nv">$OpcionUsuario</span><span class="p">)</span> <span class="p">{</span>
+             <span class="s2">&quot;piedra&quot;</span>  <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana CPU&quot;</span>    <span class="p">}</span>  
+             <span class="s2">&quot;papel&quot;</span>   <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Empate&quot;</span>      <span class="p">}</span> 
+             <span class="s2">&quot;tijeras&quot;</span> <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana usuario&quot;</span><span class="p">}</span> 
+             <span class="p">}</span>
+         <span class="p">}</span>
+
+    <span class="s2">&quot;tijeras&quot;</span> <span class="p">{</span>
+         <span class="k">switch</span><span class="p">(</span><span class="nv">$OpcionUsuario</span><span class="p">)</span> <span class="p">{</span>
+             <span class="s2">&quot;piedra&quot;</span>  <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana usuario&quot;</span><span class="p">}</span> 
+             <span class="s2">&quot;papel&quot;</span>   <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Gana CPU&quot;</span>    <span class="p">}</span> 
+             <span class="s2">&quot;tijeras&quot;</span> <span class="p">{</span><span class="nb">echo </span><span class="s2">&quot;Empate&quot;</span>      <span class="p">}</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-15-15-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-2" name="15-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento, por ejemplo:</p>

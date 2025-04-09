@@ -587,7 +587,26 @@ Estructuras condicionales con if
    }
    
   #-10 es negativo 
-   
+
+
+Estructuras condicionales con switch
+====================================
+
+.. code-block:: powershell
+
+ $dia = "lunes"
+
+ switch ($dia) {
+    "lunes"     { Write-Host "Hoy es lunes" }
+    "martes"    { Write-Host "Hoy es martes" }
+    "miércoles" { Write-Host "Hoy es miércoles" }
+    "jueves"    { Write-Host "Hoy es jueves" }
+    "viernes"   { Write-Host "Hoy es viernes" }
+    default     { Write-Host "No es un día válido" }
+ }
+
+ # Hoy es lunes
+
 Bucles con for
 ==============
 

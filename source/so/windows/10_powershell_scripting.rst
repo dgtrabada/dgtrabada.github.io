@@ -597,14 +597,16 @@ Estructuras condicionales con switch
  $dia = "lunes"
 
  switch ($dia) {
-    "lunes"   { Write-Host "Hoy es lunes" }
-    "martes"  { Write-Host "Hoy es martes" }
+    "lunes"     { Write-Host "Hoy es lunes" }
+    "martes"    { Write-Host "Hoy es martes" }
     "miércoles" { Write-Host "Hoy es miércoles" }
-    "jueves"  { Write-Host "Hoy es jueves" }
-    "viernes" { Write-Host "Hoy es viernes" }
-    default   { Write-Host "No es un día válido" }
+    "jueves"    { Write-Host "Hoy es jueves" }
+    "viernes"   { Write-Host "Hoy es viernes" }
+    default     { Write-Host "No es un día válido" }
  }
-   
+
+ # Hoy es lunes
+
 Bucles con for
 ==============
 

@@ -269,9 +269,9 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/piedra_papel_tijera.ps1
            :language: powershell
 
-    .. tab:: Solución (--)
+    .. tab:: Solución (switch)
 
-        .. literalinclude:: 10_powershell/a.ps1
+        .. literalinclude:: 10_powershell/piedra_papel_tijera_switch.ps1
            :language: powershell
 
 
