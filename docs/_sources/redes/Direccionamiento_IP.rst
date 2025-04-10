@@ -465,7 +465,7 @@ Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip
  
   redistribute static subnets
   redistribute connected subnets
-  default-information originate  ! Para propagar la ruta por defecto
+  default-information originate
   end
   write memory
 
@@ -533,6 +533,16 @@ Podemos diagnosticar el funcionamiento con los siguientes comandos:
   show ip route ospf                     # La base de datos de enlaces (LSDB) con todos los LSA (Link-State Advertisements).
   show ip ospf interface FastEthernet1/0 # Rutas en la tabla de enrutamiento aprendidas por OSPF 
   show ip ospf database summary          #Muestra información general
+
+
+Caso práctico: Router Cisco (7R)
+===================================================
+
+vamos a configurar los siguientes routers con **OSPF**:
+
+.. image:: imagenes/Cisco7R.png
+
+.. image:: imagenes/Cisco7R_ping.png
 
 Caso práctico: Router MikroTik
 ==============================
