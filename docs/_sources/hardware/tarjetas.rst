@@ -86,7 +86,7 @@ Tarjetas gráficas
 
   .. image:: imagenes/tarjetas/svideo.png
 
-*  **Video Compuesto**: Analógico de muy baja resolución mediante conector RCA.
+* **Video Compuesto**: Analógico de muy baja resolución mediante conector RCA.
 
   .. image:: imagenes/tarjetas/rca.png
 
@@ -125,6 +125,12 @@ Tarjetas de sonido
 
 
 * **Entrada / Salida digital SPDIF óptica**
+
+  SPDIF (Sony/Philips Digital Interface) es un estándar de conexión digital para transmitir audio entre dispositivos sin convertirlo a analógico, manteniendo la mejor calidad de sonido posible.
+
+  .. image:: imagenes/placa_base/spdif.png
+
+  .. image:: imagenes/placa_base/spidf.jpeg
 
   .. image:: imagenes/tarjetas/spidf.png
     :width: 200
