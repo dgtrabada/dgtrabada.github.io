@@ -181,7 +181,13 @@ Unimos dos routers y habilitamos la consexión telnet y ssh, cambia ``domain-nam
           end
           write memory
 
-Analizamos con Wireshark la conexión entre los dos routers y empezamos a capturar los paquetes mientras que ejecutamos desde R1 ``telnet 10.0.0.2``
+Analizamos con Wireshark la conexión entre los dos routers, podemos hacer un ping entre el router R1 y el R2 y filtrar los paquetes por ARP:
+
+.. image:: imagenes/arp.png
+
+Como podemos ver esta captura muestra el tráfico ARP (Address Resolution Protocol) entre dos routers (R1 y R2) en GNS3. ARP se utiliza para resolver direcciones IP a direcciones MAC 
+
+Lo siguiente que haremos es capturar los paquetes mientras que ejecutamos desde R1 ``telnet 10.0.0.2``
 
 Para ver la contraseña tenemos que reconstruir la sesión, es decir sigue el flujo TCP completo haz clic derecho sobre cualquier paquete Telnet (ej. No. 47) y selecciona: Follow → TCP Stream (o "Seguir → Flujo TCP").
 
