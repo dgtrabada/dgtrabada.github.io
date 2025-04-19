@@ -15,6 +15,7 @@ Redes
    anquitectura_niveles.rst
    transporte_datos_equipos_interconexion.rst
    Direccionamiento_IP.rst
+   casos_practicos.rst
    cableado_estructurado.rst
 
 
