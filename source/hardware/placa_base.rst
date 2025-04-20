@@ -9,31 +9,19 @@ El factor de forma
 
 El factor de forma son unos estándares que definen algunas características físicas de la placa base. Referencia como es la geometría, las dimensiones, la disposición y los requisitos eléctricos de la placa base. Los factores de forma más habituales son los siguientes
 
-* **ATX** "Advanced Technology Extended" es una actualización del AT miniatura.
+* **ATX (Advanced Technology Extended)** estándar (30.5 x 24.4 cm). Dominante en PCs de escritorio.
+  
+* **Micro-ATX (mATX)** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es identico. Por esta razón, las placas micor-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente.
 
-  * **ATX** estándar (30.5 x 24.4 cm).
-  
-  * **Micro-ATX** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es identico. Por esta razón, las placas micor-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente
-  
-  * **Flex-ATX** es una expansión del microATX
-  
-* **BTX** "Tecnología Balanceada Extendida" es un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco. El cable de alimentación del BTX es el mismo que el de la fuente de alimentación del ATX, pero en la práctica son factores de forma incompatibles. Existen además factores de forma derivados de BTX más pequeños
+* **Mini-ITX** (17.0 x 17.0 cm) Sistemas ultracompactos.
 
-  * **BTX** estándar (32.5 x 26.7 cm).
-  
-  * **Micro-BTX** (26.4 x 26.7 cm).
-  
-  * **Pico-BTX** (20.3 x 26.7 cm).
-  
-* **TX** "Tecnología de Información Extendida", es un formato muy compacto diseñado para configuraciones en miniatura. Los formatos ITX principales:
+* **Thin-ITX** (17.0 × 17.0 × 2.5 cm) All-in-One y sistemas embebidos.
 
-  * **mini-ITX** (17.0 x 17.0 mm).
-  
-  * **nano-ITX** (12.0 x 12.0 mm).
+Además existen multitud de formatos especializados como **E-ATX (Extended ATX)** (30.5x33.0) usado en workstations y servidores, **Mini-STX (5×5)** (14.7 × 14.0 cm), **Nano-ITX* (12.0 x 12.0 cm) o **Pico-ITX** (10.0 x 7.2 cm) para  IoT y dispositivos miniaturizados
 
-.. image:: imagenes/placa_base/placa_base.jpeg
+Existen muchos factores obsoletos como el **BTX** (Tecnología Balanceada Extendida) fué un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco.
 
-.. image:: imagenes/placa_base/tamaño_placa_base.png
+.. image:: imagenes/placa_base/tamaño_placa_base.jpg
 
 Componentes integrados
 ======================
