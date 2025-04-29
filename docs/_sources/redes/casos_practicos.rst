@@ -598,6 +598,19 @@ vamos a configurar los siguientes routers con **OSPF**:
           end
           write memory
 
+        **VPCS1**
+
+        .. code-block:: bash
+ 
+          set pcname 10.0.1.10/24
+          ip 10.0.1.10/24 10.0.1.1
+
+        **VPCS2**
+
+        .. code-block:: bash
+ 
+          set pcname 10.0.11.10/24
+          ip 10.0.11.10/24 10.0.11.1
 
 
 Caso práctico: Router MikroTik

@@ -59,7 +59,7 @@ TIPOS REDES
 
 * **Cobertura**
 
-  * **PAM** : Red de área personal, es una red de ordenadores usada para la comunicación entre los dispositivos del ordenador cerca de una persona
+  * **PAN** : Red de área personal, es una red de ordenadores usada para la comunicación entre los dispositivos del ordenador cerca de una persona
   
     * <10 m
      

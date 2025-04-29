@@ -216,13 +216,47 @@ Ejercicios de shell scripting
 
     .. tab:: adivina.sh
 
-        Haz un script llamado **adivina.sh** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.
+        Crea un script llamado **adivina.sh** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte.
 
         Cuando el usuario acierte haz que muestre el número de intentos.
 
     .. tab:: Solución
 
         .. literalinclude:: scripts/adivina.sh
+           :language: shell
+
+
+
+.. tabs::
+
+    .. tab:: piedra_papel_tijera.sh
+
+        Crea un script en Bash llamado **piedra_papel_tijera.sh** que simule el juego de (Piedra, Papel o Tijera) entre dos jugadores durante un número dado de partidas.
+
+        Cada jugador debe elegir aleatoriamente entre piedra, papel o tijera. El programa deberá contar cuántas veces gana el Jugador 1, cuántas gana el Jugador 2 y cuántas veces empatan.
+
+        La salida debe ser un resumen con los porcentajes de empate, victoria del Jugador 1 y victoria del Jugador 2, con dos cifras decimales de precisión.
+
+        Una vez creado el script,  muestra los resultados, como sigue:
+
+        .. code-block:: bash
+
+           for i in 10 50 100 1000 10000 100000; 
+           do 
+             echo $i $(./piedra_papel_tijera.sh $i)
+           done
+
+           10 Empate = 40.00 %, Gana 1 = 40.00 %, Gana 2 = 20.00 %
+           50 Empate = 36.00 %, Gana 1 = 46.00 %, Gana 2 = 18.00 %
+           100 Empate = 31.00 %, Gana 1 = 32.00 %, Gana 2 = 37.00 %
+           1000 Empate = 34.30 %, Gana 1 = 34.40 %, Gana 2 = 31.30 %
+           10000 Empate = 33.75 %, Gana 1 = 33.01 %, Gana 2 = 33.24 %
+           100000 Empate = 33.30 %, Gana 1 = 33.24 %, Gana 2 = 33.44 %
+
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/piedra_papel_tijera.sh
            :language: shell
 
 
