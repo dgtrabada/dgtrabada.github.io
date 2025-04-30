@@ -449,6 +449,50 @@ Ejercicios de shell scripting
            :language: shell
 
 
+
+.. tabs::
+
+    .. tab:: adivina_cpu.sh
+
+        Crea un script en Bash llamado **adivina_cpu.sh** que simule un juego automático de adivinanza en el que la CPU intenta adivinar un número secreto aleatorio, generado al inicio del programa. El número estará comprendido entre 1 y un valor máximo definido por la variable n_max_adivinar. En cada intento, la CPU elige otro número al azar dentro del rango posible, ajustando los límites mínimo y máximo según si el número es menor o mayor al número secreto.
+
+        El script debe cumplir con los siguientes requisitos:
+
+        * No se deben repetir los números ya probados.
+        * Tras cada intento, si el número elegido es menor que el número secreto, se actualiza el mínimo.
+        * Si el número elegido es mayor, se actualiza el máximo.
+        * El proceso se repite hasta que se adivine el número secreto.
+        * Al final, se muestra el número total de intentos que necesitó la CPU para adivinar el número.
+
+        Cuando el usuario acierte haz que muestre el número de intentos.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/adivina_cpu.sh
+           :language: shell
+
+
+    .. tab:: Test
+
+        Para testearlo puedes usar:
+
+        .. code-block:: bash
+            
+            ntot=100
+            sum=0
+            for((i=0;i<$ntot;i++))
+            do 
+              n=$(./adivina_cpu.sh) 
+              sum=$((sum+n))
+            done
+            resultado=$(echo "1/($sum/$ntot)" | bc -l)
+            printf "%.2f\n" "$resultado"
+            0.23
+
+        Como se puede ver, la probabilidad de acertar el número se incrementa notablemente gracias a dos factores clave del algoritmo: evitar repetir números y ajustar dinámicamente los valores máximo y mínimo tras cada intento.
+
+        Si no se evitaran los números repetidos y no se acotara el intervalo con el mínimo y el máximo, cada intento sería completamente aleatorio dentro del rango total (por ejemplo, del 1 al 20). En ese caso, la probabilidad de acertar en un intento sería simplemente: 1/20=0.05 es decir, solo un 5% de probabilidad frente al 23%
+
 Gestión de usuarios locales
 ===========================
 
