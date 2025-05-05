@@ -21,21 +21,21 @@ Tarjetas gráficas
 .. image:: imagenes/tarjetas/tarjeta_graf2.jpeg
 
 
-* **GPU** : («graphics processing unit», significa «unidad de procesamiento gráfico») es un procesador (como la CPU) dedicado al procesamiento de gráficos; su razón de ser es aligerar la carga de trabajo del procesador central y, por ello, está optimizada para el cálculo en coma flotante, predominante en las funciones 3D. Tres de las más importantes características son la frecuencia de reloj del núcleo, que puede oscilar entre 825 MHz en las tarjetas de gama baja, y 2000 MHz (e incluso más) en las de gama alta, el número de procesadores shaders (estos shaders unificados reciben el nombre de núcleos CUDA en el caso de NVIDIA y procesadores stream en el caso de AMD) y el número de pipelines (vertex y fragment shaders), encargadas de traducir una imagen 3D compuesta por vértices y líneas en una imagen 2D compuesta por píxeles.
+* **GPU** : (graphics processing unit o unidad de procesamiento gráfico) es un procesador como la CPU dedicado al procesamiento de gráficos; su razón de ser es aligerar la carga de trabajo del procesador central y, por ello, está optimizada para el cálculo en coma flotante, predominante en las funciones 3D. Tres de las más importantes características son la frecuencia de reloj del núcleo, que puede oscilar entre 825 MHz en las tarjetas de gama baja, y 2000 MHz (e incluso más) en las de gama alta, el número de procesadores shaders (estos shaders unificados reciben el nombre de núcleos CUDA en el caso de NVIDIA y procesadores stream en el caso de AMD) y el número de pipelines (vertex y fragment shaders), encargadas de traducir una imagen 3D compuesta por vértices y líneas en una imagen 2D compuesta por píxeles.
 
 * **RAMDAC**: Conversor analógico-digital (DAC) de la memoria RAM, empleado en las tarjetas gráficas para transformar la señal digital con que trabaja el ordenador en una salida analógica que pueda entender el monitor.
 
-* **Ray tracing** es una tecnología desarrollada por NVIDIA que se encarga de mejorar las iluminaciones, sombras y reflejos de los videojuegos. En español, ray tracing significa “trazado de rayos” y hace referencia a un cálculo mucho más preciso de las iluminaciones del juego que impactan en los reflejos y sombras.
+* **Ray tracing** es una tecnología desarrollada por NVIDIA que se encarga de mejorar las iluminaciones, sombras y reflejos de los videojuegos. En español, ray tracing significa trazado de rayos y hace referencia a un cálculo mucho más preciso de las iluminaciones del juego que impactan en los reflejos y sombras.
 
 * **GDDR**. Las memorias GDDR (Graphics Double Data Rate) son una variación de las memorias RAM DDR, a las que se les ha aumentado la velocidad respecto a las memorias DDR, debido a que las tarjetas gráficas necesitan procesar mucha información, y leer y escribir continuamente a una velocidad muy alta.
 
-  * **GDDR5**: Puede alcanzar velocidades de transferencias de hasta 8Gbps, con anchos de 28GB/s por chip. Se fabrica en capacidades de 512MB hasta los 8GB. su ancho de bus es de 32-bit.
+  * **GDDR5**: Puede alcanzar velocidades de transferencias de hasta 17 GB/s.
   
-  * **GDDR5X**: es una versión mejorada de la anterior, con un mejor rendimiento. Es dos veces más rápida que una GDDR5 normal, y puede alcanzar velocidades desde los 10 a los 16Gbps. También consume menos energía debido a la reducción de voltaje (1.35v frente a 1.5v) citada anteriormente. Y está disponible en capacidades de 4 a 16GB.
+  * **GDDR5X**: es una versión mejorada de la anterior, con un mejor rendimiento. Es dos veces más rápida que una GDDR5 normal.
 
-  * **GDDR6**: también funciona a 1.35v, pero consigue velocidades de 16-18Gbps, consiguiendo un ancho de banda de hasta 72GB/s. Se pueden fabricar con capacidades de hasta 32GB debido a su mayor densidad.
+  * **GDDR6**: también funciona a 1.35v, pero consigue velocidades de 768 GB/s.
 
-  * **GDDR6X**: es una actualización de la anterior, con una ganancia de velocidad y un ancho de banda muy alto (casi como una HBM2). Sigue funcionando a 1.35v, aunque se ha ganado en eficiencia. Esta memoria puede alcanzar hasta los 21Gbps de velocidad y anchos de banda de hasta 1 TB/s.
+  * **HBM2** (High Bandwidth Memory 2) es la segunda generación de la memoria HBM, un tipo de memoria RAM de alto rendimiento diseñada para ofrecer enorme ancho de banda y bajo consumo energético, principalmente utilizada en tarjetas gráficas de gama alta, inteligencia artificial y supercomputación. 256–460 GB/s
 
 * **Velocidad de Refresco**. Rapidez con que el contenido de la memoria de vídeo se envía al monitor, es el número de veces por segundo que se dibuja la pantalla. La resolución está relacionada con la velocidad de refresco: a mayor resolución, menor velocidad de refresco. Se mide en Hz. Velocidades de refresco habituales son 75Hz,  80Hz o 85HZ. El mínimo es 60 Hz. Para jugar, podemos encontrar velocidades de refresco de 144 a 240Hz
 
