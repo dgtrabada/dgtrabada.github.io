@@ -460,6 +460,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>
@@ -982,6 +983,39 @@ ip<span class="w"> </span><span class="m">10</span>.0.11.10/24<span class="w"> <
 </div>
 </div></div>
 </section>
+<section id="caso-practico-ubuntu-docker">
+<h2>Caso práctico: Ubuntu (Docker)<a class="headerlink" href="#caso-practico-ubuntu-docker" title="Link to this heading">#</a></h2>
+<p>Crea la siguiente red:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Router Cisco (7R)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Configuración de ubuntu</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><img alt="../_images/ubuntu_1.png" src="../_images/ubuntu_1.png" />
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>auto<span class="w"> </span>eth0
+iface<span class="w"> </span>eth0<span class="w"> </span>inet<span class="w"> </span>static
+<span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.4.104.100
+<span class="w">        </span>netmask<span class="w"> </span><span class="m">255</span>.0.0.0
+<span class="w">        </span>gateway<span class="w"> </span><span class="m">10</span>.0.0.2
+<span class="w">        </span>up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>nameserver<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span>&gt;<span class="w"> </span>/etc/resolv.conf
+
+auto<span class="w"> </span>eth1
+iface<span class="w"> </span>eth1<span class="w"> </span>inet<span class="w"> </span>static
+<span class="w">        </span>address<span class="w"> </span><span class="m">20</span>.0.1.1
+<span class="w">        </span>netmask<span class="w"> </span><span class="m">255</span>.255.255.0
+
+auto<span class="w"> </span>eth2
+iface<span class="w"> </span>eth2<span class="w"> </span>inet<span class="w"> </span>static
+<span class="w">        </span>address<span class="w"> </span><span class="m">20</span>.0.2.1
+<span class="w">        </span>netmask<span class="w"> </span><span class="m">255</span>.255.255.0
+</pre></div>
+</div>
+</div></div>
+<p>Para Habilitar IP forwarding en ubuntu:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<span class="c1"># Para que sea permanente añade o modifica esta línea en /etc/sysctl.conf:</span>
+net.ipv4.ip_forward<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="c1">#recarga:</span>
+sysctl<span class="w"> </span>-p
+</pre></div>
+</div>
+</section>
 <section id="caso-practico-router-mikrotik">
 <h2>Caso práctico: Router MikroTik<a class="headerlink" href="#caso-practico-router-mikrotik" title="Link to this heading">#</a></h2>
 <p>ikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos <a class="reference external" href="https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router">mikrotik-chr.gnsa y la chr-7.16.img</a></p>
@@ -1264,6 +1298,7 @@ Destination<span class="w">     </span>Gateway<span class="w">         </span>Ge
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>

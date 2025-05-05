@@ -613,6 +613,52 @@ vamos a configurar los siguientes routers con **OSPF**:
           ip 10.0.11.10/24 10.0.11.1
 
 
+
+Caso práctico: Ubuntu (Docker)
+==============================
+
+Crea la siguiente red:
+
+
+.. tabs::
+
+    .. tab:: Router Cisco (7R)
+
+        .. image:: imagenes/ubuntu_1.png
+
+    .. tab:: Configuración de ubuntu
+
+        .. code-block:: bash
+ 
+           auto eth0
+           iface eth0 inet static
+	           address 10.4.104.100
+	           netmask 255.0.0.0
+	           gateway 10.0.0.2
+	           up echo nameserver 8.8.8.8 > /etc/resolv.conf
+
+           auto eth1
+           iface eth1 inet static
+	           address 20.0.1.1
+	           netmask 255.255.255.0
+
+           auto eth2
+           iface eth2 inet static
+	           address 20.0.2.1
+	           netmask 255.255.255.0
+
+
+Para Habilitar IP forwarding en ubuntu:
+
+.. code-block:: bash
+
+   echo 1 > /proc/sys/net/ipv4/ip_forward
+   # Para que sea permanente añade o modifica esta línea en /etc/sysctl.conf:
+   net.ipv4.ip_forward = 1
+   #recarga:
+   sysctl -p
+
+
 Caso práctico: Router MikroTik
 ==============================
 
