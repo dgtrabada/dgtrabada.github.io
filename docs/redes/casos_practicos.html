@@ -461,6 +461,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-cloud">Caso práctico: Ubuntu (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>
@@ -1016,6 +1017,38 @@ sysctl<span class="w"> </span>-p
 </pre></div>
 </div>
 </section>
+<section id="caso-practico-ubuntu-cloud">
+<h2>Caso práctico: Ubuntu (Cloud)<a class="headerlink" href="#caso-practico-ubuntu-cloud" title="Link to this heading">#</a></h2>
+<p>Vamos a utilizar Cloud para proporcionar internet a Ubuntu</p>
+<blockquote>
+<div><img alt="../_images/ubuntu_2.png" src="../_images/ubuntu_2.png" />
+</div></blockquote>
+<p>Instalamos en ubuntu las  iptables <a class="footnote-reference brackets" href="#iptables" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>update
+apt<span class="w"> </span>install<span class="w"> </span>iptables
+</pre></div>
+</div>
+<p>Configuarmos el NAT para que todo lo que salga por eth0 use su IP como origen</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NAT para que todo lo que salga por eth0</span>
+iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-o<span class="w"> </span>eth0<span class="w"> </span>-s<span class="w"> </span><span class="m">20</span>.0.1.0/24<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-o<span class="w"> </span>eth0<span class="w"> </span>-s<span class="w"> </span><span class="m">20</span>.0.2.0/24<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+
+<span class="c1"># Permite reenvío entre las redes y hacia Internet</span>
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-i<span class="w"> </span>eth1<span class="w"> </span>-o<span class="w"> </span>eth0<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-i<span class="w"> </span>eth2<span class="w"> </span>-o<span class="w"> </span>eth0<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-o<span class="w"> </span>eth1<span class="w"> </span>-m<span class="w"> </span>state<span class="w"> </span>--state<span class="w"> </span>RELATED,ESTABLISHED<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-o<span class="w"> </span>eth2<span class="w"> </span>-m<span class="w"> </span>state<span class="w"> </span>--state<span class="w"> </span>RELATED,ESTABLISHED<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+</pre></div>
+</div>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="iptables" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><strong>iptables</strong>
+Es una herramienta de línea de comandos en sistemas Linux que permite configurar reglas en el cortafuegos del kernel (netfilter) para controlar el tráfico de red.  Se utiliza para permitir, bloquear, redirigir o modificar paquetes de datos que entran, salen o atraviesan el sistema, actuando como firewall, sistema de NAT y enrutador de tráfico.</p>
+</aside>
+</aside>
+</section>
 <section id="caso-practico-router-mikrotik">
 <h2>Caso práctico: Router MikroTik<a class="headerlink" href="#caso-practico-router-mikrotik" title="Link to this heading">#</a></h2>
 <p>ikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos <a class="reference external" href="https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router">mikrotik-chr.gnsa y la chr-7.16.img</a></p>
@@ -1299,6 +1332,7 @@ Destination<span class="w">     </span>Gateway<span class="w">         </span>Ge
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-cloud">Caso práctico: Ubuntu (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-mikrotik">Caso práctico: Router MikroTik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-vyos">Caso práctico: Vyos</a></li>
 </ul>

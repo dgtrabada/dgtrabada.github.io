@@ -658,6 +658,40 @@ Para Habilitar IP forwarding en ubuntu:
    #recarga:
    sysctl -p
 
+Caso práctico: Ubuntu (Cloud)
+==============================
+
+Vamos a utilizar Cloud para proporcionar internet a Ubuntu
+
+ .. image:: imagenes/ubuntu_2.png
+
+Instalamos en ubuntu las  iptables [#iptables]_
+
+.. code-block:: bash
+
+   apt update
+   apt install iptables
+
+Configuarmos el NAT para que todo lo que salga por eth0 use su IP como origen
+
+.. code-block:: bash
+
+   # NAT para que todo lo que salga por eth0
+   iptables -t nat -A POSTROUTING -o eth0 -s 20.0.1.0/24 -j MASQUERADE
+   iptables -t nat -A POSTROUTING -o eth0 -s 20.0.2.0/24 -j MASQUERADE
+
+   # Permite reenvío entre las redes y hacia Internet
+   iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+   iptables -A FORWARD -i eth2 -o eth0 -j ACCEPT
+   iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+   iptables -A FORWARD -i eth0 -o eth2 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+.. rubric:: Footnotes
+
+.. [#iptables]
+
+  **iptables** 
+  Es una herramienta de línea de comandos en sistemas Linux que permite configurar reglas en el cortafuegos del kernel (netfilter) para controlar el tráfico de red.  Se utiliza para permitir, bloquear, redirigir o modificar paquetes de datos que entran, salen o atraviesan el sistema, actuando como firewall, sistema de NAT y enrutador de tráfico.
 
 Caso práctico: Router MikroTik
 ==============================
