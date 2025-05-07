@@ -40,6 +40,17 @@ then
       done
     done
   fi
+  if [[ $1 == "-listar" ]]
+  then
+    for g in ${grupos[@]};
+    do
+      echo Usuarios del grupo $g
+      for u in $(cat /etc/passwd | cut -d':' -f1 | grep u$g);
+      do
+        echo $u
+      done
+    done
+  fi  
 else
   show_help
 fi
