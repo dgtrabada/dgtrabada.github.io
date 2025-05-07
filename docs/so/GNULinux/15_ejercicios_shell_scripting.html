@@ -1394,6 +1394,17 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="w">      </span><span class="k">done</span>
 <span class="w">    </span><span class="k">done</span>
 <span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-listar&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>g<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">grupos</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>Usuarios<span class="w"> </span>del<span class="w"> </span>grupo<span class="w"> </span><span class="nv">$g</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>u<span class="nv">$g</span><span class="k">)</span><span class="p">;</span>
+<span class="w">      </span><span class="k">do</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$u</span>
+<span class="w">      </span><span class="k">done</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">  </span><span class="k">fi</span><span class="w">  </span>
 <span class="k">else</span>
 <span class="w">  </span>show_help
 <span class="k">fi</span>
