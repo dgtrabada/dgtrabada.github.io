@@ -498,6 +498,31 @@ Gestión de usuarios locales
 
 .. tabs::
 
+    .. tab:: usuarios_WSL.sh
+
+        Crea un script llamado **usuarios_WSL.sh**, que cumpla las siguientes condiciones:
+
+        .. code-block:: bash
+
+           ./usuarios_WSL.sh -help  
+             -help               Mostrar esta ayuda.
+             -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
+             -borrar             Borrar todos los usuarios creados por este script.
+             -listar             Mostrar los usuarios creados por este script.
+       
+        Opción ``-crear <N>``: Creará N usuarios con nombres generados automáticamente con el siguiente formato: uX01, uY23, uZ15, etc., 
+
+        * La letra (X, Y o Z) corresponde a un grupo al que se asignará el usuario.
+        * El número es un sufijo aleatorio de dos cifras (01 a 99).
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/usuarios_WSL.sh
+           :language: shell
+
+
+.. tabs::
+
     .. tab:: usuarios.sh
 
         Crea un script llamado **usuarios.sh**, utiliza para ello un clon enlazado de la "MV Ubuntu Server 24.04"

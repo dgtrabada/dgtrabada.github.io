@@ -663,7 +663,7 @@ Caso práctico: Ubuntu (Cloud)
 
 Vamos a utilizar Cloud para proporcionar internet a Ubuntu
 
- .. image:: imagenes/ubuntu_2.png
+.. image:: imagenes/ubuntu_2.png
 
 Instalamos en ubuntu las  iptables [#iptables]_
 
