@@ -59,7 +59,7 @@ La familia de protocolos TCP/IP es un estándar aceptado por el mercado, en 1983
 
 En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa de red del modelo OSI, pero en el caso de la arquitectura TCP/IP la capa de red no se preocupa de las tareas de ordenación de los paquetes cuando llegan a su destino. Esto es lo que se conoce como servicio no orientado a conexión. Cuando los paquetes se tratan de forma independiente, conteniendo cada uno la dirección de destino, se dice que se usa la técnica de datagrama , por tanto, Internet es un red de conmutación de paquetes basada en datagramas.
 
-**ARP** (Adrees Resolution Protocol) "localiza la dirección lógica de un nodo a partir de la física". cuando un host quiere transmitir un paquete IP, necesita averiguar la dirección MAC del destinatario (dirección de destino en paquete IP) para ello genera un paquete ARP que difunde por toda la red. Solo responde el host que tenga la IP encapsulada en el paquete ARP con otro paquete ARP da respuesta con su dirección MAC
+**ARP** o Address Resolution Protocol, es un protocolo de red que traduce direcciones IP a direcciones MAC en redes Ethernet. Permite a los dispositivos en una red local determinar la dirección MAC de otro dispositivo, lo que es necesario para la comunicación a nivel de enlace de datos
 
 **ICMP** (Internet Control Mensage Protocol) Envía Mensajes de error en forma de datagrama, Si hay un error en estos mensajes no se reenvían para evitar el efecto bola de nieve. Entre otros mensajes podemos escribir los siguientes : Destino inalcanzable, tiempo excedido, problemas en parámetros,..." (lo utilizan herramientas como ping y tracert)
 

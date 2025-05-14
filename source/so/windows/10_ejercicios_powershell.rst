@@ -369,6 +369,33 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/tragaperras.ps1
            :language: powershell
 
+
+.. tabs::
+
+    .. tab:: usuarios_G00.ps1
+
+        Crea un script llamado **usuarios_G00.ps1**, que cumpla las siguientes condiciones:
+
+        .. code-block:: bash
+
+           ./usuarios_WSL.sh -help  
+             -help               Mostrar esta ayuda.
+             -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
+             -borrar             Borrar todos los usuarios creados por este script.
+             -listar             Mostrar los usuarios por grupo creados por este script.
+       
+        Opción ``-crear <N>``: Creará N usuarios con nombres generados automáticamente con el siguiente formato: uX01, uY23, uZ15, etc., 
+
+        * La letra (X, Y o Z) corresponde a un grupo al que se asignará el usuario.
+        * El número es un sufijo aleatorio de dos cifras (01 a 99).
+        * Si no tenemos <N> creará por defecto 10 usuarios
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/usuarios_G00.ps1
+           :language: shell
+
+
 .. tabs::
 
     .. tab:: csv.ps1

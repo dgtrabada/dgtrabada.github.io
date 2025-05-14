@@ -5,7 +5,7 @@ echo '
   -help               Mostrar esta ayuda.
   -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
   -borrar             Borrar todos los usuarios creados por este script.
-  -listar             Mostrar los usuarios creados por este script.
+  -listar             Mostrar los usuarios por grupo creados por este script.
 '
 }
 

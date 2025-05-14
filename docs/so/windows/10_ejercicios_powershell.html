@@ -1250,7 +1250,23 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-18-18-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-2" name="18-2" role="tab" tabindex="-1">-delete</button><button aria-controls="panel-18-18-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-3" name="18-3" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>csv.ps1</strong> que cumpla con las siguientes características:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">usuarios_G00.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_G00.ps1</strong>, que cumpla las siguientes condiciones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
+<span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
+<span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
+<span class="w">  </span>-borrar<span class="w">             </span>Borrar<span class="w"> </span>todos<span class="w"> </span>los<span class="w"> </span>usuarios<span class="w"> </span>creados<span class="w"> </span>por<span class="w"> </span>este<span class="w"> </span>script.
+<span class="w">  </span>-listar<span class="w">             </span>Mostrar<span class="w"> </span>los<span class="w"> </span>usuarios<span class="w"> </span>por<span class="w"> </span>grupo<span class="w"> </span>creados<span class="w"> </span>por<span class="w"> </span>este<span class="w"> </span>script.
+</pre></div>
+</div>
+<p>Opción <code class="docutils literal notranslate"><span class="pre">-crear</span> <span class="pre">&lt;N&gt;</span></code>: Creará N usuarios con nombres generados automáticamente con el siguiente formato: uX01, uY23, uZ15, etc.,</p>
+<ul class="simple">
+<li><p>La letra (X, Y o Z) corresponde a un grupo al que se asignará el usuario.</p></li>
+<li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
+<li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
+</ul>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"></div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">-delete</button><button aria-controls="panel-19-19-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-3" name="19-3" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>csv.ps1</strong> que cumpla con las siguientes características:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-usuario</span> <span class="no">[nombre usuario]</span> <span class="n">-grupo</span> <span class="no">[grupo]</span>
 </pre></div>
 </div>
@@ -1270,7 +1286,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">El</span> <span class="n">usuario</span> <span class="no">[usuario]</span> <span class="n">ya</span> <span class="n">existe</span><span class="p">,</span> <span class="n">no</span> <span class="n">se</span> <span class="n">puede</span> <span class="n">crear</span><span class="p">.</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
     <span class="c">#[Parameter(Mandatory = $true)] en el caso de que ingreses usuario, te lo pregunta</span>
     <span class="no">[string]</span><span class="nv">$usuario</span><span class="p">,</span>
        
@@ -1314,12 +1330,12 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-18-18-2" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-2" name="18-2" role="tabpanel" tabindex="0"><p>En el caso de que pongamos <strong>-delete</strong> borrara el usuario del archvio csv</p>
+</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><p>En el caso de que pongamos <strong>-delete</strong> borrara el usuario del archvio csv</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-usuario</span> <span class="no">[nombre usuario]</span> <span class="n">-delete</span>
 <span class="n">El</span> <span class="n">usuario</span> <span class="no">[usuario]</span> <span class="n">ha</span> <span class="n">sido</span> <span class="n">borrado</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-18-18-3" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-3" name="18-3" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+</div><div aria-labelledby="tab-19-19-3" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-3" name="19-3" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
 
     <span class="c">#[Parameter(Mandatory = $true)] en el caso de que ingreses usuario, te lo pregunta</span>
     <span class="no">[string]</span><span class="nv">$usuario</span><span class="p">,</span>
@@ -1381,7 +1397,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
@@ -1397,7 +1413,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </li>
 </ol>
 <p>ayuda : $nombre_grupo=”GPWS03” ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
-</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
 <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">9</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
@@ -1417,7 +1433,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
 <ul class="simple">
 <li><p>GPWS01</p>
 <ul>
@@ -1477,7 +1493,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
   <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="nv">$nombre_base</span> <span class="p">=</span> <span class="s2">&quot;tunombre_gpws&quot;</span>
 
@@ -1540,7 +1556,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
 <ol class="arabic">
 <li><p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
 <p><strong>El grupo $nombre_grupo no existe, se crea</strong></p>
@@ -1567,7 +1583,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <p><strong>El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada</strong></p>
 </li>
 </ol>
-</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: crear_usuarios_grupos_csv.ps1</span>
 
 <span class="c"># Leer el archivo CSV</span>
 <span class="nv">$users</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="s2">&quot;users.csv&quot;</span>
@@ -1627,7 +1643,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
 <p>Menú de Usuarios:</p>
 <ol class="arabic simple">
 <li><p>Listar usuarios</p></li>
@@ -1636,7 +1652,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <li><p>Modificar usuario</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: usuarios.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Usuarios</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Usuarios en el sistema:&quot;</span>
@@ -1700,7 +1716,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
 <p>Menú de Grupos:</p>
 <ol class="arabic simple">
 <li><p>Listar grupos</p></li>
@@ -1711,7 +1727,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <li><p>Elimina miembro de un grupo (pide grupo y usuario)</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Script: grupo.ps1</span>
 
 <span class="k">function</span> <span class="n">Listar-Grupos</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;Grupos disponibles:&quot;</span>
@@ -1796,7 +1812,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Si ejecutamos la ayuda:</p>
 <img alt="../../_images/local_users_01.png" src="../../_images/local_users_01.png" />
@@ -1829,7 +1845,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <img alt="../../_images/local_users_06.png" src="../../_images/local_users_06.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
     <span class="no">[string]</span><span class="nv">$password</span> <span class="p">=</span> <span class="s2">&quot;@lumn0&quot;</span><span class="p">,</span>
     <span class="no">[string]</span><span class="nv">$nuevo_usuario</span><span class="p">,</span>
     <span class="no">[string]</span><span class="nv">$grupo</span><span class="p">,</span> <span class="c">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
@@ -2001,7 +2017,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Instala el Active directory utiliza como nombre de dominio : <strong>tunombre.local</strong></p>
 <p>Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: <code class="docutils literal notranslate"><span class="pre">$dirAD=&quot;DC=tunombre,DC=local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">$mail=&quot;&#64;tunombre.local&quot;</span></code></p>
@@ -2026,7 +2042,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <img alt="../../_images/AD_07.png" src="../../_images/AD_07.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
     <span class="no">[string]</span><span class="nv">$password</span> <span class="p">=</span> <span class="s2">&quot;@lumn01234&quot;</span><span class="p">,</span>
     <span class="no">[string]</span><span class="nv">$nuevo_usuario</span><span class="p">,</span>
     <span class="no">[string]</span><span class="nv">$grupo</span><span class="p">,</span> <span class="c">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
