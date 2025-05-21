@@ -1267,8 +1267,9 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$help</span>,
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$listar</span>,
-<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn0&quot;</span>,
-<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="w"> </span><span class="nv">$crear</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$borrar</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="w"> </span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn0&quot;</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="w">    </span><span class="nv">$crear</span>
 <span class="o">)</span>
 
 
@@ -1310,11 +1311,31 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
 
+
+<span class="k">function</span><span class="w"> </span>Borrar_Usuarios<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="o">)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$Grupos</span>.Length<span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">      </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">      </span><span class="nv">$miembros_grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w">  </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span>
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;Borrando miembros del grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> :&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span>foreach<span class="w"> </span><span class="o">(</span><span class="nv">$nombreUsuario</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$miembros_grupo</span><span class="o">){</span>
+<span class="w">            </span>Remove-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="o">(</span><span class="nv">$nombreUsuario</span><span class="w">  </span>-split<span class="w"> </span><span class="s1">&#39;\\&#39;</span><span class="o">)[</span>-1<span class="o">]</span>
+<span class="w">            </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$nombreUsuario</span><span class="s2"> ha sido eliminado.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span><span class="o">}</span><span class="w">               </span>
+
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$listar_miembros_grupo</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+
 <span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$help</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Show-Help<span class="o">}</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$crear</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Crear_Usuarios<span class="o">}</span>
 <span class="w"> </span>
 <span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$listar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Listar_Usuarios<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$borrar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Borrar_Usuarios<span class="o">}</span>
 </pre></div>
 </div>
 </div></div>

@@ -1354,7 +1354,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
 </div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nv">tiradas</span><span class="o">=</span><span class="m">10000</span>
+<span class="nv">tiradas</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">10000</span><span class="si">}</span>
 <span class="nv">ganadas</span><span class="o">=</span><span class="m">0</span>
 <span class="nv">gastadas</span><span class="o">=</span><span class="m">0</span>
 
@@ -1368,12 +1368,12 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$r1</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$r2</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$r2</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$r3</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$r1</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">#caso de 777</span>
-<span class="w">      </span><span class="nv">gastadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">gastadas</span><span class="o">+</span><span class="m">10</span><span class="k">))</span>
+<span class="w">      </span><span class="nv">ganadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">ganadas</span><span class="o">+</span><span class="m">10</span><span class="k">))</span>
 <span class="w">    </span><span class="k">else</span><span class="w">                     </span><span class="c1">#caso 3 iguales sin contar el 777</span>
-<span class="w">      </span><span class="nv">gastadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">gastadas</span><span class="o">+</span><span class="m">3</span><span class="k">))</span>
+<span class="w">      </span><span class="nv">ganadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">ganadas</span><span class="o">+</span><span class="m">3</span><span class="k">))</span>
 <span class="w">    </span><span class="k">fi</span>
 <span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$r1</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$r2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$r1</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$r3</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$r2</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$r3</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="c1">#caso 2 iguales sin contar 3 iguales</span>
-<span class="w">    </span><span class="nv">gastadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">gastadas</span><span class="o">+</span><span class="m">2</span><span class="k">))</span>
+<span class="w">    </span><span class="nv">ganadas</span><span class="o">=</span><span class="k">$((</span><span class="nv">ganadas</span><span class="o">+</span><span class="m">2</span><span class="k">))</span>
 <span class="w">  </span><span class="k">fi</span>
 <span class="k">done</span>
 

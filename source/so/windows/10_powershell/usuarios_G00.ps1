@@ -1,8 +1,9 @@
 param (
     [switch] $help,
     [switch] $listar,
-    [string]$Password = "@lumn0",
-    [int] $crear
+    [switch] $borrar,
+    [string] $Password = "@lumn0",
+    [int]    $crear
 )
 
 
@@ -44,8 +45,28 @@ function Listar_Usuarios {
   }
 }
 
+
+function Borrar_Usuarios {
+  $Grupos = @("A", "B", "C")
+  for ($i = 0; $i -lt $Grupos.Length; $i++) {      
+    if (Get-LocalGroup -Name $Grupos[$i] -ErrorAction SilentlyContinue) {
+      $miembros_grupo = Get-LocalGroupMember -Group  $($Grupos[$i])
+      Write-Host "Borrando miembros del grupo $($Grupos[$i]) :" -ForegroundColor Green
+        foreach ($nombreUsuario in $miembros_grupo){
+            Remove-LocalUser -Name ($nombreUsuario  -split '\\')[-1]
+            Write-Host "El usuario $nombreUsuario ha sido eliminado."  -ForegroundColor Green
+        }               
+
+    } else {
+      Write-Host "El grupo $listar_miembros_grupo no existe." -ForegroundColor Red
+    }
+  }
+}
+
 if ($help) {Show-Help}
 
 if ($crear -gt 0 ) {Crear_Usuarios}
  
 if ($listar) {Listar_Usuarios}
+
+if ($borrar) {Borrar_Usuarios}
