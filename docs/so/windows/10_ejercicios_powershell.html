@@ -1264,7 +1264,60 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"></div></div>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$help</span>,
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$listar</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn0&quot;</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="w"> </span><span class="nv">$crear</span>
+<span class="o">)</span>
+
+
+
+<span class="k">function</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-help               Mostrar esta ayuda.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-crear &lt;N&gt;          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-borrar             Borrar todos los usuarios creados por este script.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-listar             Mostrar los usuarios creados por este script.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="o">}</span>
+
+
+<span class="k">function</span><span class="w"> </span>Crear_Usuarios<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">for</span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$crear</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">){</span>
+<span class="w">      </span><span class="nv">$Grupo</span><span class="w"> </span><span class="o">=</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="p">|</span><span class="w"> </span>Get-Random<span class="w"> </span>
+<span class="w">      </span><span class="nv">$nuevo_usuario</span><span class="o">=</span><span class="s2">&quot;u&quot;</span>+<span class="nv">$Grupo</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">9</span><span class="k">)</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">9</span><span class="k">)</span>
+<span class="w">      </span><span class="nv">$cadena_secure_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$password</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ConvertTo-SecureString<span class="w"> </span>-AsPlainText<span class="w"> </span>-Force
+
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nuevo_usuario</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$nuevo_usuario</span><span class="s2"> ya existe.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">      </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>New-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nuevo_usuario</span><span class="w"> </span>-Password<span class="w">  </span><span class="nv">$cadena_secure_string</span><span class="w">  </span>-FullName<span class="w"> </span><span class="nv">$nuevo_usuario</span>
+<span class="w">        </span>Add-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="nv">$Grupo</span><span class="w"> </span>-Member<span class="w"> </span><span class="nv">$nuevo_usuario</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$nuevo_usuario</span><span class="s2"> ha sido creado y añadido al grupo </span><span class="nv">$Grupo</span><span class="s2">.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">     </span><span class="o">}</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="k">function</span><span class="w"> </span>Listar_Usuarios<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="o">)</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$Grupos</span>.Length<span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">      </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;Miembros del grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> :&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">      </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="o">(</span><span class="nv">$_</span>.Name<span class="w"> </span>-split<span class="w"> </span><span class="s1">&#39;\\&#39;</span><span class="o">)[</span>-1<span class="o">]</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$listar_miembros_grupo</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$help</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Show-Help<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$crear</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Crear_Usuarios<span class="o">}</span>
+<span class="w"> </span>
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$listar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>Listar_Usuarios<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">-delete</button><button aria-controls="panel-19-19-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-3" name="19-3" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>csv.ps1</strong> que cumpla con las siguientes características:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-usuario</span> <span class="no">[nombre usuario]</span> <span class="n">-grupo</span> <span class="no">[grupo]</span>

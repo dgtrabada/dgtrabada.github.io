@@ -392,7 +392,7 @@ Ejercicios de PowerShell
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/usuarios_G00.ps1
+        .. literalinclude:: 10_powershell/usuarios_G00.ps1
            :language: shell
 
 

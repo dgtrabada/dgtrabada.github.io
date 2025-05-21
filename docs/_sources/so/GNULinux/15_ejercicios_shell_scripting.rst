@@ -493,6 +493,35 @@ Ejercicios de shell scripting
 
         Si no se evitaran los números repetidos y no se acotara el intervalo con el mínimo y el máximo, cada intento sería completamente aleatorio dentro del rango total (por ejemplo, del 1 al 20). En ese caso, la probabilidad de acertar en un intento sería simplemente: 1/20=0.05 es decir, solo un 5% de probabilidad frente al 23%
 
+
+.. tabs::
+
+    .. tab:: tragaperras.sh
+
+        Crea un script llamado **tragaperras.sh** que simule una máquina tragaperras con tres rodillos. Cada rodillo muestra un número aleatorio del 0 al 9. Las reglas del juego son las siguientes:
+
+        Cada partida cuesta 1 moneda.
+
+        * Si aparecen dos números iguales, el jugador gana 2 monedas.
+        * Si aparecen tres números iguales, el jugador gana 3 monedas.
+        * Si los tres números son 7, el jugador gana 10 monedas.
+
+        El programa debe simular una cantidad significativa de partidas y calcular:
+
+        * El número total de monedas ganadas.
+        * El número total de monedas gastadas.
+        * El balance final.
+
+        Y, finalmente, responder a la pregunta: ¿Es rentable esta tragaperras para el jugador?
+
+        Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/a.sh
+           :language: shell
+
+
 Gestión de usuarios locales
 ===========================
 
