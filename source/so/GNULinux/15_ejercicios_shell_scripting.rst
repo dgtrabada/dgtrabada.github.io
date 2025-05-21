@@ -518,7 +518,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/tragaperras.sh
            :language: shell
 
 
