@@ -1575,7 +1575,82 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-23-23-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-2" name="23-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-23-23-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-3" name="23-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-23-23-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-4" name="23-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
+<ul class="simple">
+<li><p>Servidor principal llamado compute-0-0</p></li>
+<li><p>Clientes compute-0-1 y compute-0-2.</p></li>
+</ul>
+<p>Permite la conexión desde compute-0-0 al usuario root de compute-0-1 y compute-0-2 sin utilizar contraseña, mediante la exportación de claves SSH públicas.</p>
+<p>Escribe un script para clonar usuarios, el script deberá copiar los usuarios del sistema desde compute-0-0 a compute-0-1 y compute-0-2 utilizando el comando rsync para transferir los siguientes archivos:</p>
+<ul class="simple">
+<li><p>/etc/passwd</p></li>
+<li><p>/etc/shadow</p></li>
+<li><p>/etc/group</p></li>
+</ul>
+<p>El script debe comprobar que los directorios /home/usuario existen en los clientes. Si no existen, deberá crearlos y configurar el acceso SSH de los usuarios.</p>
+<p>En los clientes, el script creará el directorio /home/usuario/.ssh para cada usuario (si no existe) y copiará su clave pública desde el servidor compute-0-0, de modo que los usuarios puedan iniciar sesión por SSH sin contraseña.»</p>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
+
+<span class="k">for</span><span class="w"> </span>cpu<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$clientes</span>
+<span class="k">do</span>
+<span class="w">  </span>rsync<span class="w">  </span>-av<span class="w"> </span>--delete<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="nv">$cpu</span>:/etc/passwd
+<span class="w">  </span>rsync<span class="w">  </span>-av<span class="w"> </span>--delete<span class="w"> </span>/etc/shadow<span class="w"> </span><span class="nv">$cpu</span>:/etc/shadow
+<span class="w">  </span>rsync<span class="w">  </span>-av<span class="w"> </span>--delete<span class="w"> </span>/etc/group<span class="w"> </span><span class="nv">$cpu</span>:/etc/group
+<span class="k">done</span>
+
+
+<span class="nv">u</span><span class="o">=</span>usuario_GD_04
+<span class="nv">g</span><span class="o">=</span>GD
+
+<span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>usuari<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">g</span><span class="o">=</span><span class="k">$(</span>groups<span class="w"> </span><span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span>/home/<span class="nv">$u</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>no<span class="w"> </span>creamos<span class="w"> </span>la<span class="w"> </span>carpeta<span class="w"> </span>/home/<span class="nv">$u</span><span class="w"> </span>ya<span class="w"> </span>que<span class="w"> </span>existe
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span>cp<span class="w"> </span>-r<span class="w"> </span>home_usuario_server<span class="w">  </span>/home/<span class="nv">$u</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/usuario_X/</span><span class="nv">$u</span><span class="s2">/&quot;</span><span class="w"> </span>/home/<span class="nv">$u</span>/.ssh/id_ed25519.pub
+<span class="w">    </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="nv">$u</span>:<span class="nv">$g</span><span class="w"> </span>/home/<span class="nv">$u</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>cpu<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$clientes</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">      </span>cp<span class="w"> </span>-r<span class="w"> </span>home_usuario_cliente<span class="w"> </span><span class="nv">$u</span>
+<span class="w">      </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/usuario_X/</span><span class="nv">$u</span><span class="s2">/&quot;</span><span class="w"> </span><span class="nv">$u</span>/.ssh/authorized_keys
+<span class="w">      </span>scp<span class="w"> </span>-r<span class="w"> </span><span class="nv">$u</span><span class="w"> </span><span class="nv">$cpu</span>:/home/
+<span class="w">      </span>ssh<span class="w"> </span><span class="nv">$cpu</span><span class="w"> </span>chown<span class="w">  </span>-R<span class="w"> </span><span class="nv">$u</span>:<span class="nv">$g</span><span class="w"> </span>/home/<span class="nv">$u</span>
+<span class="w">      </span>rm<span class="w"> </span>-fr<span class="w"> </span><span class="nv">$u</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1">#rm -fr /home/usuario* ; ssh compute-0-1 rm -fr  /home/usu* ;  ssh compute-0-2 rm</span>
+</pre></div>
+</div>
+<p>Necesitamos los siguientes archivos auxiliares</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>ls<span class="w"> </span>-la<span class="w">  </span>home_usuario_cliente/
+total<span class="w"> </span><span class="m">32</span>
+drwxr-xr-x<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.
+drwx------<span class="w"> </span><span class="m">6</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>jun<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">09</span>:55<span class="w"> </span>..
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">   </span><span class="m">68</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.bash_history
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">220</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.bash_logout
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">3771</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.bashrc
+drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.cache
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">807</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:05<span class="w"> </span>.profile
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:15<span class="w"> </span>.ssh
+root@compute-0-0:~#<span class="w"> </span>ls<span class="w"> </span>-la<span class="w">  </span>home_usuario_server/
+total<span class="w"> </span><span class="m">28</span>
+drwxr-x---<span class="w"> </span><span class="m">3</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:04<span class="w"> </span>.
+drwx------<span class="w"> </span><span class="m">6</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>jun<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">09</span>:55<span class="w"> </span>..
+-rw-------<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">163</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:04<span class="w"> </span>.bash_history
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">220</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:04<span class="w"> </span>.bash_logout
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">3771</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:04<span class="w"> </span>.bashrc
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w">  </span><span class="m">807</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:04<span class="w"> </span>.profile
+drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w"> </span>may<span class="w"> </span><span class="m">28</span><span class="w"> </span><span class="m">08</span>:11<span class="w"> </span>.ssh
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-24-24-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-2" name="24-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-24-24-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-3" name="24-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-24-24-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-4" name="24-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
@@ -1589,7 +1664,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <li><p>Crea otro script llamdo <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
 <li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.</p></li>
 </ol>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 <span class="c1">#$cat listda.dat</span>
@@ -1617,7 +1692,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-23-2" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-2" name="23-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-2" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-2" name="24-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 
@@ -1636,7 +1711,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-23-3" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-3" name="23-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-3" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-3" name="24-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en el archvio grupo.dat</span>
 
@@ -1671,7 +1746,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-23-4" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-4" name="23-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-4" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-4" name="24-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
@@ -1712,7 +1787,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <section id="gestion-de-usuarios-ldap">
 <h2>Gestión de usuarios LDAP<a class="headerlink" href="#gestion-de-usuarios-ldap" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -1723,7 +1798,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 ./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                   </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
 <span class="nv">password</span><span class="o">=</span>alumno
@@ -1866,7 +1941,7 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
 <p>En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_lista_ldap.sh<span class="w"> </span>-help
 ./usuarios_lista_ldap.sh<span class="w"> </span>-crear<span class="w"> </span>&lt;archivo.dat&gt;
@@ -1877,7 +1952,7 @@ usuario1@gmail.com
 usuario2@gmail.com
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>

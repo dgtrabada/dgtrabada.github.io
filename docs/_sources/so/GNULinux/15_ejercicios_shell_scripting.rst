@@ -594,6 +594,55 @@ Gestión de usuarios locales
         .. literalinclude:: scripts/usuarios.sh
            :language: shell
 
+.. tabs::
+
+    .. tab:: rsync_usuarios.sh
+
+        Crea tres máquinas virtuales con Ubuntu Server:
+
+        * Servidor principal llamado compute-0-0 
+        * Clientes compute-0-1 y compute-0-2.
+
+        Permite la conexión desde compute-0-0 al usuario root de compute-0-1 y compute-0-2 sin utilizar contraseña, mediante la exportación de claves SSH públicas.
+
+        Escribe un script para clonar usuarios, el script deberá copiar los usuarios del sistema desde compute-0-0 a compute-0-1 y compute-0-2 utilizando el comando rsync para transferir los siguientes archivos:
+
+        * /etc/passwd
+        * /etc/shadow
+        * /etc/group
+
+        El script debe comprobar que los directorios /home/usuario existen en los clientes. Si no existen, deberá crearlos y configurar el acceso SSH de los usuarios.
+
+        En los clientes, el script creará el directorio /home/usuario/.ssh para cada usuario (si no existe) y copiará su clave pública desde el servidor compute-0-0, de modo que los usuarios puedan iniciar sesión por SSH sin contraseña."
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/sinc.sh
+           :language: shell
+
+        Necesitamos los siguientes archivos auxiliares
+
+        .. code-block:: bash 
+
+            root@compute-0-0:~# ls -la  home_usuario_cliente/
+            total 32
+            drwxr-xr-x 4 root root 4096 may 28 08:05 .
+            drwx------ 6 root root 4096 jun  3 09:55 ..
+            -rw------- 1 root root   68 may 28 08:05 .bash_history
+            -rw-r--r-- 1 root root  220 may 28 08:05 .bash_logout
+            -rw-r--r-- 1 root root 3771 may 28 08:05 .bashrc
+            drwx------ 2 root root 4096 may 28 08:05 .cache
+            -rw-r--r-- 1 root root  807 may 28 08:05 .profile
+            drwxr-xr-x 2 root root 4096 may 28 08:15 .ssh
+            root@compute-0-0:~# ls -la  home_usuario_server/
+            total 28
+            drwxr-x--- 3 root root 4096 may 28 08:04 .
+            drwx------ 6 root root 4096 jun  3 09:55 ..
+            -rw------- 1 root root  163 may 28 08:04 .bash_history
+            -rw-r--r-- 1 root root  220 may 28 08:04 .bash_logout
+            -rw-r--r-- 1 root root 3771 may 28 08:04 .bashrc
+            -rw-r--r-- 1 root root  807 may 28 08:04 .profile
+            drwx------ 2 root root 4096 may 28 08:11 .ssh
 
 .. tabs::
 

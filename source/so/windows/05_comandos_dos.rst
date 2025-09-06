@@ -182,7 +182,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **%COMPUTERNAME%** nombre del equipo.
   * **%DATE%** fecha actual
   * **%HOMEDRIVE%** unidad en la que está ubicado el directorio actual del usuario.
-  * **%HOMEPATH%** directorio actual del usuario.
+  * **%HOMEPATH%** la ruta al directorio del usuario
   * **%OS%** sistema operativo instalado.
   * **%PATH%** archivos ejecutables más importantes del sistema.
   * **%PATHEXT%** extensiones que el sistema considera ejecutables.

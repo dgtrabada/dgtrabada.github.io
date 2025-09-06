@@ -1,6 +1,6 @@
-*************************
-Instalación odoo y backup
-*************************
+****************
+Instalación odoo 
+****************
 
 Ejercicio instalación de odoo
 ------------------------------
