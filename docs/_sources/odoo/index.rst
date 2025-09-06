@@ -11,10 +11,10 @@ Odoo
    04_taza_lapiz_camiseta
    05_Directorio_fotos
    06_instalacion_odoo
-   10_copia_seguridad.rst
    07_Sitio_Web.rst
-   08_Usuarios_sistema.rst
-   09_empleados.rst
+   08_copia_seguridad.rst
+   09_Usuarios_sistema.rst
+   10_empleados.rst
    11_Inventario.rst
    12_ventas.rst
    13_calendario.rst
