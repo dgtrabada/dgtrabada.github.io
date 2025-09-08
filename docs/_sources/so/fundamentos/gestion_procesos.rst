@@ -148,6 +148,9 @@ Vemos el siguiente ejemplo:
 
 .. image:: imagenes/Ejemplo.png
 
+Desambiguación
+
+.. aimage:: imagenes/desambi.png
 
 Plantilla para ejercicios
 =========================
