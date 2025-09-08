@@ -150,7 +150,7 @@ Vemos el siguiente ejemplo:
 
 Casos especiales en **RR**
 
-.. aimage:: imagenes/desambi.png
+.. image:: imagenes/desambi.png
 
 Plantilla para ejercicios
 =========================
