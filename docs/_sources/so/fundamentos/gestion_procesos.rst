@@ -142,13 +142,13 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
   .. image:: imagenes/procesos_3.png 
 
-* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza esta quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si en demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.
+* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza esta quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si en demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. **El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.**
 
 Vemos el siguiente ejemplo:
 
 .. image:: imagenes/Ejemplo.png
 
-Desambiguación
+Casos especiales en **RR**
 
 .. aimage:: imagenes/desambi.png
 
