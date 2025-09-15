@@ -21,7 +21,7 @@ Cambio de unidades
 
 *Recordatorio*: El producto de potencias de igual base es igual a la misma base elevada a la suma de los exponentes. El cociente de potencias de igual base es igual a la misma base elevada a la resta de los exponentes.
 
-* :math:`2^5 \times 2^2 = 32 \times 4 = 2^2`  ; se suman los exponentes
+* :math:`2^5 \times 2^2 = 32 \times 4 = 2^7`  ; se suman los exponentes
 
 * :math:`\frac{2^5}{2^2} = \frac{32}{4} = 8 = 2^3 \ \ \ \ \ \ \ ` ; se restan los exponentes
 

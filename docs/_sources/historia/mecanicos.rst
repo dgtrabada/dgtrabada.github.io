@@ -29,7 +29,7 @@ Soun Utilizadas para Calcular
 1622 Reglas de cálculo de William Oughtred
 =========================================
 
- Cálculo de logaritmos
+Cálculo de logaritmos
  
 .. image:: mecanicos/Oughtred.jpg
    :width: 400
