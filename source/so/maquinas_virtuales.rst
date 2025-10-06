@@ -132,7 +132,7 @@ Caso práctico: Windows 11
 
 * Creamos una nueva maquina virtual llamada **Windows11**
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y deshabilita EFI
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y habilita EFI, Secure Boot y el TPM
 
 * Para la instalación desconecta el cable de red virtual:
   
