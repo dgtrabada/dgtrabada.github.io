@@ -157,7 +157,7 @@ Ejercicios de shell scripting
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/temperatura.sh
+        .. literalinclude:: scripts/imag.sh
            :language: shell
 
 
