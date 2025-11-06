@@ -840,7 +840,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 
 <span class="nv">total</span><span class="o">=</span><span class="m">0</span>
 
-<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">monedas</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="k">)</span>
 <span class="w">  </span><span class="nv">total</span><span class="o">=</span><span class="k">$((</span><span class="nv">total</span><span class="o">+</span><span class="nv">monedas</span><span class="k">))</span>

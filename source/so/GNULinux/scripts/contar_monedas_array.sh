@@ -7,7 +7,7 @@ done
 
 total=0
 
-for((i=0;i<$(wc -l monedas.dat | cut -d' ' -f1);i++))
+for((i=1;i<$(wc -l monedas.dat | cut -d' ' -f1);i++))
 do
   monedas=$(head -$i monedas.dat | tail -1 )
   total=$((total+monedas))
