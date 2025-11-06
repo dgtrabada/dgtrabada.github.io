@@ -831,7 +831,36 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$total</span><span class="w"> </span>de<span class="w"> </span>dinero
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-2" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-2" name="12-2" role="tabpanel" tabindex="0"></div></div>
+</div><div aria-labelledby="tab-12-12-2" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-2" name="12-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">10</span><span class="p">;</span>i++<span class="o">)</span>
+<span class="k">do</span>
+<span class="w">  </span>x<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="m">0</span>
+<span class="k">done</span>
+
+<span class="nv">total</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">x</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="k">)</span>
+<span class="w">  </span><span class="nv">total</span><span class="o">=</span><span class="k">$((</span><span class="nv">total</span><span class="o">+</span><span class="nv">x</span><span class="k">))</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="si">${</span><span class="nv">x</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span><span class="w"> </span>
+<span class="w">    </span>x<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="k">$((</span><span class="nv">x</span><span class="o">[</span><span class="nv">$i</span><span class="o">]+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="k">done</span>
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">10</span><span class="p">;</span>i++<span class="o">)</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="si">${</span><span class="nv">x</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="w"> </span>con<span class="w"> </span><span class="nv">$i</span><span class="w"> </span>euros
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$total</span><span class="w"> </span>de<span class="w"> </span>dinero
+</pre></div>
+</div>
+</div></div>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">piedra_papel_tijera.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>piedra_papel_tijera.sh</strong> que simule el juego de (Piedra, Papel o Tijera) entre dos jugadores durante un número dado de partidas.</p>
 <p>Cada jugador debe elegir aleatoriamente entre piedra, papel o tijera. El programa deberá contar cuántas veces gana el Jugador 1, cuántas gana el Jugador 2 y cuántas veces empatan.</p>
