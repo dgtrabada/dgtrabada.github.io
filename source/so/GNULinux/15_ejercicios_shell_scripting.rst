@@ -238,13 +238,17 @@ Ejercicios de shell scripting
            for((i=0;i<10;i++)) 
            do 
            echo $((RANDOM%10))
-           done > d.dat
+           done > monedas.dat
 
     .. tab:: Solución
 
         .. literalinclude:: scripts/contar_monedas.sh
            :language: shell
 
+    .. tab:: Solución (array)
+
+        .. literalinclude:: scripts/contar_monedas_array.sh
+           :language: shell
 
 .. tabs::
 
