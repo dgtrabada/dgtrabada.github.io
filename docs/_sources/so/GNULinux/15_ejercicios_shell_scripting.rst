@@ -225,6 +225,25 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/adivina.sh
            :language: shell
 
+.. tabs::
+
+    .. tab:: contar_monedas.sh
+
+        Crea un script llamado **contar_monedas.sh** que lea el numero de monedas que hay de un archivo llamado monedas.dat.
+
+        Genera el archivo **monedas.dat** utilizando el siguiente codigo:
+
+        .. code-block:: bash
+
+           for((i=0;i<10;i++)) 
+           do 
+           echo $((RANDOM%10))
+           done > d.dat
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/contar_monedas.sh
+           :language: shell
 
 
 .. tabs::

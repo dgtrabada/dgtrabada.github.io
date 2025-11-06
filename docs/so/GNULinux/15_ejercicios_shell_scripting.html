@@ -782,7 +782,58 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">piedra_papel_tijera.sh</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>piedra_papel_tijera.sh</strong> que simule el juego de (Piedra, Papel o Tijera) entre dos jugadores durante un número dado de partidas.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">contar_monedas.sh</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>contar_monedas.sh</strong> que lea el numero de monedas que hay de un archivo llamado monedas.dat.</p>
+<p>Genera el archivo <strong>monedas.dat</strong> utilizando el siguiente codigo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">10</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="nb">echo</span><span class="w"> </span><span class="k">$((</span><span class="nv">RANDOM</span><span class="o">%</span><span class="m">10</span><span class="k">))</span>
+<span class="k">done</span><span class="w"> </span>&gt;<span class="w"> </span>d.dat
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">x1</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x2</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x3</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x4</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x5</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x6</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x7</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x8</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">x9</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">total</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">1000</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nv">x</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>monedas.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="k">)</span>
+<span class="w">  </span><span class="nv">total</span><span class="o">=</span><span class="k">$((</span><span class="nv">total</span><span class="o">+</span><span class="nv">x</span><span class="k">))</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x1</span><span class="o">=</span><span class="k">$((</span><span class="nv">x1</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x2</span><span class="o">=</span><span class="k">$((</span><span class="nv">x2</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x3</span><span class="o">=</span><span class="k">$((</span><span class="nv">x3</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x4</span><span class="o">=</span><span class="k">$((</span><span class="nv">x4</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x5</span><span class="o">=</span><span class="k">$((</span><span class="nv">x5</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x6</span><span class="o">=</span><span class="k">$((</span><span class="nv">x6</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x7</span><span class="o">=</span><span class="k">$((</span><span class="nv">x7</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x8</span><span class="o">=</span><span class="k">$((</span><span class="nv">x8</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$x</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">x9</span><span class="o">=</span><span class="k">$((</span><span class="nv">x9</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+
+<span class="k">done</span>
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x1</span><span class="w"> </span>con<span class="w"> </span><span class="m">1</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x2</span><span class="w"> </span>con<span class="w"> </span><span class="m">2</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x3</span><span class="w"> </span>con<span class="w"> </span><span class="m">3</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x4</span><span class="w"> </span>con<span class="w"> </span><span class="m">4</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x5</span><span class="w"> </span>con<span class="w"> </span><span class="m">5</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x6</span><span class="w"> </span>con<span class="w"> </span><span class="m">6</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x7</span><span class="w"> </span>con<span class="w"> </span><span class="m">7</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x8</span><span class="w"> </span>con<span class="w"> </span><span class="m">8</span><span class="w"> </span>euros
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$x9</span><span class="w"> </span>con<span class="w"> </span><span class="m">9</span><span class="w"> </span>euros
+
+<span class="nb">echo</span><span class="w"> </span>hay<span class="w"> </span><span class="nv">$total</span><span class="w"> </span>de<span class="w"> </span>dinero
+</pre></div>
+</div>
+</div></div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">piedra_papel_tijera.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>piedra_papel_tijera.sh</strong> que simule el juego de (Piedra, Papel o Tijera) entre dos jugadores durante un número dado de partidas.</p>
 <p>Cada jugador debe elegir aleatoriamente entre piedra, papel o tijera. El programa deberá contar cuántas veces gana el Jugador 1, cuántas gana el Jugador 2 y cuántas veces empatan.</p>
 <p>La salida debe ser un resumen con los porcentajes de empate, victoria del Jugador 1 y victoria del Jugador 2, con dos cifras decimales de precisión.</p>
 <p>Una vez creado el script,  muestra los resultados, como sigue:</p>
@@ -799,7 +850,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="m">100000</span><span class="w"> </span><span class="nv">Empate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">33</span>.30<span class="w"> </span>%,<span class="w"> </span>Gana<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">33</span>.24<span class="w"> </span>%,<span class="w"> </span>Gana<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">33</span>.44<span class="w"> </span>%
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">opcion</span><span class="o">=(</span><span class="w"> </span><span class="s2">&quot;piedra&quot;</span><span class="w"> </span><span class="s2">&quot;papel&quot;</span><span class="w"> </span><span class="s2">&quot;tijera&quot;</span><span class="w"> </span><span class="o">)</span>
 
@@ -861,7 +912,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">notas.sh</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>notas.sh</strong> que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calificaciones.txt">calificaciones.txt</a> con el siguiente formato:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">notas.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>notas.sh</strong> que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calificaciones.txt">calificaciones.txt</a> con el siguiente formato:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Lucía<span class="w"> </span>Sánchez:<span class="w"> </span><span class="m">10</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">8</span>
 María<span class="w"> </span>Vargas:<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">7</span>
 Lucía<span class="w"> </span>Pérez:<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">10</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">4</span>
@@ -880,7 +931,7 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 <li><p>El número de alumnos que han suspendido tres módulos o más.</p></li>
 <li><p>Indicar el número de alumnos aprobados/suspensos en porcentaje.</p></li>
 </ol>
-</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">archivo</span><span class="o">=</span><span class="s2">&quot;calificaciones.txt&quot;</span>
 <span class="nv">todos_aprobados</span><span class="o">=</span><span class="m">0</span>
@@ -937,7 +988,7 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">analizar_cal.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calendario.dat">calendario.dat</a>, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">analizar_cal.sh</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calendario.dat">calendario.dat</a>, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita</p>
 <p>Crea una script llamado <strong>analizar_cal.sh</strong> que considere las siguientes entradas:</p>
 <ul>
 <li><p>Muestra un mensaje de ayuda</p>
@@ -990,7 +1041,7 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 </div>
 </li>
 </ul>
-</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso : analizar [OPCION]&quot;</span>
@@ -1042,13 +1093,13 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-15-15-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-2" name="15-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el numero de veces que estan repetidos los siguientes nombres del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat">nombres.dat</a></p>
-</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-16-16-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-2" name="16-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el numero de veces que estan repetidos los siguientes nombres del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat">nombres.dat</a></p>
+</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-nr<span class="w"> </span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-15-2" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-2" name="15-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+</div><div aria-labelledby="tab-16-16-2" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-2" name="16-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
 <span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="nv">$nlineas</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span><span class="w">  </span>
 <span class="w">  </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
@@ -1094,7 +1145,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">monedas.sh</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>monedas.sh</strong> que tire tres monedas y escriba en un archivo el resultado.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">monedas.sh</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>monedas.sh</strong> que tire tres monedas y escriba en un archivo el resultado.</p>
 <p>Haz que lea el archivo y obtenga el porcentaje de veces que salen 3 caras.</p>
 <p>En el caso de que no se proporcione el número de tiradas ni el archivo, tomara por defecto el archivo llamado tiradas.dat y hará 100 tiradas.</p>
 <p>En el caso de que no encuntre el archivo cuando lo va a leer, tomara por defecto monedas.dat, si este no existe, mostrará que no existe.</p>
@@ -1103,7 +1154,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 -read<span class="w"> </span>&lt;archivo&gt;
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -help\033[0m&quot;</span>
@@ -1144,7 +1195,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">ip.sh</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>ips.sh</strong> que cumpla con los siguientes requisitos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">ip.sh</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>ips.sh</strong> que cumpla con los siguientes requisitos:</p>
 <p>Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">./ips.sh</span> <span class="pre">-help</span></code>, debe mostrar la siguiente ayuda:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-help<span class="w">                         </span>:<span class="w"> </span>muestra<span class="w"> </span>la<span class="w"> </span>ayuda
 -file<span class="w"> </span>&lt;archivo&gt;<span class="w"> </span>&lt;número_ips&gt;<span class="w">  </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>archivo<span class="w"> </span>llamado<span class="w"> </span>&lt;archivo&gt;<span class="w"> </span>con<span class="w"> </span>&lt;número_ips&gt;.
@@ -1158,7 +1209,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 <li><p>Si ejecutas el ./ips.sh -find lee el &lt;archivo&gt;, si no existe o no se le indica, mostrará por pantalla «El archivo no existe», en el caso de que no se proporcione &lt;ip&gt; mostrará por pantalla «Proporcionar ip»</p></li>
 <li><p>Si ejecutas el ./ips.sh -read lee el &lt;archivo&gt;, si no existe o no se le indica, mostrará por pantalla «El archivo no existe»</p></li>
 </ul>
-</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m-help                         : muestra la ayuda\033[0m&quot;</span>
@@ -1220,13 +1271,13 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./dados.sh
 De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tiradas<span class="w"> </span>:<span class="w"> </span><span class="m">2</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span><span class="w"> </span><span class="m">3</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">4</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">5</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">6</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">7</span><span class="o">(</span><span class="m">17</span>%<span class="o">)</span><span class="w"> </span><span class="m">8</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">9</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">10</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">11</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">12</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">tiradas</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">1000</span><span class="si">}</span>
 
@@ -1253,7 +1304,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">adivina_cpu.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">Test</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>adivina_cpu.sh</strong> que simule un juego automático de adivinanza en el que la CPU intenta adivinar un número secreto aleatorio, generado al inicio del programa. El número estará comprendido entre 1 y un valor máximo definido por la variable n_max_adivinar. En cada intento, la CPU elige otro número al azar dentro del rango posible, ajustando los límites mínimo y máximo según si el número es menor o mayor al número secreto.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">adivina_cpu.sh</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-20-20-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-2" name="20-2" role="tab" tabindex="-1">Test</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>adivina_cpu.sh</strong> que simule un juego automático de adivinanza en el que la CPU intenta adivinar un número secreto aleatorio, generado al inicio del programa. El número estará comprendido entre 1 y un valor máximo definido por la variable n_max_adivinar. En cada intento, la CPU elige otro número al azar dentro del rango posible, ajustando los límites mínimo y máximo según si el número es menor o mayor al número secreto.</p>
 <p>El script debe cumplir con los siguientes requisitos:</p>
 <ul class="simple">
 <li><p>No se deben repetir los números ya probados.</p></li>
@@ -1263,7 +1314,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <li><p>Al final, se muestra el número total de intentos que necesitó la CPU para adivinar el número.</p></li>
 </ul>
 <p>Cuando el usuario acierte haz que muestre el número de intentos.</p>
-</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">n_max_adivinar</span><span class="o">=</span><span class="m">20</span>
 <span class="nv">numero_secreto</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">$n_max_adivinar</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
@@ -1317,7 +1368,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$intento</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><p>Para testearlo puedes usar:</p>
+</div><div aria-labelledby="tab-20-20-2" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-2" name="20-2" role="tabpanel" tabindex="0"><p>Para testearlo puedes usar:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ntot</span><span class="o">=</span><span class="m">100</span>
 <span class="nv">sum</span><span class="o">=</span><span class="m">0</span>
 <span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="nv">$ntot</span><span class="p">;</span>i++<span class="o">))</span>
@@ -1334,7 +1385,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <p>Si no se evitaran los números repetidos y no se acotara el intervalo con el mínimo y el máximo, cada intento sería completamente aleatorio dentro del rango total (por ejemplo, del 1 al 20). En ese caso, la probabilidad de acertar en un intento sería simplemente: 1/20=0.05 es decir, solo un 5% de probabilidad frente al 23%</p>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">tragaperras.sh</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tragaperras.sh</strong> que simule una máquina tragaperras con tres rodillos. Cada rodillo muestra un número aleatorio del 0 al 9. Las reglas del juego son las siguientes:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">tragaperras.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tragaperras.sh</strong> que simule una máquina tragaperras con tres rodillos. Cada rodillo muestra un número aleatorio del 0 al 9. Las reglas del juego son las siguientes:</p>
 <p>Cada partida cuesta 1 moneda.</p>
 <ul class="simple">
 <li><p>Si aparecen dos números iguales, el jugador gana 2 monedas.</p></li>
@@ -1349,7 +1400,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 </ul>
 <p>Y, finalmente, responder a la pregunta: ¿Es rentable esta tragaperras para el jugador?</p>
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
-</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">tiradas</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">10000</span><span class="si">}</span>
 <span class="nv">ganadas</span><span class="o">=</span><span class="m">0</span>
@@ -1392,7 +1443,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="gestion-de-usuarios-locales">
 <h2>Gestión de usuarios locales<a class="headerlink" href="#gestion-de-usuarios-locales" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
 <span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
 <span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
@@ -1406,7 +1457,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;</span>
@@ -1466,7 +1517,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-help
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -1496,7 +1547,7 @@ En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>
 El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>
@@ -1572,7 +1623,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
 <ul class="simple">
 <li><p>Servidor principal llamado compute-0-0</p></li>
 <li><p>Clientes compute-0-1 y compute-0-2.</p></li>
@@ -1586,7 +1637,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </ul>
 <p>El script debe comprobar que los directorios /home/usuario existen en los clientes. Si no existen, deberá crearlos y configurar el acceso SSH de los usuarios.</p>
 <p>En los clientes, el script creará el directorio /home/usuario/.ssh para cada usuario (si no existe) y copiará su clave pública desde el servidor compute-0-0, de modo que los usuarios puedan iniciar sesión por SSH sin contraseña.»</p>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
 
 <span class="k">for</span><span class="w"> </span>cpu<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$clientes</span>
 <span class="k">do</span>
@@ -1647,7 +1698,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-24-24-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-2" name="24-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-24-24-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-3" name="24-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-24-24-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-4" name="24-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">crear y borrar desde una lista</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-25-25-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-2" name="25-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-25-25-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-3" name="25-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-25-25-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-4" name="25-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
@@ -1661,7 +1712,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <li><p>Crea otro script llamdo <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
 <li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.</p></li>
 </ol>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 <span class="c1">#$cat listda.dat</span>
@@ -1689,7 +1740,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-24-24-2" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-2" name="24-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-2" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-2" name="25-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 
@@ -1708,7 +1759,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-24-24-3" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-3" name="24-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-3" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-3" name="25-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en el archvio grupo.dat</span>
 
@@ -1743,7 +1794,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-24-24-4" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-4" name="24-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-4" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-4" name="25-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
@@ -1784,7 +1835,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="gestion-de-usuarios-ldap">
 <h2>Gestión de usuarios LDAP<a class="headerlink" href="#gestion-de-usuarios-ldap" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -1795,7 +1846,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 ./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                   </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
 <span class="nv">password</span><span class="o">=</span>alumno
@@ -1938,7 +1989,7 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
 <p>En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_lista_ldap.sh<span class="w"> </span>-help
 ./usuarios_lista_ldap.sh<span class="w"> </span>-crear<span class="w"> </span>&lt;archivo.dat&gt;
@@ -1949,7 +2000,7 @@ usuario1@gmail.com
 usuario2@gmail.com
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>
