@@ -1302,7 +1302,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">Solución (general)</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./dados.sh
 De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tiradas<span class="w"> </span>:<span class="w"> </span><span class="m">2</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span><span class="w"> </span><span class="m">3</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">4</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">5</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">6</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">7</span><span class="o">(</span><span class="m">17</span>%<span class="o">)</span><span class="w"> </span><span class="m">8</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">9</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">10</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">11</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">12</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span>
@@ -1331,6 +1331,64 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="k">done</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$output</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="k">function</span><span class="w"> </span>mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -help\033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -tiradas &lt;nº tiradas&gt; \033[0m&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -ndados &lt;nº dados&gt; \033[0m&quot;</span>
+<span class="o">}</span>
+
+<span class="k">function</span><span class="w"> </span>tirar_ndados_ntiradas<span class="o">(){</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ndados</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span><span class="k">$((</span><span class="nv">ndados</span><span class="o">*</span><span class="m">6</span><span class="k">))</span><span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span>frecuencias<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="m">0</span>
+<span class="w">    </span><span class="k">done</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span>tiradas<span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="nv">suma</span><span class="o">=</span><span class="m">0</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span>j<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span>ndados<span class="p">;</span><span class="w"> </span>j++<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<span class="w">        </span>dado<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span><span class="w">       </span>
+<span class="w">        </span><span class="nv">suma</span><span class="o">=</span><span class="k">$((</span><span class="nv">suma</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="si">${</span><span class="nv">dado</span><span class="p">[</span><span class="nv">$j</span><span class="p">]</span><span class="si">}</span><span class="k">))</span>
+<span class="w">      </span><span class="k">done</span>
+<span class="w">      </span>frecuencias<span class="o">[</span><span class="nv">$suma</span><span class="o">]=</span><span class="k">$((</span><span class="nv">frecuencias</span><span class="o">[</span><span class="nv">$suma</span><span class="o">]+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">    </span><span class="k">done</span>
+
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;De </span><span class="nv">$tiradas</span><span class="s2"> tiradas para </span><span class="nv">$ndados</span><span class="s2"> dados:&quot;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ndados</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span><span class="k">$((</span><span class="nv">ndados</span><span class="k">))</span>*6<span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="nv">porcentaje</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;scale=2; </span><span class="si">${</span><span class="nv">frecuencias</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span><span class="s2"> * 100 / </span><span class="nv">$tiradas</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l<span class="k">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2"> (</span><span class="si">${</span><span class="nv">porcentaje</span><span class="si">}</span><span class="s2">%)&quot;</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="o">}</span>
+
+
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="c1"># Sin argumentos: mostrar ayuda</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">elif</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>mostrar_ayuda
+<span class="k">else</span>
+<span class="w">    </span><span class="nv">tiradas</span><span class="o">=</span><span class="m">1000</span>
+<span class="w">    </span><span class="nv">ndados</span><span class="o">=</span><span class="m">2</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>j<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$@</span>
+<span class="w">    </span><span class="k">do</span><span class="w">       </span>
+<span class="w">      </span><span class="nb">shift</span><span class="w"> </span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-tiradas&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">tiradas</span><span class="o">=</span><span class="nv">$1</span><span class="w"> </span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-ndados&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">ndados</span><span class="o">=</span><span class="nv">$1</span><span class="w"> </span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">    </span>tirar_ndados_ntiradas<span class="w"> </span>
+<span class="k">fi</span>
 </pre></div>
 </div>
 </div></div>

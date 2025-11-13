@@ -471,7 +471,10 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/dados.sh
            :language: shell
 
+    .. tab:: Solución (general)
 
+        .. literalinclude:: scripts/ndados.sh
+           :language: shell
 
 .. tabs::
 
