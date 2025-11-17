@@ -2,6 +2,9 @@
 Ejercicios de shell scripting
 *****************************
 
+disk.sh
+"""""""
+
 .. tabs::
 
     .. tab:: disk.sh
@@ -15,6 +18,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/disk.sh
            :language: shell
 
+mem.sh
+"""""""
 
 .. tabs::
 
@@ -26,7 +31,8 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/mem.sh
            :language: shell
-
+mac.sh
+""""""
 
 .. tabs::
 
@@ -39,6 +45,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/mac.sh
            :language: shell
 
+listar_usuario_grupo.sh
+"""""""""""""""""""""""
 
 .. tabs::
 
@@ -59,6 +67,8 @@ Ejercicios de shell scripting
            :language: shell
 
 
+lastlog_ip.sh
+"""""""""""""
 
 .. tabs::
 
@@ -82,6 +92,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/lastlog_ip.sh
            :language: shell
 
+lastlog.sh
+""""""""""
 
 .. tabs::
 
@@ -102,6 +114,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/lastlog.sh
            :language: shell
 
+tabla_multiplicar_read.sh
+"""""""""""""""""""""""""
 
 .. tabs::
 
@@ -115,6 +129,8 @@ Ejercicios de shell scripting
            :language: shell
 
 
+tabla_multiplicar_read.sh
+"""""""""""""""""""""""""
 
 .. tabs::
 
@@ -160,6 +176,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/imag.sh
            :language: shell
 
+temperatura.sh
+""""""""""""""
 
 .. tabs::
 
@@ -182,6 +200,9 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/temperatura_array.sh
            :language: shell
+
+rnd.sh
+""""""
 
 .. tabs::
 
@@ -212,6 +233,9 @@ Ejercicios de shell scripting
            :language: shell
 
 
+adivina.sh
+""""""""""
+
 .. tabs::
 
     .. tab:: adivina.sh
@@ -224,6 +248,9 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/adivina.sh
            :language: shell
+
+contar_monedas.sh
+"""""""""""""""""
 
 .. tabs::
 
@@ -249,6 +276,9 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/contar_monedas_array.sh
            :language: shell
+
+piedra_papel_tijera.sh
+""""""""""""""""""""""
 
 .. tabs::
 
@@ -283,6 +313,9 @@ Ejercicios de shell scripting
            :language: shell
 
 
+notas.sh
+""""""""
+
 .. tabs::
 
     .. tab:: notas.sh
@@ -313,7 +346,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/notas.sh
            :language: shell
 
-
+analizar_cal.sh
+"""""""""""""""
 
 .. tabs::
 
@@ -385,6 +419,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/analizar_cal.sh
            :language: shell
 
+rep.sh
+""""""
 
 .. tabs::
 
@@ -401,6 +437,8 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/rep_array.sh
            :language: shell
+monedas.sh
+""""""""""
 
 .. tabs::
 
@@ -425,6 +463,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/monedas.sh
            :language: shell
 
+ip.sh
+"""""
 
 .. tabs::
 
@@ -451,7 +491,8 @@ Ejercicios de shell scripting
         .. literalinclude:: scripts/ip.sh
            :language: shell
 
-
+dados.sh
+""""""""
 
 .. tabs::
 
@@ -475,6 +516,9 @@ Ejercicios de shell scripting
 
         .. literalinclude:: scripts/ndados.sh
            :language: shell
+
+adivina_cpu.sh
+""""""""""""""
 
 .. tabs::
 
@@ -520,6 +564,10 @@ Ejercicios de shell scripting
         Si no se evitaran los números repetidos y no se acotara el intervalo con el mínimo y el máximo, cada intento sería completamente aleatorio dentro del rango total (por ejemplo, del 1 al 20). En ese caso, la probabilidad de acertar en un intento sería simplemente: 1/20=0.05 es decir, solo un 5% de probabilidad frente al 23%
 
 
+tragaperras.sh
+""""""""""""""
+
+
 .. tabs::
 
     .. tab:: tragaperras.sh
@@ -551,6 +599,9 @@ Ejercicios de shell scripting
 Gestión de usuarios locales
 ===========================
 
+usuarios_WSL.sh
+"""""""""""""""
+
 .. tabs::
 
     .. tab:: usuarios_WSL.sh
@@ -576,6 +627,8 @@ Gestión de usuarios locales
         .. literalinclude:: scripts/usuarios_WSL.sh
            :language: shell
 
+usuarios.sh
+"""""""""""
 
 .. tabs::
 
@@ -619,6 +672,9 @@ Gestión de usuarios locales
 
         .. literalinclude:: scripts/usuarios.sh
            :language: shell
+
+rsync_usuarios.sh
+"""""""""""""""""
 
 .. tabs::
 
@@ -670,9 +726,13 @@ Gestión de usuarios locales
             -rw-r--r-- 1 root root  807 may 28 08:04 .profile
             drwx------ 2 root root 4096 may 28 08:11 .ssh
 
+
+crear_usuarios_lista.sh
+"""""""""""""""""""""""
+
 .. tabs::
 
-    .. tab:: crear y borrar desde una lista 
+    .. tab:: crear_usuarios_lista.sh
 
         Genera la siguiente lista de usuarios en el archivo **lista.dat**
 
@@ -718,6 +778,8 @@ Gestión de usuarios locales
 Gestión de usuarios LDAP
 ========================
 
+usuarios_ldap.sh
+""""""""""""""""
 
 .. tabs::
 
@@ -740,6 +802,9 @@ Gestión de usuarios LDAP
 
         .. literalinclude:: scripts/crear_usuarios_ldap.sh
            :language: shell
+
+usuarios_lista_ldap.sh
+""""""""""""""""""""""
 
 .. tabs::
 
