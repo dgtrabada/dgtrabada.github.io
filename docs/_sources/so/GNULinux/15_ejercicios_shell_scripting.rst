@@ -153,6 +153,9 @@ tabla_multiplicar_read.sh
         .. literalinclude:: scripts/tabla_multiplicar_array.sh
            :language: shell
 
+imag.sh
+"""""""
+
 .. tabs::
 
     .. tab:: imag.sh
@@ -345,6 +348,12 @@ notas.sh
 
         .. literalinclude:: scripts/notas.sh
            :language: shell
+
+    .. tab:: Solución (awk)
+
+        .. literalinclude:: scripts/notas_awk.sh
+           :language: shell
+
 
 analizar_cal.sh
 """""""""""""""

@@ -458,6 +458,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">tabla_multiplicar_read.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-sh">rnd.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-sh">adivina.sh</a></li>
@@ -690,6 +691,9 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </pre></div>
 </div>
 </div></div>
+</section>
+<section id="imag-sh">
+<h2>imag.sh<a class="headerlink" href="#imag-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">imag.sh</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>Crea una carpeta llamada imagenes, entra dentro y ejecuta los siguiente comandos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>jpeg<span class="w"> </span>jpg<span class="w"> </span>png<span class="w"> </span>gif<span class="w"> </span>tiff<span class="w"> </span>bmp<span class="w"> </span>svg
@@ -1016,7 +1020,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <section id="notas-sh">
 <h2>notas.sh<a class="headerlink" href="#notas-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">notas.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>notas.sh</strong> que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calificaciones.txt">calificaciones.txt</a> con el siguiente formato:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">notas.sh</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (awk)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>notas.sh</strong> que a partir de un fichero donde se recogen las calificaciones de los alumnos en los distintos módulos denominado <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calificaciones.txt">calificaciones.txt</a> con el siguiente formato:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Lucía<span class="w"> </span>Sánchez:<span class="w"> </span><span class="m">10</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">6</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">8</span>
 María<span class="w"> </span>Vargas:<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">4</span>,<span class="w"> </span><span class="m">7</span>
 Lucía<span class="w"> </span>Pérez:<span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="m">10</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">4</span>
@@ -1088,6 +1092,73 @@ Pedro<span class="w"> </span>Torres:<span class="w"> </span><span class="m">6</s
 <span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Número de alumnos que han suspendido tres módulos o más:\033[32m </span><span class="nv">$tres_o_mas_suspensos</span><span class="s2">\033[0m&quot;</span>
 <span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos aprobados:\033[35m  </span><span class="nv">$porcentaje_aprobados</span><span class="s2"> %\033[0m&quot;</span>
 <span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Porcentaje de alumnos suspensos:\033[35m  </span><span class="nv">$porcentaje_suspensos</span><span class="s2"> %\033[0m&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Verificar que el archivo existe</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;calificaciones.txt&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: El archivo calificaciones.txt no existe en el directorio actual.&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1"># Verificar que el archivo no está vacío</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;calificaciones.txt&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: El archivo calificaciones.txt está vacío.&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="c1"># Procesar con awk</span>
+awk<span class="w"> </span>-F<span class="s1">&#39;[:,]&#39;</span><span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">BEGIN {</span>
+<span class="s1">    print &quot;=============================================&quot;</span>
+<span class="s1">    print &quot;   ESTADÍSTICAS DE CALIFICACIONES&quot;</span>
+<span class="s1">    print &quot;=============================================\n&quot;</span>
+<span class="s1">    </span>
+<span class="s1">    # Inicializar contadores</span>
+<span class="s1">    total = 0</span>
+<span class="s1">    aprob_todos = 0</span>
+<span class="s1">    un_suspenso = 0</span>
+<span class="s1">    dos_suspensos = 0</span>
+<span class="s1">    tres_o_mas = 0</span>
+<span class="s1">    aprob_general = 0</span>
+<span class="s1">    susp_general = 0</span>
+<span class="s1">}</span>
+<span class="s1">{</span>
+<span class="s1">    total++</span>
+<span class="s1">    suspensos = 0</span>
+<span class="s1">    </span>
+<span class="s1">    # Contar suspensos (notas &lt; 5)</span>
+<span class="s1">    for(i=2; i&lt;=NF; i++) {</span>
+<span class="s1">        # Convertir a número (el +0 elimina espacios automáticamente)</span>
+<span class="s1">        nota = $i + 0</span>
+<span class="s1">        if (nota &lt; 5) suspensos++</span>
+<span class="s1">    }</span>
+<span class="s1">    </span>
+<span class="s1">    # Contar por categorías</span>
+<span class="s1">    if (suspensos == 0) aprob_todos++</span>
+<span class="s1">    if (suspensos == 1) un_suspenso++</span>
+<span class="s1">    if (suspensos == 2) dos_suspensos++</span>
+<span class="s1">    if (suspensos &gt;= 3) tres_o_mas++</span>
+<span class="s1">    </span>
+<span class="s1">    # Contar aprobados generales (&lt;= 2 suspensos)</span>
+<span class="s1">    if (suspensos &lt;= 2) {</span>
+<span class="s1">        aprob_general++</span>
+<span class="s1">    } else {</span>
+<span class="s1">        susp_general++</span>
+<span class="s1">    }</span>
+<span class="s1">}</span>
+<span class="s1">END {</span>
+<span class="s1">    print &quot;1. Número de alumnos matriculados: &quot; total</span>
+<span class="s1">    print &quot;2. Alumnos que han aprobado todos los módulos: &quot; aprob_todos</span>
+<span class="s1">    print &quot;3. Alumnos que han suspendido sólo un módulo: &quot; un_suspenso</span>
+<span class="s1">    print &quot;4. Alumnos que han suspendido dos módulos: &quot; dos_suspensos</span>
+<span class="s1">    print &quot;5. Alumnos que han suspendido tres módulos o más: &quot; tres_o_mas</span>
+<span class="s1">    printf &quot;\n6. Porcentaje de alumnos:\n&quot;</span>
+<span class="s1">    printf &quot;   Aprobados (&lt;= 2 suspensos): %.2f%%\n&quot;, (aprob_general/total)*100</span>
+<span class="s1">    printf &quot;   Suspensos (&gt; 2 suspensos): %.2f%%\n&quot;, (susp_general/total)*100</span>
+<span class="s1">    print &quot;\n=============================================&quot;</span>
+<span class="s1">}&#39;</span><span class="w"> </span>calificaciones.txt
 </pre></div>
 </div>
 </div></div>
@@ -2405,6 +2476,7 @@ usuario2@gmail.com
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">tabla_multiplicar_read.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-sh">rnd.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-sh">adivina.sh</a></li>
