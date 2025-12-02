@@ -595,6 +595,36 @@ tragaperras.sh
         .. literalinclude:: scripts/tragaperras.sh
            :language: shell
 
+ahorcado.sh
+"""""""""""
+
+.. tabs::
+
+    .. tab:: ahorcado.sh
+
+        Crea un script llamado **ahorcado.sh** que juegue al ahorcado. El script debe utilizar las siguientes palabras como ejemplo:
+
+        .. code-block:: bash
+        
+           palabra=("PYTHON" "LINUX" "BASH" "GITHUB" "DOCKER")
+
+           # Utiliza el siguiente dibujo:
+
+            +---+
+             |  |
+             O  |
+            /|\ |
+            / \ |
+                |
+         =========
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/ahorcado.sh
+           :language: shell
+
+
+
 
 Gestión de usuarios locales
 ===========================

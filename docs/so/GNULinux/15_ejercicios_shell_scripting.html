@@ -470,7 +470,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip-sh">ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-sh">dados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-cpu-sh">adivina_cpu.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ahorcado-sh">ahorcado.sh</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios-locales">Gestión de usuarios locales</a></li>
 </ul>
 </li>
@@ -1622,6 +1623,147 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 </pre></div>
 </div>
 </div></div>
+</section>
+<section id="ahorcado-sh">
+<h2>ahorcado.sh<a class="headerlink" href="#ahorcado-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">ahorcado.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>ahorcado.sh</strong> que juegue al ahorcado. El script debe utilizar las siguientes palabras como ejemplo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nv">palabra</span><span class="o">=(</span><span class="s2">&quot;PYTHON&quot;</span><span class="w"> </span><span class="s2">&quot;LINUX&quot;</span><span class="w"> </span><span class="s2">&quot;BASH&quot;</span><span class="w"> </span><span class="s2">&quot;GITHUB&quot;</span><span class="w"> </span><span class="s2">&quot;DOCKER&quot;</span><span class="o">)</span>
+
+<span class="w">  </span><span class="c1"># Utiliza el siguiente dibujo:</span>
+
+<span class="w">   </span>+---+
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span>
+<span class="w">    </span>O<span class="w">  </span><span class="p">|</span>
+<span class="w">   </span>/<span class="p">|</span><span class="se">\ </span><span class="p">|</span>
+<span class="w">   </span>/<span class="w"> </span><span class="se">\ </span><span class="p">|</span>
+<span class="w">       </span><span class="p">|</span>
+<span class="o">=========</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">palabra</span><span class="o">=(</span><span class="s2">&quot;PYTHON&quot;</span><span class="w"> </span><span class="s2">&quot;LINUX&quot;</span><span class="w"> </span><span class="s2">&quot;BASH&quot;</span><span class="w"> </span><span class="s2">&quot;GITHUB&quot;</span><span class="w"> </span><span class="s2">&quot;DOCKER&quot;</span><span class="o">)</span>
+<span class="nv">indice</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="si">${#</span><span class="nv">palabra</span><span class="p">[@]</span><span class="si">}</span><span class="k">))</span>
+<span class="nv">secreta</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">palabra</span><span class="p">[</span><span class="nv">$indice</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$secreta</span>
+
+<span class="nv">longitud</span><span class="o">=</span><span class="si">${#</span><span class="nv">secreta</span><span class="si">}</span>
+<span class="nv">oculta</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$secreta</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/./_/g&#39;</span><span class="k">)</span>
+<span class="nv">intentos</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">fallos</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">max_fallos</span><span class="o">=</span><span class="m">6</span>
+<span class="nv">letras_intentadas</span><span class="o">=()</span>
+
+dibujar<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>clear
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$fallos</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span><span class="m">0</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">1</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">2</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">3</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  /|  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">4</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  /|\\ |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">5</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  /|\\ |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  /   |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">6</span><span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  +---+&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   |  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;   O  |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  /|\\ |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  / \\ |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;      |&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">  </span><span class="k">esac</span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Bienvenido al juego del ahorcado!&quot;</span>
+dibujar
+
+<span class="k">while</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$oculta</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$secreta</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$fallos</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$max_fallos</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Palabra: </span><span class="nv">$oculta</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Letras intentadas: </span><span class="si">${</span><span class="nv">letras_intentadas</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Introduce una letra: &quot;</span><span class="w"> </span>letra
+<span class="w">  </span><span class="nv">letra</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$letra</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;[:lower:]&#39;</span><span class="w"> </span><span class="s1">&#39;[:upper:]&#39;</span><span class="k">)</span><span class="w"> </span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot; </span><span class="si">${</span><span class="nv">letras_intentadas</span><span class="p">[@]</span><span class="si">}</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="s2">&quot; </span><span class="nv">$letra</span><span class="s2"> &quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Ya intentaste esa letra. Prueba otra.&quot;</span>
+<span class="w">    </span><span class="k">continue</span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="nv">letras_intentadas</span><span class="o">+=(</span><span class="s2">&quot;</span><span class="nv">$letra</span><span class="s2">&quot;</span><span class="o">)</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$secreta</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$letra</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="c1"># Reemplazar guiones bajos por la letra adivinada</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span>&lt;<span class="w"> </span><span class="nv">$longitud</span><span class="p">;</span><span class="w"> </span>i++<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">secreta</span><span class="p">:</span><span class="nv">$i</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$letra</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nv">oculta</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$oculta</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">&quot;s/./</span><span class="nv">$letra</span><span class="s2">/</span><span class="k">$((</span><span class="nv">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Bien hecho! La letra &#39;</span><span class="nv">$letra</span><span class="s2">&#39; está en la palabra.&quot;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="o">((</span>fallos++<span class="o">))</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La letra &#39;</span><span class="nv">$letra</span><span class="s2">&#39; no está en la palabra.&quot;</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span>dibujar
+<span class="k">done</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$oculta</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$secreta</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Felicidades! Adivinaste la palabra: </span><span class="nv">$secreta</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;¡Oh no! Has sido ahorcado.&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La palabra era: </span><span class="nv">$secreta</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</div></div>
 <section id="gestion-de-usuarios-locales">
 <h3>Gestión de usuarios locales<a class="headerlink" href="#gestion-de-usuarios-locales" title="Link to this heading">#</a></h3>
 </section>
@@ -1629,7 +1771,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="usuarios-wsl-sh">
 <h2>usuarios_WSL.sh<a class="headerlink" href="#usuarios-wsl-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
 <span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
 <span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
@@ -1643,7 +1785,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;</span>
@@ -1706,7 +1848,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="usuarios-sh">
 <h2>usuarios.sh<a class="headerlink" href="#usuarios-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la «MV Ubuntu Server 24.04»</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-help
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -1736,7 +1878,7 @@ En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>
 El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>
@@ -1815,7 +1957,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <section id="rsync-usuarios-sh">
 <h2>rsync_usuarios.sh<a class="headerlink" href="#rsync-usuarios-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
 <ul class="simple">
 <li><p>Servidor principal llamado compute-0-0</p></li>
 <li><p>Clientes compute-0-1 y compute-0-2.</p></li>
@@ -1829,7 +1971,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </ul>
 <p>El script debe comprobar que los directorios /home/usuario existen en los clientes. Si no existen, deberá crearlos y configurar el acceso SSH de los usuarios.</p>
 <p>En los clientes, el script creará el directorio /home/usuario/.ssh para cada usuario (si no existe) y copiará su clave pública desde el servidor compute-0-0, de modo que los usuarios puedan iniciar sesión por SSH sin contraseña.»</p>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
 
 <span class="k">for</span><span class="w"> </span>cpu<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$clientes</span>
 <span class="k">do</span>
@@ -1893,7 +2035,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="crear-usuarios-lista-sh">
 <h2>crear_usuarios_lista.sh<a class="headerlink" href="#crear-usuarios-lista-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">crear_usuarios_lista.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-25-25-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-2" name="25-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-25-25-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-3" name="25-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-25-25-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-4" name="25-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">crear_usuarios_lista.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-26-26-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-2" name="26-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-26-26-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-3" name="26-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-26-26-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-4" name="26-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
@@ -1907,7 +2049,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <li><p>Crea otro script llamdo <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
 <li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.</p></li>
 </ol>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 <span class="c1">#$cat listda.dat</span>
@@ -1935,7 +2077,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-2" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-2" name="25-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-2" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-2" name="26-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 
@@ -1954,7 +2096,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-3" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-3" name="25-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-3" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-3" name="26-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en el archvio grupo.dat</span>
 
@@ -1989,7 +2131,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-4" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-4" name="25-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-26-26-4" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-4" name="26-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
@@ -2033,7 +2175,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="usuarios-ldap-sh">
 <h2>usuarios_ldap.sh<a class="headerlink" href="#usuarios-ldap-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -2044,7 +2186,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 ./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                   </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
 <span class="nv">password</span><span class="o">=</span>alumno
@@ -2190,7 +2332,7 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 <section id="usuarios-lista-ldap-sh">
 <h2>usuarios_lista_ldap.sh<a class="headerlink" href="#usuarios-lista-ldap-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-28-28-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-28-28-0" name="28-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-28-28-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-28-28-1" name="28-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-28-28-0" class="sphinx-tabs-panel" id="panel-28-28-0" name="28-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
 <p>En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_lista_ldap.sh<span class="w"> </span>-help
 ./usuarios_lista_ldap.sh<span class="w"> </span>-crear<span class="w"> </span>&lt;archivo.dat&gt;
@@ -2201,7 +2343,7 @@ usuario1@gmail.com
 usuario2@gmail.com
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-28-28-1" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-1" name="28-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 </pre></div>
 </div>
 </div></div>
@@ -2275,7 +2417,8 @@ usuario2@gmail.com
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip-sh">ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-sh">dados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-cpu-sh">adivina_cpu.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ahorcado-sh">ahorcado.sh</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios-locales">Gestión de usuarios locales</a></li>
 </ul>
 </li>

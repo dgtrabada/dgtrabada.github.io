@@ -4,7 +4,7 @@ Casos prácticos : Active Directory con red interna
 
 Crea los siguiente clones enlazados con los adaptadores en modo puente:
 
-* Clon enlazado 1 de "Windows Server 2022" llamado **SRVtunombre** con IP 10.4.X.Y/8, DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
+* Clon enlazado 1 de "Windows Server 2022" llamado **SRVtunombre** con IP 10.4.X.Y/8, red NAT si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16
 * Clon enlazado 2 de "Windows 11" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 * Clon enlazado 3 de "Windows 11" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 * Clon enlazado 3 de "Windows 11" llamado **WC07tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
@@ -36,9 +36,9 @@ Para comfigurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enruta
 
 * [x] Traduccion de direcciones de red (NAT)
 
-Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (DHCP caso portatil)
+Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (red NAT caso portatil)
 
-* [x] Configurar mas adelante el DHCP y el DNS
+* [x] Configurar mas adelante el red NAT y el DNS
 
 
 Configura el controlador de dominio
