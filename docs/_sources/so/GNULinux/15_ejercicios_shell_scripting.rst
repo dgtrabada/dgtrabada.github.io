@@ -842,6 +842,23 @@ usuarios_ldap.sh
         .. literalinclude:: scripts/crear_usuarios_ldap.sh
            :language: shell
 
+
+    .. tab:: lista.dat
+
+        .. code-block:: bash
+
+         $ head -4 lista.dat
+         tunombre_73 GA
+         tunombre_36 GC
+         tunombre_82 GC
+         tunombre_07 GC
+
+         for((i=0;i<$(wc -l lista.dat | cut -d' ' -f1);i++))
+         do 
+           ./usuarios_ldap.sh -adduser $(head -$i lista.dat | tail -1)
+         done
+
+
 usuarios_lista_ldap.sh
 """"""""""""""""""""""
 

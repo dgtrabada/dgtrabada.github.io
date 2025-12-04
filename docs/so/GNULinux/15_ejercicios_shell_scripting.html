@@ -2246,7 +2246,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="usuarios-ldap-sh">
 <h2>usuarios_ldap.sh<a class="headerlink" href="#usuarios-ldap-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-27-27-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-2" name="27-2" role="tab" tabindex="-1">lista.dat</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la “MV Ubuntu Server 24.04” con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -2396,6 +2396,18 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 <span class="k">else</span>
 <span class="w">  </span>show_help
 <span class="k">fi</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-27-27-2" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-2" name="27-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-4<span class="w"> </span>lista.dat
+tunombre_73<span class="w"> </span>GA
+tunombre_36<span class="w"> </span>GC
+tunombre_82<span class="w"> </span>GC
+tunombre_07<span class="w"> </span>GC
+
+<span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>lista.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="k">do</span>
+<span class="w">  </span>./usuarios_ldap.sh<span class="w"> </span>-adduser<span class="w"> </span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>lista.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>
