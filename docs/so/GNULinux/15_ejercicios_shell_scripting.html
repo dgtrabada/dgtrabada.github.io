@@ -2415,6 +2415,163 @@ usuario2@gmail.com
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-28-28-1" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-1" name="28-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
+<span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="nv">password</span><span class="o">=</span>alumno
+<span class="nv">passwd_defecto_usuario</span><span class="o">=</span>cambiame
+
+<span class="k">function</span><span class="w"> </span>crear_grupo<span class="o">(){</span>
+<span class="nv">NAMEG</span><span class="o">=</span><span class="nv">$1</span><span class="w">       </span><span class="c1">#GA</span>
+<span class="nv">NUMBERGID</span><span class="o">=</span><span class="nv">$2</span><span class="w">   </span><span class="c1">#501</span>
+
+cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; grupo.ldif</span>
+<span class="s">dn: cn=${NAMEG},ou=grupos,$LDAP</span>
+<span class="s">objectClass: posixGroup</span>
+<span class="s">cn: ${NAMEG}</span>
+<span class="s">gidNumber: ${NUMBERGID}</span>
+<span class="s">EOF</span>
+
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-f<span class="w"> </span>grupo.ldif
+rm<span class="w"> </span>-fr<span class="w"> </span>grupo.ldif
+<span class="o">}</span>
+
+<span class="k">function</span><span class="w"> </span>crear_usuario<span class="o">(){</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="nv">$1</span><span class="w">      </span><span class="c1">#tunombre1</span>
+<span class="nv">NUMBERID</span><span class="o">=</span><span class="nv">$2</span><span class="w">  </span><span class="c1">#1001</span>
+<span class="nv">NUMBERGID</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$3</span><span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w">  </span>gid<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$3</span><span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w">  </span>gid<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2
+<span class="nb">echo</span><span class="w"> </span><span class="nv">NUMBERGID</span><span class="o">=</span><span class="nv">$NUMBERGID</span>
+cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; usuarios.ldif</span>
+<span class="s">dn: uid=${NAME},ou=usuarios,$LDAP</span>
+<span class="s">objectClass: inetOrgPerson</span>
+<span class="s">objectClass: posixAccount</span>
+<span class="s">objectClass: shadowAccount</span>
+<span class="s">uid: ${NAME}</span>
+<span class="s">cn: ${NAME}</span>
+<span class="s">sn: ${NAME}</span>
+<span class="s">gidNumber: ${NUMBERGID}</span>
+<span class="s">uidNumber: ${NUMBERID}</span>
+<span class="s">userPassword: $passwd_defecto_usuario</span>
+<span class="s">homeDirectory: /home/$NAME</span>
+<span class="s">loginShell: /bin/bash</span>
+<span class="s">EOF</span>
+
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-f<span class="w"> </span>usuarios.ldif
+rm<span class="w"> </span>-fr<span class="w"> </span>usuarios.ldif
+<span class="o">}</span>
+
+
+<span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m</span>
+<span class="s2">  ./usuarios_lista_ldap.sh -help</span>
+<span class="s2">  ./usuarios_lista_ldap.sh -crear &lt;archivo.dat&gt;</span>
+<span class="s2">  ./usuarios_lista_ldap.sh -borrar &lt;archivo.dat&gt;</span>
+<span class="s2">  \033[0m&quot;</span>
+<span class="w">  </span><span class="o">}</span>
+
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span>show_help
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-crear&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">archivo</span><span class="o">=</span><span class="nv">$2</span>
+<span class="w">      </span><span class="nv">grupo</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.dat//&#39;</span><span class="k">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$archivo</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="c1">#echo -e &quot;\033[32m Creamos los usuarios en el grupo $grupo \033[0m&quot;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$grupo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">        </span><span class="k">then</span>
+<span class="w">          </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se crea el grupo, el grupo </span><span class="nv">$grupo</span><span class="s2"> existe. \033[0m&quot;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">          </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Primero creamos el grupo </span><span class="nv">$grupo</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">          </span><span class="c1">#tomamos el ultimo gidNumbrer:</span>
+<span class="w">          </span><span class="nv">gidN</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$gidN</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="c1">#-z indica que la variable esta vacía</span>
+<span class="w">          </span><span class="k">then</span>
+<span class="w">            </span><span class="nv">gidN</span><span class="o">=</span><span class="m">500</span>
+<span class="w">          </span><span class="k">fi</span>
+<span class="w">          </span><span class="nv">gidN</span><span class="o">=</span><span class="k">$((</span><span class="nv">gidN</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">          </span>crear_grupo<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span><span class="nv">$gidN</span>
+<span class="w">        </span><span class="k">fi</span>
+<span class="w">        </span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">        </span><span class="k">do</span>
+<span class="w">          </span><span class="nv">usuario</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;@&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$usuario</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">          </span><span class="k">then</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m No se crea el usuario, </span><span class="nv">$usuario</span><span class="s2"> existe. \033[0m&quot;</span>
+<span class="w">          </span><span class="k">else</span>
+<span class="w">            </span><span class="c1">#tomamos el ultimo gidNumbrer:</span>
+<span class="w">            </span><span class="nv">uidN</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>uidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$uidN</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="c1">#-z indica que la variable esta vacía</span>
+<span class="w">            </span><span class="k">then</span>
+<span class="w">              </span><span class="nv">uidN</span><span class="o">=</span><span class="m">1000</span>
+<span class="w">            </span><span class="k">fi</span>
+<span class="w">            </span><span class="nv">uidN</span><span class="o">=</span><span class="k">$((</span><span class="nv">uidN</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Creamos el usuario </span><span class="nv">$usuario</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">            </span>crear_usuario<span class="w"> </span><span class="nv">$usuario</span><span class="w"> </span><span class="nv">$uidN</span><span class="w"> </span><span class="nv">$grupo</span>
+<span class="w">          </span><span class="k">fi</span>
+<span class="w">        </span><span class="k">done</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m El archvio </span><span class="nv">$archivo</span><span class="s2"> no existe \033[0m&quot;</span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m Proporcionar el &lt;archvio.dat&gt; \033[0m&quot;</span>
+<span class="w">      </span>show_help
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-borrar&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nv">archivo</span><span class="o">=</span><span class="nv">$2</span>
+<span class="w">      </span><span class="nv">grupo</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.dat//&#39;</span><span class="k">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$archivo</span>
+<span class="w">      </span><span class="k">then</span>
+<span class="w">        </span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span><span class="p">;</span>i++<span class="o">))</span>
+<span class="w">        </span><span class="k">do</span>
+<span class="w">          </span><span class="nv">usuario</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span><span class="nv">$archivo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;@&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$usuario</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">          </span><span class="k">then</span>
+<span class="w">            </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span><span class="s2">&quot;uid=</span><span class="nv">$usuario</span><span class="s2">,ou=usuarios,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Borramos el usuario </span><span class="nv">$usuario</span><span class="s2"> \033[0m&quot;</span>
+<span class="w">          </span><span class="k">else</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m El usuario </span><span class="nv">$usuario</span><span class="s2"> no existe \033[0m&quot;</span>
+<span class="w">          </span><span class="k">fi</span>
+<span class="w">        </span><span class="k">done</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$grupo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;ldap&#39;</span><span class="k">)</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">        </span><span class="k">then</span>
+<span class="w">          </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m El grupo </span><span class="nv">$grupo</span><span class="s2"> no existe. \033[0m&quot;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">          </span><span class="c1">#si el grupo no tiene usuarios borrarlo</span>
+<span class="w">          </span><span class="nv">NUMBERGID</span><span class="o">=</span><span class="k">$(</span><span class="w"> </span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="nv">cn</span><span class="o">=</span><span class="nv">$grupo</span><span class="w"> </span>gidNumber<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w">  </span>gid<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="k">)</span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="nv">$LDAP</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="nv">$NUMBERGID</span><span class="k">)</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]]</span>
+<span class="w">          </span><span class="k">then</span>
+<span class="w">            </span>ldapdelete<span class="w"> </span>-x<span class="w"> </span>-w<span class="w"> </span><span class="nv">$password</span><span class="w"> </span>-D<span class="w"> </span><span class="nv">$LDAPadmin</span><span class="w"> </span><span class="s2">&quot;cn=</span><span class="nv">$grupo</span><span class="s2">,ou=grupos,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m Borramos el grupo </span><span class="nv">$grupo</span><span class="s2"> sin usuarios \033[0m&quot;</span>
+<span class="w">          </span><span class="k">fi</span>
+<span class="w">        </span><span class="k">fi</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m El archvio </span><span class="nv">$archivo</span><span class="s2"> no existe \033[0m&quot;</span>
+<span class="w">      </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m Proporcionar el &lt;archvio.dat&gt; \033[0m&quot;</span>
+<span class="w">      </span>show_help
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+
+
+<span class="k">else</span>
+<span class="w">  </span>show_help
+<span class="k">fi</span>
 </pre></div>
 </div>
 </div></div>

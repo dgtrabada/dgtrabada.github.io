@@ -865,7 +865,7 @@ usuarios_lista_ldap.sh
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/a.sh
+        .. literalinclude:: scripts/crear_usuarios_lista_ldap.sh
            :language: shell
 
 #listar y borrar los usuarios de un grupo entero
