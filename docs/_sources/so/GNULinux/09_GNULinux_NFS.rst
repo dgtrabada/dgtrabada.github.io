@@ -41,6 +41,14 @@ Una forma abreviada de incluir más nodos sería:
 .. code-block:: bash
 
  /home/tunombre1 172.16.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+
+Mas abreviado:
+ 
+.. code-block:: bash
+
+ /home 172.16.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+
+
  
 Cliente NFS
 ***********
