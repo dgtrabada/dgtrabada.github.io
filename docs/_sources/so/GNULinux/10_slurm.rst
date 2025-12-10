@@ -51,7 +51,7 @@ Ponemos en el navegador la <IP servidor>:8000 y vamos a slurm-wlm-configurator.h
 
 Cambiamos el nombre del servidor en **SlurmctldHost** por **compute-0-0**
 
-Ponemos el nombre de un nodo en NodeName, por ejemplo  **compute-0-1**, fijate que este en /etc/hosts
+Ponemos el nombre de un nodo en NodeName, por ejemplo  **compute-0-[1-2]**, fijate que este en /etc/hosts
 
 En **ProctrackType = linuxproc**
 
