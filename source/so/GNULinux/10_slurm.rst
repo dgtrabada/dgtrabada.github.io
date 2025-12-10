@@ -61,7 +61,7 @@ Descomenta o copia a mano estas lineas:
 
 .. code-block:: bash
 
- SlurmUser=root
+ SlurmUser=slurm
  SlurmdUser=root
  AuthType=auth/munge
  CryptoType=crypto/munge
