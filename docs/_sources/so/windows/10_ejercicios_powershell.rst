@@ -96,12 +96,12 @@ Ejercicios de PowerShell
 
     .. tab:: Solución
 
-        .. literalinclude:: 10_powershell/impart.ps1
+        .. literalinclude:: 10_powershell/impar.ps1
            :language: powershell
 
     .. tab:: Solución (param)
 
-        .. literalinclude:: 10_powershell/impart_param.ps1
+        .. literalinclude:: 10_powershell/impar_param.ps1
            :language: powershell
 
 
