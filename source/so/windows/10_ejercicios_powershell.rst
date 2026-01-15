@@ -99,6 +99,11 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/impar.ps1
            :language: powershell
 
+    .. tab:: Solución (args)
+
+        .. literalinclude:: 10_powershell/impar_args.ps1
+           :language: powershell
+
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/impar_param.ps1

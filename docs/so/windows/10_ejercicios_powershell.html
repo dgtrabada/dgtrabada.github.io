@@ -588,7 +588,7 @@
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">impar.ps1</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-6-6-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-2" name="6-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>impar.ps1</strong> que pide un número al usuario y muestre los números impares hasta ese número</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">impar.ps1</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-6-6-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-2" name="6-2" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-6-6-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-3" name="6-3" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>impar.ps1</strong> que pide un número al usuario y muestre los números impares hasta ese número</p>
 </div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># impar.ps1</span>
 
 <span class="nv">$n</span> <span class="p">=</span> <span class="nb">Read-Host</span> <span class="s2">&quot;Introduce un número&quot;</span>
@@ -604,7 +604,21 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-6-6-2" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-2" name="6-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mult_param.ps1</span>
+</div><div aria-labelledby="tab-6-6-2" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-2" name="6-2" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># impar_args.ps1</span>
+
+<span class="nv">$number</span> <span class="p">=</span> <span class="no">[int]</span> <span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+
+
+<span class="nb">Write-Host</span> <span class="s2">&quot;Números impares hasta el $number&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+<span class="nb">Write-Host</span> <span class="s2">&quot;---------------------------&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">1</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="nv">$number</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span> 
+    <span class="k">if</span><span class="p">(</span><span class="nv">$i</span><span class="k">%</span><span class="n">2</span> <span class="o">-eq</span> <span class="n">1</span><span class="p">){</span>
+        <span class="nb">Write-Host</span> <span class="s2">&quot;$i&quot;</span>  <span class="n">-ForegroundColor</span> <span class="n">DarkYellow</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-6-3" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-3" name="6-3" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># mult_param.ps1</span>
 
 <span class="k">param</span> <span class="p">(</span>
     <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">,</span> <span class="k">HelpMessage</span><span class="p">=</span><span class="s2">&quot;Dame un número&quot;</span><span class="p">)]</span>
