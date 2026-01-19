@@ -197,7 +197,7 @@ Ejercicios de PowerShell
 
         .. code-block:: powershell
 
-          usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 200
+          usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 2000
 
         El script debe:
 
@@ -214,7 +214,7 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/usuario_args.ps1
            :language: powershell
 
-    .. tab:: Solución (args2)
+    .. tab:: Solución (args descolocado)
 
         .. literalinclude:: 10_powershell/usuario_args2.ps1
            :language: powershell

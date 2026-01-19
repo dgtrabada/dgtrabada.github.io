@@ -8,13 +8,33 @@ Control de procesos
 * **ps** ver procesos ps -ef
 * **top, htop** monitorización de procesos
 
-  * [Espacio] Realiza un refresco de la pantalla
-  * [h] Muestra la pantalla de ayuda
-  * [k] Mata un proceso, pedirá la ID del proceso y la señal que hay que enviarle.
-  * [n] Cambia el número de procesos que se muestran en pantalla.
-  * [u] Ordena por usuario.
-  * [M] Ordena por uso de memoria.
-  * [P] Ordena por uso del CPU.
+  * **PID** Número único que identifica cada proceso en el sistema
+  * **USUARIO** Nombre del usuario que es dueño del proceso
+  * **PR** Prioridad del proceso en el sistema operativo 
+  * **NI** Valor de "amabilidad" que afecta cuánto CPU recibe el proceso
+  * **VIRT** Memoria virtual total que el proceso está usando
+  * **RES** Memoria física (RAM) real que el proceso está usando
+  * **SHR** Memoria que el proceso comparte con otros procesos
+  * **S** Estado actual del proceso (ejecutándose, dormido, etc.)
+  * **%CPU** Porcentaje de tiempo de CPU que el proceso está usando
+  * **%MEM** Porcentaje de memoria RAM total que el proceso está usando
+  * **Estados** más comunes (columna S):
+
+    * **R** Ejecutándose o listo para ejecutar
+    * **S** Durmiendo (esperando por algo)
+    * **D** Durmiendo profundamente (no se puede interrumpir)
+    * **Z** Zombie (proceso terminado pero no eliminado)
+    * **T** Detenido/pausado
+
+  * **Atajos de teclado**
+
+    * [Espacio] Realiza un refresco de la pantalla
+    * [h] Muestra la pantalla de ayuda
+    * [k] Mata un proceso, pedirá la ID del proceso y la señal que hay que enviarle.
+    * [n] Cambia el número de procesos que se muestran en pantalla.
+    * [u] Ordena por usuario.
+    * [M] Ordena por uso de memoria.
+    * [P] Ordena por uso del CPU.
 
 * **nice** ejecuta un comando con una prioridad determinada, o modifica la prioridad a de un proceso
 * **kill** mata procesos
