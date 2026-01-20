@@ -15,10 +15,9 @@ Control de procesos
   * **VIRT** Memoria virtual total que el proceso está usando
   * **RES** Memoria física (RAM) real que el proceso está usando
   * **SHR** Memoria que el proceso comparte con otros procesos
-  * **S** Estado actual del proceso (ejecutándose, dormido, etc.)
   * **%CPU** Porcentaje de tiempo de CPU que el proceso está usando
   * **%MEM** Porcentaje de memoria RAM total que el proceso está usando
-  * **Estados** más comunes (columna S):
+  * **S** Estado actual del proceso (ejecutándose, dormido, etc.), los **estados** más comunes son:
 
     * **R** Ejecutándose o listo para ejecutar
     * **S** Durmiendo (esperando por algo)
