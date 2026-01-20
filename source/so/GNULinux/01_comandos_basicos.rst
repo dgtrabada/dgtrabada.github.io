@@ -99,29 +99,14 @@ Ficheros y directorios
   .. code-block:: bash
 
    ls -la     #ver archivos ocultos
-   ls -ai     #ver inodos
    ls *dat    #ver los archvios acabados en dat
    ls *T*     #ver archivos que contienen T
    ls ???.dat #ver archivos que tienen 3 caracteres y termian en .dat
+   ls -ai     #ver inodos
   
 * **ln -s** hacer links simbólicos -P son links duros sobre archivos
 
-  .. code-block:: bash
-
-   $ ln -s date.dat links
-   $ ln  date.dat linkh
-   $ ls -la
-   -rw-r--r--. 2 dani profesores 31 mar 29 09:40 date.dat
-   -rw-r--r--. 2 dani profesores 31 mar 29 09:40 linkh
-   lrwxrwxrwx. 1 dani profesores  8 mar 29 09:40 links -> date.dat
-   $ ls -ai
-   238052 date.dat  238052 linkh  238053 links
-   $ rm -fr date.dat
-   $ ls -la
-   $ head link*
-   ==> linkh <==
-   mié mar 29 09:40:27 CEST 2023
-   head: no se puede abrir 'links' para lectura: No such file or directory
+  .. image:: imagenes/ln_s.png
 
 
 * **stat** muestra información del inodo
