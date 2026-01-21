@@ -117,7 +117,7 @@ Ficheros y directorios
 * **mkdir** crear directorio
 * **cd** cambiar directorio
 * **whereis** muestra donde esta el comando
-* **pwd** print working directory, se utiliza para imprimir el nombre del directorio actual
+* **pwd** muestra tu ubicación como **ruta absoluta** (ej: /home/usuario/docs), que empieza desde / y es fija. Las **rutas relativas** (ej: ./docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa ./docs y /home/usuario/docs la ruta absoluta
 * **locate** fichero  #busca el fichero
 * **find** buscar; 
 
