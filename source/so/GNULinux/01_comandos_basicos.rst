@@ -98,7 +98,7 @@ Ficheros y directorios
 
   .. code-block:: bash
 
-   ls -la     #ver archivos ocultos
+   ls -la     #ver archivos ocultos (empiezan por .)
    ls *dat    #ver los archvios acabados en dat
    ls *T*     #ver archivos que contienen T
    ls ???.dat #ver archivos que tienen 3 caracteres y termian en .dat
