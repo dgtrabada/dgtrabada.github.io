@@ -179,18 +179,6 @@ encontramos los diferentes campos:
  # Otros
  write, wall, mesg, newgrp, ...
  
-Alias
-^^^^^
-
-Un alias es una forma de crear atajos o abreviaturas para comandos largos o frecuentemente utilizados.
-
-Puedes definir alias en Bash utilizando el comando alias. Por ejemplo, si deseas crear un alias para un comando largo como ls -l, puedes hacerlo de la siguiente manera:
-
-.. code-block:: bash
-
-  alias ll='ls -l'
-
-Para hacer que los alias sean persistentes y estén disponibles cada vez que abras una terminal, puedes agregarlos al archivo de configuración donde se cargar los valores por defecto cada vez que abres una terminal ~/.bashrc
 
 Añadir Quotas a los usuarios:
 =============================

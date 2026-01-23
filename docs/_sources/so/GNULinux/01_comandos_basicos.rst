@@ -127,8 +127,21 @@ Ficheros y directorios
     find -not -name *dat
     find . -type f -size +20M
 
+Alias
+=====
+
+Un alias es una forma de crear atajos o abreviaturas para comandos largos o frecuentemente utilizados.
+
+Puedes definir alias en Bash utilizando el comando alias. Por ejemplo, si deseas crear un alias para un comando largo como ls -l, puedes hacerlo de la siguiente manera:
+
+.. code-block:: bash
+
+  alias ll='ls -l'
+
+Para hacer que los alias sean persistentes y estén disponibles cada vez que abras una terminal, puedes agregarlos al archivo de configuración donde se cargar los valores por defecto cada vez que abres una terminal ~/.bashrc
+
 Visualizadores de archivos
-=====================================
+==========================
     
 * **cat** visualizar el contenido archivo
 * **more** mostrar archivos haciendo pausa en cada pantalla
@@ -143,14 +156,17 @@ Editor vi
   * :w -> guardar
   * :q -> salir
   * :wq -> guardar y salir
-  * :q! -> salir sin guardar
-  * /cadena -> buscar cadena
+  * :q! -> salir sin guardariiuyuyiuy
+  * :n  -> ir a la linea n
+  * shift + R -> REEMPLZAR
+  * /cadena -> buscar cadena (n, shift+n)
   * N yy -> copiar N lineas
   * N dd -> borrar N lineas
   * p -> pegar
   * u -> undo
+  * :redo -> rehacer 
   * :%s/cadena1/cadena2/g -> sustituir una cadena
-  * G -> ir al final del archivo
+  *:wq G -> ir al final del archivo
   * :set number -> ver los número de linea
   
   Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:
