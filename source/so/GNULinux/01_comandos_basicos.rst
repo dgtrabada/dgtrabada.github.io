@@ -116,6 +116,11 @@ Ficheros y directorios
 * **rm -fr** borrar
 * **mkdir** crear directorio
 * **cd** cambiar directorio
+
+  * Entrar en A : ``cd A`` 
+  * Subir un nivel : ``cd ..`` 
+  * Ir al home: ``cd <enter>`` o ``cd $HOME``
+
 * **whereis** muestra donde esta el comando
 * **pwd** muestra tu ubicación como **ruta absoluta** (ej: /home/usuario/docs), que empieza desde / y es fija. Las **rutas relativas** (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta
 * **locate** fichero  #busca el fichero
@@ -166,7 +171,7 @@ Editor vi
   * u -> undo
   * :redo -> rehacer 
   * :%s/cadena1/cadena2/g -> sustituir una cadena
-  *:wq G -> ir al final del archivo
+  * G -> ir al final del archivo
   * :set number -> ver los número de linea
   
   Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:
@@ -192,27 +197,11 @@ Editor vi
 Compresión
 ==========
             
-* **tar, gzip, gunzip, zip** combina una colección de archivos y carpetas en un solo archivo (conocido como "tarball"). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar
+* **tar, gzip, gunzip, zip** combina una colección de archivos y carpetas en un solo archivo (conocido como "tarball"). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar.
 
-  .. code-block:: bash
+  .. image:: imagenes/tar.png
 
-   tar -cf A.tar A
-   $ ls
-   A  A.tar
-   $ gzip A.tar 
-   $ ls
-   A  A.tar.gz
-   $ rm -fr A
-   $ gunzip A.tar.gz 
-   $ ls
-   A.tar
-   $ tar -xvf A.tar 
-   A/
-   A/B/
-   A/B/C/
-   $ ls
-   A  A.tar
-   
+Para listar los archivos sin descomprimirlo podemos ejecutar ``tar -tvzf A.tar.gz``
 
 Instalar software
 =================

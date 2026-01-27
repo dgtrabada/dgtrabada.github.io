@@ -581,7 +581,13 @@ ls<span class="w"> </span>-ai<span class="w">     </span><span class="c1">#ver i
 <li><p><strong>mv</strong> mover, renombrar</p></li>
 <li><p><strong>rm -fr</strong> borrar</p></li>
 <li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>cd</strong> cambiar directorio</p></li>
+<li><p><strong>cd</strong> cambiar directorio</p>
+<ul class="simple">
+<li><p>Entrar en A : <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">A</span></code></p></li>
+<li><p>Subir un nivel : <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code></p></li>
+<li><p>Ir al home: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&lt;enter&gt;</span></code> o <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$HOME</span></code></p></li>
+</ul>
+</li>
 <li><p><strong>whereis</strong> muestra donde esta el comando</p></li>
 <li><p><strong>pwd</strong> muestra tu ubicación como <strong>ruta absoluta</strong> (ej: /home/usuario/docs), que empieza desde / y es fija. Las <strong>rutas relativas</strong> (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta</p></li>
 <li><p><strong>locate</strong> fichero  #busca el fichero</p></li>
@@ -630,9 +636,9 @@ find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </spa
 <li><p>u -&gt; undo</p></li>
 <li><p>:redo -&gt; rehacer</p></li>
 <li><p>:%s/cadena1/cadena2/g -&gt; sustituir una cadena</p></li>
+<li><p>G -&gt; ir al final del archivo</p></li>
+<li><p>:set number -&gt; ver los número de linea</p></li>
 </ul>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a>:wq G -&gt; ir al final del archivo
-* :set number -&gt; ver los número de linea</p>
 <p>Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>~/.vimrc
 filetype<span class="w"> </span>indent<span class="w"> </span>off
@@ -653,27 +659,11 @@ bash
 <section id="compresion">
 <h2>Compresión<a class="headerlink" href="#compresion" title="Link to this heading">#</a></h2>
 <ul>
-<li><p><strong>tar, gzip, gunzip, zip</strong> combina una colección de archivos y carpetas en un solo archivo (conocido como «tarball»). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>-cf<span class="w"> </span>A.tar<span class="w"> </span>A
-$<span class="w"> </span>ls
-A<span class="w">  </span>A.tar
-$<span class="w"> </span>gzip<span class="w"> </span>A.tar
-$<span class="w"> </span>ls
-A<span class="w">  </span>A.tar.gz
-$<span class="w"> </span>rm<span class="w"> </span>-fr<span class="w"> </span>A
-$<span class="w"> </span>gunzip<span class="w"> </span>A.tar.gz
-$<span class="w"> </span>ls
-A.tar
-$<span class="w"> </span>tar<span class="w"> </span>-xvf<span class="w"> </span>A.tar
-A/
-A/B/
-A/B/C/
-$<span class="w"> </span>ls
-A<span class="w">  </span>A.tar
-</pre></div>
-</div>
+<li><p><strong>tar, gzip, gunzip, zip</strong> combina una colección de archivos y carpetas en un solo archivo (conocido como «tarball»). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar.</p>
+<img alt="../../_images/tar.png" src="../../_images/tar.png" />
 </li>
 </ul>
+<p>Para listar los archivos sin descomprimirlo podemos ejecutar <code class="docutils literal notranslate"><span class="pre">tar</span> <span class="pre">-tvzf</span> <span class="pre">A.tar.gz</span></code></p>
 </section>
 <section id="instalar-software">
 <h2>Instalar software<a class="headerlink" href="#instalar-software" title="Link to this heading">#</a></h2>
@@ -828,7 +818,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <li><p><strong>ro</strong>: indica que el dispositivo se monta con permisos de lectura solamente.</p></li>
 <li><p><strong>owner</strong>: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).</p></li>
 <li><p><strong>user</strong> : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.</p></li>
-<li><p><strong>suid</strong> : indica que el permiso <a href="#id3"><span class="problematic" id="id4">``</span></a>s”” tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)</p></li>
+<li><p><strong>suid</strong> : indica que el permiso <a href="#id1"><span class="problematic" id="id2">``</span></a>s”” tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)</p></li>
 <li><p><strong>exec</strong> : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.</p></li>
 <li><p><strong>async</strong> : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.</p></li>
 <li><p><strong>dev</strong> : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.</p></li>
