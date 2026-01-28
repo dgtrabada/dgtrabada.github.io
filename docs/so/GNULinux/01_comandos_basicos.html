@@ -565,7 +565,8 @@ Ctrl+C<span class="w">     </span><span class="c1"># para cancelar una tarea en 
 <h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Link to this heading">#</a></h2>
 <ul>
 <li><p><strong>ls</strong> listar archivos y carpetas</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w">     </span><span class="c1">#ver archivos ocultos (empiezan por .)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w">      </span><span class="c1">#ver archivos y directorios en formato detallado o extendido</span>
+ls<span class="w"> </span>-la<span class="w">     </span><span class="c1">#ver archivos ocultos (empiezan por .)</span>
 ls<span class="w"> </span>*dat<span class="w">    </span><span class="c1">#ver los archvios acabados en dat</span>
 ls<span class="w"> </span>*T*<span class="w">     </span><span class="c1">#ver archivos que contienen T</span>
 ls<span class="w"> </span>???.dat<span class="w"> </span><span class="c1">#ver archivos que tienen 3 caracteres y termian en .dat</span>
@@ -585,16 +586,28 @@ ls<span class="w"> </span>-ai<span class="w">     </span><span class="c1">#ver i
 <ul class="simple">
 <li><p>Entrar en A : <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">A</span></code></p></li>
 <li><p>Subir un nivel : <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code></p></li>
-<li><p>Ir al home: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&lt;enter&gt;</span></code> o <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$HOME</span></code></p></li>
+<li><p>Ir al home (ruta al directorio personal del usuario actual): <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">&lt;enter&gt;</span></code> o <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$HOME</span></code></p></li>
 </ul>
 </li>
-<li><p><strong>whereis</strong> muestra donde esta el comando</p></li>
+<li><p><strong>whereis</strong> ocaliza los archivos binarios (ejecutables), páginas de manual (man) y archivos fuente de un comando o programa</p></li>
 <li><p><strong>pwd</strong> muestra tu ubicación como <strong>ruta absoluta</strong> (ej: /home/usuario/docs), que empieza desde / y es fija. Las <strong>rutas relativas</strong> (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta</p></li>
-<li><p><strong>locate</strong> fichero  #busca el fichero</p></li>
-<li><p><strong>find</strong> buscar;</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>-name<span class="w"> </span>*dat
+<li><p><strong>locate</strong> es muy rápido porque busca en una base de datos preconstruida</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>locate<span class="w"> </span>sshd_config
+locate<span class="w"> </span>*.ssh
+locate<span class="w"> </span>-i<span class="w"> </span>SSH<span class="w">                   </span><span class="c1"># Ignorar mayúsculas/minúsculas</span>
+locate<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;ssh[0-9]*\.conf</span>$<span class="s2">&quot;</span><span class="w">    </span><span class="c1"># utiliza expresiones regulares</span>
+sudo<span class="w"> </span>updatedb<span class="w">                   </span><span class="c1"># actualizar su base de datos</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>find</strong> busca en tiempo real recorriendo el sistema de archivos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span>/etc<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;sshd_config&quot;</span><span class="w">     </span><span class="c1"># Busca en el directorio /etc (y todos sus subdirectorios) un archivo llamado exactamente &quot;sshd_config&quot;</span>
+find<span class="w"> </span>/etc<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;sshd_config&quot;</span><span class="w">    </span><span class="c1"># ignorando mayúsculas/minúsculas</span>
+find<span class="w"> </span>/etc<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;sshd_config&quot;</span><span class="w"> </span>-ls<span class="w"> </span><span class="c1"># muestra permisos, dueño, tamaño, etc.</span>
+find<span class="w"> </span>-name<span class="w"> </span>*dat
 find<span class="w"> </span>-not<span class="w"> </span>-name<span class="w"> </span>*dat
-find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-size<span class="w"> </span>+20M
+find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-size<span class="w"> </span>+20M<span class="w">         </span><span class="c1"># para buscar por tamaño</span>
+find<span class="w"> </span>/home<span class="w"> </span>-size<span class="w"> </span>1M<span class="w">               </span><span class="c1"># exactamente de 1MB. +1M busca los mayores y con -1M los menores de 1MB</span>
 </pre></div>
 </div>
 </li>
@@ -612,8 +625,9 @@ find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </spa
 <section id="visualizadores-de-archivos">
 <h2>Visualizadores de archivos<a class="headerlink" href="#visualizadores-de-archivos" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>cat</strong> visualizar el contenido archivo</p></li>
-<li><p><strong>more</strong> mostrar archivos haciendo pausa en cada pantalla</p></li>
+<li><p><strong>cat</strong> visualizar el contenido archivo, si queremos numerar las lineas <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">-n</span></code></p></li>
+<li><p><strong>more</strong> ver archivos página por página, si queremos abrir el archivo comenzando en la línea número n <code class="docutils literal notranslate"><span class="pre">more</span> <span class="pre">+n</span></code>, more +50 acceso.log</p></li>
+<li><p><strong>less</strong> visor avanzado con navegación completa</p></li>
 </ul>
 </section>
 <section id="editor-vi">
@@ -637,7 +651,7 @@ find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </spa
 <li><p>:redo -&gt; rehacer</p></li>
 <li><p>:%s/cadena1/cadena2/g -&gt; sustituir una cadena</p></li>
 <li><p>G -&gt; ir al final del archivo</p></li>
-<li><p>:set number -&gt; ver los número de linea</p></li>
+<li><p>:set number -&gt; ver los número de linea (:set nu ; :set nonu)</p></li>
 </ul>
 <p>Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>~/.vimrc

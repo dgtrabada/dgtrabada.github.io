@@ -98,6 +98,7 @@ Ficheros y directorios
 
   .. code-block:: bash
 
+   ls -l      #ver archivos y directorios en formato detallado o extendido
    ls -la     #ver archivos ocultos (empiezan por .)
    ls *dat    #ver los archvios acabados en dat
    ls *T*     #ver archivos que contienen T
@@ -119,18 +120,32 @@ Ficheros y directorios
 
   * Entrar en A : ``cd A`` 
   * Subir un nivel : ``cd ..`` 
-  * Ir al home: ``cd <enter>`` o ``cd $HOME``
+  * Ir al home (ruta al directorio personal del usuario actual): ``cd <enter>`` o ``cd $HOME``
 
-* **whereis** muestra donde esta el comando
+* **whereis** ocaliza los archivos binarios (ejecutables), páginas de manual (man) y archivos fuente de un comando o programa
 * **pwd** muestra tu ubicación como **ruta absoluta** (ej: /home/usuario/docs), que empieza desde / y es fija. Las **rutas relativas** (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta
-* **locate** fichero  #busca el fichero
-* **find** buscar; 
+* **locate** es muy rápido porque busca en una base de datos preconstruida
 
   .. code-block:: bash
-  
+
+    locate sshd_config
+    locate *.ssh
+    locate -i SSH                   # Ignorar mayúsculas/minúsculas
+    locate -r "ssh[0-9]*\.conf$"    # utiliza expresiones regulares
+    sudo updatedb                   # actualizar su base de datos
+
+* **find** busca en tiempo real recorriendo el sistema de archivos
+
+  .. code-block:: bash
+
+    find /etc -name "sshd_config"     # Busca en el directorio /etc (y todos sus subdirectorios) un archivo llamado exactamente "sshd_config"
+    find /etc -iname "sshd_config"    # ignorando mayúsculas/minúsculas
+    find /etc -name "sshd_config" -ls # muestra permisos, dueño, tamaño, etc.
     find -name *dat
     find -not -name *dat
-    find . -type f -size +20M
+    find . -type f -size +20M         # para buscar por tamaño
+    find /home -size 1M               # exactamente de 1MB. +1M busca los mayores y con -1M los menores de 1MB
+  
 
 Alias
 =====
@@ -148,8 +163,9 @@ Para hacer que los alias sean persistentes y estén disponibles cada vez que abr
 Visualizadores de archivos
 ==========================
     
-* **cat** visualizar el contenido archivo
-* **more** mostrar archivos haciendo pausa en cada pantalla
+* **cat** visualizar el contenido archivo, si queremos numerar las lineas ``cat -n``
+* **more** ver archivos página por página, si queremos abrir el archivo comenzando en la línea número n ``more +n``, more +50 acceso.log
+* **less** visor avanzado con navegación completa
 
 Editor vi
 =========
@@ -172,7 +188,7 @@ Editor vi
   * :redo -> rehacer 
   * :%s/cadena1/cadena2/g -> sustituir una cadena
   * G -> ir al final del archivo
-  * :set number -> ver los número de linea
+  * :set number -> ver los número de linea (:set nu ; :set nonu)
   
   Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:
   
