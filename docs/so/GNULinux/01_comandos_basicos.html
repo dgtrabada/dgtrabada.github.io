@@ -771,16 +771,11 @@ fdisk<span class="w"> </span>/dev/sdX<span class="w"> </span><span class="c1">#p
 <li><p><strong>mkswapoff</strong> desactivan particiones de swap</p></li>
 <li><p><strong>df -h</strong> muestra el estado actual de las particiones montadas</p></li>
 <li><p><strong>du -skh</strong> tamaño de archivos</p></li>
-<li><p><strong>mount</strong> Montar particiones</p>
+<li><p><strong>mount</strong> se utiliza para conectar (montar) un sistema de archivos (disco, USB, partición, recurso de red) en un directorio (punto de montaje) para poder acceder a sus archivos. Para montar utilizamos <code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">[opciones]</span> <span class="pre">&lt;dispositivo&gt;</span> <span class="pre">&lt;punto_montaje&gt;</span></code> y para desmontar <code class="docutils literal notranslate"><span class="pre">umount</span> <span class="pre">&lt;punto_montaje&gt;</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/media/carpeta1
-mount<span class="w"> </span>-t<span class="w"> </span>ext3<span class="w"> </span>/dev/sdb3<span class="w"> </span>/home
-mount<span class="w"> </span>/dev/sdaX<span class="w"> </span>/punto_de_montaje
-</pre></div>
-</div>
-</li>
-<li><p><strong>umount</strong> desmontar particiones</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>umount<span class="w"> </span>punto<span class="w"> </span>de<span class="w"> </span>montaje
 umount<span class="w"> </span>/media/carpeta1
+
+mount<span class="w"> </span>-t<span class="w"> </span>ext3<span class="w"> </span>/dev/sdb3<span class="w"> </span>/home
 </pre></div>
 </div>
 </li>
@@ -813,8 +808,6 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <span class="o">(</span>needs<span class="w"> </span>journal<span class="w">    </span>recovery<span class="o">)</span><span class="w"> </span><span class="o">(</span>extents<span class="o">)</span><span class="w"> </span><span class="o">(</span>64bit<span class="o">)</span><span class="w"> </span><span class="o">(</span>large<span class="w"> </span>files<span class="o">)</span><span class="w"> </span><span class="o">(</span>huge<span class="w"> </span>files<span class="o">)</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <p>La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores</p>
 <p><strong>&lt;dispositivo&gt; &lt;punto_de_montaje&gt; &lt;sistema_de_archivos&gt; &lt;opciones&gt; &lt;dump-freq&gt; &lt;pass-num&gt;</strong></p>
 <ul>
@@ -841,6 +834,8 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 </li>
 <li><p><strong>&lt;dump-freq&gt;</strong> es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.</p></li>
 <li><p><strong>&lt;pass-num&gt;</strong> indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="rsync">

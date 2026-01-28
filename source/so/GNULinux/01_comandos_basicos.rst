@@ -317,22 +317,15 @@ Gestión de particiones
 
 * **df -h** muestra el estado actual de las particiones montadas
 * **du -skh** tamaño de archivos
-* **mount** Montar particiones
+* **mount** se utiliza para conectar (montar) un sistema de archivos (disco, USB, partición, recurso de red) en un directorio (punto de montaje) para poder acceder a sus archivos. Para montar utilizamos ``mount [opciones] <dispositivo> <punto_montaje>`` y para desmontar ``umount <punto_montaje>``
 
   .. code-block:: bash
-  
+      
     mount /dev/sda1 /media/carpeta1
+    umount /media/carpeta1
+
     mount -t ext3 /dev/sdb3 /home
-    mount /dev/sdaX /punto_de_montaje
     
-* **umount** desmontar particiones
-
-  .. code-block:: bash
-  
-   umount punto de montaje
-   umount /media/carpeta1
-   
-
 * **lsblk -a** nos muestra información de todos los dispositivos de bloque
 * **file** sirve para determinar el tipo archivo
 * **dd** copia y clona datos discos y particiones.
@@ -366,33 +359,34 @@ Gestión de particiones
    (needs journal    recovery) (extents) (64bit) (large files) (huge files)
 
 
-La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores
+  La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores
 
-**<dispositivo> <punto_de_montaje> <sistema_de_archivos> <opciones> <dump-freq> <pass-num>**
+  **<dispositivo> <punto_de_montaje> <sistema_de_archivos> <opciones> <dump-freq> <pass-num>**
 
-* **<dispositivo>** es el directorio lógico que hace referencia a una partición o recurso. Nombre del dispositivo o etiqueta, podríamos sustituir la segunda linea por:
+  * **<dispositivo>** es el directorio lógico que hace referencia a una partición o recurso. Nombre del dispositivo o etiqueta, podríamos sustituir la segunda linea por:
 
-  .. code-block:: bash
+    .. code-block:: bash
   
-   /dev/sdb1        /HOME           ext4    defaults        0       2
+     /dev/sdb1        /HOME           ext4    defaults        0       2
   
-* **<punto_de_montaje>** es la carpeta en que se proyectarán los datos del sistema de archivos, en la liea anterior /HOME
-* **<sistema de archivos>** es el algoritmo que se utilizará para interpretarlo.
-* **<opciones>** es el lugar donde se especifican los parámetros que mount utilizará para montar el dispositivo, deben estar separadas por comas. Las opciones de montaje son numerosas. Las más usadas se listan a continuación:
+  * **<punto_de_montaje>** es la carpeta en que se proyectarán los datos del sistema de archivos, en la liea anterior /HOME
+  * **<sistema de archivos>** es el algoritmo que se utilizará para interpretarlo.
+  * **<opciones>** es el lugar donde se especifican los parámetros que mount utilizará para montar el dispositivo, deben estar separadas por comas. Las opciones de montaje son numerosas. Las más usadas se listan a continuación:
 
-  * **auto** : indica que el dispositivo se monta siempre que se inicie el sistema. La opuesta es noauto.
-  * **rw**: indica que el dispositivo se monta con permisos de lectura y escritura.
-  * **ro**: indica que el dispositivo se monta con permisos de lectura solamente.
-  * **owner**: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).
-  * **user** : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.
-  * **suid** : indica que el permiso ``s'' tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)
-  * **exec** : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.
-  * **async** : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.
-  * **dev** : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.
+    * **auto** : indica que el dispositivo se monta siempre que se inicie el sistema. La opuesta es noauto.
+    * **rw**: indica que el dispositivo se monta con permisos de lectura y escritura.
+    * **ro**: indica que el dispositivo se monta con permisos de lectura solamente.
+    * **owner**: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).
+    * **user** : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.
+    * **suid** : indica que el permiso ``s'' tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)
+    * **exec** : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.
+    * **async** : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.
+    * **dev** : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.
   
-  * **defaults** : es una opción equivalente a la unión de rw, suid, dev, exec, auto, nouser y async.
-* **<dump-freq>** es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.
-* **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​
+    * **defaults** : es una opción equivalente a la unión de rw, suid, dev, exec, auto, nouser y async.
+
+  * **<dump-freq>** es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.
+  * **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​
 
 rsync
 =====
