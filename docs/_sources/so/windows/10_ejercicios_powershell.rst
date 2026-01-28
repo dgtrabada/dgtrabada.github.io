@@ -224,6 +224,10 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/usuario_param.ps1
            :language: powershell
 
+    .. tab:: Solución (param+help)
+
+        .. literalinclude:: 10_powershell/usuario_param_help.ps1
+           :language: powershell
 
 .. tabs::
 
@@ -267,7 +271,7 @@ Ejercicios de PowerShell
 
     .. tab:: piedra_papel_tijera.ps1
       
-        Haz un script llamado **piedra_papel_tijera.ps1** que
+        Crea un script de PowerShell llamdo **piedra_papel_tijera.ps1** que implemente el clásico juego "Piedra, Papel o Tijeras" donde el usuario compite contra la computadora. 
 
     .. tab:: Solución (if)
 

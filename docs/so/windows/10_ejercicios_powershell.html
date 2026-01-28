@@ -775,7 +775,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">usuario.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (args descolocado)</button><button aria-controls="panel-11-11-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-3" name="11-3" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuario.ps1</strong> que reciba los siguientes parámetros:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">usuario.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (args descolocado)</button><button aria-controls="panel-11-11-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-3" name="11-3" role="tab" tabindex="-1">Solución (param)</button><button aria-controls="panel-11-11-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-4" name="11-4" role="tab" tabindex="-1">Solución (param+help)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuario.ps1</strong> que reciba los siguientes parámetros:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">usuario</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Mario</span> <span class="n">-Apellido</span> <span class="n">López</span> <span class="n">-Usuario</span> <span class="n">mario33</span> <span class="n">-Nacimiento</span> <span class="n">2000</span>
 </pre></div>
 </div>
@@ -858,6 +858,37 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="nb">Write-Output</span> <span class="s2">&quot;No se puede crear el usuario $Usuario a $Nombre $Apellido por tener menos de 14&quot;</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-11-4" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-4" name="11-4" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+    <span class="no">[switch]</span><span class="nv">$help</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span>   <span class="p">=</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Apellido</span> <span class="p">=</span> <span class="s2">&quot;Apellido&quot;</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Usuario</span>  <span class="p">=</span> <span class="s2">&quot;usuario&quot;</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span>  <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span>
+    <span class="p">)</span>
+
+
+<span class="k">function</span> <span class="n">help</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;usuario.ps1 -Nombre [string] -Apellido [string] -Usuario [string] -Nacimiento [int]&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+    <span class="p">}</span>
+
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$help</span><span class="p">){</span>
+   <span class="n">help</span>
+   <span class="p">}</span>
+<span class="k">else</span><span class="p">{</span>
+   <span class="nv">$AñoActual</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span>
+
+   <span class="nv">$Edad</span> <span class="p">=</span> <span class="nv">$AñoActual</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="nv">$Edad</span> <span class="o">-ge</span> <span class="n">14</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">Write-Output</span> <span class="s2">&quot;Se ha creado a $Nombre $Apellido el usuario $Usuario&quot;</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nb">Write-Output</span> <span class="s2">&quot;No se puede crear el usuario $Usuario a $Nombre $Apellido por tener menos de 14&quot;</span>
+   <span class="p">}</span>
+   <span class="p">}</span>
+    
 </pre></div>
 </div>
 </div></div>
@@ -1006,7 +1037,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>piedra_papel_tijera.ps1</strong> que</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script de PowerShell llamdo <strong>piedra_papel_tijera.ps1</strong> que implemente el clásico juego «Piedra, Papel o Tijeras» donde el usuario compite contra la computadora.</p>
 </div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
 <span class="c">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
     <span class="no">[string]</span><span class="nv">$Opcion_usuario</span> <span class="p">=</span> <span class="s2">&quot;tijeras&quot;</span>
