@@ -363,6 +363,7 @@ Operadores de asignación
 
    Get-Random # numero aletorio
    Get-Random -Minimum 1 -Maximum 10
+   Write-Output "uno", "dos", "tres"| Get-Random
 
 * **Otras conversiones**
 
