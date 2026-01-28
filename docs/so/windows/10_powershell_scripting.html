@@ -960,6 +960,25 @@
  <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
 </pre></div>
 </div>
+<p>Podemos usar param con un switch para crear parámetros booleanos/flags que activen o desactiven funciones</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span> <span class="nb">cat </span><span class="p">.\</span><span class="n">script</span><span class="p">.</span><span class="n">ps1</span>
+<span class="k">param</span> <span class="p">(</span>
+  <span class="no">[switch]</span><span class="nv">$help</span>
+  <span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$help</span><span class="p">){</span>
+  <span class="nb">Write-Output</span> <span class="s2">&quot;help es: $help&quot;</span>
+ <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+  <span class="nb">Write-Output</span> <span class="s2">&quot;help es: $help&quot;</span>
+ <span class="p">}</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span> <span class="p">.\</span><span class="n">script</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">help</span> <span class="n">es</span><span class="p">:</span> <span class="n">False</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:&gt;</span> <span class="p">.\</span><span class="n">script</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-help</span>
+<span class="n">help</span> <span class="n">es</span><span class="p">:</span> <span class="n">True</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="evaluacion-de-condiciones">

@@ -539,8 +539,29 @@ Podemos completar la declaracion de un parámetro en un script de PowerShell uti
   Nombre: Tutankamón
   Nacimiento: -1334
   Hola Tutankamón, Tienes 3358
- 
- 
+
+Podemos usar param con un switch para crear parámetros booleanos/flags que activen o desactiven funciones
+
+.. code-block:: powershell
+
+  PS C:> cat .\script.ps1
+  param (
+    [switch]$help
+    )
+
+  if ($help){
+    Write-Output "help es: $help"
+   }else{
+    Write-Output "help es: $help"
+   }
+
+  PS C:> .\script.ps1 
+  help es: False
+
+  PS C:> .\script.ps1 -help
+  help es: True
+
+
 Evaluación de condiciones   
 =========================
 
