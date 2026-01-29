@@ -234,6 +234,35 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/usuario_param_help.ps1
            :language: powershell
 
+    .. tab:: usuario_csv.ps1
+      
+        Haz un script llamado **usuario_csv.ps1** que reciba los siguientes parámetros:
+
+        .. code-block:: powershell
+
+          usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 2000
+
+        El script debe:
+
+        1. Calcular la **edad del usuario**.
+
+           Si el usuario tiene **14 años o más**, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: **No se puede crear el usuario, el usuario existe**
+
+           Si **no esta en el archivo**, crea la entrada con el usuario y muestra el mensaje:**Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]**
+
+           En el caso de que **no exista el archivo**, lo crea y añade la entrada
+
+           Si el usuario tiene menos de **14 años** muestra el mensaje:**No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14**
+
+        2. La opción **-help** muestra la ayuda
+
+        3. La opción **-list** lista todos los usuarios
+
+        4. La opción **-delete [usuario]** borrar el usuario [usuario]
+
+
+
+
 .. tabs::
 
     .. tab:: monedas.ps1
