@@ -219,6 +219,11 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/usuario_args2.ps1
            :language: powershell
 
+    .. tab:: Solución (args desc.+help )
+
+        .. literalinclude:: 10_powershell/usuario_args3.ps1
+           :language: powershell
+
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/usuario_param.ps1
