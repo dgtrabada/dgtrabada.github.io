@@ -521,6 +521,10 @@ Podemos completar la declaracion de un parámetro en un script de PowerShell uti
 
   Write-Output "Hola $Nombre, Tienes $Edad"
 
+  #si no ponemos nada toma los calores en orden
+  PS C:\> .\param.ps1  Tutankamón -1334
+  Hola Tutankamón, Tienes 3358
+
   PS C:\> .\param.ps1 -Nombre Tutankamón -Nacimiento -1334
   Hola Tutankamón, Tienes 3358
   
@@ -749,6 +753,31 @@ Archivos
    $u=$i.usuario ; echo "usuario = $u"
    }
 
+ #Eliminar la segunda linea y escribir
+ $lineas | Where-Object { $_ -ne $lineas[1] } | Set-Content usuarios.csv
+ cat ./usuarios.csv
+ usuario,grupo
+ user02,group02
+ user03,group03
+ user04,group04
+
+ #Eliminar la linea que tiene user03 y escribir
+ Get-Content usuarios.csv | Where-Object { $_ -notmatch 'user03' } | Set-Content usuarios.csv  
+ cat ./usuarios.csv          
+ usuario,grupo
+ user02,group02
+ user04,group04
+
+ #Podemos evaluar si existe o no el usuario
+ if (Import-Csv usuarios.csv | Where-Object usuario -eq "user02") {
+    $true
+ } else {
+    $false
+ }
+ True
+
+
+
 Funciones
 =========
 
@@ -759,7 +788,38 @@ Funciones
    }
  foo 1 3 5
  # a: 1; b: 3; c: 5
- 
+
+ function Sumar($a, $b) {
+    return $a + $b
+ }
+ $x = 5
+ $y = 7
+ $resultado = Sumar($x, $y)
+ Write-Host $resultado
+ #12
+
+ function Sumar {
+    return $args[0] + $args[1]
+ }
+ $resultado = Sumar 5 7
+ Write-Host $resultado
+ #12
+
+ function Sumar {
+    param(
+        [int]$a,
+        [int]$b
+    )
+    return $a + $b
+ }
+ $resultado = Sumar -a 5 -b 7
+ Write-Host $resultado
+ #12 
+ $resultado = Sumar 5 7
+ Write-Host $resultado
+ #12 
+
+
 Ejemplo de función con recurrencia:
 
 .. code-block:: powershell

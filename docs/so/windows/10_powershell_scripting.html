@@ -940,6 +940,10 @@
 
  <span class="nb">Write-Output</span> <span class="s2">&quot;Hola $Nombre, Tienes $Edad&quot;</span>
 
+ <span class="c">#si no ponemos nada toma los calores en orden</span>
+ <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span>  <span class="n">Tutankamón</span> <span class="p">-</span><span class="n">1334</span>
+ <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
+
  <span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="p">.\</span><span class="k">param</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Tutankamón</span> <span class="n">-Nacimiento</span> <span class="p">-</span><span class="n">1334</span>
  <span class="n">Hola</span> <span class="n">Tutankamón</span><span class="p">,</span> <span class="n">Tienes</span> <span class="n">3358</span>
 
@@ -1154,6 +1158,29 @@
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span>  <span class="nv">$A</span><span class="p">){</span>
   <span class="nv">$u</span><span class="p">=</span><span class="nv">$i</span><span class="p">.</span><span class="n">usuario</span> <span class="p">;</span> <span class="nb">echo </span><span class="s2">&quot;usuario = $u&quot;</span>
   <span class="p">}</span>
+
+<span class="c">#Eliminar la segunda linea y escribir</span>
+<span class="nv">$lineas</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-ne</span> <span class="nv">$lineas</span><span class="p">[</span><span class="n">1</span><span class="p">]</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">cat </span><span class="p">./</span><span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="n">usuario</span><span class="p">,</span><span class="n">grupo</span>
+<span class="n">user02</span><span class="p">,</span><span class="n">group02</span>
+<span class="n">user03</span><span class="p">,</span><span class="n">group03</span>
+<span class="n">user04</span><span class="p">,</span><span class="n">group04</span>
+
+<span class="c">#Eliminar la linea que tiene user03 y escribir</span>
+<span class="nb">Get-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-notmatch</span> <span class="s1">&#39;user03&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="nb">cat </span><span class="p">./</span><span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="n">usuario</span><span class="p">,</span><span class="n">grupo</span>
+<span class="n">user02</span><span class="p">,</span><span class="n">group02</span>
+<span class="n">user04</span><span class="p">,</span><span class="n">group04</span>
+
+<span class="c">#Podemos evaluar si existe o no el usuario</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">Import-Csv</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">usuario</span> <span class="o">-eq</span> <span class="s2">&quot;user02&quot;</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nv">$true</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="nv">$false</span>
+<span class="p">}</span>
+<span class="n">True</span>
 </pre></div>
 </div>
 </section>
@@ -1164,6 +1191,36 @@
   <span class="p">}</span>
 <span class="n">foo</span> <span class="n">1</span> <span class="n">3</span> <span class="n">5</span>
 <span class="c"># a: 1; b: 3; c: 5</span>
+
+<span class="k">function</span> <span class="n">Sumar</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nv">$a</span> <span class="p">+</span> <span class="nv">$b</span>
+<span class="p">}</span>
+<span class="nv">$x</span> <span class="p">=</span> <span class="n">5</span>
+<span class="nv">$y</span> <span class="p">=</span> <span class="n">7</span>
+<span class="nv">$resultado</span> <span class="p">=</span> <span class="n">Sumar</span><span class="p">(</span><span class="nv">$x</span><span class="p">,</span> <span class="nv">$y</span><span class="p">)</span>
+<span class="nb">Write-Host</span> <span class="nv">$resultado</span>
+<span class="c">#12</span>
+
+<span class="k">function</span> <span class="n">Sumar</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nv">$args</span><span class="p">[</span><span class="n">0</span><span class="p">]</span> <span class="p">+</span> <span class="nv">$args</span><span class="p">[</span><span class="n">1</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="nv">$resultado</span> <span class="p">=</span> <span class="n">Sumar</span> <span class="n">5</span> <span class="n">7</span>
+<span class="nb">Write-Host</span> <span class="nv">$resultado</span>
+<span class="c">#12</span>
+
+<span class="k">function</span> <span class="n">Sumar</span> <span class="p">{</span>
+   <span class="k">param</span><span class="p">(</span>
+       <span class="no">[int]</span><span class="nv">$a</span><span class="p">,</span>
+       <span class="no">[int]</span><span class="nv">$b</span>
+   <span class="p">)</span>
+   <span class="k">return</span> <span class="nv">$a</span> <span class="p">+</span> <span class="nv">$b</span>
+<span class="p">}</span>
+<span class="nv">$resultado</span> <span class="p">=</span> <span class="n">Sumar</span> <span class="n">-a</span> <span class="n">5</span> <span class="n">-b</span> <span class="n">7</span>
+<span class="nb">Write-Host</span> <span class="nv">$resultado</span>
+<span class="c">#12</span>
+<span class="nv">$resultado</span> <span class="p">=</span> <span class="n">Sumar</span> <span class="n">5</span> <span class="n">7</span>
+<span class="nb">Write-Host</span> <span class="nv">$resultado</span>
+<span class="c">#12</span>
 </pre></div>
 </div>
 <p>Ejemplo de función con recurrencia:</p>

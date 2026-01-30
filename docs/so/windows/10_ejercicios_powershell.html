@@ -775,7 +775,7 @@ Puedes también recorrerlos de la siguiente forma:</p>
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">usuario.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (args descolocado)</button><button aria-controls="panel-11-11-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-3" name="11-3" role="tab" tabindex="-1">Solución (args desc.+help )</button><button aria-controls="panel-11-11-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-4" name="11-4" role="tab" tabindex="-1">Solución (param)</button><button aria-controls="panel-11-11-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-5" name="11-5" role="tab" tabindex="-1">Solución (param+help)</button><button aria-controls="panel-11-11-6" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-6" name="11-6" role="tab" tabindex="-1">usuario_csv.ps1</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuario.ps1</strong> que reciba los siguientes parámetros:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">usuario.ps1</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (args descolocado)</button><button aria-controls="panel-11-11-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-3" name="11-3" role="tab" tabindex="-1">Solución (args desc.+help )</button><button aria-controls="panel-11-11-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-4" name="11-4" role="tab" tabindex="-1">Solución (param)</button><button aria-controls="panel-11-11-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-5" name="11-5" role="tab" tabindex="-1">Solución (param+help)</button><button aria-controls="panel-11-11-6" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-6" name="11-6" role="tab" tabindex="-1">usuario_csv.ps1</button><button aria-controls="panel-11-11-7" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-7" name="11-7" role="tab" tabindex="-1">Solución (csv)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuario.ps1</strong> que reciba los siguientes parámetros:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">usuario</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Mario</span> <span class="n">-Apellido</span> <span class="n">López</span> <span class="n">-Usuario</span> <span class="n">mario33</span> <span class="n">-Nacimiento</span> <span class="n">2000</span>
 </pre></div>
 </div>
@@ -945,17 +945,117 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </pre></div>
 </div>
 <p>El script debe:</p>
-<ol class="arabic">
+<ul class="simple">
 <li><p>Calcular la <strong>edad del usuario</strong>.</p>
-<p>Si el usuario tiene <strong>14 años o más</strong>, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: <strong>No se puede crear el usuario, el usuario existe</strong></p>
-<p>Si <strong>no esta en el archivo</strong>, crea la entrada con el usuario y muestra el mensaje:<strong>Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]</strong></p>
-<p>En el caso de que <strong>no exista el archivo</strong>, lo crea y añade la entrada</p>
-<p>Si el usuario tiene menos de <strong>14 años</strong> muestra el mensaje:<strong>No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14</strong></p>
+<ul>
+<li><p>Si el usuario tiene <strong>14 años o más</strong>, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">se</span> <span class="pre">puede</span> <span class="pre">crear</span> <span class="pre">el</span> <span class="pre">usuario,</span> <span class="pre">el</span> <span class="pre">usuario</span> <span class="pre">existe</span></code></p></li>
+<li><p>Si <strong>no esta en el archivo</strong>, crea la entrada con el usuario y muestra el mensaje: <code class="docutils literal notranslate"><span class="pre">Se</span> <span class="pre">ha</span> <span class="pre">creado</span> <span class="pre">[Nombre]</span> <span class="pre">[Apellido]</span> <span class="pre">el</span> <span class="pre">usuario</span> <span class="pre">[Usuario]</span> <span class="pre">con</span> <span class="pre">contraseña</span> <span class="pre">[contraseña]</span></code></p></li>
+<li><p>En el caso de que <strong>no exista el archivo</strong>, lo crea y añade la entrada</p></li>
+<li><p>Si el usuario tiene menos de <strong>14 años</strong> muestra el mensaje: <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">se</span> <span class="pre">puede</span> <span class="pre">crear</span> <span class="pre">el</span> <span class="pre">usuario</span> <span class="pre">[Usuario]</span> <span class="pre">a</span> <span class="pre">[Nombre]</span> <span class="pre">[Apellido]</span> <span class="pre">por</span> <span class="pre">tener</span> <span class="pre">menos</span> <span class="pre">de</span> <span class="pre">14</span></code></p></li>
+</ul>
 </li>
+</ul>
+<ol class="arabic simple" start="2">
 <li><p>La opción <strong>-help</strong> muestra la ayuda</p></li>
 <li><p>La opción <strong>-list</strong> lista todos los usuarios</p></li>
 <li><p>La opción <strong>-delete [usuario]</strong> borrar el usuario [usuario]</p></li>
 </ol>
+<p>Puedes probar el script con las siguientes instrucciones:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">rm </span> <span class="n">usuarios_medad</span><span class="p">.</span><span class="n">csv</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Juan</span> <span class="n">-Apellido</span> <span class="n">Gárcia</span> <span class="n">-Nacimiento</span> <span class="n">2000</span> <span class="n">-Usuario</span> <span class="n">juan01</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Marta</span> <span class="n">-Apellido</span> <span class="n">López</span> <span class="n">-Nacimiento</span> <span class="n">1998</span> <span class="n">-Usuario</span> <span class="n">mlopez98</span>
+<span class="c"># El siguiente usuario no lo crea ya que es menor de 14 años</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Carlos</span> <span class="n">-Apellido</span> <span class="n">Sánchez</span> <span class="n">-Nacimiento</span> <span class="n">2021</span> <span class="n">-Usuario</span> <span class="n">csanchez01</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Laura</span> <span class="n">-Apellido</span> <span class="n">Pérez</span> <span class="n">-Nacimiento</span> <span class="n">1999</span> <span class="n">-Usuario</span> <span class="n">lperez99</span>
+<span class="c">#El siguiene usuario no lo crea, existe ya en el sistema</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Laura</span> <span class="n">-Apellido</span> <span class="n">Pérez</span> <span class="n">-Nacimiento</span> <span class="n">1999</span> <span class="n">-Usuario</span> <span class="n">lperez99</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">David</span> <span class="n">-Apellido</span> <span class="n">Martín</span> <span class="n">-Nacimiento</span> <span class="n">2000</span> <span class="n">-Usuario</span> <span class="n">dmartin00</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Ana</span> <span class="n">-Apellido</span> <span class="n">Gómez</span> <span class="n">-Nacimiento</span> <span class="n">1997</span> <span class="n">-Usuario</span> <span class="n">agomez97</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Sergio</span> <span class="n">-Apellido</span> <span class="n">Ruiz</span> <span class="n">-Nacimiento</span> <span class="n">2002</span> <span class="n">-Usuario</span> <span class="n">sruiz02</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Elena</span> <span class="n">-Apellido</span> <span class="n">Torres</span> <span class="n">-Nacimiento</span> <span class="n">1996</span> <span class="n">-Usuario</span> <span class="n">etorres96</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Pablo</span> <span class="n">-Apellido</span> <span class="n">Navarro</span> <span class="n">-Nacimiento</span> <span class="n">1995</span> <span class="n">-Usuario</span> <span class="n">pnavarro95</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Cristina</span> <span class="n">-Apellido</span> <span class="n">Morales</span> <span class="n">-Nacimiento</span> <span class="n">2003</span> <span class="n">-Usuario</span> <span class="n">cmorales03</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Nombre</span> <span class="n">Javier</span> <span class="n">-Apellido</span> <span class="n">Ortega</span> <span class="n">-Nacimiento</span> <span class="n">1994</span> <span class="n">-Usuario</span> <span class="n">jortega94</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-list</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-delete</span> <span class="n">sruiz02</span>
+<span class="c"># El sigiente usuario no lo borra ya que no existe</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-delete</span> <span class="n">sruiz02</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-delete</span> <span class="n">etorres96</span>
+<span class="p">./</span><span class="n">usuario_csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-list</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-11-7" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-7" name="11-7" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
+    <span class="no">[switch]</span><span class="nv">$help</span><span class="p">,</span>
+    <span class="no">[switch]</span><span class="nv">$list</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Nombre</span>   <span class="p">=</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Apellido</span> <span class="p">=</span> <span class="s2">&quot;Apellido&quot;</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$Usuario</span><span class="p">,</span>
+    <span class="no">[string]</span><span class="nv">$delete</span><span class="p">,</span>
+    <span class="no">[int]</span><span class="nv">$Nacimiento</span>  <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span>
+    <span class="p">)</span>
+
+<span class="nv">$archivo</span><span class="p">=</span><span class="s2">&quot;usuarios_medad.csv&quot;</span>
+
+<span class="k">function</span> <span class="nb">Get-RandomPassword</span> <span class="p">{</span>
+    <span class="k">param</span><span class="p">(</span>
+        <span class="no">[int]</span><span class="nv">$Length</span> <span class="p">=</span> <span class="n">12</span>
+    <span class="p">)</span>
+    <span class="nv">$chars</span> <span class="p">=</span> <span class="s1">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*?&#39;</span>
+    <span class="nv">$randomChar</span><span class="p">=</span><span class="s2">&quot;&quot;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="p">=</span><span class="n">0</span><span class="p">;</span><span class="nv">$i</span> <span class="o">-lt</span> <span class="nv">$Length</span><span class="p">;</span><span class="nv">$i</span><span class="p">++){</span>
+      <span class="nv">$randomChar</span> <span class="p">+=</span> <span class="nv">$chars</span><span class="p">[$(</span><span class="nb">Get-Random</span> <span class="n">-Maximum</span> <span class="nv">$chars</span><span class="p">.</span><span class="n">Length</span><span class="p">)]</span>
+      <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$randomChar</span>
+    <span class="p">}</span>
+
+
+<span class="k">function</span> <span class="n">help</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;usuario.ps1 -Nombre [string] -Apellido [string] -Usuario [string] -Nacimiento [int]&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Gray</span>
+    <span class="p">}</span>
+
+<span class="k">function</span> <span class="n">listar_usuarios</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">Import-Csv</span> <span class="nv">$archivo</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">Nombre</span><span class="p">,</span><span class="n">Apellido</span><span class="p">,</span><span class="n">Nacimiento</span><span class="p">,</span><span class="n">usuario</span>
+    <span class="p">}</span>
+    
+<span class="k">function</span> <span class="n">crear_usuario</span><span class="p">(){</span>
+   <span class="nv">$AñoActual</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Year</span>
+   <span class="nv">$Edad</span> <span class="p">=</span> <span class="nv">$AñoActual</span> <span class="p">-</span> <span class="nv">$Nacimiento</span>
+   <span class="k">if</span> <span class="p">(</span><span class="nv">$Edad</span> <span class="o">-ge</span> <span class="n">14</span><span class="p">)</span> <span class="p">{</span>
+         <span class="nv">$password</span><span class="p">=</span><span class="nb">Get-RandomPassword</span>
+         <span class="k">if</span><span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$archivo</span><span class="p">)</span> <span class="p">{</span>
+             <span class="k">if</span><span class="p">(</span><span class="nb">sls </span><span class="nv">$usuario</span> <span class="nv">$archivo</span> <span class="n">-Quiet</span><span class="p">){</span>
+                 <span class="nb">Write-Host</span> <span class="s2">&quot;No se crea el usuario $usuario ya que existe&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Red</span>
+             <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                 <span class="nb">Write-Host</span> <span class="s2">&quot;Se ha creado a $Nombre $Apellido el usuario $Usuario&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+                 <span class="nb">Write-Output</span> <span class="s2">&quot;$Nombre,$Apellido,$Nacimiento,$usuario,$password&quot;</span><span class="p">&gt;&gt;</span> <span class="nv">$archivo</span>
+             <span class="p">}</span>
+         <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+             <span class="nb">Write-Host</span> <span class="s2">&quot;Creamos el archivo: $archivo&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+             <span class="nb">Write-Output</span> <span class="s2">&quot;Nombre,Apellido,Nacimiento,usuario,password&quot;</span> <span class="p">&gt;</span> <span class="nv">$archivo</span>
+             <span class="nb">Write-Output</span> <span class="s2">&quot;$Nombre,$Apellido,$Nacimiento,$usuario,$password&quot;</span><span class="p">&gt;&gt;</span> <span class="nv">$archivo</span>
+         <span class="p">}</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="nb">Write-Host</span> <span class="s2">&quot;No se puede crear el usuario $Usuario a $Nombre $Apellido por tener menos de 14&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Red</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="k">function</span> <span class="n">borrar_usuario</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">Import-Csv</span> <span class="nv">$archivo</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">usuario</span> <span class="o">-eq</span> <span class="nv">$delete</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Host</span> <span class="s2">&quot;Borramos el usuario $delete &quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Green</span>
+        <span class="nb">Get-Content</span> <span class="nv">$archivo</span>  <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-notmatch</span> <span class="nv">$delete</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="nv">$archivo</span> 
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nb">Write-Host</span> <span class="s2">&quot;El $delete no existe, no se puede borrar&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Red</span>
+     <span class="p">}</span>
+    <span class="p">}</span>
+    
+<span class="k">if</span> <span class="p">(</span><span class="nv">$help</span><span class="p">){</span><span class="n">help</span><span class="p">}</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$list</span><span class="p">){</span><span class="n">listar_usuarios</span><span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="no">[String]</span><span class="p">::</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="nv">$Usuario</span><span class="p">))</span> <span class="p">{</span> <span class="n">crear_usuario</span> <span class="p">}</span>
+<span class="c"># tambien funciona if ($Usuario) { crear_usuario }    </span>
+<span class="c"># toma como $false : $null &quot;&quot; (cadena vacía)  0 y    $false</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="no">[String]</span><span class="p">::</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="nv">$delete</span><span class="p">))</span> <span class="p">{</span> <span class="n">borrar_usuario</span> <span class="p">}</span>
+</pre></div>
+</div>
 </div></div>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-12-12-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-2" name="12-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>

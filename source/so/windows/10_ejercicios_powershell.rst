@@ -244,15 +244,15 @@ Ejercicios de PowerShell
 
         El script debe:
 
-        1. Calcular la **edad del usuario**.
+        * Calcular la **edad del usuario**.
 
-           Si el usuario tiene **14 años o más**, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: **No se puede crear el usuario, el usuario existe**
+          * Si el usuario tiene **14 años o más**, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: ``No se puede crear el usuario, el usuario existe``
 
-           Si **no esta en el archivo**, crea la entrada con el usuario y muestra el mensaje:**Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]**
+          * Si **no esta en el archivo**, crea la entrada con el usuario y muestra el mensaje: ``Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]``
 
-           En el caso de que **no exista el archivo**, lo crea y añade la entrada
+          * En el caso de que **no exista el archivo**, lo crea y añade la entrada
 
-           Si el usuario tiene menos de **14 años** muestra el mensaje:**No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14**
+          * Si el usuario tiene menos de **14 años** muestra el mensaje: ``No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 14``
 
         2. La opción **-help** muestra la ayuda
 
@@ -260,7 +260,36 @@ Ejercicios de PowerShell
 
         4. La opción **-delete [usuario]** borrar el usuario [usuario]
 
+        Puedes probar el script con las siguientes instrucciones:
 
+        .. code-block:: powershell
+
+          rm  usuarios_medad.csv
+          ./usuario_csv.ps1 -Nombre Juan -Apellido Gárcia -Nacimiento 2000 -Usuario juan01
+          ./usuario_csv.ps1 -Nombre Marta -Apellido López -Nacimiento 1998 -Usuario mlopez98
+          # El siguiente usuario no lo crea ya que es menor de 14 años
+          ./usuario_csv.ps1 -Nombre Carlos -Apellido Sánchez -Nacimiento 2021 -Usuario csanchez01
+          ./usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
+          #El siguiene usuario no lo crea, existe ya en el sistema 
+          ./usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
+          ./usuario_csv.ps1 -Nombre David -Apellido Martín -Nacimiento 2000 -Usuario dmartin00
+          ./usuario_csv.ps1 -Nombre Ana -Apellido Gómez -Nacimiento 1997 -Usuario agomez97
+          ./usuario_csv.ps1 -Nombre Sergio -Apellido Ruiz -Nacimiento 2002 -Usuario sruiz02
+          ./usuario_csv.ps1 -Nombre Elena -Apellido Torres -Nacimiento 1996 -Usuario etorres96
+          ./usuario_csv.ps1 -Nombre Pablo -Apellido Navarro -Nacimiento 1995 -Usuario pnavarro95
+          ./usuario_csv.ps1 -Nombre Cristina -Apellido Morales -Nacimiento 2003 -Usuario cmorales03
+          ./usuario_csv.ps1 -Nombre Javier -Apellido Ortega -Nacimiento 1994 -Usuario jortega94
+          ./usuario_csv.ps1 -list
+          ./usuario_csv.ps1 -delete sruiz02
+          # El sigiente usuario no lo borra ya que no existe
+          ./usuario_csv.ps1 -delete sruiz02
+          ./usuario_csv.ps1 -delete etorres96
+          ./usuario_csv.ps1 -list
+
+    .. tab:: Solución (csv)
+
+        .. literalinclude:: 10_powershell/usuario_csv.ps1
+           :language: powershell
 
 
 .. tabs::
