@@ -44,7 +44,7 @@ function crear_usuario(){
                  Write-Output "$Nombre,$Apellido,$Nacimiento,$usuario,$password">> $archivo
              }
          }else{
-             Write-Host "Creamos el archivo: $archivo" -ForegroundColor Green
+             Write-Host "Creamos el archivo: $archivo" -ForegroundColor Gree
              Write-Output "Nombre,Apellido,Nacimiento,usuario,password" > $archivo
              Write-Output "$Nombre,$Apellido,$Nacimiento,$usuario,$password">> $archivo
          }
@@ -56,7 +56,9 @@ function crear_usuario(){
 function borrar_usuario(){
     if (Import-Csv $archivo | Where-Object usuario -eq $delete) {
         Write-Host "Borramos el usuario $delete " -ForegroundColor Green
-        Get-Content $archivo  | Where-Object { $_ -notmatch $delete } | Set-Content $archivo 
+        $usuariosActualizados = Import-Csv -Path $archivo | Where-Object { $_.usuario -ne $delete }
+        #-NoTypeInformationdeja un archivo más limpio
+        $usuariosActualizados | Export-Csv -Path $archivo -NoTypeInformation
      } else {
         Write-Host "El $delete no existe, no se puede borrar" -ForegroundColor Red
      }
@@ -67,7 +69,7 @@ if ($list){listar_usuarios}
 if (-not [String]::IsNullOrEmpty($Usuario)) { crear_usuario }
 # tambien funciona if ($Usuario) { crear_usuario }    
 # toma como $false : $null "" (cadena vacía)  0 y    $false
-if (-not [String]::IsNullOrEmpty($delete)) { borrar_usuario }
+if ($delete) { borrar_usuario }
 
 
 

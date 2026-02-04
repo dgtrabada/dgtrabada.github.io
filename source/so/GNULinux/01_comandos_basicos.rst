@@ -298,17 +298,17 @@ Gestión de particiones
 
 
 * **gparted** editor de particiones para el entorno de escritorio GNOME
-* **cfdisk** similar a fdisk, pero con una interfaz diferente
-* **fdisk**
+* **fdisk** utilidad de línea de comandos que se utiliza para manejar particiones de discos duros en sistemas operativos (`vídeo <https://mediateca.educa.madrid.org/video/3ehvjqglgqchzd3j>`_).
 
   .. code-block:: bash
   
     fdisk -l # muestra discos y particiones que hay en el sistema
     fdisk /dev/sdX #para hacer el particionado del disco /dev/sdX
       # o crear nueva tabla de particiones (MSDOS)
-      # n crear nueva particion
+      # n crear nueva particion (para poner tamaño +25G)
       # w escribir los cambios
 
+* **cfdisk** similar a fdisk, pero con una interfaz diferente
 * **mkfs.ext4 /dev/sdX1** dar formato ext4 a la partición sdX1
 * **fsck** Utilidad para detectar, verificar y corregir los errores del sistema de archivo
 * **mkswap /dev/sdX1** para convertir la partición /dev/sdX1 al formato SWAP

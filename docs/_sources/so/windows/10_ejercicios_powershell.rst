@@ -265,26 +265,26 @@ Ejercicios de PowerShell
         .. code-block:: powershell
 
           rm  usuarios_medad.csv
-          ./usuario_csv.ps1 -Nombre Juan -Apellido Gárcia -Nacimiento 2000 -Usuario juan01
-          ./usuario_csv.ps1 -Nombre Marta -Apellido López -Nacimiento 1998 -Usuario mlopez98
+          .\usuario_csv.ps1 -Nombre Juan -Apellido Gárcia -Nacimiento 2000 -Usuario juan01
+          .\usuario_csv.ps1 -Nombre Marta -Apellido López -Nacimiento 1998 -Usuario mlopez98
           # El siguiente usuario no lo crea ya que es menor de 14 años
-          ./usuario_csv.ps1 -Nombre Carlos -Apellido Sánchez -Nacimiento 2021 -Usuario csanchez01
-          ./usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
+          .\usuario_csv.ps1 -Nombre Carlos -Apellido Sánchez -Nacimiento 2021 -Usuario csanchez01
+          .\usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
           #El siguiene usuario no lo crea, existe ya en el sistema 
-          ./usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
-          ./usuario_csv.ps1 -Nombre David -Apellido Martín -Nacimiento 2000 -Usuario dmartin00
-          ./usuario_csv.ps1 -Nombre Ana -Apellido Gómez -Nacimiento 1997 -Usuario agomez97
-          ./usuario_csv.ps1 -Nombre Sergio -Apellido Ruiz -Nacimiento 2002 -Usuario sruiz02
-          ./usuario_csv.ps1 -Nombre Elena -Apellido Torres -Nacimiento 1996 -Usuario etorres96
-          ./usuario_csv.ps1 -Nombre Pablo -Apellido Navarro -Nacimiento 1995 -Usuario pnavarro95
-          ./usuario_csv.ps1 -Nombre Cristina -Apellido Morales -Nacimiento 2003 -Usuario cmorales03
-          ./usuario_csv.ps1 -Nombre Javier -Apellido Ortega -Nacimiento 1994 -Usuario jortega94
-          ./usuario_csv.ps1 -list
-          ./usuario_csv.ps1 -delete sruiz02
+          .\usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
+          .\usuario_csv.ps1 -Nombre David -Apellido Martín -Nacimiento 2000 -Usuario dmartin00
+          .\usuario_csv.ps1 -Nombre Ana -Apellido Gómez -Nacimiento 1997 -Usuario agomez97
+          .\usuario_csv.ps1 -Nombre Sergio -Apellido Ruiz -Nacimiento 2002 -Usuario sruiz02
+          .\usuario_csv.ps1 -Nombre Elena -Apellido Torres -Nacimiento 1996 -Usuario etorres96
+          .\usuario_csv.ps1 -Nombre Pablo -Apellido Navarro -Nacimiento 1995 -Usuario pnavarro95
+          .\usuario_csv.ps1 -Nombre Cristina -Apellido Morales -Nacimiento 2003 -Usuario cmorales03
+          .\usuario_csv.ps1 -Nombre Javier -Apellido Ortega -Nacimiento 1994 -Usuario jortega94
+          .\usuario_csv.ps1 -list
+          .\usuario_csv.ps1 -delete sruiz02
           # El sigiente usuario no lo borra ya que no existe
-          ./usuario_csv.ps1 -delete sruiz02
-          ./usuario_csv.ps1 -delete etorres96
-          ./usuario_csv.ps1 -list
+          .\usuario_csv.ps1 -delete sruiz02
+          .\usuario_csv.ps1 -delete etorres96
+          .\usuario_csv.ps1 -list
 
     .. tab:: Solución (csv)
 
@@ -444,32 +444,6 @@ Ejercicios de PowerShell
 
 .. tabs::
 
-    .. tab:: usuarios_G00.ps1
-
-        Crea un script llamado **usuarios_G00.ps1**, que cumpla las siguientes condiciones:
-
-        .. code-block:: bash
-
-           ./usuarios_WSL.sh -help  
-             -help               Mostrar esta ayuda.
-             -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
-             -borrar             Borrar todos los usuarios creados por este script.
-             -listar             Mostrar los usuarios por grupo creados por este script.
-       
-        Opción ``-crear <N>``: Creará N usuarios con nombres generados automáticamente con el siguiente formato: uX01, uY23, uZ15, etc., 
-
-        * La letra (X, Y o Z) corresponde a un grupo al que se asignará el usuario.
-        * El número es un sufijo aleatorio de dos cifras (01 a 99).
-        * Si no tenemos <N> creará por defecto 10 usuarios
-
-    .. tab:: Solución
-
-        .. literalinclude:: 10_powershell/usuarios_G00.ps1
-           :language: shell
-
-
-.. tabs::
-
     .. tab:: csv.ps1
       
         Crea un script en PowerShell llamado **csv.ps1** que cumpla con las siguientes características:
@@ -496,11 +470,7 @@ Ejercicios de PowerShell
 
             El usuario [usuario] ha sido creado con la password [password] en el grupo [grupo].
   
-        En el caso de que el usuario exista, la salida será :
-
-        .. code-block:: powershell
-
-            El usuario [usuario] ya existe, no se puede crear.
+        En el caso de que el usuario exista, se cambiará la contraseña
 
     .. tab:: Solución
 
@@ -520,6 +490,34 @@ Ejercicios de PowerShell
 
         .. literalinclude:: 10_powershell/csv_delete.ps1
            :language: powershell
+
+
+
+.. tabs::
+
+    .. tab:: usuarios_G00.ps1
+
+        Crea un script llamado **usuarios_G00.ps1**, que cumpla las siguientes condiciones:
+
+        .. code-block:: bash
+
+           ./usuarios_WSL.sh -help  
+             -help               Mostrar esta ayuda.
+             -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
+             -borrar             Borrar todos los usuarios creados por este script.
+             -listar             Mostrar los usuarios por grupo creados por este script.
+       
+        Opción ``-crear <N>``: Creará N usuarios con nombres generados automáticamente con el siguiente formato: uX01, uY23, uZ15, etc., 
+
+        * La letra (X, Y o Z) corresponde a un grupo al que se asignará el usuario.
+        * El número es un sufijo aleatorio de dos cifras (01 a 99).
+        * Si no tenemos <N> creará por defecto 10 usuarios
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/usuarios_G00.ps1
+           :language: shell
+
 
 
 .. tabs::

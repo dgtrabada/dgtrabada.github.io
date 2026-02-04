@@ -258,7 +258,8 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     PS C:>  echo $XY.Length
     2
 
-    PS C:>  echo $XY[0] 1  
+    PS C:>  echo $XY[0] 
+    1  
     2
     
     PS C:>  echo $XY[0].Length
@@ -789,6 +790,8 @@ Funciones
  foo 1 3 5
  # a: 1; b: 3; c: 5
 
+.. code-block:: powershell
+
  function Sumar($a, $b) {
     return $a + $b
  }
@@ -798,12 +801,16 @@ Funciones
  Write-Host $resultado
  #12
 
+.. code-block:: powershell
+
  function Sumar {
     return $args[0] + $args[1]
  }
  $resultado = Sumar 5 7
  Write-Host $resultado
  #12
+
+.. code-block:: powershell
 
  function Sumar {
     param(
