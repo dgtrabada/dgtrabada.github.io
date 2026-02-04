@@ -1170,7 +1170,7 @@
 
 <span class="c">#Eliminar la linea que tiene user03 y escribir</span>
 <span class="nv">$a</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">usuario</span> <span class="o">-ne</span> <span class="s2">&quot;user03&quot;</span> <span class="p">}</span>
-<span class="nv">$a</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>  <span class="n">-NoTypeInformation</span>
+<span class="nv">$a</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>  <span class="n">-NoTypeInformation</span> <span class="n">-UseQuotes</span> <span class="n">Never</span>
 
 
 <span class="nb">Get-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-notmatch</span> <span class="s1">&#39;user03&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>

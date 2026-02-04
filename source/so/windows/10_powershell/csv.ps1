@@ -53,7 +53,7 @@ function borrar_usuario(){
     if ($usuariosExistentes | Where-Object { $_.usuario -eq $delete }) {
         $usuariosActualizados = $usuariosExistentes | Where-Object { $_.usuario -ne $delete }
         #-NoTypeInformationdeja un archivo más limpio
-        $usuariosActualizados | Export-Csv -Path $archivoCSV -NoTypeInformation
+        $usuariosActualizados | Export-Csv -Path $archivoCSV -NoTypeInformation -UseQuotes Never
         Write-Output "El usuario $delete ha sido eliminado del archivo."
     } else {
         Write-Output "El usuario $delete no existe, no se puede eliminar."

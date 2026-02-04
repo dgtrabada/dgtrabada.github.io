@@ -477,21 +477,6 @@ Ejercicios de PowerShell
         .. literalinclude:: 10_powershell/csv.ps1
            :language: powershell
 
-    .. tab:: -delete
-
-        En el caso de que pongamos **-delete** borrara el usuario del archvio csv
-
-        .. code-block:: powershell
-
-            csv.ps1 -usuario [nombre usuario] -delete
-            El usuario [usuario] ha sido borrado
-
-    .. tab:: Solución
-
-        .. literalinclude:: 10_powershell/csv_delete.ps1
-           :language: powershell
-
-
 
 .. tabs::
 

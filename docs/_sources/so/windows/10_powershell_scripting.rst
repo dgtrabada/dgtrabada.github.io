@@ -764,7 +764,7 @@ Archivos
 
  #Eliminar la linea que tiene user03 y escribir
  $a = Import-Csv -Path usuarios.csv | Where-Object { $_.usuario -ne "user03" }
- $a | Export-Csv -Path usuarios.csv  -NoTypeInformation
+ $a | Export-Csv -Path usuarios.csv  -NoTypeInformation -UseQuotes Never
 
 
  Get-Content usuarios.csv | Where-Object { $_ -notmatch 'user03' } | Set-Content usuarios.csv  
