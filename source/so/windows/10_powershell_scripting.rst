@@ -763,11 +763,16 @@ Archivos
  user04,group04
 
  #Eliminar la linea que tiene user03 y escribir
+ $a = Import-Csv -Path usuarios.csv | Where-Object { $_.usuario -ne "user03" }
+ $a | Export-Csv -Path usuarios.csv  -NoTypeInformation
+
+
  Get-Content usuarios.csv | Where-Object { $_ -notmatch 'user03' } | Set-Content usuarios.csv  
- cat ./usuarios.csv          
- usuario,grupo
- user02,group02
- user04,group04
+ cat .\usuarios.csv
+ "usuario","grupo"
+ "user01","group01"
+ "user02","group02"
+ "user04","group04"
 
  #Podemos evaluar si existe o no el usuario
  if (Import-Csv usuarios.csv | Where-Object usuario -eq "user02") {

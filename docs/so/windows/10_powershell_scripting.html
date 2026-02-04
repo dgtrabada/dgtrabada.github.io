@@ -1169,11 +1169,16 @@
 <span class="n">user04</span><span class="p">,</span><span class="n">group04</span>
 
 <span class="c">#Eliminar la linea que tiene user03 y escribir</span>
+<span class="nv">$a</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">usuario</span> <span class="o">-ne</span> <span class="s2">&quot;user03&quot;</span> <span class="p">}</span>
+<span class="nv">$a</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>  <span class="n">-NoTypeInformation</span>
+
+
 <span class="nb">Get-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-notmatch</span> <span class="s1">&#39;user03&#39;</span> <span class="p">}</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="nb">cat </span><span class="p">./</span><span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
-<span class="n">usuario</span><span class="p">,</span><span class="n">grupo</span>
-<span class="n">user02</span><span class="p">,</span><span class="n">group02</span>
-<span class="n">user04</span><span class="p">,</span><span class="n">group04</span>
+<span class="nb">cat </span><span class="p">.\</span><span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span>
+<span class="s2">&quot;usuario&quot;</span><span class="p">,</span><span class="s2">&quot;grupo&quot;</span>
+<span class="s2">&quot;user01&quot;</span><span class="p">,</span><span class="s2">&quot;group01&quot;</span>
+<span class="s2">&quot;user02&quot;</span><span class="p">,</span><span class="s2">&quot;group02&quot;</span>
+<span class="s2">&quot;user04&quot;</span><span class="p">,</span><span class="s2">&quot;group04&quot;</span>
 
 <span class="c">#Podemos evaluar si existe o no el usuario</span>
 <span class="k">if</span> <span class="p">(</span><span class="nb">Import-Csv</span> <span class="n">usuarios</span><span class="p">.</span><span class="n">csv</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">usuario</span> <span class="o">-eq</span> <span class="s2">&quot;user02&quot;</span><span class="p">)</span> <span class="p">{</span>
