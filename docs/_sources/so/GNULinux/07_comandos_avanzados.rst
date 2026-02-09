@@ -141,7 +141,7 @@ Comandos avanzados
    $ echo "Mi nombre es $tunombre
    hoy es $(date)" >> new_file.dat
 
-  * **tee** ambos a fichero y a pantalla
+  * **tee** ambos a fichero y a pantalla ``ls -l | tee salida.txt``
   
   * **/dev/null** descarta la salida
   

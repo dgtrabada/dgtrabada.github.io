@@ -11,14 +11,13 @@ Usuarios y grupos GNU/Linux
 
 Los usuarios están definidos en los siguientes archivos:
 
-* **/etc/passwd** (-rw-r--r-- 1 root root): contiene información sobre cada usuario: ID, grupo principal, descripción, directorio de inicio, shell, etc.
-* **/etc/shadow**/ (-rw-r----- 1): contiene los passwords encriptados de los usuarios cuando se emplean shadow passwords.
-* **/etc/group**/: contiene los miembros de cada grupo, excepto para el grupo principal, que aparece en /etc/passwd.
-* **/etc/skel**/: Plantilla de ficheros iniciales que se copian en el $HOME del nuevo usuario cuando se crea
-* **/etc/adduser.conf**/ configuración del comando adduser  
-* **/etc/pam.d/** Pluggable Authentication Modules
-* **/etc/pam.d/**/ Pluggable Authentication Modules
-* **~/.bashrc** configurar sesión del usuario en ~/.config es la configuración del entorno gráfico
+* **/etc/passwd** - Información básica de usuarios (ID, shell, directorio personal)
+* **/etc/shadow** - Contraseñas encriptadas (acceso restringido)
+* **/etc/group**  - Miembros de grupos secundarios, el grupo principal en /etc/passwd.
+* **/etc/skel/**  - Plantilla para archivos iniciales del directorio personal ($HOME)
+* **/etc/adduser.conf** - Configuración del comando ``adduser``
+* **/etc/pam.d/** - Módulos de autenticación (PAM) (LDAP, Kerberos, biométrica)
+* **~/.bashrc**   - Configuración personal de Bash por usuario (``/etc/bash.bashrc`` Configuración Bash global)
 
 
 Gestión de usuarios

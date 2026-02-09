@@ -2,6 +2,8 @@
 SSH 
 ***
 
+SSH (Secure Shell) es un protocolo de red seguro que utiliza criptografía asimétrica para la autenticación y el intercambio de claves, y criptografía simétrica para cifrar la comunicación.
+
 Vamos a configurar una conexión ssh desde un cliente a un servidor exportando la clave publica
 
 Si no lo has hecho durante la instalación instala el servidor de ssh en el **servidor**.
