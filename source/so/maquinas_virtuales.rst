@@ -124,6 +124,7 @@ Caso práctico: MV Ubuntu Server 24.04
 * Usuario: **tunombre** y utiliza de contraseña: **alumno**
   Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
+ayuda: `vídeo <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_
 
 Caso práctico: Windows 11
 -------------------------
