@@ -124,7 +124,7 @@ Caso práctico: MV Ubuntu Server 24.04
 * Usuario: **tunombre** y utiliza de contraseña: **alumno**
   Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
-ayuda: `vídeo <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_
+ayuda: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ 
 
 Caso práctico: Windows 11
 -------------------------
