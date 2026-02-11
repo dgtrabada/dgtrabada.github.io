@@ -448,8 +448,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
 </ul>
@@ -484,6 +484,52 @@
 <li><p><strong>/etc/pam.d/</strong> - Módulos de autenticación (PAM) (LDAP, Kerberos, biométrica)</p></li>
 <li><p><strong>~/.bashrc</strong>   - Configuración personal de Bash por usuario (<code class="docutils literal notranslate"><span class="pre">/etc/bash.bashrc</span></code> Configuración Bash global)</p></li>
 </ul>
+<section id="gestion-de-grupos">
+<h2>Gestión de grupos<a class="headerlink" href="#gestion-de-grupos" title="Link to this heading">#</a></h2>
+<p>En Linux, los grupos permiten gestionar permisos de forma colectiva, asignando accesos a varios usuarios al mismo tiempo. Cada usuario tiene:</p>
+<ul class="simple">
+<li><p><strong>Grupo principal</strong> se asigna al crear el usuario (normalmente un grupo con su mismo nombre).</p></li>
+<li><p><strong>Grupos secundarios</strong> grupos adicionales a los que pertenece.</p></li>
+</ul>
+<p>Podemos consultar los grupos con:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groups<span class="w"> </span>usuario
+id<span class="w"> </span>usuario
+</pre></div>
+</div>
+</div></blockquote>
+<p>Algunos grupos predefinidos son:</p>
+<ul class="simple">
+<li><p><strong>adm</strong>: permite leer ficheros de log y monitorizar tareas</p></li>
+<li><p><strong>cdrom</strong>, floppy, audio, video: dan acceso a estos dispositivos</p></li>
+<li><p><strong>sudo</strong>: permite utilizar sudo sin introducir la contraseña del usuario</p></li>
+<li><p><strong>shadow</strong>: permite acceso al fichero de contraseñas /etc/shadow</p></li>
+<li><p><strong>usuario</strong>: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario</p></li>
+</ul>
+<p>Para gestionar los grupos podemos utilizar los siguientes comandos:</p>
+<ul>
+<li><p><strong>groupadd</strong> añade un grupo al sistema.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupadd<span class="w"> </span>GA
+groupadd<span class="w"> </span>–g<span class="w"> </span><span class="m">1020</span><span class="w"> </span>GA<span class="w"> </span><span class="c1"># crea el grupo con un GID específico</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>groupdel</strong> para eliminar grupos del sistema</p></li>
+<li><p><strong>groupmod</strong> permite modificar el nombre o GID de un grupo.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupmod<span class="w"> </span>-g<span class="w"> </span><span class="m">1021</span><span class="w"> </span>GA
+groupmod<span class="w"> </span>-n<span class="w"> </span>GA<span class="w"> </span>GB<span class="w"> </span><span class="c1"># cambia el nombre del grupo</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>gpasswd</strong> permite administrar los grupos.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gpasswd<span class="w"> </span>-A<span class="w"> </span>al1<span class="w"> </span>GA<span class="w">    </span><span class="c1"># señala como administrador del grupo GA al usuario al1</span>
+gpasswd<span class="w"> </span>GA<span class="w">           </span><span class="c1"># cambia el passwd del grupo admin</span>
+gpasswd<span class="w"> </span>-a<span class="w"> </span>al1<span class="w"> </span>admin<span class="w"> </span><span class="c1"># añade el usuario al1 al grupo admin</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
 <section id="gestion-de-usuarios">
 <h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Link to this heading">#</a></h2>
 <ul>
@@ -510,10 +556,11 @@ passwd<span class="w"> </span>-u<span class="w"> </span>usuario<span class="w"> 
 </li>
 <li><p><strong>userdel usuario</strong> elimina el usuario. (-r elimina y borra su home)</p></li>
 <li><p><strong>usermod</strong> modifica las propiedades de usuarios</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod<span class="w"> </span>-s<span class="w"> </span>/bin/csh<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># cambia shell</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod<span class="w"> </span>-s<span class="w"> </span>/bin/csh<span class="w"> </span>usuario<span class="w">       </span><span class="c1"># cambia shell</span>
 usermod<span class="w"> </span>-G<span class="w"> </span>cdrom,mldonkey<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># grupos</span>
-usermod<span class="w"> </span>-e<span class="w"> </span><span class="m">2010</span>-1-1<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># expira</span>
-usermod<span class="w"> </span>-g<span class="w">  </span>grupo<span class="w"> </span>usuario<span class="w"> </span><span class="c1"># fuerza usuario a grupo principal</span>
+usermod<span class="w"> </span>-e<span class="w"> </span><span class="m">2010</span>-1-1<span class="w"> </span>usuario<span class="w">       </span><span class="c1"># expira</span>
+usermod<span class="w"> </span>-g<span class="w">  </span>grupo<span class="w"> </span>usuario<span class="w">         </span><span class="c1"># fuerza usuario a grupo principal</span>
+usermod<span class="w"> </span>-aG<span class="w"> </span>admin<span class="w"> </span>al1<span class="w">             </span><span class="c1"># añadir un usuario a un grupo secundario.</span>
 </pre></div>
 </div>
 </li>
@@ -524,40 +571,6 @@ usermod<span class="w"> </span>-g<span class="w">  </span>grupo<span class="w"> 
 chage<span class="w"> </span>-l<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días antes de ser bloqueada</span>
 chage<span class="w"> </span>-M<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días para modificar la contraseña,</span>
 <span class="w">               </span><span class="c1">#luego del cual deberá modificarla en forma obligatoria</span>
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="gestion-de-grupos">
-<h2>Gestión de grupos<a class="headerlink" href="#gestion-de-grupos" title="Link to this heading">#</a></h2>
-<p>Algunos grupos predefinidos son:</p>
-<ul class="simple">
-<li><p>adm: permite leer ficheros de log y monitorizar tareas</p></li>
-<li><p>cdrom, floppy, audio, video: dan acceso a estos dispositivos</p></li>
-<li><p>sudo: permite utilizar sudo sin introducir la contraseña del usuario</p></li>
-<li><p>shadow: permite acceso al fichero de contraseñas /etc/shadow</p></li>
-<li><p>“usuario”: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario</p></li>
-</ul>
-<p>Para gestionar los grupos podemos utilizar los siguientes comandos:</p>
-<ul>
-<li><p><strong>groupadd</strong> añade un grupo al sistema.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupadd<span class="w"> </span>fp
-groupadd<span class="w"> </span>–g<span class="w"> </span><span class="m">1020</span><span class="w"> </span>fp
-</pre></div>
-</div>
-</li>
-<li><p><strong>groupdel</strong> para eliminar grupos del sistema</p></li>
-<li><p><strong>groupmod</strong> permite modificar el nombre o GID de un grupo.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groupmod<span class="w"> </span>-g<span class="w"> </span><span class="m">1021</span><span class="w"> </span>fp
-groupmod<span class="w"> </span>-n<span class="w"> </span>fp<span class="w"> </span>fp2<span class="w"> </span><span class="c1"># cambia el nombre del grupo</span>
-</pre></div>
-</div>
-</li>
-<li><p><strong>gpasswd</strong> permite administrar los grupos.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gpasswd<span class="w"> </span>-A<span class="w"> </span>al1<span class="w"> </span>fp<span class="w">    </span><span class="c1"># señala como administrador del grupo fp al usuario al1</span>
-gpasswd<span class="w"> </span>fp<span class="w">           </span><span class="c1"># cambia el passwd del grupo admin</span>
-gpasswd<span class="w"> </span>-a<span class="w"> </span>al1<span class="w"> </span>admin<span class="w"> </span><span class="c1"># añade el usuario al1 al grupo admin</span>
 </pre></div>
 </div>
 </li>
@@ -709,8 +722,8 @@ repquota<span class="w"> </span>-vu<span class="w"> </span>-a
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-grupos">Gestión de grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios">Gestión de usuarios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-adicionales">Comandos adicionales</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visudo">visudo</a></li>
 </ul>

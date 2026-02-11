@@ -19,6 +19,57 @@ Los usuarios están definidos en los siguientes archivos:
 * **/etc/pam.d/** - Módulos de autenticación (PAM) (LDAP, Kerberos, biométrica)
 * **~/.bashrc**   - Configuración personal de Bash por usuario (``/etc/bash.bashrc`` Configuración Bash global)
 
+Gestión de grupos
+=================
+
+En Linux, los grupos permiten gestionar permisos de forma colectiva, asignando accesos a varios usuarios al mismo tiempo. Cada usuario tiene:
+
+* **Grupo principal** se asigna al crear el usuario (normalmente un grupo con su mismo nombre).
+
+* **Grupos secundarios** grupos adicionales a los que pertenece.
+
+Podemos consultar los grupos con:
+
+  .. code-block:: bash
+    
+   groups usuario
+   id usuario
+
+
+Algunos grupos predefinidos son:
+
+* **adm**: permite leer ficheros de log y monitorizar tareas
+* **cdrom**, floppy, audio, video: dan acceso a estos dispositivos
+* **sudo**: permite utilizar sudo sin introducir la contraseña del usuario
+* **shadow**: permite acceso al fichero de contraseñas /etc/shadow
+* **usuario**: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario
+
+Para gestionar los grupos podemos utilizar los siguientes comandos:
+
+* **groupadd** añade un grupo al sistema.
+  
+  .. code-block:: bash
+    
+   groupadd GA
+   groupadd –g 1020 GA # crea el grupo con un GID específico
+
+* **groupdel** para eliminar grupos del sistema
+
+* **groupmod** permite modificar el nombre o GID de un grupo.
+  
+  .. code-block:: bash
+    
+   groupmod -g 1021 GA
+   groupmod -n GA GB # cambia el nombre del grupo
+
+* **gpasswd** permite administrar los grupos.
+  
+  .. code-block:: bash
+
+   gpasswd -A al1 GA    # señala como administrador del grupo GA al usuario al1
+   gpasswd GA           # cambia el passwd del grupo admin
+   gpasswd -a al1 admin # añade el usuario al1 al grupo admin
+
 
 Gestión de usuarios
 ===================
@@ -50,10 +101,11 @@ Gestión de usuarios
 
   .. code-block:: bash
   
-   usermod -s /bin/csh usuario # cambia shell
+   usermod -s /bin/csh usuario       # cambia shell
    usermod -G cdrom,mldonkey usuario # grupos
-   usermod -e 2010-1-1 usuario # expira
-   usermod -g  grupo usuario # fuerza usuario a grupo principal
+   usermod -e 2010-1-1 usuario       # expira
+   usermod -g  grupo usuario         # fuerza usuario a grupo principal
+   usermod -aG admin al1             # añadir un usuario a un grupo secundario.
 
 * **chfn** cambia la información de contacto de un usuario.
 
@@ -67,44 +119,6 @@ Gestión de usuarios
    chage -l 7 al2 #7 días antes de ser bloqueada
    chage -M 7 al2 #7 días para modificar la contraseña,
                   #luego del cual deberá modificarla en forma obligatoria
-
-Gestión de grupos
-=================
-
-Algunos grupos predefinidos son:
-
-* adm: permite leer ficheros de log y monitorizar tareas
-* cdrom, floppy, audio, video: dan acceso a estos dispositivos
-* sudo: permite utilizar sudo sin introducir la contraseña del usuario
-* shadow: permite acceso al fichero de contraseñas /etc/shadow
-* “usuario”: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario
-
-Para gestionar los grupos podemos utilizar los siguientes comandos:
-
-* **groupadd** añade un grupo al sistema.
-  
-  .. code-block:: bash
-    
-   groupadd fp
-   groupadd –g 1020 fp
-
-* **groupdel** para eliminar grupos del sistema
-
-* **groupmod** permite modificar el nombre o GID de un grupo.
-  
-  .. code-block:: bash
-    
-   groupmod -g 1021 fp
-   groupmod -n fp fp2 # cambia el nombre del grupo
-
-* **gpasswd** permite administrar los grupos.
-  
-  .. code-block:: bash
-
-   gpasswd -A al1 fp    # señala como administrador del grupo fp al usuario al1
-   gpasswd fp           # cambia el passwd del grupo admin
-   gpasswd -a al1 admin # añade el usuario al1 al grupo admin
-
 
 
 Comandos adicionales
