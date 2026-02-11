@@ -777,13 +777,14 @@ Instalar edior vi
   
     # Visita el sitio oficial de Vim para Windows en https://www.vim.org/download.php
     # Descarga el instalador adecuado para tu sistema, en mi caso:
-    curl.exe https://ftp.nluug.nl/pub/vim/pc/gvim90.exe -o gvim90.exe
+     curl.exe https://www.vim.org/downloads/gvim_9.1.1825_x64.exe -o .\gvim.exe
   
     # Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display
-    ./gvim90.exe
+    ./gvim.exe
   
     # Crea un alias:
-    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe'
+    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim91\vim.exe'
+
 
     # Configuración de vi:
     cat .vimrc 
