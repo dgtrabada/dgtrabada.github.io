@@ -8,7 +8,6 @@ Usuarios y grupos GNU/Linux
 * Usuarios de **Sistema**: mail, man, proxy, tty, etc
 * **root**: administrador del sistema
 
-
 Los usuarios están definidos en los siguientes archivos:
 
 * **/etc/passwd** - Información básica de usuarios (ID, shell, directorio personal)
@@ -28,13 +27,7 @@ En Linux, los grupos permiten gestionar permisos de forma colectiva, asignando a
 
 * **Grupos secundarios** grupos adicionales a los que pertenece.
 
-Podemos consultar los grupos con:
-
-  .. code-block:: bash
-    
-   groups usuario
-   id usuario
-
+Podemos consultar los grupos con ``groups usuario`` y ``id usuario``
 
 Algunos grupos predefinidos son:
 
@@ -66,9 +59,9 @@ Para gestionar los grupos podemos utilizar los siguientes comandos:
   
   .. code-block:: bash
 
-   gpasswd -A al1 GA    # señala como administrador del grupo GA al usuario al1
+   gpasswd -A usuario GA    # señala como administrador del grupo GA al usuario al1
    gpasswd GA           # cambia el passwd del grupo admin
-   gpasswd -a al1 admin # añade el usuario al1 al grupo admin
+   gpasswd -a usuario admin # añade el usuario al1 al grupo admin
 
 
 Gestión de usuarios
@@ -115,9 +108,9 @@ Gestión de usuarios
 
   .. code-block:: bash
   
-   chage -E 2011-1-11 al2 #expirar
-   chage -l 7 al2 #7 días antes de ser bloqueada
-   chage -M 7 al2 #7 días para modificar la contraseña,
+   chage -E 2011-1-11 usuario #expirar
+   chage -l 7 usuario #7 días antes de ser bloqueada
+   chage -M 7 usuario #7 días para modificar la contraseña,
                   #luego del cual deberá modificarla en forma obligatoria
 
 
@@ -189,6 +182,12 @@ encontramos los diferentes campos:
  No mail.
  No Plan.
 
+ # getent en Linux sirve para consultar bases de datos del sistema usando la configuración de NSS (Name Service Switch).
+ getent passwd #todos los usuarios
+ getent passwd usuario_concreto
+ getent group #ver los grupos
+ getent hosts google.com # consulta IP
+ getent services ssh # consulta un servicio
  # Otros
  write, wall, mesg, newgrp, ...
  

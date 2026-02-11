@@ -491,13 +491,7 @@
 <li><p><strong>Grupo principal</strong> se asigna al crear el usuario (normalmente un grupo con su mismo nombre).</p></li>
 <li><p><strong>Grupos secundarios</strong> grupos adicionales a los que pertenece.</p></li>
 </ul>
-<p>Podemos consultar los grupos con:</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groups<span class="w"> </span>usuario
-id<span class="w"> </span>usuario
-</pre></div>
-</div>
-</div></blockquote>
+<p>Podemos consultar los grupos con <code class="docutils literal notranslate"><span class="pre">groups</span> <span class="pre">usuario</span></code> y <code class="docutils literal notranslate"><span class="pre">id</span> <span class="pre">usuario</span></code></p>
 <p>Algunos grupos predefinidos son:</p>
 <ul class="simple">
 <li><p><strong>adm</strong>: permite leer ficheros de log y monitorizar tareas</p></li>
@@ -522,9 +516,9 @@ groupmod<span class="w"> </span>-n<span class="w"> </span>GA<span class="w"> </s
 </div>
 </li>
 <li><p><strong>gpasswd</strong> permite administrar los grupos.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gpasswd<span class="w"> </span>-A<span class="w"> </span>al1<span class="w"> </span>GA<span class="w">    </span><span class="c1"># señala como administrador del grupo GA al usuario al1</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gpasswd<span class="w"> </span>-A<span class="w"> </span>usuario<span class="w"> </span>GA<span class="w">    </span><span class="c1"># señala como administrador del grupo GA al usuario al1</span>
 gpasswd<span class="w"> </span>GA<span class="w">           </span><span class="c1"># cambia el passwd del grupo admin</span>
-gpasswd<span class="w"> </span>-a<span class="w"> </span>al1<span class="w"> </span>admin<span class="w"> </span><span class="c1"># añade el usuario al1 al grupo admin</span>
+gpasswd<span class="w"> </span>-a<span class="w"> </span>usuario<span class="w"> </span>admin<span class="w"> </span><span class="c1"># añade el usuario al1 al grupo admin</span>
 </pre></div>
 </div>
 </li>
@@ -567,9 +561,9 @@ usermod<span class="w"> </span>-aG<span class="w"> </span>admin<span class="w"> 
 <li><p><strong>chfn</strong> cambia la información de contacto de un usuario.</p></li>
 <li><p><strong>chsh</strong> cambia el shell del usuario especificado.</p></li>
 <li><p><strong>chage</strong> permite cambiar el password y los datos del usuario.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chage<span class="w"> </span>-E<span class="w"> </span><span class="m">2011</span>-1-11<span class="w"> </span>al2<span class="w"> </span><span class="c1">#expirar</span>
-chage<span class="w"> </span>-l<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días antes de ser bloqueada</span>
-chage<span class="w"> </span>-M<span class="w"> </span><span class="m">7</span><span class="w"> </span>al2<span class="w"> </span><span class="c1">#7 días para modificar la contraseña,</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chage<span class="w"> </span>-E<span class="w"> </span><span class="m">2011</span>-1-11<span class="w"> </span>usuario<span class="w"> </span><span class="c1">#expirar</span>
+chage<span class="w"> </span>-l<span class="w"> </span><span class="m">7</span><span class="w"> </span>usuario<span class="w"> </span><span class="c1">#7 días antes de ser bloqueada</span>
+chage<span class="w"> </span>-M<span class="w"> </span><span class="m">7</span><span class="w"> </span>usuario<span class="w"> </span><span class="c1">#7 días para modificar la contraseña,</span>
 <span class="w">               </span><span class="c1">#luego del cual deberá modificarla en forma obligatoria</span>
 </pre></div>
 </div>
@@ -636,6 +630,12 @@ On<span class="w"> </span>since<span class="w"> </span>Sun<span class="w"> </spa
 No<span class="w"> </span>mail.
 No<span class="w"> </span>Plan.
 
+<span class="c1"># getent en Linux sirve para consultar bases de datos del sistema usando la configuración de NSS (Name Service Switch).</span>
+getent<span class="w"> </span>passwd<span class="w"> </span><span class="c1">#todos los usuarios</span>
+getent<span class="w"> </span>passwd<span class="w"> </span>usuario_concreto
+getent<span class="w"> </span>group<span class="w"> </span><span class="c1">#ver los grupos</span>
+getent<span class="w"> </span>hosts<span class="w"> </span>google.com<span class="w"> </span><span class="c1"># consulta IP</span>
+getent<span class="w"> </span>services<span class="w"> </span>ssh<span class="w"> </span><span class="c1"># consulta un servicio</span>
 <span class="c1"># Otros</span>
 write,<span class="w"> </span>wall,<span class="w"> </span>mesg,<span class="w"> </span>newgrp,<span class="w"> </span>...
 </pre></div>
