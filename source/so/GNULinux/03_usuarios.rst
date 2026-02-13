@@ -195,6 +195,8 @@ encontramos los diferentes campos:
 Añadir Quotas a los usuarios:
 =============================
 
+las cuotas (quotas) permiten limitar el espacio en disco que un usuario o grupo puede utilizar en un sistema de archivos específico. (`vídeo <https://mediateca.educa.madrid.org/video/145lrmv6eqsma3pi>`_)
+
 .. code-block:: bash
 
  #tenemos que añadir usrquota,grpquota en el fstab
