@@ -109,6 +109,8 @@ Permisos especiales (setuid, setgid, sticky bit)
    $ ls -la /usr/bin/passwd
     -rwsr-xr-x 1 root root 54256 mar 29 11:25 /usr/bin/passwd
 
+Puedes ver el `vídeo <https://mediateca.educa.madrid.org/video/blyluzp5zn31pil9>`_
+
 * **setgid** permite que un fichero ejecutable se ejecute con los permisos del grupo al que pertenece el fichero, por ejemplo asignamos el bit setgid la carpeta /compartido, le asignamos permisos totales para el propietario y el grupo (770) y el bit segid (2):
 
   .. code-block:: bash
@@ -142,3 +144,5 @@ Permisos especiales (setuid, setgid, sticky bit)
     #Si hacemos un ls veremos la “t” asignada:
     $ls -la / | grep tmp
     drwxrwxrwt  13 root root  4096 2011-04-24 20:55 tmp
+
+Puedes ver el `vídeo <https://mediateca.educa.madrid.org/video/ng5qlooz4vo5vbke>`_
