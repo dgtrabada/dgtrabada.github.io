@@ -6,7 +6,7 @@ Originalmente **NIS** se llamaba *Páginas Amarillas (Yellow Pages)*, o *YP*, qu
 
 DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
 
-En el servidor (Ubuntu server 22.04)
+En el servidor (Ubuntu server 24.04)
 ************************************
 
 Instalamos
@@ -116,42 +116,41 @@ Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la p
 Caso práctico: NIS con adaptador puente
 ***************************************
 
-* Haz dos clones enlazados, generando nuevas direcciones MAC, de "MV Ubuntu Server 22.04" y haz que tengan las siguientes IPs:
+* Haz dos clones enlazados de **MV Ubuntu Server 24.04** como se muestra en el `vídeo <https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze>`_, haz que tengan las siguientes IPs:
 
-  * Clon enlazado 1 : "compute-0-0" 10.4.X.Y/8 (DHCP si usas portátil)
+  * Clon enlazado 1 : **compute-0-0** 10.4.X.Y/8 (DHCP si usas portátil)
 
-  * Clon enlazado 2 : "compute-0-1" 10.5.X.Y/8 (DHCP si usas portátil)
+  * Clon enlazado 2 : **compute-0-1** 10.5.X.Y/8 (DHCP si usas portátil)
   
     .. image:: imagenes/virtualbox.jpg
-  
-    .. code-block:: bash
-  
-     VBoxManage list vms
-     VBoxManage list runningvms
-     VBoxManage startvm 'compute-0-0' --type headless
-     VBoxManage startvm 'compute-0-1' --type headless
    
   * Es decir, tendríamos la siguiente configuración
   
     .. image:: imagenes/caso_adaptador_puente.jpg
   
 
-  * Cambia el nombre de la maquina compute-0-1 para ello modifica el archivo **/etc/hostname** y pon las ips correspondientes (**/etc/netplan/00-installer-config.yaml**) con los nombre correspondientes en el archivo **/etc/hosts** de ambas maquinas
+  * Cambia el nombre de la maquina **compute-0-1** para ello modifica el archivo ``/etc/hostname`` cambia la ip en ``/etc/netplan/00-installer-config.yaml`` y revisa ``/etc/hosts`` de ambas maquinas
   
   * Crea los siguientes usuarios y grupos en el servidor (compute-0-0)
   
-    | tunombre1 con contraseña alumno dentro del grupo tuapellido
-    | tunombre2 con contraseña alumno dentro del grupo tuapellido
-    | tunombre3 con contraseña alumno dentro del grupo tuapellido
-    | tunombre4 con contraseña alumno dentro del grupo tuapellido
+    | **tunombre1** con contraseña **alumno** dentro del grupo **tuapellido**
+    | **tunombre2** con contraseña **alumno** dentro del grupo **tuapellido**
+    | **tunombre3** con contraseña **alumno** dentro del grupo **tuapellido**
+    | **tunombre4** con contraseña **alumno** dentro del grupo **tuapellido**
   
   * Instala el servidor NIS en el servidor (compute-0-0)
   
   * Instala el cliente NIS en el cliente (compute-0-1)
   
-  * Reinicia las maquinas y comprueba que todo funciona, esto te quitará mucho trabajo en el futuro.
+  * Reinicia las maquinas y comprueba que todo funciona ``getent passwd``
 
+Caso práctico: NIS con red NAT
+******************************
 
+* Vamos a cambiar la configuración anterior a red NAT como se muestra en el `vídeo <https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq>`_
+
+  .. image:: imagenes/redNAT.png
+   
 
 Caso práctico: NIS con red interna
 **********************************

@@ -24,7 +24,7 @@ En el archivo ``/etc/ssh/sshd_config`` del **servidor** descomentar o incluir la
 
 .. code-block:: bash
 
-  [root@server ~]$ systemctl restart  sshd.service
+  [root@server ~]$ systemctl restart  ssh.service
 
 Genera en el **cliente** un par de claves rsa, una privada y otra publica, para ello ejecuta el siguiente comando en tu home:
 

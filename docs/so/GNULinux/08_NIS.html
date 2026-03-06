@@ -448,9 +448,10 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-24-04">En el servidor (Ubuntu server 24.04)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
 </ul>
             </nav>
@@ -467,8 +468,8 @@
 <h1>NIS<a class="headerlink" href="#nis" title="Link to this heading">#</a></h1>
 <p>Originalmente <strong>NIS</strong> se llamaba <em>Páginas Amarillas (Yellow Pages)</em>, o <em>YP</em>, que todavía se utiliza para referirse a él. Desafortunadamente, ese nombre es una marca registrada de British Telecom, que exigió a Sun abandonar ese nombre. Sin embargo YP permanece como prefijo en los nombres de la mayoría de las órdenes relacionadas con NIS, como ypserv e ypbind.</p>
 <p>DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.</p>
-<section id="en-el-servidor-ubuntu-server-22-04">
-<h2>En el servidor (Ubuntu server 22.04)<a class="headerlink" href="#en-el-servidor-ubuntu-server-22-04" title="Link to this heading">#</a></h2>
+<section id="en-el-servidor-ubuntu-server-24-04">
+<h2>En el servidor (Ubuntu server 24.04)<a class="headerlink" href="#en-el-servidor-ubuntu-server-24-04" title="Link to this heading">#</a></h2>
 <p>Instalamos</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>portmap
 
@@ -544,34 +545,36 @@ systemctl<span class="w"> </span>status<span class="w"> </span>ypbind.service
 <section id="caso-practico-nis-con-adaptador-puente">
 <h2>Caso práctico: NIS con adaptador puente<a class="headerlink" href="#caso-practico-nis-con-adaptador-puente" title="Link to this heading">#</a></h2>
 <ul>
-<li><p>Haz dos clones enlazados, generando nuevas direcciones MAC, de «MV Ubuntu Server 22.04» y haz que tengan las siguientes IPs:</p>
+<li><p>Haz dos clones enlazados de <strong>MV Ubuntu Server 24.04</strong> como se muestra en el <a class="reference external" href="https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze">vídeo</a>, haz que tengan las siguientes IPs:</p>
 <ul>
-<li><p>Clon enlazado 1 : «compute-0-0» 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
-<li><p>Clon enlazado 2 : «compute-0-1» 10.5.X.Y/8 (DHCP si usas portátil)</p>
+<li><p>Clon enlazado 1 : <strong>compute-0-0</strong> 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
+<li><p>Clon enlazado 2 : <strong>compute-0-1</strong> 10.5.X.Y/8 (DHCP si usas portátil)</p>
 <img alt="../../_images/virtualbox.jpg" src="../../_images/virtualbox.jpg" />
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>VBoxManage<span class="w"> </span>list<span class="w"> </span>vms
-VBoxManage<span class="w"> </span>list<span class="w"> </span>runningvms
-VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;compute-0-0&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
-VBoxManage<span class="w"> </span>startvm<span class="w"> </span><span class="s1">&#39;compute-0-1&#39;</span><span class="w"> </span>--type<span class="w"> </span>headless
-</pre></div>
-</div>
 </li>
 <li><p>Es decir, tendríamos la siguiente configuración</p>
 <img alt="../../_images/caso_adaptador_puente.jpg" src="../../_images/caso_adaptador_puente.jpg" />
 </li>
-<li><p>Cambia el nombre de la maquina compute-0-1 para ello modifica el archivo <strong>/etc/hostname</strong> y pon las ips correspondientes (<strong>/etc/netplan/00-installer-config.yaml</strong>) con los nombre correspondientes en el archivo <strong>/etc/hosts</strong> de ambas maquinas</p></li>
+<li><p>Cambia el nombre de la maquina <strong>compute-0-1</strong> para ello modifica el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code> cambia la ip en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> y revisa <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> de ambas maquinas</p></li>
 <li><p>Crea los siguientes usuarios y grupos en el servidor (compute-0-0)</p>
 <div class="line-block">
-<div class="line">tunombre1 con contraseña alumno dentro del grupo tuapellido</div>
-<div class="line">tunombre2 con contraseña alumno dentro del grupo tuapellido</div>
-<div class="line">tunombre3 con contraseña alumno dentro del grupo tuapellido</div>
-<div class="line">tunombre4 con contraseña alumno dentro del grupo tuapellido</div>
+<div class="line"><strong>tunombre1</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
+<div class="line"><strong>tunombre2</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
+<div class="line"><strong>tunombre3</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
+<div class="line"><strong>tunombre4</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
 </div>
 </li>
 <li><p>Instala el servidor NIS en el servidor (compute-0-0)</p></li>
 <li><p>Instala el cliente NIS en el cliente (compute-0-1)</p></li>
-<li><p>Reinicia las maquinas y comprueba que todo funciona, esto te quitará mucho trabajo en el futuro.</p></li>
+<li><p>Reinicia las maquinas y comprueba que todo funciona <code class="docutils literal notranslate"><span class="pre">getent</span> <span class="pre">passwd</span></code></p></li>
 </ul>
+</li>
+</ul>
+</section>
+<section id="caso-practico-nis-con-red-nat">
+<h2>Caso práctico: NIS con red NAT<a class="headerlink" href="#caso-practico-nis-con-red-nat" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Vamos a cambiar la configuración anterior a red NAT como se muestra en el <a class="reference external" href="https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq">vídeo</a></p>
+<img alt="../../_images/redNAT.png" src="../../_images/redNAT.png" />
 </li>
 </ul>
 </section>
@@ -674,9 +677,10 @@ systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-22-04">En el servidor (Ubuntu server 22.04)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-24-04">En el servidor (Ubuntu server 24.04)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
 </ul>
   </nav></div>
