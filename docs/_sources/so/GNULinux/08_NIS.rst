@@ -159,7 +159,7 @@ Caso práctico: NIS con red interna
 
   .. image:: imagenes/caso_redinterna.jpg
 
-* Puedes ver el desarrollo en el siguiente  `vídeo <https://mediateca.educa.madrid.org/video/rzhjr419uxyd6vpv>`_
+* Puedes ver el desarrollo en el siguiente  `vídeo <https://mediateca.educa.madrid.org/video/gy1jjn5mlbfmtl4h>`_
 
 * Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección  172.16.0.10/16
 
@@ -209,4 +209,6 @@ Caso práctico: NIS con red interna
     systemctl enable enrutar.service
     systemctl start enrutar.service
 
-* Si no lo habías realizado, ejecutamos en el cliente **sudo pam-auth-update** y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
+* Recuerda crear los usuarios en el servidor nis.
+
+* Si no lo habías realizado, ejecutamos en el cliente ``sudo pam-auth-update`` y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
