@@ -13,7 +13,7 @@ Slurm
  sbatch  # Envía un script para su posterior ejecución
 
 Caso práctico: Red interna con NIS, NFS, autofs y Slurm
-************************************************
+*******************************************************
 
 Servidor compute-0-0
 ********************
@@ -29,45 +29,58 @@ Lo instalaremos en el servidor compute-0-0, en el que exporta los usuarios por N
 .. code-block:: bash
 
  munge -n | unmunge
- 
-Buscamos el archivo **slurm-wlm-configurator.html**, para ello ejecuta el comando 
+
+Lo instalamos en todos los nodos, para eso copiamos la clave desde el controlador **compute-0-0** a los clientes, ejemplo con el nodo compute-0-1
 
 .. code-block:: bash
 
- dpkg -L slurmctld
- 
-Vamos al directorio donde este instalado, en mi caso:
- 
-.. code-block:: bash
+ scp /etc/munge/munge.key compute-0-1:/etc/munge/  
 
- cd /usr/share/doc/slurmctld/
-    
- # levantamos el servidor http
- python3 -m http.server
-    
-Ponemos en el navegador la <IP servidor>:8000 y vamos a slurm-wlm-configurator.html
-
-.. image:: imagenes/slurm.jpg
-
-Cambiamos el nombre del servidor en **SlurmctldHost** por **compute-0-0**
-
-Ponemos el nombre de un nodo en NodeName, por ejemplo  **compute-0-[1-2]**, fijate que este en /etc/hosts
-
-En **ProctrackType = linuxproc**
-
-Aceptamos las demás opciones que vienen por defecto presionando submit, después de esto saldrá un archivo de texto que copiaremos en **/etc/slurm/slurm.conf**, (ten cuidado si el directorio es **/etc/slurm-llnl/**)
-
-Descomenta o copia a mano estas lineas:
+Nos concetamos al cliente **compute-0-1**
 
 .. code-block:: bash
 
+ chown munge /etc/munge/munge.key
+ chmod 400 /etc/munge/munge.key
+ systemctl enable munge --now
+ systemctl restart munge
+ systemctl status munge
+
+
+Lo siguiente que hacemos es configurar el archivo de configuración del slurm ''/etc/slurm/slurm.conf''
+
+.. code-block:: bash
+
+ # Control machine
+ ControlMachine=compute-0-0
+
+ # Cluster info
+ ClusterName=Cluster_tunombre
  SlurmUser=slurm
  SlurmdUser=root
+ 
+ # Logging
+ SlurmctldLogFile=/var/log/slurmctld.log
+ SlurmdLogFile=/var/log/slurmd.log
+ SlurmdSpoolDir=/var/spool/slurmd
+ 
+ # Communication
+ StateSaveLocation=/var/spool/slurmctld
+ SlurmdPort=6818
+ SlurmctldPort=6817
  AuthType=auth/munge
- CryptoType=crypto/munge
- ProctrackType=proctrack/linuxproc
+ AccountingStorageType=none
+ 
+ # Scheduling
+ SchedulerType=sched/backfill
 
-Lanza los servicios:
+ # Node definition
+ NodeName=compute-0-[1-2] CPUs=1 State=UNKNOWN RealMemory=1024
+ PartitionName=debug Nodes=compute-0-[1-2] Default=YES MaxTime=INFINITE State=UP
+ ReturnToService=2
+
+
+Lanza los servicios en el controlador **compute-0-0**:
 
 .. code-block:: bash
 
@@ -85,41 +98,47 @@ Fíjate que el cliente **compute-0-1** no esta todavía configurado **STATE = un
 Cliente compute-0-1
 *******************
 
-En el que instalamos Slurmd
+Instalamos Slurmd
 
 .. code-block:: bash
 
  apt-get install slurmd
 
-Comprueba que los nodos son accesibles por el root desde el servidor sin el uso de contraseña
+Necesitamos que los clientes seán accesibles por el root desde el servidor sin el uso de contraseña, para comprobarlo:
 
 .. code-block:: bash
 
  root@compute-0-0:~# ssh compute-0-1 hostname
  compute-0-1
 
-Comprueba que se haya instalado munge ejecutando (munge -n | unmunge),  para que los nodos se puedan autentificar en el servidor tenemos que copiar la misma clave y el archivo de configuración slurm.conf, es decir desde compute-0-0 hacemos
+para que los nodos se puedan autentificar en el servidor tienen que tener configurado munge, para comprobarlo desde el controlador ejecutamos:
 
 .. code-block:: bash
+ 
+ munge -n | ssh compute-0-1 unmunge 
 
- i=compute-0-1
- scp /etc/munge/munge.key ${i}:/etc/munge/
- ssh ${i} chown munge /etc/munge/munge.key
- ssh ${i} chmod 400 /etc/munge/munge.key
- ssh ${i} systemctl enable munge --now
- ssh ${i} systemctl restart munge
- ssh ${i} systemctl status munge
+Copiamos la configuración de slurm desde **compute-0-0** a compute-0-1:
 
- scp /etc/slurm/slurm.conf  ${i}:/etc/slurm/slurm.conf
- ssh ${i} touch /var/log/slurmd.log
- ssh ${i} chown slurm: /var/log/slurmd.log
- ssh ${i} systemctl enable slurmd.service
- ssh ${i} systemctl start slurmd.service
- ssh ${i} systemctl restart slurmd.service
- ssh ${i} systemctl status slurmd.service
+.. code-block:: bash
+ 
+ scp /etc/slurm/slurm.conf  compute-0-1:/etc/slurm/slurm.conf
+
+Cambiamos permisos y lanzamos slurmd en **compute-0-1**
+
+.. code-block:: bash
+ 
+ touch /var/log/slurmd.log
+ chown slurm: /var/log/slurmd.log
+ systemctl enable slurmd.service
+
+ systemctl start slurmd.service
+ systemctl restart slurmd.service
+ systemctl status slurmd.service
   
- munge -n | ssh ${i} unmunge
+Para ver los cambios desde **compute-0-0** 
 
+.. code-block:: bash
+ 
  systemctl restart slurmctld.service
  systemctl status slurmctld.service
   
@@ -131,21 +150,7 @@ Volvemos a comprobar desde el servidor el estado del nodo
  PARTITION AVAL   TIMELIMIT   NODES  STATE NODELIST
  debug*      up      infite       1   idle compute-0-1
 
-Iniciamos los servios en compute-0-1
-
-.. code-block:: bash
-
- systemctl start slurmd.service
- 
-Volvemos a comprobar desde el servidor el estado del nodo:
-
-.. code-block:: bash
-
- root@compute-0-0:~# sinfo
- PARTITION AVAL   TIMELIMIT   NODES  STATE NODELIST
- debug*      up      infite       1   idle compute-0-1
-
-en el caso de que no se ambie el estado automaticamente lo podemos intentar a cambiar a mano
+En el caso de que no se cambie el estado automaticamente lo podemos intentar a cambiar a mano
 
 .. code-block:: bash
 

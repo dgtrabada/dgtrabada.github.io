@@ -45,43 +45,10 @@ Reiniciamos el servicio
 
 .. code-block:: bash
 
-  systemctl restart smbd.service nmbd.service
+  systemctl restart smbd
 
 
 * Para acceder desde GNU/Linux poner en el administrador de archivos ``smb://IP/share/``
 
-* Para acceder desde windows ``\\IP``
+* Para acceder desde windows ``\\IP\share``, en el caso de que tengas problemas crear o habilitar un usuario en Samba (SMB) y asignarle contraseña ´´smbpasswd -a nombre_usuario``
 
-
-En el caso de que queramos contruir un servidor samba seguro incluimos al final de ``/etc/samba/smb.conf``:
-
-.. code-block:: bash
-
- [secured]
-  path = /etc/samba/secured
-  valid users = @smbgrp
-  guest ok = no
-  writable = yes
-  browsable = yes
-
-Creamos la carpeta que pertenezca al grupo smbgrp
-
-.. code-block:: bash
-
- mkdir -p /etc/samba/secured
- cd /etc/samba
- chmod -R 0770 secured
- chown root:smbgrp secured
-
-Añadimos los usuarios que queramos al grupo smbgrp y les damos una contraseña
- 
-.. code-block:: bash
- 
- usermod -a -G smbgrp usuario1
- smbpasswd -a contraseña
-
-Por ultimo reiniciamos el servicio
-
-.. code-block:: bash
-
- systemctl restart smbd.service

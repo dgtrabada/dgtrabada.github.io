@@ -489,38 +489,13 @@
 </div>
 <p>En el caso de tener problemas puedes probar con chmod a+rwx</p>
 <p>Reiniciamos el servicio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smbd.service<span class="w"> </span>nmbd.service
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smbd
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Para acceder desde GNU/Linux poner en el administrador de archivos <code class="docutils literal notranslate"><span class="pre">smb://IP/share/</span></code></p></li>
-<li><p>Para acceder desde windows <code class="docutils literal notranslate"><span class="pre">\\IP</span></code></p></li>
+<li><p>Para acceder desde windows <code class="docutils literal notranslate"><span class="pre">\\IP\share</span></code>, en el caso de que tengas problemas crear o habilitar un usuario en Samba (SMB) y asignarle contraseña ´´smbpasswd -a nombre_usuario``</p></li>
 </ul>
-<p>En el caso de que queramos contruir un servidor samba seguro incluimos al final de <code class="docutils literal notranslate"><span class="pre">/etc/samba/smb.conf</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>secured<span class="o">]</span>
-<span class="w"> </span><span class="nv">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/etc/samba/secured
-<span class="w"> </span>valid<span class="w"> </span><span class="nv">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@smbgrp
-<span class="w"> </span>guest<span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>no
-<span class="w"> </span><span class="nv">writable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
-<span class="w"> </span><span class="nv">browsable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
-</pre></div>
-</div>
-<p>Creamos la carpeta que pertenezca al grupo smbgrp</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/samba/secured
-<span class="nb">cd</span><span class="w"> </span>/etc/samba
-chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">0770</span><span class="w"> </span>secured
-chown<span class="w"> </span>root:smbgrp<span class="w"> </span>secured
-</pre></div>
-</div>
-<p>Añadimos los usuarios que queramos al grupo smbgrp y les damos una contraseña</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>smbgrp<span class="w"> </span>usuario1
-smbpasswd<span class="w"> </span>-a<span class="w"> </span>contraseña
-</pre></div>
-</div>
-<p>Por ultimo reiniciamos el servicio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smbd.service
-</pre></div>
-</div>
 </section>
 </section>
 

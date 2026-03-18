@@ -485,32 +485,49 @@ sbatch<span class="w">  </span><span class="c1"># Envía un script para su poste
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>unmunge
 </pre></div>
 </div>
-<p>Buscamos el archivo <strong>slurm-wlm-configurator.html</strong>, para ello ejecuta el comando</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dpkg<span class="w"> </span>-L<span class="w"> </span>slurmctld
+<p>Lo instalamos en todos los nodos, para eso copiamos la clave desde el controlador <strong>compute-0-0</strong> a los clientes, ejemplo con el nodo compute-0-1</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>/etc/munge/munge.key<span class="w"> </span>compute-0-1:/etc/munge/
 </pre></div>
 </div>
-<p>Vamos al directorio donde este instalado, en mi caso:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/usr/share/doc/slurmctld/
+<p>Nos concetamos al cliente <strong>compute-0-1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chown<span class="w"> </span>munge<span class="w"> </span>/etc/munge/munge.key
+chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>/etc/munge/munge.key
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>munge<span class="w"> </span>--now
+systemctl<span class="w"> </span>restart<span class="w"> </span>munge
+systemctl<span class="w"> </span>status<span class="w"> </span>munge
+</pre></div>
+</div>
+<p>Lo siguiente que hacemos es configurar el archivo de configuración del slurm “”/etc/slurm/slurm.conf””</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Control machine</span>
+<span class="nv">ControlMachine</span><span class="o">=</span>compute-0-0
 
-<span class="c1"># levantamos el servidor http</span>
-python3<span class="w"> </span>-m<span class="w"> </span>http.server
-</pre></div>
-</div>
-<p>Ponemos en el navegador la &lt;IP servidor&gt;:8000 y vamos a slurm-wlm-configurator.html</p>
-<img alt="../../_images/slurm.jpg" src="../../_images/slurm.jpg" />
-<p>Cambiamos el nombre del servidor en <strong>SlurmctldHost</strong> por <strong>compute-0-0</strong></p>
-<p>Ponemos el nombre de un nodo en NodeName, por ejemplo  <strong>compute-0-[1-2]</strong>, fijate que este en /etc/hosts</p>
-<p>En <strong>ProctrackType = linuxproc</strong></p>
-<p>Aceptamos las demás opciones que vienen por defecto presionando submit, después de esto saldrá un archivo de texto que copiaremos en <strong>/etc/slurm/slurm.conf</strong>, (ten cuidado si el directorio es <strong>/etc/slurm-llnl/</strong>)</p>
-<p>Descomenta o copia a mano estas lineas:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SlurmUser</span><span class="o">=</span>slurm
+<span class="c1"># Cluster info</span>
+<span class="nv">ClusterName</span><span class="o">=</span>Cluster_tunombre
+<span class="nv">SlurmUser</span><span class="o">=</span>slurm
 <span class="nv">SlurmdUser</span><span class="o">=</span>root
+
+<span class="c1"># Logging</span>
+<span class="nv">SlurmctldLogFile</span><span class="o">=</span>/var/log/slurmctld.log
+<span class="nv">SlurmdLogFile</span><span class="o">=</span>/var/log/slurmd.log
+<span class="nv">SlurmdSpoolDir</span><span class="o">=</span>/var/spool/slurmd
+
+<span class="c1"># Communication</span>
+<span class="nv">StateSaveLocation</span><span class="o">=</span>/var/spool/slurmctld
+<span class="nv">SlurmdPort</span><span class="o">=</span><span class="m">6818</span>
+<span class="nv">SlurmctldPort</span><span class="o">=</span><span class="m">6817</span>
 <span class="nv">AuthType</span><span class="o">=</span>auth/munge
-<span class="nv">CryptoType</span><span class="o">=</span>crypto/munge
-<span class="nv">ProctrackType</span><span class="o">=</span>proctrack/linuxproc
+<span class="nv">AccountingStorageType</span><span class="o">=</span>none
+
+<span class="c1"># Scheduling</span>
+<span class="nv">SchedulerType</span><span class="o">=</span>sched/backfill
+
+<span class="c1"># Node definition</span>
+<span class="nv">NodeName</span><span class="o">=</span>compute-0-<span class="o">[</span><span class="m">1</span>-2<span class="o">]</span><span class="w"> </span><span class="nv">CPUs</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">State</span><span class="o">=</span>UNKNOWN<span class="w"> </span><span class="nv">RealMemory</span><span class="o">=</span><span class="m">1024</span>
+<span class="nv">PartitionName</span><span class="o">=</span>debug<span class="w"> </span><span class="nv">Nodes</span><span class="o">=</span>compute-0-<span class="o">[</span><span class="m">1</span>-2<span class="o">]</span><span class="w"> </span><span class="nv">Default</span><span class="o">=</span>YES<span class="w"> </span><span class="nv">MaxTime</span><span class="o">=</span>INFINITE<span class="w"> </span><span class="nv">State</span><span class="o">=</span>UP
+<span class="nv">ReturnToService</span><span class="o">=</span><span class="m">2</span>
 </pre></div>
 </div>
-<p>Lanza los servicios:</p>
+<p>Lanza los servicios en el controlador <strong>compute-0-0</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>slurmctld
 </pre></div>
 </div>
@@ -523,35 +540,35 @@ debug*<span class="w">      </span>up<span class="w">      </span>infite<span cl
 </section>
 <section id="cliente-compute-0-1">
 <h2>Cliente compute-0-1<a class="headerlink" href="#cliente-compute-0-1" title="Link to this heading">#</a></h2>
-<p>En el que instalamos Slurmd</p>
+<p>Instalamos Slurmd</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>slurmd
 </pre></div>
 </div>
-<p>Comprueba que los nodos son accesibles por el root desde el servidor sin el uso de contraseña</p>
+<p>Necesitamos que los clientes seán accesibles por el root desde el servidor sin el uso de contraseña, para comprobarlo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>hostname
 compute-0-1
 </pre></div>
 </div>
-<p>Comprueba que se haya instalado munge ejecutando (munge -n | unmunge),  para que los nodos se puedan autentificar en el servidor tenemos que copiar la misma clave y el archivo de configuración slurm.conf, es decir desde compute-0-0 hacemos</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">i</span><span class="o">=</span>compute-0-1
-scp<span class="w"> </span>/etc/munge/munge.key<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span>:/etc/munge/
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>chown<span class="w"> </span>munge<span class="w"> </span>/etc/munge/munge.key
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>/etc/munge/munge.key
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>munge<span class="w"> </span>--now
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>munge
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>munge
+<p>para que los nodos se puedan autentificar en el servidor tienen que tener configurado munge, para comprobarlo desde el controlador ejecutamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>unmunge
+</pre></div>
+</div>
+<p>Copiamos la configuración de slurm desde <strong>compute-0-0</strong> a compute-0-1:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute-0-1:/etc/slurm/slurm.conf
+</pre></div>
+</div>
+<p>Cambiamos permisos y lanzamos slurmd en <strong>compute-0-1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>/var/log/slurmd.log
+chown<span class="w"> </span>slurm:<span class="w"> </span>/var/log/slurmd.log
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>slurmd.service
 
-scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span>:/etc/slurm/slurm.conf
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>touch<span class="w"> </span>/var/log/slurmd.log
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>chown<span class="w"> </span>slurm:<span class="w"> </span>/var/log/slurmd.log
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>slurmd.service
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>slurmd.service
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
-ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
-
-munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>unmunge
-
-systemctl<span class="w"> </span>restart<span class="w"> </span>slurmctld.service
+systemctl<span class="w"> </span>start<span class="w"> </span>slurmd.service
+systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
+systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
+</pre></div>
+</div>
+<p>Para ver los cambios desde <strong>compute-0-0</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmctld.service
 systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld.service
 </pre></div>
 </div>
@@ -561,17 +578,7 @@ PARTITION<span class="w"> </span>AVAL<span class="w">   </span>TIMELIMIT<span cl
 debug*<span class="w">      </span>up<span class="w">      </span>infite<span class="w">       </span><span class="m">1</span><span class="w">   </span>idle<span class="w"> </span>compute-0-1
 </pre></div>
 </div>
-<p>Iniciamos los servios en compute-0-1</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>slurmd.service
-</pre></div>
-</div>
-<p>Volvemos a comprobar desde el servidor el estado del nodo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>sinfo
-PARTITION<span class="w"> </span>AVAL<span class="w">   </span>TIMELIMIT<span class="w">   </span>NODES<span class="w">  </span>STATE<span class="w"> </span>NODELIST
-debug*<span class="w">      </span>up<span class="w">      </span>infite<span class="w">       </span><span class="m">1</span><span class="w">   </span>idle<span class="w"> </span>compute-0-1
-</pre></div>
-</div>
-<p>en el caso de que no se ambie el estado automaticamente lo podemos intentar a cambiar a mano</p>
+<p>En el caso de que no se cambie el estado automaticamente lo podemos intentar a cambiar a mano</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>compute-0-1<span class="w"> </span><span class="nv">state</span><span class="o">=</span>idle
 </pre></div>
 </div>
