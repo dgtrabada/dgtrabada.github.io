@@ -9,6 +9,8 @@ Samba es una implementación libre del protocolo de archivos compartidos de Micr
 Caso práctico: Samba
 ********************
 
+Podemos ver ´vídeo <https://mediateca.educa.madrid.org/video/hpxp95mqhnryu8v7>´_.
+
 Instalamos el servicor de samba:
 
 .. code-block:: bash

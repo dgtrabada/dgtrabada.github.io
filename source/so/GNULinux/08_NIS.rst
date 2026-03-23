@@ -212,3 +212,45 @@ Caso práctico: NIS con red interna
 * Recuerda crear los usuarios en el servidor nis.
 
 * Si no lo habías realizado, ejecutamos en el cliente ``sudo pam-auth-update`` y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
+
+nftables
+========
+
+Podemos enrutar con **nftables**, es el sistema de filtrado de paquetes y firewall del kernel de Linux que permite controlar el tráfico de red (permitir, bloquear, redirigir o modificar paquetes).
+
+.. code-block:: bash
+  
+  apt get install nftables
+
+Añandimos en ''/etc/nftables.conf''
+
+.. code-block:: bash
+  
+  table ip nat {
+      chain postrouting {
+          type nat hook postrouting priority 100;
+          oifname "enp0s3" ip saddr 172.16.0.0/16 masquerade
+      }
+  }
+
+  table ip filter {
+      chain forward {
+          type filter hook forward priority 0;
+          policy drop;
+          ip saddr 172.16.0.0/16 oifname "enp0s3" accept
+          ip daddr 172.16.0.0/16 ct state established,related accept
+      }
+  }
+
+Activamos ip_forward de forma permanente:
+
+.. code-block:: bash
+  
+  echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/99-router.conf
+
+Habilitamos el servicio y lo iniciamos
+
+.. code-block:: bash
+  
+  systemctl enable nftables
+  systemctl start nftables

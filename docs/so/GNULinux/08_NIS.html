@@ -452,7 +452,10 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nftables">nftables</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -629,6 +632,40 @@ systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 <li><p>Recuerda crear los usuarios en el servidor nis.</p></li>
 <li><p>Si no lo habías realizado, ejecutamos en el cliente <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pam-auth-update</span></code> y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)</p></li>
 </ul>
+<section id="nftables">
+<h3>nftables<a class="headerlink" href="#nftables" title="Link to this heading">#</a></h3>
+<p>Podemos enrutar con <strong>nftables</strong>, es el sistema de filtrado de paquetes y firewall del kernel de Linux que permite controlar el tráfico de red (permitir, bloquear, redirigir o modificar paquetes).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>get<span class="w"> </span>install<span class="w"> </span>nftables
+</pre></div>
+</div>
+<p>Añandimos en “”/etc/nftables.conf””</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>table<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>chain<span class="w"> </span>postrouting<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span>nat<span class="w"> </span>hook<span class="w"> </span>postrouting<span class="w"> </span>priority<span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span>oifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>ip<span class="w"> </span>saddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>masquerade
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+table<span class="w"> </span>ip<span class="w"> </span>filter<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>chain<span class="w"> </span>forward<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span>filter<span class="w"> </span>hook<span class="w"> </span>forward<span class="w"> </span>priority<span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">        </span>policy<span class="w"> </span>drop<span class="p">;</span>
+<span class="w">        </span>ip<span class="w"> </span>saddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>oifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>accept
+<span class="w">        </span>ip<span class="w"> </span>daddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>ct<span class="w"> </span>state<span class="w"> </span>established,related<span class="w"> </span>accept
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Activamos ip_forward de forma permanente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.ip_forward=1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/sysctl.d/99-router.conf
+</pre></div>
+</div>
+<p>Habilitamos el servicio y lo iniciamos</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nftables
+systemctl<span class="w"> </span>start<span class="w"> </span>nftables
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -682,7 +719,10 @@ systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nftables">nftables</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
