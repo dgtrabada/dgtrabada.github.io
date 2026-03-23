@@ -579,7 +579,7 @@ debug*<span class="w">      </span>up<span class="w">      </span>infite<span cl
 </pre></div>
 </div>
 <p>Hacemos la instalacion en <strong>compute-0-2</strong> desde el <strong>compute-0-0</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>compute-0-2<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>slurm-wlm<span class="w"> </span>-y
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>compute-0-2<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>slurmd<span class="w"> </span>-y
 scp<span class="w"> </span>/etc/munge/munge.key<span class="w"> </span>compute-0-2:/etc/munge/
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>munge
 munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>compute-0-2<span class="w"> </span>unmunge

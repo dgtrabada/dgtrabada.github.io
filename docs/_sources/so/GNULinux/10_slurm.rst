@@ -157,7 +157,7 @@ Hacemos la instalacion en **compute-0-2** desde el **compute-0-0**
 
 .. code-block:: bash
 
- ssh compute-0-2 apt install slurm-wlm -y
+ ssh compute-0-2 apt install slurmd -y
  scp /etc/munge/munge.key compute-0-2:/etc/munge/
  ssh compute-0-2 systemctl restart munge
  munge -n | ssh compute-0-2 unmunge
