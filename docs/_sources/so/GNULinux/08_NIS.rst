@@ -222,7 +222,7 @@ Podemos enrutar con **nftables**, es el sistema de filtrado de paquetes y firewa
   
   apt get install nftables
 
-Añandimos en ''/etc/nftables.conf''
+Añandimos en ``/etc/nftables.conf``
 
 .. code-block:: bash
   

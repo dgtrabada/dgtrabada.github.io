@@ -255,7 +255,7 @@ Configuración de la red
    
    sudo ip link set enp0s3 down/up
    
-* **NetPlan** es la nueva utilidad para configurar la red, el antiguo /etc/network/interfaces ya no funciona. Debemos configurar **/etc/netplan/01-*.yaml**, por ejemplo:
+* **NetPlan** es la nueva utilidad para configurar la red, el antiguo /etc/network/interfaces ya no funciona. Debemos configurar ``/etc/netplan/01-*.yaml``, por ejemplo:
   
   .. code-block:: yaml
   

@@ -548,7 +548,7 @@ sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </sp
 </div>
 <p>Cambiamos permisos y lanzamos slurmd en <strong>compute-0-1</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>/var/log/slurmd.log
-chown<span class="w"> </span>slurm:<span class="w"> </span>/var/log/slurmd.log
+chown<span class="w"> </span>slurm:slurm<span class="w"> </span>/var/log/slurmd.log
 systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>slurmd.service
 
 systemctl<span class="w"> </span>stop<span class="w"> </span>slurmd.service
@@ -586,7 +586,7 @@ munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><
 
 scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute-0-2:/etc/slurm/slurm.conf
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>touch<span class="w"> </span>/var/log/slurmd.log
-ssh<span class="w"> </span>compute-0-2<span class="w"> </span>chown<span class="w"> </span>slurm:<span class="w"> </span>/var/log/slurmd.log
+ssh<span class="w"> </span>compute-0-2<span class="w"> </span>chown<span class="w"> </span>slurm:slurm<span class="w"> </span>/var/log/slurmd.log
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
 

@@ -114,7 +114,7 @@ Cambiamos permisos y lanzamos slurmd en **compute-0-1**
 .. code-block:: bash
  
  touch /var/log/slurmd.log
- chown slurm: /var/log/slurmd.log
+ chown slurm:slurm /var/log/slurmd.log
  systemctl enable slurmd.service
 
  systemctl stop slurmd.service
@@ -164,7 +164,7 @@ Hacemos la instalacion en **compute-0-2** desde el **compute-0-0**
 
  scp /etc/slurm/slurm.conf  compute-0-2:/etc/slurm/slurm.conf
  ssh compute-0-2 touch /var/log/slurmd.log
- ssh compute-0-2 chown slurm: /var/log/slurmd.log
+ ssh compute-0-2 chown slurm:slurm /var/log/slurmd.log
  ssh compute-0-2 systemctl restart slurmd.service
  ssh compute-0-2 systemctl status slurmd.service
 
