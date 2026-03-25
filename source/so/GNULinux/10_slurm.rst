@@ -21,12 +21,6 @@ Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exp
 
  root@compute-0-0:~# apt install slurm-wlm
 
-Instalamos Slurmd
-
-.. code-block:: bash
-
- root@compute-0-1:~# apt-get install slurmd
-
 Necesitamos que el cliente compute-0-1 seán accesibles por el root desde el servidor sin el uso de contraseña, y que tengan instalado **slurmd**
 
 .. code-block:: bash
@@ -46,15 +40,6 @@ Lo instalamos en todos los nodos y copiamos la clave desde el controlador **comp
  root@compute-0-1:~# apt-get install munge 
  root@compute-0-0:~# scp /etc/munge/munge.key compute-0-1:/etc/munge/  
 
-Nos concetamos al cliente **compute-0-1**
-
-.. code-block:: bash
-
- #chown munge /etc/munge/munge.key
- #chmod 400 /etc/munge/munge.key
- #systemctl enable munge --now
- systemctl restart munge
- #systemctl status munge
 
 .. code-block:: bash
  
@@ -163,8 +148,6 @@ Hacemos la instalacion en **compute-0-2** desde el **compute-0-0**
  munge -n | ssh compute-0-2 unmunge
 
  scp /etc/slurm/slurm.conf  compute-0-2:/etc/slurm/slurm.conf
- ssh compute-0-2 touch /var/log/slurmd.log
- ssh compute-0-2 chown slurm:slurm /var/log/slurmd.log
  ssh compute-0-2 systemctl restart slurmd.service
  ssh compute-0-2 systemctl status slurmd.service
 
@@ -173,4 +156,31 @@ Hacemos la instalacion en **compute-0-2** desde el **compute-0-0**
  ssh compute-0-1 systemctl restart slurmd.service
 
  systemctl restart slurmctld.service
+
+Ejemplo para dos particiones diferentes
+
+.. code-block:: bash
+
+ # Node definition
+ NodeName=compute-0-[1-3] CPUs=2 State=UNKNOWN RealMemory=2048
+ PartitionName=tuapellido1 Nodes=compute-0-1 Default=YES MaxTime=INFINITE State=UP
+ PartitionName=tuapellido2 Nodes=compute-0-[2-3] Default=NO MaxTime=INFINITE State=UP
+ ReturnToService=2
+
+El script para lanzar a pa aprticions tuapelldio2
+
+.. code-block:: bash
+
+ tunombre1@compute-0-0:~$ cat script.sh 
+ #!/bin/bash
+ #SBATCH --job-name=serial_job_test    # Job name
+ #SBATCH --ntasks=1                    # Run on a single CPU
+ #SBATCH --partition=tuapellido2
+ #SBATCH --time=00:05:00               # Time limit hrs:min:sec
+ #SBATCH --output=serial_test_%j.log   # Standard output and error log 
+
+ module load test
+ pwd > salida
+ hostname >> salida
+ test.x >> salida
 

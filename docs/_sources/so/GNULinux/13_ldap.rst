@@ -35,9 +35,7 @@ Entre los atributos que suelen emplearse habitualmente, encontramos los siguient
 Instalación del servidor LDAP
 =============================
 
-Puedes seguir los pasos en el siguiente `vídeo LDAP <https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_, `vídeo LDAP+Ansible
-<https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf>`_, `vídeo LDAP+NFS+Autofs+Slurm
-<https://mediateca.educa.madrid.org/video/ii55p5pf5rtw76qp>`_
+Puedes seguir los pasos en el siguiente vídeos [#v1]_ 
 
 .. code-block:: bash
 
@@ -310,3 +308,16 @@ Podemos configurar ``/etc/pam.d/common-password``
  dcredit=-1 → número obligatorio
  ocredit=-1 → símbolo obligatorio
 
+.. [#v1] vídeos
+
+* Ubuntu Server 24.04 LTS
+
+  * `Vídeo LDAP <https://mediateca.educa.madrid.org/video/oe7ob65kjmn9gkjl>`_
+  * `Vídeo LDAP+NFS <https://mediateca.educa.madrid.org/video/q1crcrpopemqjktg>`_
+  * `Vídeo LDAP+NFS+Slurm+Modules desde instalación de Ubuntu Server <https://mediateca.educa.madrid.org/video/h3ewftxftsg1rmfa>`_
+
+* Ubuntu Server 22.04 LTS
+
+  * `vídeo LDAP <https://mediateca.educa.madrid.org/video/cin4lwk45nnts4lq>`_
+  * `vídeo LDAP+Ansible <https://mediateca.educa.madrid.org/video/15vvyo36qw9ldgqf>`_
+  * `vídeo LDAP+NFS+Autofs+Slurm <https://mediateca.educa.madrid.org/video/ii55p5pf5rtw76qp>`_

@@ -476,10 +476,6 @@ sbatch<span class="w">  </span><span class="c1"># Envía un script para su poste
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>slurm-wlm
 </pre></div>
 </div>
-<p>Instalamos Slurmd</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>slurmd
-</pre></div>
-</div>
 <p>Necesitamos que el cliente compute-0-1 seán accesibles por el root desde el servidor sin el uso de contraseña, y que tengan instalado <strong>slurmd</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>slurmd
 </pre></div>
@@ -491,14 +487,6 @@ sbatch<span class="w">  </span><span class="c1"># Envía un script para su poste
 <p>Lo instalamos en todos los nodos y copiamos la clave desde el controlador <strong>compute-0-0</strong> a los clientes, ejemplo con el nodo compute-0-1</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>munge
 root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>/etc/munge/munge.key<span class="w"> </span>compute-0-1:/etc/munge/
-</pre></div>
-</div>
-<p>Nos concetamos al cliente <strong>compute-0-1</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#chown munge /etc/munge/munge.key</span>
-<span class="c1">#chmod 400 /etc/munge/munge.key</span>
-<span class="c1">#systemctl enable munge --now</span>
-systemctl<span class="w"> </span>restart<span class="w"> </span>munge
-<span class="c1">#systemctl status munge</span>
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>unmunge
@@ -585,8 +573,6 @@ ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span cla
 munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>compute-0-2<span class="w"> </span>unmunge
 
 scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute-0-2:/etc/slurm/slurm.conf
-ssh<span class="w"> </span>compute-0-2<span class="w"> </span>touch<span class="w"> </span>/var/log/slurmd.log
-ssh<span class="w"> </span>compute-0-2<span class="w"> </span>chown<span class="w"> </span>slurm:slurm<span class="w"> </span>/var/log/slurmd.log
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
 
@@ -595,6 +581,29 @@ scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute
 ssh<span class="w"> </span>compute-0-1<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
 
 systemctl<span class="w"> </span>restart<span class="w"> </span>slurmctld.service
+</pre></div>
+</div>
+<p>Ejemplo para dos particiones diferentes</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Node definition</span>
+<span class="nv">NodeName</span><span class="o">=</span>compute-0-<span class="o">[</span><span class="m">1</span>-3<span class="o">]</span><span class="w"> </span><span class="nv">CPUs</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="nv">State</span><span class="o">=</span>UNKNOWN<span class="w"> </span><span class="nv">RealMemory</span><span class="o">=</span><span class="m">2048</span>
+<span class="nv">PartitionName</span><span class="o">=</span>tuapellido1<span class="w"> </span><span class="nv">Nodes</span><span class="o">=</span>compute-0-1<span class="w"> </span><span class="nv">Default</span><span class="o">=</span>YES<span class="w"> </span><span class="nv">MaxTime</span><span class="o">=</span>INFINITE<span class="w"> </span><span class="nv">State</span><span class="o">=</span>UP
+<span class="nv">PartitionName</span><span class="o">=</span>tuapellido2<span class="w"> </span><span class="nv">Nodes</span><span class="o">=</span>compute-0-<span class="o">[</span><span class="m">2</span>-3<span class="o">]</span><span class="w"> </span><span class="nv">Default</span><span class="o">=</span>NO<span class="w"> </span><span class="nv">MaxTime</span><span class="o">=</span>INFINITE<span class="w"> </span><span class="nv">State</span><span class="o">=</span>UP
+<span class="nv">ReturnToService</span><span class="o">=</span><span class="m">2</span>
+</pre></div>
+</div>
+<p>El script para lanzar a pa aprticions tuapelldio2</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tunombre1@compute-0-0:~$<span class="w"> </span>cat<span class="w"> </span>script.sh
+<span class="c1">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=serial_job_test    # Job name</span>
+<span class="c1">#SBATCH --ntasks=1                    # Run on a single CPU</span>
+<span class="c1">#SBATCH --partition=tuapellido2</span>
+<span class="c1">#SBATCH --time=00:05:00               # Time limit hrs:min:sec</span>
+<span class="c1">#SBATCH --output=serial_test_%j.log   # Standard output and error log</span>
+
+module<span class="w"> </span>load<span class="w"> </span><span class="nb">test</span>
+<span class="nb">pwd</span><span class="w"> </span>&gt;<span class="w"> </span>salida
+hostname<span class="w"> </span>&gt;&gt;<span class="w"> </span>salida
+test.x<span class="w"> </span>&gt;&gt;<span class="w"> </span>salida
 </pre></div>
 </div>
 </section>
