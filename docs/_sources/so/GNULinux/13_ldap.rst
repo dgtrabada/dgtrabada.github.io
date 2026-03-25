@@ -293,4 +293,20 @@ Para poder cambiar el password
 
 .. code-block:: bash
   
- apt-get install libpam-cracklib
+ sudo apt install libpam-pwquality
+
+Podemos configurar ``/etc/pam.d/common-password``
+
+.. code-block:: bash
+  
+ password requisite pam_pwquality.so retry=3 minlen=8 difok=3
+
+ #Para añadir más parámetros según la política que quieras imponer:
+ 
+ minlen=8 → longitud mínima
+ difok=3 → diferencia con la anterior
+ ucredit=-1 → mayúscula obligatoria
+ lcredit=-1 → minúscula obligatoria
+ dcredit=-1 → número obligatorio
+ ocredit=-1 → símbolo obligatorio
+

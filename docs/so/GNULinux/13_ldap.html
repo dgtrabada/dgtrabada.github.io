@@ -692,7 +692,20 @@ group:<span class="w"> </span>files<span class="w"> </span>ldap
 </pre></div>
 </div>
 <p>Para poder cambiar el password</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>libpam-cracklib
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpam-pwquality
+</pre></div>
+</div>
+<p>Podemos configurar <code class="docutils literal notranslate"><span class="pre">/etc/pam.d/common-password</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>password<span class="w"> </span>requisite<span class="w"> </span>pam_pwquality.so<span class="w"> </span><span class="nv">retry</span><span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="nv">minlen</span><span class="o">=</span><span class="m">8</span><span class="w"> </span><span class="nv">difok</span><span class="o">=</span><span class="m">3</span>
+
+<span class="c1">#Para añadir más parámetros según la política que quieras imponer:</span>
+
+<span class="nv">minlen</span><span class="o">=</span><span class="m">8</span><span class="w"> </span>→<span class="w"> </span>longitud<span class="w"> </span>mínima
+<span class="nv">difok</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>→<span class="w"> </span>diferencia<span class="w"> </span>con<span class="w"> </span>la<span class="w"> </span>anterior
+<span class="nv">ucredit</span><span class="o">=</span>-1<span class="w"> </span>→<span class="w"> </span>mayúscula<span class="w"> </span>obligatoria
+<span class="nv">lcredit</span><span class="o">=</span>-1<span class="w"> </span>→<span class="w"> </span>minúscula<span class="w"> </span>obligatoria
+<span class="nv">dcredit</span><span class="o">=</span>-1<span class="w"> </span>→<span class="w"> </span>número<span class="w"> </span>obligatorio
+<span class="nv">ocredit</span><span class="o">=</span>-1<span class="w"> </span>→<span class="w"> </span>símbolo<span class="w"> </span>obligatorio
 </pre></div>
 </div>
 </section>

@@ -113,7 +113,7 @@ Caso práctico: MV Ubuntu Server 24.04
 
 * Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 24.04**
 
-* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP.
+* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.
 
 * **DNS** 8.8.8.8, **Gateway** 10.0.0.2 y **subred** 10.0.0.0/8, 
 
