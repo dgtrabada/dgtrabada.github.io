@@ -312,8 +312,9 @@ Podemos configurar ``/etc/pam.d/common-password``
 
 * Ubuntu Server 24.04 LTS
 
-  * `Vídeo LDAP <https://mediateca.educa.madrid.org/video/oe7ob65kjmn9gkjl>`_
-  * `Vídeo LDAP+NFS <https://mediateca.educa.madrid.org/video/q1crcrpopemqjktg>`_
+  * `Vídeo (1) LDAP <https://mediateca.educa.madrid.org/video/oe7ob65kjmn9gkjl>`_
+  * `Vídeo (2) LDAP+NFS <https://mediateca.educa.madrid.org/video/q1crcrpopemqjktg>`_
+  * `Vídeo (3) LDAP+NFS+Slurm+Modules <https://mediateca.educa.madrid.org/video/14va7qxj2lb1jmui>`_
   * `Vídeo LDAP+NFS+Slurm+Modules desde instalación de Ubuntu Server <https://mediateca.educa.madrid.org/video/h3ewftxftsg1rmfa>`_
 
 * Ubuntu Server 22.04 LTS
