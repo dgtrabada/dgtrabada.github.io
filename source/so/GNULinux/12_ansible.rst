@@ -240,3 +240,75 @@ Los diversos archivos main.yml contienen contenido dependiendo de su ubicación 
 Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no en ambos lugares.
 
 Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   https://galaxy.ansible.com/, para su posterior instalación.
+
+Docker
+******
+
+
+cat .\Dockerfile
+.. code-block:: bash
+
+ FROM ubuntu:24.04
+ 
+ RUN apt update && apt install -y \
+     iproute2 \
+     iputils-ping \
+     net-tools \
+     openssh-server \
+     vim \
+  && mkdir -p /run/sshd \
+  && echo 'root:alumno' | chpasswd \
+  && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+ CMD service ssh start && sleep infinity
+
+docker-compose.yml
+
+.. code-block:: bash
+
+ services:
+   compute-0-0:
+     build: .
+     container_name: compute-0-0
+     privileged: true
+     tty: true
+     hostname: compute-0-0
+     ports:
+       - "2222:22"
+     networks:
+       internal_net:
+         ipv4_address: 172.16.0.10
+ 
+   compute-0-1:
+     build: .
+     container_name: compute-0-1
+     privileged: true
+     tty: true
+     hostname: compute-0-1
+     networks:
+       internal_net:
+         ipv4_address: 172.16.0.11 
+
+   compute-0-2:
+     build: .
+     container_name: compute-0-2
+     privileged: true
+     tty: true
+     hostname: compute-0-2
+     networks:
+       internal_net:
+         ipv4_address: 172.16.0.12 
+
+ networks:
+   internal_net:
+     driver: bridge
+     ipam:
+       config:
+         - subnet: 172.16.0.0/16
+           gateway: 172.16.0.1    
+
+
+docker-compose.exe up -d --build
+ssh root@locahost -p 2222
+
+

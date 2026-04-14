@@ -97,15 +97,10 @@ Copiamos la configuración de slurm desde compute-0-0 a compute-0-1:
 Cambiamos permisos y lanzamos slurmd en **compute-0-1**
 
 .. code-block:: bash
- 
- touch /var/log/slurmd.log
- chown slurm:slurm /var/log/slurmd.log
- systemctl enable slurmd.service
 
  systemctl stop slurmd.service
  systemctl start slurmd.service
  systemctl status slurmd.service
-
 
 
 Lanza los servicios en el controlador **compute-0-0**:

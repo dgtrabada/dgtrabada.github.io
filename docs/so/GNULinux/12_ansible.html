@@ -451,6 +451,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
 </ul>
             </nav>
         </div>
@@ -651,6 +652,67 @@ cluster-ubuntu22.04/
 <p>Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no en ambos lugares.</p>
 <p>Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   <a class="reference external" href="https://galaxy.ansible.com/">https://galaxy.ansible.com/</a>, para su posterior instalación.</p>
 </section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading">#</a></h2>
+<p>cat .Dockerfile
+.. code-block:: bash</p>
+<blockquote>
+<div><p>FROM ubuntu:24.04</p>
+<dl>
+<dt>RUN apt update &amp;&amp; apt install -y </dt><dd><blockquote>
+<div><p>iproute2 iputils-ping net-tools openssh-server vim </p>
+</div></blockquote>
+<p>&amp;&amp; mkdir -p /run/sshd &amp;&amp; echo “root:alumno” | chpasswd &amp;&amp; sed -i “s/#PermitRootLogin prohibit-password/PermitRootLogin yes/” /etc/ssh/sshd_config</p>
+</dd>
+</dl>
+<p>CMD service ssh start &amp;&amp; sleep infinity</p>
+</div></blockquote>
+<p>docker-compose.yml</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>services:
+<span class="w">  </span>compute-0-0:
+<span class="w">    </span>build:<span class="w"> </span>.
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-0
+<span class="w">    </span>privileged:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-0
+<span class="w">    </span>ports:
+<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;2222:22&quot;</span>
+<span class="w">    </span>networks:
+<span class="w">      </span>internal_net:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.10
+
+<span class="w">  </span>compute-0-1:
+<span class="w">    </span>build:<span class="w"> </span>.
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-1
+<span class="w">    </span>privileged:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-1
+<span class="w">    </span>networks:
+<span class="w">      </span>internal_net:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.11
+
+<span class="w">  </span>compute-0-2:
+<span class="w">    </span>build:<span class="w"> </span>.
+<span class="w">    </span>container_name:<span class="w"> </span>compute-0-2
+<span class="w">    </span>privileged:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>hostname:<span class="w"> </span>compute-0-2
+<span class="w">    </span>networks:
+<span class="w">      </span>internal_net:
+<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.12
+
+networks:
+<span class="w">  </span>internal_net:
+<span class="w">    </span>driver:<span class="w"> </span>bridge
+<span class="w">    </span>ipam:
+<span class="w">      </span>config:
+<span class="w">        </span>-<span class="w"> </span>subnet:<span class="w"> </span><span class="m">172</span>.16.0.0/16
+<span class="w">          </span>gateway:<span class="w"> </span><span class="m">172</span>.16.0.1
+</pre></div>
+</div>
+<p>docker-compose.exe up -d –build
+ssh <a class="reference external" href="mailto:root&#37;&#52;&#48;locahost">root<span>&#64;</span>locahost</a> -p 2222</p>
+</section>
 </section>
 
 
@@ -702,6 +764,7 @@ cluster-ubuntu22.04/
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
 </ul>
   </nav></div>
 

@@ -39,7 +39,7 @@ Puedes seguir los pasos en el siguiente vídeos [#v1]_
 
 .. code-block:: bash
 
- sudo apt-get install slapd ldap-utils
+ apt-get install slapd ldap-utils
  #contraseña slapd : alumno
  
    NO
@@ -49,13 +49,13 @@ Puedes seguir los pasos en el siguiente vídeos [#v1]_
    HDB
  
  #Si necesitamos reconfigurarlo
- sudo dpkg-reconfigure slapd 
+ dpkg-reconfigure slapd 
  
 Puedes chequear que se ha creado tu LDAP utilizando el comando:
 
 .. code-block:: bash
 
- sudo ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
+ ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"
 
 Crear la estructura del directorio
 ==================================
