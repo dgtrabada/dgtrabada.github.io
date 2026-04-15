@@ -241,9 +241,176 @@ Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no
 
 Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   https://galaxy.ansible.com/, para su posterior instalación.
 
-Docker
-******
 
+
+Caso práctico: compute-0-3
+**************************
+
+Partimos de un cluster formado por:
+
+* **compute-0-0**:
+
+  * Tarjeta red modo "Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión"
+  * Tarjeta de red modo "Red interna" : 172.16.0.10/16
+  * Servidor y cliente **LDAD** con usuarios (tunombre1, tunombre2, tunombre3 y grupo tupellido)
+  * Utiliza NFS y autofs para exportar el home de los usuarios
+
+* **compute-0-1**
+
+  * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
+  * Cliente LDAP y monta el home de los usuarios con autofs
+
+* **compute-0-2**
+
+  * Tarjeta de red modo "Red interna" : 172.16.0.12/16 (tiene internet a través de compute-0-0)
+  * Cliente LDAP y monta el home de los usuarios con autofs
+
+Utiliza el gestor de tareas **Slurm** y **modules environment**
+
+Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado ``cluster_tunombre``
+
+.. code-block:: bash
+
+ ansible-galaxy init --offline cluster-tunombre
+
+ # tree cluster_tunombre/
+ cluster_tunombre/
+ ├── defaults
+ │   └── main.yml
+ ├── files
+ ├── handlers
+ │   └── main.yml
+ ├── meta
+ │   └── main.yml
+ ├── README.md
+ ├── tasks
+ │   └── main.yml
+ ├── templates
+ │   ├── auto.home.j2
+ |   ├── auto.master.j2
+ │   ├── ldap.conf.j2
+ │   └── nsswitch.conf.j2
+ ├── tests
+ │   ├── inventory
+ │   └── test.yml
+ └── vars
+     └── main.yml
+
+En el archivo ``clusterLDAP/tasks/main.yml`` tenemos:
+
+ # tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)
+ 
+ - name: Instalar paquetes cliente LDAP modernos
+   apt:
+     name:
+       - libnss-ldap       # Para NSS (getent passwd, grupos)
+       - libpam-ldap       # Para PAM (autenticación)
+       - ldap-utils         # Utilidades como ldapsearch
+     state: present
+     update_cache: yes
+ 
+ - name: Configurar ldap.conf
+   template:
+     src: ldap.conf.j2
+     dest: /etc/ldap.conf
+     owner: root
+     group: root
+     mode: '0644'
+     backup: yes
+
+ - name: Configurar NSS para usar LDAP
+   template:
+     src: nsswitch.conf.j2
+     dest: /etc/nsswitch.conf
+     owner: root
+     group: root
+     mode: '0644'
+     backup: yes 
+
+ - name: Inserta linea si no existe
+   lineinfile:
+     path: /etc/hosts
+     line: "172.16.0.10 compute-0-0 ldap.tunombre.local"
+     state: present
+ - name: Instalar paquete nfs-common
+   apt:
+     name: nfs-common
+     state: present
+     update_cache: yes
+
+ - name: Instalar autofs
+   apt:
+     name: autofs
+     state: present
+     update_cache: yes 
+
+ - name: Configurar auto.master
+   template:
+     src: auto.master.j2
+     dest: /etc/auto.master
+     owner: root
+     group: root
+     mode: '0644'
+     backup: yes 
+
+ - name: Configurar auto.home
+   template:
+     src: auto.home.j2
+     dest: /etc/auto.home
+     owner: root
+     group: root
+     mode: '0644'
+     backup: yes 
+
+ - name: Iniciar y habilitar autofs
+   systemd:
+     name: autofs
+     state: started
+     enabled: yes 
+
+Para aplicar el rol podemos usar ``aplicar_cliente_ldap.yml``
+
+.. code-block:: bash
+
+ - name: Configurar clientes LDAP
+   hosts: cliente3
+   become: yes
+   tasks:
+     - name: Importar todas las tareas del rol
+       import_role:
+         name: cluster-tunombre
+
+con el siguiente inventario ``/etc/ansible/hosts``
+
+.. code-block:: bash
+
+ [server]
+ server0 ansible_host=172.16.0.10 
+ 
+ [cliente]
+ cliente1 ansible_host=172.16.0.11
+ cliente2 ansible_host=172.16.0.12
+ cliente3 ansible_host=172.16.0.13
+
+ [all:vars]
+
+Podemos ejecutar el playbook de la siguiente manera
+
+ # Verificar sintaxis
+ ansible-playbook --syntax-check aplicar_cliente_ldap.yml
+
+ # Ejecutar en modo prueba
+ ansible-playbook --limit cliente3 --check --diff aplicar_cliente_ldap.yml
+
+ # Podemos listar los hosts 
+ ansible-playbook aplicar_cliente_ldap.yml --list-hosts
+
+ # Aplicar configuración solo sobre uno
+ ansible-playbook --limit cliente3 aplicar_cliente_ldap.yml
+
+
+Docker + ansible
+****************
 
 cat .\Dockerfile
 .. code-block:: bash

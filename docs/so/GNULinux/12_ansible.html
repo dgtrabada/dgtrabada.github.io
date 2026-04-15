@@ -451,7 +451,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
 </ul>
             </nav>
         </div>
@@ -652,8 +653,192 @@ cluster-ubuntu22.04/
 <p>Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no en ambos lugares.</p>
 <p>Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   <a class="reference external" href="https://galaxy.ansible.com/">https://galaxy.ansible.com/</a>, para su posterior instalación.</p>
 </section>
-<section id="docker">
-<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading">#</a></h2>
+<section id="caso-practico-compute-0-3">
+<h2>Caso práctico: compute-0-3<a class="headerlink" href="#caso-practico-compute-0-3" title="Link to this heading">#</a></h2>
+<p>Partimos de un cluster formado por:</p>
+<ul class="simple">
+<li><p><strong>compute-0-0</strong>:</p>
+<ul>
+<li><p>Tarjeta red modo «Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión»</p></li>
+<li><p>Tarjeta de red modo «Red interna» : 172.16.0.10/16</p></li>
+<li><p>Servidor y cliente <strong>LDAD</strong> con usuarios (tunombre1, tunombre2, tunombre3 y grupo tupellido)</p></li>
+<li><p>Utiliza NFS y autofs para exportar el home de los usuarios</p></li>
+</ul>
+</li>
+<li><p><strong>compute-0-1</strong></p>
+<ul>
+<li><p>Tarjeta de red modo «Red interna» : 172.16.0.11/16 (tiene internet a través de compute-0-0)</p></li>
+<li><p>Cliente LDAP y monta el home de los usuarios con autofs</p></li>
+</ul>
+</li>
+<li><p><strong>compute-0-2</strong></p>
+<ul>
+<li><p>Tarjeta de red modo «Red interna» : 172.16.0.12/16 (tiene internet a través de compute-0-0)</p></li>
+<li><p>Cliente LDAP y monta el home de los usuarios con autofs</p></li>
+</ul>
+</li>
+</ul>
+<p>Utiliza el gestor de tareas <strong>Slurm</strong> y <strong>modules environment</strong></p>
+<p>Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado <code class="docutils literal notranslate"><span class="pre">cluster_tunombre</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>cluster-tunombre
+
+<span class="c1"># tree cluster_tunombre/</span>
+cluster_tunombre/
+├──<span class="w"> </span>defaults
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
+├──<span class="w"> </span>files
+├──<span class="w"> </span>handlers
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
+├──<span class="w"> </span>meta
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
+├──<span class="w"> </span>README.md
+├──<span class="w"> </span>tasks
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
+├──<span class="w"> </span>templates
+│<span class="w">   </span>├──<span class="w"> </span>auto.home.j2
+<span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>auto.master.j2
+│<span class="w">   </span>├──<span class="w"> </span>ldap.conf.j2
+│<span class="w">   </span>└──<span class="w"> </span>nsswitch.conf.j2
+├──<span class="w"> </span>tests
+│<span class="w">   </span>├──<span class="w"> </span>inventory
+│<span class="w">   </span>└──<span class="w"> </span>test.yml
+└──<span class="w"> </span>vars
+<span class="w">    </span>└──<span class="w"> </span>main.yml
+</pre></div>
+</div>
+<p>En el archivo <code class="docutils literal notranslate"><span class="pre">clusterLDAP/tasks/main.yml</span></code> tenemos:</p>
+<blockquote>
+<div><p># tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)</p>
+<ul>
+<li><p>name: Instalar paquetes cliente LDAP modernos
+apt:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>name:</dt><dd><ul class="simple">
+<li><p>libnss-ldap       # Para NSS (getent passwd, grupos)</p></li>
+<li><p>libpam-ldap       # Para PAM (autenticación)</p></li>
+<li><p>ldap-utils         # Utilidades como ldapsearch</p></li>
+</ul>
+</dd>
+</dl>
+<p>state: present
+update_cache: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Configurar ldap.conf
+template:</p>
+<blockquote>
+<div><p>src: ldap.conf.j2
+dest: /etc/ldap.conf
+owner: root
+group: root
+mode: “0644”
+backup: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Configurar NSS para usar LDAP
+template:</p>
+<blockquote>
+<div><p>src: nsswitch.conf.j2
+dest: /etc/nsswitch.conf
+owner: root
+group: root
+mode: “0644”
+backup: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Inserta linea si no existe
+lineinfile:</p>
+<blockquote>
+<div><p>path: /etc/hosts
+line: «172.16.0.10 compute-0-0 ldap.tunombre.local»
+state: present</p>
+</div></blockquote>
+</li>
+<li><p>name: Instalar paquete nfs-common
+apt:</p>
+<blockquote>
+<div><p>name: nfs-common
+state: present
+update_cache: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Instalar autofs
+apt:</p>
+<blockquote>
+<div><p>name: autofs
+state: present
+update_cache: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Configurar auto.master
+template:</p>
+<blockquote>
+<div><p>src: auto.master.j2
+dest: /etc/auto.master
+owner: root
+group: root
+mode: “0644”
+backup: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Configurar auto.home
+template:</p>
+<blockquote>
+<div><p>src: auto.home.j2
+dest: /etc/auto.home
+owner: root
+group: root
+mode: “0644”
+backup: yes</p>
+</div></blockquote>
+</li>
+<li><p>name: Iniciar y habilitar autofs
+systemd:</p>
+<blockquote>
+<div><p>name: autofs
+state: started
+enabled: yes</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Para aplicar el rol podemos usar <code class="docutils literal notranslate"><span class="pre">aplicar_cliente_ldap.yml</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>clientes<span class="w"> </span>LDAP
+<span class="w">  </span>hosts:<span class="w"> </span>cliente3
+<span class="w">  </span>become:<span class="w"> </span>yes
+<span class="w">  </span>tasks:
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>Importar<span class="w"> </span>todas<span class="w"> </span>las<span class="w"> </span>tareas<span class="w"> </span>del<span class="w"> </span>rol
+<span class="w">      </span>import_role:
+<span class="w">        </span>name:<span class="w"> </span>cluster-tunombre
+</pre></div>
+</div>
+<p>con el siguiente inventario <code class="docutils literal notranslate"><span class="pre">/etc/ansible/hosts</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>server<span class="o">]</span>
+server0<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.10
+
+<span class="o">[</span>cliente<span class="o">]</span>
+cliente1<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.11
+cliente2<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.12
+cliente3<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.13
+
+<span class="o">[</span>all:vars<span class="o">]</span>
+</pre></div>
+</div>
+<p>Podemos ejecutar el playbook de la siguiente manera</p>
+<blockquote>
+<div><p># Verificar sintaxis
+ansible-playbook –syntax-check aplicar_cliente_ldap.yml</p>
+<p># Ejecutar en modo prueba
+ansible-playbook –limit cliente3 –check –diff aplicar_cliente_ldap.yml</p>
+<p># Podemos listar los hosts
+ansible-playbook aplicar_cliente_ldap.yml –list-hosts</p>
+<p># Aplicar configuración solo sobre uno
+ansible-playbook –limit cliente3 aplicar_cliente_ldap.yml</p>
+</div></blockquote>
+</section>
+<section id="docker-ansible">
+<h2>Docker + ansible<a class="headerlink" href="#docker-ansible" title="Link to this heading">#</a></h2>
 <p>cat .Dockerfile
 .. code-block:: bash</p>
 <blockquote>
@@ -764,7 +949,8 @@ ssh <a class="reference external" href="mailto:root&#37;&#52;&#48;locahost">root
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker">Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
 </ul>
   </nav></div>
 
