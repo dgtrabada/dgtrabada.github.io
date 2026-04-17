@@ -298,6 +298,8 @@ Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado `
 
 En el archivo ``clusterLDAP/tasks/main.yml`` tenemos:
 
+.. code-block:: bash
+
  # tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)
  
  - name: Instalar paquetes cliente LDAP modernos
@@ -326,7 +328,7 @@ En el archivo ``clusterLDAP/tasks/main.yml`` tenemos:
      group: root
      mode: '0644'
      backup: yes 
-
+ 
  - name: Inserta linea si no existe
    lineinfile:
      path: /etc/hosts
@@ -384,10 +386,10 @@ con el siguiente inventario ``/etc/ansible/hosts``
 
 .. code-block:: bash
 
- [server]
+ [servidor]
  server0 ansible_host=172.16.0.10 
  
- [cliente]
+ [clientes]
  cliente1 ansible_host=172.16.0.11
  cliente2 ansible_host=172.16.0.12
  cliente3 ansible_host=172.16.0.13
@@ -395,6 +397,8 @@ con el siguiente inventario ``/etc/ansible/hosts``
  [all:vars]
 
 Podemos ejecutar el playbook de la siguiente manera
+
+.. code-block:: bash
 
  # Verificar sintaxis
  ansible-playbook --syntax-check aplicar_cliente_ldap.yml
@@ -412,7 +416,8 @@ Podemos ejecutar el playbook de la siguiente manera
 Docker + ansible
 ****************
 
-cat .\Dockerfile
+Vamos a empezar creando la imagen desde el siguiente ``Dockerfile``
+
 .. code-block:: bash
 
  FROM ubuntu:24.04
@@ -429,7 +434,7 @@ cat .\Dockerfile
 
  CMD service ssh start && sleep infinity
 
-docker-compose.yml
+Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 3 contenedores que simulan máquinas de un clúster
 
 .. code-block:: bash
 
@@ -474,8 +479,11 @@ docker-compose.yml
          - subnet: 172.16.0.0/16
            gateway: 172.16.0.1    
 
+Podemos levantar el cluster y conectarnos con los siguietne comandos:
 
-docker-compose.exe up -d --build
-ssh root@locahost -p 2222
+.. code-block:: bash
+ 
+ docker-compose.exe up -d --build
+ ssh root@locahost -p 2222
 
 

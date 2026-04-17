@@ -707,102 +707,77 @@ cluster_tunombre/
 </pre></div>
 </div>
 <p>En el archivo <code class="docutils literal notranslate"><span class="pre">clusterLDAP/tasks/main.yml</span></code> tenemos:</p>
-<blockquote>
-<div><p># tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)</p>
-<ul>
-<li><p>name: Instalar paquetes cliente LDAP modernos
-apt:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>name:</dt><dd><ul class="simple">
-<li><p>libnss-ldap       # Para NSS (getent passwd, grupos)</p></li>
-<li><p>libpam-ldap       # Para PAM (autenticación)</p></li>
-<li><p>ldap-utils         # Utilidades como ldapsearch</p></li>
-</ul>
-</dd>
-</dl>
-<p>state: present
-update_cache: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Configurar ldap.conf
-template:</p>
-<blockquote>
-<div><p>src: ldap.conf.j2
-dest: /etc/ldap.conf
-owner: root
-group: root
-mode: “0644”
-backup: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Configurar NSS para usar LDAP
-template:</p>
-<blockquote>
-<div><p>src: nsswitch.conf.j2
-dest: /etc/nsswitch.conf
-owner: root
-group: root
-mode: “0644”
-backup: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Inserta linea si no existe
-lineinfile:</p>
-<blockquote>
-<div><p>path: /etc/hosts
-line: «172.16.0.10 compute-0-0 ldap.tunombre.local»
-state: present</p>
-</div></blockquote>
-</li>
-<li><p>name: Instalar paquete nfs-common
-apt:</p>
-<blockquote>
-<div><p>name: nfs-common
-state: present
-update_cache: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Instalar autofs
-apt:</p>
-<blockquote>
-<div><p>name: autofs
-state: present
-update_cache: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Configurar auto.master
-template:</p>
-<blockquote>
-<div><p>src: auto.master.j2
-dest: /etc/auto.master
-owner: root
-group: root
-mode: “0644”
-backup: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Configurar auto.home
-template:</p>
-<blockquote>
-<div><p>src: auto.home.j2
-dest: /etc/auto.home
-owner: root
-group: root
-mode: “0644”
-backup: yes</p>
-</div></blockquote>
-</li>
-<li><p>name: Iniciar y habilitar autofs
-systemd:</p>
-<blockquote>
-<div><p>name: autofs
-state: started
-enabled: yes</p>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)</span>
+
+-<span class="w"> </span>name:<span class="w"> </span>Instalar<span class="w"> </span>paquetes<span class="w"> </span>cliente<span class="w"> </span>LDAP<span class="w"> </span>modernos
+<span class="w">  </span>apt:
+<span class="w">    </span>name:
+<span class="w">      </span>-<span class="w"> </span>libnss-ldap<span class="w">       </span><span class="c1"># Para NSS (getent passwd, grupos)</span>
+<span class="w">      </span>-<span class="w"> </span>libpam-ldap<span class="w">       </span><span class="c1"># Para PAM (autenticación)</span>
+<span class="w">      </span>-<span class="w"> </span>ldap-utils<span class="w">         </span><span class="c1"># Utilidades como ldapsearch</span>
+<span class="w">    </span>state:<span class="w"> </span>present
+<span class="w">    </span>update_cache:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>ldap.conf
+<span class="w">  </span>template:
+<span class="w">    </span>src:<span class="w"> </span>ldap.conf.j2
+<span class="w">    </span>dest:<span class="w"> </span>/etc/ldap.conf
+<span class="w">    </span>owner:<span class="w"> </span>root
+<span class="w">    </span>group:<span class="w"> </span>root
+<span class="w">    </span>mode:<span class="w"> </span><span class="s1">&#39;0644&#39;</span>
+<span class="w">    </span>backup:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>NSS<span class="w"> </span>para<span class="w"> </span>usar<span class="w"> </span>LDAP
+<span class="w">  </span>template:
+<span class="w">    </span>src:<span class="w"> </span>nsswitch.conf.j2
+<span class="w">    </span>dest:<span class="w"> </span>/etc/nsswitch.conf
+<span class="w">    </span>owner:<span class="w"> </span>root
+<span class="w">    </span>group:<span class="w"> </span>root
+<span class="w">    </span>mode:<span class="w"> </span><span class="s1">&#39;0644&#39;</span>
+<span class="w">    </span>backup:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Inserta<span class="w"> </span>linea<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
+<span class="w">  </span>lineinfile:
+<span class="w">    </span>path:<span class="w"> </span>/etc/hosts
+<span class="w">    </span>line:<span class="w"> </span><span class="s2">&quot;172.16.0.10 compute-0-0 ldap.tunombre.local&quot;</span>
+<span class="w">    </span>state:<span class="w"> </span>present
+-<span class="w"> </span>name:<span class="w"> </span>Instalar<span class="w"> </span>paquete<span class="w"> </span>nfs-common
+<span class="w">  </span>apt:
+<span class="w">    </span>name:<span class="w"> </span>nfs-common
+<span class="w">    </span>state:<span class="w"> </span>present
+<span class="w">    </span>update_cache:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Instalar<span class="w"> </span>autofs
+<span class="w">  </span>apt:
+<span class="w">    </span>name:<span class="w"> </span>autofs
+<span class="w">    </span>state:<span class="w"> </span>present
+<span class="w">    </span>update_cache:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>auto.master
+<span class="w">  </span>template:
+<span class="w">    </span>src:<span class="w"> </span>auto.master.j2
+<span class="w">    </span>dest:<span class="w"> </span>/etc/auto.master
+<span class="w">    </span>owner:<span class="w"> </span>root
+<span class="w">    </span>group:<span class="w"> </span>root
+<span class="w">    </span>mode:<span class="w"> </span><span class="s1">&#39;0644&#39;</span>
+<span class="w">    </span>backup:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>auto.home
+<span class="w">  </span>template:
+<span class="w">    </span>src:<span class="w"> </span>auto.home.j2
+<span class="w">    </span>dest:<span class="w"> </span>/etc/auto.home
+<span class="w">    </span>owner:<span class="w"> </span>root
+<span class="w">    </span>group:<span class="w"> </span>root
+<span class="w">    </span>mode:<span class="w"> </span><span class="s1">&#39;0644&#39;</span>
+<span class="w">    </span>backup:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Iniciar<span class="w"> </span>y<span class="w"> </span>habilitar<span class="w"> </span>autofs
+<span class="w">  </span>systemd:
+<span class="w">    </span>name:<span class="w"> </span>autofs
+<span class="w">    </span>state:<span class="w"> </span>started
+<span class="w">    </span>enabled:<span class="w"> </span>yes
+</pre></div>
+</div>
 <p>Para aplicar el rol podemos usar <code class="docutils literal notranslate"><span class="pre">aplicar_cliente_ldap.yml</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>clientes<span class="w"> </span>LDAP
 <span class="w">  </span>hosts:<span class="w"> </span>cliente3
@@ -814,10 +789,10 @@ enabled: yes</p>
 </pre></div>
 </div>
 <p>con el siguiente inventario <code class="docutils literal notranslate"><span class="pre">/etc/ansible/hosts</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>server<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>servidor<span class="o">]</span>
 server0<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.10
 
-<span class="o">[</span>cliente<span class="o">]</span>
+<span class="o">[</span>clientes<span class="o">]</span>
 cliente1<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.11
 cliente2<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.12
 cliente3<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.13
@@ -826,33 +801,39 @@ cliente3<span class="w"> </span><span class="nv">ansible_host</span><span class=
 </pre></div>
 </div>
 <p>Podemos ejecutar el playbook de la siguiente manera</p>
-<blockquote>
-<div><p># Verificar sintaxis
-ansible-playbook –syntax-check aplicar_cliente_ldap.yml</p>
-<p># Ejecutar en modo prueba
-ansible-playbook –limit cliente3 –check –diff aplicar_cliente_ldap.yml</p>
-<p># Podemos listar los hosts
-ansible-playbook aplicar_cliente_ldap.yml –list-hosts</p>
-<p># Aplicar configuración solo sobre uno
-ansible-playbook –limit cliente3 aplicar_cliente_ldap.yml</p>
-</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificar sintaxis</span>
+ansible-playbook<span class="w"> </span>--syntax-check<span class="w"> </span>aplicar_cliente_ldap.yml
+
+<span class="c1"># Ejecutar en modo prueba</span>
+ansible-playbook<span class="w"> </span>--limit<span class="w"> </span>cliente3<span class="w"> </span>--check<span class="w"> </span>--diff<span class="w"> </span>aplicar_cliente_ldap.yml
+
+<span class="c1"># Podemos listar los hosts</span>
+ansible-playbook<span class="w"> </span>aplicar_cliente_ldap.yml<span class="w"> </span>--list-hosts
+
+<span class="c1"># Aplicar configuración solo sobre uno</span>
+ansible-playbook<span class="w"> </span>--limit<span class="w"> </span>cliente3<span class="w"> </span>aplicar_cliente_ldap.yml
+</pre></div>
+</div>
 </section>
 <section id="docker-ansible">
 <h2>Docker + ansible<a class="headerlink" href="#docker-ansible" title="Link to this heading">#</a></h2>
-<p>cat .Dockerfile
-.. code-block:: bash</p>
-<blockquote>
-<div><p>FROM ubuntu:24.04</p>
-<dl>
-<dt>RUN apt update &amp;&amp; apt install -y </dt><dd><blockquote>
-<div><p>iproute2 iputils-ping net-tools openssh-server vim </p>
-</div></blockquote>
-<p>&amp;&amp; mkdir -p /run/sshd &amp;&amp; echo “root:alumno” | chpasswd &amp;&amp; sed -i “s/#PermitRootLogin prohibit-password/PermitRootLogin yes/” /etc/ssh/sshd_config</p>
-</dd>
-</dl>
-<p>CMD service ssh start &amp;&amp; sleep infinity</p>
-</div></blockquote>
-<p>docker-compose.yml</p>
+<p>Vamos a empezar creando la imagen desde el siguiente <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FROM<span class="w"> </span>ubuntu:24.04
+
+RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>iproute2<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>iputils-ping<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>net-tools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>openssh-server<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>vim<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/run/sshd<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd<span class="w"> </span><span class="se">\</span>
+<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+
+CMD<span class="w"> </span>service<span class="w"> </span>ssh<span class="w"> </span>start<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sleep<span class="w"> </span>infinity
+</pre></div>
+</div>
+<p>Utilizaremos el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> que define un mini clúster de 3 contenedores que simulan máquinas de un clúster</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>services:
 <span class="w">  </span>compute-0-0:
 <span class="w">    </span>build:<span class="w"> </span>.
@@ -895,8 +876,11 @@ networks:
 <span class="w">          </span>gateway:<span class="w"> </span><span class="m">172</span>.16.0.1
 </pre></div>
 </div>
-<p>docker-compose.exe up -d –build
-ssh <a class="reference external" href="mailto:root&#37;&#52;&#48;locahost">root<span>&#64;</span>locahost</a> -p 2222</p>
+<p>Podemos levantar el cluster y conectarnos con los siguietne comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose.exe<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+ssh<span class="w"> </span>root@locahost<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span>
+</pre></div>
+</div>
 </section>
 </section>
 
