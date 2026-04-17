@@ -18,8 +18,8 @@ GNU/Linux
    09_GNULinux_NFS.rst
    10_slurm.rst
    11_modules.rst
-   12_ansible.rst
    13_ldap.rst
+   12_ansible.rst
    14_rockylinux.rst
    15_shell_scripting.rst
    15_ejercicios_shell_scripting.rst
