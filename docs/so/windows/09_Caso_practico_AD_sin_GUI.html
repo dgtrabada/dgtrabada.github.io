@@ -189,8 +189,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -474,9 +474,9 @@
 <h1>Casos prácticos : Active Directory sin GUI<a class="headerlink" href="#casos-practicos-active-directory-sin-gui" title="Link to this heading">#</a></h1>
 <p>Crea los siguiente clones enlazados:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>» llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Clon enlazado 2 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 1 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>&quot; llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>&quot; llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>&quot; llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/68dserxf2iosogqv">vídeo</a></p>
 <section id="configurar-servicio-de-enrutamiento">
@@ -582,7 +582,7 @@
 </section>
 <section id="unir-equipo-al-dominio">
 <h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Link to this heading">#</a></h2>
-<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en «Configuración/Sistema/Información/Dominio o grupo de trabajo»  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:</p>
+<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en &quot;Configuración/Sistema/Información/Dominio o grupo de trabajo&quot;  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS del cliente</span>
 <span class="nb">Get-DnsClientServerAddress</span>
 
@@ -671,7 +671,7 @@
 <span class="nb">Exit-PSSession</span>
 </pre></div>
 </div>
-<p>También ofrece la opción de crear una conexión persistente «PSSession», en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.</p>
+<p>También ofrece la opción de crear una conexión persistente &quot;PSSession&quot;, en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Crear una nueva sesión remota</span>
 <span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-PSSession</span> <span class="n">-ComputerName</span> <span class="n">WC06TUNOMBRE</span>
 
@@ -774,7 +774,7 @@
 <span class="nb">Get-ADOrganizationalUnit</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-SearchBase</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 </pre></div>
 </div>
-<p>Movemos el equipo al «DespachoX»</p>
+<p>Movemos el equipo al &quot;DespachoX&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
 
 <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
@@ -814,7 +814,7 @@
 </section>
 <section id="gestion-de-acl-sin-entorno-grafico">
 <h2>Gestión de ACL sin entorno gráfico<a class="headerlink" href="#gestion-de-acl-sin-entorno-grafico" title="Link to this heading">#</a></h2>
-<p>Access Control List o «Lista de Control de Acceso» es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<p>Access Control List o &quot;Lista de Control de Acceso&quot; es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
 
 <span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
@@ -854,7 +854,7 @@
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Otro ejemplo, vamos a crear una carpeta llamada “XY”, dentro  dos subcarpetas llamadas “X” y “Y”.  Definiremos los permisos para que solo el grupo “X” tenga acceso de entrada a la carpeta “X” dentro de “XY”.»</p>
+<p>Otro ejemplo, vamos a crear una carpeta llamada 'XY', dentro  dos subcarpetas llamadas 'X' y 'Y'.  Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'.&quot;</p>
 <p>Creamos las carpetas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">rm </span><span class="n">-r</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
 
@@ -876,13 +876,13 @@
 <span class="nv">$reglaY</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Agregamos las reglas de acceso a la carpeta «XY»</p>
+<p>Agregamos las reglas de acceso a la carpeta &quot;XY&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$reglaX</span><span class="p">)</span>
 <span class="nv">$acl</span><span class="p">.</span><span class="n">AddAccessRule</span><span class="p">(</span><span class="nv">$reglaY</span><span class="p">)</span>
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Agregamos permisos para para la carpeta «X» pueda ser modificada por el grupo «X»</p>
+<p>Agregamos permisos para para la carpeta &quot;X&quot; pueda ser modificada por el grupo &quot;X&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
 
 <span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span>
@@ -893,7 +893,7 @@
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Agregamos permisos para para la carpeta «Y» pueda ser modificada por el grupo «Y»</p>
+<p>Agregamos permisos para para la carpeta &quot;Y&quot; pueda ser modificada por el grupo &quot;Y&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\Y&quot;</span>
 <span class="nv">$permisos</span> <span class="p">=</span> <span class="s2">&quot;Modify&quot;</span>
 <span class="nv">$regla</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>

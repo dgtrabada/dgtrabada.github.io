@@ -191,8 +191,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -679,7 +679,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Si hacemos (C:Users….Ejercicio ls) veremos que se han creado 10 archivos.
+<p>Si hacemos (C:Users....Ejercicio ls) veremos que se han creado 10 archivos.
 Puedes también recorrerlos de la siguiente forma:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">In</span> <span class="p">$(</span><span class="nb">Get-ChildItem</span> <span class="n">-Filter</span> <span class="p">*.</span><span class="n">dat</span> <span class="p">)){</span>
   <span class="nb">echo </span><span class="s2">&quot;i = $i&quot;</span>
@@ -1204,7 +1204,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script de PowerShell llamdo <strong>piedra_papel_tijera.ps1</strong> que implemente el clásico juego «Piedra, Papel o Tijeras» donde el usuario compite contra la computadora.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script de PowerShell llamdo <strong>piedra_papel_tijera.ps1</strong> que implemente el clásico juego &quot;Piedra, Papel o Tijeras&quot; donde el usuario compite contra la computadora.</p>
 </div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="k">param</span> <span class="p">(</span>
 <span class="c">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
     <span class="no">[string]</span><span class="nv">$Opcion_usuario</span> <span class="p">=</span> <span class="s2">&quot;tijeras&quot;</span>
@@ -1676,7 +1676,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
 <li><p>GPWS09</p></li>
 </ul>
 <ol class="arabic">
@@ -1687,7 +1687,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <p><strong>El grupo $nombre_grupo existe, no se crea</strong></p>
 </li>
 </ol>
-<p>ayuda : $nombre_grupo=”GPWS03” ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
+<p>ayuda : $nombre_grupo='GPWS03' ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
 </div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># crear_usuarios_grupos.ps1</span>
 
 <span class="c"># Bucle para crear los grupos GPWS01 a GPWS09</span>
@@ -1714,7 +1714,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <ul>
 <li><p>tunombre_gpws01_01</p></li>
 <li><p>tunombre_gpws01_02</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
 <li><p>tunombre_gpws01_08</p></li>
 <li><p>tunombre_gpws01_09</p></li>
 </ul>
@@ -1723,22 +1723,22 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 <ul>
 <li><p>tunombre_gpws02_01</p></li>
 <li><p>tunombre_gpws02_02</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
 <li><p>tunombre_gpws02_08</p></li>
 <li><p>tunombre_gpws02_09</p></li>
 </ul>
 </li>
-<li><p>…</p>
+<li><p>...</p>
 <ul>
-<li><p>…</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
+<li><p>...</p></li>
 </ul>
 </li>
 <li><p>GPWS09</p>
 <ul>
 <li><p>tunombre_gpws09_01</p></li>
 <li><p>tunombre_gpws09_02</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
 <li><p>tunombre_gpws09_08</p></li>
 <li><p>tunombre_gpws09_09</p></li>
 </ul>

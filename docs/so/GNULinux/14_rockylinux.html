@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Shell Scripting" href="15_shell_scripting.html" />
-    <link rel="prev" title="LDAP" href="13_ldap.html" />
+    <link rel="prev" title="Ansible" href="12_ansible.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -189,8 +189,8 @@
 <li class="toctree-l3"><a class="reference internal" href="09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -472,10 +472,10 @@
 <ul>
 <li><p>Descargate la iso de <a class="reference external" href="https://rockylinux.org/">Rocky Linux</a> Minimal para la arquitectura X86_64</p></li>
 <li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
-<li><p>Llama a esta maquina virtual <strong>«MV Rocky Linux»</strong>.</p></li>
+<li><p>Llama a esta maquina virtual <strong>&quot;MV Rocky Linux&quot;</strong>.</p></li>
 <li><p>Utilizad dos adaptadores de red:
-* Tarjeta red modo «<strong>Puente</strong>» : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
-* Tarjeta de red modo «<strong>Red interna</strong>» : 172.16.0.10/16</p></li>
+* Tarjeta red modo &quot;<strong>Puente</strong>&quot; : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
+* Tarjeta de red modo &quot;<strong>Red interna</strong>&quot; : 172.16.0.10/16</p></li>
 <li><p>En el destino de la instalación, selecciona el disco duro si no esta ya seleccionado y deja la configuración de almacenamiento de forma Automática</p></li>
 <li><p>Configura la red en (RED Y NOMBRE DE ANFITRIÓN), haz que el nombre del equipo sea <strong>compute-0-0</strong></p></li>
 <li><p>Crea la contraseña de root</p></li>
@@ -494,18 +494,18 @@ En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>
 <section id="caso-practico-cluster-con-red-interna">
 <h2>Caso práctico: Cluster con red interna<a class="headerlink" href="#caso-practico-cluster-con-red-interna" title="Link to this heading">#</a></h2>
 <ul>
-<li><p>Crea dos clones enlazados de «MV Rocky Linux» llámalos «<strong>compute-0-0</strong>» y «<strong>compute-0-1</strong>»</p>
+<li><p>Crea dos clones enlazados de &quot;MV Rocky Linux&quot; llámalos &quot;<strong>compute-0-0</strong>&quot; y &quot;<strong>compute-0-1</strong>&quot;</p>
 <ul>
 <li><p><strong>compute-0-0</strong>:</p>
 <ul class="simple">
-<li><p>Tarjeta red modo «Puente» : 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
-<li><p>Tarjeta de red modo «Red interna» : 172.16.0.10/16</p></li>
+<li><p>Tarjeta red modo &quot;Puente&quot; : 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
+<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 <li><p>Haz que el usuario root pueda acceder por ssh sin pedir contraseña</p></li>
 </ul>
 </li>
 <li><p><strong>compute-0-1</strong></p>
 <ul class="simple">
-<li><p>Deja solo una tarjeta de red en modo «Red interna» : 172.16.0.11/16 (tiene internet a través de compute-0-0), deshabilita la segunda tarjeta nmtui (IPv4 &lt;disabled&gt;)</p></li>
+<li><p>Deja solo una tarjeta de red en modo &quot;Red interna&quot; : 172.16.0.11/16 (tiene internet a través de compute-0-0), deshabilita la segunda tarjeta nmtui (IPv4 &lt;disabled&gt;)</p></li>
 <li><p>Cambia el nombre por compute-0-1 (/etc/h0stname)</p></li>
 <li><p>Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña</p></li>
 </ul>
@@ -709,7 +709,7 @@ IP.5<span class="w"> </span><span class="o">=</span><span class="w"> </span><spa
 DNS.1<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span>.8.8.8
 </pre></div>
 </div>
-<p>Necesitaremos otra clave privada para el servidor LDAP con el nombre «ldap.tunombre.local.key» para ello</p>
+<p>Necesitaremos otra clave privada para el servidor LDAP con el nombre &quot;ldap.tunombre.local.key&quot; para ello</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/etc/pki/CA/private
 openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ldap.tunombre.local.key<span class="w"> </span><span class="m">4096</span>
 </pre></div>
@@ -865,12 +865,12 @@ URI<span class="w"> </span>ldap://ldap.tunombre.local
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="13_ldap.html"
+       href="12_ansible.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">LDAP</p>
+        <p class="prev-next-title">Ansible</p>
       </div>
     </a>
     <a class="right-next"

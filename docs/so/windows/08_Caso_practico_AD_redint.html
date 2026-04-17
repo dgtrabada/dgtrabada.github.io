@@ -189,8 +189,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -474,10 +474,10 @@
 <h1>Casos prácticos : Active Directory con red interna<a class="headerlink" href="#casos-practicos-active-directory-con-red-interna" title="Link to this heading">#</a></h1>
 <p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de «Windows Server 2022» llamado <strong>SRVtunombre</strong> con IP 10.4.X.Y/8, red NAT si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Clon enlazado 2 de «Windows 11» llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de «Windows 11» llamado <strong>WC07tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 1 de &quot;Windows Server 2022&quot; llamado <strong>SRVtunombre</strong> con IP 10.4.X.Y/8, red NAT si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de &quot;Windows 11&quot; llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de &quot;Windows 11&quot; llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de &quot;Windows 11&quot; llamado <strong>WC07tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.17/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3">vídeo</a></p>
 <section id="configurar-servicio-de-enrutamiento">
@@ -591,7 +591,7 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 </section>
 <section id="intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
 <h2>Intalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#intalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Link to this heading">#</a></h2>
-<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la «OU=Computers»</p>
+<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la &quot;OU=Computers&quot;</p>
 <img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
 <p>En <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong> creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC</p>
 <img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
@@ -619,9 +619,9 @@ Dentro de cada unidad organizativa crea los siguientes usuarios:</p>
 <section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
 <h2>Mapear unidades de red a las carpetas compartidas.<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Link to this heading">#</a></h2>
 <p>Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados</p>
-<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente <strong>«Ususarios / Empleados»</strong> en llamada <strong>«Mapeo de unidades de empleados»</strong></p>
+<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente <strong>&quot;Ususarios / Empleados&quot;</strong> en llamada <strong>&quot;Mapeo de unidades de empleados&quot;</strong></p>
 <img alt="../../_images/GPOINT07.png" src="../../_images/GPOINT07.png" />
-<p>Con el botón derecho del ratón abrimos el <strong>«Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -&gt; nuevo / unidad asignada»</strong></p>
+<p>Con el botón derecho del ratón abrimos el <strong>&quot;Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -&gt; nuevo / unidad asignada&quot;</strong></p>
 <img alt="../../_images/GPOINT08.png" src="../../_images/GPOINT08.png" />
 <p>Seleccionamos la Acción de Crear:</p>
 <img alt="../../_images/GPOINT09.png" src="../../_images/GPOINT09.png" />
@@ -649,7 +649,7 @@ net<span class="w"> </span>use<span class="w"> </span>i:<span class="w"> </span>
 </section>
 <section id="aplicar-cuota">
 <h2>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Link to this heading">#</a></h2>
-<p>Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de «Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos»</p>
+<p>Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de &quot;Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos&quot;</p>
 <img alt="../../_images/CuotaAD01.png" src="../../_images/CuotaAD01.png" />
 <p>Para activar las cuotas vamos a:</p>
 <img alt="../../_images/CuotaAD02.png" src="../../_images/CuotaAD02.png" />

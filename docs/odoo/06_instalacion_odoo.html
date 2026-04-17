@@ -189,8 +189,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -506,8 +506,8 @@ contraseña: alumno</p>
 Copia de seguridad utilizando docker:</p>
 <p>~/odoo$ docker ps
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
-7e9e3ea5f34b odoo:14.0 «/entrypoint.sh odoo» 8 minutes ago Up 8 minutes 0.0.0.0:8069-&gt;8069/tcp, :::8069-&gt;8069/tcp, 8071-8072/tcp odoo_web_1
-9a7c5275eaeb postgres:13 «docker-entrypoint.s…» 8 minutes ago Up 8 minutes 5432/tcp</p>
+7e9e3ea5f34b odoo:14.0 &quot;/entrypoint.sh odoo&quot; 8 minutes ago Up 8 minutes 0.0.0.0:8069-&gt;8069/tcp, :::8069-&gt;8069/tcp, 8071-8072/tcp odoo_web_1
+9a7c5275eaeb postgres:13 &quot;docker-entrypoint.s...&quot; 8 minutes ago Up 8 minutes 5432/tcp</p>
 <p>~/odoo$ docker stop 7e9e3ea5f34b 9a7c5275eaeb
 ~/odoo$ docker commit -p 7e9e3ea5f34b odoo:14.0.1
 ~/odoo$ docker commit -p 9a7c5275eae postgres:13.0.1</p>
@@ -519,8 +519,8 @@ odoo 14.0 89152df6e5b4 8 days ago 1.46GB
 postgres 13 0896a8e0282d 2 weeks ago 371MB</p>
 <p>docker ps -a
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
-7e9e3ea5f34b odoo:14.0 «/entrypoint.sh odoo» 19 minutes ago Exited (0) 10 minutes ago odoo_web_1
-9a7c5275eaeb postgres:13 «docker-entrypoint.s…» 19 minutes ago Exited (0) 10 minutes ago odoo_db_1
+7e9e3ea5f34b odoo:14.0 &quot;/entrypoint.sh odoo&quot; 19 minutes ago Exited (0) 10 minutes ago odoo_web_1
+9a7c5275eaeb postgres:13 &quot;docker-entrypoint.s...&quot; 19 minutes ago Exited (0) 10 minutes ago odoo_db_1
 dani&#64;fireball:~/odoo$ docker rm 7e9e3ea5f34b 9a7c5275eaeb</p>
 <p>actualizamos docker-compose.yml
 image: odoo:14.0.1
@@ -532,8 +532,8 @@ docker save -o ~/container-postgres-backup.tar container-postgres-backup
 docker save -o ~/container-odoo-backup.tar container-odoo-backup
 sudo docker load -i container-postgres-backup.tar
 sudo docker load -i container-odoo-backup.tar</p>
-<p>sudo docker run -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo -e POSTGRES_DB=postgres –name db container-postgres-backup
-sudo docker run -p 8069:8069 –name odoo –link db:db -t container-odoo-backup</p>
+<p>sudo docker run -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo -e POSTGRES_DB=postgres --name db container-postgres-backup
+sudo docker run -p 8069:8069 --name odoo --link db:db -t container-odoo-backup</p>
 <p>sudo docker start db
 nohup sudo docker start -a odoo &amp;</p>
 <p>#limpieza

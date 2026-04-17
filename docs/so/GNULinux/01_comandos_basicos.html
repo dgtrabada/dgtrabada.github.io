@@ -189,8 +189,8 @@
 <li class="toctree-l3"><a class="reference internal" href="09_GNULinux_NFS.html">NFS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_slurm.html">Slurm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_modules.html">Environment modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
@@ -481,7 +481,7 @@
 <li><p><strong>PID</strong> Número único que identifica cada proceso en el sistema</p></li>
 <li><p><strong>USUARIO</strong> Nombre del usuario que es dueño del proceso</p></li>
 <li><p><strong>PR</strong> Prioridad del proceso en el sistema operativo</p></li>
-<li><p><strong>NI</strong> Valor de «amabilidad» que afecta cuánto CPU recibe el proceso</p></li>
+<li><p><strong>NI</strong> Valor de &quot;amabilidad&quot; que afecta cuánto CPU recibe el proceso</p></li>
 <li><p><strong>VIRT</strong> Memoria virtual total que el proceso está usando</p></li>
 <li><p><strong>RES</strong> Memoria física (RAM) real que el proceso está usando</p></li>
 <li><p><strong>SHR</strong> Memoria que el proceso comparte con otros procesos</p></li>
@@ -558,7 +558,7 @@ Ctrl+Z<span class="w">     </span><span class="c1"># para  detener una tarea en 
 Ctrl+C<span class="w">     </span><span class="c1"># para cancelar una tarea en primer plano</span>
 </pre></div>
 </div>
-<p><strong>/etc/security/limits.conf</strong> es utilizado en sistemas Unix y Linux para configurar límites de recursos y privilegios para usuarios y grupos. Este archivo permite establecer restricciones específicas sobre cómo los usuarios pueden utilizar los recursos del sistema, como la cantidad de memoria, la cantidad de procesos, el número de archivos abiertos, entre otros. También se utiliza para establecer prioridades y políticas de programación para procesos específicos.nLos límites definidos en «/etc/security/limits.conf» son aplicados por el sistema de gestión de límites de recursos (RLIMIT) del kernel. Esto permite evitar el uso excesivo de recursos por parte de usuarios o grupos, lo que podría llevar a una degradación del rendimiento del sistema o incluso a problemas de seguridad.</p>
+<p><strong>/etc/security/limits.conf</strong> es utilizado en sistemas Unix y Linux para configurar límites de recursos y privilegios para usuarios y grupos. Este archivo permite establecer restricciones específicas sobre cómo los usuarios pueden utilizar los recursos del sistema, como la cantidad de memoria, la cantidad de procesos, el número de archivos abiertos, entre otros. También se utiliza para establecer prioridades y políticas de programación para procesos específicos.nLos límites definidos en &quot;/etc/security/limits.conf&quot; son aplicados por el sistema de gestión de límites de recursos (RLIMIT) del kernel. Esto permite evitar el uso excesivo de recursos por parte de usuarios o grupos, lo que podría llevar a una degradación del rendimiento del sistema o incluso a problemas de seguridad.</p>
 <p><strong>/proc/self</strong> es un atajo que permite a un proceso acceder a información sobre sí mismo a través del sistema de archivos virtual /proc, que proporciona una ventana al kernel para monitorear y gestionar procesos y recursos del sistema.</p>
 </section>
 <section id="ficheros-y-directorios">
@@ -673,7 +673,7 @@ bash
 <section id="compresion">
 <h2>Compresión<a class="headerlink" href="#compresion" title="Link to this heading">#</a></h2>
 <ul>
-<li><p><strong>tar, gzip, gunzip, zip</strong> combina una colección de archivos y carpetas en un solo archivo (conocido como «tarball»). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar.</p>
+<li><p><strong>tar, gzip, gunzip, zip</strong> combina una colección de archivos y carpetas en un solo archivo (conocido como &quot;tarball&quot;). Luego, puedes usar gzip (u otras herramientas como bzip2 o xz) para comprimir ese archivo .tar.</p>
 <img alt="../../_images/tar.png" src="../../_images/tar.png" />
 </li>
 </ul>
@@ -686,13 +686,13 @@ bash
 <li><p><strong>apt-get upgrade</strong> actualiza el paquete indicado si existe versión nueva en repositorio.</p></li>
 <li><p><strong>apt-get install</strong> instala un paquete y sus dependencias (+install -remove)</p>
 <ul>
-<li><p>con la opción –reinstall reinstala el paquete.</p></li>
+<li><p>con la opción --reinstall reinstala el paquete.</p></li>
 </ul>
 </li>
 <li><p><strong>apt-get remove</strong> desinstala un paquete instalado (+install -remove)</p></li>
 <li><p><strong>apt-get purge</strong> desinstala eliminando ficheros de configuración.</p></li>
 <li><p><strong>apt-get install -f</strong> resuelve las dependencias de paquetes rotos instalando lo necesario.</p></li>
-<li><p><strong>dpkg –configure -a</strong> intenta reconfigurar todos los paquetes desplegados no configurados</p></li>
+<li><p><strong>dpkg --configure -a</strong> intenta reconfigurar todos los paquetes desplegados no configurados</p></li>
 <li><p><strong>dpkg -i</strong> instalación manual</p></li>
 </ul>
 </section>
@@ -825,7 +825,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <li><p><strong>ro</strong>: indica que el dispositivo se monta con permisos de lectura solamente.</p></li>
 <li><p><strong>owner</strong>: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).</p></li>
 <li><p><strong>user</strong> : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.</p></li>
-<li><p><strong>suid</strong> : indica que el permiso <a href="#id1"><span class="problematic" id="id2">``</span></a>s”” tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)</p></li>
+<li><p><strong>suid</strong> : indica que el permiso <a href="#id1"><span class="problematic" id="id2">``</span></a>s'' tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)</p></li>
 <li><p><strong>exec</strong> : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.</p></li>
 <li><p><strong>async</strong> : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.</p></li>
 <li><p><strong>dev</strong> : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.</p></li>
@@ -849,8 +849,8 @@ $<span class="w"> </span>sudo<span class="w"> </span>file<span class="w"> </span
 <li><p><strong>-v</strong> (verbose): Muestra información detallada sobre el proceso de sincronización.</p></li>
 <li><p><strong>-r</strong> (recursive): Copia directorios recursivamente.</p></li>
 <li><p><strong>-a</strong> (archive): Modo de copia de seguridad, que conserva metadatos como permisos, propiedades y fechas de modificación.</p></li>
-<li><p><strong>–delete</strong>: Elimina archivos en el destino que no existen en el origen (útil para mantener los dos sistemas iguales).</p></li>
-<li><p><strong>–exclude</strong>: Permite excluir ciertos archivos o patrones de archivos de la sincronización.</p></li>
+<li><p><strong>--delete</strong>: Elimina archivos en el destino que no existen en el origen (útil para mantener los dos sistemas iguales).</p></li>
+<li><p><strong>--exclude</strong>: Permite excluir ciertos archivos o patrones de archivos de la sincronización.</p></li>
 <li><p><strong>-n</strong> (dry-run): Realiza una simulación de la sincronización sin realizar cambios en el sistema de archivos.</p></li>
 <li><p><strong>-P</strong> (progress): Muestra el progreso de la transferencia.</p></li>
 </ul>
