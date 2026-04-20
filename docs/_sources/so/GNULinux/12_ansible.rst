@@ -296,11 +296,11 @@ Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado `
  └── vars
      └── main.yml
 
-En el archivo ``clusterLDAP/tasks/main.yml`` tenemos:
+En el archivo ``cluster-tunombre/tasks/main.yml`` tenemos:
 
 .. code-block:: bash
 
- # tasks file for clusterLDAP (Versión Moderna con libnss-ldapd)
+ # tasks file for cluster-tunombre (Versión Moderna con libnss-ldapd)
  
  - name: Instalar paquetes cliente LDAP modernos
    apt:
