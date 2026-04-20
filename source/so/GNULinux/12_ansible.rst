@@ -76,7 +76,7 @@ Comprobamos la conexión
 
 
 Comandos ad hoc
-************************
+***************
 
 Cualquier comando que ejecute normalmente en un servidor remoto a través de SSH puede ejecutarse con Ansible en los servidores especificados en su archivo de inventario. Como ejemplo, puede verificar la utilización del disco en todos los servidores con lo siguiente:
 
@@ -490,6 +490,6 @@ Podemos levantar el cluster y conectarnos con los siguietne comandos:
 
 Videos
 ******
-* `Ansible en Ubuntu 24.04 LTS <>`_
+* `Ansible LDAP autofs en Ubuntu 24.04 LTS <https://mediateca.educa.madrid.org/video/m8p67seyxyz16zrk>`_
 * `Ansible en Ubuntu 22.04 LTS <https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8>`_
 
