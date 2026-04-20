@@ -14,7 +14,7 @@ Los **Roles** es una agrupación de ficheros, tareas y plantillas
 
 Una **Task** se podría definir como una acción a realizar.
 
-Instalamos ansible (`vídeo <https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8>`_)
+Instalamos ansible:
 
 .. code-block:: bash
 
@@ -110,7 +110,7 @@ Podemos especificar múltiples hosts separándolos con comas:
 
 .. code-block:: bash
 
- ansible server1:server2 -m ping -u root
+ ansible server1,server2 -m ping -u root
 
 Plabook
 *******
@@ -334,6 +334,7 @@ En el archivo ``clusterLDAP/tasks/main.yml`` tenemos:
      path: /etc/hosts
      line: "172.16.0.10 compute-0-0 ldap.tunombre.local"
      state: present
+
  - name: Instalar paquete nfs-common
    apt:
      name: nfs-common
@@ -486,4 +487,9 @@ Podemos levantar el cluster y conectarnos con los siguietne comandos:
  docker-compose.exe up -d --build
  ssh root@locahost -p 2222
 
+
+Videos
+******
+* `Ansible en Ubuntu 24.04 LTS <>`_
+* `Ansible en Ubuntu 22.04 LTS <https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8>`_
 
