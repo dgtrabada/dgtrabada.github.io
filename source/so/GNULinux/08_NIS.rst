@@ -6,10 +6,36 @@ Originalmente **NIS** se llamaba *Páginas Amarillas (Yellow Pages)*, o *YP*, qu
 
 DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
 
-En el servidor (Ubuntu server 24.04)
-************************************
 
-Instalamos
+Caso práctico: NIS con red NAT y red Interna
+********************************************
+
+* Haz dos clones enlazados de **MV Ubuntu Server 26.04** haz que tengan las siguientes IPs:
+
+  * compute-0-0: (Servidor NIS)
+
+    * Tarjeta red modo "Red Nat [#redNat1]_ 10.0.2.10/24 utiliza el puerto 2222 del anfitrión"
+    * Tarjeta de red modo "Red interna" : 172.16.0.10/16
+
+  * compute-0-1 (Cliente NIS)
+
+    * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
+
+Cambia el nombre de la maquinas en el archivo ``/etc/hostname`` cambia la ip en ``/etc/netplan/00-installer-config.yaml`` y revisa ``/etc/hosts``
+
+Para habilitar la conectividad, es necesario que el servidor actúe como router, reenviando el tráfico entre redes. Esto puede configurarse utilizando herramientas como systemd [#systemd]_ o nftables [#nftables]_, que permite definir reglas de encaminamiento y NAT.
+
+Configuración del servidor
+==========================
+
+Crea los siguientes usuarios y grupos en el servidor **compute-0-0**
+  
+* **tunombre1** con contraseña **alumno** dentro del grupo **tuapellido**
+* **tunombre2** con contraseña **alumno** dentro del grupo **tuapellido**
+* **tunombre3** con contraseña **alumno** dentro del grupo **tuapellido**
+* **tunombre4** con contraseña **alumno** dentro del grupo **tuapellido**
+  
+Instala el servidor NIS en el servidor (compute-0-0)
 
 .. code-block:: bash
 
@@ -18,7 +44,7 @@ Instalamos
   #Instalamos dominio servidor.X.nis  donde X son las 3 primeras iniciales de tu nombre
   apt-get -y install nis 
   
-En /etc/hosts añadimos:
+En ``/etc/hosts`` añadimos:
 
 .. code-block:: bash
 
@@ -51,14 +77,16 @@ Iniciar el servidor nis :
   systemctl enable ypserv.service 
   systemctl status ypserv.service
   
-Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.
+Configurar archivo de ``/etc/hosts``, mete a todos los clientes.
 
-En el cliente
-*************
+
+Configuración del cliente
+==========================
+  
+Instala el cliente NIS en el cliente **compute-0-1**
 
 .. code-block:: bash
 
-  # Instalamos el paquete nis
   apt-get -y install nis 
   
 Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo 
@@ -76,7 +104,6 @@ En ``/etc/nsswitch.conf`` añadiendo al final de cada línea la palabra "nis".
   passwd: files systemd nis
   group: files systemd nis
   shadow: files nis
-
 
 En /etc/yp.conf  añadimos ``ypserver <ip_del_servidor_nis>``, y añade el servidor al /etc/hosts
 
@@ -112,64 +139,10 @@ Si diera algún error al conectar, podría ser por el firewall, para borrar las 
 
 Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
 
-
-Caso práctico: NIS con adaptador puente
-***************************************
-
-* Haz dos clones enlazados de **MV Ubuntu Server 24.04** como se muestra en el `vídeo <https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze>`_, haz que tengan las siguientes IPs:
-
-  * Clon enlazado 1 : **compute-0-0** 10.4.X.Y/8 (DHCP si usas portátil)
-
-  * Clon enlazado 2 : **compute-0-1** 10.5.X.Y/8 (DHCP si usas portátil)
-  
-    .. image:: imagenes/virtualbox.jpg
    
-  * Es decir, tendríamos la siguiente configuración
-  
-    .. image:: imagenes/caso_adaptador_puente.jpg
-  
+.. rubric:: Notas
 
-  * Cambia el nombre de la maquina **compute-0-1** para ello modifica el archivo ``/etc/hostname`` cambia la ip en ``/etc/netplan/00-installer-config.yaml`` y revisa ``/etc/hosts`` de ambas maquinas
-  
-  * Crea los siguientes usuarios y grupos en el servidor (compute-0-0)
-  
-    | **tunombre1** con contraseña **alumno** dentro del grupo **tuapellido**
-    | **tunombre2** con contraseña **alumno** dentro del grupo **tuapellido**
-    | **tunombre3** con contraseña **alumno** dentro del grupo **tuapellido**
-    | **tunombre4** con contraseña **alumno** dentro del grupo **tuapellido**
-  
-  * Instala el servidor NIS en el servidor (compute-0-0)
-  
-  * Instala el cliente NIS en el cliente (compute-0-1)
-  
-  * Reinicia las maquinas y comprueba que todo funciona ``getent passwd``
-
-Caso práctico: NIS con red NAT
-******************************
-
-* Vamos a cambiar la configuración anterior a red NAT como se muestra en el `vídeo <https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq>`_
-
-  .. image:: imagenes/redNAT.png
-   
-
-Caso práctico: NIS con red interna
-**********************************
-
-* En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.
-
-  .. image:: imagenes/caso_redinterna.jpg
-
-* Puedes ver el desarrollo en el siguiente  `vídeo <https://mediateca.educa.madrid.org/video/gy1jjn5mlbfmtl4h>`_
-
-* Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección  172.16.0.10/16
-
-  .. image:: imagenes/adaptador_servidor.jpg
-
-* Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16
-    
-  .. image:: imagenes/adaptador_cliente.jpg
-      
-* Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):
+.. [#systemd] systemd
 
   .. code-block:: bash
    
@@ -213,8 +186,7 @@ Caso práctico: NIS con red interna
 
 * Si no lo habías realizado, ejecutamos en el cliente ``sudo pam-auth-update`` y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
 
-nftables
-========
+.. [#nftables] nftables
 
 Podemos enrutar con **nftables**, es el sistema de filtrado de paquetes y firewall del kernel de Linux que permite controlar el tráfico de red (permitir, bloquear, redirigir o modificar paquetes).
 
@@ -242,6 +214,8 @@ Añandimos en ``/etc/nftables.conf``
       }
   }
 
+Para que el servidor enrute tráfico ``sudo sysctl -w net.ipv4.ip_forward=1``
+
 Activamos ip_forward de forma permanente:
 
 .. code-block:: bash
@@ -254,3 +228,15 @@ Habilitamos el servicio y lo iniciamos
   
   systemctl enable nftables
   systemctl start nftables
+
+  
+.. [#redNat1] Configuración red NAT
+
+ .. image:: imagenes/redNAT.png
+
+.. [#v1] vídeos
+
+ * `NIS red NAT Ubuntu Server 26.04 LTS red NAT <https://mediateca.educa.madrid.org/video/jhn2ix9u1fkthko9>`_
+ * `NIS red NAT Ubuntu Server 24.04 LTS red NAT  <https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq>`_
+ * `NIS Ubuntu Server 24.04 LTS con red interna  <https://mediateca.educa.madrid.org/video/gy1jjn5mlbfmtl4h>`_
+ * `NIS Ubuntu Server 24.04 LTS adaptador puente <https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze>`_

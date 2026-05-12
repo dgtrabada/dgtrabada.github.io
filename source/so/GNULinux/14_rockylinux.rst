@@ -461,4 +461,5 @@ Fíjate que en /etc/openldap/ldap.conf ha introducido las siguientes lineas
 
 
 Bibliografía:
-https://www.golinuxcloud.com/configure-openldap-with-tls-certificates/#Create_private_key_for_CA_certificate
+
+* `golinuxcloud <https://www.golinuxcloud.com/configure-openldap-with-tls-certificates/#Create_private_key_for_CA_certificate>_`

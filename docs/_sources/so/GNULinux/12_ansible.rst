@@ -204,43 +204,93 @@ Para cambiar el grupo de hosts por defecto.
 Roles
 *****
 
-Cuando se crea un rol, se descompone el playbook en partes y esas partes se encuentran en una estructura de directorios.
+Cuando trabajamos con **Ansible**, es habitual que los playbooks crezcan y se vuelvan difíciles de mantener. Para solucionar esto, Ansible introduce el concepto de **roles**, que permiten organizar la configuración en partes reutilizables y bien estructuradas.
 
-Vamos a ver un ejemplo utilizando el comando
+Un **rol** es una forma de dividir un playbook en componentes más pequeños, cada uno con una función concreta (instalar paquetes, configurar servicios, gestionar usuarios, etc.).
+
+Creación de un rol
+==================
+
+Podemos crear un rol con el siguiente comando:
 
 .. code-block:: bash
 
- ansible-galaxy init --offline cluster-ubuntu22.04
+   ansible-galaxy init --offline nombre_rol
 
-Como podemos ver se han creado los siguientes directorios:
+Este comando genera automáticamente una estructura de directorios estándar como la siguiente:
 
 .. code-block:: bash
 
- root@compute-0-0:~# tree cluster-ubuntu22.04/
- cluster-ubuntu22.04/
- ├── defaults
- │   └── main.yml
- ├── handlers
- │   └── main.yml
- ├── meta
- │   └── main.yml
- ├── README.md
- ├── tasks
- │   └── main.yml
- ├── tests
- │   ├── inventory
- │   └── test.yml
- └── vars
-     └── main.yml
+   nombre_rol/
+   ├── defaults
+   │   └── main.yml
+   ├── handlers
+   │   └── main.yml
+   ├── meta
+   │   └── main.yml
+   ├── README.md
+   ├── tasks
+   │   └── main.yml
+   ├── tests
+   │   ├── inventory
+   │   └── test.yml
+   └── vars
+       └── main.yml
 
- 6 directories, 8 files
+Estructura del rol
+==================
 
-Los diversos archivos main.yml contienen contenido dependiendo de su ubicación en la estructura de directorios que se muestra arriba. Por ejemplo, vars/main.yml hace referencia a variables, handlers/main.yaml describe controladores, y así sucesivamente.
+Cada uno de estos directorios tiene un propósito específico:
 
-Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no en ambos lugares.
+- **tasks/main.yml**  
+  Define las tareas principales del rol. Es donde se realiza el trabajo (instalar paquetes, copiar archivos, ejecutar comandos, etc.).
 
-Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   https://galaxy.ansible.com/, para su posterior instalación.
+- **handlers/main.yml**  
+  Contiene acciones que se ejecutan solo cuando son notificadas por una tarea, como reiniciar un servicio.
 
+- **vars/main.yml**  
+  Define variables internas del rol con alta prioridad.
+
+- **defaults/main.yml**  
+  Define variables por defecto (baja prioridad), pensadas para ser modificadas por el usuario.
+
+- **meta/main.yml**  
+  Incluye información del rol, como dependencias de otros roles.
+
+- **tests/**  
+  Permite probar el rol con un inventario y un playbook de ejemplo.
+
+- **README.md**  
+  Documentación del rol (uso, variables, descripción, etc.).
+
+Consideraciones
+===============
+
+- Las variables pueden definirse tanto en **defaults** como en **vars**, pero normalmente se elige uno según la prioridad que necesitemos.
+- La lógica principal del rol debe ir en **tasks**.
+- Es recomendable mantener los roles simples y reutilizables.
+
+Uso de un rol en un playbook
+===========================
+
+Un rol se utiliza dentro de un playbook de la siguiente forma:
+
+.. code-block:: yaml
+
+   - hosts: servidores
+     roles:
+       - nombre_rol
+
+De esta forma, todas las tareas definidas en el rol se ejecutarán sobre los hosts indicados.
+
+Ventajas de usar roles
+=====================
+
+- Facilitan la reutilización del código.
+- Mejoran la organización y legibilidad.
+- Permiten trabajar de forma modular.
+- Se pueden versionar con herramientas como **git**.
+- Se pueden compartir en plataformas como Ansible Galaxy.
 
 
 Caso práctico: compute-0-3
@@ -421,7 +471,7 @@ Vamos a empezar creando la imagen desde el siguiente ``Dockerfile``
 
 .. code-block:: bash
 
- FROM ubuntu:24.04
+ FROM ubuntu:26.04
  
  RUN apt update && apt install -y \
      iproute2 \
@@ -429,11 +479,14 @@ Vamos a empezar creando la imagen desde el siguiente ``Dockerfile``
      net-tools \
      openssh-server \
      vim \
+     sudo \
   && mkdir -p /run/sshd \
   && echo 'root:alumno' | chpasswd \
   && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
  CMD service ssh start && sleep infinity
+
+Hacemos las imágenes (si hace falta) y levantamos los contenedores en segundo plano ``docker compose up -d --build``.
 
 Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 3 contenedores que simulan máquinas de un clúster
 
@@ -446,12 +499,10 @@ Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 
      privileged: true
      tty: true
      hostname: compute-0-0
-     ports:
-       - "2222:22"
      networks:
        internal_net:
-         ipv4_address: 172.16.0.10
- 
+         ipv4_address: 172.16.0.10   
+
    compute-0-1:
      build: .
      container_name: compute-0-1
@@ -460,7 +511,7 @@ Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 
      hostname: compute-0-1
      networks:
        internal_net:
-         ipv4_address: 172.16.0.11 
+         ipv4_address: 172.16.0.11
 
    compute-0-2:
      build: .
@@ -470,7 +521,7 @@ Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 
      hostname: compute-0-2
      networks:
        internal_net:
-         ipv4_address: 172.16.0.12 
+         ipv4_address: 172.16.0.12
 
  networks:
    internal_net:
@@ -478,14 +529,25 @@ Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 
      ipam:
        config:
          - subnet: 172.16.0.0/16
-           gateway: 172.16.0.1    
+           gateway: 172.16.0.1  
 
-Podemos levantar el cluster y conectarnos con los siguietne comandos:
+Podemos levantar el cluster ``docker compose up -d --build`` y conectarnos con ``docker exec -it --user root compute-0-0 bash``
+
+Instalamos ansible en compute-0-0 y exportamos la clave publica a todos los nodos. 
+
+Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook sobre el inventario cluster.yml para aplicar la automatización en los hosts definidos.
 
 .. code-block:: bash
- 
- docker-compose.exe up -d --build
- ssh root@locahost -p 2222
+
+ ansible-galaxy role install dgtrabada.ansible
+ cd ~/.ansible/roles/dgtrabada.ansible/tests
+ ansible-playbook -i inventory cluster.yml
+
+Chequeamos el servidor ``ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"``, y creamos la esctructura y los usuarios con el siguiente comando, **cambia en test.ldif tunombre por tu nombre**
+
+.. code-block:: bash
+
+ ldapadd -x -D "cn=admin,dc=ldap,dc=tunombre,dc=local" -W -f test.ldif
 
 
 Videos

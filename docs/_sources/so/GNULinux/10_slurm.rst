@@ -15,7 +15,9 @@ Slurm
 Caso práctico: Red interna con NIS, NFS, autofs y Slurm
 *******************************************************
 
-Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS, como podemos ver también en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/e84ii5ywht6gafmy>`_. Empezamos instalandos en el servidor **compute-0-0** el controlador central:
+Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs.
+
+Empezamos instalandos en el servidor **compute-0-0** el controlador central:
 
 .. code-block:: bash
 
@@ -179,3 +181,10 @@ El script para lanzar a pa aprticions tuapelldio2
  hostname >> salida
  test.x >> salida
 
+
+
+.. [#v1] vídeos
+
+ * `NIS NFS autofs Slurm modules enviroment Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/tcin64zidtfs928c>`_
+ * `NIS NFS autofs Slurm modules enviroment Ubuntu Server 24.04 LTS <https://mediateca.educa.madrid.org/video/h5o6w3mpossweaq7>`_
+ * `NIS NFS autofs Slurm Ubuntu Server 22.04 LTS <https://mediateca.educa.madrid.org/video/e84ii5ywht6gafmy>`_ + `modules enviroment <https://mediateca.educa.madrid.org/video/fsvyrjlovd95w8ht>`_

@@ -21,8 +21,6 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **dir /ad** directorios
   * **dir /aa** archivos con indicador de lectura/escritura
   * **dir /ar** archivos de sólo lectura
-  * **dir /an** orden alfabético por nombre
-  * **dir /ae** orden alfabético por extensión
   * **dir /ad** fecha y hora (más antiguo)
   * **dir /as** tamaño (más pequeño)
   * **dir /ag** directorios agrupados antes de los archivos
@@ -45,12 +43,12 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
                    0 archivos              0 bytes
                    5 dirs  607.204.921.344 bytes libres
 
-* **attrib**  visualiza y cambia los atributos de directorios y archivos
+* **attrib**  visualiza y cambia los atributos de directorios y archivos, attrib ±r ±h ... <archivo> /s ...
 
-  * attrib ±r ±h ... <archivo> /s ...
-  * **attrib +r** solo lectura
-  * **attrib +h** hacerlo oculto
-  * **/s** directorio actual y en todos los subdirectorio
+  * +R / -R → Read-only (solo lectura)
+  * +A / -A → Archive (archivo listo para copia de seguridad)
+  * +S / -S → System (archivo del sistema) 
+  * +H / -H → Hidden (oculto)
  
   .. code-block:: shell
     

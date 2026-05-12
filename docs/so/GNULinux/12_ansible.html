@@ -450,7 +450,14 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-rol">Creación de un rol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-rol">Estructura del rol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones">Consideraciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-de-un-rol-en-un-playbook">Uso de un rol en un playbook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ventajas-de-usar-roles">Ventajas de usar roles</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos</a></li>
@@ -624,35 +631,81 @@ server2<span class="w">       </span>:<span class="w"> </span><span class="nv">o
 </section>
 <section id="roles">
 <h2>Roles<a class="headerlink" href="#roles" title="Link to this heading">#</a></h2>
-<p>Cuando se crea un rol, se descompone el playbook en partes y esas partes se encuentran en una estructura de directorios.</p>
-<p>Vamos a ver un ejemplo utilizando el comando</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>cluster-ubuntu22.04
+<p>Cuando trabajamos con <strong>Ansible</strong>, es habitual que los playbooks crezcan y se vuelvan difíciles de mantener. Para solucionar esto, Ansible introduce el concepto de <strong>roles</strong>, que permiten organizar la configuración en partes reutilizables y bien estructuradas.</p>
+<p>Un <strong>rol</strong> es una forma de dividir un playbook en componentes más pequeños, cada uno con una función concreta (instalar paquetes, configurar servicios, gestionar usuarios, etc.).</p>
+<section id="creacion-de-un-rol">
+<h3>Creación de un rol<a class="headerlink" href="#creacion-de-un-rol" title="Link to this heading">#</a></h3>
+<p>Podemos crear un rol con el siguiente comando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>nombre_rol
 </pre></div>
 </div>
-<p>Como podemos ver se han creado los siguientes directorios:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>tree<span class="w"> </span>cluster-ubuntu22.04/
-cluster-ubuntu22.04/
+<p>Este comando genera automáticamente una estructura de directorios estándar como la siguiente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nombre_rol/
 ├──<span class="w"> </span>defaults
-│<span class="w">   </span>└──<span class="w"> </span>main.yml
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
 ├──<span class="w"> </span>handlers
-│<span class="w">   </span>└──<span class="w"> </span>main.yml
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
 ├──<span class="w"> </span>meta
-│<span class="w">   </span>└──<span class="w"> </span>main.yml
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
 ├──<span class="w"> </span>README.md
 ├──<span class="w"> </span>tasks
-│<span class="w">   </span>└──<span class="w"> </span>main.yml
+│<span class="w">   </span>└──<span class="w"> </span>main.yml
 ├──<span class="w"> </span>tests
-│<span class="w">   </span>├──<span class="w"> </span>inventory
-│<span class="w">   </span>└──<span class="w"> </span>test.yml
+│<span class="w">   </span>├──<span class="w"> </span>inventory
+│<span class="w">   </span>└──<span class="w"> </span>test.yml
 └──<span class="w"> </span>vars
 <span class="w">    </span>└──<span class="w"> </span>main.yml
-
-<span class="m">6</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">8</span><span class="w"> </span>files
 </pre></div>
 </div>
-<p>Los diversos archivos main.yml contienen contenido dependiendo de su ubicación en la estructura de directorios que se muestra arriba. Por ejemplo, vars/main.yml hace referencia a variables, handlers/main.yaml describe controladores, y así sucesivamente.</p>
-<p>Las variables se pueden establecer en vars/main.yml o defaults/main.yml, pero no en ambos lugares.</p>
-<p>Para programar los roles podemos utilizar un control de versiones como es el git, además podemos publicarlo y luego indexarlo desde   <a class="reference external" href="https://galaxy.ansible.com/">https://galaxy.ansible.com/</a>, para su posterior instalación.</p>
+</section>
+<section id="estructura-del-rol">
+<h3>Estructura del rol<a class="headerlink" href="#estructura-del-rol" title="Link to this heading">#</a></h3>
+<p>Cada uno de estos directorios tiene un propósito específico:</p>
+<ul class="simple">
+<li><p><strong>tasks/main.yml</strong>
+Define las tareas principales del rol. Es donde se realiza el trabajo (instalar paquetes, copiar archivos, ejecutar comandos, etc.).</p></li>
+<li><p><strong>handlers/main.yml</strong>
+Contiene acciones que se ejecutan solo cuando son notificadas por una tarea, como reiniciar un servicio.</p></li>
+<li><p><strong>vars/main.yml</strong>
+Define variables internas del rol con alta prioridad.</p></li>
+<li><p><strong>defaults/main.yml</strong>
+Define variables por defecto (baja prioridad), pensadas para ser modificadas por el usuario.</p></li>
+<li><p><strong>meta/main.yml</strong>
+Incluye información del rol, como dependencias de otros roles.</p></li>
+<li><p><strong>tests/</strong>
+Permite probar el rol con un inventario y un playbook de ejemplo.</p></li>
+<li><p><strong>README.md</strong>
+Documentación del rol (uso, variables, descripción, etc.).</p></li>
+</ul>
+</section>
+<section id="consideraciones">
+<h3>Consideraciones<a class="headerlink" href="#consideraciones" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Las variables pueden definirse tanto en <strong>defaults</strong> como en <strong>vars</strong>, pero normalmente se elige uno según la prioridad que necesitemos.</p></li>
+<li><p>La lógica principal del rol debe ir en <strong>tasks</strong>.</p></li>
+<li><p>Es recomendable mantener los roles simples y reutilizables.</p></li>
+</ul>
+</section>
+<section id="uso-de-un-rol-en-un-playbook">
+<h3>Uso de un rol en un playbook<a class="headerlink" href="#uso-de-un-rol-en-un-playbook" title="Link to this heading">#</a></h3>
+<p>Un rol se utiliza dentro de un playbook de la siguiente forma:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">servidores</span>
+<span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nombre_rol</span>
+</pre></div>
+</div>
+<p>De esta forma, todas las tareas definidas en el rol se ejecutarán sobre los hosts indicados.</p>
+</section>
+<section id="ventajas-de-usar-roles">
+<h3>Ventajas de usar roles<a class="headerlink" href="#ventajas-de-usar-roles" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Facilitan la reutilización del código.</p></li>
+<li><p>Mejoran la organización y legibilidad.</p></li>
+<li><p>Permiten trabajar de forma modular.</p></li>
+<li><p>Se pueden versionar con herramientas como <strong>git</strong>.</p></li>
+<li><p>Se pueden compartir en plataformas como Ansible Galaxy.</p></li>
+</ul>
+</section>
 </section>
 <section id="caso-practico-compute-0-3">
 <h2>Caso práctico: compute-0-3<a class="headerlink" href="#caso-practico-compute-0-3" title="Link to this heading">#</a></h2>
@@ -820,7 +873,7 @@ ansible-playbook<span class="w"> </span>--limit<span class="w"> </span>cliente3<
 <section id="docker-ansible">
 <h2>Docker + ansible<a class="headerlink" href="#docker-ansible" title="Link to this heading">#</a></h2>
 <p>Vamos a empezar creando la imagen desde el siguiente <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FROM<span class="w"> </span>ubuntu:24.04
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FROM<span class="w"> </span>ubuntu:26.04
 
 RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>iproute2<span class="w"> </span><span class="se">\</span>
@@ -828,6 +881,7 @@ RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </s
 <span class="w">    </span>net-tools<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>openssh-server<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>vim<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sudo<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/run/sshd<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
@@ -835,6 +889,7 @@ RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </s
 CMD<span class="w"> </span>service<span class="w"> </span>ssh<span class="w"> </span>start<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sleep<span class="w"> </span>infinity
 </pre></div>
 </div>
+<p>Hacemos las imágenes (si hace falta) y levantamos los contenedores en segundo plano <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--build</span></code>.</p>
 <p>Utilizaremos el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> que define un mini clúster de 3 contenedores que simulan máquinas de un clúster</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>services:
 <span class="w">  </span>compute-0-0:
@@ -843,8 +898,6 @@ CMD<span class="w"> </span>service<span class="w"> </span>ssh<span class="w"> </
 <span class="w">    </span>privileged:<span class="w"> </span><span class="nb">true</span>
 <span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
 <span class="w">    </span>hostname:<span class="w"> </span>compute-0-0
-<span class="w">    </span>ports:
-<span class="w">      </span>-<span class="w"> </span><span class="s2">&quot;2222:22&quot;</span>
 <span class="w">    </span>networks:
 <span class="w">      </span>internal_net:
 <span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.10
@@ -878,9 +931,16 @@ networks:
 <span class="w">          </span>gateway:<span class="w"> </span><span class="m">172</span>.16.0.1
 </pre></div>
 </div>
-<p>Podemos levantar el cluster y conectarnos con los siguietne comandos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose.exe<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
-ssh<span class="w"> </span>root@locahost<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span>
+<p>Podemos levantar el cluster <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--build</span></code> y conectarnos con <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">--user</span> <span class="pre">root</span> <span class="pre">compute-0-0</span> <span class="pre">bash</span></code></p>
+<p>Instalamos ansible en compute-0-0 y exportamos la clave publica a todos los nodos.</p>
+<p>Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook sobre el inventario cluster.yml para aplicar la automatización en los hosts definidos.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>role<span class="w"> </span>install<span class="w"> </span>dgtrabada.ansible
+<span class="nb">cd</span><span class="w"> </span>~/.ansible/roles/dgtrabada.ansible/tests
+ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span class="w"> </span>cluster.yml
+</pre></div>
+</div>
+<p>Chequeamos el servidor <code class="docutils literal notranslate"><span class="pre">ldapsearch</span> <span class="pre">-xLLL</span> <span class="pre">-b</span> <span class="pre">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span></code>, y creamos la esctructura y los usuarios con el siguiente comando, <strong>cambia en test.ldif tunombre por tu nombre</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>test.ldif
 </pre></div>
 </div>
 </section>
@@ -941,7 +1001,14 @@ ssh<span class="w"> </span>root@locahost<span class="w"> </span>-p<span class="w
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-ad-hoc">Comandos ad hoc</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plabook">Plabook</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-rol">Creación de un rol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-rol">Estructura del rol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones">Consideraciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-de-un-rol-en-un-playbook">Uso de un rol en un playbook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ventajas-de-usar-roles">Ventajas de usar roles</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos</a></li>

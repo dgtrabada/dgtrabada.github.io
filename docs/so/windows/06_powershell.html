@@ -452,6 +452,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#busqueda-de-archivos-y-carpetas">Búsqueda de archivos y carpetas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajando-con-objetos">Trabajando con objetos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>
@@ -484,6 +485,9 @@
 
 <span class="c"># Llamar a un método</span>
 <span class="nv">$newDate</span> <span class="p">=</span> <span class="nv">$date</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(</span><span class="n">5</span><span class="p">)</span>  <span class="c"># Añade 5 días a la fecha actual</span>
+
+<span class="c"># Podemos acceder a la propiedad</span>
+<span class="p">$(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">Day</span>
 </pre></div>
 </div>
 <p>Podemos ver todas las propiedades de un cmdlet con <strong>Get-Member</strong>:</p>
@@ -594,8 +598,9 @@
 <section id="ficheros-y-directorios">
 <h2>Ficheros y directorios<a class="headerlink" href="#ficheros-y-directorios" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><strong>cd -&gt; Set-Location</strong> cambia el directorio actual</p></li>
 <li><p><strong>pwd -&gt; Get-Location</strong> donde te encuentras</p></li>
-<li><p><strong>cp -r -&gt; Copy-Item</strong> copiar</p></li>
+<li><p><strong>cp -&gt; Copy-Item</strong> copiar</p></li>
 <li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
 <li><p><strong>rm, rm -r -&gt; Remove-Item</strong> borrar</p></li>
 <li><p><strong>mkdir</strong> crear directorio</p></li>
@@ -734,6 +739,29 @@
 </div>
 </li>
 </ul>
+</section>
+<section id="busqueda-de-archivos-y-carpetas">
+<h2>Búsqueda de archivos y carpetas<a class="headerlink" href="#busqueda-de-archivos-y-carpetas" title="Link to this heading">#</a></h2>
+<p>Buscar un archivo concreto:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">-Recurse</span> <span class="n">-Filter</span> <span class="s2">&quot;datos.txt&quot;</span>
+</pre></div>
+</div>
+<p>Buscar archivos por extensión</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">-Recurse</span> <span class="p">*.</span><span class="n">pdf</span>
+</pre></div>
+</div>
+<p>Buscar archivos que empiecen por un nombre</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">-Recurse</span> <span class="s2">&quot;tema*&quot;</span>
+</pre></div>
+</div>
+<p>Buscar una carpeta concreta</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="n">-Recurse</span> <span class="n">-Directory</span> <span class="n">-Filter</span> <span class="s2">&quot;backup&quot;</span>
+</pre></div>
+</div>
+<p>Buscar archivos desde una carpeta específica</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\Users\Daniel\Documentos&quot;</span> <span class="n">-Recurse</span> <span class="n">-Filter</span> <span class="s2">&quot;*.docx&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="trabajando-con-objetos">
 <h2>Trabajando con objetos<a class="headerlink" href="#trabajando-con-objetos" title="Link to this heading">#</a></h2>
@@ -1118,6 +1146,18 @@
 </pre></div>
 </div>
 </li>
+<li><p><strong>Ver información de los puertos</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="c"># Mostrar todos los puertos abiertos</span>
+<span class="n">netstat</span> <span class="n">-an</span>
+
+<span class="c"># Mostrar conexiones y puertos en escucha</span>
+<span class="n">netstat</span> <span class="n">-ano</span>
+
+ <span class="c"># Ver el proceso asociado a un puerto::</span>
+ <span class="nb">Get-Process</span> <span class="n">-Id</span> <span class="p">(</span><span class="nb">Get-NetTCPConnection</span> <span class="n">-LocalPort</span> <span class="n">80</span><span class="p">).</span><span class="n">OwningProcess</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
 <section id="instalar-el-servidor-ssh">
@@ -1185,37 +1225,6 @@
 </div>
 </li>
 </ul>
-<p class="rubric">Footnotes</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
-<p>Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.</p>
-<p>Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:</p>
-<p>Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).</p>
-<p>Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
-</pre></div>
-</div>
-<p>Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$PROFILE</span> <span class="n">-Type</span> <span class="n">File</span> <span class="n">-Force</span>
-</pre></div>
-</div>
-<p>Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
-</pre></div>
-</div>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">notepad</span> <span class="nv">$PROFILE</span>
-</pre></div>
-</div>
-<p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
-</pre></div>
-</div>
-<p>Guarda el archivo y cierra el editor de texto.</p>
-<p>Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.</p>
-</aside>
-</aside>
 </section>
 <section id="gestion-de-usuarios">
 <h2>Gestión de usuarios<a class="headerlink" href="#gestion-de-usuarios" title="Link to this heading">#</a></h2>
@@ -1266,6 +1275,45 @@
 </li>
 <li><p><a class="reference external" href="https://dgtrabada.github.io/so/windows/09_Caso_practico_AD_sin_GUI.html">Configuración en AD</a></p></li>
 </ul>
+<p class="rubric">Notas</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.</p>
+<p>Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:</p>
+<p>Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).</p>
+<p>Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+<span class="n">False</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$PROFILE</span> <span class="n">-Type</span> <span class="n">File</span> <span class="n">-Force</span>
+   <span class="n">Directorio</span><span class="p">:</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">dani</span><span class="p">\</span><span class="n">Documents</span><span class="p">\</span><span class="n">WindowsPowerShell</span>
+
+<span class="n">Mode</span>                 <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                 <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">04</span><span class="p">/</span><span class="n">05</span><span class="p">/</span><span class="n">2026</span>      <span class="n">9</span><span class="p">:</span><span class="n">07</span>              <span class="n">0</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Pow</span>
+                                              <span class="n">erShell_profile</span><span class="p">.</span><span class="n">ps1</span>
+</pre></div>
+</div>
+<p>Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">notepad</span> <span class="nv">$PROFILE</span>
+</pre></div>
+</div>
+<p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+</pre></div>
+</div>
+<p>Guarda el archivo y cierra el editor de texto.</p>
+<p>Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.</p>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -1319,6 +1367,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alias">Alias </a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-y-directorios">Ficheros y directorios</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteres-especiales">Caracteres especiales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#busqueda-de-archivos-y-carpetas">Búsqueda de archivos y carpetas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trabajando-con-objetos">Trabajando con objetos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizadores-de-archivos-filtros-y-busqueda-de-informacion">Visualizadores de archivos, filtros y búsqueda de información</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-de-harware">Información de harware</a></li>

@@ -104,14 +104,14 @@ En modo gráfico:
 * ``Ctrl_derecho + f`` : pasar/volver de pantalla completa
 * ``Ctrl_derecho + c``: pasar/volver modo escalado
 
-Caso práctico: MV Ubuntu Server 24.04
+Caso práctico: MV Ubuntu Server 26.04
 -------------------------------------
 
-* Descárgate el sistema operativo Ubuntu Server 24.04 en formato (ISO) de su página oficial
+* Descárgate el sistema operativo Ubuntu Server 26.04 LTS en formato (ISO) de su página oficial
 
 * Utiliza un disco de 200 GB y 2G de RAM
 
-* Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 24.04**
+* Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 26.04**
 
 * Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.
 
@@ -122,9 +122,15 @@ Caso práctico: MV Ubuntu Server 24.04
   .. image:: imagenes/MV_Ubuntu_Server_22.04.jpg
 
 * Usuario: **tunombre** y utiliza de contraseña: **alumno**
-  Para el nombre del servidor utiliza compute-0-0, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
+  Para el nombre del servidor utiliza **compute-0-0**, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
-ayuda: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ ,  `Gestión de usuarios <https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq>`_
+Vídeos Ubuntu 26.04:
+
+* `Instalar Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/isgmaba7o9t7pf7s>`_
+* `Configuración ssh server Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/ba53lb6igw554eq2>`_
+* `Exportar OVA <https://mediateca.educa.madrid.org/video/abo2552y3rtg5vyn>`_
+
+Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ ,  `Gestión de usuarios <https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq>`_
 
 Caso práctico: Windows 11
 -------------------------

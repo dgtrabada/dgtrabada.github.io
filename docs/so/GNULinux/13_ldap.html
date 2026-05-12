@@ -494,18 +494,19 @@
 </section>
 <section id="instalacion-del-servidor-ldap">
 <h2>Instalación del servidor LDAP<a class="headerlink" href="#instalacion-del-servidor-ldap" title="Link to this heading">#</a></h2>
-<p>Puedes seguir los pasos en el siguiente vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>slapd<span class="w"> </span>ldap-utils
-<span class="c1">#contraseña slapd : alumno</span>
+<p>Puedes seguir los pasos para Ubuntu Server 26.04 LTS, también verlo en los vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>slapd<span class="w"> </span>ldap-utils<span class="w"> </span>-y
+<span class="c1"># Contraseña del administrador: alumno</span>
 
-<span class="w">  </span>NO
-<span class="w">  </span>dominio<span class="w"> </span>DNS<span class="w"> </span>:<span class="w"> </span>ldap.tunombre.local
-<span class="w">  </span>organización<span class="w"> </span>:<span class="w"> </span>tunombre
-<span class="w">  </span>contraseña<span class="w"> </span>:<span class="w"> </span>alumno
-<span class="w">  </span>HDB
-
-<span class="c1">#Si necesitamos reconfigurarlo</span>
+<span class="c1"># Si no entra en la configuración y necesitamos reconfigurarlo</span>
 dpkg-reconfigure<span class="w"> </span>slapd
+
+<span class="c1"># ¿Desea omitir la configuración del servidor OpenLDAP?  : NO</span>
+<span class="c1"># Introduzca el nombre de dominio DNS:  : ldap.tunombre.local</span>
+<span class="c1"># organización : tunombre</span>
+<span class="c1"># Contraseña del administrador: alumno</span>
+<span class="c1"># ¿Desea que se borre la base de datos cuando se purgue el paquete slapd? No</span>
+<span class="c1"># ¿Desea mover la base de datos antigua? Yes</span>
 </pre></div>
 </div>
 <p>Puedes chequear que se ha creado tu LDAP utilizando el comando:</p>
@@ -581,9 +582,9 @@ sn:<span class="w"> </span>sntunombre1
 givenName:<span class="w"> </span>tunombre1
 cn:<span class="w"> </span>tunombre1
 displayName:<span class="w"> </span>tunombre1
-uidNumber:<span class="w"> </span><span class="m">1010</span>
+uidNumber:<span class="w"> </span><span class="m">1011</span>
 gidNumber:<span class="w"> </span><span class="m">501</span>
-userPassword:<span class="w"> </span>tunombre1
+userPassword:<span class="w"> </span><span class="o">{</span>SSHA<span class="o">}</span>scgy2TQOZ87Z+Uaorx7N06U5beWV83wp
 loginShell:<span class="w"> </span>/bin/bash
 homeDirectory:<span class="w"> </span>/home/tunombre1
 shadowExpire:<span class="w"> </span>-1
@@ -594,6 +595,23 @@ shadowMax:<span class="w"> </span><span class="m">999999</span>
 shadowLastChange:<span class="w"> </span><span class="m">10877</span>
 mail:<span class="w"> </span>tunombre1@ldap.tunombre.local
 postalCode:<span class="w"> </span><span class="m">28027</span>
+</pre></div>
+</div>
+<p>Para obtener la contraseña en el campo userPassword hemos utilizado el comando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>slappasswd<span class="w"> </span>-h<span class="w"> </span><span class="o">{</span>SSHA<span class="o">}</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;alumno&quot;</span>
+<span class="o">{</span>SSHA<span class="o">}</span>scgy2TQOZ87Z+Uaorx7N06U5beWV83wp
+└──┬─┘└──────────────┬───────────────┘
+<span class="w">   </span>│<span class="w">                 </span>│
+<span class="w">   </span>│<span class="w">                 </span>└─<span class="w"> </span><span class="m">32</span><span class="w"> </span>caracteres<span class="w"> </span><span class="o">(</span>Salt<span class="w"> </span>4B<span class="w"> </span>+<span class="w"> </span>Hash<span class="w"> </span>SHA-1<span class="w"> </span>20B<span class="w"> </span>en<span class="w"> </span>Base64<span class="o">)</span>
+<span class="w">   </span>│
+<span class="w">   </span>└─<span class="w"> </span><span class="m">6</span><span class="w"> </span>caracteres<span class="w"> </span><span class="o">(</span>Indicador<span class="w"> </span>del<span class="w"> </span>algoritmo<span class="o">)</span>
+</pre></div>
+</div>
+<p>Esta representación de tu contraseña &quot;alumno&quot; está en un formato seguro que OpenLDAP y PAM pueden entender para la autenticación, donde {SSHA} indica el algoritmo de hash utilizado (Salted SHA-1) y el resto son 20 bytes de hash SHA-1 más 4 bytes de &quot;salt&quot; codificados en Base64. La salt es un valor aleatorio que se añade a la contraseña antes de aplicar el hash, lo que garantiza que dos personas con la misma contraseña generen hashes completamente diferentes. Fíjate cómo a continuación generamos para la misma contraseña &quot;alumno&quot; formas encriptadas diferentes, por ejemplo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>slappasswd<span class="w"> </span>-h<span class="w"> </span><span class="o">{</span>SSHA<span class="o">}</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;alumno&quot;</span>
+<span class="o">{</span>SSHA<span class="o">}</span>entsD+PtS9fMtrqd59nVWECpLuKpGVsO
+root@compute-0-0:~#<span class="w"> </span>slappasswd<span class="w"> </span>-h<span class="w"> </span><span class="o">{</span>SSHA<span class="o">}</span><span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;alumno&quot;</span>
+<span class="o">{</span>SSHA<span class="o">}</span>8zTZZQ8ThqYYW0auVDt6pwaYXP+glf/W
 </pre></div>
 </div>
 <p>Para cargar el nuevo usuario en el directorio.</p>
@@ -656,42 +674,28 @@ systemctl<span class="w"> </span>start<span class="w"> </span>slapd.service
 <h2>Configuración de los clientes: Autenticación con OpenLDAP<a class="headerlink" href="#configuracion-de-los-clientes-autenticacion-con-openldap" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libnss-ldap<span class="w"> </span>libpam-ldap<span class="w"> </span>ldap-utils<span class="w"> </span>-y
 
-<span class="w">  </span>ldap://172.16.0.10
-<span class="w">  </span><span class="nv">dc</span><span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
-<span class="w">  </span>LDAP<span class="w"> </span>version<span class="w"> </span>:<span class="w"> </span><span class="m">3</span>
-<span class="w">  </span>Yes
-<span class="w">  </span>No
-<span class="w">  </span>LDAP<span class="w"> </span>account<span class="w"> </span><span class="k">for</span><span class="w"> </span>root:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
-<span class="w">  </span>alumno
-
-<span class="c1">#reconfigurar :  sudo dpkg-reconfigure ldap-auth-config</span>
-
-vi<span class="w"> </span>/etc/hosts
-<span class="m">172</span>.16.0.10<span class="w">   </span>ldap.tunombre.local
-
-vi<span class="w">  </span>/etc/ldap.conf
-<span class="c1">#Ponemos la siguiente linea al final: 172.16.0.10</span>
+<span class="c1">#URI del servidor LDAP:  ldap://172.16.0.10</span>
+<span class="c1">#Base de búsqueda en el servidor LDAP: dc=ldap,dc=tunombre,dc=local</span>
+<span class="c1">#/etc/nsswith.conf marcamos passwd y group</span>
 
 
-sudo<span class="w"> </span>pam-auth-update<span class="w"> </span><span class="c1">#marcar que se cree el directorio automaticamente</span>
+<span class="c1"># En el caso de que necesitmos reconfigurar</span>
+$<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>nslcd
+<span class="c1"># autentificación sencilla y el usuario de la base de datos LDAP: cn=admin,dc=ldap,dc=tunombre,dc=local</span>
+
+<span class="c1"># En /etc/hosts</span>
+<span class="m">172</span>.16.0.10<span class="w"> </span>ldap.tunombre.local
+
+<span class="c1"># marcar que se cree el directorio automaticamente</span>
+pam-auth-update
 </pre></div>
 </div>
 <p>Algunos de estos comandos ya no están actualizados o tienen problemas lo importante es:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/etc/nsswitch.conf
-passwd:<span class="w"> </span>files<span class="w"> </span>ldap
-shadow:<span class="w"> </span>files<span class="w"> </span>ldap
-group:<span class="w"> </span>files<span class="w"> </span>ldap
-</pre></div>
-</div>
 <p>para comprobarlo puedes utilizar el comando:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
 </pre></div>
 </div>
-<p>Hacer que funcione el caché de nombres</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>nscd
-</pre></div>
-</div>
-<p>Para poder cambiar el password</p>
+<p>Podemos instalar libpam-pwquality en el cliente para controlar la complejidad de las contraseñas al cambiarlas.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpam-pwquality
 </pre></div>
 </div>
@@ -715,6 +719,11 @@ group:<span class="w"> </span>files<span class="w"> </span>ldap
 </aside>
 </aside>
 <ul class="simple">
+<li><p>Ubuntu Server 26.04 LTS</p>
+<ul>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/xntyb81tlxni79wd">Vídeo LDAP+NFS+Slurm+Modules</a></p></li>
+</ul>
+</li>
 <li><p>Ubuntu Server 24.04 LTS</p>
 <ul>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/oe7ob65kjmn9gkjl">Vídeo (1) LDAP</a></p></li>

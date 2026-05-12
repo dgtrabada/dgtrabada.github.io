@@ -448,12 +448,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-24-04">En el servidor (Ubuntu server 24.04)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nftables">nftables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat-y-red-interna">Caso práctico: NIS con red NAT y red Interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-del-servidor">Configuración del servidor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-del-cliente">Configuración del cliente</a></li>
 </ul>
 </li>
 </ul>
@@ -471,16 +468,44 @@
 <h1>NIS<a class="headerlink" href="#nis" title="Link to this heading">#</a></h1>
 <p>Originalmente <strong>NIS</strong> se llamaba <em>Páginas Amarillas (Yellow Pages)</em>, o <em>YP</em>, que todavía se utiliza para referirse a él. Desafortunadamente, ese nombre es una marca registrada de British Telecom, que exigió a Sun abandonar ese nombre. Sin embargo YP permanece como prefijo en los nombres de la mayoría de las órdenes relacionadas con NIS, como ypserv e ypbind.</p>
 <p>DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.</p>
-<section id="en-el-servidor-ubuntu-server-24-04">
-<h2>En el servidor (Ubuntu server 24.04)<a class="headerlink" href="#en-el-servidor-ubuntu-server-24-04" title="Link to this heading">#</a></h2>
-<p>Instalamos</p>
+<section id="caso-practico-nis-con-red-nat-y-red-interna">
+<h2>Caso práctico: NIS con red NAT y red Interna<a class="headerlink" href="#caso-practico-nis-con-red-nat-y-red-interna" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Haz dos clones enlazados de <strong>MV Ubuntu Server 26.04</strong> haz que tengan las siguientes IPs:</p>
+<ul>
+<li><p>compute-0-0: (Servidor NIS)</p>
+<ul>
+<li><p>Tarjeta red modo &quot;Red Nat <a class="footnote-reference brackets" href="#rednat1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> 10.0.2.10/24 utiliza el puerto 2222 del anfitrión&quot;</p></li>
+<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
+</ul>
+</li>
+<li><p>compute-0-1 (Cliente NIS)</p>
+<ul>
+<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.11/16 (tiene internet a través de compute-0-0)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Cambia el nombre de la maquinas en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code> cambia la ip en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> y revisa <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code></p>
+<p>Para habilitar la conectividad, es necesario que el servidor actúe como router, reenviando el tráfico entre redes. Esto puede configurarse utilizando herramientas como systemd <a class="footnote-reference brackets" href="#systemd" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> o nftables <a class="footnote-reference brackets" href="#nftables" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, que permite definir reglas de encaminamiento y NAT.</p>
+<section id="configuracion-del-servidor">
+<h3>Configuración del servidor<a class="headerlink" href="#configuracion-del-servidor" title="Link to this heading">#</a></h3>
+<p>Crea los siguientes usuarios y grupos en el servidor <strong>compute-0-0</strong></p>
+<ul class="simple">
+<li><p><strong>tunombre1</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></p></li>
+<li><p><strong>tunombre2</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></p></li>
+<li><p><strong>tunombre3</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></p></li>
+<li><p><strong>tunombre4</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></p></li>
+</ul>
+<p>Instala el servidor NIS en el servidor (compute-0-0)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>portmap
 
 <span class="c1">#Instalamos dominio servidor.X.nis  donde X son las 3 primeras iniciales de tu nombre</span>
 apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
-<p>En /etc/hosts añadimos:</p>
+<p>En <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> añadimos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;IP&gt;<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
@@ -504,12 +529,12 @@ rpcinfo<span class="w"> </span>-p
 systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
 </pre></div>
 </div>
-<p>Configurar archivo de hosts lo ideal es configurar todos los equipos que estarán validando contra NIS en el archivo /etc/hosts para independizarse del DNS.</p>
+<p>Configurar archivo de <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, mete a todos los clientes.</p>
 </section>
-<section id="en-el-cliente">
-<h2>En el cliente<a class="headerlink" href="#en-el-cliente" title="Link to this heading">#</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalamos el paquete nis</span>
-apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
+<section id="configuracion-del-cliente">
+<h3>Configuración del cliente<a class="headerlink" href="#configuracion-del-cliente" title="Link to this heading">#</a></h3>
+<p>Instala el cliente NIS en el cliente <strong>compute-0-1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
 <p>Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo</p>
@@ -544,57 +569,11 @@ systemctl<span class="w"> </span>status<span class="w"> </span>ypbind.service
 </div>
 <p>Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F</p>
 <p>Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart</p>
-</section>
-<section id="caso-practico-nis-con-adaptador-puente">
-<h2>Caso práctico: NIS con adaptador puente<a class="headerlink" href="#caso-practico-nis-con-adaptador-puente" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Haz dos clones enlazados de <strong>MV Ubuntu Server 24.04</strong> como se muestra en el <a class="reference external" href="https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze">vídeo</a>, haz que tengan las siguientes IPs:</p>
-<ul>
-<li><p>Clon enlazado 1 : <strong>compute-0-0</strong> 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
-<li><p>Clon enlazado 2 : <strong>compute-0-1</strong> 10.5.X.Y/8 (DHCP si usas portátil)</p>
-<img alt="../../_images/virtualbox.jpg" src="../../_images/virtualbox.jpg" />
-</li>
-<li><p>Es decir, tendríamos la siguiente configuración</p>
-<img alt="../../_images/caso_adaptador_puente.jpg" src="../../_images/caso_adaptador_puente.jpg" />
-</li>
-<li><p>Cambia el nombre de la maquina <strong>compute-0-1</strong> para ello modifica el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code> cambia la ip en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> y revisa <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> de ambas maquinas</p></li>
-<li><p>Crea los siguientes usuarios y grupos en el servidor (compute-0-0)</p>
-<div class="line-block">
-<div class="line"><strong>tunombre1</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
-<div class="line"><strong>tunombre2</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
-<div class="line"><strong>tunombre3</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
-<div class="line"><strong>tunombre4</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></div>
-</div>
-</li>
-<li><p>Instala el servidor NIS en el servidor (compute-0-0)</p></li>
-<li><p>Instala el cliente NIS en el cliente (compute-0-1)</p></li>
-<li><p>Reinicia las maquinas y comprueba que todo funciona <code class="docutils literal notranslate"><span class="pre">getent</span> <span class="pre">passwd</span></code></p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="caso-practico-nis-con-red-nat">
-<h2>Caso práctico: NIS con red NAT<a class="headerlink" href="#caso-practico-nis-con-red-nat" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Vamos a cambiar la configuración anterior a red NAT como se muestra en el <a class="reference external" href="https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq">vídeo</a></p>
-<img alt="../../_images/redNAT.png" src="../../_images/redNAT.png" />
-</li>
-</ul>
-</section>
-<section id="caso-practico-nis-con-red-interna">
-<h2>Caso práctico: NIS con red interna<a class="headerlink" href="#caso-practico-nis-con-red-interna" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>En el siguiente ejercicio vamos a cambiar la configuración como se muestra en la siguiente imagen.</p>
-<img alt="../../_images/caso_redinterna.jpg" src="../../_images/caso_redinterna.jpg" />
-</li>
-<li><p>Puedes ver el desarrollo en el siguiente  <a class="reference external" href="https://mediateca.educa.madrid.org/video/gy1jjn5mlbfmtl4h">vídeo</a></p></li>
-<li><p>Creamos un nuevo adaptador red para el servidor, le asignamos una red interna y le ponemos la dirección  172.16.0.10/16</p>
-<img alt="../../_images/adaptador_servidor.jpg" src="../../_images/adaptador_servidor.jpg" />
-</li>
-<li><p>Cambiamos en el cliente el adaptador a una red interna, le asignamos la red 172.16.0.11/16</p>
-<img alt="../../_images/adaptador_cliente.jpg" src="../../_images/adaptador_cliente.jpg" />
-</li>
-<li><p>Haz un ping 8.8.8.8 desde el cliente, fíjate que no tenemos acceso a internet, para poder tener acceso necesitamos ejecutar en el servidor (compute-0-0):</p>
+<p class="rubric">Notas</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="systemd" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>systemd</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/enrutar.sh
 <span class="c1">#!/bin/bash</span>
 <span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
@@ -603,7 +582,9 @@ iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"
 iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
 </pre></div>
 </div>
-</li>
+</aside>
+</aside>
+<ul>
 <li><p>Le damos permisos de ejecución:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/enrutar.sh
 </pre></div>
@@ -632,8 +613,12 @@ systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 <li><p>Recuerda crear los usuarios en el servidor nis.</p></li>
 <li><p>Si no lo habías realizado, ejecutamos en el cliente <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pam-auth-update</span></code> y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)</p></li>
 </ul>
-<section id="nftables">
-<h3>nftables<a class="headerlink" href="#nftables" title="Link to this heading">#</a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="nftables" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>nftables</p>
+</aside>
+</aside>
 <p>Podemos enrutar con <strong>nftables</strong>, es el sistema de filtrado de paquetes y firewall del kernel de Linux que permite controlar el tráfico de red (permitir, bloquear, redirigir o modificar paquetes).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>nftables
 </pre></div>
@@ -656,6 +641,7 @@ table<span class="w"> </span>ip<span class="w"> </span>filter<span class="w"> </
 <span class="o">}</span>
 </pre></div>
 </div>
+<p>Para que el servidor enrute tráfico <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">sysctl</span> <span class="pre">-w</span> <span class="pre">net.ipv4.ip_forward=1</span></code></p>
 <p>Activamos ip_forward de forma permanente:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.ip_forward=1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/sysctl.d/99-router.conf
 </pre></div>
@@ -665,6 +651,23 @@ table<span class="w"> </span>ip<span class="w"> </span>filter<span class="w"> </
 systemctl<span class="w"> </span>start<span class="w"> </span>nftables
 </pre></div>
 </div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="rednat1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">3</a><span class="fn-bracket">]</span></span>
+<p>Configuración red NAT</p>
+<img alt="../../_images/redNAT.png" src="../../_images/redNAT.png" />
+</aside>
+<aside class="footnote brackets" id="v1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<p>vídeos</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/jhn2ix9u1fkthko9">NIS red NAT Ubuntu Server 26.04 LTS red NAT</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/sp2bbcrk74wzr8iq">NIS red NAT Ubuntu Server 24.04 LTS red NAT</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/gy1jjn5mlbfmtl4h">NIS Ubuntu Server 24.04 LTS con red interna</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/lkd39dlasakeg8ze">NIS Ubuntu Server 24.04 LTS adaptador puente</a></p></li>
+</ul>
+</aside>
+</aside>
 </section>
 </section>
 </section>
@@ -715,12 +718,9 @@ systemctl<span class="w"> </span>start<span class="w"> </span>nftables
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-servidor-ubuntu-server-24-04">En el servidor (Ubuntu server 24.04)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#en-el-cliente">En el cliente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-adaptador-puente">Caso práctico: NIS con adaptador puente</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat">Caso práctico: NIS con red NAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-interna">Caso práctico: NIS con red interna</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nftables">nftables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-nis-con-red-nat-y-red-interna">Caso práctico: NIS con red NAT y red Interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-del-servidor">Configuración del servidor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-del-cliente">Configuración del cliente</a></li>
 </ul>
 </li>
 </ul>

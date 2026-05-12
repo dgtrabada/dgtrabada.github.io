@@ -19,7 +19,7 @@ Instalamos
  apt update
  apt install nfs-kernel-server
 
-Supongamos que queremos compartir la carpeta **/home/tunombre1** situada en un servidor con un cliente, para ello crearemos las siguientes líneas en el archivo **/etc/exports**
+Supongamos que queremos compartir la carpeta ``/home/tunombre1`` situada en un servidor con un cliente, para ello crearemos las siguientes líneas en el archivo ``/etc/exports``
 
 .. code-block:: bash
 
@@ -30,7 +30,7 @@ Supongamos que queremos compartir la carpeta **/home/tunombre1** situada en un s
 * **no_subtree_check**: permite que no se compruebe el camino hasta el directorio que se exporta, en el caso de que el usuario no tenga permisos sobre el directorio exportado
 * **no_root_squash**: permite que los usuarios root de los equipos cliente tengan acceso root en el servido
 
-Cada vez que cambiemos el archivo **/etc/exports** tendremos que reiniciar el servicio
+Cada vez que cambiemos el archivo ``/etc/exports`` tendremos que reiniciar el servicio
 
 .. code-block:: bash
 
@@ -84,42 +84,21 @@ Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs ut
 Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.
 
 
-Caso práctico: NFS con red interna
-*****************************
+En el caso de que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado
 
-Partimos del :ref:`Caso práctico: NIS con red interna`, fíjate que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado, puedes configurarlo como se muestra en el siguiente  `vídeo <https://mediateca.educa.madrid.org/video/5w95nxsv1pvq3sx9>`_
-
-.. code-block:: bash
-
- [ ] Create home directory on login
-
-Borra los directorios de los usuarios que se hayan creado. Si nos conectamos ahora con cualquier usuario obtenemos:
-
-.. code-block:: bash
-
- tunombre1@ubuntu-client:/home$ cd
- bash: cd: /home/tunombre1: No such file or directory
-
-Haz que el home del usuario1 situado en el servidor se exporte al cliente de forma permanente por medio de NFS
-
-Si no lo hiciste, genera la clave publica (ssh-keygen) para el usuario tunombre1, de esta forma no te pedira la contraseña, cópiala (cp .ssh/id_rsa.pub .ssh/authorized_keys)  , conéctate por ssh sin que te pida la contraseña
-
-Caso práctico: NFS con red interna y autofs
-************************************
-
-Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar al cliente **compute-0-1**:
+Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar en los **clientes**
 
 .. code-block:: bash
 
  apt-get install autofs
 
-En **/etc/auto.master** incluimos la siguiente linea
+En ``/etc/auto.master`` incluimos la siguiente linea
 
 .. code-block:: bash
 
  /home /etc/auto.home
 
-Donde el archivo  **/etc/auto.home** sería:
+Donde el archivo  ``/etc/auto.home`` sería:
 
 .. code-block:: bash
 
@@ -151,3 +130,8 @@ Fíjate como funcionaría:
  tunombre1@compute-0-1:/root$ df -h | grep tunombre
  compute-0-0:/home/tunombre1 116G   128K   110G   1% /home/tunombre1
 
+
+.. [#v1] vídeos
+
+ * `NIS NFS autofs Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/1cp8qi6cxvc9cpb5>`_
+ * `NIS NFS autofs Ubuntu Server 24.04 LTS <https://mediateca.educa.madrid.org/video/5w95nxsv1pvq3sx9>`_

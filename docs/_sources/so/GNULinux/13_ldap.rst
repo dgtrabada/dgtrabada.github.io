@@ -33,23 +33,24 @@ Entre los atributos que suelen emplearse habitualmente, encontramos los siguient
 .. image:: imagenes/LDAP.png
 
 Instalación del servidor LDAP
-=============================
+===================================================
 
-Puedes seguir los pasos en el siguiente vídeos [#v1]_ 
+Puedes seguir los pasos para Ubuntu Server 26.04 LTS, también verlo en los vídeos [#v1]_ 
 
 .. code-block:: bash
 
- apt-get install slapd ldap-utils
- #contraseña slapd : alumno
- 
-   NO
-   dominio DNS : ldap.tunombre.local
-   organización : tunombre
-   contraseña : alumno
-   HDB
- 
- #Si necesitamos reconfigurarlo
+ apt-get install slapd ldap-utils -y
+ # Contraseña del administrador: alumno
+
+ # Si no entra en la configuración y necesitamos reconfigurarlo
  dpkg-reconfigure slapd 
+
+ # ¿Desea omitir la configuración del servidor OpenLDAP?  : NO
+ # Introduzca el nombre de dominio DNS:  : ldap.tunombre.local
+ # organización : tunombre
+ # Contraseña del administrador: alumno
+ # ¿Desea que se borre la base de datos cuando se purgue el paquete slapd? No
+ # ¿Desea mover la base de datos antigua? Yes
  
 Puedes chequear que se ha creado tu LDAP utilizando el comando:
 
@@ -149,9 +150,9 @@ Para añadir nuevos usuarios
  givenName: tunombre1
  cn: tunombre1
  displayName: tunombre1
- uidNumber: 1010
+ uidNumber: 1011
  gidNumber: 501
- userPassword: tunombre1
+ userPassword: {SSHA}scgy2TQOZ87Z+Uaorx7N06U5beWV83wp
  loginShell: /bin/bash
  homeDirectory: /home/tunombre1
  shadowExpire: -1
@@ -162,6 +163,28 @@ Para añadir nuevos usuarios
  shadowLastChange: 10877
  mail: tunombre1@ldap.tunombre.local
  postalCode: 28027 
+
+
+Para obtener la contraseña en el campo userPassword hemos utilizado el comando:
+
+.. code-block:: bash
+
+ slappasswd -h {SSHA} -s "alumno"
+ {SSHA}scgy2TQOZ87Z+Uaorx7N06U5beWV83wp
+ └──┬─┘└──────────────┬───────────────┘
+    │                 │
+    │                 └─ 32 caracteres (Salt 4B + Hash SHA-1 20B en Base64)
+    │
+    └─ 6 caracteres (Indicador del algoritmo)
+
+Esta representación de tu contraseña "alumno" está en un formato seguro que OpenLDAP y PAM pueden entender para la autenticación, donde {SSHA} indica el algoritmo de hash utilizado (Salted SHA-1) y el resto son 20 bytes de hash SHA-1 más 4 bytes de "salt" codificados en Base64. La salt es un valor aleatorio que se añade a la contraseña antes de aplicar el hash, lo que garantiza que dos personas con la misma contraseña generen hashes completamente diferentes. Fíjate cómo a continuación generamos para la misma contraseña "alumno" formas encriptadas diferentes, por ejemplo:
+
+.. code-block:: bash
+
+ root@compute-0-0:~# slappasswd -h {SSHA} -s "alumno"
+ {SSHA}entsD+PtS9fMtrqd59nVWECpLuKpGVsO
+ root@compute-0-0:~# slappasswd -h {SSHA} -s "alumno"
+ {SSHA}8zTZZQ8ThqYYW0auVDt6pwaYXP+glf/W
 
 Para cargar el nuevo usuario en el directorio.
 
@@ -246,34 +269,23 @@ Configuración de los clientes: Autenticación con OpenLDAP
 
  $ sudo apt-get install libnss-ldap libpam-ldap ldap-utils -y
 
-   ldap://172.16.0.10
-   dc=ldap,dc=tunombre,dc=local
-   LDAP version : 3
-   Yes
-   No
-   LDAP account for root: cn=admin,dc=ldap,dc=tunombre,dc=local
-   alumno
-
- #reconfigurar :  sudo dpkg-reconfigure ldap-auth-config
-
- vi /etc/hosts
- 172.16.0.10   ldap.tunombre.local
-
- vi  /etc/ldap.conf
- #Ponemos la siguiente linea al final: 172.16.0.10
+ #URI del servidor LDAP:  ldap://172.16.0.10
+ #Base de búsqueda en el servidor LDAP: dc=ldap,dc=tunombre,dc=local
+ #/etc/nsswith.conf marcamos passwd y group
 
 
- sudo pam-auth-update #marcar que se cree el directorio automaticamente
+ # En el caso de que necesitmos reconfigurar 
+ $ dpkg-reconfigure nslcd
+ # autentificación sencilla y el usuario de la base de datos LDAP: cn=admin,dc=ldap,dc=tunombre,dc=local
+
+ # En /etc/hosts
+ 172.16.0.10 ldap.tunombre.local
+
+ # marcar que se cree el directorio automaticamente
+ pam-auth-update 
 
 Algunos de estos comandos ya no están actualizados o tienen problemas lo importante es:
 
-
-.. code-block:: bash
-
- /etc/nsswitch.conf
- passwd: files ldap
- shadow: files ldap
- group: files ldap
 
 para comprobarlo puedes utilizar el comando:
 
@@ -281,13 +293,7 @@ para comprobarlo puedes utilizar el comando:
 
  getent passwd
 
-Hacer que funcione el caché de nombres
-
-.. code-block:: bash
-
- apt-get install nscd
- 
-Para poder cambiar el password
+Podemos instalar libpam-pwquality en el cliente para controlar la complejidad de las contraseñas al cambiarlas.
 
 .. code-block:: bash
   
@@ -309,6 +315,10 @@ Podemos configurar ``/etc/pam.d/common-password``
  ocredit=-1 → símbolo obligatorio
 
 .. [#v1] vídeos
+
+* Ubuntu Server 26.04 LTS
+
+  * `Vídeo LDAP+NFS+Slurm+Modules <https://mediateca.educa.madrid.org/video/xntyb81tlxni79wd>`_
 
 * Ubuntu Server 24.04 LTS
 

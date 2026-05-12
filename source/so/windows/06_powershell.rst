@@ -20,6 +20,8 @@ Un objeto es una instancia de una clase, los objetos tienen propiedades (atribut
  # Llamar a un método
  $newDate = $date.AddDays(5)  # Añade 5 días a la fecha actual
 
+ # Podemos acceder a la propiedad
+ $(Get-Date).Day
 
 Podemos ver todas las propiedades de un cmdlet con **Get-Member**:
 
@@ -139,8 +141,9 @@ Alias [#alias]_
 Ficheros y directorios
 ======================
 
+* **cd -> Set-Location** cambia el directorio actual
 * **pwd -> Get-Location** donde te encuentras
-* **cp -r -> Copy-Item** copiar
+* **cp -> Copy-Item** copiar
 * **mv -> Move-Item** mover, renombrar
 * **rm, rm -r -> Remove-Item** borrar
 * **mkdir** crear directorio
@@ -152,6 +155,7 @@ Ficheros y directorios
   * r (solo lectura)
   * h (oculto)
   * s (sistema)
+
 
 * **echo -> Write-Output** repetir salida estándar
 * **Test-Path -Path <archivo>** nos dice si exite el archivo o carpeta
@@ -295,6 +299,40 @@ Caracteres especiales
    Get-Process | Where-Object { $_.Name -eq "explorer" } 
    Get-Process | Where-Object { $_.CPU -gt 100 }
    
+
+
+Búsqueda de archivos y carpetas
+===============================
+
+Buscar un archivo concreto:
+
+.. code-block:: powershell
+
+   Get-ChildItem -Recurse -Filter "datos.txt"
+
+Buscar archivos por extensión
+
+.. code-block:: powershell
+
+    Get-ChildItem -Recurse *.pdf
+
+Buscar archivos que empiecen por un nombre
+
+.. code-block:: powershell
+
+   Get-ChildItem -Recurse "tema*"
+
+Buscar una carpeta concreta
+
+.. code-block:: powershell
+
+   Get-ChildItem -Recurse -Directory -Filter "backup"
+
+Buscar archivos desde una carpeta específica
+
+.. code-block:: powershell
+
+   Get-ChildItem "C:\Users\Daniel\Documentos" -Recurse -Filter "*.docx"
 
 
 Trabajando con objetos
@@ -715,7 +753,18 @@ Configuración de Windows (PowerShell)
   
    netsh advfirewall firewall add rule name="Habilitar respuesta ICMP IPv4" protocol=icmpv4:8,any dir=in action=allow
 
-.. marca:: windows_ssh
+* **Ver información de los puertos**
+
+  .. code-block:: PowerShell
+
+   # Mostrar todos los puertos abiertos
+   netstat -an   
+   
+   # Mostrar conexiones y puertos en escucha
+   netstat -ano 
+
+    # Ver el proceso asociado a un puerto::
+    Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess
 
 Instalar el servidor ssh
 ========================
@@ -790,48 +839,7 @@ Instalar edior vi
     cat .vimrc 
     filetype plugin indent off
    
-.. rubric:: Footnotes
-
-.. [#alias] 
-  
-  Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.
-  
-  Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:
-
-  Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).
-
-  Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:
-  
-  .. code-block:: powershell
-  
-    Test-Path $PROFILE
-
-  Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:
-
-  .. code-block:: powershell
-
-    New-Item -Path $PROFILE -Type File -Force
-
-  Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:
-
-  .. code-block:: powershell
-
-    C:\Program Files (x86)\Vim\vim90\vim.exe $PROFILE
-    
-  .. code-block:: powershell
-
-    notepad $PROFILE
-
-  Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:
-
-  .. code-block:: powershell
-  
-    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe' 
-
-  Guarda el archivo y cierra el editor de texto.
-
-  Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.
-  
+ 
 
 Gestión de usuarios
 ===================
@@ -889,3 +897,54 @@ Para ser administrador
    Remove-LocalGroup -Name "nombre_grupo"
 
 * `Configuración en AD <https://dgtrabada.github.io/so/windows/09_Caso_practico_AD_sin_GUI.html>`_
+
+
+.. rubric:: Notas
+
+.. [#alias] 
+  
+  Para crear un alias que esté disponible al principio de cada sesión de PowerShell, debes agregar el comando Set-Alias al archivo de perfil de PowerShell. El archivo de perfil es un script que se ejecuta automáticamente cada vez que inicias una nueva sesión de PowerShell.
+  
+  Los perfiles pueden ser específicos del usuario o del sistema. Aquí te muestro cómo crear un alias en tu perfil de usuario:
+
+  Abre PowerShell como administrador (esto es necesario para modificar archivos en la ubicación del perfil).
+
+  Verifica la existencia del archivo de perfil. Puedes hacerlo ejecutando el siguiente comando:
+  
+  .. code-block:: powershell
+  
+    Test-Path $PROFILE
+
+  Si el comando anterior devuelve False, significa que no tienes un archivo de perfil. En ese caso, puedes crear uno ejecutando el siguiente comando:
+
+  .. code-block:: powershell
+
+    PS C:\> Test-Path $PROFILE
+    False
+    PS C:\> New-Item -Path $PROFILE -Type File -Force
+       Directorio: C:\Users\dani\Documents\WindowsPowerShell
+
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    -a----        04/05/2026      9:07              0 Microsoft.Pow
+                                                  erShell_profile.ps1
+
+  Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:
+
+  .. code-block:: powershell
+
+    C:\Program Files (x86)\Vim\vim90\vim.exe $PROFILE
+    
+  .. code-block:: powershell
+
+    notepad $PROFILE
+
+  Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:
+
+  .. code-block:: powershell
+  
+    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe' 
+
+  Guarda el archivo y cierra el editor de texto.
+
+  Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.
