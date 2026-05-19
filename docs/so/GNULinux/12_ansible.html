@@ -733,10 +733,10 @@ Documentación del rol (uso, variables, descripción, etc.).</p></li>
 </li>
 </ul>
 <p>Utiliza el gestor de tareas <strong>Slurm</strong> y <strong>modules environment</strong></p>
-<p>Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado <code class="docutils literal notranslate"><span class="pre">cluster_tunombre</span></code></p>
+<p>Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado <code class="docutils literal notranslate"><span class="pre">cluster-tunombre</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>init<span class="w"> </span>--offline<span class="w"> </span>cluster-tunombre
 
-<span class="c1"># tree cluster_tunombre/</span>
+<span class="c1"># tree cluster-tunombre/</span>
 cluster_tunombre/
 ├──<span class="w"> </span>defaults
 │<span class="w">   </span>└──<span class="w"> </span>main.yml
@@ -772,14 +772,24 @@ cluster_tunombre/
 <span class="w">    </span>state:<span class="w"> </span>present
 <span class="w">    </span>update_cache:<span class="w"> </span>yes
 
--<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>ldap.conf
+-<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>nslcd.conf
 <span class="w">  </span>template:
-<span class="w">    </span>src:<span class="w"> </span>ldap.conf.j2
-<span class="w">    </span>dest:<span class="w"> </span>/etc/ldap.conf
+<span class="w">    </span>src:<span class="w"> </span>nslcd.conf.j2
+<span class="w">    </span>dest:<span class="w"> </span>/etc/nslcd.conf
 <span class="w">    </span>owner:<span class="w"> </span>root
 <span class="w">    </span>group:<span class="w"> </span>root
 <span class="w">    </span>mode:<span class="w"> </span><span class="s1">&#39;0644&#39;</span>
 <span class="w">    </span>backup:<span class="w"> </span>yes
+
+-<span class="w"> </span>name:<span class="w"> </span>Reiniciar<span class="w"> </span>nslcd
+<span class="w">  </span>systemd:
+<span class="w">    </span>name:<span class="w"> </span>nslcd
+<span class="w">    </span>state:<span class="w"> </span>restarted
+
+-<span class="w"> </span>name:<span class="w"> </span>Reiniciar<span class="w"> </span>cache<span class="w"> </span>nscd
+<span class="w">  </span>systemd:
+<span class="w">    </span>name:<span class="w"> </span>nscd
+<span class="w">    </span>state:<span class="w"> </span>restarted
 
 -<span class="w"> </span>name:<span class="w"> </span>Configurar<span class="w"> </span>NSS<span class="w"> </span>para<span class="w"> </span>usar<span class="w"> </span>LDAP
 <span class="w">  </span>template:
@@ -793,7 +803,7 @@ cluster_tunombre/
 -<span class="w"> </span>name:<span class="w"> </span>Inserta<span class="w"> </span>linea<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 <span class="w">  </span>lineinfile:
 <span class="w">    </span>path:<span class="w"> </span>/etc/hosts
-<span class="w">    </span>line:<span class="w"> </span><span class="s2">&quot;172.16.0.10 compute-0-0 ldap.tunombre.local&quot;</span>
+<span class="w">    </span>line:<span class="w"> </span><span class="s2">&quot;172.16.0.10 ldap.tunombre.local&quot;</span>
 <span class="w">    </span>state:<span class="w"> </span>present
 
 -<span class="w"> </span>name:<span class="w"> </span>Instalar<span class="w"> </span>paquete<span class="w"> </span>nfs-common
@@ -829,7 +839,7 @@ cluster_tunombre/
 -<span class="w"> </span>name:<span class="w"> </span>Iniciar<span class="w"> </span>y<span class="w"> </span>habilitar<span class="w"> </span>autofs
 <span class="w">  </span>systemd:
 <span class="w">    </span>name:<span class="w"> </span>autofs
-<span class="w">    </span>state:<span class="w"> </span>started
+<span class="w">    </span>state:<span class="w"> </span>restarted
 <span class="w">    </span>enabled:<span class="w"> </span>yes
 </pre></div>
 </div>
@@ -947,6 +957,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span
 <section id="videos">
 <h2>Videos<a class="headerlink" href="#videos" title="Link to this heading">#</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/jeos9oi2i2pqzcwz">Ansible LDAP autofs en Ubuntu 26.04 LTS</a></p></li>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/m8p67seyxyz16zrk">Ansible LDAP autofs en Ubuntu 24.04 LTS</a></p></li>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8">Ansible en Ubuntu 22.04 LTS</a></p></li>
 </ul>

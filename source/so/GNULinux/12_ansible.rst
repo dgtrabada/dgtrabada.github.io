@@ -317,13 +317,13 @@ Partimos de un cluster formado por:
 
 Utiliza el gestor de tareas **Slurm** y **modules environment**
 
-Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado ``cluster_tunombre``
+Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado ``cluster-tunombre``
 
 .. code-block:: bash
 
  ansible-galaxy init --offline cluster-tunombre
 
- # tree cluster_tunombre/
+ # tree cluster-tunombre/
  cluster_tunombre/
  ├── defaults
  │   └── main.yml
@@ -361,14 +361,24 @@ En el archivo ``cluster-tunombre/tasks/main.yml`` tenemos:
      state: present
      update_cache: yes
  
- - name: Configurar ldap.conf
+ - name: Configurar nslcd.conf
    template:
-     src: ldap.conf.j2
-     dest: /etc/ldap.conf
+     src: nslcd.conf.j2
+     dest: /etc/nslcd.conf
      owner: root
      group: root
      mode: '0644'
      backup: yes
+
+ - name: Reiniciar nslcd
+   systemd:
+     name: nslcd
+     state: restarted
+
+ - name: Reiniciar cache nscd
+   systemd:
+     name: nscd
+     state: restarted
 
  - name: Configurar NSS para usar LDAP
    template:
@@ -382,7 +392,7 @@ En el archivo ``cluster-tunombre/tasks/main.yml`` tenemos:
  - name: Inserta linea si no existe
    lineinfile:
      path: /etc/hosts
-     line: "172.16.0.10 compute-0-0 ldap.tunombre.local"
+     line: "172.16.0.10 ldap.tunombre.local"
      state: present
 
  - name: Instalar paquete nfs-common
@@ -418,7 +428,7 @@ En el archivo ``cluster-tunombre/tasks/main.yml`` tenemos:
  - name: Iniciar y habilitar autofs
    systemd:
      name: autofs
-     state: started
+     state: restarted
      enabled: yes 
 
 Para aplicar el rol podemos usar ``aplicar_cliente_ldap.yml``
@@ -552,6 +562,7 @@ Chequeamos el servidor ``ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"``, y
 
 Videos
 ******
+* `Ansible LDAP autofs en Ubuntu 26.04 LTS <https://mediateca.educa.madrid.org/video/jeos9oi2i2pqzcwz>`_
 * `Ansible LDAP autofs en Ubuntu 24.04 LTS <https://mediateca.educa.madrid.org/video/m8p67seyxyz16zrk>`_
 * `Ansible en Ubuntu 22.04 LTS <https://mediateca.educa.madrid.org/video/5hh37p3a38n692o8>`_
 
