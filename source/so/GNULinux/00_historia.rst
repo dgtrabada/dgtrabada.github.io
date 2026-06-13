@@ -8,7 +8,7 @@ El desarrollo de estos sistemas operativos es uno de los ejemplos más prominent
 
 A pesar de que en la jerga cotidiana la mayoría de las personas usan el vocablo «Linux» para referirse a este sistema operativo,​ en realidad ese es solo el nombre del kernel o núcleo, ya que el sistema completo está formado también por una gran cantidad de componentes del proyecto GNU, que van desde compiladores hasta entornos de escritorio.
 
-Sin embargo, tras Tolvards publico su núcleo Linux en 1991 y ser este usado junto al software del proyecto GNU, una parte significativa de los medios generales y especializados han utilizado el término «Linux» para referirse a estos sistemas operativos completos.​ Cabe señalar que, existen derivados de sistemas operativos que usan el núcleo Linux, pero que no tienen componentes GNU, como por ejemplo el sistema operativo Android, así como distribuciones de software GNU donde el núcleo Linux está ausente, como por ejemplo el sistema operativo FreeBSD, que es un sistema operativo basado en Unix, que usa un micronúcleo de sistema operativo junto a algunas aplicaciones del proyecto GNU
+Sin embargo, tras Torvalds publicó su núcleo Linux en 1991 y ser este usado junto al software del proyecto GNU, una parte significativa de los medios generales y especializados han utilizado el término «Linux» para referirse a estos sistemas operativos completos.​ Cabe señalar que, existen derivados de sistemas operativos que usan el núcleo Linux, pero que no tienen componentes GNU, como por ejemplo el sistema operativo Android, así como distribuciones de software GNU donde el núcleo Linux está ausente, como por ejemplo el sistema operativo FreeBSD, que es un sistema operativo basado en Unix, que usa un micronúcleo de sistema operativo junto a algunas aplicaciones del proyecto GNU
 
 Los sistemas operativos GNU/Linux, se encuentran normalmente en forma de compendios conocidos como distribuciones o distros, las cuales se les han añadido selecciones de aplicaciones y programas, con las cuales el sistema cuenta directamente al ser instalado, así como una amplia serie de programas que pueden descargarse desde un repositorio, que consiste en un almacén de software, para su posterior instalación. El propósito de estas distribuciones es ofrecer GNU/Linux como un producto final que el usuario pueda instalar en su computadora para que funcione como su sistema operativo principal, o también en un software de simulación virtual de computadora, cumpliendo con toda una serie de necesidades básicas para un grupo determinado de usuarios, o para el público general.
 
@@ -37,7 +37,7 @@ En la siguiente tabla puedes ver algunas de las distribuciones más utilizadas a
 * PC LinuxOS
 * FreeBSD
 
-Filesystem Hierarchy Standard o FHS nació en 1994 y es actualmente mantenida por la Linux Foundation. La estructura de directorios aun siendo un estándar, hay casos de distribuciones GNU/Linux que directamente apuestan por él. Otras, por contra, si que hacen un esfuerzo en adaptarse en lo máximo posible a él, pero suelen desviarse en algunas áreas.
+Filesystem Hierarchy Standard o FHS nació en 1994 y es actualmente mantenida por la Linux Foundation. La estructura de directorios aún siendo un estándar, hay casos de distribuciones GNU/Linux que directamente apuestan por él. Otras, por contra, sí que hacen un esfuerzo en adaptarse en lo máximo posible a él, pero suelen desviarse en algunas áreas.
 
 .. image:: imagenes/organiza.png
 
@@ -58,7 +58,7 @@ Linux ofrece muchas alternativas. Los entornos de escritorio más populares son:
 
   .. image:: imagenes/xfce.png
 
-* **MATE**, El lanzamiento de GNOME 3 remplazando la clásica metáfora de escritorio de versiones anteriores con una nueva interfaz construida sobre el Shell de GNOME, condujo a algunas críticas de la comunidad Linux. Muchos usuarios se negaron a aceptar la nueva interfaz de GNOME, pidiendo que alguien continuara el desarrollo de GNOME 2.3​
+* **MATE**, El lanzamiento de GNOME 3 reemplazando la clásica metáfora de escritorio de versiones anteriores con una nueva interfaz construida sobre el Shell de GNOME, condujo a algunas críticas de la comunidad Linux. Muchos usuarios se negaron a aceptar la nueva interfaz de GNOME, pidiendo que alguien continuara el desarrollo de GNOME 2.3​
 
   .. image:: imagenes/mate.png
   

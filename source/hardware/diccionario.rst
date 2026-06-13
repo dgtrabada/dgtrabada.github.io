@@ -164,7 +164,7 @@ Diccionario de la BIOS/UEFI
    computador portátil
 
   last
-   ultimo
+   último
 
   load
    cargar
@@ -266,7 +266,7 @@ Diccionario de la BIOS/UEFI
    volver a cargar
 
   root
-   superusuario, raiz
+   superusuario, raíz
 
   save
    guardar
@@ -299,7 +299,7 @@ Diccionario de la BIOS/UEFI
    configuración
 
   shell
-   interprete de comandos
+   intérprete de comandos
 
   Sleep Timer
    Después del periodo seleccionado de inactividad, todos los dispositivos excepto el disco duro y el procesador se apagan

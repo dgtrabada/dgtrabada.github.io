@@ -11,9 +11,9 @@ Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
 #. Añadelo a GNS3 ( New template / Install an appliance from the GNS3 server (recommended)
 #. En **Routers** selecciona **Cisco 7200**
 #. Install the appliance on your local computer 
-#. Cuando estes en (Required files) presiona Import y busca los archivos que te has descargado.
+#. Cuando estés en (Required files) presiona Import y busca los archivos que te has descargado.
 
-Realiza la siguiente red, necesitaras añadir otro slots en el router (PA-FE-TX)
+Realiza la siguiente red, necesitarás añadir otro slots en el router (PA-FE-TX)
 
 .. image:: imagenes/cisco7200_01.png
 
@@ -30,7 +30,7 @@ Configura los pcs virtuales (VPC)
   set pcname 192.168.2.10/24
   ip 192.168.2.10/24 192.168.2.1
 
-Fíjate que los Pcs virtuales (VPC) no pueden verse los que estan en subredes diferentes
+Fíjate que los Pcs virtuales (VPC) no pueden verse los que están en subredes diferentes
 
 .. image:: imagenes/cisco7200_02.png
 
@@ -49,7 +49,7 @@ Vamos a configuración las interfaces de red del router, pondremos a FastEtherne
    no shutdown
   exit
 
-Puedes comprobar que las interfaces de red estan configruadas correctamente con el comando ``show ip interface brief``. Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente
+Puedes comprobar que las interfaces de red están configuradas correctamente con el comando ``show ip interface brief``. Fijate que cuando configuras las interfaces del router Cisco 7200, el enrutamiento básico se configura automáticamente
 
 .. image:: imagenes/cisco7200_03.png
 
@@ -131,7 +131,7 @@ Diagrama de flujo DHCP
 Caso práctico: telnet & ssh
 ===========================
 
-Unimos dos routers y habilitamos la consexión telnet y ssh, cambia ``domain-name tunombre`` y la contraseña ``alumno``  por ``tu nombre``
+Unimos dos routers y habilitamos la conexión telnet y ssh, cambia ``domain-name tunombre`` y la contraseña ``alumno``  por ``tu nombre``
 
 .. tabs::
 
@@ -193,7 +193,7 @@ Para ver la contraseña tenemos que reconstruir la sesión, es decir sigue el fl
 
 .. image:: imagenes/R2WS_telnet.png
 
-En el caso de que hagamos lo mismo y ejecutamos desde R1 ``ssh -l admin 10.0.0.2`` obtendriamos:
+En el caso de que hagamos lo mismo y ejecutamos desde R1 ``ssh -l admin 10.0.0.2`` obtendríamos:
 
 .. image:: imagenes/R2WS_ssh.png
 
@@ -210,7 +210,7 @@ En GNS3, el Cloud sirve para conectar tu laboratorio virtual con el mundo exteri
 .. image:: imagenes/cisco_cloud.png
 
 
-Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip. En el caso de tener un portatil tendrás que usar un dhcp y el gateway 192.168.3.1
+Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip. En el caso de tener un portátil tendrás que usar un dhcp y el gateway 192.168.3.1
 
 .. code-block:: bash
   :emphasize-lines: 10
@@ -672,7 +672,7 @@ Instalamos en ubuntu las  iptables [#iptables]_
    apt update
    apt install iptables
 
-Configuarmos el NAT para que todo lo que salga por eth0 use su IP como origen
+Configuramos el NAT para que todo lo que salga por eth0 use su IP como origen
 
 .. code-block:: bash
 
@@ -696,7 +696,7 @@ Configuarmos el NAT para que todo lo que salga por eth0 use su IP como origen
 Caso práctico: Router MikroTik
 ==============================
 
-ikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos `mikrotik-chr.gnsa y la chr-7.16.img <https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router>`_ 
+MikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos `mikrotik-chr.gnsa y la chr-7.16.img <https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router>`_ 
 
 Para añadirlo a GNS3 New template / Import an appliance file (.gn3a extension) 
 
@@ -706,7 +706,7 @@ Vamos a utilizar tres ordenadores con la siguiente configuración:
 
 .. image:: imagenes/MikroTik02.png
 
-La forma más rápida de confiruar los 3 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+La forma más rápida de configurar los 3 clientes es utilizando el botón de la derecha del ratón y pulsando Edit config, copiamos en cada caso la configuración correspondiente:
 
 .. code-block:: bash
 
@@ -756,7 +756,7 @@ Para este caso práctico vamos a utilizar **GNS3** que es un software de emulaci
 
 Para instalar un Router pulsaremos a (New
 
-La forma más rápida de confiruar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+La forma más rápida de configurar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
 
 .. code-block:: bash
   
@@ -778,7 +778,7 @@ La forma más rápida de confiruar los 6 clientes es utilizando el botón de la 
  set pcname 10.0.3.11/24
  ip 10.0.3.11 10.0.3.254 24
 
-Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que esten en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con **R2**, abrimos la teminal y vemos que no esta configuradas las interfaces de red
+Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que estén en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con **R2**, abrimos la teminal y vemos que no esta configuradas las interfaces de red
 
 .. code-block:: bash
    
@@ -805,7 +805,7 @@ Para configurarlas, abrimos una terminal:
  [edit]
  vyos@vyos# set interfaces ethernet eth1 address 10.0.0.5/30
  
-Tampoco estan configuradas las tablas de encaminamiento
+Tampoco están configuradas las tablas de encaminamiento
 
 .. code-block:: bash
 
@@ -814,7 +814,7 @@ Tampoco estan configuradas las tablas de encaminamiento
  Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
  
   
-Añadimos las siguientes rutas estaticas: 
+Añadimos las siguientes rutas estáticas: 
 
 .. code-block:: bash
 

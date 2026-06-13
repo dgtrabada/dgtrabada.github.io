@@ -42,7 +42,7 @@ Cuando se escribe el nombre del programa de procesamiento por lotes en la línea
    
    C:\>for.bat      
    ------------------------------- 
-   cuena hasta 10 de 2 en 2
+   cuenta hasta 10 de 2 en 2
    hola 1
    hola 3
    hola 5

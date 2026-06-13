@@ -47,7 +47,7 @@ Propiedades de los discos
 Discos de estado sólido
 -----------------------
 
-Los discos duros SSD utilizan memoria flash (similables a las utilizadas en la RAM), pero a diferencia de ellas están basada en puertas NAND que no borran los datos cada vez que dejan de recibir corriente.
+Los discos duros SSD utilizan memoria flash (similares a las utilizadas en la RAM), pero a diferencia de ellas están basada en puertas NAND que no borran los datos cada vez que dejan de recibir corriente.
 
 Los SSD no pueden sobrescribir directamente los datos en páginas individuales. Solo pueden escribir datos en páginas vacías de un bloque.
 
@@ -106,7 +106,7 @@ Para chequear el estado del SMART ejecutamos: smartctl -H /dev/sda
 
 .. image:: imagenes/almacenamiento/smartctl2.png
 
-Con la técnología Load/Unload cada vez más extendida, sobre todo en discos duros de portátil. Consiste en que el cabezal de lectura/escritura, en vez de estar permanentemente volando sobre el disco, se aparca frecuentemente, lo que teóricamente permite una  mayor duración del disco, menor consumo y mayor protección contra golpes. En Load_Cycle_Count vemos los ciclos que lleva el disco utilizado. Para ver este y otros atributos, como por ejemplo la temperatura ejecutamos: smartctl -a /dev/sda
+Con la tecnología Load/Unload cada vez más extendida, sobre todo en discos duros de portátil. Consiste en que el cabezal de lectura/escritura, en vez de estar permanentemente volando sobre el disco, se aparca frecuentemente, lo que teóricamente permite una  mayor duración del disco, menor consumo y mayor protección contra golpes. En Load_Cycle_Count vemos los ciclos que lleva el disco utilizado. Para ver este y otros atributos, como por ejemplo la temperatura ejecutamos: smartctl -a /dev/sda
 
 
 
@@ -130,11 +130,11 @@ Con la técnología Load/Unload cada vez más extendida, sobre todo en discos du
 
 .. image:: imagenes/almacenamiento/redo.png
 
-* **Clonezilla Live** es un CD en vivo basado en Debian que contiene a Clonezilla, un programa de particionamiento y conlonación d ediscos similar a Norton Ghost. Guarda y restaura sólo los bloques usados en el disco duro. Con Clonezilla, uno puede clonar un sistema de 5 GB para 40 clientes en unos 10 min.
+* **Clonezilla Live** es un CD en vivo basado en Debian que contiene a Clonezilla, un programa de particionamiento y clonación de discos similar a Norton Ghost. Guarda y restaura sólo los bloques usados en el disco duro. Con Clonezilla, uno puede clonar un sistema de 5 GB para 40 clientes en unos 10 min.
 
 .. image:: imagenes/almacenamiento/clonecizilla.png
 
-* **DRBL** (Diskless Remote Boot in Linux: Inicio Remoto sin Disco en Línux) es software de servidor para arrancar y operar clientes de escritorio remotos. El prgrama DRBL permite a máquinas cliente correr como computadoras cliente ligeras sin estado administradas por el servidor DRBL. DRBL en vivo, es una distribución en discos en vivo basada en Debian del programa para servidor DRBL, el cual puede correr desde una USB o CD/DVD. Incluye un ambiente de escritorio para asistir a los usuarios a configurar el servidor.
+* **DRBL** (Diskless Remote Boot in Linux: Inicio Remoto sin Disco en Línux) es software de servidor para arrancar y operar clientes de escritorio remotos. El programa DRBL permite a máquinas cliente correr como computadoras cliente ligeras sin estado administradas por el servidor DRBL. DRBL en vivo, es una distribución en discos en vivo basada en Debian del programa para servidor DRBL, el cual puede correr desde una USB o CD/DVD. Incluye un ambiente de escritorio para asistir a los usuarios a configurar el servidor.
 
 .. image:: imagenes/almacenamiento/drbl.png
 

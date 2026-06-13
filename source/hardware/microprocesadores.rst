@@ -44,7 +44,7 @@ Algunas de las características básicas de los procesadores son las siguientes:
 * **Arquitectura**: Algunas de las características que definen la arquitectura de un procesador son las siguiente:Actualmente tenemos de 32 bits y de 64 bits, una de la diferencia entre ambas arquitecturas es que la de 32 bits solo puede referenciar 2 :sup:`32` direcciones o 4 gigabytes de RAM y trabaja con una precisión de 32 bits. ( 2 :sup:`32` direcciones * 1 palabra (byte) = 2 :sup:`32` B = 2 :sup:`2` GB = 4 GB)El conjunto de instrucciones que utilizan:
 
   * **CISC** (complex instruction set computer) Computadoras con un conjunto de instrucciones complejo. Se refiere a los microprocesadores tradicionales que operan con grupos grandes de instrucciones de procesador (lenguaje de maquina). Los microprocesadores INTEL 80xxx estan dentro de esta categoría (incluido el PENTIUM). Los procesadores CISC tienen un Set de instrucciones complejas por naturaleza que requieren varios a muchos ciclos para completarse. En la actualidad CISC tiene a x86 como su mayor exponente (Motorola 68000, Zilog Z80 y toda la familia Intel x86, AMD x86-64)
-  * **RISC** (reduced instruction set computer) Computadoras con un conjunto de instrucciones reducido, los procesadores RISC tienen un grupo de o Set de instrucciones simples requiriendo uno o pocos ciclos de ejecución. Estas instrucciones pueden ser utilizadas más eficientemente que la de los procesadores CISC con el diseño de software apropiado, resultando en operaciones más rapídas. En la actualidad el mayor ejemplo de procesador RISC son los productos ARM, utilizados ampliamente en dispositivos móviles pero también en otros campos como los supercomputadores. (PowerPC, DEC Alpha, MIPS, ARM, SPARC )
+  * **RISC** (reduced instruction set computer) Computadoras con un conjunto de instrucciones reducido, los procesadores RISC tienen un grupo de o Set de instrucciones simples requiriendo uno o pocos ciclos de ejecución. Estas instrucciones pueden ser utilizadas más eficientemente que la de los procesadores CISC con el diseño de software apropiado, resultando en operaciones más rápidas. En la actualidad el mayor ejemplo de procesador RISC son los productos ARM, utilizados ampliamente en dispositivos móviles pero también en otros campos como los supercomputadores. (PowerPC, DEC Alpha, MIPS, ARM, SPARC )
   
 * **FBS (front-side bus)** El bus frontal es un canal de comunicación que se utiliza para transferir datos y comandos entre el procesador y la memoria principal. La velocidad del bus frontal se mide en MHz y determina la cantidad de datos que pueden transferirse entre el procesador y la memoria principal en un segundo.
 
@@ -69,9 +69,9 @@ Características de INTEL
 
 * **Brand** = Intel® Core™, Celeron®,  Pentium®
 * **Brand Modifies** = i3, i5, i7, and i9
-* **Generation indicator** = generación a la que pertencen
+* **Generation indicator** = generación a la que pertenecen
 * **SKU** = sirve  catalogarlo dentro de su generación
-* **Produc Line Suffix** = indica capacidades especiales
+* **Product Line Suffix** = indica capacidades especiales
 
 Características AMD
 -------------------

@@ -11,7 +11,7 @@ El factor de forma son unos estándares que definen algunas características fí
 
 * **ATX (Advanced Technology Extended)** estándar (30.5 x 24.4 cm). Dominante en PCs de escritorio.
   
-* **Micro-ATX (mATX)** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es identico. Por esta razón, las placas micor-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente.
+* **Micro-ATX (mATX)** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es idéntico. Por esta razón, las placas micro-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente.
 
 * **Mini-ITX** (17.0 x 17.0 cm) Sistemas ultracompactos.
 
@@ -19,7 +19,7 @@ El factor de forma son unos estándares que definen algunas características fí
 
 Además existen multitud de formatos especializados como **E-ATX (Extended ATX)** (30.5x33.0) usado en workstations y servidores, **Mini-STX (5×5)** (14.7 × 14.0 cm), **Nano-ITX* (12.0 x 12.0 cm) o **Pico-ITX** (10.0 x 7.2 cm) para  IoT y dispositivos miniaturizados
 
-Existen muchos factores obsoletos como el **BTX** (Tecnología Balanceada Extendida) fué un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco.
+Existen muchos factores obsoletos como el **BTX** (Tecnología Balanceada Extendida) fue un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco.
 
 .. image:: imagenes/placa_base/tamaño_placa_base.jpg
 

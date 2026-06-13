@@ -12,7 +12,7 @@ Habilitar ejecución de scripts
 Tipos y colecciones
 ===================
 
-En PowerShell, no es necesario declarar explícitamente el tipo de una variable, infiere el tipo automáticamente al asignar un valor. No obtantes si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
+En PowerShell, no es necesario declarar explícitamente el tipo de una variable, infiere el tipo automáticamente al asignar un valor. No obstante si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
 
 .. code-block:: powershell
 
@@ -117,7 +117,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
    CADENA
    PS C:\> $a.Replace("ca","  ").Replace("na","  ")
     de  
-   #Trim() elimina espacios al final y al princio
+   #Trim() elimina espacios al final y al principio
    PS C:\> $a.Replace("ca","  ").Replace("na","  ").Trim()
    de
 
@@ -249,7 +249,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
   
 
 
-  Arrays multidimimensionales
+  Arrays multidimensionales
     
   .. code-block:: powershell
 
@@ -832,7 +832,7 @@ Funciones
  #12 
 
 
-Ejemplo de función con recurrencia:
+Ejemplo de función con recursión:
 
 .. code-block:: powershell
 

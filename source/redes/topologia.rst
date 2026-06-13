@@ -7,7 +7,7 @@ Cuando hablamos de la topología física de una red nos referimos a la distribuc
 Topología en bus
 ================
 
-Se caracteriza por tener un único canal de comunicaciones, llamado bus, al cual se conectas los diferentes dispositivos. El extremos del cable se terminan con una resistencia llamado terminador que además de indicar que no existen más ordenadores en el extremo, permiten cerrar el bus (evitan reflexiones)
+Se caracteriza por tener un único canal de comunicaciones, llamado bus, al cual se conectan los diferentes dispositivos. Los extremos del cable se terminan con una resistencia llamado terminador que además de indicar que no existen más ordenadores en el extremo, permiten cerrar el bus (evitan reflexiones)
 
 Tiene como ventaja que es fácil de instalar y mantener y el principal inconveniente que si se rompe el cable por algún punto la red queda inoperativa por completo
 
@@ -16,7 +16,7 @@ Tiene como ventaja que es fácil de instalar y mantener y el principal inconveni
 Topología en anillo
 ===================
 
-Cada estación esta conectada a la siguiente y la última está conectada a la primera, la principal des ventaja es que si un equipo o un cable deja de funcionar se paraliza toda la red.
+Cada estación está conectada a la siguiente y la última está conectada a la primera, la principal desventaja es que si un equipo o un cable deja de funcionar se paraliza toda la red.
 
 
 .. image:: imagenes/topologia_anillo.png
@@ -24,7 +24,7 @@ Cada estación esta conectada a la siguiente y la última está conectada a la p
 Topología en estrella
 =====================
 
-Todos los ordenadores están conectados a un punto central y todas las comunicaciones han de hacerse necesariamente a través de éste, la principal ventaja es que si un cable o un equipo deja de funcionar el resto de la red no se ve afectada, sin embargo si el nodo centrar falta, toda la red se desconecta.
+Todos los ordenadores están conectados a un punto central y todas las comunicaciones han de hacerse necesariamente a través de éste, la principal ventaja es que si un cable o un equipo deja de funcionar el resto de la red no se ve afectada, sin embargo si el nodo central falta, toda la red se desconecta.
 
 .. image:: imagenes/topologia_estrella.png
 

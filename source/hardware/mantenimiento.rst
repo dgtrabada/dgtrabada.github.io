@@ -48,7 +48,7 @@ Imaginad que pasaría si se perdieran la base de datos de la facturación de una
 Nivel de mantenimiento de documentación
 =======================================
 
-Cuando se instala, se mantine o se repara un sistema informativo hay que actualizar la documentación y dejar un registro de todas la tareas de mantenimiento.
+Cuando se instala, se mantiene o se repara un sistema informático hay que actualizar la documentación y dejar un registro de todas la tareas de mantenimiento.
 
 Técnicas auxiliares de mantenimiento 
 ====================================

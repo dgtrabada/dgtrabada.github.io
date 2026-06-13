@@ -76,7 +76,7 @@ Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pare
 Cable coaxial
 -------------
 
-Consta de un núcleo de cobre solido rodeado por un aislante. Una malla central aisla de las interferencias (principio de la jaula de la jaula de Faraday", puede actuar como una antena conforme aumenta la distancia, emite señales que pueden ser registradas y puede recibir interferencias externas.
+Consta de un núcleo de cobre sólido rodeado por un aislante. Una malla central aisla de las interferencias (principio de la jaula de la jaula de Faraday", puede actuar como una antena conforme aumenta la distancia, emite señales que pueden ser registradas y puede recibir interferencias externas.
 
 
 .. image:: imagenes/cable_coaxial.png
@@ -149,7 +149,7 @@ El radiotelescopio usados en radioastronomía opera en diversas bandas de frecue
 Sistemas radioterrestres
 ------------------------
 
-Las ondas electromagnéticas utilizadas en las emisiones de radio no requieren de ningún medio de propagación, es decir que pueden propagarse en la atmósfera y en el vacio.
+Las ondas electromagnéticas utilizadas en las emisiones de radio no requieren de ningún medio de propagación, es decir que pueden propagarse en la atmósfera y en el vacío.
 
 * **Onda corta**, f < 30 MHz utilizan la ionosfera para propagarse
 

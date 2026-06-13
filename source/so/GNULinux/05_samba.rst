@@ -11,7 +11,7 @@ Caso práctico: Samba
 
 Podemos ver ´vídeo <https://mediateca.educa.madrid.org/video/hpxp95mqhnryu8v7>´_.
 
-Instalamos el servicor de samba:
+Instalamos el servidor de samba:
 
 .. code-block:: bash
 

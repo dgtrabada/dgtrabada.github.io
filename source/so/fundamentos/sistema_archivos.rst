@@ -13,14 +13,14 @@ Una de las primeras formas de organizar la información en la memoria secundaria
 .. image:: imagenes/memoria_lista.png
   :width: 400
 
-En cada bloque contiene la dirección del siguiente bloque o si es el ultimo da dirección con el valor EOF. Uno de los problemas que nos encontramos es que si queremos leer el bloque i, tendremos que pasar por todos lo anteriores (esto puede ser muy ineficiente)
+En cada bloque contiene la dirección del siguiente bloque o si es el ultimo da dirección con el valor EOF. Uno de los problemas que nos encontramos es que si queremos leer el bloque i, tendremos que pasar por todos los anteriores (esto puede ser muy ineficiente)
 
-Un forma más eficiente de organizarlo es almacenar los archivos de una forma contigua sin embargo cuando un archivo aumente de tamaño tendremos que cambiarlo de sitio creándose de esta forma la fragmentación externa:
+Una forma más eficiente de organizarlo es almacenar los archivos de una forma contigua sin embargo cuando un archivo aumente de tamaño tendremos que cambiarlo de sitio creándose de esta forma la fragmentación externa:
 
 .. image:: imagenes/frag_ext.png
 
 
-Podemos evitar mover todo el archivo creando bloques, esto creará fragmentación interna, cuanto menor sea el tamaño del bloque mejor sera el aprovechamiento de la partición
+Podemos evitar mover todo el archivo creando bloques, esto creará fragmentación interna, cuanto menor sea el tamaño del bloque mejor será el aprovechamiento de la partición
 
 
 .. image:: imagenes/frag_int.png
@@ -63,7 +63,7 @@ Con bloques de 1KB y direcciones de 32 bits podemos apuntar a:
 
 (256)³ = 2²⁴
 
-tendríamos en todal : 10 + 2⁸ + 2¹⁶ + 2²⁴ ≈ 2²⁴ = 16 GB
+tendríamos en total : 10 + 2⁸ + 2¹⁶ + 2²⁴ ≈ 2²⁴ = 16 GB
 
 NTFS 
 ====
@@ -76,8 +76,8 @@ NTFS se divide en 4 zonas
 Tamaño Bloque
 =============
 
-Tamaños grades, nos dan mucha fragmentación interna, lo que hace que se desperdicie capacidad de disco duro
-Tamaños pequeños hace que los archivos se expandan en múltiples bloques lo que hace queprovoca velocidad de lectura menores.
+Tamaños grandes, nos dan mucha fragmentación interna, lo que hace que se desperdicie capacidad de disco duro
+Tamaños pequeños hace que los archivos se expandan en múltiples bloques lo que hace que provoca velocidad de lectura menores.
 Tanenbaum et al. (2006) en  Computer Science Department, obtiene:
 
 .. image:: imagenes/bloque.png
@@ -106,7 +106,7 @@ Existen muchos tipos de sistemas de archivos. En la siguiente tabla vemos alguno
 
 En el sistema de archivos hay dos tipos fundamentales de objetos: los directorios y los archivos, Los archivos son los objetos encargados de contener los datos, mientras que los directorios o carpetas son los objetos cuya misión principal es permitir una mayor organización de los archivos dentro del disco.
 
-Los archivos suelen estar formados por el nombre y la extensión, la extensión indica que tipo de archivo es, fijate en los siguientes ejemplos:
+Los archivos suelen estar formados por el nombre y la extensión, la extensión indica qué tipo de archivo es, fíjate en los siguientes ejemplos:
 
 * Extensiones de Ofimática:
 
@@ -176,7 +176,7 @@ Los archivos suelen estar formados por el nombre y la extensión, la extensión 
     * GZ: archivo comprimido en GZIP, muy frecuente en Linux.
     * tar.bz2: otro formato de archivo comprimido de Linux.
 
-Junto con el nombre del archivo, el sistema operativo almacena también unos atributos que califican al archivo. Entre otros pueden ser la hora y fecha de creación o su ultima modificación, su propietario, si es oculto, si pertenece al sistema, el tamaño, si esta cifrado, si es solo para lectura, escritura o ejecución, si es un enlace simbólico, etc
+Junto con el nombre del archivo, el sistema operativo almacena también unos atributos que califican al archivo. Entre otros pueden ser la hora y fecha de creación o su última modificación, su propietario, si es oculto, si pertenece al sistema, el tamaño, si está cifrado, si es solo para lectura, escritura o ejecución, si es un enlace simbólico, etc
 
 Los directorios son una división lógica de almacenamiento de archivos u otros subdirectorios, al igual que los archivos tienen atributos que cambiarán según el sistema operativo que utilicemos, los cuales las veremos más adelante. Las operaciones más comunes sobre los directorios son:
 

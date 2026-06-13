@@ -5,21 +5,21 @@ Arquitecturas basadas en niveles
 Arquitectura OSI
 ================
 
-En 1983 se completa la migración a la arquitectura de comunicación TCP/IP, en 1978 the Internatonal Standars Organization (ISO) propuso el modelo (OSI) Open Systems Interconections, que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.
+En 1983 se completa la migración a la arquitectura de comunicación TCP/IP, en 1978 the International Standards Organization (ISO) propuso el modelo (OSI) Open Systems Interconections, que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.
 
 Modelo de referencia OSI
 
 .. image:: imagenes/OSI.png
 
-1. **Capa física**. En esta capa se encuentra los medios materiales para la comunicación como las placas, cables, conectores, es decir medio mecánicas y eléctricos. La paca física se ocupa de la transmisión de bists a lo largo de un canal de comunicación. Debe de garantizar que un bit que se manda llegue con el mismo valor.
+1. **Capa física**. En esta capa se encuentra los medios materiales para la comunicación como las placas, cables, conectores, es decir medio mecánicas y eléctricos. La capa física se ocupa de la transmisión de bits a lo largo de un canal de comunicación. Debe de garantizar que un bit que se manda llegue con el mismo valor.
 
-2. **Capa de enlace**. Aporta un servicio de transferencia de datos fiable a través del enlace físico para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen un par bits entre los tramos de datos para hacer el control de errores, esta capa se encarga de solucionar los problemas de reenvio, o mensajes duplicados.
+2. **Capa de enlace**. Aporta un servicio de transferencia de datos fiable a través del enlace físico para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen un par bits entre los tramas de datos para hacer el control de errores, esta capa se encarga de solucionar los problemas de reenvío, o mensajes duplicados.
 
-3. **Capa de red**. Este nivel encamina los paquetes de la fuente al destino final a través de encaminadores (routers) intermedios. tiene que evitar la congestión y manejar saltos cuando la fuente y destino de las redes es diferente.
+3. **Capa de red**. Este nivel encamina los paquetes de la fuente al destino final a través de encaminadores (routers) intermedios. Tiene que evitar la congestión y manejar saltos cuando la fuente y destino de las redes es diferente.
 
-4. **Capa de transporte**. La función principal es aceptar los datos de la capa superior y dividirlos en unidades más pequeñas, para pasarlos a la capa de red, asegurando que todos los segmentos llegan y se re ensamblas los paquetes
+4. **Capa de transporte**. La función principal es aceptar los datos de la capa superior y dividirlos en unidades más pequeñas, para pasarlos a la capa de red, asegurando que todos los segmentos llegan y se reensamblan los paquetes
 
-5. **Capa de sesión**. Permite a los usuarios loguearse entre sí permitiendo accedes a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos maquinas, también puede encargase de recuperar el sistema en el caso de producirse un fallo.
+5. **Capa de sesión**. Permite a los usuarios loguearse entre sí permitiendo acceder a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos máquinas, también puede encargarse de recuperar el sistema en el caso de producirse un fallo.
 
 6. **Capa de presentación**. Se encarga de traducir la información del formato máquina a un formato que pueda entender el usuario.
 
@@ -53,7 +53,7 @@ Cada capa añade su propia cabecera, lo que se llama encapsulación.
 Arquitectura TCP/IP
 ===================
 
-La familia de protocolos TCP/IP es un estándar aceptado por el mercado, en 1983 termino la migración a esta arquitectura, en 1984 se publico el modelo OSI, que al final quedo como un modelo teórico.
+La familia de protocolos TCP/IP es un estándar aceptado por el mercado, en 1983 terminó la migración a esta arquitectura, en 1984 se publicó el modelo OSI, que al final quedó como un modelo teórico.
 
 .. image:: imagenes/TCP_IP.png
 
@@ -61,7 +61,7 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
 
 **ARP** o Address Resolution Protocol, es un protocolo de red que traduce direcciones IP a direcciones MAC en redes Ethernet. Permite a los dispositivos en una red local determinar la dirección MAC de otro dispositivo, lo que es necesario para la comunicación a nivel de enlace de datos
 
-**ICMP** (Internet Control Mensage Protocol) Envía Mensajes de error en forma de datagrama, Si hay un error en estos mensajes no se reenvían para evitar el efecto bola de nieve. Entre otros mensajes podemos escribir los siguientes : Destino inalcanzable, tiempo excedido, problemas en parámetros,..." (lo utilizan herramientas como ping y tracert)
+**ICMP** (Internet Control Message Protocol) Envía Mensajes de error en forma de datagrama, Si hay un error en estos mensajes no se reenvían para evitar el efecto bola de nieve. Entre otros mensajes podemos escribir los siguientes : Destino inalcanzable, tiempo excedido, problemas en parámetros,..." (lo utilizan herramientas como ping y tracert)
 
 **IP** (Internet Protocol), IP es un protocolo encargado de transportar los datagramas o paquetes
 
@@ -93,11 +93,11 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
     
 * **Opciones** : contempla las opciones solicitadas por el emisor, que pueden ser de seguridad, source routing, timestamps..
     
-* **Relleno** : Si se usa una opción, el datagram se rellena con todos los bytes a cero hasta llegar a los 32 bits.
+* **Relleno** : Si se usa una opción, el datagrama se rellena con todos los bytes a cero hasta llegar a los 32 bits.
     
 * **Datos** : este campo contiene los datos a enviar, siendo su longitud múltiplo de 8 bits. El valor máximo de la longitud es 65.535 bytes (64 Kbytes). El campo comenzará con el contenido de la cabecera del protocolo de siguiente nivel: TCP o UDP.
 
-**TCP** (Transmissión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:
+**TCP** (Transmisión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:
 
 * Iniciar la comunicación: mientras un programa “escucha” otro se conecta
     
@@ -138,7 +138,7 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
         
   * RST. Interrupción de la conexión actual.
         
-  * SYN. Sincronización de los números de secuencia. Se utiliza al crear una conexión para indicar al otro extremo cual va a ser el primer número de secuencia con el que va a comenzar a transmitir (veremos que no tiene porqué ser el cero).
+  * SYN. Sincronización de los números de secuencia. Se utiliza al crear una conexión para indicar al otro extremo cuál va a ser el primer número de secuencia con el que va a comenzar a transmitir (veremos que no tiene porqué ser el cero).
         
   * FIN. Indica al otro extremo que la aplicación ya no tiene más datos para enviar. Se utiliza para solicitar el cierre de la conexión actual.
         
@@ -174,7 +174,7 @@ Algunos de los protocolos de la capa de aplicación son:
 
 * **DHCP** :  Es un protocolo de red que asigna automáticamente direcciones IP y otros parámetros de configuración a dispositivos en una red, simplificando la administración y evitando conflictos de direcciones
 
-* **SMTP** : Protocolo simple de trasnferencia de correo, basado en texto y utilizado para el intercambio de mensajes de correo. Está basado en el concepto cliente-servidor, donde un cliente envía un mensaje a uno o carios servidores.
+* **SMTP** : Protocolo simple de transferencia de correo, basado en texto y utilizado para el intercambio de mensajes de correo. Está basado en el concepto cliente-servidor, donde un cliente envía un mensaje a uno o varios servidores.
 
 * **POP**: Protocolo de oficina de correo, se utiliza en los clientes de correo para obtener los mensajes de correo almacenados en un servidor.
 

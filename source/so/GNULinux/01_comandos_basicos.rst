@@ -100,9 +100,9 @@ Ficheros y directorios
 
    ls -l      #ver archivos y directorios en formato detallado o extendido
    ls -la     #ver archivos ocultos (empiezan por .)
-   ls *dat    #ver los archvios acabados en dat
+   ls *dat    #ver los archivos acabados en dat
    ls *T*     #ver archivos que contienen T
-   ls ???.dat #ver archivos que tienen 3 caracteres y termian en .dat
+   ls ???.dat #ver archivos que tienen 3 caracteres y terminan en .dat
    ls -ai     #ver inodos
   
 * **ln -s** hacer links simbólicos -P son links duros sobre archivos
@@ -122,7 +122,7 @@ Ficheros y directorios
   * Subir un nivel : ``cd ..`` 
   * Ir al home (ruta al directorio personal del usuario actual): ``cd <enter>`` o ``cd $HOME``
 
-* **whereis** ocaliza los archivos binarios (ejecutables), páginas de manual (man) y archivos fuente de un comando o programa
+* **whereis** localiza los archivos binarios (ejecutables), páginas de manual (man) y archivos fuente de un comando o programa
 * **pwd** muestra tu ubicación como **ruta absoluta** (ej: /home/usuario/docs), que empieza desde / y es fija. Las **rutas relativas** (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta
 * **locate** es muy rápido porque busca en una base de datos preconstruida
 
@@ -158,7 +158,7 @@ Puedes definir alias en Bash utilizando el comando alias. Por ejemplo, si deseas
 
   alias ll='ls -l'
 
-Para hacer que los alias sean persistentes y estén disponibles cada vez que abras una terminal, puedes agregarlos al archivo de configuración donde se cargar los valores por defecto cada vez que abres una terminal ~/.bashrc
+Para hacer que los alias sean persistentes y estén disponibles cada vez que abras una terminal, puedes agregarlos al archivo de configuración donde se cargan los valores por defecto cada vez que abres una terminal ~/.bashrc
 
 Visualizadores de archivos
 ==========================
@@ -179,7 +179,7 @@ Editor vi
   * :wq -> guardar y salir
   * :q! -> salir sin guardariiuyuyiuy
   * :n  -> ir a la linea n
-  * shift + R -> REEMPLZAR
+  * shift + R -> REEMPLAZAR
   * /cadena -> buscar cadena (n, shift+n)
   * N yy -> copiar N lineas
   * N dd -> borrar N lineas
@@ -197,7 +197,7 @@ Editor vi
     $ cat ~/.vimrc
     filetype indent off
   
-  Para configurar que el editor vi sea nuestro editor de forma predeterminaada:
+  Para configurar que el editor vi sea nuestro editor de forma predeterminada:
    
   .. code-block:: bash
      
@@ -237,7 +237,7 @@ Instalar software
 Configuración de la red
 =======================
 
-* **Optener IP local**
+* **Obtener IP local**
   
   .. code-block:: bash
    
@@ -249,7 +249,7 @@ Configuración de la red
   
     sudo service networking restart
 
-* **Activar/desactivar tajeta red**
+* **Activar/desactivar tarjeta red**
   
   .. code-block:: bash
    
@@ -369,7 +369,7 @@ Gestión de particiones
   
      /dev/sdb1        /HOME           ext4    defaults        0       2
   
-  * **<punto_de_montaje>** es la carpeta en que se proyectarán los datos del sistema de archivos, en la liea anterior /HOME
+  * **<punto_de_montaje>** es la carpeta en que se proyectarán los datos del sistema de archivos, en la línea anterior /HOME
   * **<sistema de archivos>** es el algoritmo que se utilizará para interpretarlo.
   * **<opciones>** es el lugar donde se especifican los parámetros que mount utilizará para montar el dispositivo, deben estar separadas por comas. Las opciones de montaje son numerosas. Las más usadas se listan a continuación:
 

@@ -7,7 +7,7 @@ Historia
    
    Introduccion.rst 
    mecanicos.rst
-   electricicidad.rst
+   electricidad.rst
    1gen.rst
    2gen.rst
    3gen.rst     

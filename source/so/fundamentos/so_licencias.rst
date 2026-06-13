@@ -52,7 +52,7 @@ Tipos software y licencias
    
 
 
-**Compilar** significa traducir un código de programación a codigo ejecutable por la máquina
+**Compilar** significa traducir un código de programación a código ejecutable por la máquina
 
 .. code-block:: bash
    
@@ -93,8 +93,8 @@ La autorización que el titular de los derechos patrimoniales de una obra litera
 * Beneficio económico.
 
 En este sentido se pueden encontrar una variedad de tipos de licencias que pueden ir desde las más restrictivas, en la cual el autor se reserva todos los derechos (de ahí la expresión **“todos los derechos reservados”**), hasta las licencias más permisivas en las cuales el autor autoriza una amplia posibilidad de usos de la obra a las personas (**"algunos derechos reservados"**), el extremo de esta posibilidad es el dominio público.
-Sin embargo, en todos estos tipos de licencias esta el principio de respeto por el otro y por lo que ha surgido de su creación, es decir el respecto por los Derechos Morales, lo que implica que en ningún momento una persona puede adjudicarse la autoría de una obra que no ha creado, independiente de la licencia que tenga.
-La forma de indicar los términos de la Licencia de Uso en una obra, es a través de una leyenda que sintetice lo que se puede y lo que no se puede hacer con la obra. En los libros, las licencias más restrictivas para los usuarios tienen una leyenda en una de las páginas, como la que esta a continuación:
+Sin embargo, en todos estos tipos de licencias está el principio de respeto por el otro y por lo que ha surgido de su creación, es decir el respeto por los Derechos Morales, lo que implica que en ningún momento una persona puede adjudicarse la autoría de una obra que no ha creado, independiente de la licencia que tenga.
+La forma de indicar los términos de la Licencia de Uso en una obra, es a través de una leyenda que sintetice lo que se puede y lo que no se puede hacer con la obra. En los libros, las licencias más restrictivas para los usuarios tienen una leyenda en una de las páginas, como la que está a continuación:
 
 *Todos los Derechos Reservados © Nombre del Autor y/o Nombre de la Editorial. Prohibida la reproducción total o parcial de esta obra, por cualquier medio, sin la autorización del autor/editor.*
 

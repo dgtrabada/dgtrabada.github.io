@@ -5,7 +5,7 @@ LDAP
 ¿Qué es LDAP?
 =============
 
-LDAP es un protocolo que ofrece el acceso a un servicio de directorio implementado sobre un entorno de red, con el objeto de acceder a una determinada información. Puede ejecutarse sobre TCP/IP o sobre cualquier otro servicio de trasferencia orientado a la conexión.
+LDAP es un protocolo que ofrece el acceso a un servicio de directorio implementado sobre un entorno de red, con el objeto de acceder a una determinada información. Puede ejecutarse sobre TCP/IP o sobre cualquier otro servicio de transferencia orientado a la conexión.
 
 LDAP son las siglas en inglés de Lightweight Directory Access Protocol (Protocolo Ligero de Acceso a Directorios) y podemos considerarlo como un sistema de almacenamiento de red (normalmente construido como una base de datos) al que se pueden realizar consultas.
 
@@ -63,7 +63,7 @@ Crear la estructura del directorio
 
 Una vez configurado el servidor, deberemos configurar la estructura básica del directorio. Es decir, crearemos la estructura jerárquica del árbol (DIT – Directory Information Tree).
 
-Una de las formas más sencillas de añadir información al directorio es utilizar archivos LDIF (LDAP Data Interchange Format). En realidad, se trata de archivos en texto plano, pero con un formato particular que debemos conocer poder construirlos correctamente
+Una de las formas más sencillas de añadir información al directorio es utilizar archivos LDIF (LDAP Data Interchange Format). En realidad, se trata de archivos en texto plano, pero con un formato particular que debemos conocer para poder construirlos correctamente
 
 El formato básico de una entrada es así:
 
@@ -112,7 +112,7 @@ Añadimos la información a la base de datos OpenLDAP. Con el comando ldapadd:
  ldapadd -x -D cn=admin,dc=ldap,dc=tunombre,dc=local -W -f tunombre.ldif
 
 
-Para comprobar que todo esta bien, podemos ejecutar:
+Para comprobar que todo está bien, podemos ejecutar:
 
 .. code-block:: bash
 
@@ -239,7 +239,7 @@ Para borrar por ejemplo el objeto tunombre1 :
 
  ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1,dc=ldap,dc=tunombre,dc=local"
 
-Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no esta
+Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no está
 
 
 .. code-block:: bash

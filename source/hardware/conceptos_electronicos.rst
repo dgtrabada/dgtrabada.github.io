@@ -82,7 +82,7 @@ En general podemos decir que los materiales pueden ser :
 
 .. image:: imagenes/conceptos_electronicos/circuito.png
 
-Vemos a continuación la comparación de un circuito electrico con un circuito hidráulico
+Vemos a continuación la comparación de un circuito eléctrico con un circuito hidráulico
 
 .. image:: imagenes/conceptos_electronicos/tuberia.png
 

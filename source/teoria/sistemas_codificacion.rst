@@ -30,7 +30,7 @@ Complemento a dos es (C1+1). El complemento C1 y C2 solo cambian cuando el núme
 Codificación en coma fija y en coma flotante
 --------------------------------------------
 
-La codificación en coma fija se utiliza para referirse a los números con una cantidad de cifras decimales constate. La representación de los números en coma flotante, es una representación exponencial, de forma que la posición de la coma no es fija y pueden, así, con mayor precisión, lo cual es muy interesante en trabajos de calculo científico. El estándar más extendido en coma flotante es el estándar IEEE 754.
+La codificación en coma fija se utiliza para referirse a los números con una cantidad de cifras decimales constante. La representación de los números en coma flotante, es una representación exponencial, de forma que la posición de la coma no es fija y pueden, así, con mayor precisión, lo cual es muy interesante en trabajos de calculo científico. El estándar más extendido en coma flotante es el estándar IEEE 754.
 
 Estándar IEEE 754
 -----------------
@@ -67,7 +67,7 @@ Codificación alfanumérica
 ASCII
 -----
 
-*“American Standar Code for Information Interchange”*, cada carácter se codificaba mediante 7 digitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 33 al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos
+*“American Standar Code for Information Interchange”*, cada carácter se codificaba mediante 7 dígitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 33 al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos
 
 .. image:: imagenes/ASCII.png
 
@@ -84,7 +84,7 @@ Debido a las limitaciones del ASCII se definen varios códigos de 8 bits para le
 UNICODE
 -------
 
-Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asigno un código a cada uno de los más de cincuenta mil símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, etc
+Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asignó un código a cada uno de los más de cincuenta mil símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, etc
 
 UTF-8
 -----
@@ -95,7 +95,7 @@ UTF-8
 
 2 bytes → Caracteres latinos 110xxxx 10xxxxx
 
-3 bytes → Chino, Japones y Coreano → 1110xxx 10xxxxx 10xxxxx
+3 bytes → Chino, Japonés y Coreano → 1110xxx 10xxxxx 10xxxxx
 
 4 bytes → Símbolos matemáticos, alfabetos clásicos → 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 

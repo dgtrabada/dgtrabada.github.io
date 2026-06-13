@@ -12,7 +12,7 @@ Redes
    perturbaciones.rst
    topologia.rst
    redes_inalambricas.rst
-   anquitectura_niveles.rst
+   arquitectura_niveles.rst
    transporte_datos_equipos_interconexion.rst
    Direccionamiento_IP.rst
    casos_practicos.rst

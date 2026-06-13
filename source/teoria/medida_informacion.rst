@@ -6,7 +6,7 @@ Binary digit es una expresión inglesa que significa “dígito binario” y que
 
 El **bit** es la menor unidad de información.
 
-Se puede imaginar un bit como una bombilla que puede estar en uno de los siguientes dos estados: apagada  o encendida encendida. 1 bit (b) de información es un 0 o un 1.
+Se puede imaginar un bit como una bombilla que puede estar en uno de los siguientes dos estados: apagada  o encendida. 1 bit (b) de información es un 0 o un 1.
 
 1 byte (B) de información son 8 bits (octeto), se podría representar como 8 bombillas encendidas o apagadas
 
@@ -27,7 +27,7 @@ Cambio de unidades
 
 * :math:`2^5 + 2^2 = 32+4 = 36` ; en este caso no se suman los exponentes
 
-* :math:`2^5 - 2^2 = 32-4 = 28` ; en este caso no se restas los exponentes
+* :math:`2^5 - 2^2 = 32-4 = 28` ; en este caso no se restan los exponentes
 
 Ejemplos:
 

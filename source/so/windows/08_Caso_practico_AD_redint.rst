@@ -32,13 +32,13 @@ En servicios de rol seleccionamos:
 * [x] Routing
 
 
-Para comfigurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enrutamiento y Acceso remoto**, seleccionamos nuestro servidor **SRVInt-tunombre**, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
+Para configurar servicio de **enrutamiento** vamos a **Panel/Herramientas/Enrutamiento y Acceso remoto**, seleccionamos nuestro servidor **SRVInt-tunombre**, presionamos el botón de la derecha del ratón y Configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:
 
-* [x] Traduccion de direcciones de red (NAT)
+* [x] Traducción de direcciones de red (NAT)
 
 Seleccionamos la tarjeta que tengamos en modo puente. (10.4.X.Y) o por (red NAT caso portatil)
 
-* [x] Configurar mas adelante el red NAT y el DNS
+* [x] Configurar más adelante el red NAT y el DNS
 
 
 Configura el controlador de dominio
@@ -90,7 +90,7 @@ Crea un controlador de dominio llamado **empresa_tunombre.local** y las siguient
 
 * La **OU Usuarios** se utiliza para agrupar las cuentas de usuario.
 
-**Ayuda**: En el caso de querer borrar una OU que esta protegída contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.
+**Ayuda**: En el caso de querer borrar una OU que está protegida contra el borrado accidental, en propiedades en la pestaña Objeto desmarcar dicha protección. En el caso de no ver esta pestaña, haz clic en ver en la barra de menú y selecciona Características avanzadas.
    
 Configura los usuarios del sistema
 -----------------------------------
@@ -142,14 +142,14 @@ Dentro del Centro de administración de Windows Server, puedes encontrar una sec
 .. image:: imagenes/directivaPASS03.jpeg
 
 
-Intalar programas y cambiar el fondo de escritorio por GPO
+Instalar programas y cambiar el fondo de escritorio por GPO
 ----------------------------------------------------------
 
-Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicara sobre WC06tunombre ya que esta en la "OU=Computers"
+Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLaN en los ordenadores que se encuentran en la UO Barcelona / Administración, es decir WC05tunombre y WC07tunombre. Esta directiva no se aplicará sobre WC06tunombre ya que esta en la "OU=Computers"
 
 .. image:: imagenes/GPOINT01.png
 
-En **Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo** creamos una GPO llamada FondoPantalla y otra que se llame intalar VLC
+En **Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo** creamos una GPO llamada FondoPantalla y otra que se llame instalar VLC
 
 .. image:: imagenes/GPOINT02.png
 
@@ -157,7 +157,7 @@ Utilizaremos la carpeta C:\\Windows\\SYSVOL [#sysvol]_, esta carpeta se comparte
 
 .. image:: imagenes/GPOINT03.png
 
-En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **Configuración/Configuracióndel equipo**  vamos a Edición, en **Directivas Intalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/** creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada
+En el Objeto de **directiva de grupo (GPO) Instalar VLC**, en la pestaña de **Configuración/Configuración del equipo**  vamos a Edición, en **Directivas Instalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de sofware/** creamos un nuevo paquete y especificar la ubicación del programa (.msi o .exe) y seleccionamos el método de implementación asignada
 
 .. image:: imagenes/GPOINT04.png
 
@@ -165,7 +165,7 @@ Para cambiar el fondo de pantalla,  editamos la directiva FondoPantalla, y en **
 
 .. image:: imagenes/GPOINT05.png
 
-Por ultimo vamos a **Administracion de directivas de grupo/** buscamos **Oficina/Barcelona/Administración** vinculamos las **dos GPO existenetes**
+Por último vamos a **Administración de directivas de grupo/** buscamos **Oficina/Barcelona/Administración** vinculamos las **dos GPO existentes**
 
 .. image:: imagenes/GPOINT06.png
 
@@ -189,14 +189,14 @@ Crea las siguientes carpetas compartidas con los siguientes permisos:
 Mapear unidades de red a las carpetas compartidas.
 --------------------------------------------------
 
-Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que estan dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados
+Queremos que se monten de forma automatica la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que están dentro de la OU=contratista y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que estan dentro de la OU=empleados
 
-En **Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo** creamos una GPO directamente **"Ususarios / Empleados"** en llamada **"Mapeo de unidades de empleados"**
+En **Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo** creamos una GPO directamente **"Usuarios / Empleados"** en llamada **"Mapeo de unidades de empleados"**
 
 .. image:: imagenes/GPOINT07.png
 
 
-Con el botón derecho del ratón abrimos el **"Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignacines de unidades -> nuevo / unidad asignada"**
+Con el botón derecho del ratón abrimos el **"Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignaciones de unidades -> nuevo / unidad asignada"**
 
 .. image:: imagenes/GPOINT08.png
 
@@ -242,7 +242,7 @@ Cuando se cierra la sesión, el perfil se actualizará en el servidor:
 Aplicar cuota
 -------------
 
-Lo primero es agregar los roles y caracteríscas necesarias, en Administrador del servidor / Agregar roles y caracteristicas, en la lista de roles, dentro de "Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos"
+Lo primero es agregar los roles y características necesarias, en Administrador del servidor / Agregar roles y características, en la lista de roles, dentro de "Servidor de archivos y almacenamiento / Servidor de iSCSI y archivo / Administrador de recursos del servidor de archivos"
 
 .. image:: imagenes/CuotaAD01.png
 
@@ -254,11 +254,11 @@ Creamos una nueva plantilla llamada **Límite 10MB tunombre**, con Advertencia a
 
 .. image:: imagenes/CuotaAD03.png
 
-Aplica la plantilla creada en la carpeta compartida en la que se encunetran los perfiles móviles, cuando lo apliques no olvides marcar **Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.**
+Aplica la plantilla creada en la carpeta compartida en la que se encuentran los perfiles móviles, cuando lo apliques no olvides marcar **Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.**
 
 .. image:: imagenes/CuotaAD04.png
 
-Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesisión te dara un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:
+Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesión te dará un error en la sincronización del perfil, vuelve a loguearte con el usuario y abre el visor de eventos:
 
 .. image:: imagenes/CuotaAD05.png
 
@@ -268,11 +268,11 @@ Perfil Obligatorio
 
 Un perfil obligatorio es un tipo especial de perfil de usuario que se carga desde una ubicación específica en lugar de desde la carpeta de perfil de usuario normalmente utilizada. Esto significa que los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.
 
-1. Personalizamos en el cliente el perfil movil que hemos creado, este seguardará en el servidor en C:\\Perfiles\E01_tunombre.v6
+1. Personalizamos en el cliente el perfil movil que hemos creado, este se guardará en el servidor en C:\\Perfiles\E01_tunombre.v6
 
 #. Desde propiedades de la carpeta del perfil vamos a Seguridad / Opciones avanzadas y cambiamos el propietario a Administrador, marcamos la opción de reemplazar en todas las subcarpetas
 
-#. Copiamos la carpeta E01_tunombre.v6 a platilla.v6 y la compartimos para todos solo con permisos de lectura
+#. Copiamos la carpeta E01_tunombre.v6 a plantilla.v6 y la compartimos para todos solo con permisos de lectura
 
 #. Hacemos que los usuarios deseados tengan esta carpeta como su perfil: \\\\SRV-tunombre\\Perfiles\\plantilla
 

@@ -21,7 +21,7 @@ Existen muchos tipos de sistemas de archivos. En la siguiente tabla vemos alguno
 
 
 Para implementar un sistema de archivos tendremos que crear una Tabla de particiones. Una tabla de particiones es un índice que divide el espacio de almacenamiento en distintas secciones, llamadas particiones, y que da ciertas características de cada partición, como por ejemplo el sistema de ficheros usado en ella o si la partición es arrancable, de solo lectura,...
-Hay distintos alternativas para definir la tabla de particiones, veremos a continuación la tabla de particiones en el MBR, también llamada tabla de particiones DOS. Usada en IBM PC y compatibles con sistemas BIOS y GUID Partition Table propuesta por la especificación EFI y permite ser usada por IBM PC y compatibles con BIOS y con UEFI.
+Hay distintas alternativas para definir la tabla de particiones, veremos a continuación la tabla de particiones en el MBR, también llamada tabla de particiones DOS. Usada en IBM PC y compatibles con sistemas BIOS y GUID Partition Table propuesta por la especificación EFI y permite ser usada por IBM PC y compatibles con BIOS y con UEFI.
 
 Tabla de particiones en el MBR
 ==============================
@@ -93,5 +93,5 @@ Los sistemas GNU/ Linux identifican los discos duros empleando una combinación 
 
 Ejemplos :
 
-* /dev/hda1 primera partición del primer diso duro IDE/PATA
-* /dev/sdb2 segunda partición del segundo discoduro SCSI y SATA
+* /dev/hda1 primera partición del primer disco duro IDE/PATA
+* /dev/sdb2 segunda partición del segundo disco duro SCSI y SATA

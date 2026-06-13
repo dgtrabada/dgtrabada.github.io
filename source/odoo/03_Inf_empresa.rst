@@ -77,7 +77,7 @@ Crea una empresa o utiliza una ya existente y rellena los siguientes campos:
 * Crea una imagen del logotipo vectorizada y súbela al curso
 * Busca o crea una imagen para la portada de su página web
 
-Antes de rellenar el ejercicio añade la entrada en el foro fíajte que no este duplicada en el foro antes de mandar el ejercicio
+Antes de rellenar el ejercicio añade la entrada en el foro fíjate que no esté duplicada en el foro antes de mandar el ejercicio
 
 ayuda:
 

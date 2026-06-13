@@ -9,7 +9,7 @@ Apache es un servidor web de código abierto, es compatible con varios lenguajes
 Caso práctico: Apache
 ********************
 
-Instalamos el servicor de Apache:
+Instalamos el servidor de Apache:
 
 .. code-block:: bash
 
@@ -19,7 +19,7 @@ Instalamos el servicor de Apache:
  #Instalamos apache
  apt install apache2
  
- #podemos verificar si se a instalado
+ #podemos verificar si se ha instalado
  systemctl status apache2 
 
 Abre un navegador web y visita la dirección IP de tu servidor. Es decir ``http://tu_direccion_ip``
@@ -71,7 +71,7 @@ Para recargar la configuración de apache
 
   sudo systemctl reload apache2
 
-Añadimos la siguiente we sencilla en ``/var/www/tunombre/index.html``
+Añadimos la siguiente web sencilla en ``/var/www/tunombre/index.html``
 
 .. code-block:: bash
 

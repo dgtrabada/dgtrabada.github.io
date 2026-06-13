@@ -130,7 +130,7 @@ Las más comunes son:
     
 * El precio es más elevado que las impresoras de chorro de tinta.
 
-* **Impresora térmica**. Una impresora termica se basa en una serie de agujas calientes que van recorriendo un papel termosensible que al contacto se vuelve de color negro. Son muy usadas en los cajeros y supermercados por su bajo coste.
+* **Impresora térmica**. Una impresora térmica se basa en una serie de agujas calientes que van recorriendo un papel termosensible que al contacto se vuelve de color negro. Son muy usadas en los cajeros y supermercados por su bajo coste.
 
 La impresora generalmente se caracteriza por los siguientes elementos:
 

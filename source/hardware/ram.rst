@@ -38,7 +38,7 @@ En la actualidad, encontramos en el mercado procesadores de gama media y alta qu
   
   **Ejemplo de cálculo** DDR4  2933MHz,  (1466.67 X 2) X 8 (cantidad de bytes de ancho) X 4 (cantidad de canales) = ancho de banda de 93 866.88 MB/s, o 94 GB/s.
 
-* **UDIMM** Unbuffered Dual In-line Memory Module,  Módulo de Memoria Dual en Línea sin Búfer, esto significa que no tiene un circuito adicional que actúe como amortiguador entre el controlador de memoria de la placa base y los chips de memoria, UDIMM es el tipo de memoria RAM más común y accesible, els el que se usa en **portatiles y equipos de escritorio**.
+* **UDIMM** Unbuffered Dual In-line Memory Module,  Módulo de Memoria Dual en Línea sin Búfer, esto significa que no tiene un circuito adicional que actúe como amortiguador entre el controlador de memoria de la placa base y los chips de memoria, UDIMM es el tipo de memoria RAM más común y accesible, es el que se usa en **portatiles y equipos de escritorio**.
 
 * **RDIMM y LRDIMM** son tipos de módulos de memoria diseñados principalmente para **servidores y estaciones de trabajo de alto rendimiento**. A diferencia de los UDIMM, estos módulos ofrecen características específicas que los hacen ideales para entornos con grandes cargas de trabajo y altas demandas de memoria. 
 

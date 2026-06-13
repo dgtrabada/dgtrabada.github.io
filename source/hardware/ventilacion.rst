@@ -2,7 +2,7 @@
 Ventilación
 ***********
 
-Dado que el procesador emite calor, se hace necesario disiparlo afín de evitar que los circuitos se derritan. Esta es la razón por la que generalmente se monta sobre un disipador térmico, hecho de un metal conductor del calor (cobre o aluminio) a fin de ampliar la superficie de transferencia de temperatura del procesador. Para mejorar la conducción del calor se utiliza pasta térmica y por lo general, el disipador está acompañado de un ventilador para mejorar la circulación de aire y la transferencia de calor. La unidad también incluye un ventilador que expulsa el aire caliente de la carcasa, dejando entrar el aire fresco del exterior.
+Dado que el procesador emite calor, se hace necesario disiparlo a fin de evitar que los circuitos se derritan. Esta es la razón por la que generalmente se monta sobre un disipador térmico, hecho de un metal conductor del calor (cobre o aluminio) a fin de ampliar la superficie de transferencia de temperatura del procesador. Para mejorar la conducción del calor se utiliza pasta térmica y por lo general, el disipador está acompañado de un ventilador para mejorar la circulación de aire y la transferencia de calor. La unidad también incluye un ventilador que expulsa el aire caliente de la carcasa, dejando entrar el aire fresco del exterior.
 
 .. image:: imagenes/ventilacion/ventilador1.png
 
@@ -90,7 +90,7 @@ Otras formas de refrigeración
   
 * **Refrigeración por Heatpipes**
   
-  Un heatpipe es un puente termico, tienen una elevada conductividad térmica, la capacidad del material de cambiar de temperatura, sea para calentarse o para enfriarse
+  Un heatpipe es un puente térmico, tienen una elevada conductividad térmica, la capacidad del material de cambiar de temperatura, sea para calentarse o para enfriarse
 
 
 * **Refrigeración por Cambio de Fase**

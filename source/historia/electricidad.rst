@@ -1,5 +1,5 @@
 *****************************
-Transición, la electricicidad
+Transición, la electricidad
 *****************************
 
 1800 La primera pila, Volta
@@ -42,14 +42,14 @@ Inventa el telégrafo.
 
 Matemático inglés, desarrolla la Teoría del Álgebra de Boole que permitió a  sus sucesores la representación de circuitos de computación y el desarrollo de la llamada Teoría de los circuitos lógicos.
 
-Desarrollo una teoría matemática que permitió la representación de circuitos de conmutación “ teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
+Desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “ teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
 
 .. image:: electricicidad/Boole.png  
    :width: 500
    
 *Portada de The Mathematical Analysis of Logic, edición de 1847. En su portada incluye la frase de Aristóteles (Anal. post., lib. I, cap. XI) «Todas las ciencias se asocian con otras respecto a elementos comunes. (Y yo llamo común a todo aquello que utilizan en sus demostraciones, no a aquello que puede ser o no ser probado)».*
 
-El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
+El álgebra de Boole está formada por variables lógicas (a,b,c…) que pueden tomar los valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
  
 .. image:: electricicidad/Boole1.png  
    :width: 500
@@ -61,7 +61,7 @@ El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden t
 Presentó una solicitud de patente para un nuevo tipo de transmisor, que haría viable a la telefonía.
 
 En 1854 Antonio Meucci fue el inventor del teletrófono («telettrófoni»).
-El 9 de julio de 1877, Bell, junto con Sanders y Hubbard, fundan la primer compañía de teléfonos (“Bell telephone company”).
+El 9 de julio de 1877, Bell, junto con Sanders y Hubbard, fundan la primera compañía de teléfonos (“Bell telephone company”).
 
 .. image:: electricicidad/Edison.png 
 

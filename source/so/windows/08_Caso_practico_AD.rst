@@ -28,7 +28,7 @@ Verificar el nombre NetBIOS [#NetBIOS]_ tunombre y pulsar Siguiente
 
 Si todo ha sido configurado correctamente, hacer clic en Instalar.
 
-Por ultimo cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tunombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
+Por último cuando se reinicie habilita las actualizaciones dinámicas, para ello en **Inicio->Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/** clic el botón derecho del ratón en **tunombre.local/Propiedades/General/lista Actualizaciones dinámicas** elegir **sin seguridad y con seguridad**, a continuación hacer clic en Aceptar.
 
 Unidades Organizativas, usuarios y grupos
 -----------------------------------------
@@ -41,7 +41,7 @@ Para crear de las unidades organizativas en **Inicio/Herramientas administrativa
 
 Dentro de la UO Grupos, crea el grupo global de seguridad A y B
 
-Dentro de la UO Ususarios, crea los usuarios:
+Dentro de la UO Usuarios, crea los usuarios:
 
 * tunombreA1
 
@@ -118,7 +118,7 @@ Quitar el equipo del dominio
 
 #. Haz clic en "OK" para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.
 
-#. En el servicdor **"Inicio/Herramientas administrativas/Ususarios y equipos de Active Directory/"**
+#. En el servidor **"Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory/"**
 
 #. Selecciona **tunombre.local**, y quita los clientes que has sacado del dominio en la pestaña de **Computers**
 
@@ -146,7 +146,7 @@ Instalación de software utilizando directivas de grupo
 
 Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/3eeqjzksxsgrpaco>`_
 
-1. Vamos a instalar `VideoLAN <https://www.videolan.org/>`_ en formato msi [#msi]_. Para ello lo bajamos y lo guardadmos dentro de la carpeta SYSVOL [#sysvol]_ **C:\\Windows\\Sysvol**
+1. Vamos a instalar `VideoLAN <https://www.videolan.org/>`_ en formato msi [#msi]_. Para ello lo bajamos y lo guardamos dentro de la carpeta SYSVOL [#sysvol]_ **C:\\Windows\\Sysvol**
 
 #. Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio **Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo**. Crea un nuevo objeto de directiva de grupo (GPO) **Instalar VLC**
 
@@ -215,7 +215,7 @@ Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.ma
 
 * Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.
 
-* Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordeandores. 
+* Cambia el DNS (ip windows server), haz que aparezca en **/ets/hosts** el nombre del dominio y sincroniza temporalmente los dos ordenadores. 
 
 Instalar los paquetes necesarios:
 
@@ -255,12 +255,12 @@ Para que se cree el home de forma automatica cuando se loguea el usuario
 
 .. image:: imagenes/ubuntuADSRV.png
 
-Seleccionar otro usaurio
+Seleccionar otro usuario
 
 .. image:: imagenes/ubuntuAD.png
     :scale: 50%
     
-Tambien puedes conectarte por ssh
+También puedes conectarte por ssh
    
 .. image:: imagenes/ubuntuADssh.png
     :scale: 50%

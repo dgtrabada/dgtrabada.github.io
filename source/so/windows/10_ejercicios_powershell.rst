@@ -334,7 +334,7 @@ Ejercicios de PowerShell
 
     .. tab:: piedra_papel_tijera.ps1
       
-        Crea un script de PowerShell llamdo **piedra_papel_tijera.ps1** que implemente el clásico juego "Piedra, Papel o Tijeras" donde el usuario compite contra la computadora. 
+        Crea un script de PowerShell llamado **piedra_papel_tijera.ps1** que implemente el clásico juego "Piedra, Papel o Tijeras" donde el usuario compite contra la computadora. 
 
     .. tab:: Solución (if)
 
