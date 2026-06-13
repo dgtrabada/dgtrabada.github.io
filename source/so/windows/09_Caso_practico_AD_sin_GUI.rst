@@ -202,7 +202,7 @@ Carpeta compartida
 
 Creamos una carpeta en el servidor 
 
-.. code-block:: powershell
+.. code-block:: text
 
   C:\XY-TUNOMBRE
   ├───X-tunombre

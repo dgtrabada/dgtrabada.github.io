@@ -140,7 +140,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
   
   Formato de Moneda
  
-  .. code-block:: powershell
+  .. code-block:: text
 
    PS C:\> $pi = 3.141592
    PS C:\> $out = "pi : {0:C2}" -f $pi

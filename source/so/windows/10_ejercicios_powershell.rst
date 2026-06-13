@@ -362,10 +362,10 @@ Ejercicios de PowerShell
 
         En el caso de que no reciba ningún argumento haz que pregunte cuantas tiradas quieres.
 
-        .. code-block:: powershell
-        
+        .. code-block:: text
+
           .\dados.ps1
-  
+
           ¿Cuántas tiradas quieres hacer?
           100
    
