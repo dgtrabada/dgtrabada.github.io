@@ -182,7 +182,7 @@ y de base 10 pasamos a base 3:
 
    1 : 3  &= 0\ resto\ \textbf{1}
   
-Finalemte queda:
+Finalmente queda:
 
 .. math::
 

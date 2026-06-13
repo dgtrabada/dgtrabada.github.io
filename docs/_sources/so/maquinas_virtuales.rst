@@ -92,8 +92,8 @@ En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambo
 Comandos útiles virtualBox:
 ---------------------------
 
-- ``VBoxManage list vms``: Listar maquinas virtuales
-- ``VBoxManage list vms runningvms``: Listar maquinas virtuales que estan ejecutasdose
+- ``VBoxManage list vms``: Listar máquinas virtuales
+- ``VBoxManage list vms runningvms``: Listar máquinas virtuales que están ejecutándose
 - ``VBoxManage startvm 'Ubuntu Server 24.04' --type headless``: Ejecutarla sin entorno gráfico
 - ``VBoxManage controlvm 'Ubuntu Server 16.04' savestate``: Guardar el estado
 
@@ -135,11 +135,11 @@ Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.or
 Caso práctico: Windows 11
 -------------------------
 
-* Descarte la ISO de Windwos 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
+* Descárgate la ISO de Windows 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
 
 * Creamos una nueva maquina virtual llamada **Windows11**
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo modo puente y un memoria de vídeo de 128MB.  Omite la instalación desantendida y habilita EFI, Secure Boot y el TPM
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB.  Omite la instalación desantendida y habilita EFI, Secure Boot y el TPM
 
 * Para la instalación desconecta el cable de red virtual:
   
@@ -194,7 +194,7 @@ Windows Server es la plataforma para crear una infraestructura de aplicaciones c
   
 Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y un memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)
 
@@ -211,9 +211,9 @@ Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de for
 Caso práctico: Windows Server 2022 sin GUI
 ------------------------------------------
 
-* Creamos una maquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo modo puente y un memoria de vídeo de 128MB
+* Creamos una maquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
 
-* Para la instalación seleccionamos:  Windows Server 22 Standar Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)
+* Para la instalación seleccionamos:  Windows Server 22 Standard Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)
 
 * Instalación nueva : Personalizada, instalar solo Windows (avanzado) y usamos todo el disco.
 
@@ -373,7 +373,7 @@ Lo primero que haremos es darnos de alta en `Docker Hub <https://hub.docker.com/
 * Colaborar en proyectos 
 * Automatizar flujos de trabajo
 
-Para construir una imagen de Docker, necesitamos crear el archivo ``Dockerfile``, veamos el siguiente para contruirnos una imagen de Ubuntu 24.04:
+Para construir una imagen de Docker, necesitamos crear el archivo ``Dockerfile``, veamos el siguiente para construirnos una imagen de Ubuntu 24.04:
 
 .. code-block:: bash
 
@@ -395,7 +395,7 @@ Las instrucciones más comunes en un Dockerfile:
 8. **ENV**: Establece variables de entorno.
 
 
-Construimos la imágen:
+Construimos la imagen:
 
 .. code-block:: bash
 
@@ -448,7 +448,7 @@ Vamos a instalar el editor vim y la actualizamos:
   #subimos la imagen a Docker Hub
   $ docker push dgtrabada/ubuntu:24.04
 
-Para ejecutar este contenedor en cuanquier otro ordenador con docker lo unico que tenemos que hacer es:
+Para ejecutar este contenedor en cualquier otro ordenador con docker lo único que tenemos que hacer es:
 
 .. code-block:: bash
 
@@ -464,7 +464,7 @@ Para ejecutar este contenedor en cuanquier otro ordenador con docker lo unico qu
 Caso práctico: Instalar servidor de ssh, ip y ping
 --------------------------------------------------
 
-Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los comandos:
+Nos bajamos la imagen del repositorio, creamos un contenedor e instalamos los comandos:
 
 .. code-block:: bash
 
@@ -472,7 +472,7 @@ Nos bajarmos la imagen del repositorio, creamos un contendemor e instalamos los 
   root@4e7e1f17f985:/# apt-get install -y iproute2 iputils-ping
   root@4e7e1f17f985:/# apt-get install -y openssh-server
   
-Configuramos ssh para poder logearnos como root:
+Configuramos ssh para poder loguearnos como root:
 
 .. code-block:: bash
 
@@ -485,7 +485,7 @@ Configuramos ssh para poder logearnos como root:
 
 .. image:: imagenes/docker_ssh.png
 
-Salimos del contendor y mandamos los cambios a la imagen
+Salimos del contenedor y mandamos los cambios a la imagen
 
 .. code-block:: bash
 
@@ -593,7 +593,7 @@ Típicamente contiene varias secciones importantes:
 * **Networks** (opcional): Define las redes personalizadas que se utilizarán.
 * **Volumes** (opcional): Define los volúmenes personalizados que se utilizarán para almacenar datos.
 
-En los ejemploas anteriores podríamos levantar las tres maquinas con el siguiente ``docker-compose.yml`` ejecutando **docker-compose up -d**, para este ejemplo tienes que tener red16 ya creada 
+En los ejemplos anteriores podríamos levantar las tres maquinas con el siguiente ``docker-compose.yml`` ejecutando **docker-compose up -d**, para este ejemplo tienes que tener red16 ya creada 
 
 .. code-block:: bash
 

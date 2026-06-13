@@ -17,11 +17,11 @@ UEFI
 
 Mediante la utilidad EZ Tuning Wizard lograremos optimizar nuestro sistema de una manera sencilla hasta el extremo. Tan solo habremos de responder las preguntas que se nos van haciendo para que la BIOS optimice el rendimiento del sistema. Detecta el consumo, pregunta sobre el tipo de refrigeración utilizada y el uso final del equipo para finalmente sugerir un nivel de overclocking que se puede aplicar de forma automática.
 
-**"Advanced Mode"**, que es módulo que sustituye al EZ Mode, es este modo podremos configurar todos los parámetros  de forma manual
+**"Advanced Mode"**, que es módulo que sustituye al EZ Mode, en este modo podremos configurar todos los parámetros  de forma manual
 
 .. image:: imagenes/UEFI/uefi2.png
 
-**"AI Tweaker"** seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el ratio del microprocesador, tremendamente util en las versiones "K" en los que el ratio está desbloqueado, las tensiones, DIGI+ Power y la administración de la energía. Los menus son muy profundos ofreciendo múltiples opciones.
+**"AI Tweaker"** seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el ratio del microprocesador, tremendamente útil en las versiones "K" en los que el ratio está desbloqueado, las tensiones, DIGI+ Power y la administración de la energía. Los menus son muy profundos ofreciendo múltiples opciones.
 
 .. image:: imagenes/UEFI/uefi3.png
 
@@ -37,15 +37,15 @@ El apartado "Monitor" se ve las temperaturas y parámetros de nuestros ventilado
 
 .. image:: imagenes/UEFI/uefi6.png
 
-Entrando en la sección "QFan control" podremos configurar los ventiladores a nuestrro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standar, silent, turbo o velocidad máxima)
+Entrando en la sección "QFan control" podremos configurar los ventiladores a nuestro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standar, silent, turbo o velocidad máxima)
 
 .. image:: imagenes/UEFI/uefi7.png
 
-En la siguiente pantalla tendremos acceso a todo lo ralativo con el arranque del equipo:
+En la siguiente pantalla tendremos acceso a todo lo relativo con el arranque del equipo:
 
 .. image:: imagenes/UEFI/uefi8.png
 
-Bajo la pestaña "Tool" podremos actalizar la BIOS de la placa, establecer perfiles OC y obtener información sobre SPD.
+Bajo la pestaña "Tool" podremos actualizar la BIOS de la placa, establecer perfiles OC y obtener información sobre SPD.
 
 .. image:: imagenes/UEFI/uefi9.png
 

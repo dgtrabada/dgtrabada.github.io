@@ -171,7 +171,7 @@ Existen dos tipos principales de copias de seguridad:
 El registro de Windows
 ======================
 
-El registro de Windows es una base de datos dónde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura esta formada en forma de carpetas:
+El registro de Windows es una base de datos donde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura está formada en forma de carpetas:
 
 **Inicio /Ejecutar/RegEdit**
 
@@ -185,7 +185,7 @@ El registro de Windows es una base de datos dónde aplicaciones y controladores 
 * Tipos:
 
   * CONSTANTES: Se crean y modifican sólo en determinados momentos. Modificación del sistema, instalación/eliminación de un programa, creación de un usuario….
-  * DINÁMICAS: Se vuelven a crear cuando se incia Windows.
+  * DINÁMICAS: Se vuelven a crear cuando se inicia Windows.
     
 * **HKEYS’S**
 

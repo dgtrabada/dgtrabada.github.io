@@ -11,7 +11,7 @@ Dispositivos mecánicos
 1452 - 1519 Leonardo da Vinci 
 =============================
 
-En el Renacimiento Leonardo da Vinci (1452-1519) diseño como debería ser una calculadora (una caja con siete ruedas similar al dispositivo cuenta kilómetros de un coche). Este invento como tantos otros del genial personaje, no se llegaron a materializar porque la tecnología de la época no disponía de los medios suficientes.
+En el Renacimiento Leonardo da Vinci (1452-1519) diseñó como debería ser una calculadora (una caja con siete ruedas similar al dispositivo cuenta kilómetros de un coche). Este invento como tantos otros del genial personaje, no se llegaron a materializar porque la tecnología de la época no disponía de los medios suficientes.
 
 .. image:: mecanicos/Leonardo.png
    :width: 400
@@ -19,7 +19,7 @@ En el Renacimiento Leonardo da Vinci (1452-1519) diseño como debería ser una c
 1612 - 1614 Varillas de John Napier
 ===================================
 
-Soun Utilizadas para Calcular 
+Son utilizadas para calcular 
 
 .. image:: mecanicos/Napier1.png
 .. image:: mecanicos/Napier2.png
@@ -86,7 +86,7 @@ Primera calculadora producida en masa
 .. image:: mecanicos/Babbage3.png
 
 
-El principio de una máquina diferencial es método de Newton de diferencias divididas.La tabla de abajo se construye como sigue:
+El principio de una máquina diferencial es el método de Newton de diferencias divididas.La tabla de abajo se construye como sigue:
 
 * la primera columna contiene los valores de X
 * la segunda los valores del polinomio

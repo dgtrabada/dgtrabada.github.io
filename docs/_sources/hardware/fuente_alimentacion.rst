@@ -120,7 +120,7 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
 Cuidados de la fuente de alimentación
 =====================================
 
-* Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor  provocando perdida de de refrigeración en el PC, provocando calentamiento y mal funcionamiento o bloqueo del ordenador -> mantenerla limpia de polvo.
+* Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor  provocando pérdida de de refrigeración en el PC, provocando calentamiento y mal funcionamiento o bloqueo del ordenador -> mantenerla limpia de polvo.
 * Mejor reponer (barata) que reparar (problemas de difícil diagnostico -> microcortes).
 * Desenchufar siempre la corriente (220V) antes de abrir el ordenador.
 * Precaución: anotar la posición de los conectores o no desconectar (sobre todo de la placa).

@@ -20,7 +20,7 @@ Crea 100 tazas en uno de los dos almacenes y haz una transferencia de 30 tazas a
 
 .. image:: imagenes/07_Inventario3.png
 
-Vamos a realizar un trarnslado interno, en Operaciones / Traslado / Internos
+Vamos a realizar un traslado interno, en Operaciones / Traslado / Internos
 
 .. image:: imagenes/07_Inventario4.png
 

@@ -16,14 +16,14 @@ Ejercicio instalación de odoo
 Instalación en Windows (docker):
 ---------------------------------
 * Descarga el archivo `docker-compose.yml <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/odoo/imagenes/docker-compose.yml>`_ 
-* crea las carpetas correspondientes **odooodoo-web-data, config, addons**
+* crea las carpetas correspondientes **odoo-web-data, config, addons**
 * ejecuta el comando : **docker-compose up -d**
 
 Comandos útiles:
 ----------------
-* docker images                           # ver las imagenes
+* docker images                           # ver las imágenes
 * docker rmi <REPOSITORY>
-* docker ps                               # ver contendores que estan ejecutandose
+* docker ps                               # ver contenedores que están ejecutándose
 * docker ps -a                            # ver todos los contenedores
 * docker rm <CONTAINER ID>
 * docker start/stop container

@@ -74,7 +74,7 @@ lastlog_ip.sh
 
     .. tab:: lastlog_ip.sh
 
-        Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se a logueado cada ip, por ejemplo
+        Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada ip, por ejemplo
 
         .. code-block:: bash
           
@@ -99,7 +99,7 @@ lastlog.sh
 
     .. tab:: lastlog.sh
 
-        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se a logueado cada usuario y el grupo al que pertenecen, por ejemplo
+        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen, por ejemplo
 
         .. code-block:: bash
           
@@ -136,7 +136,7 @@ tabla_multiplicar_read.sh
 
     .. tab:: tabla_multiplicar.sh
 
-        Crea un script llamado **tabla_multiplicar.sh**, ahora no preguntara por el numero al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo ``./tabla_multiplicat.sh <N>`` siendo <N> un numero del 1 al 10.
+        Crea un script llamado **tabla_multiplicar.sh**, ahora no preguntará por el número al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo ``./tabla_multiplicat.sh <N>`` siendo <N> un numero del 1 al 10.
 
         * En el caso de ejecutar ``./tabla_multiplicat.sh --help`` mostrara un mensaje de ayuda (consejo utiliza una función)
         * En el caso de ejecutar ``./tabla_multiplicar.sh X Y Z ...`` , es decir con más de un argumento saldrá un mensaje ``No se puede dar más de un argumento``
@@ -148,7 +148,7 @@ tabla_multiplicar_read.sh
         .. literalinclude:: scripts/tabla_multiplicar.sh
            :language: shell
 
-    .. tab:: Solución (arrray)
+    .. tab:: Solución (array)
 
         .. literalinclude:: scripts/tabla_multiplicar_array.sh
            :language: shell
@@ -259,7 +259,7 @@ contar_monedas.sh
 
     .. tab:: contar_monedas.sh
 
-        Crea un script llamado **contar_monedas.sh** que lea el numero de monedas que hay de un archivo llamado monedas.dat.
+        Crea un script llamado **contar_monedas.sh** que lea el número de monedas que hay de un archivo llamado monedas.dat.
 
         Genera el archivo **monedas.dat** utilizando el siguiente codigo:
 
@@ -340,7 +340,7 @@ notas.sh
         1) El número de alumnos matriculados.
         #) El número de alumnos que han aprobado todos los módulos.
         #) El número de alumnos que han suspendido sólo un módulo.
-        #) El número de alumnos que han suspendido dos módulo.
+        #) El número de alumnos que han suspendido dos módulos.
         #) El número de alumnos que han suspendido tres módulos o más.
         #) Indicar el número de alumnos aprobados/suspensos en porcentaje.
 
@@ -362,9 +362,9 @@ analizar_cal.sh
 
     .. tab:: analizar_cal.sh
 
-        Descarga el archivo `calendario.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calendario.dat>`_, encontrara 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita
+        Descarga el archivo `calendario.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calendario.dat>`_, encontrará 543 citas donde el primer campo es el mes, el segundo campo es el día, el tercer campo es la hora y el cuarto la cita
 
-        Crea una script llamado **analizar_cal.sh** que considere las siguientes entradas:
+        Crea un script llamado **analizar_cal.sh** que considere las siguientes entradas:
 
         
         * Muestra un mensaje de ayuda
@@ -378,7 +378,7 @@ analizar_cal.sh
            - mes <mes>  muestra el número de citas que hay en un mes
            - d <día> muestra el numero de citas que hay para ese día para todos los meses
 
-        * En el caso de no dar ninguna entrada tambien mostrará el mensaje de ayuda
+        * En el caso de no dar ninguna entrada también mostrará el mensaje de ayuda
 
         * Muestra el número de citas que hay por mes
 
@@ -435,7 +435,7 @@ rep.sh
 
     .. tab:: rep.sh
 
-        Crea un script llamado **rep.sh** que diga el numero de veces que estan repetidos los siguientes nombres del archivo `nombres.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat>`_
+        Crea un script llamado **rep.sh** que diga el número de veces que están repetidos los siguientes nombres del archivo `nombres.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat>`_
 
     .. tab:: Solución
 
@@ -459,7 +459,7 @@ monedas.sh
 
         En el caso de que no se proporcione el número de tiradas ni el archivo, tomara por defecto el archivo llamado tiradas.dat y hará 100 tiradas.
 
-        En el caso de que no encuntre el archivo cuando lo va a leer, tomara por defecto monedas.dat, si este no existe, mostrará que no existe.
+        En el caso de que no encuentre el archivo cuando lo va a leer, tomara por defecto monedas.dat, si este no existe, mostrará que no existe.
 
         .. code-block:: bash
 
@@ -787,9 +787,9 @@ crear_usuarios_lista.sh
 
         2) Crea otro script llamado **borrar_usuarios_lista.sh** que borre los usuarios que aparecen en el archivo **lista.dat**, haz que utilice este archivo por defecto en el caso de no recibir ningun archivo.
 
-        3) Crea otro script llamdo **crear_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, creará todos los usuarios dentro del grupo llamado **nombre_grupo**, en el caso de que no exista creara primero el grupo.
+        3) Crea otro script llamado **crear_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, creará todos los usuarios dentro del grupo llamado **nombre_grupo**, en el caso de que no exista creara primero el grupo.
 
-        4) Crea otro script llamdo **borrar_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado bacio se borrará tambien el grupo.
+        4) Crea otro script llamdo **borrar_usuarios_grupo_lista.sh** que lea solo la primera columna de un archivo llamado **nombre_grupo.dat**, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado vacío se borrará tambien el grupo.
 
     .. tab:: crear_usuarios_lista.sh
 
@@ -868,7 +868,7 @@ usuarios_lista_ldap.sh
 
         Crea un script llamado **usuarios_lista_ldap.sh**, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.
 
-        En el archivo grupo.dat, hay una lista de emails, haz que se creer el usuario correspondiente al email, es decir usuario1@gmail.com creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo
+        En el archivo grupo.dat, hay una lista de emails, haz que se cree el usuario correspondiente al email, es decir usuario1@gmail.com creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo
 
         .. code-block:: bash
 

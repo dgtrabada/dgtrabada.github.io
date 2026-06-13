@@ -125,9 +125,9 @@ Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene qu
 
 Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritmos:
 
-* **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bolqueado.
+* **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bloqueado.
 
-* **SJN** (Shortest-job-nest) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
+* **SJN** (Shortest-job-next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
   El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.
   
   Ejemplo : (2,4,8)
@@ -138,11 +138,11 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
   
   .. image:: imagenes/procesos_2.png 
 
-  si lo hacemos al reves TE = 8+(8+4) = 20 y el tiempo de ejecución es  TR = 14+12+8 = 34
+  si lo hacemos al revés TE = 8+(8+4) = 20 y el tiempo de ejecución es  TR = 14+12+8 = 34
 
   .. image:: imagenes/procesos_3.png 
 
-* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza esta quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si en demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. **El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.**
+* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza este quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si es demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. **El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.**
 
 Vemos el siguiente ejemplo:
 

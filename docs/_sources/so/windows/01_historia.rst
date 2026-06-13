@@ -20,7 +20,7 @@ Windows versión 3.0, lanzado en 1990, fue la primera versión de Microsoft Wind
 
 .. image:: imagenes/windows3.png
 
-El 24 de agosto de 1995, Microsoft lanzó Windows 95, acompañado por una extensa y millonaria campaña de marketing, Windows 95 fue un gran éxito en el mercado en el momento de su lanzamiento y en breve se convirtió en el sistema operativo de Escritorio más populares.
+El 24 de agosto de 1995, Microsoft lanzó Windows 95, acompañado por una extensa y millonaria campaña de marketing, Windows 95 fue un gran éxito en el mercado en el momento de su lanzamiento y en breve se convirtió en el sistema operativo de Escritorio más popular.
 
 1995 Windows 95
 
@@ -34,9 +34,9 @@ El siguiente para la línea del usuario fue lanzado el 25 de junio de 1998, Micr
 
 Como parte de su línea «profesional», Microsoft lanzó Windows 2000 en febrero de 2000. La versión de consumidor tras Windows 98 fue Windows Me (Windows Millennium Edition). Lanzado en septiembre de 2000, Windows Me implementaba una serie de nuevas tecnologías para Microsoft: en particular fue el «Universal Plug and Play».
 
-En octubre de 2001, Microsoft lanzó Windows XP, una versión que se construyó en el kernel de Windows NT que también conserva la usabilidad orientada al consumidor de Windows 95 y sus sucesores. En dos ediciones distintas, «Home» y «Professional», el primero carece en gran medida de la seguridad y características de red de la edición Professional. Además, la primera edición «Media Center» fue lanzada en 2002, con énfasis en el apoyo a la funcionalidad de DVD y TV, por lo que incluía grabación de TV y un control remoto. A principios de la década de los 2000, Windows se empezaba a posicionar cómo el innovador en el mercado, pero su posición fue en declive.
+En octubre de 2001, Microsoft lanzó Windows XP, una versión que se construyó en el kernel de Windows NT que también conserva la usabilidad orientada al consumidor de Windows 95 y sus sucesores. En dos ediciones distintas, «Home» y «Professional», el primero carece en gran medida de la seguridad y características de red de la edición Professional. Además, la primera edición «Media Center» fue lanzada en 2002, con énfasis en el apoyo a la funcionalidad de DVD y TV, por lo que incluía grabación de TV y un control remoto. A principios de la década de los 2000, Windows se empezaba a posicionar como el innovador en el mercado, pero su posición fue en declive.
 
-2001 WIndows XP
+2001 Windows XP
 
 .. image:: imagenes/windows2000.png
 

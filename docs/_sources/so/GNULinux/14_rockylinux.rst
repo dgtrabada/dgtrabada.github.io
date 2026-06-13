@@ -39,7 +39,7 @@ Caso práctico: Cluster con red interna
   * **compute-0-1**
   
     * Deja solo una tarjeta de red en modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0), deshabilita la segunda tarjeta nmtui (IPv4 <disabled>)
-    * Cambia el nombre por compute-0-1 (/etc/h0stname)
+    * Cambia el nombre por compute-0-1 (/etc/hostname)
     * Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña
     
   * Crea un servicio como hicimos en ubuntu-server, pero haz que el script se ejecute desde:
@@ -99,7 +99,7 @@ En mi caso con alumno obtengo
   
  {SSHA}ZjYOkjfHrwAx/mjrOndWyUIzyuaXSZJf
 
-La directiva TheolcRootPW puede usarse para especificar la password del DN para el rootdn
+La directiva La directiva olcRootPW puede usarse para especificar la password del DN para el rootdn
 
 .. code-block:: bash
 
@@ -235,7 +235,7 @@ Configuración de los certificados TLS
 
  dnf -y install openssl #instalamos el paquete openssl para crear certificados
 
-Vamos a General nuestro propio certificado CA requerido para la comunicación segura del LDAP
+Vamos a Generar nuestro propio certificado CA requerido para la comunicación segura del LDAP
 
 .. code-block:: bash
 
@@ -249,7 +249,7 @@ Generamos la clave privada para el certificado CA
  
  openssl genrsa -out ldap.example.com.key 4096
 
-Usamos nuestra clave privada para general el certificado CA
+Usamos nuestra clave privada para generar el certificado CA
 
 .. code-block:: bash
  
@@ -299,7 +299,7 @@ También necesitaremos crear una solicitud de firma del certificado (csr)
 
  openssl req -new -key ldap.tunombre.local.key -out ldap.tunombre.local.csr
 
-Por ultimo creamos nuestro certificado del servidor ldap, utilizando CSR, la clve CA y el certificado CA creado anteriormente, este certificado sera valido por 365 días y esta encriptado con un algoritmo sha256
+Por ultimo creamos nuestro certificado del servidor ldap, utilizando CSR, la clave CA y el certificado CA creado anteriormente, este certificado será válido por 365 días y esta encriptado con un algoritmo sha256
 
 .. code-block:: bash
 
@@ -318,7 +318,7 @@ Para verificar el certificado del cliente
 
  openssl verify -CAfile ca.cert.pem private/ldap.tunombre.local.crt
 
-Podemos ver que contine la lista de IPs y DNS que le proporcionamos
+Podemos ver que contiene la lista de IPs y DNS que le proporcionamos
 
 .. code-block:: bash
  
@@ -381,7 +381,7 @@ Validamos los nuevos valores
  
  slapcat -b "cn=config" | egrep "olcTLSCertificateFile|olcTLSCertificateKeyFile|olcTLSCACertificateFile"
 
-Habilitados la configuración del TLS en LDAP, para ello añadimos en /etc/openldap/ldap.conf
+Habilitamos la configuración del TLS en LDAP, para ello añadimos en /etc/openldap/ldap.conf
 
 .. code-block:: bash
 
@@ -395,7 +395,7 @@ Activamos los cambios
 
  systemctl status slapd
 
-Permitimos el trafico del firewall entrante
+Permitimos el tráfico del firewall entrante
 
 .. code-block:: bash
 
@@ -441,7 +441,7 @@ Cliente Rocky Linux
  $ systemctl restart sssd
  $ systemctl enable sssd
 
-Añanade en /etc/hosts
+Añade en /etc/hosts
 
 .. code-block:: bash
 

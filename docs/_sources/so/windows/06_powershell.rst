@@ -51,7 +51,7 @@ Podemos ver todas las propiedades de un cmdlet con **Get-Member**:
  Year        Property       int Year {get;}
  DateTime    ScriptProperty System.Object DateTime {get=if ((& { Set-StrictMode -Version 1; $this.Di.
 
-Tambén los metodos:
+También los métodos:
 
 .. code-block:: powershell
  :emphasize-lines: 9
@@ -338,7 +338,7 @@ Buscar archivos desde una carpeta específica
 Trabajando con objetos
 ======================
 
-Hemos visto algunos ejemplos como **Get-Command**, **Get-Member**, encontramos mas cmdlets interesante para la manipulació de objetos:
+Hemos visto algunos ejemplos como **Get-Command**, **Get-Member**, encontramos más cmdlets interesante para la manipulación de objetos:
   
 * **Select-Object** Selecciona propiedades específicas de un objeto o un conjunto de objetos, permitiendo filtrar y proyectar datos.
 
@@ -546,12 +546,12 @@ Ejemplo:
   ADWS                                       Servicios web de Active  Directory 
   AJRouter                                   Servicio de enrutador de AllJoyn
 
-Información de harware
+Información de hardware
 ======================
 
 * **Get-PSDrive** cmdlet obtiene las unidades de la sesión actual.
 * **Get-NetAdapter** en PowerShell te mostrará información sobre las interfaces de red
-* **Get-WmiObject** optener información sobre el procesador
+* **Get-WmiObject** obtener información sobre el procesador
 * **Get-CimInstance** se utiliza para recuperar instancias de una clase
 
 Ejemplo:
@@ -799,7 +799,7 @@ Para instalarlo con un solo comando:
   Add-WindowsCapability -Online -Name $(Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.server*' | Select-Object  Name| Select-Object -Index 0)
 
 
-En el caso que que quieras conectarte a una sesión de powershell, abre el archivo .ssh/config. Si no existe, puedes crearlo y agrega las siguientes líneas, sonde la \<ip\> es la **ip o el nombre del equipo al que nos conectamos** y queremos loguarnos directamente con powershell:
+En el caso que que quieras conectarte a una sesión de powershell, abre el archivo .ssh/config. Si no existe, puedes crearlo y agrega las siguientes líneas, donde la \<ip\> es la **ip o el nombre del equipo al que nos conectamos** y queremos loguarnos directamente con powershell:
 
 .. code-block:: PowerShell
  
@@ -808,7 +808,7 @@ En el caso que que quieras conectarte a una sesión de powershell, abre el archi
     RemoteCommand powershell -NoLogo -NoProfile
 
 
-Instalar edior vi
+Instalar editor vi
 =================
 
 * Con Chocolatey:
@@ -828,7 +828,7 @@ Instalar edior vi
     # Descarga el instalador adecuado para tu sistema, en mi caso:
      curl.exe https://www.vim.org/downloads/gvim_9.1.1825_x64.exe -o .\gvim.exe
   
-    # Ejecutalo dentro de Windows, o desde una conexsión en la que se exporte el display
+    # Ejecutalo dentro de Windows, o desde una conexión en la que se exporte el display
     ./gvim.exe
   
     # Crea un alias:

@@ -1,5 +1,5 @@
 *******************
-Crear un modulo/app
+Crear un módulo/app
 *******************
 
 Para el ejemplo crearemos la aplicación llamada desechos, en tu caso crea una aplicación que se ajuste a tu empresa
@@ -32,7 +32,7 @@ En el caso de que hayamos tenido problemas para montar de forma local la carpeta
       ├── templates.xml
       └── views.xml
 
-descomentamos: 
+Descomentamos: 
 
 * views/views.xml
 * demo/demo.xml
@@ -59,7 +59,7 @@ Aplicaciones/Actualizaciones/Actualizar lista de aplicaciones
 En el archivo **models/models.py**
 
 * Cambiamos **value = fields.Integer()** por **cantidad = fields.Float()**
-* Quitamos la linea de **value2** y  **api.depends('cantidad')....**
+* Quitamos la línea de **value2** y  **api.depends('cantidad')....**
 
 En **views/views.xml**
 

@@ -2,7 +2,7 @@
 Información del módulo
 **********************
 
-modifica el archivo ``__manifest__.py`` para que aparezcas como autor de la aplicación, cambia el resumen la descripción, haz que aparezca en una categoría y pon una la licencia de uso, por ejemplo:
+Modifica el archivo ``__manifest__.py`` para que aparezcas como autor de la aplicación, cambia el resumen la descripción, haz que aparezca en una categoría y pon una la licencia de uso, por ejemplo:
 
 .. code-block:: bash
 
@@ -10,7 +10,7 @@ modifica el archivo ``__manifest__.py`` para que aparezcas como autor de la apli
   'application': True,
   'license': 'LGPL-3'
 
-Para que se cargue una imagen, copiamos la imagen en ``static/description/icon.png`` y en el modulo, en ``views.xml``
+Para que se cargue una imagen, copiamos la imagen en ``static/description/icon.png`` y en el módulo, en ``views.xml``
 
 .. code-block:: bash
 

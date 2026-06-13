@@ -37,11 +37,11 @@ Ponemos que no tenemos cuenta y generamos un nuevo cliente, compramos uno o vari
 
 .. image:: imagenes/08_Ventas81.png
 
-En facturación, vamos a confifuración y proveedores de pagos, activamos Demostración
+En facturación, vamos a configuración y proveedores de pagos, activamos Demostración
 
 .. image:: imagenes/08_Ventas82.png
 
-Firmamos el presupuesto y desde la web confirmamos que esta pagado para hacer la factura (Si no tienes ningún método de pago disponible, añade uno y configura sus detalles según lo necesites. Vetans / configuración / Métodos de pago)
+Firmamos el presupuesto y desde la web confirmamos que está pagado para hacer la factura (Si no tienes ningún método de pago disponible, añade uno y configura sus detalles según lo necesites. Ventas / configuración / Métodos de pago)
 
 Sube al curso la factura creada:
 

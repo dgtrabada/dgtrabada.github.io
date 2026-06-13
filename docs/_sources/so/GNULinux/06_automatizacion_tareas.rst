@@ -27,7 +27,7 @@ Permite indicar el momento en que se quiere ejecutar un trabajo ``at [opciones ]
 
 Al ejecutar at pasamos a un nuevo prompt, que nos permite introducir comandos que se ejecutarán a la hora indicada. Para guardar trabajo y salir: **CTRL+D** (guarda el entorno), el trabajo no para aunque se cierre la sesión.
 
-Mas opciones:
+Más opciones:
 
 .. code-block:: bash
 
@@ -108,7 +108,7 @@ Systemd
 
 Antiguamente se utilizaba el proceso init,  este es el proceso “padre”, es el primer proceso que se ejecuta al iniciar el sistema(es lanzado directamente por el kernel), y se encarga de lanzar todos los demás procesos.
 
-Hace ya tiempo salio la noticia de que Ubuntu cambiaría su sistema init por Upstart, esto ocurrirá con la versión de Ubuntu 15.04 Vivid Vervet. El demonio init tradicional es estrictamente síncrono, bloqueando futuras tareas hasta que la actual se haya completado. Sus tareas deben ser definidas por adelantado, y solo pueden ser ejecutadas cuando el demonio init cambia de estado (cuando la máquina se arranca o se apaga).
+Hace ya tiempo salió la noticia de que Ubuntu cambiaría su sistema init por Upstart, esto ocurrirá con la versión de Ubuntu 15.04 Vivid Vervet. El demonio init tradicional es estrictamente síncrono, bloqueando futuras tareas hasta que la actual se haya completado. Sus tareas deben ser definidas por adelantado, y solo pueden ser ejecutadas cuando el demonio init cambia de estado (cuando la máquina se arranca o se apaga).
 
 Hoy en día Ubuntu ha cambiado upstart por Systemd. Systemd está hecho para proveer un mejor framework para expresar las dependencias del servicio, permite hacer más trabajo paralelamente al inicio del sistema y reducir la sobrecarga del shell. El nombre viene del sufijo system daemon (procesos en segundo plano) con la letra “d”.
 Lo podemos comprobar:
@@ -118,11 +118,11 @@ Lo podemos comprobar:
  $ ls /sbin/init -l
  lrwxrwxrwx 1 root root 20 sep 17 10:35 /sbin/init -> /lib/systemd/systemd
 
-Systemd remplaza a la secuencia de arranque de Linux y los niveles de ejecución controlados por el demonio de inicio tradicional , junto con la ejecución de los scripts bajo su control.
+Systemd reemplaza a la secuencia de arranque de Linux y los niveles de ejecución controlados por el demonio de inicio tradicional , junto con la ejecución de los scripts bajo su control.
 
 En systemd el primer demonio de ejecución se llama precisamente systemd y es el que tiene PID 1.
 
-En systemd los servicios se denominan units. Cada unit se define en un archivo donde se especifica un proceso para arrancar por systemd. Evidentemente el arranque de un unit puede estar supeditado a determindas circunstancias como la dependencia de otros units.
+En systemd los servicios se denominan units. Cada unit se define en un archivo donde se especifica un proceso para arrancar por systemd. Evidentemente el arranque de un unit puede estar supeditado a determinadas circunstancias como la dependencia de otros units.
 
 Existen varios tipos de **units**, no sólo servicios, cuyos archivos se nombran con la extensión correspondiente:
 
@@ -148,13 +148,13 @@ A continuación se indican esquemáticamente las opciones más importantes dentr
 [Unit]
 ^^^^^^
 
-**Description=<descrición del unit>**
+**Description=<descripción del unit>**
 
 Una descripción del servicio que se muestra al consultar el status del servicio.
 
 **After=<units>**
 
-Define el orden en el cual los unist se inician. El unit se inicia sólo después de que los units especificados en esta línea estén activos. La diferencia con Require es que After no activa explícitamente los units indicados aquí. La opción Before tiene la funcionalidad opuesta a After.
+Define el orden en el cual los units se inician. El unit se inicia sólo después de que los units especificados en esta línea estén activos. La diferencia con Require es que After no activa explícitamente los units indicados aquí. La opción Before tiene la funcionalidad opuesta a After.
 
 **Requires=<units>**
 
@@ -211,7 +211,7 @@ Un conjunto de units definen un target. El target es el equivalente al concepto 
 * 6 Reinicio
 reinicio #Shell de emergencia
 
-A diferencia de los runlevels, los targests se pueden ejecutar a la vez.
+A diferencia de los runlevels, los targets se pueden ejecutar a la vez.
 
 Systemctl
 *********
@@ -220,7 +220,7 @@ En Systemd la forma de controlar los servicios del sistema cambia. Los servicios
 
 La principal orden para controlar systemd es systemctl. systemctl sustituye a chkconfig de System V.
 
-systenctl es una herramienta potente con muchas opciones. A continuación se listan los más importantes atendiendo su funcionalidad.
+systemctl es una herramienta potente con muchas opciones. A continuación se listan los más importantes atendiendo su funcionalidad.
 
 .. code-block:: bash
 
@@ -297,7 +297,7 @@ servicio B
  ExecStart=/bin/servicioB.sh
  [Install]
 
-Servicio A se ejecuta automáticdamnete con el arranque en el target multi-user.target. Una vez inicado el servicio A, éste lanza al servicio B cuando el servico A concluye:
+Servicio A se ejecuta automáticamente con el arranque en el target multi-user.target. Una vez iniciado el servicio A, éste lanza al servicio B cuando el servicio A concluye:
 
 .. code-block:: bash
 

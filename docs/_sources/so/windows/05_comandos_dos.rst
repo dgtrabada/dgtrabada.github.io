@@ -8,7 +8,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 * **cd, chdir**  cambia el directorio actual.
 
   * **cd ..**  sube un directorio
-  * **cd** indica el path en el que te encuetras
+  * **cd** indica el path en el que te encuentras
   * **cd <Nombre directorio>** cambia al directorio especificado
   * **cd <letra unidad>:** para cambiar de unidad
   

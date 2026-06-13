@@ -20,14 +20,14 @@ Sube al curso la taza con formato png.
 Ejercicio 02:
 -------------
 
-Haz un lápiz con el logo y subelo al curso
+Haz un lápiz con el logo y súbelo al curso
 
 .. image:: imagenes/02_lapiz.png
 
 Ejercicio 03:
 -------------
 
-Haz una camiseta con el logo y subela al curso
+Haz una camiseta con el logo y súbela al curso
 
 .. image:: imagenes/02_camiseta.png
 

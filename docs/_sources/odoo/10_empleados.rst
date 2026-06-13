@@ -10,7 +10,7 @@ Crea al menos 6 departamentos diferentes, sube un pantallazo en le que aparezcan
 
 .. image:: imagenes/06_Empleados1.png
 
-Crea al menos 10 empleados, le asignamos al menos a 8 un departamento y a todos un gerente, excepto al dueño de la empresa.
+Crea al menos 10 emplesados, le asignamos al menos a 8 un departamento y a todos un gerente, excepto al dueño de la empresa.
 
 .. image:: imagenes/06_Empleados2.png
 

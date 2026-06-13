@@ -30,7 +30,7 @@ Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.ma
 
 DRBL (Diskless Remote Boot in Linux) es un sistema de software que permite a las computadoras arrancar y operar sin un disco duro local, utilizando en su lugar una red para obtener el sistema operativo y los datos necesarios. DRBL incluye Clonezilla, una herramienta de clonación de discos y particiones. Clonezilla puede usarse para clonar discos y particiones de manera eficiente en múltiples computadoras simultáneamente, lo que es útil para despliegues masivos.
 
-Primero instalamos un sistema ligero, para este caso instalremos la versión minima de **XUbuntu 24.04** (xubuntu-24.04-minimal-amd64.iso ). Xubuntu es una variante oficial de Ubuntu que utiliza el entorno de escritorio XFCE, conocido por ser ligero y adecuado para sistemas con recursos limitados.
+Primero instalamos un sistema ligero, para este caso instalaremos la versión mínima de **XUbuntu 24.04** (xubuntu-24.04-minimal-amd64.iso ). Xubuntu es una variante oficial de Ubuntu que utiliza el entorno de escritorio XFCE, conocido por ser ligero y adecuado para sistemas con recursos limitados.
 
 Utiliza 2GB de RAM con un disco duro de 50GB y haz que el usuario se llame **tunombre**
 
@@ -45,7 +45,7 @@ Vamos a crear otra maquina virtual en la que depositar las imagenes, para ello u
 .. image:: imagenes/clon03.png
 
 
-Lo primero que haremos es instalar y confirar un servidor de ssh, además de montar y formatear el disco duro en ``/home/partimag``. Para ello la tendremos que poner la Red en modo **Adaptador puente** o **NAT**, instalar, montar y luego cambiarla a **Red interna** para que las demás maquinas puedan verla.
+Lo primero que haremos es instalar y configurar un servidor de ssh, además de montar y formatear el disco duro en ``/home/partimag``. Para ello la tendremos que poner la Red en modo **Adaptador puente** o **NAT**, instalar, montar y luego cambiarla a **Red interna** para que las demás maquinas puedan verla.
 
 .. image:: imagenes/clon04.png
 
@@ -57,7 +57,7 @@ Lo primero que haremos es instalar y confirar un servidor de ssh, además de mon
 
 .. image:: imagenes/clon06.png
 
-Ahora vamos a crear una imagen de **XUbuntu 24.04** en el **SERVER** dentro de ``/home/partimag``, para ello iniciaremos "XUbuntu 24.04" con la iso de drbl-live-xfce e iniciamos  Clonezilla, haciendo que cree una imagen del discoduro entero. Para ello seleccionamos la siguiente opción de Clonezilla live
+Ahora vamos a crear una imagen de **XUbuntu 24.04** en el **SERVER** dentro de ``/home/partimag``, para ello iniciaremos "XUbuntu 24.04" con la iso de drbl-live-xfce e iniciamos  Clonezilla, haciendo que cree una imagen del disco duro entero. Para ello seleccionamos la siguiente opción de Clonezilla live
 
 .. image:: imagenes/clon07.png
 
@@ -93,7 +93,7 @@ Ahora vamos a crear una imagen de **XUbuntu 24.04** en el **SERVER** dentro de `
 
 .. image:: imagenes/clon14.png
 
-Creamos una nueva maquina virtual llamada "XUbuntu 01", con disco duro de 50GB y red interna, la iniciamos con drbl-live-xfce y restauramos la imágen que hemos creado. Para ello seleccionamos las mismas opciones  de Clonezilla live, cambiando savedisk por restoredisk
+Creamos una nueva maquina virtual llamada "XUbuntu 01", con disco duro de 50GB y red interna, la iniciamos con drbl-live-xfce y restauramos la imagen que hemos creado. Para ello seleccionamos las mismas opciones  de Clonezilla live, cambiando savedisk por restoredisk
 
 .. image:: imagenes/clon15.png
 
@@ -105,7 +105,7 @@ seleccionamos la imagen que hemos creado:
 
 .. image:: imagenes/clon17.png
 
-En la segunda parte, clonaremos varias maquinas al mismo tiempo, para ello iniciaremos el Clonezilla server, lo configuraremos para que restaure tres equipos "X01, X02, X03" y restaure la imágen que hemos creado antes.
+En la segunda parte, clonaremos varias maquinas al mismo tiempo, para ello iniciaremos el Clonezilla server, lo configuraremos para que restaure tres equipos "X01, X02, X03" y restaure la imagen que hemos creado antes.
 
 .. image:: imagenes/clon18.png
 

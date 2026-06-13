@@ -2,7 +2,7 @@
 Puertas lógicas
 ***************
 
-En 1854 George Boole desarrollo una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
+En 1854 George Boole desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
 
 El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
 
@@ -58,7 +58,7 @@ Dentro de la variada gama de circuitos combinacionales, tenemos los denominados 
 
 
 
-Circuitos secuenaciales:
+Circuitos secuenciales:
 =========================
 
 Resuelve una función lógica tal que los valores de sus salidas en un determinado momento dependen de los valores de sus entradas en ese momento y de los valores con anterioridad es decir la salida no solo depende de la entrada, sino que también de los estados anteriores.
@@ -70,7 +70,7 @@ Resuelve una función lógica tal que los valores de sus salidas en un determina
 Biestables  
 ----------
 
-Circuitos capaces de retener información, mantienen su ultimo estado hasta que se produzca un cambio en sus entradas.
+Circuitos capaces de retener información, mantienen su último estado hasta que se produzca un cambio en sus entradas.
 
 * **Biestable RS** (reset, set)
 
@@ -92,7 +92,7 @@ Circuitos capaces de retener información, mantienen su ultimo estado hasta que 
   .. image:: imagenes/puertas/D.png
     :width: 250 
 
-* **Regitstros** : Una colección e dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hace con un registro de desplazamiento.
+* **Registros** : Una colección de dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hace con un registro de desplazamiento.
 
   .. image:: imagenes/puertas/Registro.png
     :width: 400 

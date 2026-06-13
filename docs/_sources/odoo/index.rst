@@ -22,7 +22,7 @@ Odoo
    15_encuestas.rst
    16_ausencias.rst
    17_tableros.rst
-   18_mantenimineto.rst
+   18_mantenimiento.rst
    19_notas.rst
    20_crm.rst
    21_flota.rst

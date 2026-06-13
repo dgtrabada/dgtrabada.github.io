@@ -59,7 +59,7 @@ Pero claro la red 172.17.1.0 255.255.255.0 no es en realidad una red de clase C,
 Así pues este subnetting permite tener redes más pequeñas dentro de una red estándar mayor.
 A nivel de routing todas esas subredes de tipo C quedan englobadas en una sola ruta de tipo B y el router de la red sólo necesita una ruta para el encaminamiento de estas subredes.
 
-Además del subnetting, este juego con los bits de máscara permite hacer lo contrario que el subnetting y se llamó sumarizacion de redes IP.
+Además del subnetting, este juego con los bits de máscara permite hacer lo contrario que el subnetting y se llamó sumarización de redes IP.
 
 
 
@@ -113,7 +113,7 @@ Ejemplos
   .. image:: imagenes/subred1.png
 
 
-**VLSM (Máscara de Red de Longitud Variable)** permite dividir un espacio de red en partes desiguales, es decir, la mascara de subred de una dirección IP  variara según la cantidad de bits que se tomen prestados para una subred especifica, se conoce también como división de subredes en subredes. Veamos el siguiente ejemplo:
+**VLSM (Máscara de Red de Longitud Variable)** permite dividir un espacio de red en partes desiguales, es decir, la máscara de subred de una dirección IP  variará según la cantidad de bits que se tomen prestados para una subred específica, se conoce también como división de subredes en subredes. Veamos el siguiente ejemplo:
 
 * **Una empresa compra una red con direcciones IP públicas de clase C 200.1.1.0. Las quiere repartir entre sus 8 departamentos. En el caso de que haga un subnetting sin VLSM, quedaría** :math:`2^{n} = 8`, **es decir,** :math:`n = 3` **(11100000).**
 
@@ -131,7 +131,7 @@ Ejemplos
 
   .. image:: imagenes/subred4.png
 
-  Vamos hacer sugneting con las 3 ultimas redes, tomaremos n=1,2,3
+  Vamos hacer subnetting con las 3 últimas redes, tomaremos n=1,2,3
 
   .. image:: imagenes/subred5.png
 

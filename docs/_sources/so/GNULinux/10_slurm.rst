@@ -17,7 +17,7 @@ Caso práctico: Red interna con NIS, NFS, autofs y Slurm
 
 Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs.
 
-Empezamos instalandos en el servidor **compute-0-0** el controlador central:
+Empezamos instalando en el servidor **compute-0-0** el controlador central:
 
 .. code-block:: bash
 
@@ -29,7 +29,7 @@ Necesitamos que el cliente compute-0-1 seán accesibles por el root desde el ser
 
  root@compute-0-1:~# apt-get install slurmd
  
-**Munge** es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. comprueba que se haya instalado en caso contrarío instalalo
+**Munge** es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. comprueba que se haya instalado en caso contrario instálalo
 
 .. code-block:: bash
 
@@ -135,7 +135,7 @@ Clonamos otro cliente **compute-0-2**, cambiamos en compute-0-0:/etc/slurm/slurm
  PartitionName=debug Nodes=compute-0-[1-2] Default=YES MaxTime=INFINITE State=UP
  ReturnToService=2
 
-Hacemos la instalacion en **compute-0-2** desde el **compute-0-0**
+Hacemos la instalación en **compute-0-2** desde el **compute-0-0**
 
 .. code-block:: bash
 
@@ -164,7 +164,7 @@ Ejemplo para dos particiones diferentes
  PartitionName=tuapellido2 Nodes=compute-0-[2-3] Default=NO MaxTime=INFINITE State=UP
  ReturnToService=2
 
-El script para lanzar a pa aprticions tuapelldio2
+El script para lanzar a la partición tuapellido2
 
 .. code-block:: bash
 

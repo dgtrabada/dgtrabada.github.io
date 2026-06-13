@@ -4,7 +4,7 @@ Ausencias
 
 .. image:: imagenes/12_Ausencias1.png
 
-Entra como un empleado, en Ausencias/Administración/Ausencias crea varias ausencias para que las apruebe su responsble
+Entra como un empleado, en Ausencias/Administración/Ausencias crea varias ausencias para que las apruebe su responsable
 
 Crea varias ausencias a diferentes empleados por varios motivos, baja, vacaciones, etc...
 

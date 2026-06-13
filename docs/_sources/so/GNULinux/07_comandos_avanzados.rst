@@ -260,7 +260,7 @@ Comandos avanzados
    empleado   : nombre5
 
    
-* **egrep** es el comando gerp extendido, este comando permite el uso de expreiones regulares más complejas que grep
+* **egrep** es el comando grep extendido, este comando permite el uso de expresiones regulares más complejas que grep
 
   .. code-block:: bash
   

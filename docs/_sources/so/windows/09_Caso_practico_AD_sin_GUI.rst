@@ -75,7 +75,7 @@ Puedes comprobar las unidades creadas:
 
 .. image:: imagenes/WS22NGUI01.png
 
-En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luuego borrar
+En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luego borrar
 
 .. code-block:: powershell
 
@@ -86,7 +86,7 @@ En el caso de que te necesites borrar una OU, recuerda que primero tienes que de
 Grupos y usuarios
 ------------------
 
-Vamos a crear los sigientes usuarios y grupos de seguridad
+Vamos a crear los siguientes usuarios y grupos de seguridad
 
 * Grupo X
   
@@ -112,7 +112,7 @@ Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario
 
 Al establecer ``-ChangePasswordAtLogon:$False``, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado ``Set-ADUser -Identity "tunombreX1" -ChangePasswordAtLogon $False``, en el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña y hasta que no lo hagamos no podremos loguearnos por ssh.
 
-Por ultio lo añadimos al grupo
+Por último lo añadimos al grupo
 
 .. code-block:: powershell
  
@@ -132,7 +132,7 @@ En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo
 
 .. code-block:: powershell
 
-  # Obtener la directiva de contraseñas actua
+  # Obtener la directiva de contraseñas actual
   $pwdPolicy = Get-ADDefaultDomainPasswordPolicy 
   
   # Deshabilitar los requisitos de complejidad
@@ -161,12 +161,12 @@ Por ultimo lo metemos dentro del dominio con el siguiente comando que ejecutamos
 
   Add-computer -domainname "tunombre.local" -Credential  tunombre\administrador -restart -force
    
-  #puedes comprobar que se añadido en el servidor ejecuntando allí
+  #puedes comprobar que se añadido en el servidor ejecutando allí
   Get-ADComputer -Filter * | FT Name
   
 .. image:: imagenes/WS22NGUI03.png
 
-En el caso de que quieras hacerlo sin exportar el diplay:
+En el caso de que quieras hacerlo sin exportar el display:
 
 .. code-block:: powershell
 
@@ -180,7 +180,7 @@ Es posible que al clonar los equipos, puedan surgir problemas debido a que compa
 .. image:: imagenes/sysprep.png
 
 
-Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejceutamos:
+Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejecutamos:
 
 .. code-block:: powershell
 
@@ -202,7 +202,7 @@ Carpeta compartida
 
 Creamos una carpeta en el servidor 
 
-.. code-block:: powershell
+.. code-block:: text
 
   C:\XY-TUNOMBRE
   ├───X-tunombre
@@ -232,7 +232,7 @@ Para acceder a ellas:
   #Podemos ver que esta en:
   ls "\\WS22TUNOMBRE\X"
    
-  #Podmeos montar en el cliente en la unidad Z
+  #Podemos montar en el cliente en la unidad Z
   New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X" 
   
 Utilizando el entorno gráfico
@@ -258,7 +258,7 @@ Para permitir la administración remota del cliente, configuramos WinRM:
    
   winrm quickconfig 
   
-Desde el servidor pordemos ejecutar comandos:
+Desde el servidor podemos ejecutar comandos:
 
 .. code-block:: powershell
    
@@ -266,7 +266,7 @@ Desde el servidor pordemos ejecutar comandos:
 
 Invoke-Command se comunicará con hasta 32 equipos a la vez, si ponemos más comenzará hasta terminar los 32 primeros.
 
-Si queremos abrir una sesisión
+Si queremos abrir una sesión
 
 .. code-block:: powershell
    
@@ -340,11 +340,11 @@ Para tener acceso a un recurso compartido de red en una sesión remota. utilizam
     
     Invoke-Command @parameters
     
-Ten encuenta que necesitaras acceso al entorno gráfico:
+Ten cuenta que necesitarás acceso al entorno gráfico:
 
 .. image:: imagenes/WS22NGUI05.png
 
-De esta forma podemos instalar programas que se ecuentren en una carpeta compartida
+De esta forma podemos instalar programas que se encuentren en una carpeta compartida
 
 .. code-block:: powershell
      

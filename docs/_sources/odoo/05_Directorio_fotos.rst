@@ -11,7 +11,7 @@ Crea un directorio con fotos de:
   * Individuales
   * Compañías
 
-Utiliza el nombre igual que el nombre que usaras en tu servidor odoo
+Utiliza el nombre igual que el nombre que usarás en tu servidor odoo
 
 Sube al curso un pantallazo como el siguiente
 

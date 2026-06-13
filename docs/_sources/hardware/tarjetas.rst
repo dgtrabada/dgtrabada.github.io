@@ -154,7 +154,7 @@ Tarjetas de sonido
 
 * **Formato MP4**: MP4 es un formato de audio y/o vídeo, con mayor compresión y potencia. Almacenan diferentes tipos de datos, desde música a imágenes, y la idea es intentar ser un formato único, en el que se podría incluso almacenar datos de diferentes tipos en un mismo archivo.
 
-* **Sonido envolvente** : Los sistemas más usados son Dolby Porlogic Surround, Dolby Digital AC-3 y DTS.
+* **Sonido envolvente** : Los sistemas más usados son Dolby Prologic Surround, Dolby Digital AC-3 y DTS.
 
   .. image:: imagenes/tarjetas/dolby.png
 

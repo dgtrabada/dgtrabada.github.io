@@ -21,7 +21,7 @@ ATA "Advanced Technology Attachmen” permite conectar periféricos de almacenam
     :width: 400
 
 En el cable, se debe establecer uno de los periféricos como cable maestro y el otro como esclavo.
-Pondremos un jumper en los dispositvos, esto hará que funcionen como esclavos o maestro
+Pondremos un jumper en los dispositivos, esto hará que funcionen como esclavos o maestro
 
 .. image:: imagenes/BUS/jumper.png
     :width: 400

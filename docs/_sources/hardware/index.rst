@@ -10,13 +10,13 @@ Hardware
    bios.rst
    uefi.rst
    diccionario.rst
-   dispositivos_alamacenamiento.rst
+   dispositivos_almacenamiento.rst
    ../so/particiones.rst
    buses.rst
    raid.rst
-   historia_microsprocesador.rst
+   historia_microprocesador.rst
    microprocesadores.rst
-   encapsuladors.rst
+   encapsulados.rst
    ventilacion.rst
    ram.rst
    conceptos_electronicos.rst

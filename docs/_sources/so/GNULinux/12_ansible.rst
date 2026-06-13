@@ -112,16 +112,16 @@ Podemos especificar múltiples hosts separándolos con comas:
 
  ansible server1,server2 -m ping -u root
 
-Plabook
+Playbook
 *******
 
-Ansible ad hoc estan bien para algo rápido, sin embargo para organizar varios modulos se utilizan los playbook, por ejemplo:
+Ansible ad hoc están bien para algo rápido, sin embargo para organizar varios modulos se utilizan los playbook, por ejemplo:
 
 .. code-block:: bash
 
  ansible all -m apt -a "name=vim state=latest" -u root
 
-Podríamos escribir lo mismo con un plabook:
+Podríamos escribir lo mismo con un playbook:
 
 .. code-block:: bash
 
@@ -148,7 +148,7 @@ Comprobamos la lista de tareas
    tasks:
      install vim latest	TAGS: []
      
-Comprobamos la lista de maquinas dobre la que va actuar 
+Comprobamos la lista de máquinas sobre la que va actuar 
 
 .. code-block:: bash
 
@@ -302,7 +302,7 @@ Partimos de un cluster formado por:
 
   * Tarjeta red modo "Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión"
   * Tarjeta de red modo "Red interna" : 172.16.0.10/16
-  * Servidor y cliente **LDAD** con usuarios (tunombre1, tunombre2, tunombre3 y grupo tupellido)
+  * Servidor y cliente **LDAP** con usuarios (tunombre1, tunombre2, tunombre3 y grupo tuapellido)
   * Utiliza NFS y autofs para exportar el home de los usuarios
 
 * **compute-0-1**
@@ -553,7 +553,7 @@ Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directori
  cd ~/.ansible/roles/dgtrabada.ansible/tests
  ansible-playbook -i inventory cluster.yml
 
-Chequeamos el servidor ``ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"``, y creamos la esctructura y los usuarios con el siguiente comando, **cambia en test.ldif tunombre por tu nombre**
+Chequeamos el servidor ``ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"``, y creamos la estructura y los usuarios con el siguiente comando, **cambia en test.ldif tunombre por tu nombre**
 
 .. code-block:: bash
 

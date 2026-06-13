@@ -4,7 +4,7 @@ NIS
 
 Originalmente **NIS** se llamaba *Páginas Amarillas (Yellow Pages)*, o *YP*, que todavía se utiliza para referirse a él. Desafortunadamente, ese nombre es una marca registrada de British Telecom, que exigió a Sun abandonar ese nombre. Sin embargo YP permanece como prefijo en los nombres de la mayoría de las órdenes relacionadas con NIS, como ypserv e ypbind.
 
-DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hacee que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
+DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hace que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
 
 
 Caso práctico: NIS con red NAT y red Interna
@@ -107,7 +107,7 @@ En ``/etc/nsswitch.conf`` añadiendo al final de cada línea la palabra "nis".
 
 En /etc/yp.conf  añadimos ``ypserver <ip_del_servidor_nis>``, y añade el servidor al /etc/hosts
 
-Por ultimo lanzamos el servicio ypbind
+Por último lanzamos el servicio ypbind
 
 .. code-block:: bash
   
@@ -119,7 +119,7 @@ para comprobarlo puedes utilizar el comando:
 
   getent passwd
 
-Para hacer que se cree el directorio de los usuarios de forma automatica marcarlo con el siguiente comando:
+Para hacer que se cree el directorio de los usuarios de forma automática marcarlo con el siguiente comando:
 
 .. code-block:: bash
 
@@ -127,7 +127,7 @@ Para hacer que se cree el directorio de los usuarios de forma automatica marcarl
   
 PAM (Pluggable Authentication Modules) establece una interfaz entre los programas de usuario y distintos métodos de autenticación.   De esta forma, el método de autenticación se hace transparente para los programas.
 
-Haz que el cliente NIs se inice como servicios en el arranque del sistema, para ello
+Haz que el cliente NIS se inicie como servicios en el arranque del sistema, para ello
 
 .. code-block:: bash
 
@@ -137,7 +137,7 @@ Haz que el cliente NIs se inice como servicios en el arranque del sistema, para 
 
 Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F 
 
-Con entortno grafico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
+Con entorno gráfico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
 
    
 .. rubric:: Notas
@@ -194,7 +194,7 @@ Podemos enrutar con **nftables**, es el sistema de filtrado de paquetes y firewa
   
   apt install nftables
 
-Añandimos en ``/etc/nftables.conf``
+Añadimos en ``/etc/nftables.conf``
 
 .. code-block:: bash
   

@@ -2,7 +2,7 @@
 Evolución del Sistema Operativo
 *******************************
 
-La evolución del sistema operativo se ha producido a lo largo de varias décadas, desde los primeros sistemas operativos primitivos hasta los sistemas operativos modernos que utilizamos en la actualidad, podría resurmise en las siguientes etapas:
+La evolución del sistema operativo se ha producido a lo largo de varias décadas, desde los primeros sistemas operativos primitivos hasta los sistemas operativos modernos que utilizamos en la actualidad, podría resumirse en las siguientes etapas:
 
 * **Sistemas operativos primitivos (décadas de 1940 y 1950)**: En los primeros sistemas informáticos, los programadores tenían que trabajar directamente con el hardware. Los primeros sistemas operativos primitivos eran muy simples y sólo podían ejecutar un programa a la vez.
 

@@ -2,7 +2,7 @@
 self.env.user
 *************
 
-Crea una campo en que se puedan seleccionar los usuarios del sistema:
+Crea un campo en que se puedan seleccionar los usuarios del sistema:
 
 ayuda:
 

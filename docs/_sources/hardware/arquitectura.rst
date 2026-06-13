@@ -2,7 +2,7 @@
 Arquitectura del ordenador
 **************************
 
-Fíjate en el siguiente ordeandor:
+Fíjate en el siguiente ordenador:
 
 * `zx80 sinclair anuncio pag1 <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/zx80advert.jpg>`_
 * `zx80 sinclair anuncio pag2 <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/zx80_advert.jpg>`_
@@ -35,7 +35,7 @@ Ejemplo:
 Instrucciones para hacer los cuestionarios.
 ===========================================
 
-En el caso de que quieras practicar utilizando un papel como haremos en el examén, puedes descárgate la hoja de ejercicios desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.pdf>`_ si lo prefires puedes decargartelo para prácticar utilizando el LibreOffice desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
+En el caso de que quieras practicar utilizando un papel como haremos en el examen, puedes descárgate la hoja de ejercicios desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.pdf>`_ si lo prefieres puedes descargártelo para practicar utilizando el LibreOffice desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
 
 .. image:: imagenes/arquitectura/Ejemplo_enunciado.png
 

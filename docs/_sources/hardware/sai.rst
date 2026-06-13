@@ -1,5 +1,5 @@
 *************************************
-Sistemas de alimentación interrumpida
+Sistemas de alimentación ininterrumpida
 *************************************
 Sistema de alimentación ininterrumpida (SAI), en inglés uninterruptible power supply (UPS), es un dispositivo que gracias a sus baterías u otros elementos almacenadores de energía, puede proporcionar energía eléctrica por un tiempo limitado y durante un apagón eléctrico a todos los dispositivos que tenga conectados
 
@@ -71,7 +71,7 @@ En un SAI hay que observar las siguientes características, a la hora de elegir 
 
   Los SAI normalmente tienen una autonomía aproximada unos 10 minutos, aunque existen modelos de gran autonomía de servicio. Esta autonomía esta directamente relacionada con el consumo que tengan los dispositivos conectados al SAI y con el número de baterías. En función del tiempo que necesitemos que el SAI mantenga activos los equipos conectados a él, deberemos de elegir un modelo con mayor o menor tiempo de autonomía. En este punto hemos de decir que, mientras mayor tiempo de autonomía sea capaz de ofrecer, mayor será el coste de éste.
 
-* **Típos de conexión electrica**
+* **Tipos de conexión eléctrica**
 
   .. image:: imagenes/fuentes/schuko.png
   

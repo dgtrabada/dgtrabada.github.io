@@ -1,5 +1,5 @@
 ***************************
-Herramientas de diagnostico
+Herramientas de diagnóstico
 ***************************
 
 .. image:: imagenes/diagnostico/diagnostico.png
@@ -27,7 +27,7 @@ Comandos generales:
 
 * **setxkbmap -layout es** cambiar la configuración del teclado
 
-* **sudo su** ser adminsitrador
+* **sudo su** ser administrador
 
 * **hardinfo** es una herramienta de información y de benchmarking para GNU/Linux. Permite obtener información acerca del hardware de tu ordenador
 

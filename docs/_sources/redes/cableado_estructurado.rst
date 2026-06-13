@@ -32,7 +32,7 @@ Un sistema de cableado estructurado es el sistema colectivo de componentes, como
 
   * No se permiten puentes, derivaciones o empalmes a lo largo de todo el trayecto del cableado
   
-  * Se debe considerar su proximidad con el cableado eléctrico que genera altos niveles de interferencia electromanética (motores, elevadores, transformadores etc) y cuyas limitaciones se  encuentran en el estándar ANSI/EIA/TIA 569
+  * Se debe considerar su proximidad con el cableado eléctrico que genera altos niveles de interferencia electromagnética (motores, elevadores, transformadores etc) y cuyas limitaciones se  encuentran en el estándar ANSI/EIA/TIA 569
   
   * La máxima longitud permitida independientemente del tipo de medio de TX utilizado es 100 metros = 90 m + 3m usuario + 7 m patchpannel
   
@@ -81,7 +81,7 @@ Un sistema de cableado estructurado es el sistema colectivo de componentes, como
 
   .. image:: imagenes/armarios.png
 
-* Herramientas especificas
+* Herramientas específicas
 
   * Herramienta de bajo impacto (Krone) 
 

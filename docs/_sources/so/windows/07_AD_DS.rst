@@ -107,7 +107,7 @@ ACL de una carpeta
 
 * **Escribir**: Permite crear archivos y subcarpetas en la carpeta, modificar atributos de carpeta, ver el propietario y los permisos.
 
-* **Listar el Contenido de la Carpeta**: Ver los nombre de archivos y subcarpetas en la carpeta.
+* **Listar el Contenido de la Carpeta**: Ver los nombres de archivos y subcarpetas en la carpeta.
 
 * **Lectura y Ejecución**: Te puedes mover por las carpetas para llegar a leer otros archivos y carpetas donde en principio no tendrías permisos, además incluye los permisos de Leer y Listar el contenido de la carpeta. 
 

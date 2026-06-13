@@ -26,7 +26,7 @@ Supongamos que queremos compartir la carpeta ``/home/tunombre1`` situada en un s
  /home/tunombre1 172.16.0.11(rw,sync,no_root_squash,no_subtree_check)
 
 * **rw**: Da permisos de lectura y escritura al cliente
-* **sync**: sincroniczar la escritura
+* **sync**: sincronizar la escritura
 * **no_subtree_check**: permite que no se compruebe el camino hasta el directorio que se exporta, en el caso de que el usuario no tenga permisos sobre el directorio exportado
 * **no_root_squash**: permite que los usuarios root de los equipos cliente tengan acceso root en el servido
 
@@ -42,7 +42,7 @@ Una forma abreviada de incluir más nodos sería:
 
  /home/tunombre1 172.16.0.0/24(rw,sync,no_root_squash,no_subtree_check)
 
-Mas abreviado:
+Más abreviado:
  
 .. code-block:: bash
 
@@ -84,7 +84,7 @@ Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs ut
 Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.
 
 
-En el caso de que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez dejalo desmarcado
+En el caso de que marcaste la opción de que se cree el directorio automáticamente en el cliente **sudo pam-auth-update**, vuelve a ejecutar el comando en el cliente y esta vez déjalo desmarcado
 
 Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar en los **clientes**
 
@@ -107,13 +107,13 @@ Donde el archivo  ``/etc/auto.home`` sería:
  tunombre2 compute-0-0:/home/tunombre2
  tunombre3 compute-0-0:/home/tunombre3
 
-No lo hacemos así para exportar el home de los usuarios por separado, de otra forma cada vez que un usuarios se loguease en el cliente todas las carpetas se exportarían, podemos escribirlo de una forma más resumida:
+No lo hacemos así para exportar el home de los usuarios por separado, de otra forma cada vez que un usuario se logueara en el cliente todas las carpetas se exportarían, podemos escribirlo de una forma más resumida:
 
 .. code-block:: bash
 
  *    compute-0-0:/home/&
 
-El asterico (*) se utiliza para remplazar el punto de montaje y (&) lo que queremos montar
+El asterisco (*) se utiliza para reemplazar el punto de montaje y (&) lo que queremos montar
 
 Hacemos que se inicie cuando se reinicia el cliente **compute-0-1**
 

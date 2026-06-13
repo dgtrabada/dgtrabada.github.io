@@ -10,10 +10,10 @@ Sistema analógico es cualquier sistema cuyas señales se representan con valore
 
 .. image:: imagenes/anlogico_digital3.png
 
-Para digitalizar una señal analogía tendremos que:
+Para digitalizar una señal analógica tendremos que:
 
 .. image:: imagenes/nyquist-shanon.png
 
-Según el teorema de muestreo de **Nyquist-Shannon**, para poder replicar con exactitud la forma de la onda es necesario que la frecuencia de muestreo sea superior al doble de la máxima frecuencia muestrear
+Según el teorema de muestreo de **Nyquist-Shannon**, para poder replicar con exactitud la forma de la onda es necesario que la frecuencia de muestreo sea superior al doble de la máxima frecuencia a muestrear
 
 

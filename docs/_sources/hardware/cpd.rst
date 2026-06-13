@@ -12,7 +12,7 @@ En la construcción de cualquier CPD, a parte de la infraestructura informática
 El Estándar TIA 942
 ===================
 
-Concebido como una guía para los diseñadores e instaladores de centros de datos (Data Centers), el standar TIA-942 Standar TIA-942(2005) proporciona una serie de recomendaciones y directrices para la instalación de sus infraestructuras.
+Concebido como una guía para los diseñadores e instaladores de centros de datos (Data Centers), el estándar TIA-942 Standar TIA-942(2005) proporciona una serie de recomendaciones y directrices para la instalación de sus infraestructuras.
 
 El estándar TIA942 aprobado en 2005 por ANSI-TIA (American National Standards Institute – Telecomunications Industry Association), clasifica a este tipo de centros en varios grupos, llamados TIER, indicando así su nivel de fiabilidad en función del nivel de disponibilidad.
 
@@ -176,7 +176,7 @@ Los pasillos de aire caliente y frío: Dado que la mayoría de los dispositivos 
 
 .. image:: imagenes/CPD/circulacion.png
 
-La norma TIA 942 especifica la forma en que puede ser fomentada esta forma de refrigeración, utilizando la refrigeración adecuada para los dipositivos, así como piso técnico perforado en los pasillos fríos, para una mejor circulación del aire y situar los armarios enfrentados en los pasillos fríos (front to front) y dispuestos de forma contraria en los pasillos calientes (rear to rear). Todo ello combinado con un detallado estudio de la separación de los armarios, de las características propias de los equipos utilizados, lo que ayuda a predecir el comportamiento de la temperatura y por tanto de la circulación del aire; para evitar mezclar flujos de aire en un mismo pasillo.
+La norma TIA 942 especifica la forma en que puede ser fomentada esta forma de refrigeración, utilizando la refrigeración adecuada para los dispositivos, así como piso técnico perforado en los pasillos fríos, para una mejor circulación del aire y situar los armarios enfrentados en los pasillos fríos (front to front) y dispuestos de forma contraria en los pasillos calientes (rear to rear). Todo ello combinado con un detallado estudio de la separación de los armarios, de las características propias de los equipos utilizados, lo que ayuda a predecir el comportamiento de la temperatura y por tanto de la circulación del aire; para evitar mezclar flujos de aire en un mismo pasillo.
 
 El cerramiento de los pasillos: Mediante la instalación de cerramientos aumentamos la eficacia del sistema de pasillos,. 
     
@@ -242,7 +242,7 @@ El peinado de Rack de datos o maquillado es una actividad que organiza los cable
 
 .. image:: imagenes/CPD/rackcables.png
 
-Según el estadnar TIA-942 un mínimo de 1 m de espacio libre delante serán proporcionados para la instalación de los equipos. Un mínimo de 0,6 m de espacio libre en la parte trasera deberá ser proporcionada para el acceso de servicio en la parte posterior de los racks y armarios. Además la  altura máxima del armario rack será de 2,4 m.
+Según el estándar TIA-942 un mínimo de 1 m de espacio libre delante serán proporcionados para la instalación de los equipos. Un mínimo de 0,6 m de espacio libre en la parte trasera deberá ser proporcionada para el acceso de servicio en la parte posterior de los racks y armarios. Además la  altura máxima del armario rack será de 2,4 m.
 
 El cableado utilizando suele ser Ethernet a 1 Gbps, a 10 Gbps ó, en algunos casos, utilizando fibra óptica.
 
@@ -328,5 +328,5 @@ Herramientas como Nagio,s ganglia, etc permiten monitorizar todo el equipamiento
 Inventariado del Hardware
 -------------------------
 
-De la misma manera que ocurre con la monitorización, cuando se dispone de cientos de equipos informáticos, no es posible mantener un inventario actualizado de forma manual. Será necesaria alguna aplicación que permita inventariar toda la red de equipos de forma automática, como por ejmplo Open-AudIT, opsi, openDCIM , OCSING, openITCOCKPIT, Spacewalk , Kuwaiba, FusionInventory, et...  Además, será muy útil a la hora de elaborar informes sobre el hardware utilizado, características, software instalado en cada equipo, . . .
+De la misma manera que ocurre con la monitorización, cuando se dispone de cientos de equipos informáticos, no es posible mantener un inventario actualizado de forma manual. Será necesaria alguna aplicación que permita inventariar toda la red de equipos de forma automática, como por ejemplo Open-AudIT, opsi, openDCIM , OCSING, openITCOCKPIT, Spacewalk , Kuwaiba, FusionInventory, et...  Además, será muy útil a la hora de elaborar informes sobre el hardware utilizado, características, software instalado en cada equipo, . . .
 

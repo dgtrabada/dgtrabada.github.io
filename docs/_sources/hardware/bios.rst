@@ -4,13 +4,13 @@ BIOS
 
 **La BIOS**, Sistema básico de entradas y salidas, del inglés "Basic Input/Output System" es un componente esencial que se usa para controlar el hardware.
 
-Es un pequeño programa que está grabada en un pequeño chip de memoria llamados CMOS  situado en la placa base, se puede modificar a través del setup.
+Es un pequeño programa que está grabado en un pequeño chip de memoria llamados CMOS  situado en la placa base, se puede modificar a través del setup.
 
 CMOS es una especie de memoria RAM, en ella se guardan los datos de configuración de la BIOS permitiendo modificarlos, puesto que es una memoria RAM, para evitar que estos datos se pierdan, se alimenta de una pila.
 
 Como fabricantes de BIOS destacan `Award <https://www.award.com/>`_, `AMI <https://www.ami.com/>`_ y `Phoenix <https://www.phoenix.com/>`_.
 
-Este programa está almacenado en una memoria localizada en la placa base, antiguamente la memoria era de tipo EPROM (ROM Erased PROgramable), actualmente se almacenan en memorias flash  EEPROM (ELECTRICALLY ERASABLE PROGRAMMABLE READ-ONLY MEMORY) y la mas usada actualmente  FLASH ROM, la cual puede ser regrabada sin el empleo de dispositivos de borrado. Consecuentemente, es posible actualizarla de fácilmente
+Este programa está almacenado en una memoria localizada en la placa base, antiguamente la memoria era de tipo EPROM (ROM Erased PROgramable), actualmente se almacenan en memorias flash  EEPROM (ELECTRICALLY ERASABLE PROGRAMMABLE READ-ONLY MEMORY) y la más usada actualmente  FLASH ROM, la cual puede ser regrabada sin el empleo de dispositivos de borrado. Consecuentemente, es posible actualizarla fácilmente
 
 .. image:: imagenes/BIOS/pila1.png
   :height: 150
@@ -26,7 +26,7 @@ Procedimientos de POST (Power-On Self Test). Verificaciones básicas.
 
 Cuando se enciende o se restablece un sistema informático, la BIOS realiza un inventario del hardware conectado al ordenador y efectúa un diagnóstico llamado Prueba automática en el encendido (POST, Power-On Self Test) para comprobar que el equipo funciona correctamente.
 
-La secuencia del POST pueden varíar segun el fabricante, la placa base y la versión. A continuación vemos una posible secuencia del POST:
+La secuencia del POST pueden variar según el fabricante, la placa base y la versión. A continuación vemos una posible secuencia del POST:
 
 1. Test al controlador del teclado para verificar que está disponible
 2. Arranca la actividad del chipset
@@ -75,7 +75,7 @@ EL SETUP
 
 El SETUP es un programa configuración de la BIOS, que permite acceder a los parámetros de configuración básica que están almacenados en la memoria CMOS.
 
-El SETUP se activa en la mayoria de los casos pulsando la tecla DEL,SUPR, F2...
+El SETUP se activa en la mayoría de los casos pulsando la tecla DEL,SUPR, F2...
 
 .. image:: imagenes/BIOS/setup.png
    :width: 400
@@ -104,7 +104,7 @@ A través del menú principal del Setup puedes acceder a los diferentes submenú
 * **Advanced Chipset Setup**: A través de él podrás, entre otras cosas, determinar la velocidad a la que se puede acceder a la RAM.
 * **Integrated Peripherals** (Periféricos Integrados) puedes configurar todos los puertos y dispositivos que forman parte de la placa base, como las conexiones del disco duro, los puertos USB, o las tarjetas gráficas, de red o sonido integradas.
 * **Power Management Setup**: la gestión de energía es uno de los apartados más importantes en los modernos PCs. Desde este menú controlamos todas sus opciones.
-* **PCI / Plug and Play Setup**: puedes determinar si los componentes independientes de tu ordenador, es decir, las tarjetas de expansión, deben configurarse desde laBIOS o desde el sistema operativo
+* **PCI / Plug and Play Setup**: puedes determinar si los componentes independientes de tu ordenador, es decir, las tarjetas de expansión, deben configurarse desde la BIOS o desde el sistema operativo
 * **Fail-Safe Defaults**, prueba a cargar los Valores Optimizados, u Optimized Defaults.Esta configuración es la que el fabricante de la placa base considera como la mejor en la mayor parte de los casos (ten en cuenta que los componentes conectados a la placa pueden ser muy diferentes, por lo que existe la posibilidad de que esta opción no sea siempre la óptima)
 * **Set User Password**, Supervisor Password, o Contraseña de Administrador
 * **Change Language Setting**: en determinadas BIOS muy concretas nos permite seleccionar un idioma distinto al inglés. Así, muy pronto veremos BIOS en castellano.
@@ -175,7 +175,7 @@ Las últimas placas bases permiten ajustar la frecuencia del procesador mediante
 
 CAS ( Column Address Strobe ), nos referimos a una señal enviada a la RAM que asigna una determinada posición de memoria con una columna de direcciones. El otro parámetro, íntimamente ligado a CAS es RAS ( R o w A d d r e s s S t r o b e) y es igualmente una señal encargada de asignar una determinada posición de memoria a  una fila de direcciones.
 
-Power Managment Setup
+Power Management Setup
 =====================
 
 Habilitar y deshabilitar desde que dispositivos queremos que el sistema se inicie tras hibernar o apagar el equipo. Elegir que queremos que ocurra si la electricidad vuelve tras un corte de suministro. Programar una fecha y una hora para que el sistema autoarranque. Elegir el funcionamiento del botón de apagado el sistema se apague inmediatamente o preferimos tener que esperar 4 segundos.
@@ -188,7 +188,7 @@ Habilitar y deshabilitar desde que dispositivos queremos que el sistema se inici
 * **Power Management**: En este apartado activaremos o desactivaremos la función de ahorro de energía
 * **ACPI Suspend Mode** (Modo Suspendido ACPI) puedes especificar cómo trabaja el PC en el modo de ahorro de energía ACPI.
 * **Suspend Mode** configuras cuánto tiempo debe transcurrir para que la BIOS ponga al ordenador en el modo suspendido
-* **Wake on LAN**  podrás depertatar el ordenador mediante la tarjeta de red
+* **Wake on LAN**  podrás despertar el ordenador mediante la tarjeta de red
 * **PM control by APM**: Esta opción deberá estar activada para los sistemas operativos compatibles con la gestión de energía APM (Advanced Power Management) sean capaces de apagar o suspender el equipo.
 * **Video Off Method**: Aquí estableceremos el modo en el que el sistema de vídeo ahorrará energía. La opción más recomendable es DPMS, pero no todos los monitores y tarjetas gráficas son compatibles con esta función.
 * **CPU Fan Off in Suspend**: Determina si el ventilador del procesador se apaga en caso del que el sistema entre en estado de ahorro de energía.
@@ -215,7 +215,7 @@ Muestra los voltajes suministrados por la fuente de alimentación, temperaturas 
     :width: 400
 
 * **CPU Temperature**: esta opción muestra la temperatura actual de nuestra CPU.
-* **CPU Overheat Warning**: con este apartado podremos elegir si desea mos que el sistema nos avise en caso de que se produzca una subida excesiva de la temperatura de la CPU del sistema.
+* **CPU Overheat Warning**: con este apartado podremos elegir si deseamos que el sistema nos avise en caso de que se produzca una subida excesiva de la temperatura de la CPU del sistema.
 * **CPU Overheat Warning Temperature**: especifica la temperatura a la que saltará la alarma en caso de haber activado la opción anterior.
 * **CPU / Chasis / Termal Control Fan**: indica la revoluciones de cada uno de los posibles ventiladores instalados en nuestro sistema, como son el del procesador o los de la carcasa.
 

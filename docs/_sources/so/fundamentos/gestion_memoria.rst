@@ -6,7 +6,7 @@ Gestión de memoria
 Jerarquía de memoria
 ====================
 
-La jerarquía de memoria es la organización piramidal de la memoria en niveles, el objetivo es acercarse el rendimiento de una memoria de gran velocidad al coste de una memoria de baja velocidad.
+La jerarquía de memoria es la organización piramidal de la memoria en niveles, el objetivo es acercar el rendimiento de una memoria de gran velocidad al coste de una memoria de baja velocidad.
 
 .. image:: imagenes/jerarquia-memoria.png
   :height: 200
@@ -14,9 +14,9 @@ La jerarquía de memoria es la organización piramidal de la memoria en niveles,
 La memoria principal
 ====================
 
-La memoria principal de se compone por el cache y la memoria RAM
+La memoria principal se compone por el cache y la memoria RAM
 
-En un principio se adoptaron dos forma de hacer las particiones fijas o dinámicas, las fijas se creaban cuando arrancaba el ordenador, en el caso de que quisiéramos correr un proceso más grade que el tamaño de las particiones tendríamos que reiniciar el ordenador, y como podemos ver en la siguiente figura las particiones fijas favorecen la fragmentación interna, la cual es debida a los procesos de tamaño más pequeño que las particiones.
+En un principio se adoptaron dos formas de hacer las particiones fijas o dinámicas, las fijas se creaban cuando arrancaba el ordenador, en el caso de que quisiéramos correr un proceso más grande que el tamaño de las particiones tendríamos que reiniciar el ordenador, y como podemos ver en la siguiente figura las particiones fijas favorecen la fragmentación interna, la cual es debida a los procesos de tamaño más pequeño que las particiones.
 
 Imaginemos una memoria de 64K con 4 particiones de 16K = 2⁴2¹⁰=(HEX)=4000
 
@@ -28,9 +28,9 @@ Con las particiones dinámicas se consiguió evitar la fragmentación interna, s
 .. image:: imagenes/memoria_frag.png
   :height: 200
   
-En 1961, Fotheringham desarrolla una nueva técnica de gestión llamada memoria virtual, la idea es que el proceso que queremos correr es mayor que la memoria disponibles para ese proceso, lo que sucede entonces es que el SO guarda aquellas partes del programa de uso corriente en la memoria principal, el resto le deja en el disco.
+En 1961, Fotheringham desarrolla una nueva técnica de gestión llamada memoria virtual, la idea es que el proceso que queremos correr es mayor que la memoria disponible para ese proceso, lo que sucede entonces es que el SO guarda aquellas partes del programa de uso corriente en la memoria principal, el resto le deja en el disco.
 
-Es lógico pensar que no todas las partes del programa van a ser utilizadas al mismo tiempo, de hecho es muy probable que se utilicen instrucciones cercanas a las se están utilizando, fenómeno llamado localidad.
+Es lógico pensar que no todas las partes del programa van a ser utilizadas al mismo tiempo, de hecho es muy probable que se utilicen instrucciones cercanas a las que se están utilizando, fenómeno llamado localidad.
 
 .. image:: imagenes/memoria_virtual.png
   :height: 400
@@ -43,7 +43,7 @@ Cuando se produce un fallo de página, la página se carga desde el disco duro a
 Planificación del disco
 =======================
 
-El tiempo de lectura/escritura de un sector del disco depende del tiempo de busqueda, retardo rotacional y tiempo de transferencia. De todos ellos, el único que se puede optimizar desde el programa gestor del disco es el primero ya que los otros dos dependen de las características propias del disco y bus de transmisión.
+El tiempo de lectura/escritura de un sector del disco depende del tiempo de búsqueda, retardo rotacional y tiempo de transferencia. De todos ellos, el único que se puede optimizar desde el programa gestor del disco es el primero ya que los otros dos dependen de las características propias del disco y bus de transmisión.
 
 .. image:: imagenes/disco.png
   :height: 400
@@ -81,7 +81,7 @@ Veamos el siguiente ejemplo
 
 * **Planificación SCAN (rastreo)** Evita el posible bloqueo de SSTF.
 
-  La estrategia es ir recorriendo todas las pistas en una dirección. Cuando ya no hay mas pistas en esa dirección, empieza a atender en el sentido contrario. También se le conoce como el algoritmo del ascensor, por su analogía, llega hasta arriba, parando donde haga falta, y después baja atendiendo las nuevas paradas.
+  La estrategia es ir recorriendo todas las pistas en una dirección. Cuando ya no hay más pistas en esa dirección, empieza a atender en el sentido contrario. También se le conoce como el algoritmo del ascensor, por su analogía, llega hasta arriba, parando donde haga falta, y después baja atendiendo las nuevas paradas.
 
   .. image:: imagenes/scan_datos.png
   
