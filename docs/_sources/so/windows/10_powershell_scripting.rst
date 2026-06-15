@@ -76,7 +76,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
  
   .. code-block:: powershell
 
-    PS C:\>$cadena = "Hola, Mundo!"
+    PS C:\> $cadena = "Hola, Mundo!"
     PS C:\> echo $cadena.GetType().Name   
     String
  
@@ -202,7 +202,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
 
   .. code-block:: powershell
 
-    PS C:\>$B=$true
+    PS C:\> $B=$true
     PS C:\> echo $B.GetType().Name 
     Boolean
 
@@ -210,8 +210,8 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
 
   .. code-block:: powershell
 
-    PS C:> $A = @(0)*4
-    PS C:> echo $A
+    PS C:\> $A = @(0)*4
+    PS C:\> echo $A
     0
     0
     0
@@ -227,7 +227,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     PS C:\> echo $numbers[0].GetType().Name
     Int32
     
-    PS C:> echo $numbers.Length
+    PS C:\> echo $numbers.Length
     5
     PS C:\>  echo $numbers.Count 
     5
@@ -254,18 +254,18 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
   .. code-block:: powershell
 
     
-    PS C:> $XY = @(@(1, 2), @(3, 4))                   
-    PS C:>  echo $XY.Length
+    PS C:\> $XY = @(@(1, 2), @(3, 4))                   
+    PS C:\>  echo $XY.Length
     2
 
-    PS C:>  echo $XY[0] 
+    PS C:\>  echo $XY[0] 
     1  
     2
     
-    PS C:>  echo $XY[0].Length
+    PS C:\>  echo $XY[0].Length
     2
     
-    PS C:>  echo $XY[0][0]    
+    PS C:\>  echo $XY[0][0]    
     1
 
 
@@ -492,13 +492,13 @@ y cuando lo ejecutamos obtenemos:
 
 .. code-block:: powershell
   
-  PS C:\> .\param_def.ps1 -Name Nefertiti -Nacimiento -1370     
-  Hola Tutankamón, Tienes 3394
-  
-  PS C:\Users\Administrador\powershell> .\param_def.ps1 -Name Nefertiti 
-  Hola Tutankamón, Tienes 3358
+  PS C:\> .\param_def.ps1 -Nombre Nefertiti -Nacimiento -1370
+  Hola Nefertiti, Tienes 3394
 
-  PS C:\> .\param_def.ps1  
+  PS C:\Users\Administrador\powershell> .\param_def.ps1 -Nombre Nefertiti
+  Hola Nefertiti, Tienes 3358
+
+  PS C:\> .\param_def.ps1
   Hola Tutankamón, Tienes 3358
 
 
@@ -522,7 +522,7 @@ Podemos completar la declaracion de un parámetro en un script de PowerShell uti
 
   Write-Output "Hola $Nombre, Tienes $Edad"
 
-  #si no ponemos nada toma los calores en orden
+  #si no ponemos nada toma los valores en orden
   PS C:\> .\param.ps1  Tutankamón -1334
   Hola Tutankamón, Tienes 3358
 
@@ -550,7 +550,7 @@ Podemos usar param con un switch para crear parámetros booleanos/flags que acti
 
 .. code-block:: powershell
 
-  PS C:> cat .\script.ps1
+  PS C:\> cat .\script.ps1
   param (
     [switch]$help
     )
@@ -561,10 +561,10 @@ Podemos usar param con un switch para crear parámetros booleanos/flags que acti
     Write-Output "help es: $help"
    }
 
-  PS C:> .\script.ps1 
+  PS C:\> .\script.ps1 
   help es: False
 
-  PS C:> .\script.ps1 -help
+  PS C:\> .\script.ps1 -help
   help es: True
 
 
@@ -858,8 +858,8 @@ Ejemplo de función con recursión:
 Windows PowerShell ISE
 ======================
 
-.. image:: imagenes/powersheelISE.png
+.. image:: imagenes/powershellISE.png
 
-.. image:: imagenes/powersheelISE1.png
+.. image:: imagenes/powershellISE1.png
 
-.. image:: imagenes/powersheelISE2.png
+.. image:: imagenes/powershellISE2.png

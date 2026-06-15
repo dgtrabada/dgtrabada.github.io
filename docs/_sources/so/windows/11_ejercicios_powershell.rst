@@ -546,16 +546,14 @@ notas.ps1
 
         .. code-block:: powershell
 
-          notas.ps1 [-help] [-add <alumno> -nota <nota>] [-generate] [-delete <alumno>] [-media] [-aprobados]
+          $ ./notas.ps1 -help
 
-        El script debe cumplir:
-
-        * **-generate**: genera 10 alumnos con notas aleatorias entre 0 y 10.
-        * **-add <alumno> -nota <nota>**: añade un alumno con su nota.
-        * **-delete <alumno>**: elimina un alumno.
-        * **-media**: muestra la nota media de la clase.
-        * **-aprobados**: muestra los alumnos con nota mayor o igual a 5.
-        * **-help**: muestra la ayuda.
+          -help: muestra la ayuda.
+          -generate: genera 10 alumnos con notas aleatorias entre 0 y 10.
+          -add <alumno> -nota <nota>: añade un alumno con su nota.
+          -delete <alumno>: elimina un alumno.
+          -media: muestra la nota media de la clase.
+          -aprobados: muestra los alumnos con nota mayor o igual a 5.
 
         Si el archivo ``notas.csv`` no existe, debe crearlo; si existe, añade los alumnos.
 

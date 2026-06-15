@@ -2,6 +2,9 @@
 Ejercicios de PowerShell
 ************************
 
+disk.ps1
+""""""""
+
 .. tabs::
 
     .. tab:: disk.ps1
@@ -11,8 +14,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/disk.ps1
-           :language: powershell
+           :language: shell
 
+
+mem.ps1
+"""""""
 
 .. tabs::
 
@@ -23,9 +29,12 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/mem.ps1
-           :language: powershell
+           :language: shell
 
 
+
+cpu.ps1
+"""""""
 
 .. tabs::
 
@@ -36,8 +45,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/cpu.ps1
-           :language: powershell
+           :language: shell
 
+
+mac.ps1
+"""""""
 
 .. tabs::
 
@@ -48,12 +60,15 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/mac.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (foreach)
 
         .. literalinclude:: 10_powershell/mac2.ps1
-           :language: powershell
+           :language: shell
+
+edad.ps1
+""""""""
 
 .. tabs::
 
@@ -64,7 +79,10 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/edad.ps1
-           :language: powershell
+           :language: shell
+
+tres_numeros.ps1
+""""""""""""""""
 
 .. tabs::
 
@@ -75,18 +93,21 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/tres_numeros.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (usamos decimales)
 
         .. literalinclude:: 10_powershell/tres_numeros_decimales.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/tres_numeros_param.ps1
-           :language: powershell
+           :language: shell
 
+
+impar.ps1
+"""""""""
 
 .. tabs::
 
@@ -97,19 +118,22 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/impar.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (args)
 
         .. literalinclude:: 10_powershell/impar_args.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/impar_param.ps1
-           :language: powershell
+           :language: shell
 
 
+
+mult.ps1
+""""""""
 
 .. tabs::
 
@@ -120,12 +144,15 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/mult.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/mult_param.ps1
-           :language: powershell
+           :language: shell
+
+ext.ps1
+"""""""
 
 .. tabs::
 
@@ -158,8 +185,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/ext.ps1
-           :language: powershell
+           :language: shell
 
+
+puerta.ps1
+""""""""""
 
 .. tabs::
 
@@ -170,13 +200,16 @@ Ejercicios de PowerShell
     .. tab:: Solución (if)
 
         .. literalinclude:: 10_powershell/puerta_if.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (switch)
 
         .. literalinclude:: 10_powershell/puerta.ps1
-           :language: powershell
+           :language: shell
 
+
+puerta2.ps1
+"""""""""""
 
 .. tabs::
 
@@ -187,8 +220,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/puerta2.ps1
-           :language: powershell
+           :language: shell
            
+usuario.ps1
+"""""""""""
+
 .. tabs::
 
     .. tab:: usuario.ps1
@@ -212,27 +248,27 @@ Ejercicios de PowerShell
     .. tab:: Solución (args)
 
         .. literalinclude:: 10_powershell/usuario_args.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (args descolocado)
 
         .. literalinclude:: 10_powershell/usuario_args2.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (args desc.+help )
 
         .. literalinclude:: 10_powershell/usuario_args3.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/usuario_param.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param+help)
 
         .. literalinclude:: 10_powershell/usuario_param_help.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: usuario_csv.ps1
       
@@ -289,8 +325,11 @@ Ejercicios de PowerShell
     .. tab:: Solución (csv)
 
         .. literalinclude:: 10_powershell/usuario_csv.ps1
-           :language: powershell
+           :language: shell
 
+
+monedas.ps1
+"""""""""""
 
 .. tabs::
 
@@ -301,13 +340,16 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/monedas.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (n monedas)
 
         .. literalinclude:: 10_powershell/n_monedas.ps1
-           :language: powershell
+           :language: shell
 
+
+rnd.ps1
+"""""""
 
 .. tabs::
 
@@ -318,17 +360,20 @@ Ejercicios de PowerShell
     .. tab:: Solución (while)
 
         .. literalinclude:: 10_powershell/rnd.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (do while)
 
         .. literalinclude:: 10_powershell/rnd_do_while.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (do while)
 
         .. literalinclude:: 10_powershell/rnd_do_until.ps1
-           :language: powershell
+           :language: shell
+
+piedra_papel_tijera.ps1
+"""""""""""""""""""""""
 
 .. tabs::
 
@@ -339,14 +384,17 @@ Ejercicios de PowerShell
     .. tab:: Solución (if)
 
         .. literalinclude:: 10_powershell/piedra_papel_tijera.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (switch)
 
         .. literalinclude:: 10_powershell/piedra_papel_tijera_switch.ps1
-           :language: powershell
+           :language: shell
 
 
+
+dados.ps1
+"""""""""
 
 .. tabs::
 
@@ -385,13 +433,16 @@ Ejercicios de PowerShell
     .. tab:: Solución (args)
 
         .. literalinclude:: 10_powershell/dados.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (param)
 
         .. literalinclude:: 10_powershell/dados_param.ps1
-           :language: powershell
+           :language: shell
 
+
+analisis.ps1
+""""""""""""
 
 .. tabs::
 
@@ -409,14 +460,17 @@ Ejercicios de PowerShell
     .. tab:: Solución (variables)
 
         .. literalinclude:: 10_powershell/analisis_variables.ps1
-           :language: powershell
+           :language: shell
 
     .. tab:: Solución (arrays)
 
         .. literalinclude:: 10_powershell/analisis.ps1
-           :language: powershell
+           :language: shell
 
 
+
+tragaperras.ps1
+"""""""""""""""
 
 .. tabs::
 
@@ -439,8 +493,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/tragaperras.ps1
-           :language: powershell
+           :language: shell
 
+
+csv.ps1
+"""""""
 
 .. tabs::
 
@@ -475,8 +532,46 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/csv.ps1
-           :language: powershell
+           :language: shell
 
+
+notas.ps1
+"""""""""
+
+.. tabs::
+
+    .. tab:: notas.ps1
+
+        Crea un script en PowerShell llamado **notas.ps1** que gestione las notas de los alumnos en un archivo ``notas.csv`` mediante los siguientes parámetros:
+
+        .. code-block:: powershell
+
+          $ ./notas.ps1 -help
+
+          -help: muestra la ayuda.
+          -generate: genera 10 alumnos con notas aleatorias entre 0 y 10.
+          -add <alumno> -nota <nota>: añade un alumno con su nota.
+          -delete <alumno>: elimina un alumno.
+          -media: muestra la nota media de la clase.
+          -aprobados: muestra los alumnos con nota mayor o igual a 5.
+
+        Si el archivo ``notas.csv`` no existe, debe crearlo; si existe, añade los alumnos.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/notas.ps1
+           :language: shell
+
+    .. tab:: Solución (sin duplicados)
+
+        En esta versión, ``-generate`` y ``-add`` no vuelven a añadir un alumno si ya existe en el archivo.
+
+        .. literalinclude:: 10_powershell/notas_sin_duplicados.ps1
+           :language: shell
+
+
+usuarios_G00.ps1
+""""""""""""""""
 
 .. tabs::
 
@@ -505,6 +600,9 @@ Ejercicios de PowerShell
 
 
 
+crear_usuarios_grupos.ps1
+"""""""""""""""""""""""""
+
 .. tabs::
 
     .. tab:: crear_usuarios_grupos.ps1
@@ -529,9 +627,12 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/crear_usuarios_grupos_ini.ps1
-           :language: powershell
+           :language: shell
 
 
+
+crear_usuarios_grupos.ps1 (usuarios)
+""""""""""""""""""""""""""""""""""""
 
 .. tabs::
 
@@ -604,10 +705,13 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/crear_usuarios_grupos.ps1
-           :language: powershell
+           :language: shell
 
 
 
+
+crear_usuarios_grupos_csv.ps1
+"""""""""""""""""""""""""""""
 
 .. tabs::
 
@@ -650,9 +754,12 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/crear_usuarios_grupos_csv.ps1
-           :language: powershell
+           :language: shell
 
 
+
+usuarios.ps1
+""""""""""""
 
 .. tabs::
 
@@ -671,8 +778,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/usuarios.ps1
-           :language: powershell
+           :language: shell
 
+
+grupos.ps1
+""""""""""
 
 .. tabs::
 
@@ -693,8 +803,11 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/grupo.ps1
-           :language: powershell
+           :language: shell
 
+
+local_users.ps1
+"""""""""""""""
 
 .. tabs::
 
@@ -755,12 +868,15 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/local_users.ps1
-           :language: powershell
+           :language: shell
 
 
 
 
 
+
+AD.ps1
+""""""
 
 .. tabs::
 
@@ -801,6 +917,6 @@ Ejercicios de PowerShell
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/AD.ps1
-           :language: powershell
+           :language: shell
 
 

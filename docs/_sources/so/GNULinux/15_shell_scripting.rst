@@ -160,8 +160,8 @@ Bucles y condicionales
   
   .. code-block:: bash
    
-   if test $i -gt $X # -gt grater than
-   if test $i -ge $X # -gt grater or equal than
+   if test $i -gt $X # -gt greater than
+   if test $i -ge $X # -ge greater or equal than
    if test $i -lt $X # -lt less than
    if test $i -eq $X # -eq equal than
    if test $i -ne $X # -ne not equal than
