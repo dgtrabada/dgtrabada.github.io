@@ -104,10 +104,6 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 #html_static_path = ['_static']
 
-# Ficheros extra que se copian tal cual a la raíz del HTML generado
-# (redirecciones de páginas renombradas, etc.)
-html_extra_path = ['_extra']
-
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
