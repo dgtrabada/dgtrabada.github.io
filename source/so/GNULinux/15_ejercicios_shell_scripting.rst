@@ -204,6 +204,87 @@ temperatura.sh
         .. literalinclude:: scripts/temperatura_array.sh
            :language: shell
 
+meteo.sh
+""""""""
+
+.. tabs::
+
+    .. tab:: meteo.sh
+
+        Crea un script llamado **meteo.sh** que lea los datos de una estación meteorológica del archivo `meteo.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/meteo.dat>`_, cada línea es un día con cuatro columnas: día, temperatura mínima, temperatura máxima y humedad
+
+        .. code-block:: bash
+
+           01/06 12.5 22.1 65
+           02/06 10.2 24.0 58
+           03/06 14.0 26.5 60
+
+        Se pide:
+
+        1) La temperatura mínima media, la máxima media y la humedad media, con un decimal.
+        #) El día más caluroso y el día más frío.
+        #) El día con mayor amplitud térmica (temperatura máxima - mínima).
+
+        La salida tiene que quedar:
+
+        .. code-block:: bash
+
+           ./meteo.sh
+           Temperatura mínima media : 12.3 ºC
+           Temperatura máxima media : 24.1 ºC
+           Humedad media            : 61.5 %
+           Día más caluroso         : 06/06 (29.6 ºC)
+           Día más frío             : 08/06 (8.7 ºC)
+           Día con mayor amplitud   : 09/06 (16.5 ºC)
+
+        Consejos:
+
+        * ``read`` puede leer varias variables a la vez: ``while read dia tmin tmax hum``, cada columna llega a una variable sin necesidad de ``cut``.
+        * Con decimales no se puede comparar con ``-gt`` o ``-lt``, compara con bc: ``$(echo "$tmax > $t_caluroso" | bc -l)`` devuelve 1 si es cierto.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/meteo.sh
+           :language: shell
+
+    .. tab:: Solución (awk)
+
+        .. literalinclude:: scripts/meteo_awk.sh
+           :language: shell
+
+    .. tab:: Solución (array)
+
+        .. literalinclude:: scripts/meteo_array.sh
+           :language: shell
+
+alerta_disco.sh
+"""""""""""""""
+
+.. tabs::
+
+    .. tab:: alerta_disco.sh
+
+        Crea un script llamado **alerta_disco.sh** que recorra las particiones montadas y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo ``alertas.log`` y también por pantalla. El umbral se recibe como argumento, por defecto será 80.
+
+        .. code-block:: bash
+
+           ./alerta_disco.sh 50
+           2026-07-07 10:30 / está al 57% (umbral 50%)
+
+           cat alertas.log
+           2026-07-07 10:30 / está al 57% (umbral 50%)
+
+        Consejos:
+
+        * ``df | tail -n +2`` quita la línea de cabecera, y como en **meteo.sh** puedes leer las columnas con ``while read``.
+        * ``tr -d '%'`` elimina el símbolo % para poder comparar con ``-ge``.
+        * ``tee -a`` escribe a la vez por pantalla y al final de un archivo.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/alerta_disco.sh
+           :language: shell
+
 rnd.sh
 """"""
 
@@ -250,6 +331,32 @@ adivina.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/adivina.sh
+           :language: shell
+
+menu.sh
+"""""""
+
+.. tabs::
+
+    .. tab:: menu.sh
+
+        Crea un script llamado **menu.sh** que muestre un menú numerado con las opciones **Disco**, **Memoria**, **Usuarios conectados** y **Salir**, ejecute el comando correspondiente y vuelva a preguntar hasta que se escoja Salir. Si se escoge un número que no existe mostrará ``Opción no válida``.
+
+        .. code-block:: bash
+
+           ./menu.sh
+           1) Disco                 3) Usuarios conectados
+           2) Memoria               4) Salir
+           Escoge una opción:
+
+        Consejos:
+
+        * El bucle ``select opcion in ...`` genera el menú numerado él solo y guarda en ``$opcion`` la opción escogida, combínalo con ``case``.
+        * La variable ``PS3`` es el mensaje que muestra ``select`` para preguntar.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/menu.sh
            :language: shell
 
 contar_monedas.sh
@@ -354,6 +461,21 @@ notas.sh
         .. literalinclude:: scripts/notas_awk.sh
            :language: shell
 
+    .. tab:: Solución (csv)
+
+        Ahora las calificaciones están en formato csv con cabecera, en el archivo `calificaciones.csv <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/calificaciones.csv>`_:
+
+        .. code-block:: bash
+
+           nombre,mod1,mod2,mod3,mod4,mod5
+           Lucía Sánchez,10,6,6,5,8
+           María Vargas,9,7,4,4,7
+
+        Fíjate que al separar los campos con ``IFS=','`` y ``read`` el script se simplifica: cada nota llega a una variable sin necesidad de ``cut``.
+
+        .. literalinclude:: scripts/notas_csv.sh
+           :language: shell
+
 
 analizar_cal.sh
 """""""""""""""
@@ -446,6 +568,46 @@ rep.sh
 
         .. literalinclude:: scripts/rep_array.sh
            :language: shell
+
+duplicados.sh
+"""""""""""""
+
+.. tabs::
+
+    .. tab:: duplicados.sh
+
+        Crea un script llamado **duplicados.sh** que encuentre los archivos con el mismo contenido dentro de un directorio (aunque tengan nombres distintos), agrupándolos. Si no recibe el directorio como argumento analizará el directorio actual.
+
+        Para probarlo genera unos archivos con duplicados:
+
+        .. code-block:: bash
+
+           mkdir ficheros
+           for i in 1 2 3; do echo "contenido $i" > ficheros/original_$i.txt; done
+           cp ficheros/original_1.txt ficheros/copia_1.txt
+           cp ficheros/original_1.txt ficheros/otra_copia.txt
+           cp ficheros/original_2.txt ficheros/copia_2.txt
+
+           ./duplicados.sh ficheros
+           Duplicados:
+           ficheros/copia_1.txt
+           ficheros/original_1.txt
+           ficheros/otra_copia.txt
+           Duplicados:
+           ficheros/copia_2.txt
+           ficheros/original_2.txt
+
+        Consejos:
+
+        * ``md5sum`` calcula un hash del contenido: dos archivos con el mismo contenido tienen el mismo hash, se llamen como se llamen.
+        * ``find <dir> -type f -exec md5sum {} \;`` calcula el hash de todos los archivos, y con ``sort | uniq -d`` sobre la columna del hash tienes los repetidos (la misma cadena que en **rep.sh**).
+        * ``$$`` es el PID del script, útil para crear un archivo temporal (``/tmp/hashes.$$``) que no pise el de otra ejecución.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/duplicados.sh
+           :language: shell
+
 monedas.sh
 """"""""""
 
@@ -498,6 +660,120 @@ ip.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/ip.sh
+           :language: shell
+
+    .. tab:: Uso
+
+        Puedes probar todas las opciones con el script **uso_ip.sh**, la función ``run`` imprime el comando antes de ejecutarlo (fíjate en el uso de ``"$@"``):
+
+        .. literalinclude:: scripts/uso_ip.sh
+           :language: shell
+
+inventario.sh
+"""""""""""""
+
+.. tabs::
+
+    .. tab:: inventario.sh
+
+        Crea un script en Bash llamado **inventario.sh** que gestione un inventario de equipos en formato CSV. Cada línea del archivo tendrá los campos ``hostname,ip,ram_gb,estado``, y la primera línea será la cabecera:
+
+        .. code-block:: bash
+
+           hostname,ip,ram_gb,estado
+           pc-01,192.168.1.54,4,mantenimiento
+           pc-02,192.168.1.95,4,activo
+           pc-03,192.168.1.17,64,activo
+
+        Si ejecutas el script con ``./inventario.sh -help``, debe mostrar la siguiente ayuda:
+
+        .. code-block:: bash
+
+           -help                                        : muestra la ayuda
+           -crear <archivo> <N>                         : Crea un csv con N equipos
+           -add <archivo> <hostname> <ip> <ram> <estado>: Añade un equipo al csv
+           -find <archivo> <hostname>                   : Muestra la información del equipo
+           -del <archivo> <hostname>                    : Borra el equipo del csv
+           -read <archivo>                              : Muestra el inventario en forma de tabla
+           -resumen <archivo>                           : Muestra un resumen del inventario
+
+        * Si ejecutas el script sin argumentos ``./inventario.sh``, también debe mostrar la ayuda.
+        * Si ejecutas ``./inventario.sh -crear`` sin indicar ``<N>`` tomará por defecto 20 equipos, en el caso de no darle el ``<archivo>`` tomará por defecto inventario.csv. Los hostname serán pc-01, pc-02..., la IP será aleatoria dentro de 192.168.1.0/24, la RAM se escogerá aleatoriamente entre 4, 8, 16, 32 y 64 GB, y el estado entre activo, apagado y mantenimiento.
+        * Si ejecutas ``./inventario.sh -add`` añadirá una línea al final del archivo, si el archivo no existe o faltan campos mostrará un mensaje de error.
+        * Si ejecutas ``./inventario.sh -find`` buscará el equipo por su hostname y mostrará sus campos uno por línea (consejo: utiliza ``IFS=','`` con ``read``):
+
+          .. code-block:: bash
+
+             ./inventario.sh -find inventario.csv pc-03
+              hostname: pc-03
+              ip      : 192.168.1.17
+              ram     : 64 GB
+              estado  : activo
+
+        * Si ejecutas ``./inventario.sh -del`` borrará la línea del equipo indicado, si el equipo no existe mostrará "No se encuentra el equipo" (consejo: utiliza ``sed -i`` con la dirección ``/^<hostname>,/d``).
+        * Si ejecutas ``./inventario.sh -read`` mostrará el inventario alineado en columnas (consejo: mira ``man column``).
+        * Si ejecutas ``./inventario.sh -resumen`` mostrará el número de equipos, la RAM total y el número de equipos por estado (consejo: utiliza ``awk -F','`` saltando la cabecera con ``NR>1``):
+
+          .. code-block:: bash
+
+             ./inventario.sh -resumen inventario.csv
+             Equipos   : 20
+             RAM total : 484 GB
+             mantenimiento : 4
+             apagado : 6
+             activo : 10
+
+        * En todas las opciones que leen el archivo, si este no existe mostrará "El archivo no existe".
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/inventario.sh
+           :language: shell
+
+    .. tab:: Uso
+
+        Puedes probar todas las opciones con el script **uso_inventario.sh**, la función ``run`` imprime el comando antes de ejecutarlo (fíjate en el uso de ``"$@"``):
+
+        .. literalinclude:: scripts/uso_inventario.sh
+           :language: shell
+
+backup.sh
+"""""""""
+
+.. tabs::
+
+    .. tab:: backup.sh
+
+        Crea un script en Bash llamado **backup.sh** que gestione copias de seguridad comprimidas. Si ejecutas el script con ``./backup.sh -help``, debe mostrar la siguiente ayuda:
+
+        .. code-block:: bash
+
+           -help                : muestra la ayuda
+           <directorio>         : Crea backups/backup_<directorio>_<fecha>.tar.gz
+           -lista               : Muestra los backups con su tamaño
+           -limpiar <días>      : Borra los backups con más de <días> días, por defecto 7
+           -restaurar <archivo> : Extrae el backup en el directorio restaurado
+
+        * Si ejecutas el script sin argumentos ``./backup.sh``, también debe mostrar la ayuda.
+        * Si ejecutas ``./backup.sh <directorio>`` creará el directorio ``backups`` si no existe y dentro un ``backup_<directorio>_<fecha>.tar.gz``, si ``<directorio>`` no existe mostrará un error:
+
+          .. code-block:: bash
+
+             ./backup.sh ficheros
+             Creado backups/backup_ficheros_2026-07-07_1030.tar.gz
+
+        * Si ejecutas ``./backup.sh -lista`` mostrará los backups con su tamaño (consejo: ``du -h``).
+        * Si ejecutas ``./backup.sh -limpiar <días>`` borrará los backups con más de ``<días>`` días mostrando cuáles borra, por defecto 7 días (consejo: ``find -mtime +N``, para probarlo envejece un backup con ``touch -d "10 days ago" <archivo>``).
+        * Si ejecutas ``./backup.sh -restaurar <archivo>`` lo extraerá dentro del directorio ``restaurado`` (consejo: ``tar -xzf <archivo> -C restaurado``).
+
+        Consejos:
+
+        * ``date +%F_%H%M`` da la fecha con el formato ``2026-07-07_1030``.
+        * ``basename <ruta>`` se queda con el último componente de la ruta, para construir el nombre del backup.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/backup.sh
            :language: shell
 
 dados.sh
@@ -604,32 +880,37 @@ tragaperras.sh
         .. literalinclude:: scripts/tragaperras.sh
            :language: shell
 
-ahorcado.sh
-"""""""""""
+flor.sh
+"""""""
 
 .. tabs::
 
-    .. tab:: ahorcado.sh
+    .. tab:: flor.sh
 
-        Crea un script llamado **ahorcado.sh** que juegue al ahorcado. El script debe utilizar las siguientes palabras como ejemplo:
+        Crea un script llamado **flor.sh** que juegue a adivinar una palabra letra a letra: con cada fallo la flor pierde un pétalo y al sexto fallo la flor se marchita y se pierde la partida. El script debe utilizar las siguientes palabras como ejemplo:
 
         .. code-block:: bash
-        
+
            palabra=("PYTHON" "LINUX" "BASH" "GITHUB" "DOCKER")
 
-           # Utiliza el siguiente dibujo:
+           # La flor completa:
 
-            +---+
-             |  |
-             O  |
-            /|\ |
-            / \ |
-                |
-         =========
+             @ @ @
+            @ (o) @
+               |
+              \|/
+           =========
+
+           # La flor marchita:
+
+              (o)
+                \
+              \|/
+           =========
 
     .. tab:: Solución
 
-        .. literalinclude:: scripts/ahorcado.sh
+        .. literalinclude:: scripts/flor.sh
            :language: shell
 
 
