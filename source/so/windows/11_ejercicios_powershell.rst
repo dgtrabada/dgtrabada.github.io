@@ -896,6 +896,71 @@ informe.ps1
            :language: shell
 
 
+auditoria.ps1
+"""""""""""""
+
+.. tabs::
+
+    .. tab:: auditoria.ps1
+
+        Crea un script llamado **auditoria.ps1** que haga un chequeo de seguridad básico del sistema, imprimiendo por cada comprobación si está bien (``[ OK ]`` en verde) o mal (``[FALLO]`` en rojo), y al final cuántos problemas ha encontrado. Ejecútalo como Administrador. Es el equivalente Windows de **auditoria.sh** de GNU/Linux.
+
+        Comprobaciones:
+
+        1) Los miembros del grupo **Administradores** (avisa si hay demasiados).
+        #) Cuentas habilitadas con **contraseña que no expira** (``PasswordNeverExpires``).
+        #) Que el **firewall** esté activado en todos los perfiles (``Get-NetFirewallProfile``).
+        #) Si el **Escritorio remoto (RDP)** está habilitado.
+
+        .. code-block:: powershell
+
+           .\auditoria.ps1
+           === Auditoría de seguridad de SERVIDOR1 ===
+           --- Miembros de Administradores ---
+             SERVIDOR1\Administrador
+           [ OK ] Hay 2 administradores
+           ...
+           === 1 problemas encontrados ===
+
+        Consejos:
+
+        * ``Get-LocalGroupMember``, ``Get-LocalUser | Where-Object PasswordNeverExpires``, ``Get-NetFirewallProfile``.
+        * Como en la versión bash, termina con ``exit $problemas`` para poder usarlo en monitorización.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/auditoria.ps1
+           :language: shell
+
+cuentas_inactivas.ps1
+"""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: cuentas_inactivas.ps1
+
+        Crea un script llamado **cuentas_inactivas.ps1** que detecte los usuarios locales habilitados que no acceden desde hace más de N días (por defecto 90), y que con el parámetro ``-bloquear`` además los deshabilite. Ejecútalo como Administrador. Es el equivalente Windows de **cuentas_inactivas.sh**.
+
+        .. code-block:: powershell
+
+           .\cuentas_inactivas.ps1 -dias 90
+           === Usuarios sin acceso desde hace más de 90 días ===
+           antiguo1 inactivo (último acceso: 2024-01-15)
+
+           .\cuentas_inactivas.ps1 -dias 90 -bloquear
+           antiguo1 deshabilitado (último acceso: 2024-01-15)
+
+        Consejos:
+
+        * ``Get-LocalUser`` devuelve la propiedad ``LastLogon``, que puede estar vacía si el usuario nunca ha entrado.
+        * Compara ``LastLogon`` con ``(Get-Date).AddDays(-$dias)`` y deshabilita con ``Disable-LocalUser``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/cuentas_inactivas.ps1
+           :language: shell
+
+
 usuarios_G00.ps1
 """"""""""""""""
 

@@ -474,16 +474,23 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piedra-papel-tijera-sh">piedra_papel_tijera.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-sh">notas.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analizar-cal-sh">analizar_cal.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analizar-web-sh">analizar_web.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rep-sh">rep.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-sh">duplicados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monedas-sh">monedas.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip-sh">ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inventario-sh">inventario.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-sh">backup.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-incremental-sh">backup_incremental.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-sh">dados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-cpu-sh">adivina_cpu.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flor-sh">flor.sh</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-y-seguridad">Administración y seguridad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-sh">auditoria.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuentas-inactivas-sh">cuentas_inactivas.sh</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios-locales">Gestión de usuarios locales</a></li>
 </ul>
 </li>
@@ -1561,16 +1568,76 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 </div>
 </div></div>
 </section>
+<section id="analizar-web-sh">
+<h2>analizar_web.sh<a class="headerlink" href="#analizar-web-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">analizar_web.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>analizar_web.sh</strong> que analice el registro de accesos de un servidor Apache (<code class="docutils literal notranslate"><span class="pre">access.log</span></code>). Si no recibe ningún archivo usará <code class="docutils literal notranslate"><span class="pre">/var/log/apache2/access.log</span></code>, y si el archivo no existe mostrará un error.</p>
+<p>Para generar tu propio log, arranca Apache (tema <strong>Apache</strong>) y visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista (para provocar errores 404).</p>
+<p>El script debe mostrar:</p>
+<ul class="simple">
+<li><p>El número total de peticiones.</p></li>
+<li><p>Las 5 IPs que más veces han conectado.</p></li>
+<li><p>Las 5 URLs más pedidas.</p></li>
+<li><p>El recuento de códigos de respuesta (200, 404, 302...).</p></li>
+<li><p>Las páginas que dan 404.</p></li>
+<li><p>El número de peticiones por hora.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_web.sh<span class="w"> </span>access.log
+<span class="o">===</span><span class="w"> </span>Análisis<span class="w"> </span>de<span class="w"> </span>access.log<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="w"> </span>peticiones<span class="o">)</span><span class="w"> </span><span class="o">===</span>
+
+---<span class="w"> </span>Top<span class="w"> </span><span class="m">5</span><span class="w"> </span>IPs<span class="w"> </span>---
+<span class="w">      </span><span class="m">4</span><span class="w"> </span><span class="m">10</span>.0.0.1
+<span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">10</span>.0.0.2
+<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">10</span>.0.0.3
+...
+</pre></div>
+</div>
+<p>Es la culminación de la cadena <code class="docutils literal notranslate"><span class="pre">sort</span> <span class="pre">|</span> <span class="pre">uniq</span> <span class="pre">-c</span> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-rn</span></code> que empezó en <strong>rep.sh</strong>: en el formato común de Apache el campo 1 es la IP, el 7 la URL y el 9 el código de respuesta (<code class="docutils literal notranslate"><span class="pre">cut</span> <span class="pre">-d'</span> <span class="pre">'</span></code>), y para las 404 y la hora conviene usar <code class="docutils literal notranslate"><span class="pre">awk</span></code>.</p>
+</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># analizar_web.sh - análisis del access.log de Apache</span>
+
+<span class="nv">archivo</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log/apache2/access.log</span><span class="si">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31mNo existe el archivo </span><span class="nv">$archivo</span><span class="s2">\033[0m&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: ./analizar_web.sh [access.log]&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nv">total</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m=== Análisis de </span><span class="nv">$archivo</span><span class="s2"> (</span><span class="nv">$total</span><span class="s2"> peticiones) ===\033[0m&quot;</span>
+
+<span class="c1"># En el formato común de Apache el campo 1 es la IP, el 7 la URL y el 9 el código</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n--- Top 5 IPs ---&quot;</span>
+cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n--- Top 5 URLs ---&quot;</span>
+cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f7<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n--- Códigos de respuesta ---&quot;</span>
+cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f9<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n--- Páginas no encontradas (404) ---&quot;</span>
+awk<span class="w"> </span><span class="s1">&#39;$9 == 404 {print $7}&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\n--- Peticiones por hora ---&quot;</span>
+<span class="c1"># la fecha va como [10/Oct/2024:13:55:36 ...], nos quedamos con la hora</span>
+awk<span class="w"> </span>-F<span class="s1">&#39;[:[]&#39;</span><span class="w"> </span><span class="s1">&#39;{print $3&quot;:00&quot;}&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="rep-sh">
 <h2>rep.sh<a class="headerlink" href="#rep-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el número de veces que están repetidos los siguientes nombres del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat">nombres.dat</a></p>
-</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">rep.sh</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-20-20-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-2" name="20-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>rep.sh</strong> que diga el número de veces que están repetidos los siguientes nombres del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/nombres.dat">nombres.dat</a></p>
+</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-nr<span class="w"> </span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+</div><div aria-labelledby="tab-20-20-2" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-2" name="20-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
 <span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="nv">$nlineas</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span><span class="w">  </span>
 <span class="w">  </span>A<span class="o">[</span><span class="nv">$i</span><span class="o">]=</span><span class="k">$(</span>head<span class="w"> </span>-<span class="nv">$i</span><span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
@@ -1619,7 +1686,7 @@ sort<span class="w"> </span>nombres.dat<span class="w"> </span><span class="p">|
 <section id="duplicados-sh">
 <h2>duplicados.sh<a class="headerlink" href="#duplicados-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">duplicados.sh</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>duplicados.sh</strong> que encuentre los archivos con el mismo contenido dentro de un directorio (aunque tengan nombres distintos), agrupándolos. Si no recibe el directorio como argumento analizará el directorio actual.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">duplicados.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>duplicados.sh</strong> que encuentre los archivos con el mismo contenido dentro de un directorio (aunque tengan nombres distintos), agrupándolos. Si no recibe el directorio como argumento analizará el directorio actual.</p>
 <p>Para probarlo genera unos archivos con duplicados:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>ficheros
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;contenido </span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>ficheros/original_<span class="nv">$i</span>.txt<span class="p">;</span><span class="w"> </span><span class="k">done</span>
@@ -1643,7 +1710,7 @@ ficheros/original_2.txt
 <li><p><code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">&lt;dir&gt;</span> <span class="pre">-type</span> <span class="pre">f</span> <span class="pre">-exec</span> <span class="pre">md5sum</span> <span class="pre">{}</span> <span class="pre">\;</span></code> calcula el hash de todos los archivos, y con <code class="docutils literal notranslate"><span class="pre">sort</span> <span class="pre">|</span> <span class="pre">uniq</span> <span class="pre">-d</span></code> sobre la columna del hash tienes los repetidos (la misma cadena que en <strong>rep.sh</strong>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$$</span></code> es el PID del script, útil para crear un archivo temporal (<code class="docutils literal notranslate"><span class="pre">/tmp/hashes.$$</span></code>) que no pise el de otra ejecución.</p></li>
 </ul>
-</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">dir</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">.</span><span class="si">}</span><span class="w"> </span><span class="c1"># directorio a analizar, por defecto el actual</span>
 <span class="nv">hashes</span><span class="o">=</span>/tmp/hashes.<span class="nv">$$</span><span class="w"> </span><span class="c1"># $$ es el PID, evita pisar el archivo de otra ejecución</span>
@@ -1664,7 +1731,7 @@ rm<span class="w"> </span><span class="nv">$hashes</span>
 <section id="monedas-sh">
 <h2>monedas.sh<a class="headerlink" href="#monedas-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">monedas.sh</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>monedas.sh</strong> que tire tres monedas y escriba en un archivo el resultado.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">monedas.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>monedas.sh</strong> que tire tres monedas y escriba en un archivo el resultado.</p>
 <p>Haz que lea el archivo y obtenga el porcentaje de veces que salen 3 caras.</p>
 <p>En el caso de que no se proporcione el número de tiradas ni el archivo, tomara por defecto el archivo llamado tiradas.dat y hará 100 tiradas.</p>
 <p>En el caso de que no encuentre el archivo cuando lo va a leer, tomara por defecto monedas.dat, si este no existe, mostrará que no existe.</p>
@@ -1673,7 +1740,7 @@ rm<span class="w"> </span><span class="nv">$hashes</span>
 -read<span class="w"> </span>&lt;archivo&gt;
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -help\033[0m&quot;</span>
@@ -1717,7 +1784,7 @@ rm<span class="w"> </span><span class="nv">$hashes</span>
 <section id="ip-sh">
 <h2>ip.sh<a class="headerlink" href="#ip-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">ip.sh</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-22-22-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-2" name="22-2" role="tab" tabindex="-1">Uso</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>ips.sh</strong> que cumpla con los siguientes requisitos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">ip.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-23-23-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-2" name="23-2" role="tab" tabindex="-1">Uso</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>ips.sh</strong> que cumpla con los siguientes requisitos:</p>
 <p>Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">./ips.sh</span> <span class="pre">-help</span></code>, debe mostrar la siguiente ayuda:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-help<span class="w">                         </span>:<span class="w"> </span>muestra<span class="w"> </span>la<span class="w"> </span>ayuda
 -file<span class="w"> </span>&lt;archivo&gt;<span class="w"> </span>&lt;número_ips&gt;<span class="w">  </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>archivo<span class="w"> </span>llamado<span class="w"> </span>&lt;archivo&gt;<span class="w"> </span>con<span class="w"> </span>&lt;número_ips&gt;.
@@ -1731,7 +1798,7 @@ rm<span class="w"> </span><span class="nv">$hashes</span>
 <li><p>Si ejecutas el ./ips.sh -find lee el &lt;archivo&gt;, si no existe o no se le indica, mostrará por pantalla &quot;El archivo no existe&quot;, en el caso de que no se proporcione &lt;ip&gt; mostrará por pantalla &quot;Proporcionar ip&quot;</p></li>
 <li><p>Si ejecutas el ./ips.sh -read lee el &lt;archivo&gt;, si no existe o no se le indica, mostrará por pantalla &quot;El archivo no existe&quot;</p></li>
 </ul>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m-help                         : muestra la ayuda\033[0m&quot;</span>
@@ -1791,7 +1858,7 @@ rm<span class="w"> </span><span class="nv">$hashes</span>
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-22-22-2" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-2" name="22-2" role="tabpanel" tabindex="0"><p>Puedes probar todas las opciones con el script <strong>uso_ip.sh</strong>, la función <code class="docutils literal notranslate"><span class="pre">run</span></code> imprime el comando antes de ejecutarlo (fíjate en el uso de <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code>):</p>
+</div><div aria-labelledby="tab-23-23-2" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-2" name="23-2" role="tabpanel" tabindex="0"><p>Puedes probar todas las opciones con el script <strong>uso_ip.sh</strong>, la función <code class="docutils literal notranslate"><span class="pre">run</span></code> imprime el comando antes de ejecutarlo (fíjate en el uso de <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code>):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># Prueba todas las opciones de ip.sh</span>
@@ -1817,7 +1884,7 @@ run<span class="w"> </span>./ip.sh
 <section id="inventario-sh">
 <h2>inventario.sh<a class="headerlink" href="#inventario-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">inventario.sh</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-23-23-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-2" name="23-2" role="tab" tabindex="-1">Uso</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>inventario.sh</strong> que gestione un inventario de equipos en formato CSV. Cada línea del archivo tendrá los campos <code class="docutils literal notranslate"><span class="pre">hostname,ip,ram_gb,estado</span></code>, y la primera línea será la cabecera:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">inventario.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-24-24-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-2" name="24-2" role="tab" tabindex="-1">Uso</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>inventario.sh</strong> que gestione un inventario de equipos en formato CSV. Cada línea del archivo tendrá los campos <code class="docutils literal notranslate"><span class="pre">hostname,ip,ram_gb,estado</span></code>, y la primera línea será la cabecera:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hostname,ip,ram_gb,estado
 pc-01,192.168.1.54,4,mantenimiento
 pc-02,192.168.1.95,4,activo
@@ -1861,7 +1928,7 @@ activo<span class="w"> </span>:<span class="w"> </span><span class="m">10</span>
 </li>
 <li><p>En todas las opciones que leen el archivo, si este no existe mostrará &quot;El archivo no existe&quot;.</p></li>
 </ul>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m-help                                        : muestra la ayuda\033[0m&quot;</span>
@@ -1997,7 +2064,7 @@ activo<span class="w"> </span>:<span class="w"> </span><span class="m">10</span>
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-23-2" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-2" name="23-2" role="tabpanel" tabindex="0"><p>Puedes probar todas las opciones con el script <strong>uso_inventario.sh</strong>, la función <code class="docutils literal notranslate"><span class="pre">run</span></code> imprime el comando antes de ejecutarlo (fíjate en el uso de <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code>):</p>
+</div><div aria-labelledby="tab-24-24-2" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-2" name="24-2" role="tabpanel" tabindex="0"><p>Puedes probar todas las opciones con el script <strong>uso_inventario.sh</strong>, la función <code class="docutils literal notranslate"><span class="pre">run</span></code> imprime el comando antes de ejecutarlo (fíjate en el uso de <code class="docutils literal notranslate"><span class="pre">&quot;$&#64;&quot;</span></code>):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># Prueba todas las opciones de inventario.sh</span>
@@ -2027,7 +2094,7 @@ run<span class="w"> </span>./inventario.sh
 <section id="backup-sh">
 <h2>backup.sh<a class="headerlink" href="#backup-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">backup.sh</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>backup.sh</strong> que gestione copias de seguridad comprimidas. Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">./backup.sh</span> <span class="pre">-help</span></code>, debe mostrar la siguiente ayuda:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">backup.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>backup.sh</strong> que gestione copias de seguridad comprimidas. Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">./backup.sh</span> <span class="pre">-help</span></code>, debe mostrar la siguiente ayuda:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-help<span class="w">                </span>:<span class="w"> </span>muestra<span class="w"> </span>la<span class="w"> </span>ayuda
 &lt;directorio&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>backups/backup_&lt;directorio&gt;_&lt;fecha&gt;.tar.gz
 -lista<span class="w">               </span>:<span class="w"> </span>Muestra<span class="w"> </span>los<span class="w"> </span>backups<span class="w"> </span>con<span class="w"> </span>su<span class="w"> </span>tamaño
@@ -2052,7 +2119,7 @@ Creado<span class="w"> </span>backups/backup_ficheros_2026-07-07_1030.tar.gz
 <li><p><code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">+%F_%H%M</span></code> da la fecha con el formato <code class="docutils literal notranslate"><span class="pre">2026-07-07_1030</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">basename</span> <span class="pre">&lt;ruta&gt;</span></code> se queda con el último componente de la ruta, para construir el nombre del backup.</p></li>
 </ul>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">backup_dir</span><span class="o">=</span><span class="s2">&quot;backups&quot;</span>
 
@@ -2121,16 +2188,82 @@ Creado<span class="w"> </span>backups/backup_ficheros_2026-07-07_1030.tar.gz
 </div>
 </div></div>
 </section>
+<section id="backup-incremental-sh">
+<h2>backup_incremental.sh<a class="headerlink" href="#backup-incremental-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">backup_incremental.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Mejora <strong>backup.sh</strong> creando <strong>backup_incremental.sh</strong>, que haga copias incrementales al estilo de rsnapshot: cada copia (<em>snapshot</em>) parece una copia completa, pero los ficheros que no han cambiado respecto al snapshot anterior no se copian de nuevo, sino que se enlazan con un <strong>hardlink</strong>, así que ocupan espacio en disco una sola vez.</p>
+<p>Recibirá como argumentos el directorio origen (por defecto <code class="docutils literal notranslate"><span class="pre">/home</span></code>), el destino (por defecto <code class="docutils literal notranslate"><span class="pre">/backups</span></code>) y el número de snapshots a conservar (por defecto 7).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./backup_incremental.sh<span class="w"> </span>/home<span class="w"> </span>/backups<span class="w"> </span><span class="m">7</span>
+Primer<span class="w"> </span>backup<span class="w"> </span><span class="o">(</span>completo<span class="o">)</span>
+Creado<span class="w"> </span>/backups/snapshot_2026-07-07_210009
+
+<span class="c1"># tras modificar algún fichero y volver a ejecutarlo</span>
+Backup<span class="w"> </span>incremental<span class="w"> </span>respecto<span class="w"> </span>a<span class="w"> </span>snapshot_2026-07-07_210009
+Creado<span class="w"> </span>/backups/snapshot_2026-07-07_210533
+</pre></div>
+</div>
+<p>Para comprobar que los hardlinks funcionan, mira el número de inodo con <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-li</span></code>: un fichero sin cambios tendrá <strong>el mismo inodo</strong> en los dos snapshots (es el mismo fichero físico), mientras que uno modificado tendrá inodos distintos.</p>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rsync</span> <span class="pre">-a</span> <span class="pre">--delete</span> <span class="pre">--link-dest=&lt;snapshot_anterior&gt;</span> <span class="pre">&lt;origen&gt;/</span> <span class="pre">&lt;nuevo&gt;/</span></code> es la clave: <code class="docutils literal notranslate"><span class="pre">--link-dest</span></code> hace los hardlinks de lo que no cambia.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rsync</span></code> resuelve <code class="docutils literal notranslate"><span class="pre">--link-dest</span></code> respecto al directorio destino, así que pásale una ruta absoluta (<code class="docutils literal notranslate"><span class="pre">realpath</span></code>).</p></li>
+<li><p>Usa <code class="docutils literal notranslate"><span class="pre">date</span> <span class="pre">+%F_%H%M%S</span></code> con segundos en el nombre, si no dos backups en el mismo minuto colisionarían.</p></li>
+<li><p>Para la rotación, <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-1d</span> <span class="pre">...</span> <span class="pre">|</span> <span class="pre">head</span> <span class="pre">-n</span> <span class="pre">-N</span></code> lista todos menos los N últimos.</p></li>
+</ul>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># backup_incremental.sh - copias incrementales con hardlinks (estilo rsnapshot)</span>
+<span class="c1"># Cada snapshot parece completo, pero los ficheros sin cambios son hardlinks</span>
+<span class="c1"># al snapshot anterior, así que ocupan disco solo una vez.</span>
+
+<span class="nv">origen</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/home</span><span class="si">}</span>
+<span class="nv">destino</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="p">/backups</span><span class="si">}</span>
+<span class="nv">mantener</span><span class="o">=</span><span class="si">${</span><span class="nv">3</span><span class="k">:-</span><span class="nv">7</span><span class="si">}</span><span class="w">   </span><span class="c1"># número de snapshots a conservar</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$origen</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31mEl directorio origen </span><span class="nv">$origen</span><span class="s2"> no existe\033[0m&quot;</span>
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$destino</span><span class="s2">&quot;</span>
+<span class="nv">destino</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$destino</span><span class="s2">&quot;</span><span class="k">)</span><span class="w">   </span><span class="c1"># rsync resuelve --link-dest respecto al destino, usamos ruta absoluta</span>
+<span class="nv">nuevo</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$destino</span><span class="s2">/snapshot_</span><span class="k">$(</span>date<span class="w"> </span>+%F_%H%M%S<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">ultimo</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>-1d<span class="w"> </span><span class="nv">$destino</span>/snapshot_*<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="k">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ultimo</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="c1"># --link-dest: los ficheros iguales al último snapshot se crean como hardlinks</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Backup incremental respecto a </span><span class="k">$(</span>basename<span class="w"> </span><span class="nv">$ultimo</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="w">  </span>rsync<span class="w"> </span>-a<span class="w"> </span>--delete<span class="w"> </span>--link-dest<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ultimo</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$origen</span><span class="s2">/&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nuevo</span><span class="s2">/&quot;</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Primer backup (completo)&quot;</span>
+<span class="w">  </span>rsync<span class="w"> </span>-a<span class="w"> </span>--delete<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$origen</span><span class="s2">/&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nuevo</span><span class="s2">/&quot;</span>
+<span class="k">fi</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32mCreado </span><span class="nv">$nuevo</span><span class="s2">\033[0m&quot;</span>
+
+<span class="c1"># Rotación: borramos los snapshots más viejos, dejando los $mantener últimos</span>
+<span class="nv">sobran</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>-1d<span class="w"> </span><span class="nv">$destino</span>/snapshot_*<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span>-<span class="nv">$mantener</span><span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>viejo<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$sobran</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Borrando snapshot antiguo </span><span class="k">$(</span>basename<span class="w"> </span><span class="nv">$viejo</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="w">  </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$viejo</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Espacio real ocupado por todos los snapshots:&quot;</span>
+du<span class="w"> </span>-sh<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$destino</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="dados-sh">
 <h2>dados.sh<a class="headerlink" href="#dados-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-25-25-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-2" name="25-2" role="tab" tabindex="-1">Solución (general)</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">dados.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-27-27-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-2" name="27-2" role="tab" tabindex="-1">Solución (general)</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Sube al curso un script llamado  <strong>dados.sh</strong> que obtenga dos números aleatorios entre el 1 y el 6, obtén la suma de los dos dados, Haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./dados.sh
 De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tiradas<span class="w"> </span>:<span class="w"> </span><span class="m">2</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span><span class="w"> </span><span class="m">3</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">4</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">5</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">6</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">7</span><span class="o">(</span><span class="m">17</span>%<span class="o">)</span><span class="w"> </span><span class="m">8</span><span class="o">(</span><span class="m">14</span>%<span class="o">)</span><span class="w"> </span><span class="m">9</span><span class="o">(</span><span class="m">12</span>%<span class="o">)</span><span class="w"> </span><span class="m">10</span><span class="o">(</span><span class="m">10</span>%<span class="o">)</span><span class="w"> </span><span class="m">11</span><span class="o">(</span><span class="m">7</span>%<span class="o">)</span><span class="w"> </span><span class="m">12</span><span class="o">(</span><span class="m">1</span>%<span class="o">)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">tiradas</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">1000</span><span class="si">}</span>
 
@@ -2155,7 +2288,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$output</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-25-2" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-2" name="25-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-27-27-2" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-2" name="27-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m -help\033[0m&quot;</span>
@@ -2218,7 +2351,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="adivina-cpu-sh">
 <h2>adivina_cpu.sh<a class="headerlink" href="#adivina-cpu-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">adivina_cpu.sh</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-26-26-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-2" name="26-2" role="tab" tabindex="-1">Test</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>adivina_cpu.sh</strong> que simule un juego automático de adivinanza en el que la CPU intenta adivinar un número secreto aleatorio, generado al inicio del programa. El número estará comprendido entre 1 y un valor máximo definido por la variable n_max_adivinar. En cada intento, la CPU elige otro número al azar dentro del rango posible, ajustando los límites mínimo y máximo según si el número es menor o mayor al número secreto.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-28-28-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-28-28-0" name="28-0" role="tab" tabindex="0">adivina_cpu.sh</button><button aria-controls="panel-28-28-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-28-28-1" name="28-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-28-28-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-28-28-2" name="28-2" role="tab" tabindex="-1">Test</button></div><div aria-labelledby="tab-28-28-0" class="sphinx-tabs-panel" id="panel-28-28-0" name="28-0" role="tabpanel" tabindex="0"><p>Crea un script en Bash llamado <strong>adivina_cpu.sh</strong> que simule un juego automático de adivinanza en el que la CPU intenta adivinar un número secreto aleatorio, generado al inicio del programa. El número estará comprendido entre 1 y un valor máximo definido por la variable n_max_adivinar. En cada intento, la CPU elige otro número al azar dentro del rango posible, ajustando los límites mínimo y máximo según si el número es menor o mayor al número secreto.</p>
 <p>El script debe cumplir con los siguientes requisitos:</p>
 <ul class="simple">
 <li><p>No se deben repetir los números ya probados.</p></li>
@@ -2228,7 +2361,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <li><p>Al final, se muestra el número total de intentos que necesitó la CPU para adivinar el número.</p></li>
 </ul>
 <p>Cuando el usuario acierte haz que muestre el número de intentos.</p>
-</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-28-28-1" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-1" name="28-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">n_max_adivinar</span><span class="o">=</span><span class="m">20</span>
 <span class="nv">numero_secreto</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nv">$n_max_adivinar</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="k">))</span>
@@ -2282,7 +2415,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$intento</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-26-26-2" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-2" name="26-2" role="tabpanel" tabindex="0"><p>Para testearlo puedes usar:</p>
+</div><div aria-labelledby="tab-28-28-2" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-2" name="28-2" role="tabpanel" tabindex="0"><p>Para testearlo puedes usar:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ntot</span><span class="o">=</span><span class="m">100</span>
 <span class="nv">sum</span><span class="o">=</span><span class="m">0</span>
 <span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="nv">$ntot</span><span class="p">;</span>i++<span class="o">))</span>
@@ -2302,7 +2435,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="tragaperras-sh">
 <h2>tragaperras.sh<a class="headerlink" href="#tragaperras-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">tragaperras.sh</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tragaperras.sh</strong> que simule una máquina tragaperras con tres rodillos. Cada rodillo muestra un número aleatorio del 0 al 9. Las reglas del juego son las siguientes:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-29-29-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-29-29-0" name="29-0" role="tab" tabindex="0">tragaperras.sh</button><button aria-controls="panel-29-29-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-29-29-1" name="29-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-29-29-0" class="sphinx-tabs-panel" id="panel-29-29-0" name="29-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tragaperras.sh</strong> que simule una máquina tragaperras con tres rodillos. Cada rodillo muestra un número aleatorio del 0 al 9. Las reglas del juego son las siguientes:</p>
 <p>Cada partida cuesta 1 moneda.</p>
 <ul class="simple">
 <li><p>Si aparecen dos números iguales, el jugador gana 2 monedas.</p></li>
@@ -2317,7 +2450,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 </ul>
 <p>Y, finalmente, responder a la pregunta: ¿Es rentable esta tragaperras para el jugador?</p>
 <p>Haz que el número de tiradas lo reciba como un argumento,  el caso de que no reciba ningún argumento haz que haga 1000 tiradas</p>
-</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-29-29-1" class="sphinx-tabs-panel" hidden="true" id="panel-29-29-1" name="29-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">tiradas</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">10000</span><span class="si">}</span>
 <span class="nv">ganadas</span><span class="o">=</span><span class="m">0</span>
@@ -2361,7 +2494,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <section id="flor-sh">
 <h2>flor.sh<a class="headerlink" href="#flor-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-28-28-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-28-28-0" name="28-0" role="tab" tabindex="0">flor.sh</button><button aria-controls="panel-28-28-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-28-28-1" name="28-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-28-28-0" class="sphinx-tabs-panel" id="panel-28-28-0" name="28-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>flor.sh</strong> que juegue a adivinar una palabra letra a letra: con cada fallo la flor pierde un pétalo y al sexto fallo la flor se marchita y se pierde la partida. El script debe utilizar las siguientes palabras como ejemplo:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-30-30-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-30-30-0" name="30-0" role="tab" tabindex="0">flor.sh</button><button aria-controls="panel-30-30-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-30-30-1" name="30-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-30-30-0" class="sphinx-tabs-panel" id="panel-30-30-0" name="30-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>flor.sh</strong> que juegue a adivinar una palabra letra a letra: con cada fallo la flor pierde un pétalo y al sexto fallo la flor se marchita y se pierde la partida. El script debe utilizar las siguientes palabras como ejemplo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">palabra</span><span class="o">=(</span><span class="s2">&quot;PYTHON&quot;</span><span class="w"> </span><span class="s2">&quot;LINUX&quot;</span><span class="w"> </span><span class="s2">&quot;BASH&quot;</span><span class="w"> </span><span class="s2">&quot;GITHUB&quot;</span><span class="w"> </span><span class="s2">&quot;DOCKER&quot;</span><span class="o">)</span>
 
 <span class="c1"># La flor completa:</span>
@@ -2380,7 +2513,7 @@ De<span class="w"> </span><span class="m">1000</span><span class="w"> </span>tir
 <span class="o">=========</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-28-28-1" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-1" name="28-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-30-30-1" class="sphinx-tabs-panel" hidden="true" id="panel-30-30-1" name="30-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">palabra</span><span class="o">=(</span><span class="s2">&quot;PYTHON&quot;</span><span class="w"> </span><span class="s2">&quot;LINUX&quot;</span><span class="w"> </span><span class="s2">&quot;BASH&quot;</span><span class="w"> </span><span class="s2">&quot;GITHUB&quot;</span><span class="w"> </span><span class="s2">&quot;DOCKER&quot;</span><span class="o">)</span>
 <span class="nv">indice</span><span class="o">=</span><span class="k">$((</span><span class="nv">RANDOM</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="si">${#</span><span class="nv">palabra</span><span class="p">[@]</span><span class="si">}</span><span class="k">))</span>
@@ -2489,6 +2622,127 @@ dibujar
 </pre></div>
 </div>
 </div></div>
+<section id="administracion-y-seguridad">
+<h3>Administración y seguridad<a class="headerlink" href="#administracion-y-seguridad" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="auditoria-sh">
+<h2>auditoria.sh<a class="headerlink" href="#auditoria-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-31-31-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-31-31-0" name="31-0" role="tab" tabindex="0">auditoria.sh</button><button aria-controls="panel-31-31-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-31-31-1" name="31-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-31-31-0" class="sphinx-tabs-panel" id="panel-31-31-0" name="31-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>auditoria.sh</strong> que haga un chequeo de seguridad básico del sistema, imprimiendo por cada comprobación si está bien (<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">OK</span> <span class="pre">]</span></code> en verde) o mal (<code class="docutils literal notranslate"><span class="pre">[FALLO]</span></code> en rojo), y al final cuántos problemas ha encontrado. Ejecútalo como root para poder leer <code class="docutils literal notranslate"><span class="pre">/etc/shadow</span></code>.</p>
+<p>Comprobaciones:</p>
+<ol class="arabic simple">
+<li><p>Que solo <strong>root</strong> tenga UID 0 (campo 3 de <code class="docutils literal notranslate"><span class="pre">/etc/passwd</span></code>).</p></li>
+<li><p>Que no haya cuentas <strong>sin contraseña</strong> (campo 2 de <code class="docutils literal notranslate"><span class="pre">/etc/shadow</span></code> vacío).</p></li>
+<li><p>Que <code class="docutils literal notranslate"><span class="pre">/etc/shadow</span></code> tenga permisos <code class="docutils literal notranslate"><span class="pre">640</span></code> o más restrictivos.</p></li>
+<li><p>Quién puede usar <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (miembros del grupo sudo).</p></li>
+<li><p>Qué puertos están a la escucha (<code class="docutils literal notranslate"><span class="pre">ss</span> <span class="pre">-tlnp</span></code>).</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./auditoria.sh
+<span class="o">===</span><span class="w"> </span>Auditoría<span class="w"> </span>de<span class="w"> </span>seguridad<span class="w"> </span>de<span class="w"> </span><span class="nv">servidor1</span><span class="w"> </span><span class="o">===</span>
+---<span class="w"> </span>Usuarios<span class="w"> </span>con<span class="w"> </span>UID<span class="w"> </span><span class="m">0</span><span class="w"> </span>---
+<span class="o">[</span><span class="w"> </span>OK<span class="w"> </span><span class="o">]</span><span class="w"> </span>Solo<span class="w"> </span>root<span class="w"> </span>tiene<span class="w"> </span>UID<span class="w"> </span><span class="m">0</span>
+...
+<span class="o">===</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>problemas<span class="w"> </span><span class="nv">encontrados</span><span class="w"> </span><span class="o">===</span>
+</pre></div>
+</div>
+<p>Consejo: haz que el script termine con <code class="docutils literal notranslate"><span class="pre">exit</span> <span class="pre">$problemas</span></code>, así el número de fallos queda como código de salida y se puede usar desde otro script o herramienta de monitorización.</p>
+</div><div aria-labelledby="tab-31-31-1" class="sphinx-tabs-panel" hidden="true" id="panel-31-31-1" name="31-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># auditoria.sh - chequeo de seguridad básico del sistema</span>
+<span class="c1"># Ejecutar como root para poder leer /etc/shadow</span>
+
+<span class="nv">problemas</span><span class="o">=</span><span class="m">0</span>
+
+ok<span class="o">()</span><span class="w">    </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[32m[ OK ]\033[0m </span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+fallo<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m[FALLO]\033[0m </span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">problemas</span><span class="o">=</span><span class="k">$((</span><span class="nv">problemas</span><span class="o">+</span><span class="m">1</span><span class="k">))</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Auditoría de seguridad de </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> ===&quot;</span>
+
+<span class="c1"># 1. Usuarios con UID 0 (solo debería estar root)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--- Usuarios con UID 0 ---&quot;</span>
+<span class="nv">uid0</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">&#39;$3 == 0 {print $1}&#39;</span><span class="w"> </span>/etc/passwd<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$uid0</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>ok<span class="w"> </span><span class="s2">&quot;Solo root tiene UID 0&quot;</span>
+<span class="k">else</span>
+<span class="w">  </span>fallo<span class="w"> </span><span class="s2">&quot;Hay más usuarios con UID 0: </span><span class="nv">$uid0</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># 2. Cuentas sin contraseña</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--- Cuentas sin contraseña ---&quot;</span>
+<span class="nv">sin_pass</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span>-F:<span class="w"> </span><span class="s1">&#39;($2 == &quot;&quot;) {print $1}&#39;</span><span class="w"> </span>/etc/shadow<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$sin_pass</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>ok<span class="w"> </span><span class="s2">&quot;No hay cuentas sin contraseña&quot;</span>
+<span class="k">else</span>
+<span class="w">  </span>fallo<span class="w"> </span><span class="s2">&quot;Cuentas sin contraseña: </span><span class="nv">$sin_pass</span><span class="s2">&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># 3. Permisos de /etc/shadow (debe ser 640 o más restrictivo)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--- Permisos de /etc/shadow ---&quot;</span>
+<span class="nv">perm</span><span class="o">=</span><span class="k">$(</span>stat<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;%a&#39;</span><span class="w"> </span>/etc/shadow<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$perm</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;640&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$perm</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;600&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>ok<span class="w"> </span><span class="s2">&quot;/etc/shadow tiene permisos </span><span class="nv">$perm</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+<span class="w">  </span>fallo<span class="w"> </span><span class="s2">&quot;/etc/shadow tiene permisos </span><span class="nv">$perm</span><span class="s2"> (debería ser 640)&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># 4. Quién puede usar sudo</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--- Miembros del grupo sudo ---&quot;</span>
+<span class="nv">sudoers</span><span class="o">=</span><span class="k">$(</span>getent<span class="w"> </span>group<span class="w"> </span>sudo<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f4<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Pueden usar sudo: </span><span class="si">${</span><span class="nv">sudoers</span><span class="k">:-</span><span class="nv">nadie</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># 5. Puertos a la escucha</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--- Puertos a la escucha ---&quot;</span>
+ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f4<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$problemas</span><span class="s2"> problemas encontrados ===&quot;</span>
+<span class="nb">exit</span><span class="w"> </span><span class="nv">$problemas</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="cuentas-inactivas-sh">
+<h2>cuentas_inactivas.sh<a class="headerlink" href="#cuentas-inactivas-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-32-32-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-32-32-0" name="32-0" role="tab" tabindex="0">cuentas_inactivas.sh</button><button aria-controls="panel-32-32-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-1" name="32-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-32-32-0" class="sphinx-tabs-panel" id="panel-32-32-0" name="32-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>cuentas_inactivas.sh</strong> que detecte los usuarios reales (UID &gt;= 1000) que no acceden al sistema desde hace más de N días (por defecto 90), y que con la opción <code class="docutils literal notranslate"><span class="pre">-bloquear</span></code> además los bloquee. Ejecútalo como root.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./cuentas_inactivas.sh<span class="w"> </span><span class="nv">90</span>
+<span class="o">===</span><span class="w"> </span>Usuarios<span class="w"> </span>sin<span class="w"> </span>acceso<span class="w"> </span>en<span class="w"> </span>los<span class="w"> </span>últimos<span class="w"> </span><span class="m">90</span><span class="w"> </span><span class="nv">días</span><span class="w"> </span><span class="o">===</span>
+antiguo1<span class="w"> </span><span class="o">(</span>inactivo,<span class="w"> </span>usa<span class="w"> </span>-bloquear<span class="w"> </span>para<span class="w"> </span>bloquearlo<span class="o">)</span>
+
+sudo<span class="w"> </span>./cuentas_inactivas.sh<span class="w"> </span><span class="m">90</span><span class="w"> </span>-bloquear
+antiguo1<span class="w"> </span>bloqueado
+</pre></div>
+</div>
+<p>Es la versión &quot;de administrador&quot; de <strong>lastlog.sh</strong>: <code class="docutils literal notranslate"><span class="pre">lastlog</span> <span class="pre">-b</span> <span class="pre">N</span></code> lista quién no entra desde hace más de N días, y <code class="docutils literal notranslate"><span class="pre">usermod</span> <span class="pre">-L</span></code> bloquea una cuenta. Ten cuidado de no bloquear cuentas del sistema (por eso filtramos por UID &gt;= 1000).</p>
+</div><div aria-labelledby="tab-32-32-1" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-1" name="32-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># cuentas_inactivas.sh - detecta (y opcionalmente bloquea) cuentas sin uso</span>
+<span class="c1"># Ejecutar como root</span>
+
+<span class="nv">dias</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">90</span><span class="si">}</span><span class="w">     </span><span class="c1"># días de inactividad, por defecto 90</span>
+<span class="nv">bloquear</span><span class="o">=</span><span class="nv">$2</span><span class="w">       </span><span class="c1"># si es &quot;-bloquear&quot; además de listar, bloquea las cuentas</span>
+
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[34m=== Usuarios sin acceso en los últimos </span><span class="nv">$dias</span><span class="s2"> días ===\033[0m&quot;</span>
+
+<span class="c1"># lastlog -b N lista los usuarios que no entran desde hace más de N días</span>
+<span class="c1"># quitamos la cabecera y los que nunca han entrado (**Never logged in**)</span>
+lastlog<span class="w"> </span>-b<span class="w"> </span><span class="nv">$dias</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;Never logged in&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span>
+<span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>usuario
+<span class="k">do</span>
+<span class="w">  </span><span class="c1"># solo cuentas de usuario real (UID &gt;= 1000), no las del sistema</span>
+<span class="w">  </span><span class="nv">uid</span><span class="o">=</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuario</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="k">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$uid</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$uid</span><span class="s2">&quot;</span><span class="w"> </span>-ge<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$bloquear</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;-bloquear&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span>usermod<span class="w"> </span>-L<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuario</span><span class="s2">&quot;</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[31m</span><span class="nv">$usuario</span><span class="s2"> bloqueado\033[0m&quot;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuario</span><span class="s2"> (inactivo, usa -bloquear para bloquearlo)&quot;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</div></div>
 <section id="gestion-de-usuarios-locales">
 <h3>Gestión de usuarios locales<a class="headerlink" href="#gestion-de-usuarios-locales" title="Link to this heading">#</a></h3>
 </section>
@@ -2496,7 +2750,7 @@ dibujar
 <section id="usuarios-wsl-sh">
 <h2>usuarios_WSL.sh<a class="headerlink" href="#usuarios-wsl-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-29-29-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-29-29-0" name="29-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-29-29-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-29-29-1" name="29-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-29-29-0" class="sphinx-tabs-panel" id="panel-29-29-0" name="29-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-33-33-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-33-33-0" name="33-0" role="tab" tabindex="0">usuarios_WSL.sh</button><button aria-controls="panel-33-33-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-1" name="33-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-33-33-0" class="sphinx-tabs-panel" id="panel-33-33-0" name="33-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_WSL.sh</strong>, que cumpla las siguientes condiciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
 <span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
 <span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
@@ -2510,7 +2764,7 @@ dibujar
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-29-29-1" class="sphinx-tabs-panel" hidden="true" id="panel-29-29-1" name="29-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-33-33-1" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-1" name="33-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;</span>
@@ -2573,7 +2827,7 @@ dibujar
 <section id="usuarios-sh">
 <h2>usuarios.sh<a class="headerlink" href="#usuarios-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-30-30-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-30-30-0" name="30-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-30-30-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-30-30-1" name="30-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-30-30-0" class="sphinx-tabs-panel" id="panel-30-30-0" name="30-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la &quot;MV Ubuntu Server 24.04&quot;</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-34-34-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-34-34-0" name="34-0" role="tab" tabindex="0">usuarios.sh</button><button aria-controls="panel-34-34-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-34-34-1" name="34-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-34-34-0" class="sphinx-tabs-panel" id="panel-34-34-0" name="34-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios.sh</strong>, utiliza para ello un clon enlazado de la &quot;MV Ubuntu Server 24.04&quot;</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios.sh<span class="w"> </span>-help
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 <span class="w">  </span>usuarios.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -2603,7 +2857,7 @@ En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>
 El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> </span>una<span class="w"> </span>ayuda<span class="w"> </span>con<span class="w"> </span>las<span class="w"> </span>opciones<span class="w"> </span>que<span class="w"> </span>puede<span class="w"> </span>tiene
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-30-30-1" class="sphinx-tabs-panel" hidden="true" id="panel-30-30-1" name="30-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-34-34-1" class="sphinx-tabs-panel" hidden="true" id="panel-34-34-1" name="34-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">function</span><span class="w"> </span>show_help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso del script:&quot;</span>
@@ -2682,7 +2936,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 <section id="rsync-usuarios-sh">
 <h2>rsync_usuarios.sh<a class="headerlink" href="#rsync-usuarios-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-31-31-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-31-31-0" name="31-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-31-31-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-31-31-1" name="31-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-31-31-0" class="sphinx-tabs-panel" id="panel-31-31-0" name="31-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-35-35-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-35-35-0" name="35-0" role="tab" tabindex="0">rsync_usuarios.sh</button><button aria-controls="panel-35-35-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-35-35-1" name="35-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-35-35-0" class="sphinx-tabs-panel" id="panel-35-35-0" name="35-0" role="tabpanel" tabindex="0"><p>Crea tres máquinas virtuales con Ubuntu Server:</p>
 <ul class="simple">
 <li><p>Servidor principal llamado compute-0-0</p></li>
 <li><p>Clientes compute-0-1 y compute-0-2.</p></li>
@@ -2696,7 +2950,7 @@ El<span class="w"> </span>script<span class="w"> </span>muestra<span class="w"> 
 </ul>
 <p>El script debe comprobar que los directorios /home/usuario existen en los clientes. Si no existen, deberá crearlos y configurar el acceso SSH de los usuarios.</p>
 <p>En los clientes, el script creará el directorio /home/usuario/.ssh para cada usuario (si no existe) y copiará su clave pública desde el servidor compute-0-0, de modo que los usuarios puedan iniciar sesión por SSH sin contraseña.&quot;</p>
-</div><div aria-labelledby="tab-31-31-1" class="sphinx-tabs-panel" hidden="true" id="panel-31-31-1" name="31-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
+</div><div aria-labelledby="tab-35-35-1" class="sphinx-tabs-panel" hidden="true" id="panel-35-35-1" name="35-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">clientes</span><span class="o">=</span><span class="s1">&#39;compute-0-1 compute-0-2&#39;</span>
 
 <span class="k">for</span><span class="w"> </span>cpu<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$clientes</span>
 <span class="k">do</span>
@@ -2760,7 +3014,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="crear-usuarios-lista-sh">
 <h2>crear_usuarios_lista.sh<a class="headerlink" href="#crear-usuarios-lista-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-32-32-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-32-32-0" name="32-0" role="tab" tabindex="0">crear_usuarios_lista.sh</button><button aria-controls="panel-32-32-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-1" name="32-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-32-32-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-2" name="32-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-32-32-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-3" name="32-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-32-32-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-4" name="32-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-32-32-0" class="sphinx-tabs-panel" id="panel-32-32-0" name="32-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-36-36-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-36-36-0" name="36-0" role="tab" tabindex="0">crear_usuarios_lista.sh</button><button aria-controls="panel-36-36-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-1" name="36-1" role="tab" tabindex="-1">crear_usuarios_lista.sh</button><button aria-controls="panel-36-36-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-2" name="36-2" role="tab" tabindex="-1">borrar_usuarios_lista.sh</button><button aria-controls="panel-36-36-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-3" name="36-3" role="tab" tabindex="-1">crear_usuarios_grupo_lista.sh</button><button aria-controls="panel-36-36-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-4" name="36-4" role="tab" tabindex="-1">borrar_usuarios_grupo_lista.sh</button></div><div aria-labelledby="tab-36-36-0" class="sphinx-tabs-panel" id="panel-36-36-0" name="36-0" role="tabpanel" tabindex="0"><p>Genera la siguiente lista de usuarios en el archivo <strong>lista.dat</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>i&lt;<span class="m">40</span><span class="p">;</span>i++<span class="o">))</span>
 <span class="k">do</span>
 <span class="w">  </span><span class="nv">R</span><span class="o">=</span><span class="nv">$RANDOM</span>
@@ -2774,7 +3028,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <li><p>Crea otro script llamado <strong>crear_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, creará todos los usuarios dentro del grupo llamado <strong>nombre_grupo</strong>, en el caso de que no exista creara primero el grupo.</p></li>
 <li><p>Crea otro script llamdo <strong>borrar_usuarios_grupo_lista.sh</strong> que lea solo la primera columna de un archivo llamado <strong>nombre_grupo.dat</strong>, borrará todos los usuarios que encuentre en la lista, al final y sólo en el caso de que el grupo se haya quedado vacío se borrará tambien el grupo.</p></li>
 </ol>
-</div><div aria-labelledby="tab-32-32-1" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-1" name="32-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-36-36-1" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-1" name="36-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 <span class="c1">#$cat listda.dat</span>
@@ -2802,7 +3056,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-32-32-2" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-2" name="32-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-36-36-2" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-2" name="36-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en la lista.dat</span>
 
@@ -2821,7 +3075,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">done</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-32-32-3" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-3" name="32-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-36-36-3" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-3" name="36-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#Vamos a crear los usuarios que aparecen en el archvio grupo.dat</span>
 
@@ -2856,7 +3110,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-32-32-4" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-4" name="32-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-36-36-4" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-4" name="36-4" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$#</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span>
 <span class="k">then</span>
@@ -2900,7 +3154,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 <section id="usuarios-ldap-sh">
 <h2>usuarios_ldap.sh<a class="headerlink" href="#usuarios-ldap-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-33-33-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-33-33-0" name="33-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-33-33-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-1" name="33-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-33-33-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-2" name="33-2" role="tab" tabindex="-1">lista.dat</button></div><div aria-labelledby="tab-33-33-0" class="sphinx-tabs-panel" id="panel-33-33-0" name="33-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la 'MV Ubuntu Server 24.04' con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-37-37-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-37-37-0" name="37-0" role="tab" tabindex="0">usuarios_ldap.sh</button><button aria-controls="panel-37-37-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-37-37-1" name="37-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-37-37-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-37-37-2" name="37-2" role="tab" tabindex="-1">lista.dat</button></div><div aria-labelledby="tab-37-37-0" class="sphinx-tabs-panel" id="panel-37-37-0" name="37-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_ldap.sh</strong>, utiliza para ello un clon enlazado de la 'MV Ubuntu Server 24.04' con un ldap configurado <a class="reference external" href="https://dgtrabada.github.io/so/GNULinux/13_ldap.html#instalacion-del-servidor-ldap">aqui</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Uso<span class="w"> </span>del<span class="w"> </span>script:
 ./usuarios_ldap.sh<span class="w"> </span>-addgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Crea<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>no<span class="w"> </span>existe
 ./usuarios_ldap.sh<span class="w"> </span>-delgroup<span class="w"> </span>&lt;grupo&gt;<span class="w">         </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
@@ -2911,7 +3165,7 @@ drwx------<span class="w"> </span><span class="m">2</span><span class="w"> </spa
 ./usuarios_ldap.sh<span class="w"> </span>-lsuser<span class="w">                   </span>:<span class="w"> </span>Elimina<span class="w"> </span>un<span class="w"> </span>grupo<span class="w"> </span>si<span class="w"> </span>existe
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-33-33-1" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-1" name="33-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-37-37-1" class="sphinx-tabs-panel" hidden="true" id="panel-37-37-1" name="37-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
 <span class="nv">password</span><span class="o">=</span>alumno
@@ -3052,7 +3306,7 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-33-33-2" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-2" name="33-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-4<span class="w"> </span>lista.dat
+</div><div aria-labelledby="tab-37-37-2" class="sphinx-tabs-panel" hidden="true" id="panel-37-37-2" name="37-2" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>head<span class="w"> </span>-4<span class="w"> </span>lista.dat
 tunombre_73<span class="w"> </span>GA
 tunombre_36<span class="w"> </span>GC
 tunombre_82<span class="w"> </span>GC
@@ -3069,7 +3323,7 @@ tunombre_07<span class="w"> </span>GC
 <section id="usuarios-lista-ldap-sh">
 <h2>usuarios_lista_ldap.sh<a class="headerlink" href="#usuarios-lista-ldap-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-34-34-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-34-34-0" name="34-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-34-34-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-34-34-1" name="34-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-34-34-0" class="sphinx-tabs-panel" id="panel-34-34-0" name="34-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-38-38-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-38-38-0" name="38-0" role="tab" tabindex="0">usuarios_lista_ldap.sh</button><button aria-controls="panel-38-38-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-38-38-1" name="38-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-38-38-0" class="sphinx-tabs-panel" id="panel-38-38-0" name="38-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_lista_ldap.sh</strong>, haz que todos los usuarios se lean de un archivo llamado grupo.dat. Haz que todos los usuarios pertenezcan al grupo con el mismo nombre que el archivo sin la extensión .dat. En el caso de que no exista el grupo haz que se cree.</p>
 <p>En el archivo grupo.dat, hay una lista de emails, haz que se cree el usuario correspondiente al email, es decir <a class="reference external" href="mailto:usuario1&#37;&#52;&#48;gmail&#46;com">usuario1<span>&#64;</span>gmail<span>&#46;</span>com</a> creara el usuario usuario1. En el caso de -borrar borrara todos los usuarios del archivo, finalmente si no quedan usuarios en el grupo borra el grupo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_lista_ldap.sh<span class="w"> </span>-help
 ./usuarios_lista_ldap.sh<span class="w"> </span>-crear<span class="w"> </span>&lt;archivo.dat&gt;
@@ -3080,7 +3334,7 @@ usuario1@gmail.com
 usuario2@gmail.com
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-34-34-1" class="sphinx-tabs-panel" hidden="true" id="panel-34-34-1" name="34-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-38-38-1" class="sphinx-tabs-panel" hidden="true" id="panel-38-38-1" name="38-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">LDAP</span><span class="o">=</span><span class="s2">&quot;dc=ldap,dc=tunombre,dc=local&quot;</span>
 <span class="nv">LDAPadmin</span><span class="o">=</span><span class="s2">&quot;cn=admin,</span><span class="nv">$LDAP</span><span class="s2">&quot;</span>
@@ -3311,16 +3565,23 @@ rm<span class="w"> </span>-fr<span class="w"> </span>usuarios.ldif
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piedra-papel-tijera-sh">piedra_papel_tijera.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-sh">notas.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analizar-cal-sh">analizar_cal.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analizar-web-sh">analizar_web.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rep-sh">rep.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-sh">duplicados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monedas-sh">monedas.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ip-sh">ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inventario-sh">inventario.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-sh">backup.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-incremental-sh">backup_incremental.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-sh">dados.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adivina-cpu-sh">adivina_cpu.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-sh">tragaperras.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flor-sh">flor.sh</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-y-seguridad">Administración y seguridad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-sh">auditoria.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuentas-inactivas-sh">cuentas_inactivas.sh</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-usuarios-locales">Gestión de usuarios locales</a></li>
 </ul>
 </li>

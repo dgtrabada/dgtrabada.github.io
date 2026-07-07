@@ -153,8 +153,10 @@ acabar: el mismo patrón que los `uso_*.sh` de bash.
 
 | Script | Líneas | Qué introduce |
 |---|---|---|
+| `cuentas_inactivas.ps1` | 29 | `Get-LocalUser` + `LastLogon`, `Disable-LocalUser`, opción `-bloquear` (gemelo de `cuentas_inactivas.sh`) |
 | `eventos.ps1` | 30 | `Get-WinEvent -FilterHashtable`, `.Properties`, `[PSCustomObject]` (gemelo de `lastlog_ip.sh`) |
 | `informe.ps1` | 37 | `ConvertTo-Html -Fragment`, here-string `@"..."@`, reutiliza los pipelines de disk/procesos/servicios |
+| `auditoria.ps1` | 52 | chequeos de seguridad: `Get-LocalGroupMember`, `Get-NetFirewallProfile`, registro RDP, `exit $problemas` (gemelo de `auditoria.sh`) |
 | `servicios.ps1` | 47 | `Get-Service`, `Start/Stop-Service` con validación de estado |
 | `procesos.ps1` | 56 | `Get-Process`, `Sort-Object`/`Select-Object -First`, `Stop-Process -WhatIf` |
 | `backup.ps1` | 66 | `Compress-Archive`/`Expand-Archive`, rotación por `LastWriteTime` (gemelo de `backup.sh`) |

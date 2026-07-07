@@ -128,6 +128,7 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 | Script | Líneas | Qué introduce |
 |---|---|---|
 | `duplicados.sh` | 14 | hashes con `md5sum`, `find -exec`, archivo temporal con `$$` |
+| `analizar_web.sh` | 31 | análisis de `access.log`: `cut`/`awk` + `sort \| uniq -c` (culmina `rep.sh`) |
 | `tragaperras.sh` | 37 | arrays + azar |
 | `rep_array.sh` | 42 | contar repetidos a mano, **O(n²)** (contraste con `rep.sh`) |
 | `adivina_cpu.sh` | 52 | búsqueda aleatoria acotada, `while` anidado |
@@ -144,6 +145,8 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 | `ip.sh` | 59 | opciones encadenadas |
 | `ndados.sh` | 59 | parsing con `shift`, generaliza `dados.sh` |
 | `calc.sh` | 61 | `shift 2` + `case`, operaciones encadenadas (`2 -sum 4 -sum 7`) |
+| `cuentas_inactivas.sh` | 26 | `lastlog -b`, `usermod -L`, filtro por UID, opción `-bloquear` |
+| `auditoria.sh` | 50 | chequeos de seguridad, `awk` sobre passwd/shadow, `stat`, `ss`, `exit $problemas` |
 | `backup.sh` | 65 | `tar`, `date +%F`, `find -mtime -delete`, `basename`, `du -h` |
 | `usuarios.sh` | 72 | administración real: `useradd`, `groupadd`, `mkpasswd` |
 | `inventario.sh` | 134 | CSV con cabecera: `IFS=','` + `read`, `sed -i` para borrar, `column -t -s','`, `awk -F','` con `NR>1` |
@@ -157,6 +160,7 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 | `crear_usuarios_grupo_lista.sh` | 33 | + gestión de grupos |
 | `borrar_usuarios_grupo_lista.sh` | 35 | + limpieza de grupos |
 | `sinc.sh` | 37 | orquesta `rsync`/`scp`/`ssh` entre máquinas |
+| `backup_incremental.sh` | 40 | `rsync --link-dest`, hardlinks (snapshots estilo rsnapshot), rotación |
 | `crear_usuarios_ldap.sh` | 141 | heredocs `.ldif`, `ldapsearch/ldapadd`, cálculo de uid/gid |
 | `crear_usuarios_lista_ldap.sh` | 160 | el más complejo: todo lo anterior + anidamiento de 4–5 niveles |
 

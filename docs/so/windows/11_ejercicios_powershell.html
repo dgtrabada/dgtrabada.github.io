@@ -484,6 +484,8 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-ps1">backup.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-ps1">eventos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-ps1">informe.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-ps1">auditoria.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuentas-inactivas-ps1">cuentas_inactivas.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-g00-ps1">usuarios_G00.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1">crear_usuarios_grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1-usuarios">crear_usuarios_grupos.ps1 (usuarios)</a></li>
@@ -2454,10 +2456,141 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 </div>
 </div></div>
 </section>
+<section id="auditoria-ps1">
+<h2>auditoria.ps1<a class="headerlink" href="#auditoria-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-29-29-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-29-29-0" name="29-0" role="tab" tabindex="0">auditoria.ps1</button><button aria-controls="panel-29-29-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-29-29-1" name="29-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-29-29-0" class="sphinx-tabs-panel" id="panel-29-29-0" name="29-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>auditoria.ps1</strong> que haga un chequeo de seguridad básico del sistema, imprimiendo por cada comprobación si está bien (<code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">OK</span> <span class="pre">]</span></code> en verde) o mal (<code class="docutils literal notranslate"><span class="pre">[FALLO]</span></code> en rojo), y al final cuántos problemas ha encontrado. Ejecútalo como Administrador. Es el equivalente Windows de <strong>auditoria.sh</strong> de GNU/Linux.</p>
+<p>Comprobaciones:</p>
+<ol class="arabic simple">
+<li><p>Los miembros del grupo <strong>Administradores</strong> (avisa si hay demasiados).</p></li>
+<li><p>Cuentas habilitadas con <strong>contraseña que no expira</strong> (<code class="docutils literal notranslate"><span class="pre">PasswordNeverExpires</span></code>).</p></li>
+<li><p>Que el <strong>firewall</strong> esté activado en todos los perfiles (<code class="docutils literal notranslate"><span class="pre">Get-NetFirewallProfile</span></code>).</p></li>
+<li><p>Si el <strong>Escritorio remoto (RDP)</strong> está habilitado.</p></li>
+</ol>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">auditoria</span><span class="p">.</span><span class="n">ps1</span>
+<span class="p">===</span> <span class="n">Auditoría</span> <span class="n">de</span> <span class="n">seguridad</span> <span class="n">de</span> <span class="n">SERVIDOR1</span> <span class="p">===</span>
+<span class="p">---</span> <span class="n">Miembros</span> <span class="n">de</span> <span class="n">Administradores</span> <span class="p">---</span>
+  <span class="n">SERVIDOR1</span><span class="p">\</span><span class="n">Administrador</span>
+<span class="p">[</span> <span class="n">OK</span> <span class="p">]</span> <span class="n">Hay</span> <span class="n">2</span> <span class="n">administradores</span>
+<span class="p">...</span>
+<span class="p">===</span> <span class="n">1</span> <span class="n">problemas</span> <span class="n">encontrados</span> <span class="p">===</span>
+</pre></div>
+</div>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-LocalGroupMember</span></code>, <code class="docutils literal notranslate"><span class="pre">Get-LocalUser</span> <span class="pre">|</span> <span class="pre">Where-Object</span> <span class="pre">PasswordNeverExpires</span></code>, <code class="docutils literal notranslate"><span class="pre">Get-NetFirewallProfile</span></code>.</p></li>
+<li><p>Como en la versión bash, termina con <code class="docutils literal notranslate"><span class="pre">exit</span> <span class="pre">$problemas</span></code> para poder usarlo en monitorización.</p></li>
+</ul>
+</div><div aria-labelledby="tab-29-29-1" class="sphinx-tabs-panel" hidden="true" id="panel-29-29-1" name="29-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># auditoria.ps1 - chequeo de seguridad básico del sistema</span>
+<span class="c1"># Ejecutar como Administrador</span>
+
+<span class="nv">$problemas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+
+<span class="k">function</span><span class="w"> </span>ok<span class="w">    </span><span class="o">(</span><span class="nv">$msg</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="s2">&quot;[ OK ] </span><span class="nv">$msg</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green<span class="w"> </span><span class="o">}</span>
+<span class="k">function</span><span class="w"> </span>fallo<span class="w"> </span><span class="o">(</span><span class="nv">$msg</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="s2">&quot;[FALLO] </span><span class="nv">$msg</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red<span class="p">;</span><span class="w"> </span><span class="nv">$script</span>:problemas++<span class="w"> </span><span class="o">}</span>
+
+Write-Host<span class="w"> </span><span class="s2">&quot;=== Auditoría de seguridad de </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> ===&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Cyan
+
+<span class="c1"># 1. Miembros del grupo Administradores</span>
+Write-Host<span class="w"> </span><span class="s2">&quot;--- Miembros de Administradores ---&quot;</span>
+<span class="nv">$admins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="s2">&quot;Administradores&quot;</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$admins</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$admins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="s2">&quot;Administrators&quot;</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="c1"># sistema en inglés</span>
+<span class="nv">$admins</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="s2">&quot;  </span><span class="k">$(</span><span class="nv">$_</span>.Name<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">}</span>
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$admins</span>.Count<span class="w"> </span>-le<span class="w"> </span><span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>ok<span class="w"> </span><span class="s2">&quot;Hay </span><span class="k">$(</span><span class="nv">$admins</span>.Count<span class="k">)</span><span class="s2"> administradores&quot;</span>
+<span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>fallo<span class="w"> </span><span class="s2">&quot;Hay </span><span class="k">$(</span><span class="nv">$admins</span>.Count<span class="k">)</span><span class="s2"> administradores, revisa si son todos necesarios&quot;</span>
+<span class="o">}</span>
+
+<span class="c1"># 2. Cuentas habilitadas con contraseña que no expira</span>
+Write-Host<span class="w"> </span><span class="s2">&quot;--- Contraseñas que no expiran ---&quot;</span>
+<span class="nv">$noexpira</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-LocalUser<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Enabled<span class="w"> </span>-and<span class="w"> </span><span class="nv">$_</span>.PasswordNeverExpires<span class="w"> </span><span class="o">}</span>
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$noexpira</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>ok<span class="w"> </span><span class="s2">&quot;Ninguna cuenta activa tiene contraseña eterna&quot;</span>
+<span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>fallo<span class="w"> </span><span class="s2">&quot;Cuentas con contraseña que no expira: </span><span class="k">$(</span><span class="nv">$noexpira</span>.Name<span class="w"> </span>-join<span class="w"> </span><span class="s1">&#39;, &#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="o">}</span>
+
+<span class="c1"># 3. Estado del firewall</span>
+Write-Host<span class="w"> </span><span class="s2">&quot;--- Firewall ---&quot;</span>
+<span class="nv">$perfiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-NetFirewallProfile
+foreach<span class="w"> </span><span class="o">(</span><span class="nv">$p</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$perfiles</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$p</span>.Enabled<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>ok<span class="w"> </span><span class="s2">&quot;Firewall </span><span class="k">$(</span><span class="nv">$p</span>.Name<span class="k">)</span><span class="s2"> activado&quot;</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>fallo<span class="w"> </span><span class="s2">&quot;Firewall </span><span class="k">$(</span><span class="nv">$p</span>.Name<span class="k">)</span><span class="s2"> DESACTIVADO&quot;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1"># 4. Escritorio remoto (RDP)</span>
+Write-Host<span class="w"> </span><span class="s2">&quot;--- Escritorio remoto ---&quot;</span>
+<span class="nv">$rdp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>Get-ItemProperty<span class="w"> </span><span class="s2">&quot;HKLM:\System\CurrentControlSet\Control\Terminal Server&quot;</span><span class="o">)</span>.fDenyTSConnections
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$rdp</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>ok<span class="w"> </span><span class="s2">&quot;RDP deshabilitado&quot;</span>
+<span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>fallo<span class="w"> </span><span class="s2">&quot;RDP habilitado, asegúrate de que es necesario&quot;</span>
+<span class="o">}</span>
+
+Write-Host<span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$problemas</span><span class="s2"> problemas encontrados ===&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Cyan
+<span class="nb">exit</span><span class="w"> </span><span class="nv">$problemas</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="cuentas-inactivas-ps1">
+<h2>cuentas_inactivas.ps1<a class="headerlink" href="#cuentas-inactivas-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-30-30-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-30-30-0" name="30-0" role="tab" tabindex="0">cuentas_inactivas.ps1</button><button aria-controls="panel-30-30-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-30-30-1" name="30-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-30-30-0" class="sphinx-tabs-panel" id="panel-30-30-0" name="30-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>cuentas_inactivas.ps1</strong> que detecte los usuarios locales habilitados que no acceden desde hace más de N días (por defecto 90), y que con el parámetro <code class="docutils literal notranslate"><span class="pre">-bloquear</span></code> además los deshabilite. Ejecútalo como Administrador. Es el equivalente Windows de <strong>cuentas_inactivas.sh</strong>.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">cuentas_inactivas</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-dias</span> <span class="n">90</span>
+<span class="p">===</span> <span class="n">Usuarios</span> <span class="n">sin</span> <span class="n">acceso</span> <span class="n">desde</span> <span class="n">hace</span> <span class="n">más</span> <span class="n">de</span> <span class="n">90</span> <span class="n">días</span> <span class="p">===</span>
+<span class="n">antiguo1</span> <span class="n">inactivo</span> <span class="p">(</span><span class="n">último</span> <span class="n">acceso</span><span class="p">:</span> <span class="n">2024</span><span class="p">-</span><span class="n">01</span><span class="p">-</span><span class="n">15</span><span class="p">)</span>
+
+<span class="p">.\</span><span class="n">cuentas_inactivas</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-dias</span> <span class="n">90</span> <span class="n">-bloquear</span>
+<span class="n">antiguo1</span> <span class="n">deshabilitado</span> <span class="p">(</span><span class="n">último</span> <span class="n">acceso</span><span class="p">:</span> <span class="n">2024</span><span class="p">-</span><span class="n">01</span><span class="p">-</span><span class="n">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-LocalUser</span></code> devuelve la propiedad <code class="docutils literal notranslate"><span class="pre">LastLogon</span></code>, que puede estar vacía si el usuario nunca ha entrado.</p></li>
+<li><p>Compara <code class="docutils literal notranslate"><span class="pre">LastLogon</span></code> con <code class="docutils literal notranslate"><span class="pre">(Get-Date).AddDays(-$dias)</span></code> y deshabilita con <code class="docutils literal notranslate"><span class="pre">Disable-LocalUser</span></code>.</p></li>
+</ul>
+</div><div aria-labelledby="tab-30-30-1" class="sphinx-tabs-panel" hidden="true" id="panel-30-30-1" name="30-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># cuentas_inactivas.ps1 - detecta (y opcionalmente bloquea) cuentas sin uso</span>
+<span class="c1"># Ejecutar como Administrador</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$dias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span>,<span class="w">      </span><span class="c1"># días de inactividad, por defecto 90</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$bloquear</span><span class="w">     </span><span class="c1"># sin esto solo lista; con -bloquear las deshabilita</span>
+<span class="o">)</span>
+
+<span class="nv">$limite</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>Get-Date<span class="o">)</span>.AddDays<span class="o">(</span>-<span class="nv">$dias</span><span class="o">)</span>
+
+Write-Host<span class="w"> </span><span class="s2">&quot;=== Usuarios sin acceso desde hace más de </span><span class="nv">$dias</span><span class="s2"> días ===&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Cyan
+
+Get-LocalUser<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Enabled<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="c1"># LastLogon puede estar vacío si el usuario nunca ha entrado</span>
+<span class="w">    </span><span class="nv">$ultimo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$_</span>.LastLogon
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$null</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$ultimo</span><span class="w"> </span>-or<span class="w"> </span><span class="nv">$ultimo</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$limite</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$cuando</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$ultimo</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$ultimo</span>.ToString<span class="o">(</span><span class="s1">&#39;yyyy-MM-dd&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;nunca&quot;</span><span class="w"> </span><span class="o">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$bloquear</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span>Disable-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$_</span>.Name
+<span class="w">            </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">$_</span>.Name<span class="k">)</span><span class="s2"> deshabilitado (último acceso: </span><span class="nv">$cuando</span><span class="s2">)&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">        </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">$_</span>.Name<span class="k">)</span><span class="s2"> inactivo (último acceso: </span><span class="nv">$cuando</span><span class="s2">)&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Yellow
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$bloquear</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Añade -bloquear para deshabilitar las cuentas listadas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="usuarios-g00-ps1">
 <h2>usuarios_G00.ps1<a class="headerlink" href="#usuarios-g00-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-29-29-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-29-29-0" name="29-0" role="tab" tabindex="0">usuarios_G00.ps1</button><button aria-controls="panel-29-29-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-29-29-1" name="29-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-29-29-0" class="sphinx-tabs-panel" id="panel-29-29-0" name="29-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_G00.ps1</strong>, que cumpla las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-31-31-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-31-31-0" name="31-0" role="tab" tabindex="0">usuarios_G00.ps1</button><button aria-controls="panel-31-31-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-31-31-1" name="31-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-31-31-0" class="sphinx-tabs-panel" id="panel-31-31-0" name="31-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_G00.ps1</strong>, que cumpla las siguientes condiciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
 <span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
 <span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
@@ -2471,7 +2604,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-29-29-1" class="sphinx-tabs-panel" hidden="true" id="panel-29-29-1" name="29-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-31-31-1" class="sphinx-tabs-panel" hidden="true" id="panel-31-31-1" name="31-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$help</span>,
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$listar</span>,
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$borrar</span>,
@@ -2550,7 +2683,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 <section id="crear-usuarios-grupos-ps1">
 <h2>crear_usuarios_grupos.ps1<a class="headerlink" href="#crear-usuarios-grupos-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-30-30-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-30-30-0" name="30-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-30-30-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-30-30-1" name="30-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-30-30-0" class="sphinx-tabs-panel" id="panel-30-30-0" name="30-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-32-32-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-32-32-0" name="32-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-32-32-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-1" name="32-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-32-32-0" class="sphinx-tabs-panel" id="panel-32-32-0" name="32-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
@@ -2566,7 +2699,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 </li>
 </ol>
 <p>ayuda : $nombre_grupo='GPWS03' ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
-</div><div aria-labelledby="tab-30-30-1" class="sphinx-tabs-panel" hidden="true" id="panel-30-30-1" name="30-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-32-32-1" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-1" name="32-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
 
 <span class="c1"># Bucle para crear los grupos GPWS01 a GPWS09</span>
 <span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-le<span class="w"> </span><span class="m">9</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span>
@@ -2589,7 +2722,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 <section id="crear-usuarios-grupos-ps1-usuarios">
 <h2>crear_usuarios_grupos.ps1 (usuarios)<a class="headerlink" href="#crear-usuarios-grupos-ps1-usuarios" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-31-31-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-31-31-0" name="31-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-31-31-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-31-31-1" name="31-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-31-31-0" class="sphinx-tabs-panel" id="panel-31-31-0" name="31-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-33-33-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-33-33-0" name="33-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-33-33-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-1" name="33-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-33-33-0" class="sphinx-tabs-panel" id="panel-33-33-0" name="33-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
 <ul class="simple">
 <li><p>GPWS01</p>
 <ul>
@@ -2649,7 +2782,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
   <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-31-31-1" class="sphinx-tabs-panel" hidden="true" id="panel-31-31-1" name="31-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-33-33-1" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-1" name="33-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
 
 <span class="nv">$nombre_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tunombre_gpws&quot;</span>
 
@@ -2715,7 +2848,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 <section id="crear-usuarios-grupos-csv-ps1">
 <h2>crear_usuarios_grupos_csv.ps1<a class="headerlink" href="#crear-usuarios-grupos-csv-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-32-32-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-32-32-0" name="32-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-32-32-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-1" name="32-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-32-32-0" class="sphinx-tabs-panel" id="panel-32-32-0" name="32-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-34-34-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-34-34-0" name="34-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-34-34-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-34-34-1" name="34-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-34-34-0" class="sphinx-tabs-panel" id="panel-34-34-0" name="34-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
 <ol class="arabic">
 <li><p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
 <p><strong>El grupo $nombre_grupo no existe, se crea</strong></p>
@@ -2742,7 +2875,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span c
 <p><strong>El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada</strong></p>
 </li>
 </ol>
-</div><div aria-labelledby="tab-32-32-1" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-1" name="32-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: crear_usuarios_grupos_csv.ps1</span>
+</div><div aria-labelledby="tab-34-34-1" class="sphinx-tabs-panel" hidden="true" id="panel-34-34-1" name="34-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: crear_usuarios_grupos_csv.ps1</span>
 
 <span class="c1"># Leer el archivo CSV</span>
 <span class="nv">$users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="s2">&quot;users.csv&quot;</span>
@@ -2805,7 +2938,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="usuarios-ps1">
 <h2>usuarios.ps1<a class="headerlink" href="#usuarios-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-33-33-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-33-33-0" name="33-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-33-33-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-1" name="33-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-33-33-0" class="sphinx-tabs-panel" id="panel-33-33-0" name="33-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-35-35-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-35-35-0" name="35-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-35-35-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-35-35-1" name="35-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-35-35-0" class="sphinx-tabs-panel" id="panel-35-35-0" name="35-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
 <p>Menú de Usuarios:</p>
 <ol class="arabic simple">
 <li><p>Listar usuarios</p></li>
@@ -2814,7 +2947,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li><p>Modificar usuario</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-33-33-1" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-1" name="33-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: usuarios.ps1</span>
+</div><div aria-labelledby="tab-35-35-1" class="sphinx-tabs-panel" hidden="true" id="panel-35-35-1" name="35-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: usuarios.ps1</span>
 
 <span class="k">function</span><span class="w"> </span>Listar-Usuarios<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span>Write-Output<span class="w"> </span><span class="s2">&quot;Usuarios en el sistema:&quot;</span>
@@ -2881,7 +3014,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="grupos-ps1">
 <h2>grupos.ps1<a class="headerlink" href="#grupos-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-34-34-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-34-34-0" name="34-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-34-34-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-34-34-1" name="34-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-34-34-0" class="sphinx-tabs-panel" id="panel-34-34-0" name="34-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-36-36-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-36-36-0" name="36-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-36-36-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-1" name="36-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-36-36-0" class="sphinx-tabs-panel" id="panel-36-36-0" name="36-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
 <p>Menú de Grupos:</p>
 <ol class="arabic simple">
 <li><p>Listar grupos</p></li>
@@ -2892,7 +3025,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li><p>Elimina miembro de un grupo (pide grupo y usuario)</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-34-34-1" class="sphinx-tabs-panel" hidden="true" id="panel-34-34-1" name="34-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: grupo.ps1</span>
+</div><div aria-labelledby="tab-36-36-1" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-1" name="36-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: grupo.ps1</span>
 
 <span class="k">function</span><span class="w"> </span>Listar-Grupos<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span>Write-Output<span class="w"> </span><span class="s2">&quot;Grupos disponibles:&quot;</span>
@@ -2980,7 +3113,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="local-users-ps1">
 <h2>local_users.ps1<a class="headerlink" href="#local-users-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-35-35-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-35-35-0" name="35-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-35-35-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-35-35-1" name="35-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-35-35-0" class="sphinx-tabs-panel" id="panel-35-35-0" name="35-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-37-37-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-37-37-0" name="37-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-37-37-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-37-37-1" name="37-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-37-37-0" class="sphinx-tabs-panel" id="panel-37-37-0" name="37-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Si ejecutamos la ayuda:</p>
 <img alt="../../_images/local_users_01.png" src="../../_images/local_users_01.png" />
@@ -3013,7 +3146,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <img alt="../../_images/local_users_06.png" src="../../_images/local_users_06.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-35-35-1" class="sphinx-tabs-panel" hidden="true" id="panel-35-35-1" name="35-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-37-37-1" class="sphinx-tabs-panel" hidden="true" id="panel-37-37-1" name="37-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn0&quot;</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$nuevo_usuario</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$grupo</span>,<span class="w"> </span><span class="c1">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
@@ -3188,7 +3321,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="ad-ps1">
 <h2>AD.ps1<a class="headerlink" href="#ad-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-36-36-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-36-36-0" name="36-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-36-36-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-1" name="36-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-36-36-0" class="sphinx-tabs-panel" id="panel-36-36-0" name="36-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-38-38-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-38-38-0" name="38-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-38-38-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-38-38-1" name="38-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-38-38-0" class="sphinx-tabs-panel" id="panel-38-38-0" name="38-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Instala el Active directory utiliza como nombre de dominio : <strong>tunombre.local</strong></p>
 <p>Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: <code class="docutils literal notranslate"><span class="pre">$dirAD=&quot;DC=tunombre,DC=local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">$mail=&quot;&#64;tunombre.local&quot;</span></code></p>
@@ -3213,7 +3346,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <img alt="../../_images/AD_07.png" src="../../_images/AD_07.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-36-36-1" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-1" name="36-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-38-38-1" class="sphinx-tabs-panel" hidden="true" id="panel-38-38-1" name="38-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn01234&quot;</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$nuevo_usuario</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$grupo</span>,<span class="w"> </span><span class="c1">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
@@ -3440,7 +3573,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="remoto-ps1">
 <h2>remoto.ps1<a class="headerlink" href="#remoto-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-37-37-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-37-37-0" name="37-0" role="tab" tabindex="0">remoto.ps1</button><button aria-controls="panel-37-37-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-37-37-1" name="37-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-37-37-0" class="sphinx-tabs-panel" id="panel-37-37-0" name="37-0" role="tabpanel" tabindex="0"><p>La administración remota es la razón de ser de PowerShell (de hecho su tecnología se llama <em>PowerShell Remoting</em>): ejecutar comandos en muchas máquinas a la vez sin tocar sus teclados. Es el equivalente Windows de lo que hicimos en GNU/Linux con <strong>rsync_usuarios.sh</strong> sobre ssh.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-39-39-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-39-39-0" name="39-0" role="tab" tabindex="0">remoto.ps1</button><button aria-controls="panel-39-39-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-39-39-1" name="39-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-39-39-0" class="sphinx-tabs-panel" id="panel-39-39-0" name="39-0" role="tabpanel" tabindex="0"><p>La administración remota es la razón de ser de PowerShell (de hecho su tecnología se llama <em>PowerShell Remoting</em>): ejecutar comandos en muchas máquinas a la vez sin tocar sus teclados. Es el equivalente Windows de lo que hicimos en GNU/Linux con <strong>rsync_usuarios.sh</strong> sobre ssh.</p>
 <p><strong>Este ejercicio necesita un laboratorio de máquinas virtuales</strong>, no se puede hacer en un único equipo:</p>
 <ul>
 <li><p>Tres clones enlazados de la &quot;MV Windows Server&quot;: <code class="docutils literal notranslate"><span class="pre">compute-0-0</span></code> (desde donde administramos) y los clientes <code class="docutils literal notranslate"><span class="pre">compute-0-1</span></code> y <code class="docutils literal notranslate"><span class="pre">compute-0-2</span></code>, en la misma red y que se resuelvan por nombre (o añade sus IPs a <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32\drivers\etc\hosts</span></code>).</p></li>
@@ -3479,7 +3612,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li><p>Para convertir el texto de <code class="docutils literal notranslate"><span class="pre">-comando</span></code> en código ejecutable: <code class="docutils literal notranslate"><span class="pre">[scriptblock]::Create($comando)</span></code>.</p></li>
 <li><p>Cuando funcione, piensa en las posibilidades: el script <strong>crear_usuarios_grupos_csv.ps1</strong> ejecutado en 20 equipos a la vez es un <code class="docutils literal notranslate"><span class="pre">foreach</span></code> de distancia.</p></li>
 </ul>
-</div><div aria-labelledby="tab-37-37-1" class="sphinx-tabs-panel" hidden="true" id="panel-37-37-1" name="37-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># remoto.ps1</span>
+</div><div aria-labelledby="tab-39-39-1" class="sphinx-tabs-panel" hidden="true" id="panel-39-39-1" name="39-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># remoto.ps1</span>
 <span class="c1"># Necesita el laboratorio de VMs con WinRM habilitado, ver el enunciado</span>
 
 param<span class="w"> </span><span class="o">(</span>
@@ -3592,6 +3725,8 @@ param<span class="w"> </span><span class="o">(</span>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-ps1">backup.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-ps1">eventos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-ps1">informe.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auditoria-ps1">auditoria.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuentas-inactivas-ps1">cuentas_inactivas.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-g00-ps1">usuarios_G00.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1">crear_usuarios_grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1-usuarios">crear_usuarios_grupos.ps1 (usuarios)</a></li>

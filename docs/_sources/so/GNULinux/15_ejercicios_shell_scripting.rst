@@ -550,6 +550,44 @@ analizar_cal.sh
         .. literalinclude:: scripts/analizar_cal.sh
            :language: shell
 
+analizar_web.sh
+"""""""""""""""
+
+.. tabs::
+
+    .. tab:: analizar_web.sh
+
+        Crea un script llamado **analizar_web.sh** que analice el registro de accesos de un servidor Apache (``access.log``). Si no recibe ningún archivo usará ``/var/log/apache2/access.log``, y si el archivo no existe mostrará un error.
+
+        Para generar tu propio log, arranca Apache (tema **Apache**) y visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista (para provocar errores 404).
+
+        El script debe mostrar:
+
+        * El número total de peticiones.
+        * Las 5 IPs que más veces han conectado.
+        * Las 5 URLs más pedidas.
+        * El recuento de códigos de respuesta (200, 404, 302...).
+        * Las páginas que dan 404.
+        * El número de peticiones por hora.
+
+        .. code-block:: bash
+
+           ./analizar_web.sh access.log
+           === Análisis de access.log (7 peticiones) ===
+
+           --- Top 5 IPs ---
+                 4 10.0.0.1
+                 2 10.0.0.2
+                 1 10.0.0.3
+           ...
+
+        Es la culminación de la cadena ``sort | uniq -c | sort -rn`` que empezó en **rep.sh**: en el formato común de Apache el campo 1 es la IP, el 7 la URL y el 9 el código de respuesta (``cut -d' '``), y para las 404 y la hora conviene usar ``awk``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/analizar_web.sh
+           :language: shell
+
 rep.sh
 """"""
 
@@ -776,6 +814,41 @@ backup.sh
         .. literalinclude:: scripts/backup.sh
            :language: shell
 
+backup_incremental.sh
+"""""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: backup_incremental.sh
+
+        Mejora **backup.sh** creando **backup_incremental.sh**, que haga copias incrementales al estilo de rsnapshot: cada copia (*snapshot*) parece una copia completa, pero los ficheros que no han cambiado respecto al snapshot anterior no se copian de nuevo, sino que se enlazan con un **hardlink**, así que ocupan espacio en disco una sola vez.
+
+        Recibirá como argumentos el directorio origen (por defecto ``/home``), el destino (por defecto ``/backups``) y el número de snapshots a conservar (por defecto 7).
+
+        .. code-block:: bash
+
+           ./backup_incremental.sh /home /backups 7
+           Primer backup (completo)
+           Creado /backups/snapshot_2026-07-07_210009
+
+           # tras modificar algún fichero y volver a ejecutarlo
+           Backup incremental respecto a snapshot_2026-07-07_210009
+           Creado /backups/snapshot_2026-07-07_210533
+
+        Para comprobar que los hardlinks funcionan, mira el número de inodo con ``ls -li``: un fichero sin cambios tendrá **el mismo inodo** en los dos snapshots (es el mismo fichero físico), mientras que uno modificado tendrá inodos distintos.
+
+        Consejos:
+
+        * ``rsync -a --delete --link-dest=<snapshot_anterior> <origen>/ <nuevo>/`` es la clave: ``--link-dest`` hace los hardlinks de lo que no cambia.
+        * ``rsync`` resuelve ``--link-dest`` respecto al directorio destino, así que pásale una ruta absoluta (``realpath``).
+        * Usa ``date +%F_%H%M%S`` con segundos en el nombre, si no dos backups en el mismo minuto colisionarían.
+        * Para la rotación, ``ls -1d ... | head -n -N`` lista todos menos los N últimos.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/backup_incremental.sh
+           :language: shell
+
 dados.sh
 """"""""
 
@@ -914,6 +987,68 @@ flor.sh
            :language: shell
 
 
+
+
+Administración y seguridad
+==========================
+
+auditoria.sh
+""""""""""""
+
+.. tabs::
+
+    .. tab:: auditoria.sh
+
+        Crea un script llamado **auditoria.sh** que haga un chequeo de seguridad básico del sistema, imprimiendo por cada comprobación si está bien (``[ OK ]`` en verde) o mal (``[FALLO]`` en rojo), y al final cuántos problemas ha encontrado. Ejecútalo como root para poder leer ``/etc/shadow``.
+
+        Comprobaciones:
+
+        1) Que solo **root** tenga UID 0 (campo 3 de ``/etc/passwd``).
+        #) Que no haya cuentas **sin contraseña** (campo 2 de ``/etc/shadow`` vacío).
+        #) Que ``/etc/shadow`` tenga permisos ``640`` o más restrictivos.
+        #) Quién puede usar ``sudo`` (miembros del grupo sudo).
+        #) Qué puertos están a la escucha (``ss -tlnp``).
+
+        .. code-block:: bash
+
+           sudo ./auditoria.sh
+           === Auditoría de seguridad de servidor1 ===
+           --- Usuarios con UID 0 ---
+           [ OK ] Solo root tiene UID 0
+           ...
+           === 0 problemas encontrados ===
+
+        Consejo: haz que el script termine con ``exit $problemas``, así el número de fallos queda como código de salida y se puede usar desde otro script o herramienta de monitorización.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/auditoria.sh
+           :language: shell
+
+cuentas_inactivas.sh
+""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: cuentas_inactivas.sh
+
+        Crea un script llamado **cuentas_inactivas.sh** que detecte los usuarios reales (UID >= 1000) que no acceden al sistema desde hace más de N días (por defecto 90), y que con la opción ``-bloquear`` además los bloquee. Ejecútalo como root.
+
+        .. code-block:: bash
+
+           sudo ./cuentas_inactivas.sh 90
+           === Usuarios sin acceso en los últimos 90 días ===
+           antiguo1 (inactivo, usa -bloquear para bloquearlo)
+
+           sudo ./cuentas_inactivas.sh 90 -bloquear
+           antiguo1 bloqueado
+
+        Es la versión "de administrador" de **lastlog.sh**: ``lastlog -b N`` lista quién no entra desde hace más de N días, y ``usermod -L`` bloquea una cuenta. Ten cuidado de no bloquear cuentas del sistema (por eso filtramos por UID >= 1000).
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/cuentas_inactivas.sh
+           :language: shell
 
 
 Gestión de usuarios locales
