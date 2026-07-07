@@ -57,7 +57,7 @@ function borrar_alumno(){
     $alumnos = Import-Csv -Path $archivoCSV
     if ($alumnos | Where-Object { $_.nombre -eq $delete }) {
         $alumnos | Where-Object { $_.nombre -ne $delete } |
-            Export-Csv -Path $archivoCSV -NoTypeInformation -UseQuotes Never
+            Export-Csv -Path $archivoCSV -NoTypeInformation -UseQuotes Never # -UseQuotes requiere PowerShell 7
         Write-Host "El alumno $delete ha sido eliminado" -ForegroundColor Green
     } else {
         Write-Host "El alumno $delete no existe, no se puede eliminar" -ForegroundColor Red

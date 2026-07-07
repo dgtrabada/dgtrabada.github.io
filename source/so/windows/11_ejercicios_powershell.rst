@@ -328,6 +328,103 @@ usuario.ps1
            :language: shell
 
 
+alerta_disco.ps1
+""""""""""""""""
+
+.. tabs::
+
+    .. tab:: alerta_disco.ps1
+
+        Crea un script llamado **alerta_disco.ps1** que recorra las unidades de disco y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo ``alertas.log`` y también por pantalla en rojo. El umbral se recibe como parámetro, por defecto será 80.
+
+        .. code-block:: powershell
+
+           .\alerta_disco.ps1 -umbral 50
+           2026-07-07 10:30 C:\ está al 57% (umbral 50%)
+
+           cat alertas.log
+           2026-07-07 10:30 C:\ está al 57% (umbral 50%)
+
+        Consejos:
+
+        * ``Get-PSDrive -PSProvider FileSystem`` devuelve las unidades con las propiedades ``Used`` y ``Free``, como en **disk.ps1**.
+        * ``Add-Content`` añade al final del archivo sin borrar lo anterior, como en **mem.ps1**.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/alerta_disco.ps1
+           :language: shell
+
+
+servicios.ps1
+"""""""""""""
+
+.. tabs::
+
+    .. tab:: servicios.ps1
+
+        Crea un script llamado **servicios.ps1** que gestione los servicios del sistema. Si ejecutas el script con ``.\servicios.ps1 -help`` (o sin argumentos), debe mostrar la siguiente ayuda:
+
+        .. code-block:: powershell
+
+           -help                : muestra la ayuda
+           -listar <estado>     : Muestra los servicios en ese estado (Running o Stopped)
+           -arrancar <servicio> : Arranca un servicio si está parado
+           -parar <servicio>    : Para un servicio si está arrancado
+
+        * ``-listar`` mostrará el nombre y la descripción de los servicios en ese estado, y al final cuántos hay.
+        * ``-arrancar`` y ``-parar`` comprobarán que el servicio existe y en qué estado está: si ya está arrancado (o parado) lo avisará sin hacer nada.
+
+        .. code-block:: powershell
+
+           .\servicios.ps1 -listar Stopped
+           ...
+           123 servicios en estado Stopped
+
+           .\servicios.ps1 -parar Spooler
+           El servicio Spooler ha sido parado
+
+           .\servicios.ps1 -parar Spooler
+           El servicio Spooler ya está parado
+
+        Consejo: ``Get-Service`` devuelve objetos con las propiedades ``Name``, ``DisplayName`` y ``Status``, filtra con ``Where-Object``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/servicios.ps1
+           :language: shell
+
+
+barrido_red.ps1
+"""""""""""""""
+
+.. tabs::
+
+    .. tab:: barrido_red.ps1
+
+        Crea un script llamado **barrido_red.ps1** que compruebe qué equipos de una red responden a ping. Recibirá como parámetros el prefijo de la red (por defecto ``192.168.2``, la red del ejercicio **ip.sh** de GNU/Linux) y el rango de IPs a comprobar (por defecto de 1 a 14), y al final dirá cuántos equipos están activos:
+
+        .. code-block:: powershell
+
+           .\barrido_red.ps1 -red 192.168.2 -desde 1 -hasta 14
+           192.168.2.1 responde
+           192.168.2.2 no responde
+           192.168.2.3 responde
+           ...
+           5 equipos activos en 192.168.2.1-14
+
+        Consejos:
+
+        * ``Test-Connection <ip> -Count 1 -Quiet`` devuelve directamente ``$true`` o ``$false``.
+        * Añade ``-TimeoutSeconds 1`` (PowerShell 7): sin él, cada IP muerta tarda varios segundos y el barrido se hace eterno.
+        * ``$desde..$hasta`` genera el rango de números.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/barrido_red.ps1
+           :language: shell
+
+
 monedas.ps1
 """""""""""
 
@@ -468,6 +565,50 @@ analisis.ps1
            :language: shell
 
 
+meteo.ps1
+"""""""""
+
+.. tabs::
+
+    .. tab:: meteo.ps1
+
+        Crea un script llamado **meteo.ps1** que lea los datos de una estación meteorológica del archivo `meteo.dat <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/meteo.dat>`_, cada línea es un día con cuatro columnas: día, temperatura mínima, temperatura máxima y humedad
+
+        .. code-block:: powershell
+
+           01/06 12.5 22.1 65
+           02/06 10.2 24.0 58
+           03/06 14.0 26.5 60
+
+        Se pide:
+
+        1) La temperatura mínima media, la máxima media y la humedad media, con un decimal.
+        #) El día más caluroso y el día más frío.
+        #) El día con mayor amplitud térmica (temperatura máxima - mínima).
+
+        La salida tiene que quedar:
+
+        .. code-block:: powershell
+
+           .\meteo.ps1
+           Temperatura mínima media : 12.3 ºC
+           Temperatura máxima media : 24.1 ºC
+           Humedad media            : 61.5 %
+           Día más caluroso         : 06/06 (29.6 ºC)
+           Día más frío             : 08/06 (8.7 ºC)
+           Día con mayor amplitud   : 09/06 (16.5 ºC)
+
+        Es el mismo ejercicio que **meteo.sh** de GNU/Linux, compara las dos soluciones. Consejos:
+
+        * El archivo no tiene cabecera: ``Import-Csv -Delimiter ' ' -Header dia,t_min,t_max,humedad`` le pone nombre a las columnas.
+        * ``Import-Csv`` lee todo como texto: convierte las columnas a número con ``[double]``, si no ``Sort-Object`` ordenará alfabéticamente ("8.7" quedaría después de "10.2").
+        * ``Measure-Object -Average`` calcula la media, y para la amplitud puedes ordenar por una expresión: ``Sort-Object { $_.t_max - $_.t_min }``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/meteo.ps1
+           :language: shell
+
 
 tragaperras.ps1
 """""""""""""""
@@ -493,6 +634,45 @@ tragaperras.ps1
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/tragaperras.ps1
+           :language: shell
+
+
+duplicados.ps1
+""""""""""""""
+
+.. tabs::
+
+    .. tab:: duplicados.ps1
+
+        Crea un script llamado **duplicados.ps1** que encuentre los archivos con el mismo contenido dentro de un directorio (aunque tengan nombres distintos), agrupándolos. Si no recibe el directorio como parámetro analizará el directorio actual.
+
+        Para probarlo genera unos archivos con duplicados:
+
+        .. code-block:: powershell
+
+           mkdir ficheros
+           foreach ($i in 1..3) { "contenido $i" > ficheros\original_$i.txt }
+           cp ficheros\original_1.txt ficheros\copia_1.txt
+           cp ficheros\original_1.txt ficheros\otra_copia.txt
+           cp ficheros\original_2.txt ficheros\copia_2.txt
+
+           .\duplicados.ps1 -dir ficheros
+           Duplicados:
+           C:\...\ficheros\copia_1.txt
+           C:\...\ficheros\original_1.txt
+           C:\...\ficheros\otra_copia.txt
+           Duplicados:
+           C:\...\ficheros\copia_2.txt
+           C:\...\ficheros\original_2.txt
+
+        Es el mismo ejercicio que **duplicados.sh** de GNU/Linux, compara las dos soluciones: lo que allí necesitaba un archivo temporal y varios pases, aquí se resuelve encadenando cuatro cmdlets. Consejos:
+
+        * ``Get-FileHash`` calcula un hash del contenido: dos archivos con el mismo contenido tienen el mismo hash, se llamen como se llamen.
+        * ``Group-Object -Property Hash`` agrupa los objetos por su hash, y cada grupo tiene ``Count`` (cuántos hay) y ``Group`` (la lista).
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/duplicados.ps1
            :language: shell
 
 
@@ -567,6 +747,152 @@ notas.ps1
         En esta versión, ``-generate`` y ``-add`` no vuelven a añadir un alumno si ya existe en el archivo.
 
         .. literalinclude:: 10_powershell/notas_sin_duplicados.ps1
+           :language: shell
+
+
+procesos.ps1
+""""""""""""
+
+.. tabs::
+
+    .. tab:: procesos.ps1
+
+        Crea un script llamado **procesos.ps1** que gestione los procesos del sistema. Si ejecutas el script con ``.\procesos.ps1 -help`` (o sin argumentos), debe mostrar la siguiente ayuda:
+
+        .. code-block:: powershell
+
+           -help                : muestra la ayuda
+           -top <N> [-memoria]  : Muestra los N procesos con más CPU (o memoria)
+           -buscar <nombre>     : Muestra los procesos cuyo nombre contiene <nombre>
+           -matar <nombre>      : Simula matar los procesos (con -deverdad los mata)
+
+        * ``-top`` mostrará nombre, Id, CPU en segundos y memoria en MB, ordenado por CPU, o por memoria si además se da ``-memoria``:
+
+          .. code-block:: powershell
+
+             .\procesos.ps1 -top 3
+             Name    Id  CPU_s     MB
+             ----    --  -----     --
+             chrome  4523  90,4  350,5
+             Teams   2284  52,1   86,2
+             svchost 1291  45,6  155,7
+
+        * ``-buscar`` mostrará los procesos cuyo nombre contenga el texto (comodines ``*<nombre>*``), o un aviso si no hay ninguno.
+        * ``-matar`` es la parte importante: por defecto **solo simula** lo que haría, usando ``Stop-Process -WhatIf``, y avisa de que hay que añadir ``-deverdad`` para matarlos de verdad. Muchos cmdlets peligrosos aceptan ``-WhatIf``: acostúmbrate a usarlo antes de ejecutar nada destructivo.
+
+          .. code-block:: powershell
+
+             .\procesos.ps1 -matar notepad
+             What if: Performing the operation "Stop-Process" on target "notepad (5523)".
+             Simulación: añade -deverdad para matarlos de verdad
+
+        Consejos:
+
+        * La CPU y la memoria salen mejor con propiedades calculadas: ``@{Name="MB"; Expression={[math]::Round($_.WorkingSet64/1MB, 1)}}``.
+        * Compara con ``cpu.sh``/``mem.sh`` de GNU/Linux: allí se recortaba texto con ``grep`` y ``cut``, aquí se ordenan objetos con ``Sort-Object``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/procesos.ps1
+           :language: shell
+
+
+backup.ps1
+""""""""""
+
+.. tabs::
+
+    .. tab:: backup.ps1
+
+        Crea un script llamado **backup.ps1** que gestione copias de seguridad comprimidas. Si ejecutas el script con ``.\backup.ps1 -help``, debe mostrar la siguiente ayuda:
+
+        .. code-block:: powershell
+
+           -help                : muestra la ayuda
+           -directorio <dir>    : Crea backups\backup_<dir>_<fecha>.zip
+           -lista               : Muestra los backups con su tamaño
+           -limpiar <días>      : Borra los backups con más de <días> días
+           -restaurar <archivo> : Extrae el backup en el directorio restaurado
+
+        * Si ejecutas el script sin argumentos ``.\backup.ps1``, también debe mostrar la ayuda (consejo: ``$PSBoundParameters.Count -eq 0``).
+        * Si ejecutas ``.\backup.ps1 -directorio <dir>`` creará el directorio ``backups`` si no existe y dentro un ``backup_<dir>_<fecha>.zip``, si ``<dir>`` no existe mostrará un error:
+
+          .. code-block:: powershell
+
+             .\backup.ps1 -directorio ficheros
+             Creado backups\backup_ficheros_2026-07-07_1030.zip
+
+        * Si ejecutas ``.\backup.ps1 -lista`` mostrará los backups con su tamaño en KB y su fecha (consejo: ``Format-Table`` con una propiedad calculada).
+        * Si ejecutas ``.\backup.ps1 -limpiar <días>`` borrará los backups con más de ``<días>`` días mostrando cuáles borra (consejo: compara ``LastWriteTime`` con ``(Get-Date).AddDays(-$dias)``).
+        * Si ejecutas ``.\backup.ps1 -restaurar <archivo>`` lo extraerá dentro del directorio ``restaurado``.
+
+        Es el mismo ejercicio que **backup.sh** de GNU/Linux: ``tar`` y ``find -mtime`` se convierten en ``Compress-Archive``/``Expand-Archive`` y en comparar fechas como objetos. Una vez que funcione, prográmalo cada noche con el Programador de tareas.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/backup.ps1
+           :language: shell
+
+
+eventos.ps1
+"""""""""""
+
+.. tabs::
+
+    .. tab:: eventos.ps1
+
+        Crea un script llamado **eventos.ps1** que analice los inicios de sesión fallidos del registro de seguridad de Windows (evento 4625), mostrando cuántos ha habido y un listado ordenado por cuenta atacada y dirección IP de origen. Es el mismo análisis que hacían **lastlog.sh** y **lastlog_ip.sh** en GNU/Linux.
+
+        * Recibirá como parámetros las horas hacia atrás a analizar (por defecto 24) y el id del evento (por defecto 4625).
+        * Hay que ejecutarlo como **Administrador** (el registro Security no se puede leer sin privilegios).
+        * Para generar eventos que analizar, intenta iniciar sesión varias veces con una contraseña incorrecta.
+
+        .. code-block:: powershell
+
+           .\eventos.ps1 -horas 48
+           7 eventos 4625 en las últimas 48 horas
+
+           Count Name
+           ----- ----
+               5 alumno, 10.2.3.100
+               2 Administrador, 10.2.104.100
+
+        Consejos:
+
+        * ``Get-WinEvent -FilterHashtable @{ LogName='Security'; Id=4625; StartTime=$desde }`` filtra en el propio visor (mucho más rápido que filtrar después con ``Where-Object``).
+        * Los datos del evento van en ``.Properties``: en el 4625 la cuenta es la propiedad 5 y la IP de origen la 19. Construye un objeto con ``[PSCustomObject]@{...}`` y agrupa con ``Group-Object Cuenta, IP``, como en **duplicados.ps1**.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/eventos.ps1
+           :language: shell
+
+
+informe.ps1
+"""""""""""
+
+.. tabs::
+
+    .. tab:: informe.ps1
+
+        Crea un script llamado **informe.ps1** que genere un informe en HTML llamado ``informe.html`` con el estado de la máquina:
+
+        * Un título con el nombre del equipo y la fecha de generación.
+        * Una tabla con los discos: GB usados, GB libres y porcentaje de ocupación.
+        * Una tabla con los 5 procesos que más CPU consumen.
+        * Una tabla con los servicios parados.
+
+        La gracia del ejercicio es que **reutiliza los pipelines que ya has escrito** en `disk.ps1`, `procesos.ps1` y `servicios.ps1`: el mismo ``Get-Process | Sort-Object | Select-Object`` que imprimía una tabla por pantalla ahora produce HTML cambiando solo el final de la tubería. Esa es la ventaja de trabajar con objetos: en GNU/Linux este ejercicio habría supuesto reescribirlo todo.
+
+        Consejos:
+
+        * ``ConvertTo-Html -Fragment`` convierte los objetos en una tabla HTML suelta, y ``-PreContent "<h2>...</h2>"`` le pone el título encima.
+        * Genera cada tabla por separado, y móntalas al final con ``ConvertTo-Html -Head $css -Body "$titulo $discos $procesos $servicios"``.
+        * El CSS se define cómodamente en una cadena multilínea ``@"..."@`` (here-string).
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/informe.ps1
            :language: shell
 
 
@@ -917,6 +1243,65 @@ AD.ps1
     .. tab:: Solución
 
         .. literalinclude:: 10_powershell/AD.ps1
+           :language: shell
+
+
+Administración remota
+=====================
+
+remoto.ps1
+""""""""""
+
+.. tabs::
+
+    .. tab:: remoto.ps1
+
+        La administración remota es la razón de ser de PowerShell (de hecho su tecnología se llama *PowerShell Remoting*): ejecutar comandos en muchas máquinas a la vez sin tocar sus teclados. Es el equivalente Windows de lo que hicimos en GNU/Linux con **rsync_usuarios.sh** sobre ssh.
+
+        **Este ejercicio necesita un laboratorio de máquinas virtuales**, no se puede hacer en un único equipo:
+
+        * Tres clones enlazados de la "MV Windows Server": ``compute-0-0`` (desde donde administramos) y los clientes ``compute-0-1`` y ``compute-0-2``, en la misma red y que se resuelvan por nombre (o añade sus IPs a ``C:\Windows\System32\drivers\etc\hosts``).
+        * En **cada cliente**, habilita WinRM ejecutando como Administrador:
+
+          .. code-block:: powershell
+
+             Enable-PSRemoting -Force
+
+        * Como las máquinas no están en un dominio, en **compute-0-0** hay que declarar los clientes como confiables:
+
+          .. code-block:: powershell
+
+             Set-Item WSMan:\localhost\Client\TrustedHosts -Value "compute-0-1,compute-0-2"
+
+          (si el laboratorio ya está dentro del AD de los ejercicios anteriores, este paso no hace falta: la confianza la da el dominio)
+
+        * Comprueba la conexión con ``Test-WSMan compute-0-1``.
+
+        Con el laboratorio funcionando, crea un script llamado **remoto.ps1** que reciba la lista de equipos como parámetro (por defecto los dos clientes) y:
+
+        * Con ``-info`` muestre de cada equipo su nombre, los GB libres en C: y el número de procesos.
+        * Con ``-comando "<comando>"`` ejecute ese comando en todos los equipos, mostrando de cuál es cada salida:
+
+          .. code-block:: powershell
+
+             .\remoto.ps1 -info
+             === compute-0-1 ===
+             COMPUTE-0-1 : 12,3 GB libres en C:, 87 procesos
+             === compute-0-2 ===
+             COMPUTE-0-2 : 11,8 GB libres en C:, 92 procesos
+
+             .\remoto.ps1 -comando "Get-LocalUser | Select-Object Name"
+
+        Consejos:
+
+        * ``Get-Credential`` pide las credenciales una sola vez y se reutilizan para todos los equipos.
+        * ``Invoke-Command -ComputerName <equipo> -Credential $credencial -ScriptBlock { ... }`` ejecuta el bloque en la máquina remota: todo lo que hay dentro de las llaves corre allí, no en tu equipo.
+        * Para convertir el texto de ``-comando`` en código ejecutable: ``[scriptblock]::Create($comando)``.
+        * Cuando funcione, piensa en las posibilidades: el script **crear_usuarios_grupos_csv.ps1** ejecutado en 20 equipos a la vez es un ``foreach`` de distancia.
+
+    .. tab:: Solución
+
+        .. literalinclude:: 10_powershell/remoto.ps1
            :language: shell
 
 

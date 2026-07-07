@@ -44,7 +44,7 @@ function crear_usuario(){
                  Write-Output "$Nombre,$Apellido,$Nacimiento,$usuario,$password">> $archivo
              }
          }else{
-             Write-Host "Creamos el archivo: $archivo" -ForegroundColor Gree
+             Write-Host "Creamos el archivo: $archivo" -ForegroundColor Green
              Write-Output "Nombre,Apellido,Nacimiento,usuario,password" > $archivo
              Write-Output "$Nombre,$Apellido,$Nacimiento,$usuario,$password">> $archivo
          }

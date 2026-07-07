@@ -52,7 +52,7 @@ function borrar_usuario(){
     $usuariosExistentes = Import-Csv -Path $archivoCSV
     if ($usuariosExistentes | Where-Object { $_.usuario -eq $delete }) {
         $usuariosActualizados = $usuariosExistentes | Where-Object { $_.usuario -ne $delete }
-        #-NoTypeInformationdeja un archivo más limpio
+        # -NoTypeInformation deja un archivo más limpio, -UseQuotes requiere PowerShell 7
         $usuariosActualizados | Export-Csv -Path $archivoCSV -NoTypeInformation -UseQuotes Never
         Write-Output "El usuario $delete ha sido eliminado del archivo."
     } else {

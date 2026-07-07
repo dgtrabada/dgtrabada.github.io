@@ -467,14 +467,23 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#puerta-ps1">puerta.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#puerta2-ps1">puerta2.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuario-ps1">usuario.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerta-disco-ps1">alerta_disco.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servicios-ps1">servicios.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#barrido-red-ps1">barrido_red.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monedas-ps1">monedas.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-ps1">rnd.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piedra-papel-tijera-ps1">piedra_papel_tijera.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-ps1">dados.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-ps1">analisis.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-ps1">meteo.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-ps1">tragaperras.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-ps1">duplicados.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-ps1">csv.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-ps1">notas.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procesos-ps1">procesos.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-ps1">backup.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-ps1">eventos.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-ps1">informe.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-g00-ps1">usuarios_G00.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1">crear_usuarios_grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1-usuarios">crear_usuarios_grupos.ps1 (usuarios)</a></li>
@@ -482,7 +491,11 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-ps1">usuarios.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-ps1">grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-users-ps1">local_users.ps1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ad-ps1">AD.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ad-ps1">AD.ps1</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remoto-ps1">remoto.ps1</a></li>
 </ul>
             </nav>
         </div>
@@ -509,7 +522,7 @@
 <span class="nv">$porcentaje</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="nv">$disk</span>.Used<span class="w"> </span>/<span class="w"> </span><span class="o">(</span><span class="nv">$disk</span>.Used<span class="w"> </span>+<span class="w"> </span><span class="nv">$disk</span>.Free<span class="o">))</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span>
 
 <span class="c1"># Mostrar el porcentaje de espacio usado</span>
-Write-Output<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C: ocapada al {0:N2}%&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$porcentaje</span><span class="o">)</span>
+Write-Output<span class="w"> </span><span class="o">(</span><span class="s2">&quot;C: ocupada al {0:N2}%&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$porcentaje</span><span class="o">)</span>
 </pre></div>
 </div>
 </div></div>
@@ -563,7 +576,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;CPU: </span><span class
 Get-NetAdapter<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="s1">&#39;Up&#39;</span><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Format-Table<span class="w"> </span>Name,MacAddress
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># mac.ps1</span>
+</div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># mac2.ps1</span>
 
 <span class="c1"># Obtener todos los adaptadores de red en el sistema</span>
 <span class="nv">$networkAdapters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-NetAdapter<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="s1">&#39;Up&#39;</span><span class="w"> </span><span class="o">}</span>
@@ -680,7 +693,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;-----------------------
 <span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-6-6-3" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-3" name="6-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># mult_param.ps1</span>
+</div><div aria-labelledby="tab-6-6-3" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-3" name="6-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># impar_param.ps1</span>
 
 param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>Parameter<span class="o">(</span><span class="nv">Mandatory</span><span class="o">=</span><span class="nv">$true</span>,<span class="w"> </span><span class="nv">HelpMessage</span><span class="o">=</span><span class="s2">&quot;Dame un número&quot;</span><span class="o">)]</span>
@@ -1107,7 +1120,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <span class="w">                 </span>Write-Output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Nombre</span><span class="s2">,</span><span class="nv">$Apellido</span><span class="s2">,</span><span class="nv">$Nacimiento</span><span class="s2">,</span><span class="nv">$usuario</span><span class="s2">,</span><span class="nv">$password</span><span class="s2">&quot;</span>&gt;&gt;<span class="w"> </span><span class="nv">$archivo</span>
 <span class="w">             </span><span class="o">}</span>
 <span class="w">         </span><span class="o">}</span><span class="k">else</span><span class="o">{</span>
-<span class="w">             </span>Write-Host<span class="w"> </span><span class="s2">&quot;Creamos el archivo: </span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gree
+<span class="w">             </span>Write-Host<span class="w"> </span><span class="s2">&quot;Creamos el archivo: </span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">             </span>Write-Output<span class="w"> </span><span class="s2">&quot;Nombre,Apellido,Nacimiento,usuario,password&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$archivo</span>
 <span class="w">             </span>Write-Output<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$Nombre</span><span class="s2">,</span><span class="nv">$Apellido</span><span class="s2">,</span><span class="nv">$Nacimiento</span><span class="s2">,</span><span class="nv">$usuario</span><span class="s2">,</span><span class="nv">$password</span><span class="s2">&quot;</span>&gt;&gt;<span class="w"> </span><span class="nv">$archivo</span>
 <span class="w">         </span><span class="o">}</span>
@@ -1137,11 +1150,172 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 </div>
 </div></div>
 </section>
+<section id="alerta-disco-ps1">
+<h2>alerta_disco.ps1<a class="headerlink" href="#alerta-disco-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">alerta_disco.ps1</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>alerta_disco.ps1</strong> que recorra las unidades de disco y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo <code class="docutils literal notranslate"><span class="pre">alertas.log</span></code> y también por pantalla en rojo. El umbral se recibe como parámetro, por defecto será 80.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">alerta_disco</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-umbral</span> <span class="n">50</span>
+<span class="n">2026</span><span class="p">-</span><span class="n">07</span><span class="p">-</span><span class="n">07</span> <span class="n">10</span><span class="p">:</span><span class="n">30</span> <span class="n">C</span><span class="p">:\</span> <span class="n">está</span> <span class="n">al</span> <span class="n">57</span><span class="p">%</span> <span class="p">(</span><span class="n">umbral</span> <span class="n">50</span><span class="p">%)</span>
+
+<span class="nb">cat </span><span class="n">alertas</span><span class="p">.</span><span class="n">log</span>
+<span class="n">2026</span><span class="p">-</span><span class="n">07</span><span class="p">-</span><span class="n">07</span> <span class="n">10</span><span class="p">:</span><span class="n">30</span> <span class="n">C</span><span class="p">:\</span> <span class="n">está</span> <span class="n">al</span> <span class="n">57</span><span class="p">%</span> <span class="p">(</span><span class="n">umbral</span> <span class="n">50</span><span class="p">%)</span>
+</pre></div>
+</div>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-PSDrive</span> <span class="pre">-PSProvider</span> <span class="pre">FileSystem</span></code> devuelve las unidades con las propiedades <code class="docutils literal notranslate"><span class="pre">Used</span></code> y <code class="docutils literal notranslate"><span class="pre">Free</span></code>, como en <strong>disk.ps1</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Add-Content</span></code> añade al final del archivo sin borrar lo anterior, como en <strong>mem.ps1</strong>.</p></li>
+</ul>
+</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># alerta_disco.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$umbral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="c1"># umbral en %, por defecto 80</span>
+<span class="o">)</span>
+
+<span class="nv">$log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;alertas.log&quot;</span>
+
+foreach<span class="w"> </span><span class="o">(</span><span class="nv">$disco</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>Get-PSDrive<span class="w"> </span>-PSProvider<span class="w"> </span>FileSystem<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$disco</span>.Used<span class="w"> </span>+<span class="w"> </span><span class="nv">$disco</span>.Free
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$total</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$ocupado</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">((</span><span class="nv">$disco</span>.Used<span class="w"> </span>/<span class="w"> </span><span class="nv">$total</span><span class="o">)</span><span class="w"> </span>*<span class="w"> </span><span class="m">100</span>,<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$ocupado</span><span class="w"> </span>-ge<span class="w"> </span><span class="nv">$umbral</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="nv">$timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Date<span class="w"> </span>-Format<span class="w"> </span><span class="s2">&quot;yyyy-MM-dd HH:mm&quot;</span>
+<span class="w">            </span><span class="nv">$alerta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$timestamp</span><span class="s2"> </span><span class="k">$(</span><span class="nv">$disco</span>.Root<span class="k">)</span><span class="s2"> está al </span><span class="nv">$ocupado</span><span class="s2">% (umbral </span><span class="nv">$umbral</span><span class="s2">%)&quot;</span>
+<span class="w">            </span>Write-Host<span class="w"> </span><span class="nv">$alerta</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">            </span>Add-Content<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$log</span><span class="w"> </span>-Value<span class="w"> </span><span class="nv">$alerta</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="servicios-ps1">
+<h2>servicios.ps1<a class="headerlink" href="#servicios-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">servicios.ps1</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>servicios.ps1</strong> que gestione los servicios del sistema. Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">.\servicios.ps1</span> <span class="pre">-help</span></code> (o sin argumentos), debe mostrar la siguiente ayuda:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">-help</span>                <span class="p">:</span> <span class="n">muestra</span> <span class="n">la</span> <span class="n">ayuda</span>
+<span class="n">-listar</span> <span class="p">&lt;</span><span class="n">estado</span><span class="p">&gt;</span>     <span class="p">:</span> <span class="n">Muestra</span> <span class="n">los</span> <span class="n">servicios</span> <span class="n">en</span> <span class="n">ese</span> <span class="n">estado</span> <span class="p">(</span><span class="n">Running</span> <span class="n">o</span> <span class="n">Stopped</span><span class="p">)</span>
+<span class="n">-arrancar</span> <span class="p">&lt;</span><span class="n">servicio</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Arranca</span> <span class="n">un</span> <span class="n">servicio</span> <span class="nb">si </span><span class="n">está</span> <span class="n">parado</span>
+<span class="n">-parar</span> <span class="p">&lt;</span><span class="n">servicio</span><span class="p">&gt;</span>    <span class="p">:</span> <span class="n">Para</span> <span class="n">un</span> <span class="n">servicio</span> <span class="nb">si </span><span class="n">está</span> <span class="n">arrancado</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-listar</span></code> mostrará el nombre y la descripción de los servicios en ese estado, y al final cuántos hay.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-arrancar</span></code> y <code class="docutils literal notranslate"><span class="pre">-parar</span></code> comprobarán que el servicio existe y en qué estado está: si ya está arrancado (o parado) lo avisará sin hacer nada.</p></li>
+</ul>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">servicios</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-listar</span> <span class="n">Stopped</span>
+<span class="p">...</span>
+<span class="n">123</span> <span class="n">servicios</span> <span class="n">en</span> <span class="n">estado</span> <span class="n">Stopped</span>
+
+<span class="p">.\</span><span class="n">servicios</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-parar</span> <span class="n">Spooler</span>
+<span class="n">El</span> <span class="n">servicio</span> <span class="n">Spooler</span> <span class="n">ha</span> <span class="n">sido</span> <span class="n">parado</span>
+
+<span class="p">.\</span><span class="n">servicios</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-parar</span> <span class="n">Spooler</span>
+<span class="n">El</span> <span class="n">servicio</span> <span class="n">Spooler</span> <span class="n">ya</span> <span class="n">está</span> <span class="n">parado</span>
+</pre></div>
+</div>
+<p>Consejo: <code class="docutils literal notranslate"><span class="pre">Get-Service</span></code> devuelve objetos con las propiedades <code class="docutils literal notranslate"><span class="pre">Name</span></code>, <code class="docutils literal notranslate"><span class="pre">DisplayName</span></code> y <code class="docutils literal notranslate"><span class="pre">Status</span></code>, filtra con <code class="docutils literal notranslate"><span class="pre">Where-Object</span></code>.</p>
+</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># servicios.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$help</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$listar</span>,<span class="w"> </span><span class="c1"># Running o Stopped</span>
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$arrancar</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$parar</span>
+<span class="o">)</span>
+
+<span class="k">function</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-help                : muestra la ayuda&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-listar &lt;estado&gt;     : Muestra los servicios en ese estado (Running o Stopped)&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-arrancar &lt;servicio&gt; : Arranca un servicio si está parado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-parar &lt;servicio&gt;    : Para un servicio si está arrancado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$help</span><span class="w"> </span>-or<span class="w"> </span><span class="nv">$PSBoundParameters</span>.Count<span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$listar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$servicios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Service<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="nv">$listar</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span><span class="nv">$servicios</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Format-Table<span class="w"> </span>Name,<span class="w"> </span>DisplayName
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">$servicios</span>.Count<span class="k">)</span><span class="s2"> servicios en estado </span><span class="nv">$listar</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$arrancar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Service<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$arrancar</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$servicio</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$arrancar</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span><span class="w"> </span>elseif<span class="w"> </span><span class="o">(</span><span class="nv">$servicio</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;Running&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$arrancar</span><span class="s2"> ya está arrancado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Yellow
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Start-Service<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$arrancar</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$arrancar</span><span class="s2"> ha sido arrancado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$parar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$servicio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Service<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$parar</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$servicio</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$parar</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span><span class="w"> </span>elseif<span class="w"> </span><span class="o">(</span><span class="nv">$servicio</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;Stopped&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$parar</span><span class="s2"> ya está parado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Yellow
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Stop-Service<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$parar</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El servicio </span><span class="nv">$parar</span><span class="s2"> ha sido parado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="barrido-red-ps1">
+<h2>barrido_red.ps1<a class="headerlink" href="#barrido-red-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">barrido_red.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>barrido_red.ps1</strong> que compruebe qué equipos de una red responden a ping. Recibirá como parámetros el prefijo de la red (por defecto <code class="docutils literal notranslate"><span class="pre">192.168.2</span></code>, la red del ejercicio <strong>ip.sh</strong> de GNU/Linux) y el rango de IPs a comprobar (por defecto de 1 a 14), y al final dirá cuántos equipos están activos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">barrido_red</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-red</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">2</span> <span class="n">-desde</span> <span class="n">1</span> <span class="n">-hasta</span> <span class="n">14</span>
+<span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">1</span> <span class="n">responde</span>
+<span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">2</span> <span class="n">no</span> <span class="n">responde</span>
+<span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">3</span> <span class="n">responde</span>
+<span class="p">...</span>
+<span class="n">5</span> <span class="n">equipos</span> <span class="n">activos</span> <span class="n">en</span> <span class="n">192</span><span class="p">.</span><span class="n">168</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">1</span><span class="p">-</span><span class="n">14</span>
+</pre></div>
+</div>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Test-Connection</span> <span class="pre">&lt;ip&gt;</span> <span class="pre">-Count</span> <span class="pre">1</span> <span class="pre">-Quiet</span></code> devuelve directamente <code class="docutils literal notranslate"><span class="pre">$true</span></code> o <code class="docutils literal notranslate"><span class="pre">$false</span></code>.</p></li>
+<li><p>Añade <code class="docutils literal notranslate"><span class="pre">-TimeoutSeconds</span> <span class="pre">1</span></code> (PowerShell 7): sin él, cada IP muerta tarda varios segundos y el barrido se hace eterno.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$desde..$hasta</span></code> genera el rango de números.</p></li>
+</ul>
+</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># barrido_red.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;192.168.2&quot;</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$desde</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$hasta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span>
+<span class="o">)</span>
+
+<span class="nv">$activas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+
+foreach<span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$desde</span>..<span class="nv">$hasta</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$ip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$red</span><span class="s2">.</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="c1"># -TimeoutSeconds requiere PowerShell 7, sin él cada IP muerta tarda varios segundos</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Test-Connection<span class="w"> </span><span class="nv">$ip</span><span class="w"> </span>-Count<span class="w"> </span><span class="m">1</span><span class="w"> </span>-Quiet<span class="w"> </span>-TimeoutSeconds<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ip</span><span class="s2"> responde&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span><span class="nv">$activas</span>++
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ip</span><span class="s2"> no responde&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>DarkGray
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$activas</span><span class="s2"> equipos activos en </span><span class="nv">$red</span><span class="s2">.</span><span class="nv">$desde</span><span class="s2">-</span><span class="nv">$hasta</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="monedas-ps1">
 <h2>monedas.ps1<a class="headerlink" href="#monedas-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-12-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-12-12-0" name="12-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-12-12-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-1" name="12-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-12-12-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-12-12-2" name="12-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-12-12-0" class="sphinx-tabs-panel" id="panel-12-12-0" name="12-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
-</div><div aria-labelledby="tab-12-12-1" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-1" name="12-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="o">=</span><span class="m">1000</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">monedas.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-15-15-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-2" name="15-2" role="tab" tabindex="-1">Solución (n monedas)</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>monedas.ps1</strong> que simule el lanzamiento de 3 monedas y calcule la probabilidad de obtener 3 caras</p>
+</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="o">=</span><span class="m">1000</span>
 <span class="nv">$tres_caras</span><span class="o">=</span><span class="m">0</span>
 <span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$numero_tiradas</span><span class="p">;</span><span class="nv">$i</span>++<span class="o">){</span>
 <span class="w">    </span><span class="nv">$m1</span><span class="o">=</span><span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">2</span><span class="k">)</span>
@@ -1156,7 +1330,7 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;La probabilidad es (</span><span class="k">$(</span><span class="nv">$tres_caras</span>/<span class="nv">$numero_tiradas</span><span class="k">)</span><span class="s2">)&quot;</span><span class="w"> </span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-12-2" class="sphinx-tabs-panel" hidden="true" id="panel-12-12-2" name="12-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="o">=</span><span class="m">1000</span>
+</div><div aria-labelledby="tab-15-15-2" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-2" name="15-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$numero_tiradas</span><span class="o">=</span><span class="m">1000</span>
 <span class="nv">$tres_caras</span><span class="o">=</span><span class="m">0</span>
 <span class="nv">$N_monedas</span><span class="o">=</span><span class="m">3</span>
 
@@ -1189,8 +1363,8 @@ No se puede crear el usuario [Usuario] a [Nombre] [Apellido] por tener menos de 
 <section id="rnd-ps1">
 <h2>rnd.ps1<a class="headerlink" href="#rnd-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-13-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-13-13-0" name="13-0" role="tab" tabindex="0">rnd.ps1</button><button aria-controls="panel-13-13-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-1" name="13-1" role="tab" tabindex="-1">Solución (while)</button><button aria-controls="panel-13-13-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-2" name="13-2" role="tab" tabindex="-1">Solución (do while)</button><button aria-controls="panel-13-13-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-13-13-3" name="13-3" role="tab" tabindex="-1">Solución (do while)</button></div><div aria-labelledby="tab-13-13-0" class="sphinx-tabs-panel" id="panel-13-13-0" name="13-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.ps1</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.</p>
-</div><div aria-labelledby="tab-13-13-1" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-1" name="13-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd.ps1</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">rnd.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución (while)</button><button aria-controls="panel-16-16-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-2" name="16-2" role="tab" tabindex="-1">Solución (do while)</button><button aria-controls="panel-16-16-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-3" name="16-3" role="tab" tabindex="-1">Solución (do while)</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>rnd.ps1</strong> que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.</p>
+</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd.ps1</span>
 
 <span class="c1"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">1</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">21</span>
@@ -1223,7 +1397,7 @@ Write-Output<span class="w"> </span><span class="s2">&quot;He generado un númer
 <span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-13-13-2" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-2" name="13-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd_do_while.ps1</span>
+</div><div aria-labelledby="tab-16-16-2" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-2" name="16-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd_do_while.ps1</span>
 
 <span class="c1"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">1</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">21</span>
@@ -1254,7 +1428,7 @@ Write-Output<span class="w"> </span><span class="s2">&quot;He generado un númer
 <span class="o">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="o">(</span><span class="nv">$respuesta</span><span class="w"> </span>-ne<span class="w"> </span><span class="nv">$NumeroAleatorio</span><span class="o">)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-13-13-3" class="sphinx-tabs-panel" hidden="true" id="panel-13-13-3" name="13-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd_do_until.ps1</span>
+</div><div aria-labelledby="tab-16-16-3" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-3" name="16-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># rnd_do_until.ps1</span>
 
 <span class="c1"># Generar un número aleatorio entre 1 y 20</span>
 <span class="nv">$NumeroAleatorio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">1</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">21</span>
@@ -1290,8 +1464,8 @@ Write-Output<span class="w"> </span><span class="s2">&quot;He generado un númer
 <section id="piedra-papel-tijera-ps1">
 <h2>piedra_papel_tijera.ps1<a class="headerlink" href="#piedra-papel-tijera-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-14-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-14-14-0" name="14-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-14-14-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-1" name="14-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-14-14-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-14-14-2" name="14-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-14-14-0" class="sphinx-tabs-panel" id="panel-14-14-0" name="14-0" role="tabpanel" tabindex="0"><p>Crea un script de PowerShell llamado <strong>piedra_papel_tijera.ps1</strong> que implemente el clásico juego &quot;Piedra, Papel o Tijeras&quot; donde el usuario compite contra la computadora.</p>
-</div><div aria-labelledby="tab-14-14-1" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-1" name="14-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">piedra_papel_tijera.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución (if)</button><button aria-controls="panel-17-17-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-2" name="17-2" role="tab" tabindex="-1">Solución (switch)</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Crea un script de PowerShell llamado <strong>piedra_papel_tijera.ps1</strong> que implemente el clásico juego &quot;Piedra, Papel o Tijeras&quot; donde el usuario compite contra la computadora.</p>
+</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="c1">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$Opcion_usuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tijeras&quot;</span>
 <span class="o">)</span>
@@ -1313,13 +1487,13 @@ Write-Output<span class="w"> </span><span class="s2">&quot;Usuario : </span><spa
 <span class="k">if</span><span class="o">(</span><span class="nv">$Opcion_usuario</span><span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;tijeras&quot;</span><span class="w">  </span>-And<span class="w"> </span><span class="nv">$Opcion_CPU</span><span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;piedra&quot;</span><span class="w">  </span><span class="o">){</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="s2">&quot;Gana CPU&quot;</span><span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-14-14-2" class="sphinx-tabs-panel" hidden="true" id="panel-14-14-2" name="14-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-17-17-2" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-2" name="17-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="c1">#   [Parameter(Mandatory=$true, HelpMessage=&quot;Que eliges piedra papel o tijeras?: &quot;)]</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$OpcionUsuario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tijeras&quot;</span>
 <span class="o">)</span>
 
 <span class="nv">$OpcionCPU</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;piedra&quot;</span>,<span class="w"> </span><span class="s2">&quot;papel&quot;</span>,<span class="w"> </span><span class="s2">&quot;tijeras&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Get-Random
-<span class="nv">$OpcionUsuario</span><span class="o">=</span><span class="nv">$Opcion_usuario</span>.ToLower<span class="o">()</span><span class="w"> </span>
+<span class="nv">$OpcionUsuario</span><span class="o">=</span><span class="nv">$OpcionUsuario</span>.ToLower<span class="o">()</span><span class="w"> </span>
 Write-Output<span class="w"> </span><span class="s2">&quot;CPU: </span><span class="nv">$OpcionCPU</span><span class="s2"> &quot;</span>
 Write-Output<span class="w"> </span><span class="s2">&quot;Usuario : </span><span class="nv">$OpcionUsuario</span><span class="s2">&quot;</span>
 
@@ -1355,7 +1529,7 @@ Write-Output<span class="w"> </span><span class="s2">&quot;Usuario : </span><spa
 <section id="dados-ps1">
 <h2>dados.ps1<a class="headerlink" href="#dados-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-15-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-15-15-0" name="15-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-15-15-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-1" name="15-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-15-15-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-15-15-2" name="15-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-15-15-0" class="sphinx-tabs-panel" id="panel-15-15-0" name="15-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">dados.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución (args)</button><button aria-controls="panel-18-18-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-2" name="18-2" role="tab" tabindex="-1">Solución (param)</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.</p>
 <p>Haz que el número de tiradas lo reciba como un argumento, por ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">dados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">100</span>
 </pre></div>
@@ -1377,7 +1551,7 @@ Write-Output<span class="w"> </span><span class="s2">&quot;Usuario : </span><spa
 <span class="nb">Si </span><span class="n">se</span> <span class="n">usa</span> <span class="n">el</span> <span class="n">argumento</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">se</span> <span class="n">mostrará</span> <span class="n">esta</span> <span class="n">ayuda</span><span class="p">.</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-15-1" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-1" name="15-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># dados.ps1</span>
+</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># dados.ps1</span>
 
 <span class="k">function</span><span class="w"> </span>Tirar_dados<span class="o">(</span><span class="nv">$Tiradas</span><span class="o">){</span>
 <span class="w">    </span><span class="s2">&quot;dado1,dado2,suma&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>tiradas.csv
@@ -1413,7 +1587,7 @@ Write-Output<span class="w"> </span><span class="s2">&quot;Usuario : </span><spa
 <span class="w">    </span><span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-15-2" class="sphinx-tabs-panel" hidden="true" id="panel-15-15-2" name="15-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># dados.ps1</span>
+</div><div aria-labelledby="tab-18-18-2" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-2" name="18-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># dados.ps1</span>
 param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="w"> </span><span class="nv">$Tiradas</span>
 <span class="o">)</span>
@@ -1455,13 +1629,13 @@ param<span class="w"> </span><span class="o">(</span>
 <section id="analisis-ps1">
 <h2>analisis.ps1<a class="headerlink" href="#analisis-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-16-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-16-16-0" name="16-0" role="tab" tabindex="0">analisis.ps1</button><button aria-controls="panel-16-16-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-1" name="16-1" role="tab" tabindex="-1">Solución (variables)</button><button aria-controls="panel-16-16-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-16-16-2" name="16-2" role="tab" tabindex="-1">Solución (arrays)</button></div><div aria-labelledby="tab-16-16-0" class="sphinx-tabs-panel" id="panel-16-16-0" name="16-0" role="tabpanel" tabindex="0"><p>Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">analisis.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución (variables)</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">Solución (arrays)</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">$</span> <span class="p">./</span><span class="n">analisis</span><span class="p">.</span><span class="n">ps1</span>
 
 <span class="n">De</span> <span class="n">1000</span> <span class="n">tiradas</span> <span class="p">:</span> <span class="n">2</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span> <span class="n">3</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">4</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">5</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">6</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">7</span><span class="p">(</span><span class="n">17</span><span class="p">%)</span> <span class="n">8</span><span class="p">(</span><span class="n">14</span><span class="p">%)</span> <span class="n">9</span><span class="p">(</span><span class="n">12</span><span class="p">%)</span> <span class="n">10</span><span class="p">(</span><span class="n">10</span><span class="p">%)</span> <span class="n">11</span><span class="p">(</span><span class="n">7</span><span class="p">%)</span> <span class="n">12</span><span class="p">(</span><span class="n">1</span><span class="p">%)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-1" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-1" name="16-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># analisis.ps1</span>
+</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># analisis.ps1</span>
 
 <span class="nv">$A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span>tiradas.csv
 <span class="nv">$total</span><span class="o">=</span><span class="nv">$A</span>.Count
@@ -1509,7 +1683,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$i</span
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$salida</span><span class="w"> </span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-16-2" class="sphinx-tabs-panel" hidden="true" id="panel-16-16-2" name="16-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># analisis.ps1</span>
+</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># analisis.ps1</span>
 
 <span class="nv">$A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span>tiradas.csv
 <span class="nv">$total</span><span class="o">=</span><span class="nv">$A</span>.Count
@@ -1539,10 +1713,73 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$i</span
 </div>
 </div></div>
 </section>
+<section id="meteo-ps1">
+<h2>meteo.ps1<a class="headerlink" href="#meteo-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">meteo.ps1</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>meteo.ps1</strong> que lea los datos de una estación meteorológica del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/meteo.dat">meteo.dat</a>, cada línea es un día con cuatro columnas: día, temperatura mínima, temperatura máxima y humedad</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">01</span><span class="p">/</span><span class="n">06</span> <span class="n">12</span><span class="p">.</span><span class="n">5</span> <span class="n">22</span><span class="p">.</span><span class="n">1</span> <span class="n">65</span>
+<span class="n">02</span><span class="p">/</span><span class="n">06</span> <span class="n">10</span><span class="p">.</span><span class="n">2</span> <span class="n">24</span><span class="p">.</span><span class="n">0</span> <span class="n">58</span>
+<span class="n">03</span><span class="p">/</span><span class="n">06</span> <span class="n">14</span><span class="p">.</span><span class="n">0</span> <span class="n">26</span><span class="p">.</span><span class="n">5</span> <span class="n">60</span>
+</pre></div>
+</div>
+<p>Se pide:</p>
+<ol class="arabic simple">
+<li><p>La temperatura mínima media, la máxima media y la humedad media, con un decimal.</p></li>
+<li><p>El día más caluroso y el día más frío.</p></li>
+<li><p>El día con mayor amplitud térmica (temperatura máxima - mínima).</p></li>
+</ol>
+<p>La salida tiene que quedar:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">meteo</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">Temperatura</span> <span class="n">mínima</span> <span class="n">media</span> <span class="p">:</span> <span class="n">12</span><span class="p">.</span><span class="n">3</span> <span class="n">ºC</span>
+<span class="n">Temperatura</span> <span class="n">máxima</span> <span class="n">media</span> <span class="p">:</span> <span class="n">24</span><span class="p">.</span><span class="n">1</span> <span class="n">ºC</span>
+<span class="n">Humedad</span> <span class="n">media</span>            <span class="p">:</span> <span class="n">61</span><span class="p">.</span><span class="n">5</span> <span class="p">%</span>
+<span class="n">Día</span> <span class="n">más</span> <span class="n">caluroso</span>         <span class="p">:</span> <span class="n">06</span><span class="p">/</span><span class="n">06</span> <span class="p">(</span><span class="n">29</span><span class="p">.</span><span class="n">6</span> <span class="n">ºC</span><span class="p">)</span>
+<span class="n">Día</span> <span class="n">más</span> <span class="n">frío</span>             <span class="p">:</span> <span class="n">08</span><span class="p">/</span><span class="n">06</span> <span class="p">(</span><span class="n">8</span><span class="p">.</span><span class="n">7</span> <span class="n">ºC</span><span class="p">)</span>
+<span class="n">Día</span> <span class="n">con</span> <span class="n">mayor</span> <span class="n">amplitud</span>   <span class="p">:</span> <span class="n">09</span><span class="p">/</span><span class="n">06</span> <span class="p">(</span><span class="n">16</span><span class="p">.</span><span class="n">5</span> <span class="n">ºC</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Es el mismo ejercicio que <strong>meteo.sh</strong> de GNU/Linux, compara las dos soluciones. Consejos:</p>
+<ul class="simple">
+<li><p>El archivo no tiene cabecera: <code class="docutils literal notranslate"><span class="pre">Import-Csv</span> <span class="pre">-Delimiter</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">-Header</span> <span class="pre">dia,t_min,t_max,humedad</span></code> le pone nombre a las columnas.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Import-Csv</span></code> lee todo como texto: convierte las columnas a número con <code class="docutils literal notranslate"><span class="pre">[double]</span></code>, si no <code class="docutils literal notranslate"><span class="pre">Sort-Object</span></code> ordenará alfabéticamente (&quot;8.7&quot; quedaría después de &quot;10.2&quot;).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Measure-Object</span> <span class="pre">-Average</span></code> calcula la media, y para la amplitud puedes ordenar por una expresión: <code class="docutils literal notranslate"><span class="pre">Sort-Object</span> <span class="pre">{</span> <span class="pre">$_.t_max</span> <span class="pre">-</span> <span class="pre">$_.t_min</span> <span class="pre">}</span></code>.</p></li>
+</ul>
+</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># meteo.ps1</span>
+
+<span class="c1"># meteo.dat no tiene cabecera, se la damos con -Header</span>
+<span class="nv">$A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span>meteo.dat<span class="w"> </span>-Delimiter<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-Header<span class="w"> </span>dia,t_min,t_max,humedad
+
+<span class="c1"># Import-Csv lee todo como texto: convertimos las columnas a números,</span>
+<span class="c1"># si no, Sort-Object ordenaría alfabéticamente (&quot;8.7&quot; quedaría después de &quot;10.2&quot;)</span>
+foreach<span class="w"> </span><span class="o">(</span><span class="nv">$fila</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$A</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$fila</span>.t_min<span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>double<span class="o">]</span><span class="nv">$fila</span>.t_min
+<span class="w">    </span><span class="nv">$fila</span>.t_max<span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>double<span class="o">]</span><span class="nv">$fila</span>.t_max
+<span class="w">    </span><span class="nv">$fila</span>.humedad<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$fila</span>.humedad
+<span class="o">}</span>
+
+<span class="nv">$media_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="nv">$A</span>.t_min<span class="w">   </span><span class="p">|</span><span class="w"> </span>Measure-Object<span class="w"> </span>-Average<span class="o">)</span>.Average
+<span class="nv">$media_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="nv">$A</span>.t_max<span class="w">   </span><span class="p">|</span><span class="w"> </span>Measure-Object<span class="w"> </span>-Average<span class="o">)</span>.Average
+<span class="nv">$media_hum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="nv">$A</span>.humedad<span class="w"> </span><span class="p">|</span><span class="w"> </span>Measure-Object<span class="w"> </span>-Average<span class="o">)</span>.Average
+
+Write-Output<span class="w"> </span><span class="s2">&quot;Temperatura mínima media : </span><span class="k">$(</span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$media_min</span>,<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">) ºC&quot;</span>
+Write-Output<span class="w"> </span><span class="s2">&quot;Temperatura máxima media : </span><span class="k">$(</span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$media_max</span>,<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">) ºC&quot;</span>
+Write-Output<span class="w"> </span><span class="s2">&quot;Humedad media            : </span><span class="k">$(</span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$media_hum</span>,<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">) %&quot;</span>
+
+<span class="nv">$caluroso</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$A</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>t_max<span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span><span class="w"> </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="m">1</span>
+<span class="nv">$frio</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">$A</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>t_min<span class="w">             </span><span class="p">|</span><span class="w"> </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="m">1</span>
+<span class="nv">$amplitud</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$A</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.t_max<span class="w"> </span>-<span class="w"> </span><span class="nv">$_</span>.t_min<span class="w"> </span><span class="o">}</span><span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span><span class="w"> </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="m">1</span>
+
+Write-Output<span class="w"> </span><span class="s2">&quot;Día más caluroso         : </span><span class="k">$(</span><span class="nv">$caluroso</span>.dia<span class="k">)</span><span class="s2"> (</span><span class="k">$(</span><span class="nv">$caluroso</span>.t_max<span class="k">)</span><span class="s2"> ºC)&quot;</span>
+Write-Output<span class="w"> </span><span class="s2">&quot;Día más frío             : </span><span class="k">$(</span><span class="nv">$frio</span>.dia<span class="k">)</span><span class="s2"> (</span><span class="k">$(</span><span class="nv">$frio</span>.t_min<span class="k">)</span><span class="s2"> ºC)&quot;</span>
+Write-Output<span class="w"> </span><span class="s2">&quot;Día con mayor amplitud   : </span><span class="k">$(</span><span class="nv">$amplitud</span>.dia<span class="k">)</span><span class="s2"> (</span><span class="k">$(</span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$amplitud</span>.t_max<span class="w"> </span>-<span class="w"> </span><span class="nv">$amplitud</span>.t_min,<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">) ºC)&quot;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="tragaperras-ps1">
 <h2>tragaperras.ps1<a class="headerlink" href="#tragaperras-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-17-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-17-17-0" name="17-0" role="tab" tabindex="0">tragaperras.ps1</button><button aria-controls="panel-17-17-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-17-17-1" name="17-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-17-17-0" class="sphinx-tabs-panel" id="panel-17-17-0" name="17-0" role="tabpanel" tabindex="0"><p>Un jugador comienza con 100 € para jugar en una máquina tragamonedas. El funcionamiento de la máquina es el siguiente:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">tragaperras.ps1</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Un jugador comienza con 100 € para jugar en una máquina tragamonedas. El funcionamiento de la máquina es el siguiente:</p>
 <ul class="simple">
 <li><p>Cada partida cuesta 1 €.</p></li>
 <li><p>La máquina tiene 3 rulos. <code class="docutils literal notranslate"><span class="pre">$rulos</span> <span class="pre">=</span> <span class="pre">&#64;('limon',</span> <span class="pre">'manzana',</span> <span class="pre">'platano',</span> <span class="pre">'siete')</span></code></p>
@@ -1555,24 +1792,24 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$i</span
 </ul>
 <p>Simula la evolución del dinero del jugador durante 1000 partidas o hasta que su dinero se agote, lo que ocurra primero.</p>
 <p>El objetivo es determinar cuánto dinero tiene el jugador al final de las 1000 partidas y cuántas partidas logró jugar en total.</p>
-</div><div aria-labelledby="tab-17-17-1" class="sphinx-tabs-panel" hidden="true" id="panel-17-17-1" name="17-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$rulos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s1">&#39;limon&#39;</span>,<span class="w"> </span><span class="s1">&#39;manzana&#39;</span>,<span class="w"> </span><span class="s1">&#39;platano&#39;</span>,<span class="w"> </span><span class="s1">&#39;siete&#39;</span><span class="o">)</span>
+</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">$rulos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s1">&#39;limon&#39;</span>,<span class="w"> </span><span class="s1">&#39;manzana&#39;</span>,<span class="w"> </span><span class="s1">&#39;platano&#39;</span>,<span class="w"> </span><span class="s1">&#39;siete&#39;</span><span class="o">)</span>
 <span class="nv">$numero_tiradas</span><span class="o">=</span><span class="m">1000</span>
 
 <span class="k">function</span><span class="w"> </span>Girar-Rulos<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="nv">$ganacia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-1
+<span class="w">    </span><span class="nv">$ganancia</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-1
 <span class="w">    </span><span class="nv">$rulo1</span><span class="o">=</span><span class="nv">$rulos</span><span class="o">[(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="nv">$rulos</span>.Length<span class="o">)]</span>
 <span class="w">    </span><span class="nv">$rulo2</span><span class="o">=</span><span class="nv">$rulos</span><span class="o">[(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="nv">$rulos</span>.Length<span class="o">)]</span>
 <span class="w">    </span><span class="nv">$rulo3</span><span class="o">=</span><span class="nv">$rulos</span><span class="o">[(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="nv">$rulos</span>.Length<span class="o">)]</span>
 
 <span class="w">    </span><span class="k">if</span><span class="o">(</span><span class="w"> </span><span class="o">(</span><span class="nv">$rulo1</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$rulo2</span><span class="o">)</span><span class="w"> </span>-and<span class="w"> </span><span class="o">(</span><span class="nv">$rulo1</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$rulo3</span><span class="o">)</span><span class="w">  </span><span class="o">){</span>
-<span class="w">        </span><span class="nv">$ganacia</span>+<span class="o">=</span><span class="m">1</span>
+<span class="w">        </span><span class="nv">$ganancia</span>+<span class="o">=</span><span class="m">1</span>
 <span class="w">        </span><span class="k">if</span><span class="o">(</span><span class="nv">$rulo1</span><span class="w"> </span>-eq<span class="w"> </span><span class="s2">&quot;siete&quot;</span><span class="o">){</span>
-<span class="w">            </span><span class="nv">$ganacia</span>+<span class="o">=</span><span class="m">99</span>
+<span class="w">            </span><span class="nv">$ganancia</span>+<span class="o">=</span><span class="m">99</span>
 <span class="w">            </span><span class="o">}</span>
 <span class="w">        </span><span class="o">}</span>
 <span class="w">    </span>
 <span class="w">    </span><span class="c1">#Write-Output &quot;$rulo1,$rulo2,$rulo3&quot;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">$ganacia</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">$ganancia</span>
 <span class="w">    </span><span class="o">}</span>
 
 <span class="nv">$jugador</span><span class="o">=</span><span class="m">10</span>
@@ -1589,10 +1826,55 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$i</span
 </div>
 </div></div>
 </section>
+<section id="duplicados-ps1">
+<h2>duplicados.ps1<a class="headerlink" href="#duplicados-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">duplicados.ps1</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>duplicados.ps1</strong> que encuentre los archivos con el mismo contenido dentro de un directorio (aunque tengan nombres distintos), agrupándolos. Si no recibe el directorio como parámetro analizará el directorio actual.</p>
+<p>Para probarlo genera unos archivos con duplicados:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">ficheros</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$i</span> <span class="k">in</span> <span class="n">1</span><span class="p">..</span><span class="n">3</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;contenido $i&quot;</span> <span class="p">&gt;</span> <span class="n">ficheros</span><span class="p">\</span><span class="n">original_</span><span class="nv">$i</span><span class="p">.</span><span class="n">txt</span> <span class="p">}</span>
+<span class="nb">cp </span><span class="n">ficheros</span><span class="p">\</span><span class="n">original_1</span><span class="p">.</span><span class="n">txt</span> <span class="n">ficheros</span><span class="p">\</span><span class="n">copia_1</span><span class="p">.</span><span class="n">txt</span>
+<span class="nb">cp </span><span class="n">ficheros</span><span class="p">\</span><span class="n">original_1</span><span class="p">.</span><span class="n">txt</span> <span class="n">ficheros</span><span class="p">\</span><span class="n">otra_copia</span><span class="p">.</span><span class="n">txt</span>
+<span class="nb">cp </span><span class="n">ficheros</span><span class="p">\</span><span class="n">original_2</span><span class="p">.</span><span class="n">txt</span> <span class="n">ficheros</span><span class="p">\</span><span class="n">copia_2</span><span class="p">.</span><span class="n">txt</span>
+
+<span class="p">.\</span><span class="n">duplicados</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-dir</span> <span class="n">ficheros</span>
+<span class="n">Duplicados</span><span class="p">:</span>
+<span class="n">C</span><span class="p">:\...\</span><span class="n">ficheros</span><span class="p">\</span><span class="n">copia_1</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">C</span><span class="p">:\...\</span><span class="n">ficheros</span><span class="p">\</span><span class="n">original_1</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">C</span><span class="p">:\...\</span><span class="n">ficheros</span><span class="p">\</span><span class="n">otra_copia</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">Duplicados</span><span class="p">:</span>
+<span class="n">C</span><span class="p">:\...\</span><span class="n">ficheros</span><span class="p">\</span><span class="n">copia_2</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">C</span><span class="p">:\...\</span><span class="n">ficheros</span><span class="p">\</span><span class="n">original_2</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Es el mismo ejercicio que <strong>duplicados.sh</strong> de GNU/Linux, compara las dos soluciones: lo que allí necesitaba un archivo temporal y varios pases, aquí se resuelve encadenando cuatro cmdlets. Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-FileHash</span></code> calcula un hash del contenido: dos archivos con el mismo contenido tienen el mismo hash, se llamen como se llamen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Group-Object</span> <span class="pre">-Property</span> <span class="pre">Hash</span></code> agrupa los objetos por su hash, y cada grupo tiene <code class="docutils literal notranslate"><span class="pre">Count</span></code> (cuántos hay) y <code class="docutils literal notranslate"><span class="pre">Group</span></code> (la lista).</p></li>
+</ul>
+</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># duplicados.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="w"> </span><span class="c1"># directorio a analizar, por defecto el actual</span>
+<span class="o">)</span>
+
+<span class="c1"># dos archivos con el mismo contenido tienen el mismo hash:</span>
+<span class="c1"># agrupamos por hash y nos quedamos con los grupos de más de uno</span>
+<span class="nv">$grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-ChildItem<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$dir</span><span class="w"> </span>-File<span class="w"> </span>-Recurse<span class="w"> </span><span class="p">|</span><span class="w"> </span>Get-FileHash<span class="w"> </span><span class="p">|</span>
+<span class="w">          </span>Group-Object<span class="w"> </span>-Property<span class="w"> </span>Hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Count<span class="w"> </span>-gt<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">}</span>
+
+foreach<span class="w"> </span><span class="o">(</span><span class="nv">$g</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$grupos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Output<span class="w"> </span><span class="s2">&quot;Duplicados:&quot;</span>
+<span class="w">    </span><span class="nv">$g</span>.Group<span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Output<span class="w"> </span><span class="nv">$_</span>.Path<span class="w"> </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="csv-ps1">
 <h2>csv.ps1<a class="headerlink" href="#csv-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-18-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-18-18-0" name="18-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-18-18-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-18-18-1" name="18-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-18-18-0" class="sphinx-tabs-panel" id="panel-18-18-0" name="18-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>csv.ps1</strong> que cumpla con las siguientes características:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">csv.ps1</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>csv.ps1</strong> que cumpla con las siguientes características:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">csv</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-usuario</span> <span class="no">[nombre usuario]</span> <span class="n">-grupo</span> <span class="no">[grupo]</span>
 </pre></div>
 </div>
@@ -1609,7 +1891,7 @@ El archivo usuarios.csv tendrá el siguiente formato:</p>
 </pre></div>
 </div>
 <p>En el caso de que el usuario exista, se cambiará la contraseña</p>
-</div><div aria-labelledby="tab-18-18-1" class="sphinx-tabs-panel" hidden="true" id="panel-18-18-1" name="18-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$usuario</span>,<span class="w">       </span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$grupo</span><span class="o">=</span><span class="s2">&quot;GA&quot;</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$delete</span>,
@@ -1663,7 +1945,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="w">    </span><span class="nv">$usuariosExistentes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$usuariosExistentes</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.usuario<span class="w"> </span>-eq<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">})</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span><span class="nv">$usuariosActualizados</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$usuariosExistentes</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.usuario<span class="w"> </span>-ne<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">}</span>
-<span class="w">        </span><span class="c1">#-NoTypeInformationdeja un archivo más limpio</span>
+<span class="w">        </span><span class="c1"># -NoTypeInformation deja un archivo más limpio, -UseQuotes requiere PowerShell 7</span>
 <span class="w">        </span><span class="nv">$usuariosActualizados</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Export-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span><span class="w"> </span>-NoTypeInformation<span class="w"> </span>-UseQuotes<span class="w"> </span>Never
 <span class="w">        </span>Write-Output<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$delete</span><span class="s2"> ha sido eliminado del archivo.&quot;</span>
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
@@ -1683,7 +1965,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <section id="notas-ps1">
 <h2>notas.ps1<a class="headerlink" href="#notas-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">notas.ps1</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-19-19-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-2" name="19-2" role="tab" tabindex="-1">Solución (sin duplicados)</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>notas.ps1</strong> que gestione las notas de los alumnos en un archivo <code class="docutils literal notranslate"><span class="pre">notas.csv</span></code> mediante los siguientes parámetros:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">notas.ps1</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-24-24-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-2" name="24-2" role="tab" tabindex="-1">Solución (sin duplicados)</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Crea un script en PowerShell llamado <strong>notas.ps1</strong> que gestione las notas de los alumnos en un archivo <code class="docutils literal notranslate"><span class="pre">notas.csv</span></code> mediante los siguientes parámetros:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">$</span> <span class="p">./</span><span class="n">notas</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-help</span>
 
 <span class="n">-help</span><span class="p">:</span> <span class="n">muestra</span> <span class="n">la</span> <span class="n">ayuda</span><span class="p">.</span>
@@ -1695,7 +1977,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 </pre></div>
 </div>
 <p>Si el archivo <code class="docutils literal notranslate"><span class="pre">notas.csv</span></code> no existe, debe crearlo; si existe, añade los alumnos.</p>
-</div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$help</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$add</span>,
 <span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$nota</span>,
@@ -1744,7 +2026,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="w">    </span><span class="nv">$alumnos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$alumnos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.nombre<span class="w"> </span>-eq<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">})</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span><span class="nv">$alumnos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.nombre<span class="w"> </span>-ne<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">|</span>
-<span class="w">            </span>Export-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span><span class="w"> </span>-NoTypeInformation<span class="w"> </span>-UseQuotes<span class="w"> </span>Never
+<span class="w">            </span>Export-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span><span class="w"> </span>-NoTypeInformation<span class="w"> </span>-UseQuotes<span class="w"> </span>Never<span class="w"> </span><span class="c1"># -UseQuotes requiere PowerShell 7</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El alumno </span><span class="nv">$delete</span><span class="s2"> ha sido eliminado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El alumno </span><span class="nv">$delete</span><span class="s2"> no existe, no se puede eliminar&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
@@ -1775,7 +2057,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$aprobados</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>mostrar_aprobados<span class="w"> </span><span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-19-19-2" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-2" name="19-2" role="tabpanel" tabindex="0"><p>En esta versión, <code class="docutils literal notranslate"><span class="pre">-generate</span></code> y <code class="docutils literal notranslate"><span class="pre">-add</span></code> no vuelven a añadir un alumno si ya existe en el archivo.</p>
+</div><div aria-labelledby="tab-24-24-2" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-2" name="24-2" role="tabpanel" tabindex="0"><p>En esta versión, <code class="docutils literal notranslate"><span class="pre">-generate</span></code> y <code class="docutils literal notranslate"><span class="pre">-add</span></code> no vuelven a añadir un alumno si ya existe en el archivo.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$help</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$add</span>,
@@ -1835,7 +2117,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="w">    </span><span class="nv">$alumnos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$alumnos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.nombre<span class="w"> </span>-eq<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">})</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span><span class="nv">$alumnos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.nombre<span class="w"> </span>-ne<span class="w"> </span><span class="nv">$delete</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">|</span>
-<span class="w">            </span>Export-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span><span class="w"> </span>-NoTypeInformation<span class="w"> </span>-UseQuotes<span class="w"> </span>Never
+<span class="w">            </span>Export-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$archivoCSV</span><span class="w"> </span>-NoTypeInformation<span class="w"> </span>-UseQuotes<span class="w"> </span>Never<span class="w"> </span><span class="c1"># -UseQuotes requiere PowerShell 7</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El alumno </span><span class="nv">$delete</span><span class="s2"> ha sido eliminado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El alumno </span><span class="nv">$delete</span><span class="s2"> no existe, no se puede eliminar&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
@@ -1868,10 +2150,314 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 </div>
 </div></div>
 </section>
+<section id="procesos-ps1">
+<h2>procesos.ps1<a class="headerlink" href="#procesos-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">procesos.ps1</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>procesos.ps1</strong> que gestione los procesos del sistema. Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">.\procesos.ps1</span> <span class="pre">-help</span></code> (o sin argumentos), debe mostrar la siguiente ayuda:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">-help</span>                <span class="p">:</span> <span class="n">muestra</span> <span class="n">la</span> <span class="n">ayuda</span>
+<span class="n">-top</span> <span class="p">&lt;</span><span class="n">N</span><span class="p">&gt;</span> <span class="p">[</span><span class="n">-memoria</span><span class="p">]</span>  <span class="p">:</span> <span class="n">Muestra</span> <span class="n">los</span> <span class="n">N</span> <span class="n">procesos</span> <span class="n">con</span> <span class="n">más</span> <span class="n">CPU</span> <span class="p">(</span><span class="n">o</span> <span class="n">memoria</span><span class="p">)</span>
+<span class="n">-buscar</span> <span class="p">&lt;</span><span class="n">nombre</span><span class="p">&gt;</span>     <span class="p">:</span> <span class="n">Muestra</span> <span class="n">los</span> <span class="n">procesos</span> <span class="n">cuyo</span> <span class="n">nombre</span> <span class="n">contiene</span> <span class="p">&lt;</span><span class="n">nombre</span><span class="p">&gt;</span>
+<span class="n">-matar</span> <span class="p">&lt;</span><span class="n">nombre</span><span class="p">&gt;</span>      <span class="p">:</span> <span class="n">Simula</span> <span class="n">matar</span> <span class="n">los</span> <span class="n">procesos</span> <span class="p">(</span><span class="n">con</span> <span class="n">-deverdad</span> <span class="n">los</span> <span class="n">mata</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-top</span></code> mostrará nombre, Id, CPU en segundos y memoria en MB, ordenado por CPU, o por memoria si además se da <code class="docutils literal notranslate"><span class="pre">-memoria</span></code>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">procesos</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-top</span> <span class="n">3</span>
+<span class="n">Name</span>    <span class="n">Id</span>  <span class="n">CPU_s</span>     <span class="n">MB</span>
+<span class="p">----</span>    <span class="p">--</span>  <span class="p">-----</span>     <span class="p">--</span>
+<span class="n">chrome</span>  <span class="n">4523</span>  <span class="n">90</span><span class="p">,</span><span class="n">4</span>  <span class="n">350</span><span class="p">,</span><span class="n">5</span>
+<span class="n">Teams</span>   <span class="n">2284</span>  <span class="n">52</span><span class="p">,</span><span class="n">1</span>   <span class="n">86</span><span class="p">,</span><span class="n">2</span>
+<span class="n">svchost</span> <span class="n">1291</span>  <span class="n">45</span><span class="p">,</span><span class="n">6</span>  <span class="n">155</span><span class="p">,</span><span class="n">7</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-buscar</span></code> mostrará los procesos cuyo nombre contenga el texto (comodines <code class="docutils literal notranslate"><span class="pre">*&lt;nombre&gt;*</span></code>), o un aviso si no hay ninguno.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-matar</span></code> es la parte importante: por defecto <strong>solo simula</strong> lo que haría, usando <code class="docutils literal notranslate"><span class="pre">Stop-Process</span> <span class="pre">-WhatIf</span></code>, y avisa de que hay que añadir <code class="docutils literal notranslate"><span class="pre">-deverdad</span></code> para matarlos de verdad. Muchos cmdlets peligrosos aceptan <code class="docutils literal notranslate"><span class="pre">-WhatIf</span></code>: acostúmbrate a usarlo antes de ejecutar nada destructivo.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">procesos</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-matar</span> <span class="n">notepad</span>
+<span class="n">What</span> <span class="k">if</span><span class="p">:</span> <span class="n">Performing</span> <span class="n">the</span> <span class="n">operation</span> <span class="s2">&quot;Stop-Process&quot;</span> <span class="n">on</span> <span class="n">target</span> <span class="s2">&quot;notepad (5523)&quot;</span><span class="p">.</span>
+<span class="n">Simulación</span><span class="p">:</span> <span class="n">añade</span> <span class="n">-deverdad</span> <span class="n">para</span> <span class="n">matarlos</span> <span class="n">de</span> <span class="n">verdad</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p>La CPU y la memoria salen mejor con propiedades calculadas: <code class="docutils literal notranslate"><span class="pre">&#64;{Name=&quot;MB&quot;;</span> <span class="pre">Expression={[math]::Round($_.WorkingSet64/1MB,</span> <span class="pre">1)}}</span></code>.</p></li>
+<li><p>Compara con <code class="docutils literal notranslate"><span class="pre">cpu.sh</span></code>/<code class="docutils literal notranslate"><span class="pre">mem.sh</span></code> de GNU/Linux: allí se recortaba texto con <code class="docutils literal notranslate"><span class="pre">grep</span></code> y <code class="docutils literal notranslate"><span class="pre">cut</span></code>, aquí se ordenan objetos con <code class="docutils literal notranslate"><span class="pre">Sort-Object</span></code>.</p></li>
+</ul>
+</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># procesos.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$help</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$top</span>,
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$memoria</span>,<span class="w"> </span><span class="c1"># con -top, ordena por memoria en vez de por CPU</span>
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$buscar</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$matar</span>,
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$deverdad</span><span class="w"> </span><span class="c1"># sin esto, -matar solo simula con -WhatIf</span>
+<span class="o">)</span>
+
+<span class="k">function</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-help                : muestra la ayuda&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-top &lt;N&gt; [-memoria]  : Muestra los N procesos con más CPU (o memoria)&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-buscar &lt;nombre&gt;     : Muestra los procesos cuyo nombre contiene &lt;nombre&gt;&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-matar &lt;nombre&gt;      : Simula matar los procesos (con -deverdad los mata)&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="o">}</span>
+
+<span class="c1"># propiedades calculadas: CPU en segundos y memoria en MB</span>
+<span class="nv">$columnas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Name&quot;</span>,<span class="w"> </span><span class="s2">&quot;Id&quot;</span>,
+<span class="w">    </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;CPU_s&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.CPU,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>,
+<span class="w">    </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">;</span><span class="w">    </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.WorkingSet64/1MB,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$help</span><span class="w"> </span>-or<span class="w"> </span><span class="nv">$PSBoundParameters</span>.Count<span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$top</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$memoria</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Get-Process<span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>WorkingSet64<span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span>
+<span class="w">            </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="nv">$top</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Format-Table<span class="w"> </span><span class="nv">$columnas</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Get-Process<span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>CPU<span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span>
+<span class="w">            </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="nv">$top</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Format-Table<span class="w"> </span><span class="nv">$columnas</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$buscar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$procesos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Process<span class="w"> </span>-Name<span class="w"> </span><span class="s2">&quot;*</span><span class="nv">$buscar</span><span class="s2">*&quot;</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$procesos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$procesos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Format-Table<span class="w"> </span><span class="nv">$columnas</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;No hay procesos con nombre *</span><span class="nv">$buscar</span><span class="s2">*&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$matar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$procesos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Process<span class="w"> </span>-Name<span class="w"> </span><span class="s2">&quot;*</span><span class="nv">$matar</span><span class="s2">*&quot;</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$procesos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;No hay procesos con nombre *</span><span class="nv">$matar</span><span class="s2">*&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span><span class="w"> </span>elseif<span class="w"> </span><span class="o">(</span><span class="nv">$deverdad</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$procesos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Stop-Process
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Procesos *</span><span class="nv">$matar</span><span class="s2">* eliminados&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$procesos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Stop-Process<span class="w"> </span>-WhatIf
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Simulación: añade -deverdad para matarlos de verdad&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Yellow
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="backup-ps1">
+<h2>backup.ps1<a class="headerlink" href="#backup-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">backup.ps1</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>backup.ps1</strong> que gestione copias de seguridad comprimidas. Si ejecutas el script con <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span> <span class="pre">-help</span></code>, debe mostrar la siguiente ayuda:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">-help</span>                <span class="p">:</span> <span class="n">muestra</span> <span class="n">la</span> <span class="n">ayuda</span>
+<span class="n">-directorio</span> <span class="p">&lt;</span><span class="n">dir</span><span class="p">&gt;</span>    <span class="p">:</span> <span class="n">Crea</span> <span class="n">backups</span><span class="p">\</span><span class="n">backup_</span><span class="p">&lt;</span><span class="n">dir</span><span class="p">&gt;</span><span class="n">_</span><span class="p">&lt;</span><span class="n">fecha</span><span class="p">&gt;.</span><span class="n">zip</span>
+<span class="n">-lista</span>               <span class="p">:</span> <span class="n">Muestra</span> <span class="n">los</span> <span class="n">backups</span> <span class="n">con</span> <span class="n">su</span> <span class="n">tamaño</span>
+<span class="n">-limpiar</span> <span class="p">&lt;</span><span class="n">días</span><span class="p">&gt;</span>      <span class="p">:</span> <span class="n">Borra</span> <span class="n">los</span> <span class="n">backups</span> <span class="n">con</span> <span class="n">más</span> <span class="n">de</span> <span class="p">&lt;</span><span class="n">días</span><span class="p">&gt;</span> <span class="n">días</span>
+<span class="n">-restaurar</span> <span class="p">&lt;</span><span class="n">archivo</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Extrae</span> <span class="n">el</span> <span class="n">backup</span> <span class="n">en</span> <span class="n">el</span> <span class="n">directorio</span> <span class="n">restaurado</span>
+</pre></div>
+</div>
+<ul>
+<li><p>Si ejecutas el script sin argumentos <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span></code>, también debe mostrar la ayuda (consejo: <code class="docutils literal notranslate"><span class="pre">$PSBoundParameters.Count</span> <span class="pre">-eq</span> <span class="pre">0</span></code>).</p></li>
+<li><p>Si ejecutas <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span> <span class="pre">-directorio</span> <span class="pre">&lt;dir&gt;</span></code> creará el directorio <code class="docutils literal notranslate"><span class="pre">backups</span></code> si no existe y dentro un <code class="docutils literal notranslate"><span class="pre">backup_&lt;dir&gt;_&lt;fecha&gt;.zip</span></code>, si <code class="docutils literal notranslate"><span class="pre">&lt;dir&gt;</span></code> no existe mostrará un error:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">backup</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-directorio</span> <span class="n">ficheros</span>
+<span class="n">Creado</span> <span class="n">backups</span><span class="p">\</span><span class="n">backup_ficheros_2026</span><span class="p">-</span><span class="n">07</span><span class="p">-</span><span class="n">07_1030</span><span class="p">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+</li>
+<li><p>Si ejecutas <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span> <span class="pre">-lista</span></code> mostrará los backups con su tamaño en KB y su fecha (consejo: <code class="docutils literal notranslate"><span class="pre">Format-Table</span></code> con una propiedad calculada).</p></li>
+<li><p>Si ejecutas <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span> <span class="pre">-limpiar</span> <span class="pre">&lt;días&gt;</span></code> borrará los backups con más de <code class="docutils literal notranslate"><span class="pre">&lt;días&gt;</span></code> días mostrando cuáles borra (consejo: compara <code class="docutils literal notranslate"><span class="pre">LastWriteTime</span></code> con <code class="docutils literal notranslate"><span class="pre">(Get-Date).AddDays(-$dias)</span></code>).</p></li>
+<li><p>Si ejecutas <code class="docutils literal notranslate"><span class="pre">.\backup.ps1</span> <span class="pre">-restaurar</span> <span class="pre">&lt;archivo&gt;</span></code> lo extraerá dentro del directorio <code class="docutils literal notranslate"><span class="pre">restaurado</span></code>.</p></li>
+</ul>
+<p>Es el mismo ejercicio que <strong>backup.sh</strong> de GNU/Linux: <code class="docutils literal notranslate"><span class="pre">tar</span></code> y <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">-mtime</span></code> se convierten en <code class="docutils literal notranslate"><span class="pre">Compress-Archive</span></code>/<code class="docutils literal notranslate"><span class="pre">Expand-Archive</span></code> y en comparar fechas como objetos. Una vez que funcione, prográmalo cada noche con el Programador de tareas.</p>
+</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># backup.ps1</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$help</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$directorio</span>,
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$lista</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$limpiar</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$restaurar</span>
+<span class="o">)</span>
+
+<span class="nv">$backup_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;backups&quot;</span>
+
+<span class="k">function</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-help                : muestra la ayuda&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-directorio &lt;dir&gt;    : Crea backups\backup_&lt;dir&gt;_&lt;fecha&gt;.zip&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-lista               : Muestra los backups con su tamaño&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-limpiar &lt;días&gt;      : Borra los backups con más de &lt;días&gt; días&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;-restaurar &lt;archivo&gt; : Extrae el backup en el directorio restaurado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="o">}</span>
+
+<span class="c1"># sin argumentos también mostramos la ayuda</span>
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$help</span><span class="w"> </span>-or<span class="w"> </span><span class="nv">$PSBoundParameters</span>.Count<span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>Show-Help<span class="w"> </span><span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$directorio</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Test-Path<span class="w"> </span><span class="nv">$directorio</span><span class="w"> </span>-PathType<span class="w"> </span>Container<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="o">(</span>Test-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="o">))</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span>New-Item<span class="w"> </span>-ItemType<span class="w"> </span>Directory<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Out-Null
+<span class="w">        </span><span class="o">}</span>
+<span class="w">        </span><span class="nv">$fecha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Date<span class="w"> </span>-Format<span class="w"> </span><span class="s2">&quot;yyyy-MM-dd_HHmm&quot;</span>
+<span class="w">        </span><span class="nv">$nombre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Join-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="w"> </span><span class="s2">&quot;backup_</span><span class="k">$(</span>Split-Path<span class="w"> </span><span class="nv">$directorio</span><span class="w"> </span>-Leaf<span class="k">)</span><span class="s2">_</span><span class="nv">$fecha</span><span class="s2">.zip&quot;</span>
+<span class="w">        </span>Compress-Archive<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$directorio</span><span class="w"> </span>-DestinationPath<span class="w"> </span><span class="nv">$nombre</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Creado </span><span class="nv">$nombre</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El directorio </span><span class="nv">$directorio</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$lista</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Test-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Get-ChildItem<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="w"> </span>-Filter<span class="w"> </span>*.zip<span class="w"> </span><span class="p">|</span>
+<span class="w">            </span>Format-Table<span class="w"> </span>Name,<span class="w"> </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;KB&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.Length/1KB,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>,<span class="w"> </span>LastWriteTime
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;No hay backups&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$limpiar</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">$antiguos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-ChildItem<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$backup_dir</span><span class="w"> </span>-Filter<span class="w"> </span>*.zip<span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="w"> </span><span class="p">|</span>
+<span class="w">                </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.LastWriteTime<span class="w"> </span>-lt<span class="w"> </span><span class="o">(</span>Get-Date<span class="o">)</span>.AddDays<span class="o">(</span>-<span class="nv">$limpiar</span><span class="o">)</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$antiguos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nv">$antiguos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Output<span class="w"> </span><span class="nv">$_</span>.Name<span class="w"> </span><span class="o">}</span>
+<span class="w">        </span><span class="nv">$antiguos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Remove-Item
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Borrados&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;No hay backups con más de </span><span class="nv">$limpiar</span><span class="s2"> días&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$restaurar</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Test-Path<span class="w"> </span><span class="nv">$restaurar</span><span class="w"> </span>-PathType<span class="w"> </span>Leaf<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Expand-Archive<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$restaurar</span><span class="w"> </span>-DestinationPath<span class="w"> </span>restaurado<span class="w"> </span>-Force
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Restaurado </span><span class="nv">$restaurar</span><span class="s2"> en restaurado\&quot; -ForegroundColor Green</span>
+<span class="s2">    } else {</span>
+<span class="s2">        Write-Host &quot;</span>El<span class="w"> </span>archivo<span class="w"> </span><span class="nv">$restaurar</span><span class="w"> </span>no<span class="w"> </span>existe<span class="s2">&quot; -ForegroundColor Red</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="eventos-ps1">
+<h2>eventos.ps1<a class="headerlink" href="#eventos-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">eventos.ps1</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>eventos.ps1</strong> que analice los inicios de sesión fallidos del registro de seguridad de Windows (evento 4625), mostrando cuántos ha habido y un listado ordenado por cuenta atacada y dirección IP de origen. Es el mismo análisis que hacían <strong>lastlog.sh</strong> y <strong>lastlog_ip.sh</strong> en GNU/Linux.</p>
+<ul class="simple">
+<li><p>Recibirá como parámetros las horas hacia atrás a analizar (por defecto 24) y el id del evento (por defecto 4625).</p></li>
+<li><p>Hay que ejecutarlo como <strong>Administrador</strong> (el registro Security no se puede leer sin privilegios).</p></li>
+<li><p>Para generar eventos que analizar, intenta iniciar sesión varias veces con una contraseña incorrecta.</p></li>
+</ul>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">eventos</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-horas</span> <span class="n">48</span>
+<span class="n">7</span> <span class="n">eventos</span> <span class="n">4625</span> <span class="n">en</span> <span class="n">las</span> <span class="n">últimas</span> <span class="n">48</span> <span class="n">horas</span>
+
+<span class="n">Count</span> <span class="n">Name</span>
+<span class="p">-----</span> <span class="p">----</span>
+    <span class="n">5</span> <span class="n">alumno</span><span class="p">,</span> <span class="n">10</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">100</span>
+    <span class="n">2</span> <span class="n">Administrador</span><span class="p">,</span> <span class="n">10</span><span class="p">.</span><span class="n">2</span><span class="p">.</span><span class="n">104</span><span class="p">.</span><span class="n">100</span>
+</pre></div>
+</div>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-WinEvent</span> <span class="pre">-FilterHashtable</span> <span class="pre">&#64;{</span> <span class="pre">LogName='Security';</span> <span class="pre">Id=4625;</span> <span class="pre">StartTime=$desde</span> <span class="pre">}</span></code> filtra en el propio visor (mucho más rápido que filtrar después con <code class="docutils literal notranslate"><span class="pre">Where-Object</span></code>).</p></li>
+<li><p>Los datos del evento van en <code class="docutils literal notranslate"><span class="pre">.Properties</span></code>: en el 4625 la cuenta es la propiedad 5 y la IP de origen la 19. Construye un objeto con <code class="docutils literal notranslate"><span class="pre">[PSCustomObject]&#64;{...}</span></code> y agrupa con <code class="docutils literal notranslate"><span class="pre">Group-Object</span> <span class="pre">Cuenta,</span> <span class="pre">IP</span></code>, como en <strong>duplicados.ps1</strong>.</p></li>
+</ul>
+</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># eventos.ps1</span>
+<span class="c1"># Ejecutar como Administrador</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$horas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span>,
+<span class="w">    </span><span class="o">[</span>int<span class="o">]</span><span class="nv">$id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4625</span><span class="w"> </span><span class="c1"># 4625 = inicio de sesión fallido</span>
+<span class="o">)</span>
+
+<span class="nv">$desde</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>Get-Date<span class="o">)</span>.AddHours<span class="o">(</span>-<span class="nv">$horas</span><span class="o">)</span>
+
+<span class="nv">$eventos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-WinEvent<span class="w"> </span>-FilterHashtable<span class="w"> </span>@<span class="o">{</span>
+<span class="w">    </span><span class="nv">LogName</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Security&#39;</span>
+<span class="w">    </span><span class="nv">Id</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">$id</span>
+<span class="w">    </span><span class="nv">StartTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$desde</span>
+<span class="o">}</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span>!<span class="nv">$eventos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;No hay eventos </span><span class="nv">$id</span><span class="s2"> en las últimas </span><span class="nv">$horas</span><span class="s2"> horas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nv">$eventos</span>.Count<span class="k">)</span><span class="s2"> eventos </span><span class="nv">$id</span><span class="s2"> en las últimas </span><span class="nv">$horas</span><span class="s2"> horas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+
+<span class="w">    </span><span class="c1"># en el evento 4625 la cuenta es la propiedad 5 y la IP de origen la 19</span>
+<span class="w">    </span><span class="nv">$eventos</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="o">[</span>PSCustomObject<span class="o">]</span>@<span class="o">{</span>
+<span class="w">            </span><span class="nv">Cuenta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$_</span>.Properties<span class="o">[</span><span class="m">5</span><span class="o">]</span>.Value
+<span class="w">            </span><span class="nv">IP</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">$_</span>.Properties<span class="o">[</span><span class="m">19</span><span class="o">]</span>.Value
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Group-Object<span class="w"> </span>Cuenta,<span class="w"> </span>IP<span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>Count<span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span>
+<span class="w">        </span>Format-Table<span class="w"> </span>Count,<span class="w"> </span>Name
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="informe-ps1">
+<h2>informe.ps1<a class="headerlink" href="#informe-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-28-28-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-28-28-0" name="28-0" role="tab" tabindex="0">informe.ps1</button><button aria-controls="panel-28-28-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-28-28-1" name="28-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-28-28-0" class="sphinx-tabs-panel" id="panel-28-28-0" name="28-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>informe.ps1</strong> que genere un informe en HTML llamado <code class="docutils literal notranslate"><span class="pre">informe.html</span></code> con el estado de la máquina:</p>
+<ul class="simple">
+<li><p>Un título con el nombre del equipo y la fecha de generación.</p></li>
+<li><p>Una tabla con los discos: GB usados, GB libres y porcentaje de ocupación.</p></li>
+<li><p>Una tabla con los 5 procesos que más CPU consumen.</p></li>
+<li><p>Una tabla con los servicios parados.</p></li>
+</ul>
+<p>La gracia del ejercicio es que <strong>reutiliza los pipelines que ya has escrito</strong> en <cite>disk.ps1</cite>, <cite>procesos.ps1</cite> y <cite>servicios.ps1</cite>: el mismo <code class="docutils literal notranslate"><span class="pre">Get-Process</span> <span class="pre">|</span> <span class="pre">Sort-Object</span> <span class="pre">|</span> <span class="pre">Select-Object</span></code> que imprimía una tabla por pantalla ahora produce HTML cambiando solo el final de la tubería. Esa es la ventaja de trabajar con objetos: en GNU/Linux este ejercicio habría supuesto reescribirlo todo.</p>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ConvertTo-Html</span> <span class="pre">-Fragment</span></code> convierte los objetos en una tabla HTML suelta, y <code class="docutils literal notranslate"><span class="pre">-PreContent</span> <span class="pre">&quot;&lt;h2&gt;...&lt;/h2&gt;&quot;</span></code> le pone el título encima.</p></li>
+<li><p>Genera cada tabla por separado, y móntalas al final con <code class="docutils literal notranslate"><span class="pre">ConvertTo-Html</span> <span class="pre">-Head</span> <span class="pre">$css</span> <span class="pre">-Body</span> <span class="pre">&quot;$titulo</span> <span class="pre">$discos</span> <span class="pre">$procesos</span> <span class="pre">$servicios&quot;</span></code>.</p></li>
+<li><p>El CSS se define cómodamente en una cadena multilínea <code class="docutils literal notranslate"><span class="pre">&#64;&quot;...&quot;&#64;</span></code> (here-string).</p></li>
+</ul>
+</div><div aria-labelledby="tab-28-28-1" class="sphinx-tabs-panel" hidden="true" id="panel-28-28-1" name="28-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># informe.ps1</span>
+
+<span class="nv">$archivo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;informe.html&quot;</span>
+
+<span class="nv">$css</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="s2">&quot;</span>
+<span class="s2">&lt;style&gt;</span>
+<span class="s2">  body { font-family: sans-serif; margin: 2em; }</span>
+<span class="s2">  h1, h2 { color: #2c5e92; }</span>
+<span class="s2">  table { border-collapse: collapse; }</span>
+<span class="s2">  th, td { border: 1px solid #ccc; padding: 4px 10px; }</span>
+<span class="s2">  th { background: #2c5e92; color: white; }</span>
+<span class="s2">&lt;/style&gt;</span>
+<span class="s2">&quot;</span>@
+
+<span class="nv">$titulo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;h1&gt;Informe de </span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2">&lt;/h1&gt;&lt;p&gt;Generado el </span><span class="k">$(</span>Get-Date<span class="w"> </span>-Format<span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm&#39;</span><span class="k">)</span><span class="s2">&lt;/p&gt;&quot;</span>
+
+<span class="nv">$discos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-PSDrive<span class="w"> </span>-PSProvider<span class="w"> </span>FileSystem<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Used<span class="w"> </span>+<span class="w"> </span><span class="nv">$_</span>.Free<span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>Select-Object<span class="w"> </span>Name,
+<span class="w">        </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;Usado_GB&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.Used/1GB,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>,
+<span class="w">        </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;Libre_GB&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.Free/1GB,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>,
+<span class="w">        </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;Ocupado&quot;</span><span class="p">;</span><span class="w">  </span><span class="nv">Expression</span><span class="o">={</span><span class="s2">&quot;{0}%&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.Used/<span class="o">(</span><span class="nv">$_</span>.Used+<span class="nv">$_</span>.Free<span class="o">)</span>*100,<span class="w"> </span><span class="m">0</span><span class="o">)}}</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>ConvertTo-Html<span class="w"> </span>-Fragment<span class="w"> </span>-PreContent<span class="w"> </span><span class="s2">&quot;&lt;h2&gt;Discos&lt;/h2&gt;&quot;</span>
+
+<span class="nv">$procesos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Process<span class="w"> </span><span class="p">|</span><span class="w"> </span>Sort-Object<span class="w"> </span>CPU<span class="w"> </span>-Descending<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>Select-Object<span class="w"> </span>-First<span class="w"> </span><span class="m">5</span><span class="w"> </span>Name,<span class="w"> </span>Id,
+<span class="w">        </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;CPU_s&quot;</span><span class="p">;</span><span class="w"> </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.CPU,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span>,
+<span class="w">        </span>@<span class="o">{</span><span class="nv">Name</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">;</span><span class="w">    </span><span class="nv">Expression</span><span class="o">={[</span>math<span class="o">]</span>::Round<span class="o">(</span><span class="nv">$_</span>.WorkingSet64/1MB,<span class="w"> </span><span class="m">1</span><span class="o">)}}</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>ConvertTo-Html<span class="w"> </span>-Fragment<span class="w"> </span>-PreContent<span class="w"> </span><span class="s2">&quot;&lt;h2&gt;Top 5 procesos por CPU&lt;/h2&gt;&quot;</span>
+
+<span class="nv">$servicios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Service<span class="w"> </span><span class="p">|</span><span class="w"> </span>Where-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nv">$_</span>.Status<span class="w"> </span>-eq<span class="w"> </span><span class="s1">&#39;Stopped&#39;</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>Select-Object<span class="w"> </span>Name,<span class="w"> </span>DisplayName<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>ConvertTo-Html<span class="w"> </span>-Fragment<span class="w"> </span>-PreContent<span class="w"> </span><span class="s2">&quot;&lt;h2&gt;Servicios parados&lt;/h2&gt;&quot;</span>
+
+ConvertTo-Html<span class="w"> </span>-Title<span class="w"> </span><span class="s2">&quot;Informe&quot;</span><span class="w"> </span>-Head<span class="w"> </span><span class="nv">$css</span><span class="w"> </span>-Body<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$titulo</span><span class="s2"> </span><span class="nv">$discos</span><span class="s2"> </span><span class="nv">$procesos</span><span class="s2"> </span><span class="nv">$servicios</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>Out-File<span class="w"> </span><span class="nv">$archivo</span>
+
+Write-Host<span class="w"> </span><span class="s2">&quot;Generado </span><span class="nv">$archivo</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+</pre></div>
+</div>
+</div></div>
+</section>
 <section id="usuarios-g00-ps1">
 <h2>usuarios_G00.ps1<a class="headerlink" href="#usuarios-g00-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-20-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-20-20-0" name="20-0" role="tab" tabindex="0">usuarios_G00.ps1</button><button aria-controls="panel-20-20-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-20-20-1" name="20-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-20-20-0" class="sphinx-tabs-panel" id="panel-20-20-0" name="20-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_G00.ps1</strong>, que cumpla las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-29-29-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-29-29-0" name="29-0" role="tab" tabindex="0">usuarios_G00.ps1</button><button aria-controls="panel-29-29-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-29-29-1" name="29-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-29-29-0" class="sphinx-tabs-panel" id="panel-29-29-0" name="29-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>usuarios_G00.ps1</strong>, que cumpla las siguientes condiciones:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./usuarios_WSL.sh<span class="w"> </span>-help
 <span class="w">  </span>-help<span class="w">               </span>Mostrar<span class="w"> </span>esta<span class="w"> </span>ayuda.
 <span class="w">  </span>-crear<span class="w"> </span>&lt;N&gt;<span class="w">          </span>Crear<span class="w"> </span>N<span class="w"> </span>usuarios<span class="w"> </span>de<span class="w"> </span>forma<span class="w"> </span>aleatoria<span class="w"> </span>dentro<span class="w"> </span>de<span class="w"> </span>los<span class="w"> </span>grupos<span class="w"> </span>X,<span class="w"> </span>Y<span class="w"> </span>o<span class="w"> </span>Z.
@@ -1885,7 +2471,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <li><p>El número es un sufijo aleatorio de dos cifras (01 a 99).</p></li>
 <li><p>Si no tenemos &lt;N&gt; creará por defecto 10 usuarios</p></li>
 </ul>
-</div><div aria-labelledby="tab-20-20-1" class="sphinx-tabs-panel" hidden="true" id="panel-20-20-1" name="20-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-29-29-1" class="sphinx-tabs-panel" hidden="true" id="panel-29-29-1" name="29-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$help</span>,
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$listar</span>,
 <span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="w"> </span><span class="nv">$borrar</span>,
@@ -1927,7 +2513,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;Miembros del grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> :&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">      </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ForEach-Object<span class="w"> </span><span class="o">{</span><span class="w"> </span>Write-Host<span class="w"> </span><span class="o">(</span><span class="nv">$_</span>.Name<span class="w"> </span>-split<span class="w"> </span><span class="s1">&#39;\\&#39;</span><span class="o">)[</span>-1<span class="o">]</span><span class="w"> </span><span class="o">}</span>
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
-<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$listar_miembros_grupo</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">    </span><span class="o">}</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
@@ -1945,7 +2531,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <span class="w">        </span><span class="o">}</span><span class="w">               </span>
 
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
-<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$listar_miembros_grupo</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
+<span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> no existe.&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">    </span><span class="o">}</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
@@ -1964,7 +2550,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <section id="crear-usuarios-grupos-ps1">
 <h2>crear_usuarios_grupos.ps1<a class="headerlink" href="#crear-usuarios-grupos-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-21-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-21-21-0" name="21-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-21-21-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-21-21-1" name="21-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-21-21-0" class="sphinx-tabs-panel" id="panel-21-21-0" name="21-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-30-30-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-30-30-0" name="30-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-30-30-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-30-30-1" name="30-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-30-30-0" class="sphinx-tabs-panel" id="panel-30-30-0" name="30-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>crear_usuarios_grupos.ps1</strong> que cree los siguientes grupos:</p>
 <ul class="simple">
 <li><p>GPWS01</p></li>
 <li><p>GPWS02</p></li>
@@ -1980,7 +2566,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 </li>
 </ol>
 <p>ayuda : $nombre_grupo='GPWS03' ;  Get-LocalGroup | Select-String -Pattern $nombre_grupo -Quiet</p>
-</div><div aria-labelledby="tab-21-21-1" class="sphinx-tabs-panel" hidden="true" id="panel-21-21-1" name="21-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-30-30-1" class="sphinx-tabs-panel" hidden="true" id="panel-30-30-1" name="30-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
 
 <span class="c1"># Bucle para crear los grupos GPWS01 a GPWS09</span>
 <span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-le<span class="w"> </span><span class="m">9</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span>
@@ -2003,7 +2589,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <section id="crear-usuarios-grupos-ps1-usuarios">
 <h2>crear_usuarios_grupos.ps1 (usuarios)<a class="headerlink" href="#crear-usuarios-grupos-ps1-usuarios" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-22-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-22-22-0" name="22-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-22-22-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-22-22-1" name="22-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-22-22-0" class="sphinx-tabs-panel" id="panel-22-22-0" name="22-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-31-31-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-31-31-0" name="31-0" role="tab" tabindex="0">crear_usuarios_grupos.ps1</button><button aria-controls="panel-31-31-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-31-31-1" name="31-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-31-31-0" class="sphinx-tabs-panel" id="panel-31-31-0" name="31-0" role="tabpanel" tabindex="0"><p>Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico</p>
 <ul class="simple">
 <li><p>GPWS01</p>
 <ul>
@@ -2063,7 +2649,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
   <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-22-22-1" class="sphinx-tabs-panel" hidden="true" id="panel-22-22-1" name="22-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
+</div><div aria-labelledby="tab-31-31-1" class="sphinx-tabs-panel" hidden="true" id="panel-31-31-1" name="31-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># crear_usuarios_grupos.ps1</span>
 
 <span class="nv">$nombre_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tunombre_gpws&quot;</span>
 
@@ -2129,7 +2715,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <section id="crear-usuarios-grupos-csv-ps1">
 <h2>crear_usuarios_grupos_csv.ps1<a class="headerlink" href="#crear-usuarios-grupos-csv-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-23-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-23-23-0" name="23-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-23-23-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-23-23-1" name="23-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-23-23-0" class="sphinx-tabs-panel" id="panel-23-23-0" name="23-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-32-32-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-32-32-0" name="32-0" role="tab" tabindex="0">crear_usuarios_grupos_csv.ps1</button><button aria-controls="panel-32-32-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-32-32-1" name="32-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-32-32-0" class="sphinx-tabs-panel" id="panel-32-32-0" name="32-0" role="tabpanel" tabindex="0"><p>Haz un script  llamado <strong>crear_usuarios_grupos_csv.ps1</strong>, que cree los usuarios que encontraras en  el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/master/source/so/windows/10_powershell/users.csv">users.csv</a>, tiene que cumplir las siguientes condiciones:</p>
 <ol class="arabic">
 <li><p>En el caso de que el grupo no exista, haz que lo cree y saque por pantalla:</p>
 <p><strong>El grupo $nombre_grupo no existe, se crea</strong></p>
@@ -2156,7 +2742,7 @@ Write-Host<span class="w"> </span><span class="s2">&quot;.\csv.ps1 -usuario usua
 <p><strong>El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada</strong></p>
 </li>
 </ol>
-</div><div aria-labelledby="tab-23-23-1" class="sphinx-tabs-panel" hidden="true" id="panel-23-23-1" name="23-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: crear_usuarios_grupos_csv.ps1</span>
+</div><div aria-labelledby="tab-32-32-1" class="sphinx-tabs-panel" hidden="true" id="panel-32-32-1" name="32-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: crear_usuarios_grupos_csv.ps1</span>
 
 <span class="c1"># Leer el archivo CSV</span>
 <span class="nv">$users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Import-Csv<span class="w"> </span>-Path<span class="w"> </span><span class="s2">&quot;users.csv&quot;</span>
@@ -2219,7 +2805,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="usuarios-ps1">
 <h2>usuarios.ps1<a class="headerlink" href="#usuarios-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-24-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-24-24-0" name="24-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-24-24-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-24-24-1" name="24-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-24-24-0" class="sphinx-tabs-panel" id="panel-24-24-0" name="24-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-33-33-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-33-33-0" name="33-0" role="tab" tabindex="0">usuarios.ps1</button><button aria-controls="panel-33-33-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-33-33-1" name="33-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-33-33-0" class="sphinx-tabs-panel" id="panel-33-33-0" name="33-0" role="tabpanel" tabindex="0"><p>Haz un script llamado <strong>usuarios.ps1</strong>, que implementa un menú para gestionar usuarios en el sistema. El script permite listar usuarios, crear y eliminar usuarios, y modificar el nombre de un usuario existente.</p>
 <p>Menú de Usuarios:</p>
 <ol class="arabic simple">
 <li><p>Listar usuarios</p></li>
@@ -2228,7 +2814,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li><p>Modificar usuario</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-24-24-1" class="sphinx-tabs-panel" hidden="true" id="panel-24-24-1" name="24-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: usuarios.ps1</span>
+</div><div aria-labelledby="tab-33-33-1" class="sphinx-tabs-panel" hidden="true" id="panel-33-33-1" name="33-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: usuarios.ps1</span>
 
 <span class="k">function</span><span class="w"> </span>Listar-Usuarios<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span>Write-Output<span class="w"> </span><span class="s2">&quot;Usuarios en el sistema:&quot;</span>
@@ -2295,7 +2881,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="grupos-ps1">
 <h2>grupos.ps1<a class="headerlink" href="#grupos-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-25-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-25-25-0" name="25-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-25-25-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-25-25-1" name="25-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-25-25-0" class="sphinx-tabs-panel" id="panel-25-25-0" name="25-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-34-34-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-34-34-0" name="34-0" role="tab" tabindex="0">grupos.ps1</button><button aria-controls="panel-34-34-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-34-34-1" name="34-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-34-34-0" class="sphinx-tabs-panel" id="panel-34-34-0" name="34-0" role="tabpanel" tabindex="0"><p>Haz el script <strong>grupos.ps1</strong>, que implementa un menú para gestionar grupos y sus miembros en PowerShell. El script permite listar grupos, ver miembros, crear y eliminar grupos, así como agregar y eliminar miembros de los grupos.</p>
 <p>Menú de Grupos:</p>
 <ol class="arabic simple">
 <li><p>Listar grupos</p></li>
@@ -2306,7 +2892,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li><p>Elimina miembro de un grupo (pide grupo y usuario)</p></li>
 <li><p>Salir</p></li>
 </ol>
-</div><div aria-labelledby="tab-25-25-1" class="sphinx-tabs-panel" hidden="true" id="panel-25-25-1" name="25-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: grupo.ps1</span>
+</div><div aria-labelledby="tab-34-34-1" class="sphinx-tabs-panel" hidden="true" id="panel-34-34-1" name="34-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Script: grupo.ps1</span>
 
 <span class="k">function</span><span class="w"> </span>Listar-Grupos<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span>Write-Output<span class="w"> </span><span class="s2">&quot;Grupos disponibles:&quot;</span>
@@ -2394,7 +2980,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="local-users-ps1">
 <h2>local_users.ps1<a class="headerlink" href="#local-users-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-26-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-26-26-0" name="26-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-26-26-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-26-26-1" name="26-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-26-26-0" class="sphinx-tabs-panel" id="panel-26-26-0" name="26-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-35-35-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-35-35-0" name="35-0" role="tab" tabindex="0">local_users.ps1</button><button aria-controls="panel-35-35-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-35-35-1" name="35-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-35-35-0" class="sphinx-tabs-panel" id="panel-35-35-0" name="35-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>local_users.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Si ejecutamos la ayuda:</p>
 <img alt="../../_images/local_users_01.png" src="../../_images/local_users_01.png" />
@@ -2427,7 +3013,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <img alt="../../_images/local_users_06.png" src="../../_images/local_users_06.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-26-26-1" class="sphinx-tabs-panel" hidden="true" id="panel-26-26-1" name="26-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-35-35-1" class="sphinx-tabs-panel" hidden="true" id="panel-35-35-1" name="35-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn0&quot;</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$nuevo_usuario</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$grupo</span>,<span class="w"> </span><span class="c1">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
@@ -2602,7 +3188,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <section id="ad-ps1">
 <h2>AD.ps1<a class="headerlink" href="#ad-ps1" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-27-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-27-27-0" name="27-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-27-27-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-27-27-1" name="27-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-27-27-0" class="sphinx-tabs-panel" id="panel-27-27-0" name="27-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-36-36-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-36-36-0" name="36-0" role="tab" tabindex="0">AD.ps1</button><button aria-controls="panel-36-36-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-36-36-1" name="36-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-36-36-0" class="sphinx-tabs-panel" id="panel-36-36-0" name="36-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>AD.ps1</strong>, que cumpla las siguientes condiciones</p>
 <ol class="arabic">
 <li><p>Instala el Active directory utiliza como nombre de dominio : <strong>tunombre.local</strong></p>
 <p>Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: <code class="docutils literal notranslate"><span class="pre">$dirAD=&quot;DC=tunombre,DC=local&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">$mail=&quot;&#64;tunombre.local&quot;</span></code></p>
@@ -2627,7 +3213,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <img alt="../../_images/AD_07.png" src="../../_images/AD_07.png" />
 </li>
 </ol>
-</div><div aria-labelledby="tab-27-27-1" class="sphinx-tabs-panel" hidden="true" id="panel-27-27-1" name="27-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
+</div><div aria-labelledby="tab-36-36-1" class="sphinx-tabs-panel" hidden="true" id="panel-36-36-1" name="36-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>param<span class="w"> </span><span class="o">(</span>
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;@lumn01234&quot;</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$nuevo_usuario</span>,
 <span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$grupo</span>,<span class="w"> </span><span class="c1">#cuando creamos un nuevo usuario lo metemos dentro de este grupo si existe si no lo creamos, tambien para añadir y quitar usuarios del grupo</span>
@@ -2847,6 +3433,86 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 </pre></div>
 </div>
 </div></div>
+<section id="administracion-remota">
+<h3>Administración remota<a class="headerlink" href="#administracion-remota" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="remoto-ps1">
+<h2>remoto.ps1<a class="headerlink" href="#remoto-ps1" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-37-37-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-37-37-0" name="37-0" role="tab" tabindex="0">remoto.ps1</button><button aria-controls="panel-37-37-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-37-37-1" name="37-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-37-37-0" class="sphinx-tabs-panel" id="panel-37-37-0" name="37-0" role="tabpanel" tabindex="0"><p>La administración remota es la razón de ser de PowerShell (de hecho su tecnología se llama <em>PowerShell Remoting</em>): ejecutar comandos en muchas máquinas a la vez sin tocar sus teclados. Es el equivalente Windows de lo que hicimos en GNU/Linux con <strong>rsync_usuarios.sh</strong> sobre ssh.</p>
+<p><strong>Este ejercicio necesita un laboratorio de máquinas virtuales</strong>, no se puede hacer en un único equipo:</p>
+<ul>
+<li><p>Tres clones enlazados de la &quot;MV Windows Server&quot;: <code class="docutils literal notranslate"><span class="pre">compute-0-0</span></code> (desde donde administramos) y los clientes <code class="docutils literal notranslate"><span class="pre">compute-0-1</span></code> y <code class="docutils literal notranslate"><span class="pre">compute-0-2</span></code>, en la misma red y que se resuelvan por nombre (o añade sus IPs a <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32\drivers\etc\hosts</span></code>).</p></li>
+<li><p>En <strong>cada cliente</strong>, habilita WinRM ejecutando como Administrador:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Enable-PSRemoting</span> <span class="n">-Force</span>
+</pre></div>
+</div>
+</li>
+<li><p>Como las máquinas no están en un dominio, en <strong>compute-0-0</strong> hay que declarar los clientes como confiables:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Item</span> <span class="n">WSMan</span><span class="p">:\</span><span class="n">localhost</span><span class="p">\</span><span class="n">Client</span><span class="p">\</span><span class="n">TrustedHosts</span> <span class="n">-Value</span> <span class="s2">&quot;compute-0-1,compute-0-2&quot;</span>
+</pre></div>
+</div>
+<p>(si el laboratorio ya está dentro del AD de los ejercicios anteriores, este paso no hace falta: la confianza la da el dominio)</p>
+</li>
+<li><p>Comprueba la conexión con <code class="docutils literal notranslate"><span class="pre">Test-WSMan</span> <span class="pre">compute-0-1</span></code>.</p></li>
+</ul>
+<p>Con el laboratorio funcionando, crea un script llamado <strong>remoto.ps1</strong> que reciba la lista de equipos como parámetro (por defecto los dos clientes) y:</p>
+<ul>
+<li><p>Con <code class="docutils literal notranslate"><span class="pre">-info</span></code> muestre de cada equipo su nombre, los GB libres en C: y el número de procesos.</p></li>
+<li><p>Con <code class="docutils literal notranslate"><span class="pre">-comando</span> <span class="pre">&quot;&lt;comando&gt;&quot;</span></code> ejecute ese comando en todos los equipos, mostrando de cuál es cada salida:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">.\</span><span class="n">remoto</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-info</span>
+<span class="p">===</span> <span class="n">compute</span><span class="p">-</span><span class="n">0</span><span class="p">-</span><span class="n">1</span> <span class="p">===</span>
+<span class="n">COMPUTE</span><span class="p">-</span><span class="n">0</span><span class="p">-</span><span class="n">1</span> <span class="p">:</span> <span class="n">12</span><span class="p">,</span><span class="n">3</span> <span class="n">GB</span> <span class="n">libres</span> <span class="n">en</span> <span class="n">C</span><span class="p">:,</span> <span class="n">87</span> <span class="n">procesos</span>
+<span class="p">===</span> <span class="n">compute</span><span class="p">-</span><span class="n">0</span><span class="p">-</span><span class="n">2</span> <span class="p">===</span>
+<span class="n">COMPUTE</span><span class="p">-</span><span class="n">0</span><span class="p">-</span><span class="n">2</span> <span class="p">:</span> <span class="n">11</span><span class="p">,</span><span class="n">8</span> <span class="n">GB</span> <span class="n">libres</span> <span class="n">en</span> <span class="n">C</span><span class="p">:,</span> <span class="n">92</span> <span class="n">procesos</span>
+
+<span class="p">.\</span><span class="n">remoto</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-comando</span> <span class="s2">&quot;Get-LocalUser | Select-Object Name&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Consejos:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Get-Credential</span></code> pide las credenciales una sola vez y se reutilizan para todos los equipos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Invoke-Command</span> <span class="pre">-ComputerName</span> <span class="pre">&lt;equipo&gt;</span> <span class="pre">-Credential</span> <span class="pre">$credencial</span> <span class="pre">-ScriptBlock</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span></code> ejecuta el bloque en la máquina remota: todo lo que hay dentro de las llaves corre allí, no en tu equipo.</p></li>
+<li><p>Para convertir el texto de <code class="docutils literal notranslate"><span class="pre">-comando</span></code> en código ejecutable: <code class="docutils literal notranslate"><span class="pre">[scriptblock]::Create($comando)</span></code>.</p></li>
+<li><p>Cuando funcione, piensa en las posibilidades: el script <strong>crear_usuarios_grupos_csv.ps1</strong> ejecutado en 20 equipos a la vez es un <code class="docutils literal notranslate"><span class="pre">foreach</span></code> de distancia.</p></li>
+</ul>
+</div><div aria-labelledby="tab-37-37-1" class="sphinx-tabs-panel" hidden="true" id="panel-37-37-1" name="37-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># remoto.ps1</span>
+<span class="c1"># Necesita el laboratorio de VMs con WinRM habilitado, ver el enunciado</span>
+
+param<span class="w"> </span><span class="o">(</span>
+<span class="w">    </span><span class="o">[</span>string<span class="o">[]]</span><span class="nv">$equipos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;compute-0-1&quot;</span>,<span class="w"> </span><span class="s2">&quot;compute-0-2&quot;</span><span class="o">)</span>,
+<span class="w">    </span><span class="o">[</span>switch<span class="o">]</span><span class="nv">$info</span>,
+<span class="w">    </span><span class="o">[</span>string<span class="o">]</span><span class="nv">$comando</span>
+<span class="o">)</span>
+
+<span class="c1"># pide la contraseña una sola vez para todos los equipos</span>
+<span class="nv">$credencial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-Credential<span class="w"> </span>-UserName<span class="w"> </span><span class="s2">&quot;Administrador&quot;</span><span class="w"> </span>-Message<span class="w"> </span><span class="s2">&quot;Credenciales del administrador remoto&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$info</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>foreach<span class="w"> </span><span class="o">(</span><span class="nv">$equipo</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$equipos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$equipo</span><span class="s2"> ===&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span>Invoke-Command<span class="w"> </span>-ComputerName<span class="w"> </span><span class="nv">$equipo</span><span class="w"> </span>-Credential<span class="w"> </span><span class="nv">$credencial</span><span class="w"> </span>-ScriptBlock<span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;{0} : {1} GB libres en C:, {2} procesos&quot;</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$env</span>:COMPUTERNAME,
+<span class="w">                </span><span class="o">[</span>math<span class="o">]</span>::Round<span class="o">((</span>Get-PSDrive<span class="w"> </span>-Name<span class="w"> </span>C<span class="o">)</span>.Free/1GB,<span class="w"> </span><span class="m">1</span><span class="o">)</span>,
+<span class="w">                </span><span class="o">(</span>Get-Process<span class="o">)</span>.Count
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$comando</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>foreach<span class="w"> </span><span class="o">(</span><span class="nv">$equipo</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$equipos</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$equipo</span><span class="s2"> ===&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span><span class="c1"># convertimos el texto recibido en un bloque de código ejecutable</span>
+<span class="w">        </span>Invoke-Command<span class="w"> </span>-ComputerName<span class="w"> </span><span class="nv">$equipo</span><span class="w"> </span>-Credential<span class="w"> </span><span class="nv">$credencial</span><span class="w"> </span><span class="sb">`</span>
+<span class="w">            </span>-ScriptBlock<span class="w"> </span><span class="o">([</span>scriptblock<span class="o">]</span>::Create<span class="o">(</span><span class="nv">$comando</span><span class="o">))</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div></div>
 </section>
 </section>
 
@@ -2909,14 +3575,23 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#puerta-ps1">puerta.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#puerta2-ps1">puerta2.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuario-ps1">usuario.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerta-disco-ps1">alerta_disco.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#servicios-ps1">servicios.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#barrido-red-ps1">barrido_red.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monedas-ps1">monedas.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-ps1">rnd.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piedra-papel-tijera-ps1">piedra_papel_tijera.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dados-ps1">dados.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-ps1">analisis.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-ps1">meteo.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tragaperras-ps1">tragaperras.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-ps1">duplicados.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-ps1">csv.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-ps1">notas.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#procesos-ps1">procesos.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backup-ps1">backup.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eventos-ps1">eventos.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-ps1">informe.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-g00-ps1">usuarios_G00.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1">crear_usuarios_grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-usuarios-grupos-ps1-usuarios">crear_usuarios_grupos.ps1 (usuarios)</a></li>
@@ -2924,7 +3599,11 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-ps1">usuarios.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-ps1">grupos.ps1</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-users-ps1">local_users.ps1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ad-ps1">AD.ps1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ad-ps1">AD.ps1</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#remoto-ps1">remoto.ps1</a></li>
 </ul>
   </nav></div>
 

@@ -1,4 +1,4 @@
-# mult_param.ps1
+# impar_param.ps1
 
 param (
     [Parameter(Mandatory=$true, HelpMessage="Dame un número")]

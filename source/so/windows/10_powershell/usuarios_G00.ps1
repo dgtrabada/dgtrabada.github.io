@@ -40,7 +40,7 @@ function Listar_Usuarios {
       Write-Host "Miembros del grupo $($Grupos[$i]) :" -ForegroundColor Green
       Get-LocalGroupMember -Group $Grupos[$i] | ForEach-Object { Write-Host ($_.Name -split '\\')[-1] }
     } else {
-      Write-Host "El grupo $listar_miembros_grupo no existe." -ForegroundColor Red
+      Write-Host "El grupo $($Grupos[$i]) no existe." -ForegroundColor Red
     }
   }
 }
@@ -58,7 +58,7 @@ function Borrar_Usuarios {
         }               
 
     } else {
-      Write-Host "El grupo $listar_miembros_grupo no existe." -ForegroundColor Red
+      Write-Host "El grupo $($Grupos[$i]) no existe." -ForegroundColor Red
     }
   }
 }

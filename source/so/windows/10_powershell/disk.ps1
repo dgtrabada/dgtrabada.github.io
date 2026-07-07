@@ -7,5 +7,5 @@ $disk = Get-PSDrive -Name C
 $porcentaje = ($disk.Used / ($disk.Used + $disk.Free)) * 100
 
 # Mostrar el porcentaje de espacio usado
-Write-Output ("C: ocapada al {0:N2}%" -f $porcentaje)
+Write-Output ("C: ocupada al {0:N2}%" -f $porcentaje)
 

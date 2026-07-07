@@ -4,7 +4,7 @@ param (
 )
 
 $OpcionCPU  = "piedra", "papel", "tijeras" | Get-Random
-$OpcionUsuario=$Opcion_usuario.ToLower() 
+$OpcionUsuario=$OpcionUsuario.ToLower() 
 Write-Output "CPU: $OpcionCPU "
 Write-Output "Usuario : $OpcionUsuario"
 

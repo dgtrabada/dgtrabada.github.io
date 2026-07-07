@@ -1,4 +1,4 @@
-# mac.ps1
+# mac2.ps1
 
 # Obtener todos los adaptadores de red en el sistema
 $networkAdapters = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' }
