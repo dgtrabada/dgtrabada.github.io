@@ -1,6 +1,6 @@
-****************
-Gestión arranque
-****************
+********************
+Gestión del arranque
+********************
 
 
 Un gestor de arranque, como su nombre indica, es un programa que se carga al inicio del ordenador, antes del sistema operativo, y que nos permite elegir el sistema operativo que queremos cargar.
@@ -26,6 +26,22 @@ Y si queremos una forma más rápida y sencilla de editar el BCD de Windows, el 
 
 .. image:: imagenes/easyBCD.png
 
+También podemos ver y editar el BCD desde la línea de comandos con ``bcdedit``:
+
+.. code-block:: shell
+
+ bcdedit                # muestra las entradas del arranque
+ bcdedit /timeout 5     # segundos de espera del menú
+ bcdedit /default {ID}  # sistema operativo por defecto
+
+Si el arranque de Windows se estropea (por ejemplo, al borrar la partición de Linux), podemos repararlo arrancando desde un USB de instalación de Windows, en Reparar el equipo > Símbolo del sistema:
+
+.. code-block:: shell
+
+ bootrec /fixmbr       # repara el MBR
+ bootrec /fixboot      # repara el sector de arranque
+ bootrec /rebuildbcd   # busca los Windows instalados y regenera el BCD
+
 Gestores de arranque de Linux
 =============================
 
@@ -41,15 +57,38 @@ De todas formas, si en cualquier momento instalamos un nuevo sistema operativo (
 
 .. code-block:: bash
 
- sudo update-grub2
+ sudo update-grub    # en algunas distribuciones también existe el alias update-grub2
 
-En el caso de usar LILO, la configuración se debe llevar a cabo manualmente desde el fichero /etc/lilo.conf.
+La configuración de GRUB se encuentra en el fichero /etc/default/grub, donde podemos cambiar, entre otras cosas, la entrada por defecto y el tiempo de espera del menú:
+
+.. code-block:: bash
+
+ GRUB_DEFAULT=0    # entrada del menú que arranca por defecto
+ GRUB_TIMEOUT=5    # segundos de espera
+
+Después de modificarlo hay que ejecutar ``sudo update-grub`` para regenerar la configuración.
+
+Si GRUB desaparece (por ejemplo, después de reinstalar Windows, que sobrescribe el arranque), podemos recuperarlo arrancando con un live USB de Linux y reinstalándolo con ``grub-install``, o con la herramienta gráfica Boot-Repair, que automatiza todo el proceso.
 
 En caso de que tengamos solo Windows y queramos usar este gestor de arranque, vamos a poder usar el software Grub2Win para instalar fácilmente este gestor desde Windows.
 
 Además, este programa cuenta con una sencilla interfaz gráfica que nos va a permitir configurar y personalizar la apariencia de GRUB, pudiendo tener todos los sistemas operativos que queramos para elegir cuál arrancar en cada boot.
 
-Lilo, para los que no les gusta GRUB
-====================================
+Problemas típicos del arranque dual
+===================================
 
-Aunque GRUB es el gestor de arranque más utilizado en sistemas Linux, tiene un rival que ocupa el segundo lugar y tiene un importante número de usuarios fieles a él: LILO. Acrónimo de Linux Loader, este software nos permite configurar hasta 16 sistemas operativos diferentes para elegir cuál queremos arrancar cuando encendemos el ordenador. Este gestor de arranque es compatible con sistemas de 32 bits y de 64 bits, puede arrancar discos duros internos o externos e incluso se puede instalar en el MBR del ordenador.
+* **Secure Boot**: es una medida de seguridad del firmware que solo permite arrancar gestores firmados digitalmente. Las distribuciones grandes (Ubuntu, Fedora...) están firmadas y arrancan sin problema, pero con otras puede ser necesario desactivarlo en la configuración del equipo.
+
+* **Inicio rápido de Windows**: cuando está activado, Windows no se apaga del todo (hiberna parte del sistema) y deja sus particiones bloqueadas, por lo que desde Linux no podremos montarlas. Se desactiva en Panel de control > Opciones de energía.
+
+LILO y otras alternativas
+=========================
+
+LILO (Linux Loader) fue durante muchos años el segundo gestor de arranque más utilizado en Linux, por detrás de GRUB. Permitía configurar hasta 16 sistemas operativos, y su configuración se hacía manualmente en el fichero /etc/lilo.conf. Su desarrollo terminó en 2015, así que hoy solo lo encontraremos en sistemas antiguos.
+
+Actualmente existen otras alternativas a GRUB, como **systemd-boot** (utilizado por ejemplo por Pop!_OS) o **rEFInd**, con una interfaz gráfica muy personalizable.
+
+.. toctree::
+   :hidden:
+
+   cuestionario_gestion_arranque.rst

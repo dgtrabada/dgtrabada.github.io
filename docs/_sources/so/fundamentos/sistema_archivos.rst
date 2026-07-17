@@ -187,3 +187,8 @@ Los directorios son una división lógica de almacenamiento de archivos u otros 
 * Eliminar
 * Listar archivos y carpetas
 * Entrar y salir
+
+.. toctree::
+   :hidden:
+
+   cuestionario_gestion_archivos.rst
