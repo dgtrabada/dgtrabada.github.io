@@ -86,3 +86,9 @@ Ejemplos:
    :math:`128 GB \times \frac{10^3 MB}{GB} = 128000\  MB`
   
    :math:`\frac{128000 MB}{8 MB} = 16000\  canciones`
+
+.. toctree::
+   :hidden:
+
+   potencias.rst
+   cuestionario_medida_informacion.rst

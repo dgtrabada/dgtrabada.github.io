@@ -14,7 +14,7 @@ La jerarquía de memoria es la organización piramidal de la memoria en niveles,
 La memoria principal
 ====================
 
-La memoria principal se compone por el cache y la memoria RAM
+La memoria principal es la memoria RAM; entre la CPU y ella se sitúa la memoria caché, un nivel más rápido y pequeño de la jerarquía.
 
 En un principio se adoptaron dos formas de hacer las particiones fijas o dinámicas, las fijas se creaban cuando arrancaba el ordenador, en el caso de que quisiéramos correr un proceso más grande que el tamaño de las particiones tendríamos que reiniciar el ordenador, y como podemos ver en la siguiente figura las particiones fijas favorecen la fragmentación interna, la cual es debida a los procesos de tamaño más pequeño que las particiones.
 
@@ -38,7 +38,7 @@ Es lógico pensar que no todas las partes del programa van a ser utilizadas al m
 La transformación del número de página virtual al número de página física se realiza mediante la tabla de páginas.
 
 Uno de los sistemas más comunes de memoria virtual es la denominada demanda de página. Los procesos se inician sin ninguna página en memoria; cuando se intenta ejecutar la primera instrucción se produce un fallo de página (por no encontrarse la página en memoria principal), que provoca que el sistema operativo traiga la página de la memoria virtual a la memoria principal después de un cierto tiempo el proceso tiene la mayoría de las páginas que necesita, y la ejecución se realizará con un número relativamente pequeño de fallos de página.
-Cuando se produce un fallo de página, la página se carga desde el disco duro a la memoria. La página que entra en memoria, se escribe directamente encima de la que hay en memoria. Aquí es donde debe actuar el algoritmo, FIFO: primero en entrar, primero en salir , LRU: la menos usada recientemente (Least Recently Used), etc ...
+Cuando se produce un fallo de página, la página se carga desde el disco duro a la memoria. La página que entra en memoria, se escribe directamente encima de la que hay en memoria. Aquí es donde debe actuar el algoritmo, FIFO: primero en entrar, primero en salir; LRU (Least Recently Used): la que hace más tiempo que no se usa, etc ...
 
 Planificación del disco
 =======================
@@ -92,5 +92,10 @@ Veamos el siguiente ejemplo
   De esta forma evita el problema anterior de SCAN. Siguiendo con la analogía del ascensor, equivale a que el ascensor solo hiciera paradas cuando suba, de forma que cuando esté arriba baje hasta abajo sin realizar paradas, y desde abajo, vuelva a subir realizando las nuevas paradas.
 
   .. image:: imagenes/cscan_datos.png
-  
+
   .. image:: imagenes/cscan.png
+
+.. toctree::
+   :hidden:
+
+   cuestionario_gestion_memoria.rst

@@ -166,3 +166,8 @@ Bloqueos
 Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos, Cinco filósofos se sientan a comer arroz, para ello necesitan dos palillos, en total solo hay 5 palillos, así que mientras unos comen otros piensan y hablan, el interbloqueo aparece cuando todos quieren comer a la vez y toman un palillo a su izquierda, cuando van a por el palillo de la derecha se quedan esperando interbloqueados.
 
 .. image:: imagenes/plato.png
+
+.. toctree::
+   :hidden:
+
+   cuestionario_gestion_procesos.rst

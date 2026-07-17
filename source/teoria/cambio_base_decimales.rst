@@ -136,3 +136,8 @@ Hexadecimal
 
 
 Otra forma de hacerlo en base hexadecimal es teniendo en cuenta que A+A=14, A+B=15...
+
+.. toctree::
+   :hidden:
+
+   cuestionario_cambio_base_decimales.rst

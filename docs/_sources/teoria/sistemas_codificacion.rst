@@ -100,3 +100,8 @@ UTF-8
 4 bytes → Símbolos matemáticos, alfabetos clásicos → 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 
 Estos son algunos ejemplos, entre otros como la codificación BCD, EBCDIC, Biquinaria, IEEE 754 de 64bits, Fieldata, EBCDIC, etc ....
+
+.. toctree::
+   :hidden:
+
+   cuestionario_sistemas_codificacion.rst

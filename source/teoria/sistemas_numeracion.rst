@@ -213,3 +213,8 @@ Resumen
 ^^^^^^^
 
 .. image:: imagenes/resumen.png
+
+.. toctree::
+   :hidden:
+
+   cuestionario_representacion_informacion_1.rst
