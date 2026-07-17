@@ -32,7 +32,7 @@ Veamos el siguiente programa:
  int main() {
      int c,d,n=10;
      bool es_primo=false;
-     c=0;
+     c=1;
      while (c < n) {
          c++;
          es_primo=true;
@@ -55,11 +55,11 @@ Lo compilamos y ejecutamos de la siguiente forma:
 
 .. code-block:: bash
 
- $ gcc primos.c 
- $ ./a.out 
- 1 2 3 5 7
- 
-Si ahora cambiamos la sentencia **sleep(100)** para que tarde un poco más y lo ejecutamos en el background varias veces, observamos:
+ $ gcc primos.c
+ $ ./a.out
+ 2 3 5 7
+
+Si ahora cambiamos la sentencia **sleep(1)** por **sleep(100)** para que tarde un poco más y lo ejecutamos en el background varias veces, observamos:
 
 
 .. code-block:: bash
@@ -111,10 +111,16 @@ Para matarlo no es necesario pasarlo al plano principal podemos hacerlo con kill
 
 Como podemos ver proceso es un programa que está en ejecución. Los procesos pueden estar en alguno de los siguientes estados:
 
+* **Nuevo**: el proceso se está creando.
+* **Listo**: preparado para ejecutarse, esperando a que se le asigne la CPU.
+* **En ejecución**: sus instrucciones se están ejecutando en la CPU.
+* **Bloqueado**: esperando a que ocurra un suceso (por ejemplo, que termine una operación de E/S).
+* **Terminado**: ha finalizado su ejecución.
+
 .. image:: imagenes/estado_procesos.png
   :width: 400
 
-El sistema operativo mantiene para cada proceso un bloque de control o (PCB) proces control block, donde guarda para cada proceso la información necesaria para reactivarlo si es suspendido, cuando el sistema operativo entrega a la CPU un número, tiene que guardar el estado del proceso que estaba ejecutando y cargar el nuevo proceso, esto es un cambio de contexto, hay algunas CPUs que tienen varios juegos de registros, de manera que se hace simultáneamente cambiando el puntero al actual juego de registros. El problema es que si hay más procesos que conjunto de registros es posible que tengamos que apoyarnos en la memoria, es decir el cambio de contexto es una operación costosa.
+El sistema operativo mantiene para cada proceso un bloque de control o PCB (process control block), donde guarda para cada proceso la información necesaria para reactivarlo si es suspendido, cuando el sistema operativo entrega la CPU a un nuevo proceso, tiene que guardar el estado del proceso que estaba ejecutando y cargar el nuevo proceso, esto es un cambio de contexto, hay algunas CPUs que tienen varios juegos de registros, de manera que se hace simultáneamente cambiando el puntero al actual juego de registros. El problema es que si hay más procesos que conjunto de registros es posible que tengamos que apoyarnos en la memoria, es decir el cambio de contexto es una operación costosa.
 
 Una forma de disminuir el coste de los cambios de contexto es utilizando threads o hilos. Los hilos de un mismo proceso comparten el mismo espacio de direccionamiento, así como también los recursos abiertos y la información del proceso (PCB) gracias a esto consiguen que su creación y el cambio de contexto sea mucho más barato.
 
@@ -127,7 +133,7 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
 * **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bloqueado.
 
-* **SJN** (Shortest-job-next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
+* **SJF** (Shortest Job First, también llamado SJN, Shortest Job Next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
   El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.
   
   Ejemplo : (2,4,8)
@@ -163,7 +169,9 @@ Plantilla para ejercicios
 Bloqueos
 ========
 
-Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos, Cinco filósofos se sientan a comer arroz, para ello necesitan dos palillos, en total solo hay 5 palillos, así que mientras unos comen otros piensan y hablan, el interbloqueo aparece cuando todos quieren comer a la vez y toman un palillo a su izquierda, cuando van a por el palillo de la derecha se quedan esperando interbloqueados.
+Un **interbloqueo** (deadlock) se produce cuando un conjunto de procesos queda bloqueado permanentemente porque cada uno espera un recurso que tiene otro proceso del conjunto.
+
+Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos: cinco filósofos se sientan a comer arroz, para ello necesitan dos palillos, en total solo hay 5 palillos, así que mientras unos comen otros piensan y hablan, el interbloqueo aparece cuando todos quieren comer a la vez y toman un palillo a su izquierda, cuando van a por el palillo de la derecha se quedan esperando interbloqueados.
 
 .. image:: imagenes/plato.png
 

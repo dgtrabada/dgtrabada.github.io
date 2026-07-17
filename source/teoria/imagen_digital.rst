@@ -52,7 +52,7 @@ La calidad de una imagen está directamente relacionada con la resolución que t
 .. image:: imagenes/resolucion.png
 
 |  **SD** 	Standard Definition 	640 x 480
-|  **QHD** 	Quarter of High Definition 	960 x 540
+|  **qHD** 	Quarter High Definition 	960 x 540
 |  **HD** 	High Definition 	1.280 x 720
 |  **FHD** 	Full HD 	1.920 x 1.080
 |  **QHD** 	Quad High Definition 	2.560 x 1.440
@@ -77,7 +77,7 @@ Los principales formatos de mapas de bits o bitmap son los siguientes:
 
 * **XCF**: Formato nativo de GIMP. Permite almacenar las imágenes con capas y modificarlas posteriormente. Extensión: *.xcf
 
-* **PICT**: Es el formato característico de la plataforma MAC. Permite ser comprimido sin perder calidad de imagen. Extensión: *.pic
+* **PICT**: Formato antiguo de la plataforma MAC, hoy en desuso. Permite ser comprimido sin perder calidad de imagen. Extensión: *.pic
 
 * **JPG**: Es el formato más utilizado en las páginas de Internet para la reproducción de fotografías. Permite comprimir las imágenes pero produce pérdidas de calidad. Extensión: *.jpg
 
@@ -86,6 +86,12 @@ Los principales formatos de mapas de bits o bitmap son los siguientes:
 * **PNG**: Tiene las ventajas de los formatos GIF y JPG. Comienza a ser muy utilizado en Internet por su gran capacidad de compresión sin pérdida y por tener la posibilidad de manejar transparencia. Extensión: *.png
 
 * **PSD**: Formato nativo de Photoshop que permite guardar todas las presentaciones, retoques y nuevas creaciones realizadas con este programa. Extensión: *.psd
+
+* **WEBP**: Formato desarrollado por Google para la web, con compresión con y sin pérdida, transparencia y animación. Consigue archivos más pequeños que JPG y PNG. Extensión: *.webp
+
+* **HEIC**: Formato utilizado por Apple en iOS y macOS, con mayor compresión que JPG a igual calidad. Extensión: *.heic
+
+* **AVIF**: Formato libre basado en el códec de vídeo AV1, con una compresión aún mayor que WEBP. Extensión: *.avif
 
 Vectorial
 ---------
@@ -97,7 +103,7 @@ Los principales formatos de las imágenes vectoriales son los siguientes:
 
 * **WMF**: Formato de archivo vectorial de la plataforma Windows. Es el formato que mejor se adapta a los distintos programas de dibujo. Extensión: *.wmf
 
-* **SWF**: Imágenes vectoriales para animación web. Extensión: *.swf
+* **SWF**: Imágenes vectoriales para animación web de Adobe Flash; hoy obsoleto, ya que Flash dejó de tener soporte en 2020. Extensión: *.swf
 
 * **EPS**: Formato utilizado habitualmente para exportar imágenes de mapa de bits con trazados vectoriales. Extensión: *.eps
 

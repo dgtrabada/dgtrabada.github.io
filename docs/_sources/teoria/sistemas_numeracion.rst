@@ -63,7 +63,7 @@ Conversión de base N a decimal
    :nowrap:
 
    \begin{eqnarray}
-   TFM: N_{10} = \sum_{i=m}^{n}(digito)base^i 
+   TFN: N_{10} = \sum_{i=m}^{n}(digito)base^i
    \end{eqnarray}
 
 Ejemplo:
@@ -118,7 +118,7 @@ Ejemplo de **base decimal a base hexadecimal** 61 :sub:`10) → 16)`
 Base N a base M ≠ N ≠ 10
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. (TFM) pasamos a base M → base 10
+1. (TFN) pasamos a base M → base 10
 2. De base 10 a base N
 
 

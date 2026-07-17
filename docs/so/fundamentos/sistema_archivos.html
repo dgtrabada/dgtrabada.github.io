@@ -498,6 +498,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fat-file-allocation-table">FAT (File Allocation Table)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-sistema-i-nodos-ls-i-ext">El Sistema I-NODOS (ls -i) (ext)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntfs">NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sistemas-transaccionales">Journaling (sistemas transaccionales)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tamano-bloque">Tamaño Bloque</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-sistemas-de-archivos">Tipos de sistemas de archivos</a></li>
 </ul>
@@ -536,7 +537,7 @@
 <div class="line">A : [5] -&gt; [4] -&gt; [2]</div>
 <div class="line">B : [3] -&gt; [7]</div>
 </div>
-<p>En un disco duro 160 GB con bloques de 16KB tendríamos 160*230 / 16*210= 10*220 bloques en FAT32, si cada entrada ocupa 32bit (4B) es decir que la tabla tendría 40 MB</p>
+<p>En un disco duro de 160 GB con bloques de 16KB tendríamos 160×2³⁰ / 16×2¹⁰ = 10×2²⁰ bloques en FAT32, si cada entrada ocupa 32bit (4B) es decir que la tabla tendría 40 MB</p>
 </section>
 <section id="el-sistema-i-nodos-ls-i-ext">
 <h2>El Sistema I-NODOS (ls -i) (ext)<a class="headerlink" href="#el-sistema-i-nodos-ls-i-ext" title="Link to this heading">#</a></h2>
@@ -556,6 +557,11 @@
 <p>NTFS se divide en 4 zonas</p>
 <a class="reference internal image-reference" href="../../_images/ntfs.png"><img alt="../../_images/ntfs.png" src="../../_images/ntfs.png" width="500" />
 </a>
+</section>
+<section id="journaling-sistemas-transaccionales">
+<h2>Journaling (sistemas transaccionales)<a class="headerlink" href="#journaling-sistemas-transaccionales" title="Link to this heading">#</a></h2>
+<p>Los sistemas de archivos transaccionales o con journaling (NTFS, EXT3, EXT4...) mantienen un diario (journal) donde anotan los cambios que van a realizar antes de escribirlos definitivamente en el disco. Si el equipo se apaga de golpe a mitad de una escritura, al arrancar solo hay que revisar el diario para dejar el sistema de archivos en un estado consistente, en lugar de comprobar todo el disco (como hacía chkdsk/scandisk con FAT).</p>
+<p>Por eso, para el disco del sistema siempre elegiremos un sistema de archivos con journaling; FAT32, que no lo tiene, queda para pendrives y tarjetas de memoria, donde prima la compatibilidad.</p>
 </section>
 <section id="tamano-bloque">
 <h2>Tamaño Bloque<a class="headerlink" href="#tamano-bloque" title="Link to this heading">#</a></h2>
@@ -677,17 +683,20 @@ Usuarios</p></th>
 <li><p>PSD: proyecto de Adobe Photoshop.</p></li>
 <li><p>HEIC: formato de imagen utilizado por Apple en macOS y iOS.</p></li>
 <li><p>NEF/CRW: formato de imagen RAW, en bruto, utilizado por cámaras Nikon y Canon.</p></li>
-<li><p>AI: proyecto de Adobe Ilustrator.</p></li>
-<li><p>ID: proyecto de InDesign de Adobe.
-Extensiones de archivos comprimidos</p></li>
+<li><p>AI: proyecto de Adobe Illustrator.</p></li>
+<li><p>ID: proyecto de InDesign de Adobe.</p></li>
+</ul>
+</li>
+<li><p>Extensiones de archivos comprimidos</p>
+<ul>
 <li><p>ZIP: formato desarrollado por WinZIP.</p></li>
 <li><p>RAR: formato de compresión desarrollado por WinRAR más eficiente que el ZIP.</p></li>
-<li><p>RAR5: versión renovada de RAR con mejoras de seguridad y recuperación de datos.
-* 7Z: formato libre desarrollado por el creador de 7-Zip.
-* ACE: archivo comprimido con WinACE.
-* R00, R01, etc: archivo WinRAR dividido en partes.
-* GZ: archivo comprimido en GZIP, muy frecuente en Linux.
-* tar.bz2: otro formato de archivo comprimido de Linux.</p></li>
+<li><p>RAR5: versión renovada de RAR con mejoras de seguridad y recuperación de datos.</p></li>
+<li><p>7Z: formato libre desarrollado por el creador de 7-Zip.</p></li>
+<li><p>ACE: archivo comprimido con WinACE.</p></li>
+<li><p>R00, R01, etc: archivo WinRAR dividido en partes.</p></li>
+<li><p>GZ: archivo comprimido en GZIP, muy frecuente en Linux.</p></li>
+<li><p>tar.bz2: otro formato de archivo comprimido de Linux.</p></li>
 </ul>
 </li>
 </ul>
@@ -758,6 +767,7 @@ Extensiones de archivos comprimidos</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fat-file-allocation-table">FAT (File Allocation Table)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-sistema-i-nodos-ls-i-ext">El Sistema I-NODOS (ls -i) (ext)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ntfs">NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sistemas-transaccionales">Journaling (sistemas transaccionales)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tamano-bloque">Tamaño Bloque</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-sistemas-de-archivos">Tipos de sistemas de archivos</a></li>
 </ul>

@@ -39,7 +39,7 @@ En esta tabla podemos ver 2 archivos:
 | A : [5] -> [4] -> [2]
 | B : [3] -> [7]
 
-En un disco duro 160 GB con bloques de 16KB tendríamos 160*230 / 16*210= 10*220 bloques en FAT32, si cada entrada ocupa 32bit (4B) es decir que la tabla tendría 40 MB
+En un disco duro de 160 GB con bloques de 16KB tendríamos 160×2³⁰ / 16×2¹⁰ = 10×2²⁰ bloques en FAT32, si cada entrada ocupa 32bit (4B) es decir que la tabla tendría 40 MB
 
 El Sistema I-NODOS (ls -i) (ext)
 ================================
@@ -72,7 +72,14 @@ NTFS se divide en 4 zonas
 
 .. image:: imagenes/ntfs.png
   :width: 500
-  
+
+Journaling (sistemas transaccionales)
+=====================================
+
+Los sistemas de archivos transaccionales o con journaling (NTFS, EXT3, EXT4...) mantienen un diario (journal) donde anotan los cambios que van a realizar antes de escribirlos definitivamente en el disco. Si el equipo se apaga de golpe a mitad de una escritura, al arrancar solo hay que revisar el diario para dejar el sistema de archivos en un estado consistente, en lugar de comprobar todo el disco (como hacía chkdsk/scandisk con FAT).
+
+Por eso, para el disco del sistema siempre elegiremos un sistema de archivos con journaling; FAT32, que no lo tiene, queda para pendrives y tarjetas de memoria, donde prima la compatibilidad.
+
 Tamaño Bloque
 =============
 
@@ -164,17 +171,19 @@ Los archivos suelen estar formados por el nombre y la extensión, la extensión 
   * PSD: proyecto de Adobe Photoshop.
   * HEIC: formato de imagen utilizado por Apple en macOS y iOS.
   * NEF/CRW: formato de imagen RAW, en bruto, utilizado por cámaras Nikon y Canon.
-  * AI: proyecto de Adobe Ilustrator.
+  * AI: proyecto de Adobe Illustrator.
   * ID: proyecto de InDesign de Adobe.
-    Extensiones de archivos comprimidos
+
+* Extensiones de archivos comprimidos
+
   * ZIP: formato desarrollado por WinZIP.
   * RAR: formato de compresión desarrollado por WinRAR más eficiente que el ZIP.
   * RAR5: versión renovada de RAR con mejoras de seguridad y recuperación de datos.
-    * 7Z: formato libre desarrollado por el creador de 7-Zip.
-    * ACE: archivo comprimido con WinACE.
-    * R00, R01, etc: archivo WinRAR dividido en partes.
-    * GZ: archivo comprimido en GZIP, muy frecuente en Linux.
-    * tar.bz2: otro formato de archivo comprimido de Linux.
+  * 7Z: formato libre desarrollado por el creador de 7-Zip.
+  * ACE: archivo comprimido con WinACE.
+  * R00, R01, etc: archivo WinRAR dividido en partes.
+  * GZ: archivo comprimido en GZIP, muy frecuente en Linux.
+  * tar.bz2: otro formato de archivo comprimido de Linux.
 
 Junto con el nombre del archivo, el sistema operativo almacena también unos atributos que califican al archivo. Entre otros pueden ser la hora y fecha de creación o su última modificación, su propietario, si es oculto, si pertenece al sistema, el tamaño, si está cifrado, si es solo para lectura, escritura o ejecución, si es un enlace simbólico, etc
 

@@ -535,7 +535,7 @@
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
-<span class="w">    </span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">c</span><span class="o">++</span><span class="p">;</span>
 <span class="w">        </span><span class="n">es_primo</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
@@ -558,10 +558,10 @@
 <p>Lo compilamos y ejecutamos de la siguiente forma:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>primos.c
 $<span class="w"> </span>./a.out
-<span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span>
+<span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">7</span>
 </pre></div>
 </div>
-<p>Si ahora cambiamos la sentencia <strong>sleep(100)</strong> para que tarde un poco más y lo ejecutamos en el background varias veces, observamos:</p>
+<p>Si ahora cambiamos la sentencia <strong>sleep(1)</strong> por <strong>sleep(100)</strong> para que tarde un poco más y lo ejecutamos en el background varias veces, observamos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gcc<span class="w"> </span>primos.c<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>./a.out<span class="w"> </span><span class="p">&amp;</span>
 <span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">8310</span>
 ./a.out<span class="w"> </span><span class="p">&amp;</span>
@@ -602,9 +602,16 @@ $<span class="w"> </span><span class="nb">jobs</span>
 </pre></div>
 </div>
 <p>Como podemos ver proceso es un programa que está en ejecución. Los procesos pueden estar en alguno de los siguientes estados:</p>
+<ul class="simple">
+<li><p><strong>Nuevo</strong>: el proceso se está creando.</p></li>
+<li><p><strong>Listo</strong>: preparado para ejecutarse, esperando a que se le asigne la CPU.</p></li>
+<li><p><strong>En ejecución</strong>: sus instrucciones se están ejecutando en la CPU.</p></li>
+<li><p><strong>Bloqueado</strong>: esperando a que ocurra un suceso (por ejemplo, que termine una operación de E/S).</p></li>
+<li><p><strong>Terminado</strong>: ha finalizado su ejecución.</p></li>
+</ul>
 <a class="reference internal image-reference" href="../../_images/estado_procesos.png"><img alt="../../_images/estado_procesos.png" src="../../_images/estado_procesos.png" width="400" />
 </a>
-<p>El sistema operativo mantiene para cada proceso un bloque de control o (PCB) proces control block, donde guarda para cada proceso la información necesaria para reactivarlo si es suspendido, cuando el sistema operativo entrega a la CPU un número, tiene que guardar el estado del proceso que estaba ejecutando y cargar el nuevo proceso, esto es un cambio de contexto, hay algunas CPUs que tienen varios juegos de registros, de manera que se hace simultáneamente cambiando el puntero al actual juego de registros. El problema es que si hay más procesos que conjunto de registros es posible que tengamos que apoyarnos en la memoria, es decir el cambio de contexto es una operación costosa.</p>
+<p>El sistema operativo mantiene para cada proceso un bloque de control o PCB (process control block), donde guarda para cada proceso la información necesaria para reactivarlo si es suspendido, cuando el sistema operativo entrega la CPU a un nuevo proceso, tiene que guardar el estado del proceso que estaba ejecutando y cargar el nuevo proceso, esto es un cambio de contexto, hay algunas CPUs que tienen varios juegos de registros, de manera que se hace simultáneamente cambiando el puntero al actual juego de registros. El problema es que si hay más procesos que conjunto de registros es posible que tengamos que apoyarnos en la memoria, es decir el cambio de contexto es una operación costosa.</p>
 <p>Una forma de disminuir el coste de los cambios de contexto es utilizando threads o hilos. Los hilos de un mismo proceso comparten el mismo espacio de direccionamiento, así como también los recursos abiertos y la información del proceso (PCB) gracias a esto consiguen que su creación y el cambio de contexto sea mucho más barato.</p>
 <section id="planificacion-de-procesos">
 <h2>Planificación de procesos<a class="headerlink" href="#planificacion-de-procesos" title="Link to this heading">#</a></h2>
@@ -612,7 +619,7 @@ $<span class="w"> </span><span class="nb">jobs</span>
 <p>Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritmos:</p>
 <ul>
 <li><p><strong>FIFO</strong> (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bloqueado.</p></li>
-<li><p><strong>SJN</strong> (Shortest-job-next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a&lt;b&lt;c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c).
+<li><p><strong>SJF</strong> (Shortest Job First, también llamado SJN, Shortest Job Next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a&lt;b&lt;c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c).
 El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.</p>
 <p>Ejemplo : (2,4,8)</p>
 <img alt="../../_images/procesos_1.png" src="../../_images/procesos_1.png" />
@@ -637,7 +644,8 @@ El problema de este algoritmo es el desconocimiento del tiempo que va a durar un
 </section>
 <section id="bloqueos">
 <h2>Bloqueos<a class="headerlink" href="#bloqueos" title="Link to this heading">#</a></h2>
-<p>Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos, Cinco filósofos se sientan a comer arroz, para ello necesitan dos palillos, en total solo hay 5 palillos, así que mientras unos comen otros piensan y hablan, el interbloqueo aparece cuando todos quieren comer a la vez y toman un palillo a su izquierda, cuando van a por el palillo de la derecha se quedan esperando interbloqueados.</p>
+<p>Un <strong>interbloqueo</strong> (deadlock) se produce cuando un conjunto de procesos queda bloqueado permanentemente porque cada uno espera un recurso que tiene otro proceso del conjunto.</p>
+<p>Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos: cinco filósofos se sientan a comer arroz, para ello necesitan dos palillos, en total solo hay 5 palillos, así que mientras unos comen otros piensan y hablan, el interbloqueo aparece cuando todos quieren comer a la vez y toman un palillo a su izquierda, cuando van a por el palillo de la derecha se quedan esperando interbloqueados.</p>
 <img alt="../../_images/plato.png" src="../../_images/plato.png" />
 <div class="toctree-wrapper compound">
 </div>

@@ -10,7 +10,7 @@ Binario Puro
 
 Solo pueden representar nº positivos
 
-23 :sub:`10)` = 001011 :sub:`BP,n=8)`
+23 :sub:`10)` = 00010111 :sub:`BP,n=8)`
 
 Signo y magnitud
 ----------------
@@ -59,7 +59,7 @@ Ejemplo :
 Finalmente queda:
 
 |   sg **exponente**  mantisa
-|   0  **10000011**   0011100100…...0 = 19,562510
+|   0  **10000011**   0011100100…...0 = 19,5625 :sub:`10)`
 
 Codificación alfanumérica
 =========================
@@ -67,7 +67,7 @@ Codificación alfanumérica
 ASCII
 -----
 
-*“American Standar Code for Information Interchange”*, cada carácter se codificaba mediante 7 dígitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 33 al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos
+*“American Standard Code for Information Interchange”*, cada carácter se codificaba mediante 7 dígitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 33 al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos
 
 .. image:: imagenes/ASCII.png
 
@@ -84,7 +84,7 @@ Debido a las limitaciones del ASCII se definen varios códigos de 8 bits para le
 UNICODE
 -------
 
-Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asignó un código a cada uno de los más de cincuenta mil símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, etc
+Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asigna un código a cada uno de sus más de 150.000 símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, etc
 
 UTF-8
 -----
@@ -93,9 +93,9 @@ UTF-8
 
 1 byte → ASCII → 0xxxxxxx “El primer bit es 0”
 
-2 bytes → Caracteres latinos 110xxxx 10xxxxx
+2 bytes → Caracteres latinos → 110xxxxx 10xxxxxx
 
-3 bytes → Chino, Japonés y Coreano → 1110xxx 10xxxxx 10xxxxx
+3 bytes → Chino, Japonés y Coreano → 1110xxxx 10xxxxxx 10xxxxxx
 
 4 bytes → Símbolos matemáticos, alfabetos clásicos → 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 

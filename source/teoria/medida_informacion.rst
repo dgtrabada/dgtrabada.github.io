@@ -45,7 +45,7 @@ Ejemplos:
 
 #. **¿Cuántos GB hay en 512MB?**
 
-   :math:`515MB = 512MB \frac{GB}{10^3 MB} = 0.512\  GB`
+   :math:`512MB = 512MB \times \frac{GB}{10^3 MB} = 0.512\  GB`
 
 #. **¿Cuántos KiB hay en 64 MiB?**
 
@@ -65,9 +65,17 @@ Ejemplos:
   
 #. **¿Cuántos TiB hay en  2TB?**
 
-   :math:`2TB = 2 TB \times \frac{10^{12} B}{TB} = 2 \times 10^{12} B \times \frac{TiB}{2^{40}B} = \frac{2 \times 10^{12}}{2^{40}} TiB =1.81898940 \ TiB`  
+   :math:`2TB = 2 TB \times \frac{10^{12} B}{TB} = 2 \times 10^{12} B \times \frac{TiB}{2^{40}B} = \frac{2 \times 10^{12}}{2^{40}} TiB =1.81898940 \ TiB`
 
-#. **La versión actual de "El Quijote" se emplean unos 2.000.000 caracteres ¿Cuánto MB ocuparía, sí suponemos que cada carácter ocupa 1 byte ?**
+#. **¿Por qué un disco duro de "1 TB" aparece en Windows como 931 GB?**
+
+   Los fabricantes de discos usan prefijos decimales (1 TB = 10¹² B), pero Windows mide la capacidad en unidades binarias, aunque las etiqueta como GB (en realidad son GiB):
+
+   :math:`1TB = 10^{12} B \times \frac{GiB}{2^{30}B} = 931.32\ GiB`
+
+   No falta espacio ni nos han engañado: son los mismos bytes expresados en unidades distintas.
+
+#. **En la versión actual de "El Quijote" se emplean unos 2.000.000 de caracteres, ¿cuántos MB ocuparía, si suponemos que cada carácter ocupa 1 byte?**
 
    :math:`2000000 (caracteres)  \times \frac{B}{caracter} = 2000000 B \times \frac{MB}{10^6 B} = 2\  MB`
 
