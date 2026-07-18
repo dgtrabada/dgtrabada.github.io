@@ -35,11 +35,11 @@ function help {
     Write-Host "Listar las unidades organizativas" -ForegroundColor Gray
     Write-Host "AD.ps1  -listar_OU"
     Write-Host ""
-    Write-Host "Crear una nueva unidades organizativas" -ForegroundColor Gray 
-    Write-Host "AD.ps1 -nuevo_OU [grupo]"
+    Write-Host "Crear una nueva unidad organizativa" -ForegroundColor Gray
+    Write-Host "AD.ps1 -nueva_OU [OU]"
     Write-Host ""
-    Write-Host "Borrar una unidad organizativas" -ForegroundColor Gray 
-    Write-Host "AD.ps1 -eliminar_OU [grupo]"
+    Write-Host "Borrar una unidad organizativa" -ForegroundColor Gray
+    Write-Host "AD.ps1 -eliminar_OU [OU]"
     Write-Host ""
     Write-Host "Listar los grupos" -ForegroundColor Gray
     Write-Host "AD.ps1  -listar_grupos"
@@ -111,7 +111,6 @@ function Meter_Usuario_Grupo {
         Write-Host "El usuario $usuario no existe" -ForegroundColor Red
     } else {
         Add-ADGroupMember -Identity  $grupo -Members $usuario
-        Add-LocalGroupMember -Group $grupo -Member $usuario
         Write-Host "El usuario $usuario ha sido agregado al grupo $grupo" -ForegroundColor Green
     }
 }
@@ -123,7 +122,7 @@ function Eliminar_Usuario_Grupo {
         Write-Host "Necesitamos el parametro -usuario" -ForegroundColor Red
     }elseif (-not (Get-ADGroup -Filter "Name -eq '$grupo'"))  {
         Write-Host "El grupo $grupo no existe" -ForegroundColor Red
-    }elseif (-not (Get-ADUser -Filter "Name -eq '$nuevo_usuario'")) {
+    }elseif (-not (Get-ADUser -Filter "Name -eq '$usuario'")) {
         Write-Host "El usuario $usuario no existe" -ForegroundColor Red
     } else {
         Remove-ADGroupMember -Identity $grupo -Members $usuario
@@ -158,7 +157,7 @@ function Crear_Usuario {
                 New-ADGroup -DisplayName $grupo -Name  $grupo -GroupScope DomainLocal -GroupCategory Security -Path $dirAD                    
                 Write-Host "Creamos el grupo: $grupo" -ForegroundColor Green
                 }
-              Add-ADGroupMember -Identity Group $grupo -Member $nuevo_usuario
+              Add-ADGroupMember -Identity $grupo -Members $nuevo_usuario
               Write-Host "Metemos al usuario $nuevo_usuario en el grupo $grupo"  -ForegroundColor Green
            }
         }
@@ -179,7 +178,7 @@ function Crear_OU {
     if(Get-ADOrganizationalUnit -Filter "Name -eq '$nueva_OU'"){
         Write-Host "$nueva_OU existe no se crea" -ForegroundColor Red 
     }else{
-        New-ADOrganizationalUnit -DisplayName $nueva_OU -Name $nueva_OU -path "DC=tunombre,DC=local"
+        New-ADOrganizationalUnit -DisplayName $nueva_OU -Name $nueva_OU -path $dirAD
         Write-Host "$nueva_OU se ha creado" -ForegroundColor Green
     }
 }
@@ -188,8 +187,8 @@ function Eliminar_OU {
     if(-not (Get-ADOrganizationalUnit -Filter "Name -eq '$eliminar_OU'")){
         Write-Host "$eliminar_OU no existe no se elimina" -ForegroundColor Red 
     }else{
-        Set-ADOrganizationalUnit -Identity "OU=$eliminar_OU,DC=tunombre,DC=local" -ProtectedFromAccidentalDeletion $False
-        Remove-ADOrganizationalUnit -Identity "OU=$eliminar_OU,DC=tunombre,DC=local" -Recursive -Confirm:$false
+        Set-ADOrganizationalUnit -Identity "OU=$eliminar_OU,$dirAD" -ProtectedFromAccidentalDeletion $False
+        Remove-ADOrganizationalUnit -Identity "OU=$eliminar_OU,$dirAD" -Recursive -Confirm:$false
         Write-Host "$eliminar_OU se ha eliminado de forma recursiva sin confirmación" -ForegroundColor Green
     }
 }

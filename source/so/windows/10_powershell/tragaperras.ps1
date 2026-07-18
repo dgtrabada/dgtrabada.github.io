@@ -18,13 +18,17 @@ function Girar-Rulos {
     return $ganancia
     }
 
-$jugador=10
+$jugador=100
+$partidas=0
 for ($j=0; $j -lt $numero_tiradas; $j++){
-    $jugador+=Girar-Rulos
-    Write-Output $jugador
-    if ($jugador -lt 0){
-        Write-Output "se arruina con $j tiradas "
-        #exit
-        $j=$numero_tiradas
+    # si no le queda dinero para pagar la partida (1 euro), deja de jugar
+    if ($jugador -lt 1){
+        Write-Output "se arruina tras $partidas partidas"
+        break
         }
+    $jugador+=Girar-Rulos
+    $partidas++
+    #Write-Output $jugador
     }
+
+Write-Output "Ha jugado $partidas partidas y termina con $jugador euros"

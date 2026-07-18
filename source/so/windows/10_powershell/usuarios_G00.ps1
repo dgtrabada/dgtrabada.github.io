@@ -18,13 +18,17 @@ function Show-Help {
 
 function Crear_Usuarios {
     for($i = 0; $i -lt $crear ; $i++){
-      $Grupo ="A", "B", "C"| Get-Random 
-      $nuevo_usuario="u"+$Grupo+$(Get-Random -Minimum 0 -Maximum 9)+$(Get-Random -Minimum 0 -Maximum 9)
+      $Grupo ="X", "Y", "Z"| Get-Random
+      $nuevo_usuario="u"+$Grupo+$(Get-Random -Minimum 0 -Maximum 10)+$(Get-Random -Minimum 0 -Maximum 10)
       $cadena_secure_string = $password | ConvertTo-SecureString -AsPlainText -Force
 
       if (Get-LocalUser -Name $nuevo_usuario -ErrorAction SilentlyContinue) {
         Write-Host "El usuario $nuevo_usuario ya existe."  -ForegroundColor Red
       } else {
+        if (-not (Get-LocalGroup -Name $Grupo -ErrorAction SilentlyContinue)) {
+          New-LocalGroup -Name $Grupo | Out-Null
+          Write-Host "El grupo $Grupo no existe, se crea."  -ForegroundColor Green
+        }
         New-LocalUser -Name $nuevo_usuario -Password  $cadena_secure_string  -FullName $nuevo_usuario
         Add-LocalGroupMember -Group $Grupo -Member $nuevo_usuario
         Write-Host "El usuario $nuevo_usuario ha sido creado y añadido al grupo $Grupo."  -ForegroundColor Green
@@ -34,7 +38,7 @@ function Crear_Usuarios {
 
 
 function Listar_Usuarios {
-  $Grupos = @("A", "B", "C")
+  $Grupos = @("X", "Y", "Z")
   for ($i = 0; $i -lt $Grupos.Length; $i++) {      
     if (Get-LocalGroup -Name $Grupos[$i] -ErrorAction SilentlyContinue) {
       Write-Host "Miembros del grupo $($Grupos[$i]) :" -ForegroundColor Green
@@ -47,7 +51,7 @@ function Listar_Usuarios {
 
 
 function Borrar_Usuarios {
-  $Grupos = @("A", "B", "C")
+  $Grupos = @("X", "Y", "Z")
   for ($i = 0; $i -lt $Grupos.Length; $i++) {      
     if (Get-LocalGroup -Name $Grupos[$i] -ErrorAction SilentlyContinue) {
       $miembros_grupo = Get-LocalGroupMember -Group  $($Grupos[$i])

@@ -1888,16 +1888,20 @@ Write-Output<span class="w"> </span><span class="s2">&quot;Día con mayor amplit
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">$ganancia</span>
 <span class="w">    </span><span class="o">}</span>
 
-<span class="nv">$jugador</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">$jugador</span><span class="o">=</span><span class="m">100</span>
+<span class="nv">$partidas</span><span class="o">=</span><span class="m">0</span>
 <span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$j</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$numero_tiradas</span><span class="p">;</span><span class="w"> </span><span class="nv">$j</span>++<span class="o">){</span>
-<span class="w">    </span><span class="nv">$jugador</span>+<span class="o">=</span>Girar-Rulos
-<span class="w">    </span>Write-Output<span class="w"> </span><span class="nv">$jugador</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$jugador</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">0</span><span class="o">){</span>
-<span class="w">        </span>Write-Output<span class="w"> </span><span class="s2">&quot;se arruina con </span><span class="nv">$j</span><span class="s2"> tiradas &quot;</span>
-<span class="w">        </span><span class="c1">#exit</span>
-<span class="w">        </span><span class="nv">$j</span><span class="o">=</span><span class="nv">$numero_tiradas</span>
+<span class="w">    </span><span class="c1"># si no le queda dinero para pagar la partida (1 euro), deja de jugar</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$jugador</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">1</span><span class="o">){</span>
+<span class="w">        </span>Write-Output<span class="w"> </span><span class="s2">&quot;se arruina tras </span><span class="nv">$partidas</span><span class="s2"> partidas&quot;</span>
+<span class="w">        </span><span class="k">break</span>
 <span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="nv">$jugador</span>+<span class="o">=</span>Girar-Rulos
+<span class="w">    </span><span class="nv">$partidas</span>++
+<span class="w">    </span><span class="c1">#Write-Output $jugador</span>
 <span class="w">    </span><span class="o">}</span>
+
+Write-Output<span class="w"> </span><span class="s2">&quot;Ha jugado </span><span class="nv">$partidas</span><span class="s2"> partidas y termina con </span><span class="nv">$jugador</span><span class="s2"> euros&quot;</span>
 </pre></div>
 </div>
 </div></div>
@@ -2698,13 +2702,17 @@ Get-LocalUser<span class="w"> </span><span class="p">|</span><span class="w"> </
 
 <span class="k">function</span><span class="w"> </span>Crear_Usuarios<span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="k">for</span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$crear</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">){</span>
-<span class="w">      </span><span class="nv">$Grupo</span><span class="w"> </span><span class="o">=</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="p">|</span><span class="w"> </span>Get-Random<span class="w"> </span>
-<span class="w">      </span><span class="nv">$nuevo_usuario</span><span class="o">=</span><span class="s2">&quot;u&quot;</span>+<span class="nv">$Grupo</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">9</span><span class="k">)</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">9</span><span class="k">)</span>
+<span class="w">      </span><span class="nv">$Grupo</span><span class="w"> </span><span class="o">=</span><span class="s2">&quot;X&quot;</span>,<span class="w"> </span><span class="s2">&quot;Y&quot;</span>,<span class="w"> </span><span class="s2">&quot;Z&quot;</span><span class="p">|</span><span class="w"> </span>Get-Random
+<span class="w">      </span><span class="nv">$nuevo_usuario</span><span class="o">=</span><span class="s2">&quot;u&quot;</span>+<span class="nv">$Grupo</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">10</span><span class="k">)</span>+<span class="k">$(</span>Get-Random<span class="w"> </span>-Minimum<span class="w"> </span><span class="m">0</span><span class="w"> </span>-Maximum<span class="w"> </span><span class="m">10</span><span class="k">)</span>
 <span class="w">      </span><span class="nv">$cadena_secure_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$password</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>ConvertTo-SecureString<span class="w"> </span>-AsPlainText<span class="w"> </span>-Force
 
 <span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nuevo_usuario</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$nuevo_usuario</span><span class="s2"> ya existe.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">      </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>-not<span class="w"> </span><span class="o">(</span>Get-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupo</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">))</span><span class="w"> </span><span class="o">{</span>
+<span class="w">          </span>New-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupo</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Out-Null
+<span class="w">          </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$Grupo</span><span class="s2"> no existe, se crea.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Green
+<span class="w">        </span><span class="o">}</span>
 <span class="w">        </span>New-LocalUser<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nuevo_usuario</span><span class="w"> </span>-Password<span class="w">  </span><span class="nv">$cadena_secure_string</span><span class="w">  </span>-FullName<span class="w"> </span><span class="nv">$nuevo_usuario</span>
 <span class="w">        </span>Add-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="nv">$Grupo</span><span class="w"> </span>-Member<span class="w"> </span><span class="nv">$nuevo_usuario</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$nuevo_usuario</span><span class="s2"> ha sido creado y añadido al grupo </span><span class="nv">$Grupo</span><span class="s2">.&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Green
@@ -2714,7 +2722,7 @@ Get-LocalUser<span class="w"> </span><span class="p">|</span><span class="w"> </
 
 
 <span class="k">function</span><span class="w"> </span>Listar_Usuarios<span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="o">)</span>
+<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;X&quot;</span>,<span class="w"> </span><span class="s2">&quot;Y&quot;</span>,<span class="w"> </span><span class="s2">&quot;Z&quot;</span><span class="o">)</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$Grupos</span>.Length<span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">      </span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
 <span class="w">      </span>Write-Host<span class="w"> </span><span class="s2">&quot;Miembros del grupo </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span><span class="s2"> :&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
@@ -2727,7 +2735,7 @@ Get-LocalUser<span class="w"> </span><span class="p">|</span><span class="w"> </
 
 
 <span class="k">function</span><span class="w"> </span>Borrar_Usuarios<span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;A&quot;</span>,<span class="w"> </span><span class="s2">&quot;B&quot;</span>,<span class="w"> </span><span class="s2">&quot;C&quot;</span><span class="o">)</span>
+<span class="w">  </span><span class="nv">$Grupos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@<span class="o">(</span><span class="s2">&quot;X&quot;</span>,<span class="w"> </span><span class="s2">&quot;Y&quot;</span>,<span class="w"> </span><span class="s2">&quot;Z&quot;</span><span class="o">)</span>
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="o">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$Grupos</span>.Length<span class="p">;</span><span class="w"> </span><span class="nv">$i</span>++<span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">      </span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>Get-LocalGroup<span class="w"> </span>-Name<span class="w"> </span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="w"> </span>-ErrorAction<span class="w"> </span>SilentlyContinue<span class="o">)</span><span class="w"> </span><span class="o">{</span>
 <span class="w">      </span><span class="nv">$miembros_grupo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Get-LocalGroupMember<span class="w"> </span>-Group<span class="w">  </span><span class="k">$(</span><span class="nv">$Grupos</span><span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span>
@@ -3454,11 +3462,11 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Listar las unidades organizativas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1  -listar_OU&quot;</span>
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;&quot;</span>
-<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Crear una nueva unidades organizativas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray<span class="w"> </span>
-<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1 -nuevo_OU [grupo]&quot;</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Crear una nueva unidad organizativa&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1 -nueva_OU [OU]&quot;</span>
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;&quot;</span>
-<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Borrar una unidad organizativas&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray<span class="w"> </span>
-<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1 -eliminar_OU [grupo]&quot;</span>
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Borrar una unidad organizativa&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray
+<span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1 -eliminar_OU [OU]&quot;</span>
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;&quot;</span>
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;Listar los grupos&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Gray
 <span class="w">    </span>Write-Host<span class="w"> </span><span class="s2">&quot;AD.ps1  -listar_grupos&quot;</span>
@@ -3530,7 +3538,6 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$usuario</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Add-ADGroupMember<span class="w"> </span>-Identity<span class="w">  </span><span class="nv">$grupo</span><span class="w"> </span>-Members<span class="w"> </span><span class="nv">$usuario</span>
-<span class="w">        </span>Add-LocalGroupMember<span class="w"> </span>-Group<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-Member<span class="w"> </span><span class="nv">$usuario</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$usuario</span><span class="s2"> ha sido agregado al grupo </span><span class="nv">$grupo</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">    </span><span class="o">}</span>
 <span class="o">}</span>
@@ -3542,7 +3549,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;Necesitamos el parametro -usuario&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">    </span><span class="o">}</span>elseif<span class="w"> </span><span class="o">(</span>-not<span class="w"> </span><span class="o">(</span>Get-ADGroup<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">&quot;Name -eq &#39;</span><span class="nv">$grupo</span><span class="s2">&#39;&quot;</span><span class="o">))</span><span class="w">  </span><span class="o">{</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El grupo </span><span class="nv">$grupo</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
-<span class="w">    </span><span class="o">}</span>elseif<span class="w"> </span><span class="o">(</span>-not<span class="w"> </span><span class="o">(</span>Get-ADUser<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">&quot;Name -eq &#39;</span><span class="nv">$nuevo_usuario</span><span class="s2">&#39;&quot;</span><span class="o">))</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="o">}</span>elseif<span class="w"> </span><span class="o">(</span>-not<span class="w"> </span><span class="o">(</span>Get-ADUser<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">&quot;Name -eq &#39;</span><span class="nv">$usuario</span><span class="s2">&#39;&quot;</span><span class="o">))</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;El usuario </span><span class="nv">$usuario</span><span class="s2"> no existe&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red
 <span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span>Remove-ADGroupMember<span class="w"> </span>-Identity<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-Members<span class="w"> </span><span class="nv">$usuario</span>
@@ -3577,7 +3584,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">                </span>New-ADGroup<span class="w"> </span>-DisplayName<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-Name<span class="w">  </span><span class="nv">$grupo</span><span class="w"> </span>-GroupScope<span class="w"> </span>DomainLocal<span class="w"> </span>-GroupCategory<span class="w"> </span>Security<span class="w"> </span>-Path<span class="w"> </span><span class="nv">$dirAD</span><span class="w">                    </span>
 <span class="w">                </span>Write-Host<span class="w"> </span><span class="s2">&quot;Creamos el grupo: </span><span class="nv">$grupo</span><span class="s2">&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">                </span><span class="o">}</span>
-<span class="w">              </span>Add-ADGroupMember<span class="w"> </span>-Identity<span class="w"> </span>Group<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-Member<span class="w"> </span><span class="nv">$nuevo_usuario</span>
+<span class="w">              </span>Add-ADGroupMember<span class="w"> </span>-Identity<span class="w"> </span><span class="nv">$grupo</span><span class="w"> </span>-Members<span class="w"> </span><span class="nv">$nuevo_usuario</span>
 <span class="w">              </span>Write-Host<span class="w"> </span><span class="s2">&quot;Metemos al usuario </span><span class="nv">$nuevo_usuario</span><span class="s2"> en el grupo </span><span class="nv">$grupo</span><span class="s2">&quot;</span><span class="w">  </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">           </span><span class="o">}</span>
 <span class="w">        </span><span class="o">}</span>
@@ -3598,7 +3605,7 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">    </span><span class="k">if</span><span class="o">(</span>Get-ADOrganizationalUnit<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">&quot;Name -eq &#39;</span><span class="nv">$nueva_OU</span><span class="s2">&#39;&quot;</span><span class="o">){</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nueva_OU</span><span class="s2"> existe no se crea&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red<span class="w"> </span>
 <span class="w">    </span><span class="o">}</span><span class="k">else</span><span class="o">{</span>
-<span class="w">        </span>New-ADOrganizationalUnit<span class="w"> </span>-DisplayName<span class="w"> </span><span class="nv">$nueva_OU</span><span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nueva_OU</span><span class="w"> </span>-path<span class="w"> </span><span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
+<span class="w">        </span>New-ADOrganizationalUnit<span class="w"> </span>-DisplayName<span class="w"> </span><span class="nv">$nueva_OU</span><span class="w"> </span>-Name<span class="w"> </span><span class="nv">$nueva_OU</span><span class="w"> </span>-path<span class="w"> </span><span class="nv">$dirAD</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nueva_OU</span><span class="s2"> se ha creado&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">    </span><span class="o">}</span>
 <span class="o">}</span>
@@ -3607,8 +3614,8 @@ foreach<span class="w"> </span><span class="o">(</span><span class="nv">$user</s
 <span class="w">    </span><span class="k">if</span><span class="o">(</span>-not<span class="w"> </span><span class="o">(</span>Get-ADOrganizationalUnit<span class="w"> </span>-Filter<span class="w"> </span><span class="s2">&quot;Name -eq &#39;</span><span class="nv">$eliminar_OU</span><span class="s2">&#39;&quot;</span><span class="o">)){</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$eliminar_OU</span><span class="s2"> no existe no se elimina&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Red<span class="w"> </span>
 <span class="w">    </span><span class="o">}</span><span class="k">else</span><span class="o">{</span>
-<span class="w">        </span>Set-ADOrganizationalUnit<span class="w"> </span>-Identity<span class="w"> </span><span class="s2">&quot;OU=</span><span class="nv">$eliminar_OU</span><span class="s2">,DC=tunombre,DC=local&quot;</span><span class="w"> </span>-ProtectedFromAccidentalDeletion<span class="w"> </span><span class="nv">$False</span>
-<span class="w">        </span>Remove-ADOrganizationalUnit<span class="w"> </span>-Identity<span class="w"> </span><span class="s2">&quot;OU=</span><span class="nv">$eliminar_OU</span><span class="s2">,DC=tunombre,DC=local&quot;</span><span class="w"> </span>-Recursive<span class="w"> </span>-Confirm:<span class="nv">$false</span>
+<span class="w">        </span>Set-ADOrganizationalUnit<span class="w"> </span>-Identity<span class="w"> </span><span class="s2">&quot;OU=</span><span class="nv">$eliminar_OU</span><span class="s2">,</span><span class="nv">$dirAD</span><span class="s2">&quot;</span><span class="w"> </span>-ProtectedFromAccidentalDeletion<span class="w"> </span><span class="nv">$False</span>
+<span class="w">        </span>Remove-ADOrganizationalUnit<span class="w"> </span>-Identity<span class="w"> </span><span class="s2">&quot;OU=</span><span class="nv">$eliminar_OU</span><span class="s2">,</span><span class="nv">$dirAD</span><span class="s2">&quot;</span><span class="w"> </span>-Recursive<span class="w"> </span>-Confirm:<span class="nv">$false</span>
 <span class="w">        </span>Write-Host<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$eliminar_OU</span><span class="s2"> se ha eliminado de forma recursiva sin confirmación&quot;</span><span class="w"> </span>-ForegroundColor<span class="w"> </span>Green
 <span class="w">    </span><span class="o">}</span>
 <span class="o">}</span>
