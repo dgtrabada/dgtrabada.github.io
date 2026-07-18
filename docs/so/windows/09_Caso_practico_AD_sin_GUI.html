@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -529,7 +536,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vincular-gpo">Crear y vincular GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl-sin-entorno-grafico">Gestión de ACL sin entorno gráfico</a></li>
 </ul>
             </nav>
@@ -544,11 +551,11 @@
                   
   <section id="casos-practicos-active-directory-sin-gui">
 <h1>Casos prácticos : Active Directory sin GUI<a class="headerlink" href="#casos-practicos-active-directory-sin-gui" title="Link to this heading">#</a></h1>
-<p>Crea los siguiente clones enlazados:</p>
+<p>Crea los siguientes clones enlazados:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>&quot; llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16</p></li>
-<li><p>Clon enlazado 2 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>&quot; llamado <strong>WC05tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
-<li><p>Clon enlazado 3 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows Server 11</a>&quot; llamado <strong>WC06tunombre</strong> con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 1 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui">Windows Server 2022 sin GUI</a>&quot; llamado <strong>WS22tunombre</strong> con IP 10.4.X.Y/8 o DHCP si es portátil y un nuevo adaptador de red para el servidor, conectado a una red interna con la dirección 172.16.0.10/16</p></li>
+<li><p>Clon enlazado 2 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows 11</a>&quot; llamado <strong>WC05tunombre</strong> con un adaptador a la red interna, le asignamos la dirección 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
+<li><p>Clon enlazado 3 de &quot;<a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows 11</a>&quot; llamado <strong>WC06tunombre</strong> con un adaptador a la red interna, le asignamos la dirección 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10</p></li>
 </ul>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/68dserxf2iosogqv">vídeo</a></p>
 <section id="configurar-servicio-de-enrutamiento">
@@ -556,10 +563,10 @@
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Instalar el servicio de enrutamiento</span>
 <span class="nb">Install-WindowsFeature</span> <span class="n">Routing</span> <span class="n">-IncludeManagementTools</span>
 
-<span class="c"># habilitar NAT para la red interna</span>
-<span class="nb">New-NetNat</span> <span class="n">-Name</span> <span class="s2">&quot;NAT&quot;</span> <span class="n">-InternalIPInterfaceAddressPrefix</span> <span class="s2">&quot;172.16.0.10/16&quot;</span>
+<span class="c"># habilitar NAT para la red interna (se indica la red, no la IP del servidor)</span>
+<span class="nb">New-NetNat</span> <span class="n">-Name</span> <span class="s2">&quot;NAT&quot;</span> <span class="n">-InternalIPInterfaceAddressPrefix</span> <span class="s2">&quot;172.16.0.0/16&quot;</span>
 
-<span class="c">#habilitamos el reenvío de paquetes</span>
+<span class="c"># habilitamos el reenvío de paquetes</span>
 <span class="nb">Set-NetIPInterface</span> <span class="n">-Forwarding</span> <span class="n">Enabled</span>
 </pre></div>
 </div>
@@ -577,6 +584,8 @@
 <p>No tenemos creada ninguna parte de la infraestructura, comenzamos creando el bosque y se creará automáticamente el resto de la estructura</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Install-ADDSForest</span>
 <span class="n">DomainName</span> <span class="p">:</span> <span class="n">tunombre</span><span class="p">.</span><span class="n">local</span>
+<span class="c"># la contraseña que pide (SafeModeAdministratorPassword) es la de DSRM,</span>
+<span class="c"># el modo de restauración de servicios de directorio</span>
 <span class="n">password</span> <span class="p">:</span> <span class="nv">@lumn0</span>
 </pre></div>
 </div>
@@ -598,7 +607,7 @@
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI01.png" src="../../_images/WS22NGUI01.png" />
-<p>En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luego borrar</p>
+<p>En el caso de que necesites borrar una OU, recuerda que primero tienes que deshabilitar la protección contra el borrado accidental y luego borrarla</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ADOrganizationalUnit</span> <span class="n">-Identity</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-ProtectedFromAccidentalDeletion</span> <span class="nv">$False</span>
 <span class="nb">Remove-ADOrganizationalUnit</span> <span class="n">-Identity</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Recursive</span>
 </pre></div>
@@ -625,11 +634,11 @@
 <span class="nb">New-ADGroup</span> <span class="n">-DisplayName</span> <span class="s2">&quot;Y&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;Y&quot;</span> <span class="n">-GroupScope</span> <span class="n">DomainLocal</span> <span class="n">-GroupCategory</span> <span class="n">Security</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span>
 </pre></div>
 </div>
-<p>Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tu_nombreA1</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADUser</span> <span class="n">-DisplayName</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-UserPrincipalName</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-Enabled</span><span class="p">:</span><span class="nv">$True</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="n">-AccountPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="n">-string</span> <span class="s2">&quot;@lumn0X1&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-ChangePasswordAtLogon</span><span class="p">:</span><span class="nv">$False</span>
+<p>Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tunombreX1</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-ADUser</span> <span class="n">-DisplayName</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;tunombreX1&quot;</span> <span class="n">-UserPrincipalName</span> <span class="s2">&quot;tunombreX1@tunombre.local&quot;</span> <span class="n">-Enabled</span><span class="p">:</span><span class="nv">$True</span> <span class="n">-Path</span> <span class="s2">&quot;DC=tunombre,DC=local&quot;</span> <span class="n">-AccountPassword</span> <span class="p">(</span><span class="nb">ConvertTo-SecureString</span> <span class="n">-string</span> <span class="s2">&quot;@lumn0X1&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span><span class="p">)</span> <span class="n">-ChangePasswordAtLogon</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
-<p>Al establecer <code class="docutils literal notranslate"><span class="pre">-ChangePasswordAtLogon:$False</span></code>, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado <code class="docutils literal notranslate"><span class="pre">Set-ADUser</span> <span class="pre">-Identity</span> <span class="pre">&quot;tunombreX1&quot;</span> <span class="pre">-ChangePasswordAtLogon</span> <span class="pre">$False</span></code>, en el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña y hasta que no lo hagamos no podremos loguearnos por ssh.</p>
+<p>Al establecer <code class="docutils literal notranslate"><span class="pre">-ChangePasswordAtLogon:$False</span></code>, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado: <code class="docutils literal notranslate"><span class="pre">Set-ADUser</span> <span class="pre">-Identity</span> <span class="pre">&quot;tunombreX1&quot;</span> <span class="pre">-ChangePasswordAtLogon</span> <span class="pre">$False</span></code>. En el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña, y hasta que no lo hagamos no podremos iniciar sesión por ssh.</p>
 <p>Por último lo añadimos al grupo</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;X&quot;</span> <span class="n">-Members</span> <span class="s2">&quot;tunombreX1&quot;</span>
 </pre></div>
@@ -640,9 +649,9 @@
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI02.png" src="../../_images/WS22NGUI02.png" />
-<p>En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan un menor complejidad para hacer pruebas:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Obtener la directiva de contraseñas actual</span>
-<span class="nv">$pwdPolicy</span> <span class="p">=</span> <span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+<p>En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan una menor complejidad para hacer pruebas:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Ver la directiva de contraseñas actual</span>
+<span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
 
 <span class="c"># Deshabilitar los requisitos de complejidad</span>
 <span class="nb">Set-ADDefaultDomainPasswordPolicy</span> <span class="n">-Identity</span> <span class="p">(</span><span class="nb">Get-ADDomain</span><span class="p">).</span><span class="n">DistinguishedName</span> <span class="n">-ComplexityEnabled</span> <span class="nv">$false</span>
@@ -654,23 +663,24 @@
 </section>
 <section id="unir-equipo-al-dominio">
 <h2>Unir equipo al dominio<a class="headerlink" href="#unir-equipo-al-dominio" title="Link to this heading">#</a></h2>
-<p>Para añadir el equipo al dominio <strong>WC05tunombre</strong> primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en &quot;Configuración/Sistema/Información/Dominio o grupo de trabajo&quot;  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Comprobamos el DNS del cliente</span>
+<p>Para añadir el equipo <strong>WC05tunombre</strong> al dominio, primero tendremos que cambiar el DNS y apuntar al Windows Server, luego en &quot;Configuración/Sistema/Información/Dominio o grupo de trabajo&quot; seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Comprobamos el DNS del cliente</span>
 <span class="nb">Get-DnsClientServerAddress</span>
 
-<span class="c">#En el caso de que no apunte al servidor, lo cambiamos:</span>
+<span class="c"># En el caso de que no apunte al servidor, lo cambiamos</span>
+<span class="c"># (el InterfaceIndex es el de tu adaptador, lo ves en el comando anterior):</span>
 <span class="nb">Set-DnsClientServerAddress</span> <span class="n">-InterfaceIndex</span> <span class="n">6</span> <span class="n">-ServerAddresses</span> <span class="p">(</span><span class="s2">&quot;172.16.0.10&quot;</span><span class="p">,</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Por ultimo lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-computer</span> <span class="n">-domainname</span> <span class="s2">&quot;tunombre.local&quot;</span> <span class="n">-Credential</span>  <span class="n">tunombre</span><span class="p">\</span><span class="n">administrador</span> <span class="n">-restart</span> <span class="n">-force</span>
+<p>Por último lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente; aparecerá un diálogo gráfico para introducir la contraseña</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Add-Computer</span> <span class="n">-DomainName</span> <span class="s2">&quot;tunombre.local&quot;</span> <span class="n">-Credential</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">administrador</span> <span class="n">-Restart</span> <span class="n">-Force</span>
 
-<span class="c">#puedes comprobar que se añadido en el servidor ejecutando allí</span>
+<span class="c"># puedes comprobar que se ha añadido, ejecutando en el servidor</span>
 <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">Name</span>
 </pre></div>
 </div>
 <img alt="../../_images/WS22NGUI03.png" src="../../_images/WS22NGUI03.png" />
-<p>En el caso de que quieras hacerlo sin exportar el display:</p>
+<p>En el caso de que quieras hacerlo sin diálogo gráfico (por ejemplo, en una conexión por ssh):</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$password</span> <span class="p">=</span> <span class="nb">ConvertTo-SecureString</span> <span class="s2">&quot;@lumn0&quot;</span> <span class="n">-AsPlainText</span> <span class="n">-Force</span>
 <span class="nv">$credenciales</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Management</span><span class="p">.</span><span class="n">Automation</span><span class="p">.</span><span class="n">PSCredential</span><span class="p">(</span><span class="s2">&quot;tunombre\administrador&quot;</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span>
 
@@ -679,8 +689,12 @@
 </div>
 <p>Es posible que al clonar los equipos, puedan surgir problemas debido a que comparten el mismo SID. Para solucionarlo:</p>
 <img alt="../../_images/sysprep.png" src="../../_images/sysprep.png" />
-<p>Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejecutamos:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Remove-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;NombreDeLaComputadora&quot;</span>
+<p>Si queremos sacar la máquina del dominio:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># en el cliente (lo saca del dominio y lo devuelve a un grupo de trabajo):</span>
+<span class="nb">Remove-Computer</span> <span class="n">-UnjoinDomainCredential</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">administrador</span> <span class="n">-Restart</span> <span class="n">-Force</span>
+
+<span class="c"># en el servidor (borra la cuenta del equipo del directorio):</span>
+<span class="nb">Remove-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span>
 </pre></div>
 </div>
 <p>En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:</p>
@@ -700,11 +714,11 @@
 </pre></div>
 </div>
 <p>y la compartimos:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span>  <span class="n">-Path</span> <span class="s2">&quot;C:\XY-TUNOMRE\X-tunombre&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Administradores&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-SmbShare</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-Path</span> <span class="s2">&quot;C:\XY-TUNOMBRE\X-tunombre&quot;</span> <span class="n">-FullAccess</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Administradores&quot;</span>
 
-<span class="n">Name</span> <span class="n">ScopeName</span> <span class="n">Path</span>                      <span class="n">Description</span>
-<span class="p">----</span> <span class="p">---------</span> <span class="p">----</span>                      <span class="p">-----------</span>
-<span class="n">X</span>    <span class="p">*</span>         <span class="n">C</span><span class="p">:\</span><span class="n">XY-TUNOMRE</span><span class="p">\</span><span class="n">X-tunombre</span>
+<span class="n">Name</span> <span class="n">ScopeName</span> <span class="n">Path</span>                        <span class="n">Description</span>
+<span class="p">----</span> <span class="p">---------</span> <span class="p">----</span>                        <span class="p">-----------</span>
+<span class="n">X</span>    <span class="p">*</span>         <span class="n">C</span><span class="p">:\</span><span class="n">XY-TUNOMBRE</span><span class="p">\</span><span class="n">X-tunombre</span>
 </pre></div>
 </div>
 <p>Podemos comprobar las carpetas que hay compartidas, ejecutando en el servidor:</p>
@@ -712,10 +726,10 @@
 </pre></div>
 </div>
 <p>Para acceder a ellas:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Podemos ver que esta en:</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Podemos ver que está en:</span>
 <span class="nb">ls </span><span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
 
-<span class="c">#Podemos montar en el cliente en la unidad Z</span>
+<span class="c"># Podemos montarla en el cliente en la unidad X:</span>
 <span class="nb">New-PSDrive</span> <span class="n">-Name</span> <span class="s2">&quot;X&quot;</span> <span class="n">-PSProvider</span> <span class="s2">&quot;FileSystem&quot;</span> <span class="n">-Root</span> <span class="s2">&quot;\\WS22TUNOMBRE\X&quot;</span>
 </pre></div>
 </div>
@@ -737,13 +751,13 @@
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">WC05TUNOMBRE</span><span class="p">,</span><span class="n">WC06TUNOMBRE</span> <span class="n">-ScriptBlock</span> <span class="p">{</span><span class="n">HOSTNAME</span><span class="p">.</span><span class="n">EXE</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Invoke-Command se comunicará con hasta 32 equipos a la vez, si ponemos más comenzará hasta terminar los 32 primeros.</p>
+<p>Invoke-Command se comunica con hasta 32 equipos a la vez; si ponemos más, los siguientes esperarán a que terminen los 32 primeros.</p>
 <p>Si queremos abrir una sesión</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Enter-PSSession</span> <span class="n">WC06TUNOMBRE</span>
 <span class="nb">Exit-PSSession</span>
 </pre></div>
 </div>
-<p>También ofrece la opción de crear una conexión persistente &quot;PSSession&quot;, en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.</p>
+<p>También ofrece la opción de crear una conexión persistente (&quot;PSSession&quot;), en la que las re-conexiones son mucho más rápidas y se conserva el estado. Para ello creamos la sesión con <strong>New-PSSession</strong> y, en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro <strong>-Session</strong> pasándole el objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Crear una nueva sesión remota</span>
 <span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-PSSession</span> <span class="n">-ComputerName</span> <span class="n">WC06TUNOMBRE</span>
 
@@ -759,7 +773,7 @@
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Get-Service</span> <span class="n">sshd</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.</p>
+<p>Como la sesión se mantiene y se reutiliza, el estado se conserva entre llamadas:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nv">$a</span> <span class="p">=</span> <span class="n">1</span> <span class="p">}</span>
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">echo </span><span class="nv">$a</span> <span class="p">}</span>
 <span class="n">1</span>
@@ -774,7 +788,7 @@
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="nv">$scriptBlock</span>
 </pre></div>
 </div>
-<p>También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi">editor vim</a> utilizando una conexión por <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh">ssh</a></p>
+<p>También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-editor-vi">editor vim</a> utilizando una conexión por <a class="reference external" href="https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh">ssh</a></p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">Administrador</span><span class="p">&gt;</span> <span class="nb">cat </span><span class="n">script</span><span class="p">.</span><span class="n">ps1</span>
 <span class="nb">echo </span><span class="s2">&quot;hola </span><span class="p">$(</span><span class="n">whoami</span><span class="p">.</span><span class="n">exe</span><span class="p">)</span><span class="s2">&quot;</span>
 <span class="nb">echo </span><span class="s2">&quot;hoy es </span><span class="p">$(</span><span class="n">date</span><span class="p">)</span><span class="s2">&quot;</span>
@@ -784,7 +798,7 @@
 <span class="n">hoy</span> <span class="n">es</span> <span class="n">05</span><span class="p">/</span><span class="n">06</span><span class="p">/</span><span class="n">2024</span> <span class="n">10</span><span class="p">:</span><span class="n">52</span><span class="p">:</span><span class="n">12</span>
 </pre></div>
 </div>
-<p>Para tener acceso a un recurso compartido de red en una sesión remota. utilizamos <a class="reference external" href="https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples">Enable-WSManCredSSP</a>, sirve para habilitar el delegado de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente.</p>
+<p>Para tener acceso a un recurso compartido de red en una sesión remota (por defecto la sesión remota no puede reutilizar nuestras credenciales contra un tercer equipo, es el llamado problema del doble salto), utilizamos <a class="reference external" href="https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples">Enable-WSManCredSSP</a>, que sirve para habilitar la delegación de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente.</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">client</span> <span class="n">-DelegateComputer</span> <span class="n">WC06TUNOMBRE</span>
 <span class="c"># usamos la $session  creada</span>
 <span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">Server</span> <span class="n">-Force</span> <span class="p">}</span>
@@ -799,7 +813,7 @@
   <span class="nb">Invoke-Command</span> <span class="nv">@parameters</span>
 </pre></div>
 </div>
-<p>Ten cuenta que necesitarás acceso al entorno gráfico:</p>
+<p>Ten en cuenta que necesitarás acceso al entorno gráfico:</p>
 <img alt="../../_images/WS22NGUI05.png" src="../../_images/WS22NGUI05.png" />
 <p>De esta forma podemos instalar programas que se encuentren en una carpeta compartida</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Invoke-Command</span> <span class="n">-Credential</span> <span class="n">tunombre</span><span class="p">\</span><span class="n">Administrador</span> <span class="n">-ComputerName</span> <span class="n">WC06TUNOMBRE</span> <span class="n">-Authentication</span> <span class="n">CredSSP</span> <span class="n">-ScriptBlock</span> <span class="p">{</span><span class="nb">Start-Process</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;/i \\WS22tunombre\sysvol\tunombre.local\vlc-3.0.20-win64.msi /qn&quot;</span> <span class="n">-Wait</span><span class="p">}</span>
@@ -837,8 +851,8 @@
 <p>Vamos a mover un equipo de Computers a DespachoX, primero vemos los clientes que tenemos:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">DistinguishedName</span>
 
-<span class="c">#Nuestro cliente esta en:</span>
-<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span>  <span class="o">-eq</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
+<span class="c"># Nuestro cliente está en:</span>
+<span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">{</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">}</span> <span class="p">|</span> <span class="nb">FT </span><span class="n">DistinguishedName</span>
 </pre></div>
 </div>
 <p>Vemos las siguientes unidades organizativas:</p>
@@ -847,25 +861,25 @@
 </pre></div>
 </div>
 <p>Movemos el equipo al &quot;DespachoX&quot;</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span> <span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$IdentidadEquipo</span> <span class="p">=</span> <span class="p">$(</span><span class="nb">Get-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;WC06TUNOMBRE&quot;</span><span class="p">).</span><span class="n">DistinguishedName</span>
 
 <span class="nb">Move-ADObject</span> <span class="n">-Identity</span> <span class="nv">$IdentidadEquipo</span> <span class="n">-TargetPath</span> <span class="s2">&quot;OU=DespachoX,DC=tunombre,DC=local&quot;</span> <span class="n">-Confirm</span><span class="p">:</span><span class="nv">$False</span>
 </pre></div>
 </div>
 </section>
-<section id="crear-y-vinculamos-gpo">
-<h2>Crear y vinculamos GPO<a class="headerlink" href="#crear-y-vinculamos-gpo" title="Link to this heading">#</a></h2>
-<p>Creamos la politica de grupo:</p>
+<section id="crear-y-vincular-gpo">
+<h2>Crear y vincular GPO<a class="headerlink" href="#crear-y-vincular-gpo" title="Link to this heading">#</a></h2>
+<p>Creamos la política de grupo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">New-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;MapearX&quot;</span>
 </pre></div>
 </div>
-<p>Asignar la configuración de inicio de sesión a la GPO</p>
+<p>Asignar la configuración de inicio de sesión a la GPO. La clave <strong>Run</strong> del registro ejecuta lo que tenga como valor cada vez que se inicia sesión; como un <code class="docutils literal notranslate"><span class="pre">.ps1</span></code> no es directamente ejecutable, lo lanzamos a través de <code class="docutils literal notranslate"><span class="pre">powershell.exe</span></code>:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$parameters</span> <span class="p">=</span> <span class="p">@{</span>
 <span class="n">Name</span> <span class="p">=</span> <span class="s1">&#39;MapearX&#39;</span>
 <span class="n">Key</span>  <span class="p">=</span> <span class="s2">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run&quot;</span>
 <span class="n">ValueName</span> <span class="p">=</span> <span class="s2">&quot;ScriptName&quot;</span>
 <span class="nb">Type </span><span class="p">=</span> <span class="s2">&quot;String&quot;</span>
-<span class="n">Value</span> <span class="p">=</span> <span class="s2">&quot;\\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1&quot;</span>
+<span class="n">Value</span> <span class="p">=</span> <span class="s2">&quot;powershell.exe -ExecutionPolicy Bypass -File \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1&quot;</span>
 <span class="p">}</span>
 
 <span class="nb">Set-GPRegistryValue</span> <span class="nv">@parameters</span>
@@ -886,7 +900,7 @@
 </section>
 <section id="gestion-de-acl-sin-entorno-grafico">
 <h2>Gestión de ACL sin entorno gráfico<a class="headerlink" href="#gestion-de-acl-sin-entorno-grafico" title="Link to this heading">#</a></h2>
-<p>Access Control List o &quot;Lista de Control de Acceso&quot; es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.</p>
+<p>Access Control List o &quot;Lista de Control de Acceso&quot; se utiliza para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informático (ver <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs-y-carpetas-compartidas"><span class="std std-ref">Permisos NTFS y carpetas compartidas</span></a>). Con el comando Get-Acl podemos obtener la ACL de un archivo o carpeta.</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
 
 <span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
@@ -896,39 +910,40 @@
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="n">Owner</span>
 <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="p">$(</span><span class="nb">Get-Acl</span> <span class="n">A</span><span class="p">).</span><span class="nb">Group</span>
-<span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
+<span class="n">TUNOMBRE</span><span class="p">\</span><span class="n">Ninguno</span>
 </pre></div>
 </div>
 <p>Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c">#Cambiar permisos en un archivo o carpeta:</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1:(OI)(CI)RW&quot;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Cambiar permisos en un archivo o carpeta:</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">grant</span> <span class="s2">&quot;tunombre\tunombreX1:(OI)(CI)RW&quot;</span>
 <span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">&gt;</span> <span class="nb">Get-Acl</span> <span class="n">A</span>
 
 <span class="n">Path</span> <span class="n">Owner</span>                   <span class="n">Access</span>
 <span class="p">----</span> <span class="p">-----</span>                   <span class="p">------</span>
-<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">WC22TUNOMBRE</span><span class="p">\</span><span class="n">tu_nombreA1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
+<span class="n">A</span>    <span class="n">BUILTIN</span><span class="p">\</span><span class="n">Administradores</span> <span class="n">TUNOMBRE</span><span class="p">\</span><span class="n">tunombreX1</span> <span class="n">Allow</span>  <span class="n">Write</span><span class="p">,</span> <span class="n">Read</span><span class="p">,</span> <span class="n">Synchronize</span><span class="p">...</span>
 
-<span class="c">#le hemos dado permisos de RW al usuario tu_nombreA1</span>
+<span class="c"># le hemos dado permisos de RW al usuario tunombreX1</span>
 
-<span class="c">#Para cambiar propietario</span>
-<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;wc22tunombre\tu_nombrea1&quot;</span>
+<span class="c"># Para cambiar propietario</span>
+<span class="n">icacls</span> <span class="n">A</span> <span class="p">/</span><span class="n">setowner</span> <span class="s2">&quot;tunombre\tunombreX1&quot;</span>
 </pre></div>
 </div>
-<p>Ejemplo de como dar permisos de RW a un grupo completo:</p>
+<p>Ejemplo de cómo dar permisos de RW a un grupo completo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permissions</span> <span class="p">=</span> <span class="s2">&quot;Read&quot;</span><span class="p">,</span> <span class="s2">&quot;Write&quot;</span>
 
 <span class="nv">$acl</span> <span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="n">A</span>
 
-<span class="c"># Crear una regla de acceso para el grupo A</span>
-<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
+<span class="c"># Crear una regla de acceso para el grupo X</span>
+<span class="nv">$accessRule</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">,</span> <span class="s2">&quot;ContainerInherit, ObjectInherit&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
 
 <span class="nv">$acl</span><span class="p">.</span><span class="n">SetAccessRule</span><span class="p">(</span><span class="nv">$accessRule</span><span class="p">)</span>
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="n">A</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Otro ejemplo, vamos a crear una carpeta llamada 'XY', dentro  dos subcarpetas llamadas 'X' y 'Y'.  Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'.&quot;</p>
+<p>Otro ejemplo, vamos a crear una carpeta llamada 'XY' y dentro dos subcarpetas llamadas 'X' y 'Y'. Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'.</p>
 <p>Creamos las carpetas:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">rm </span><span class="n">-r</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># si existía de antes, la borramos</span>
+<span class="nb">rm </span><span class="n">-r</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
 
 <span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
 <span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span><span class="p">\</span><span class="n">X</span>
@@ -939,11 +954,11 @@
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY&quot;</span>
 </pre></div>
 </div>
-<p>Damos permisos para la carpeta principal (lectura y escritura)</p>
+<p>Damos permisos para la carpeta principal (lectura y listar el contenido)</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$permisos</span><span class="p">=</span> <span class="s2">&quot;ReadAndExecute&quot;</span><span class="p">,</span> <span class="s2">&quot;ListDirectory&quot;</span>
 </pre></div>
 </div>
-<p>Crear la regla de acceso para el grupo X</p>
+<p>Creamos las reglas de acceso para los grupos X e Y</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$reglaX</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
 <span class="nv">$reglaY</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
 </pre></div>
@@ -954,7 +969,7 @@
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Agregamos permisos para para la carpeta &quot;X&quot; pueda ser modificada por el grupo &quot;X&quot;</p>
+<p>Agregamos permisos para que la carpeta &quot;X&quot; pueda ser modificada por el grupo &quot;X&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">XY</span>
 
 <span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span>
@@ -965,7 +980,7 @@
 <span class="nb">Set-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\X&quot;</span> <span class="n">-AclObject</span> <span class="nv">$acl</span>
 </pre></div>
 </div>
-<p>Agregamos permisos para para la carpeta &quot;Y&quot; pueda ser modificada por el grupo &quot;Y&quot;</p>
+<p>Agregamos permisos para que la carpeta &quot;Y&quot; pueda ser modificada por el grupo &quot;Y&quot;</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$acl</span><span class="p">=</span> <span class="nb">Get-Acl</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Users\XY\Y&quot;</span>
 <span class="nv">$permisos</span> <span class="p">=</span> <span class="s2">&quot;Modify&quot;</span>
 <span class="nv">$regla</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Security</span><span class="p">.</span><span class="n">AccessControl</span><span class="p">.</span><span class="n">FileSystemAccessRule</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span><span class="nv">$permisos</span><span class="p">,</span> <span class="s2">&quot;Allow&quot;</span><span class="p">)</span>
@@ -1033,7 +1048,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-remota">Administración remota</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mover-objetos-entre-las-diferentes-unidades-organizativas">Mover objetos entre las diferentes unidades organizativas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vinculamos-gpo">Crear y vinculamos GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-y-vincular-gpo">Crear y vincular GPO</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-de-acl-sin-entorno-grafico">Gestión de ACL sin entorno gráfico</a></li>
 </ul>
   </nav></div>

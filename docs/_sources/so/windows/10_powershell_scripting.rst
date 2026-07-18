@@ -2,17 +2,19 @@
 PowerShell Scripting
 ********************
 
-Habilitar ejecución de scripts 
+Habilitar ejecución de scripts
 ==============================
 
 .. code-block:: powershell
- 
+
+ # en una consola de administrador; para cambiarla solo para el usuario actual:
+ # Set-ExecutionPolicy -Scope CurrentUser Unrestricted
  Set-ExecutionPolicy Unrestricted
 
 Tipos y colecciones
 ===================
 
-En PowerShell, no es necesario declarar explícitamente el tipo de una variable, infiere el tipo automáticamente al asignar un valor. No obstante si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
+En PowerShell no es necesario declarar explícitamente el tipo de una variable: PowerShell infiere el tipo automáticamente al asignar un valor. No obstante, si necesitas definir explícitamente el tipo de una variable, puedes hacerlo usando la notación [tipo].
 
 .. code-block:: powershell
 
@@ -139,7 +141,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
    pi : 3,14
   
   Formato de Moneda
- 
+
   .. code-block:: text
 
    PS C:\> $pi = 3.141592
@@ -269,7 +271,7 @@ Los tipos de variables más comunes que puedes encontrar y utilizar en PowerShel
     1
 
 
-* Hash Tables **(Tablas hash)**. Una tabla hash es una colección de pares clave-valor. Las claves deben ser únicas dentro de la tabla.
+* Tablas hash **(Hash Tables)**. Una tabla hash es una colección de pares clave-valor. Las claves deben ser únicas dentro de la tabla.
 
   .. code-block:: powershell
 
@@ -333,7 +335,7 @@ Operadores
  PS C:\> $c=$a/$b     # división
  PS C:\> echo $c 
  2,2
- PS C:\> $c=$a%$b     # resto o modulo
+ PS C:\> $c=$a%$b     # resto o módulo
  PS C:\> echo $c
  1
 
@@ -362,7 +364,7 @@ Operadores de asignación
 
   .. code-block:: powershell
 
-   Get-Random # numero aletorio
+   Get-Random # número aleatorio
    Get-Random -Minimum 1 -Maximum 10
    "uno", "dos", "tres"| Get-Random
 
@@ -370,14 +372,16 @@ Operadores de asignación
 
   .. code-block:: powershell
 
-   #pasar a binario
-   [Convert]::ToString($decimal, 2) 
-   
-   $a="$pwd" 
-   
-   #Podemos ejecutar un texto como si fuese un comando &
+   # pasar a binario
+   $decimal = 10
+   [Convert]::ToString($decimal, 2)   # 1010
+
+   # convertir un objeto a cadena poniéndolo entre comillas
+   $a="$pwd"
+
+   # Podemos ejecutar un texto como si fuese un comando con el operador &
    $a="notepad"
-   &$a 
+   &$a
    
 Argumentos de entrada
 =====================
@@ -408,18 +412,18 @@ Argumentos de entrada Read-Host
  4
 
 
-Argumentos de entrada Read-Host argst.ps1
------------------------------------------
+Argumentos de entrada con $args (argst.ps1)
+-------------------------------------------
 
 .. code-block:: powershell
 
  PS C:\> cat .\argst.ps1
- echo "tenemos $args parámetros de entrada"
+ echo "tenemos $($args.Count) parámetros de entrada: $args"
  echo "El argumento 0: $($args[0])"
  echo "El argumento 1: $($args[1])"
- 
+
  PS C:\> .\argst.ps1 1 2 3
- tenemos 1 2 3 parámetros de entrada
+ tenemos 3 parámetros de entrada: 1 2 3
  El argumento 0: 1
  El argumento 1: 2
 
@@ -433,20 +437,20 @@ Argumentos de entrada Read-Host argst.ps1
  }
  
  PS C:\> .\args.ps1 1 dos tres
-       i = 1
-       i = dos
-       i = tres
+ i = 1
+ i = dos
+ i = tres
 
 
 .. code-block:: powershell
 
- PS C:\> cat .\argst.ps1
+ PS C:\> cat .\argsf.ps1
  foreach ($i in $args)
  {
  echo $i
  }
- 
- PS C:\> .\argst.ps1 1 dos tres 1 dos tres
+
+ PS C:\> .\argsf.ps1 1 dos tres 1 dos tres
  1 
  dos 
  tres 
@@ -454,8 +458,8 @@ Argumentos de entrada Read-Host argst.ps1
  dos 
  tres 
   
-Argumentos de entrada Read-Host param.ps1
------------------------------------------  
+Argumentos de entrada con param (param.ps1)
+-------------------------------------------
 
 .. code-block:: powershell
   
@@ -485,7 +489,7 @@ En el caso de que queramos darle un valor por defecto cambiamos:
   
   param (
       [string]$Nombre = "Tutankamón",
-      [int]$Nacimiento = "-1334"
+      [int]$Nacimiento = -1334
   )
 
 y cuando lo ejecutamos obtenemos:
@@ -495,14 +499,14 @@ y cuando lo ejecutamos obtenemos:
   PS C:\> .\param_def.ps1 -Nombre Nefertiti -Nacimiento -1370
   Hola Nefertiti, Tienes 3394
 
-  PS C:\Users\Administrador\powershell> .\param_def.ps1 -Nombre Nefertiti
+  PS C:\> .\param_def.ps1 -Nombre Nefertiti
   Hola Nefertiti, Tienes 3358
 
   PS C:\> .\param_def.ps1
   Hola Tutankamón, Tienes 3358
 
 
-Podemos completar la declaracion de un parámetro en un script de PowerShell utilizando **[Parameter()]**, el argumento **Mandatory=$true** dentro de la directiva parameter indica que el parámetro es obligatorio. Si el usuario no proporciona un valor para este parámetro al ejecutar el script, PowerShell solicitará que se ingrese uno. Si se omite, PowerShell genera un error pidiendo al usuario que proporcione el valor. **HelpMessage** especifica un mensaje de ayuda que se mostrará al usuario si el parámetro obligatorio no se proporciona.
+Podemos completar la declaración de un parámetro en un script de PowerShell utilizando **[Parameter()]**: el argumento **Mandatory=$true** indica que el parámetro es obligatorio, de modo que si el usuario no proporciona un valor al ejecutar el script, PowerShell le pedirá que lo introduzca. **HelpMessage** especifica un mensaje de ayuda que el usuario puede consultar escribiendo ``!?`` cuando se le pide el valor.
 
 
 .. code-block:: powershell
@@ -510,7 +514,7 @@ Podemos completar la declaracion de un parámetro en un script de PowerShell uti
  
   PS C:\> cat .\param.ps1
   param (
-      [Parameter(Mandatory=$true, HelpMessage="Cómo te llamas?")]
+      [Parameter(Mandatory=$true, HelpMessage="¿Cómo te llamas?")]
       [string]$Nombre,
   
       [Parameter(Mandatory=$true, HelpMessage="¿En qué año naciste?")]
@@ -541,7 +545,7 @@ Podemos completar la declaracion de un parámetro en un script de PowerShell uti
   Proporcione valores para los parámetros siguientes:
   (Escriba !? para obtener Ayuda).
   Nombre: !?
-  Cómo te llamas?
+  ¿Cómo te llamas?
   Nombre: Tutankamón
   Nacimiento: -1334
   Hola Tutankamón, Tienes 3358
@@ -573,16 +577,19 @@ Evaluación de condiciones
 
 .. code-block:: powershell
 
- 7 -eq 7 #True
+ 7 -eq 7 #True   (igual)
  7 -eq 8 #False
- 3 -gt 2 #True
+ 7 -ne 8 #True   (distinto)
+ 3 -gt 2 #True   (mayor que)
+ 3 -ge 3 #True   (mayor o igual)
+ 2 -lt 3 #True   (menor que)
+ 3 -le 2 #False  (menor o igual)
 
 Operadores lógicos
 ==================
 
 .. code-block:: powershell
 
- (5 -gt 1) -And (5 -lt 10)  #True
  (5 -gt 1) -And (5 -lt 10)  #True
  (5 -gt 1) -Or (5 -lt 1)    #True
  (5 -gt 1) -Xor (5 -lt 1)   #True
@@ -728,6 +735,12 @@ Bucles con Foreach
  echo $num
  }
 
+ # 1
+ # 2
+ # hola
+ # 4
+ # 5
+
 Archivos
 ========
 
@@ -755,6 +768,7 @@ Archivos
    }
 
  #Eliminar la segunda linea y escribir
+ $lineas = Get-Content usuarios.csv
  $lineas | Where-Object { $_ -ne $lineas[1] } | Set-Content usuarios.csv
  cat ./usuarios.csv
  usuario,grupo
@@ -763,16 +777,17 @@ Archivos
  user04,group04
 
  #Eliminar la linea que tiene user03 y escribir
+ #(-UseQuotes requiere PowerShell 7; en Windows PowerShell 5.1 el csv se escribe entrecomillado)
  $a = Import-Csv -Path usuarios.csv | Where-Object { $_.usuario -ne "user03" }
  $a | Export-Csv -Path usuarios.csv  -NoTypeInformation -UseQuotes Never
 
-
- Get-Content usuarios.csv | Where-Object { $_ -notmatch 'user03' } | Set-Content usuarios.csv  
+ #Otra forma de eliminar la linea de user03 (partiendo del fichero original):
+ Get-Content usuarios.csv | Where-Object { $_ -notmatch 'user03' } | Set-Content usuarios.csv
  cat .\usuarios.csv
- "usuario","grupo"
- "user01","group01"
- "user02","group02"
- "user04","group04"
+ usuario,grupo
+ user01,group01
+ user02,group02
+ user04,group04
 
  #Podemos evaluar si existe o no el usuario
  if (Import-Csv usuarios.csv | Where-Object usuario -eq "user02") {
@@ -802,9 +817,13 @@ Funciones
  }
  $x = 5
  $y = 7
- $resultado = Sumar($x, $y)
+ $resultado = Sumar $x $y
  Write-Host $resultado
  #12
+
+ # ¡Ojo!: las funciones NO se llaman con paréntesis y comas.
+ # Sumar($x, $y) pasaría un único argumento (el array @(5, 7)) al parámetro $a
+ # y el resultado sería "5 7" en lugar de 12.
 
 .. code-block:: powershell
 
@@ -857,6 +876,8 @@ Ejemplo de función con recursión:
 
 Windows PowerShell ISE
 ======================
+
+Windows PowerShell ISE es el entorno de scripting integrado que viene con Windows: editor con resaltado, ejecución por selección y consola integrada. Microsoft ya no lo desarrolla activamente (recomienda Visual Studio Code con la extensión de PowerShell), pero sigue incluido en Windows y es cómodo para empezar.
 
 .. image:: imagenes/powershellISE.png
 

@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -521,7 +528,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>
@@ -541,11 +548,12 @@
                   
   <section id="casos-practicos-active-directory-con-adaptador-puente">
 <h1>Casos prácticos : Active Directory con adaptador puente<a class="headerlink" href="#casos-practicos-active-directory-con-adaptador-puente" title="Link to this heading">#</a></h1>
-<p>Crea los siguiente clones enlazados con los adaptadores en modo puente:</p>
+<p>Crea los siguientes clones enlazados con los adaptadores en modo puente:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1 de <a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022">Windows Server 2022</a> llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portatil</p></li>
-<li><p>Clon enlazado 2 de <a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows 11</a> llamado <strong>WC5-tunombre</strong> 10.5.X.Y/8, DHCP si es portatil</p></li>
+<li><p>Clon enlazado 1 de <a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022">Windows Server 2022</a> llamado <strong>SRV-tunombre</strong> con IP 10.4.X.Y/8, DHCP si es portátil</p></li>
+<li><p>Clon enlazado 2 de <a class="reference external" href="https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11">Windows 11</a> llamado <strong>WC5-tunombre</strong> 10.5.X.Y/8, DHCP si es portátil</p></li>
 </ul>
+<p>El servidor debe tener <strong>IP fija</strong>: va a ser el controlador de dominio y el DNS de la red, y los clientes lo tienen que localizar siempre en la misma dirección.</p>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/v7q1diqc4c9ldsg6">vídeo</a></p>
 <section id="instalacion-y-configuracion-de-active-directory-y-dns">
 <h2>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Link to this heading">#</a></h2>
@@ -554,23 +562,23 @@
 </ul>
 </section>
 <section id="creacion-de-un-dominio">
-<h2>Creación de un dominio:<a class="headerlink" href="#creacion-de-un-dominio" title="Link to this heading">#</a></h2>
+<h2>Creación de un dominio<a class="headerlink" href="#creacion-de-un-dominio" title="Link to this heading">#</a></h2>
 <ul>
 <li><p>Partiendo de la ventana Resultados de la instalación de Active Directory, pulsar en Promover este servidor a controlador de dominio. (Si se había cerrado la ventana anterior es posible acceder a ella pulsando en el icono de advertencia de la barra de herramientas del Administrador del servidor)</p>
 <img alt="../../_images/WS_promoverservidorCD.png" src="../../_images/WS_promoverservidorCD.png" />
 </li>
-<li><p>De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio <strong>tunombre.local</strong> es crear un nuevo bosque. Para ello seleccionar la opción <strong>Agregar un nuevo bosque</strong>. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Contraseña &#64;lumn0</p></li>
+<li><p>De momento, el servidor SRV-tunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio <strong>tunombre.local</strong> es crear un nuevo bosque. Para ello seleccionar la opción <strong>Agregar un nuevo bosque</strong>. Tras escribir el nombre del dominio: tunombre.local, pulsar Siguiente. En capacidades del controlador del dominio, el Servidor de Sistema de nombres de dominio (DNS) y el Catálogo global (GC) deben estar marcados. Como contraseña de <strong>restauración de servicios de directorio (DSRM)</strong> <a class="footnote-reference brackets" href="#dsrm" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> pondremos &#64;lumn0</p></li>
 </ul>
-<p>Verificar el nombre NetBIOS <a class="footnote-reference brackets" href="#netbios" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> tunombre y pulsar Siguiente</p>
+<p>Verificar el nombre NetBIOS <a class="footnote-reference brackets" href="#netbios" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> tunombre y pulsar Siguiente</p>
 <p>Si todo ha sido configurado correctamente, hacer clic en Instalar.</p>
-<p>Por último cuando se reinicie habilita las actualizaciones dinámicas, para ello en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV-TUNOMBRE /expandir Zonas de búsqueda directa/</strong> clic el botón derecho del ratón en <strong>tunombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong> elegir <strong>sin seguridad y con seguridad</strong>, a continuación hacer clic en Aceptar.</p>
+<p>Por último, cuando se reinicie, habilita las actualizaciones dinámicas para que los clientes puedan registrar automáticamente sus nombres en el DNS: en <strong>Inicio-&gt;Herramientas administrativas/DNS/expandir SRV-TUNOMBRE/expandir Zonas de búsqueda directa/</strong> clic con el botón derecho del ratón en <strong>tunombre.local/Propiedades/General/lista Actualizaciones dinámicas</strong>, elegir <strong>sin seguridad y con seguridad</strong> y a continuación hacer clic en Aceptar.</p>
 </section>
 <section id="unidades-organizativas-usuarios-y-grupos">
 <h2>Unidades Organizativas, usuarios y grupos<a class="headerlink" href="#unidades-organizativas-usuarios-y-grupos" title="Link to this heading">#</a></h2>
 <p>La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.</p>
-<p>Para crear de las unidades organizativas en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong> dentro del domino <strong>tunombre.local</strong> crea las siguientes unidades organizativas (clic botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa) <strong>Usuarios y Grupos</strong></p>
+<p>Para crear las unidades organizativas, en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong>, dentro del dominio <strong>tunombre.local</strong> crea las unidades organizativas <strong>Usuarios</strong> y <strong>Grupos</strong> (clic con el botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa)</p>
 <img alt="../../_images/WS_UO.png" src="../../_images/WS_UO.png" />
-<p>Dentro de la UO Grupos, crea el grupo global de seguridad A y B</p>
+<p>Dentro de la UO Grupos, crea los grupos de seguridad de ámbito global <strong>A</strong> y <strong>B</strong></p>
 <p>Dentro de la UO Usuarios, crea los usuarios:</p>
 <ul class="simple">
 <li><p>tunombreA1</p>
@@ -615,8 +623,8 @@
 <h2>Unir un equipo al dominio<a class="headerlink" href="#unir-un-equipo-al-dominio" title="Link to this heading">#</a></h2>
 <p>Vamos a unir <strong>WC5-tunombre</strong> al dominio tunombre.local, para ello:</p>
 <ol class="arabic">
-<li><p>Cambiamos el nombre de la maquina</p></li>
-<li><p>Ponemos el DNS la ip del dominio <strong>SRV-tunombre</strong>.</p></li>
+<li><p>Cambiamos el nombre de la máquina a <strong>WC5-tunombre</strong>.</p></li>
+<li><p>Ponemos como servidor DNS la IP de <strong>SRV-tunombre</strong> (10.4.X.Y): es el requisito imprescindible, porque el cliente localiza el controlador de dominio preguntando a ese DNS.</p></li>
 <li><p>Haz clic derecho en el botón &quot;Inicio&quot; y selecciona &quot;Sistema &gt; Información&quot; en el menú desplegable.</p></li>
 <li><p>En la ventana de &quot;Sistema&quot;, haz clic en &quot;Configuración avanzada del sistema&quot; en el panel izquierdo.</p></li>
 <li><p>Se abrirá la ventana de &quot;Propiedades del sistema&quot;. Haz clic en la pestaña &quot;Nombre de equipo&quot; y luego en el botón &quot;Cambiar&quot;.</p></li>
@@ -624,7 +632,9 @@
 <li><p>Ingresa un nombre del dominio <strong>tunombre.local</strong></p>
 <img alt="../../_images/quitar_dominio.png" src="../../_images/quitar_dominio.png" />
 </li>
+<li><p>Al aceptar te pedirá las credenciales de un usuario del dominio con permisos para unir equipos (por ejemplo <strong>Administrador</strong>).</p></li>
 <li><p>Haz clic en &quot;OK&quot; para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.</p></li>
+<li><p>Para comprobarlo, en la pantalla de inicio de sesión elige &quot;Otro usuario&quot; y entra con una cuenta del dominio, por ejemplo <strong>tunombreA1&#64;tunombre.local</strong>. En el servidor, el equipo aparecerá en el contenedor <strong>Computers</strong> de <em>Usuarios y equipos de Active Directory</em>.</p></li>
 </ol>
 </section>
 <section id="quitar-el-equipo-del-dominio">
@@ -638,27 +648,22 @@
 <li><p>Ingresa un nombre de grupo de trabajo para el equipo. Por defecto, el grupo de trabajo suele ser &quot;WORKGROUP&quot;, pero puedes ingresar un nombre diferente si lo deseas.</p></li>
 <li><p>Haz clic en &quot;OK&quot; para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.</p></li>
 <li><p>En el servidor <strong>&quot;Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory/&quot;</strong></p></li>
-<li><p>Selecciona <strong>tunombre.local</strong>, y quita los clientes que has sacado del dominio en la pestaña de <strong>Computers</strong></p></li>
+<li><p>Selecciona <strong>tunombre.local</strong>, y elimina del contenedor <strong>Computers</strong> las cuentas de los equipos que has sacado del dominio (quitar el equipo del dominio no borra su cuenta en el servidor).</p></li>
 </ol>
 </section>
 <section id="configurar-una-carpeta-compartida">
 <h2>Configurar una carpeta compartida<a class="headerlink" href="#configurar-una-carpeta-compartida" title="Link to this heading">#</a></h2>
-<p>Las carpetas y archivos en Windows permiten configurar los siguientes permisos:</p>
-<ul class="simple">
-<li><p><strong>Control total</strong> el usuario tiene control total sobre la carpeta y puede añadir, cambiar, mover y eliminar elementos. El usuario también puede agregar y quitar permisos de la carpeta y subcarpetas.</p></li>
-<li><p><strong>Modificar</strong> una combinación de lectura y escritura. El usuario también tiene la capacidad de eliminar los archivos dentro de la carpeta. También puede ver el contenido de las subcarpetas.</p></li>
-<li><p><strong>Leer y Ejecutar</strong> los usuarios pueden leer el contenido de los archivos y ejecutar los programas de la carpeta.</p></li>
-</ul>
-<p>Vamos a compartir la carpeta <strong>C:\compartida</strong> alojada en nuestro servidor, con los permisos solo de lectura, para ello:</p>
-<p>Con el botón <strong>derecho del ratón</strong> accedemos a las propiedades de la carpeta vamos a la pestaña de <strong>Compartir</strong> aqui en <strong>Uso compartido avanzado</strong> seleccionamos compartir esta carpeta.</p>
-<p>En la misma pestaña de <strong>Compartir</strong> este mismo dialogo nos vamos a <strong>Compartir</strong> permisos y comprobamos que <strong>Todos</strong> solo con permisos de Lectura</p>
-<p>Como podemos ver esta compartida en: <strong>\\SRV-TUNOMRE\compartida</strong> o <strong>\\10.4.100.100</strong>, si el cliente es linux podemos acceder <strong>smb://10.4.100.100/</strong></p>
+<p>Al compartir una carpeta intervienen dos juegos de permisos (ver <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs-y-carpetas-compartidas"><span class="std std-ref">Permisos NTFS y carpetas compartidas</span></a>): los <strong>permisos del recurso compartido</strong> — que solo son tres: <strong>Control total</strong>, <strong>Cambiar</strong> y <strong>Leer</strong>, y solo se aplican al acceder por red — y los <strong>permisos NTFS</strong> de la carpeta. Cuando un usuario accede por red se aplica el más restrictivo de los dos.</p>
+<p>Vamos a compartir la carpeta <strong>C:\compartida</strong> alojada en nuestro servidor, con permisos solo de lectura. Para ello:</p>
+<p>Con el botón <strong>derecho del ratón</strong> accedemos a las propiedades de la carpeta, vamos a la pestaña de <strong>Compartir</strong> y aquí, en <strong>Uso compartido avanzado</strong>, seleccionamos compartir esta carpeta.</p>
+<p>En el mismo diálogo, en <strong>Permisos</strong>, comprobamos que <strong>Todos</strong> tiene solo permisos de <strong>Lectura</strong>.</p>
+<p>Como podemos ver, está compartida en: <strong>\\SRV-TUNOMBRE\compartida</strong> o <strong>\\10.4.X.Y\compartida</strong>; si el cliente es GNU/Linux podemos acceder con <strong>smb://10.4.X.Y/compartida</strong></p>
 </section>
 <section id="instalacion-de-software-utilizando-directivas-de-grupo">
 <h2>Instalación de software utilizando directivas de grupo<a class="headerlink" href="#instalacion-de-software-utilizando-directivas-de-grupo" title="Link to this heading">#</a></h2>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/3eeqjzksxsgrpaco">vídeo</a></p>
 <ol class="arabic">
-<li><p>Vamos a instalar <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato msi <a class="footnote-reference brackets" href="#msi" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Para ello lo bajamos y lo guardamos dentro de la carpeta SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <strong>C:\Windows\Sysvol</strong></p></li>
+<li><p>Vamos a instalar <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato msi <a class="footnote-reference brackets" href="#msi" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> (la instalación de software por directivas de grupo solo admite paquetes <code class="docutils literal notranslate"><span class="pre">.msi</span></code>). Para ello lo bajamos y lo guardamos dentro de la carpeta SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> <strong>C:\Windows\Sysvol</strong>, una carpeta que el servidor ya comparte con todos los equipos del dominio</p></li>
 <li><p>Para crear un objeto de directiva de grupo, abre la consola de administración de directivas de grupo (Group Policy Management Console) en el controlador de dominio <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong>. Crea un nuevo objeto de directiva de grupo (GPO) <strong>Instalar VLC</strong></p>
 <img alt="../../_images/GPO_VLC.png" src="../../_images/GPO_VLC.png" />
 </li>
@@ -668,7 +673,7 @@
 <li><p>En <strong>Directiva Instalar/Configuración del equipo/Directivas/Configuración de software</strong> creamos un nuevo paquete</p>
 <img alt="../../_images/GPO_VLC_editar.png" src="../../_images/GPO_VLC_editar.png" />
 </li>
-<li><p>Especificar la ubicación del programa (.msi o .exe) dandole la ip y la carpeta compartida,para este caso usaremos la carpeta compartida que hemos creado, por lo general usaremos SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, lo siguiente será seleccionar una instalación asignada, es decir (se instala automáticamente cuando se inicia sesión) en el caso de seleccionar la instalación publicada (el usuario puede elegir instalarlo desde el Centro de software de Windows).</p>
+<li><p>Especificar la ubicación del paquete <code class="docutils literal notranslate"><span class="pre">.msi</span></code> <strong>con su ruta de red</strong> (<code class="docutils literal notranslate"><span class="pre">\\servidor\recurso\...</span></code>, en nuestro caso la carpeta compartida que hemos creado o, por lo general, SYSVOL <a class="footnote-reference brackets" href="#sysvol" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>), nunca con la ruta local <code class="docutils literal notranslate"><span class="pre">C:\...</span></code>: son los clientes los que tienen que poder descargar el paquete. A continuación seleccionamos una instalación <strong>asignada</strong>: como la hemos puesto en <em>Configuración del equipo</em>, se instala automáticamente cuando el equipo arranca. (La instalación <strong>publicada</strong> solo está disponible en <em>Configuración de usuario</em>: el usuario puede elegir instalarla desde el Panel de control.)</p>
 <img alt="../../_images/GPO_VLC_editar2.png" src="../../_images/GPO_VLC_editar2.png" />
 </li>
 <li><p>Haz un par de clientes más para nuestro dominio. Crea una nueva UO llamada Equipo y dentro crea otra llamada Despacho1, deja el cliente WC5-Tunombre fuera y dentro del Despacho1 el cliente WC6-Tunombre y WC7-Tunombre</p>
@@ -679,44 +684,13 @@
 </li>
 <li><p>Los cambios en las políticas de grupo pueden requerir que el cliente se reinicie para que las configuraciones tengan efecto. Por otro lado si queremos aplicar nosotros mismos las directivas de grupo en los clientes de Windows, abre una ventana del símbolo del sistema (cmd) o PowerShell y ejecuta el comando <strong>gpupdate /force</strong>. Esto obligará al equipo a buscar y aplicar las nuevas directivas de grupo.</p></li>
 </ol>
-<p class="rubric">Footnotes</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="netbios" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>NetBIOS (Sistema Básico de Entrada/Salida de Red) es un protocolo de red desarrollado originalmente por IBM en los años 80. Es un protocolo de capa de aplicación que permite la comunicación entre dispositivos en una red local (LAN). Aunque es una tecnología más antigua, todavía se encuentra en uso en algunas redes, especialmente en entornos heredados y redes locales más pequeñas. Las características importantes de NetBIOS:</p>
-<ul class="simple">
-<li><p>Identificación de nombres de red: NetBIOS proporciona un método para que los dispositivos en una red local se identifiquen entre sí mediante nombres de red. Estos nombres NetBIOS son de hasta 15 caracteres alfanuméricos y se utilizan para identificar recursos de red como impresoras, carpetas compartidas y otros dispositivos.</p></li>
-<li><p>Resolución de nombres: NetBIOS también incluye un servicio de resolución de nombres que permite a los dispositivos de la red traducir nombres de recursos NetBIOS en direcciones IP que puedan ser utilizadas para la comunicación en la red.</p></li>
-<li><p>Sesiones NetBIOS: NetBIOS permite establecer sesiones entre dispositivos en la red para la transferencia de datos. Estas sesiones pueden ser utilizadas para la comunicación entre aplicaciones en diferentes dispositivos.</p></li>
-<li><p>Datagramas NetBIOS: Además de las sesiones, NetBIOS también admite la comunicación de datagramas, que son mensajes de longitud fija que pueden ser enviados a todos los dispositivos en la red o a dispositivos específicos.</p></li>
-<li><p>Puertos NetBIOS: NetBIOS utiliza el puerto TCP/UDP 137 para la resolución de nombres, el puerto TCP 139 para las sesiones NetBIOS y el puerto UDP 138 para datagramas NetBIOS.</p></li>
-</ul>
-</aside>
-<aside class="footnote brackets" id="msi" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
-<p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
-</aside>
-<aside class="footnote brackets" id="sysvol" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
-<p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
-<p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
-<ul class="simple">
-<li><p><strong>Policies</strong> (Políticas): Esta carpeta contiene Objetos de Política de Grupo (GPO), que definen varios ajustes y configuraciones para usuarios y computadoras dentro de un dominio.</p></li>
-<li><p><strong>Scripts</strong>: Esta carpeta puede contener scripts de inicio de sesión u otros scripts utilizados para diversas tareas administrativas.</p></li>
-<li><p><strong>Staging</strong> (Escenario): Utilizado durante el proceso de replicación para preparar cambios antes de que se apliquen a otros controladores de dominio.</p></li>
-<li><p><strong>Domain</strong> (Dominio): Contiene información específica del dominio.</p></li>
-<li><p><strong>StarterGPOs</strong>: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.</p></li>
-</ul>
-</aside>
-</aside>
 </section>
 <section id="unir-un-cliente-ubuntu-al-dominio">
 <h2>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Link to this heading">#</a></h2>
 <p>Puedes ver la configuración en el siguiente <a class="reference external" href="https://mediateca.educa.madrid.org/video/rc3ogoh99gwnkmbh">vídeo</a></p>
 <ul class="simple">
 <li><p>Configura la IP 10.10.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, con gateway 10.0.0.2 y subred 10.0.0.0/8 en el caso de que tengas un portátil utiliza DHCP.</p></li>
-<li><p>Cambia el DNS (ip windows server), haz que aparezca en <strong>/ets/hosts</strong> el nombre del dominio y sincroniza temporalmente los dos ordenadores.</p></li>
+<li><p>Cambia el DNS (IP del Windows Server), haz que aparezca en <strong>/etc/hosts</strong> el nombre del dominio y sincroniza la hora de los dos ordenadores (Kerberos rechaza la autenticación si los relojes difieren más de unos minutos).</p></li>
 </ul>
 <p>Instalar los paquetes necesarios:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>sssd-ad<span class="w"> </span>sssd-tools<span class="w"> </span>realmd<span class="w"> </span>adcli
@@ -739,7 +713,7 @@ Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srv-tunom
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>realm<span class="w"> </span>join<span class="w"> </span>--user<span class="o">=</span>Administrador<span class="w"> </span>-v<span class="w"> </span>tunombre.local
 </pre></div>
 </div>
-<p>Para que se cree el home de forma automatica cuando se loguea el usuario</p>
+<p>Para que se cree el home de forma automática cuando el usuario inicia sesión (marcar la opción <em>Create home directory on login</em>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pam-auth-update
 </pre></div>
 </div>
@@ -751,6 +725,41 @@ Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srv-tunom
 <a class="reference internal image-reference" href="../../_images/ubuntuADssh.png"><img alt="../../_images/ubuntuADssh.png" height="295" src="../../_images/ubuntuADssh.png" width="404" />
 </a>
 <p>Ayuda: Usa &quot;kinit <a class="reference external" href="mailto:administrador&#37;&#52;&#48;tunombre&#46;local">administrador<span>&#64;</span>tunombre<span>&#46;</span>local</a>&quot; para iniciar sesión como administrador en el dominio. Puedes verificar la configuración DNS en &quot;/etc/resolv.conf&quot;. Recuerda sincronizar los relojes de los sistemas para mantener una hora precisa en toda la red.</p>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="netbios" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>NetBIOS (Sistema Básico de Entrada/Salida de Red) es un protocolo de red desarrollado originalmente por IBM en los años 80. Es un protocolo de capa de aplicación que permite la comunicación entre dispositivos en una red local (LAN). Aunque es una tecnología más antigua, todavía se encuentra en uso en algunas redes, especialmente en entornos heredados y redes locales más pequeñas. Las características importantes de NetBIOS:</p>
+<ul class="simple">
+<li><p>Identificación de nombres de red: NetBIOS proporciona un método para que los dispositivos en una red local se identifiquen entre sí mediante nombres de red. Estos nombres NetBIOS son de hasta 15 caracteres alfanuméricos y se utilizan para identificar recursos de red como impresoras, carpetas compartidas y otros dispositivos.</p></li>
+<li><p>Resolución de nombres: NetBIOS también incluye un servicio de resolución de nombres que permite a los dispositivos de la red traducir nombres de recursos NetBIOS en direcciones IP que puedan ser utilizadas para la comunicación en la red.</p></li>
+<li><p>Sesiones NetBIOS: NetBIOS permite establecer sesiones entre dispositivos en la red para la transferencia de datos. Estas sesiones pueden ser utilizadas para la comunicación entre aplicaciones en diferentes dispositivos.</p></li>
+<li><p>Datagramas NetBIOS: Además de las sesiones, NetBIOS también admite la comunicación de datagramas, que son mensajes de longitud fija que pueden ser enviados a todos los dispositivos en la red o a dispositivos específicos.</p></li>
+<li><p>Puertos NetBIOS: NetBIOS utiliza el puerto TCP/UDP 137 para la resolución de nombres, el puerto TCP 139 para las sesiones NetBIOS y el puerto UDP 138 para datagramas NetBIOS.</p></li>
+</ul>
+</aside>
+<aside class="footnote brackets" id="dsrm" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">2</a><span class="fn-bracket">]</span></span>
+<p>La contraseña de <strong>DSRM</strong> (<em>Directory Services Restore Mode</em>, modo de restauración de servicios de directorio) es la del administrador local que se utiliza para arrancar el controlador de dominio en modo de recuperación cuando Active Directory no está disponible. No es la contraseña del administrador del dominio.</p>
+</aside>
+<aside class="footnote brackets" id="msi" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
+</aside>
+<aside class="footnote brackets" id="sysvol" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>)</span>
+<p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
+<p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
+<ul class="simple">
+<li><p><strong>Policies</strong> (Políticas): Esta carpeta contiene Objetos de Política de Grupo (GPO), que definen varios ajustes y configuraciones para usuarios y computadoras dentro de un dominio.</p></li>
+<li><p><strong>Scripts</strong>: Esta carpeta puede contener scripts de inicio de sesión u otros scripts utilizados para diversas tareas administrativas.</p></li>
+<li><p><strong>Staging</strong> (Escenario): Utilizado durante el proceso de replicación para preparar cambios antes de que se apliquen a otros controladores de dominio.</p></li>
+<li><p><strong>Domain</strong> (Dominio): Contiene información específica del dominio.</p></li>
+<li><p><strong>StarterGPOs</strong>: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.</p></li>
+</ul>
+</aside>
+</aside>
 </section>
 </section>
 
@@ -802,7 +811,7 @@ Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srv-tunom
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas-usuarios-y-grupos">Unidades Organizativas, usuarios y grupos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-equipo-al-dominio">Unir un equipo al dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quitar-el-equipo-del-dominio">Quitar el equipo del dominio</a></li>

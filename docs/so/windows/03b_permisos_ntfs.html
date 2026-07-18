@@ -250,8 +250,14 @@
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -521,7 +527,13 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-sobre-archivos">Permisos sobre archivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-sobre-carpetas">Permisos sobre carpetas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-de-funcionamiento">Reglas de funcionamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desde-la-linea-de-comandos-icacls">Desde la línea de comandos: icacls</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpetas-compartidas">Carpetas compartidas</a></li>
 </ul>
             </nav>
@@ -539,16 +551,30 @@
 <section id="permisos-ntfs">
 <h2>Permisos NTFS<a class="headerlink" href="#permisos-ntfs" title="Link to this heading">#</a></h2>
 <p>El sistema de archivos NTFS permite asignar permisos a archivos y carpetas mediante <strong>listas de control de acceso (ACL)</strong>: cada archivo o carpeta lleva una lista de entradas que indican qué usuarios y grupos pueden hacer qué. Se configuran desde <strong>Propiedades → pestaña Seguridad</strong>.</p>
-<p>Los permisos básicos sobre una carpeta son:</p>
+<p>Los permisos básicos no significan exactamente lo mismo sobre un archivo que sobre una carpeta:</p>
+<section id="permisos-sobre-archivos">
+<h3>Permisos sobre archivos<a class="headerlink" href="#permisos-sobre-archivos" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Control total</strong>: todo lo anterior más cambiar permisos y tomar posesión.</p></li>
-<li><p><strong>Modificar</strong>: leer, ejecutar, escribir y borrar.</p></li>
-<li><p><strong>Lectura y ejecución</strong>: ver el contenido y ejecutar programas.</p></li>
-<li><p><strong>Mostrar el contenido de la carpeta</strong>: listar lo que contiene.</p></li>
-<li><p><strong>Lectura</strong>: leer archivos y atributos.</p></li>
-<li><p><strong>Escritura</strong>: crear archivos y carpetas y modificar su contenido.</p></li>
+<li><p><strong>Lectura</strong>: leer el archivo y ver sus atributos, sus permisos y quién es el propietario.</p></li>
+<li><p><strong>Escritura</strong>: sobrescribir el contenido del archivo y modificar sus atributos.</p></li>
+<li><p><strong>Lectura y ejecución</strong>: ejecutar el archivo (programas y scripts); incluye el permiso de Lectura.</p></li>
+<li><p><strong>Modificar</strong>: modificar o eliminar el archivo; incluye Escritura y Lectura y ejecución.</p></li>
+<li><p><strong>Control total</strong>: cambiar los permisos y tomar posesión; incluye todos los anteriores.</p></li>
 </ul>
-<p>Reglas que hay que conocer:</p>
+</section>
+<section id="permisos-sobre-carpetas">
+<h3>Permisos sobre carpetas<a class="headerlink" href="#permisos-sobre-carpetas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Lectura</strong>: ver los archivos y subcarpetas que contiene, y sus atributos, permisos y propietario.</p></li>
+<li><p><strong>Escritura</strong>: crear archivos y subcarpetas dentro de la carpeta y modificar sus atributos.</p></li>
+<li><p><strong>Mostrar el contenido de la carpeta</strong>: listar los nombres de los archivos y subcarpetas (es el único permiso que solo existe en carpetas).</p></li>
+<li><p><strong>Lectura y ejecución</strong>: además de lo que permiten Lectura y Mostrar el contenido (que incluye), permite <strong>atravesar</strong> la carpeta, es decir, pasar por ella para llegar a un archivo aunque no se tengan permisos sobre las carpetas intermedias.</p></li>
+<li><p><strong>Modificar</strong>: eliminar la carpeta; incluye Escritura y Lectura y ejecución.</p></li>
+<li><p><strong>Control total</strong>: cambiar los permisos, tomar posesión y eliminar subcarpetas y archivos; incluye todos los anteriores.</p></li>
+</ul>
+</section>
+<section id="reglas-de-funcionamiento">
+<h3>Reglas de funcionamiento<a class="headerlink" href="#reglas-de-funcionamiento" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Los permisos se acumulan</strong>: los permisos efectivos de un usuario son la suma de los suyos y los de todos los grupos a los que pertenece.</p></li>
 <li><p><strong>Denegar tiene prioridad sobre permitir</strong>: si cualquiera de sus grupos tiene una denegación explícita, el usuario queda denegado.</p></li>
@@ -556,7 +582,10 @@
 <li><p>El <strong>propietario</strong> de un archivo siempre puede cambiar sus permisos, y un administrador puede <strong>tomar posesión</strong> de cualquier archivo.</p></li>
 <li><p>Podemos comprobar qué puede hacer realmente un usuario en Propiedades → Seguridad → Opciones avanzadas → <strong>Acceso efectivo</strong>.</p></li>
 </ul>
-<p>Desde la línea de comandos, las ACL se administran con <strong>icacls</strong>:</p>
+</section>
+<section id="desde-la-linea-de-comandos-icacls">
+<h3>Desde la línea de comandos: icacls<a class="headerlink" href="#desde-la-linea-de-comandos-icacls" title="Link to this heading">#</a></h3>
+<p>Las ACL se administran con <strong>icacls</strong>:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span>                            <span class="c"># ver los permisos</span>
 <span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">grant</span> <span class="n">maria</span><span class="p">:(</span><span class="n">OI</span><span class="p">)(</span><span class="n">CI</span><span class="p">)</span><span class="n">M</span>     <span class="c"># concede Modificar, heredable a archivos (OI) y carpetas (CI)</span>
 <span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">remove</span> <span class="n">maria</span>              <span class="c"># quita sus entradas</span>
@@ -564,6 +593,7 @@
 </pre></div>
 </div>
 <p>Las letras de permiso más usadas en icacls son <strong>F</strong> (control total), <strong>M</strong> (modificar), <strong>RX</strong> (lectura y ejecución), <strong>R</strong> (lectura) y <strong>W</strong> (escritura).</p>
+</section>
 </section>
 <section id="carpetas-compartidas">
 <h2>Carpetas compartidas<a class="headerlink" href="#carpetas-compartidas" title="Link to this heading">#</a></h2>
@@ -633,7 +663,13 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-sobre-archivos">Permisos sobre archivos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-sobre-carpetas">Permisos sobre carpetas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-de-funcionamiento">Reglas de funcionamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desde-la-linea-de-comandos-icacls">Desde la línea de comandos: icacls</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpetas-compartidas">Carpetas compartidas</a></li>
 </ul>
   </nav></div>

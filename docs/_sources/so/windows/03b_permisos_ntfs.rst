@@ -7,16 +7,29 @@ Permisos NTFS
 
 El sistema de archivos NTFS permite asignar permisos a archivos y carpetas mediante **listas de control de acceso (ACL)**: cada archivo o carpeta lleva una lista de entradas que indican qué usuarios y grupos pueden hacer qué. Se configuran desde **Propiedades → pestaña Seguridad**.
 
-Los permisos básicos sobre una carpeta son:
+Los permisos básicos no significan exactamente lo mismo sobre un archivo que sobre una carpeta:
 
-* **Control total**: todo lo anterior más cambiar permisos y tomar posesión.
-* **Modificar**: leer, ejecutar, escribir y borrar.
-* **Lectura y ejecución**: ver el contenido y ejecutar programas.
-* **Mostrar el contenido de la carpeta**: listar lo que contiene.
-* **Lectura**: leer archivos y atributos.
-* **Escritura**: crear archivos y carpetas y modificar su contenido.
+Permisos sobre archivos
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Reglas que hay que conocer:
+* **Lectura**: leer el archivo y ver sus atributos, sus permisos y quién es el propietario.
+* **Escritura**: sobrescribir el contenido del archivo y modificar sus atributos.
+* **Lectura y ejecución**: ejecutar el archivo (programas y scripts); incluye el permiso de Lectura.
+* **Modificar**: modificar o eliminar el archivo; incluye Escritura y Lectura y ejecución.
+* **Control total**: cambiar los permisos y tomar posesión; incluye todos los anteriores.
+
+Permisos sobre carpetas
+^^^^^^^^^^^^^^^^^^^^^^^
+
+* **Lectura**: ver los archivos y subcarpetas que contiene, y sus atributos, permisos y propietario.
+* **Escritura**: crear archivos y subcarpetas dentro de la carpeta y modificar sus atributos.
+* **Mostrar el contenido de la carpeta**: listar los nombres de los archivos y subcarpetas (es el único permiso que solo existe en carpetas).
+* **Lectura y ejecución**: además de lo que permiten Lectura y Mostrar el contenido (que incluye), permite **atravesar** la carpeta, es decir, pasar por ella para llegar a un archivo aunque no se tengan permisos sobre las carpetas intermedias.
+* **Modificar**: eliminar la carpeta; incluye Escritura y Lectura y ejecución.
+* **Control total**: cambiar los permisos, tomar posesión y eliminar subcarpetas y archivos; incluye todos los anteriores.
+
+Reglas de funcionamiento
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 * **Los permisos se acumulan**: los permisos efectivos de un usuario son la suma de los suyos y los de todos los grupos a los que pertenece.
 * **Denegar tiene prioridad sobre permitir**: si cualquiera de sus grupos tiene una denegación explícita, el usuario queda denegado.
@@ -24,7 +37,10 @@ Reglas que hay que conocer:
 * El **propietario** de un archivo siempre puede cambiar sus permisos, y un administrador puede **tomar posesión** de cualquier archivo.
 * Podemos comprobar qué puede hacer realmente un usuario en Propiedades → Seguridad → Opciones avanzadas → **Acceso efectivo**.
 
-Desde la línea de comandos, las ACL se administran con **icacls**:
+Desde la línea de comandos: icacls
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Las ACL se administran con **icacls**:
 
 .. code-block:: powershell
 

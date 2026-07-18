@@ -2,13 +2,13 @@
 Casos prácticos : Active Directory sin GUI
 ********************************************
 
-Crea los siguiente clones enlazados:
+Crea los siguientes clones enlazados:
 
-* Clon enlazado 1 de "`Windows Server 2022 sin GUI <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui>`_" llamado **WS22tunombre** con IP 10.4.X.Y/8 o DHCP si es portatil y un nuevo adaptador red para el servidor, le asignamos una red interna a la que ponemos la dirección 172.16.0.10/16
+* Clon enlazado 1 de "`Windows Server 2022 sin GUI <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui>`_" llamado **WS22tunombre** con IP 10.4.X.Y/8 o DHCP si es portátil y un nuevo adaptador de red para el servidor, conectado a una red interna con la dirección 172.16.0.10/16
 
-* Clon enlazado 2 de "`Windows Server 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC05tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 2 de "`Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC05tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
-* Clon enlazado 3 de "`Windows Server 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC06tunombre** con un adaptador a una red interna, le asignamos la red 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 3 de "`Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC06tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/68dserxf2iosogqv>`_
 
@@ -19,11 +19,11 @@ Configurar servicio de enrutamiento
 
   # Instalar el servicio de enrutamiento
   Install-WindowsFeature Routing -IncludeManagementTools
-   
-  # habilitar NAT para la red interna
-  New-NetNat -Name "NAT" -InternalIPInterfaceAddressPrefix "172.16.0.10/16"
-  
-  #habilitamos el reenvío de paquetes
+
+  # habilitar NAT para la red interna (se indica la red, no la IP del servidor)
+  New-NetNat -Name "NAT" -InternalIPInterfaceAddressPrefix "172.16.0.0/16"
+
+  # habilitamos el reenvío de paquetes
   Set-NetIPInterface -Forwarding Enabled
 
 Instalación y configuración de Active Directory y DNS
@@ -47,6 +47,8 @@ No tenemos creada ninguna parte de la infraestructura, comenzamos creando el bos
 
   Install-ADDSForest
   DomainName : tunombre.local
+  # la contraseña que pide (SafeModeAdministratorPassword) es la de DSRM,
+  # el modo de restauración de servicios de directorio
   password : @lumn0
 
 Puedes comprobar que se ha creado con el siguiente comando:
@@ -75,7 +77,7 @@ Puedes comprobar las unidades creadas:
 
 .. image:: imagenes/WS22NGUI01.png
 
-En el caso de que te necesites borrar una OU, recuerda que primero tienes que deshabilitar el borrado accidental y luego borrar
+En el caso de que necesites borrar una OU, recuerda que primero tienes que deshabilitar la protección contra el borrado accidental y luego borrarla
 
 .. code-block:: powershell
 
@@ -104,13 +106,13 @@ Vamos a crear los siguientes usuarios y grupos de seguridad
   New-ADGroup -DisplayName "Y" -Name "Y" -GroupScope DomainLocal -GroupCategory Security -Path "DC=tunombre,DC=local"
 
 
-Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tu_nombreA1
+Después creamos los usuarios, como se ve en el siguiente ejemplo con el usuario tunombreX1
 
-.. code-block:: powershell 
-  
-  New-ADUser -DisplayName "tunombreX1" -Name "tunombreX1" -UserPrincipalName "tunombreX1" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0X1" -AsPlainText -Force) -ChangePasswordAtLogon:$False
+.. code-block:: powershell
 
-Al establecer ``-ChangePasswordAtLogon:$False``, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado ``Set-ADUser -Identity "tunombreX1" -ChangePasswordAtLogon $False``, en el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña y hasta que no lo hagamos no podremos loguearnos por ssh.
+  New-ADUser -DisplayName "tunombreX1" -Name "tunombreX1" -UserPrincipalName "tunombreX1@tunombre.local" -Enabled:$True -Path "DC=tunombre,DC=local" -AccountPassword (ConvertTo-SecureString -string "@lumn0X1" -AsPlainText -Force) -ChangePasswordAtLogon:$False
+
+Al establecer ``-ChangePasswordAtLogon:$False``, estás indicando que no se requiere que el usuario cambie la contraseña la primera vez que inicia sesión. Si lo queremos cambiar sobre un usuario ya creado: ``Set-ADUser -Identity "tunombreX1" -ChangePasswordAtLogon $False``. En el otro caso tendremos que iniciar la sesión al menos una vez para cambiar la contraseña, y hasta que no lo hagamos no podremos iniciar sesión por ssh.
 
 Por último lo añadimos al grupo
 
@@ -128,16 +130,16 @@ Podemos comprobar que se han creado los grupos y los usuarios:
 
 .. image:: imagenes/WS22NGUI02.png
 
-En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan un menor complejidad para hacer pruebas:
+En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo hacer que tengan una menor complejidad para hacer pruebas:
 
 .. code-block:: powershell
 
-  # Obtener la directiva de contraseñas actual
-  $pwdPolicy = Get-ADDefaultDomainPasswordPolicy 
-  
+  # Ver la directiva de contraseñas actual
+  Get-ADDefaultDomainPasswordPolicy
+
   # Deshabilitar los requisitos de complejidad
-  Set-ADDefaultDomainPasswordPolicy -Identity (Get-ADDomain).DistinguishedName -ComplexityEnabled $false 
-  
+  Set-ADDefaultDomainPasswordPolicy -Identity (Get-ADDomain).DistinguishedName -ComplexityEnabled $false
+
   # le damos la nueva contraseña
   Set-ADAccountPassword -Identity tunombreX1 -NewPassword (ConvertTo-SecureString "1234" -AsPlainText -Force) -Reset
 
@@ -145,28 +147,29 @@ En el caso de que queramos cambiar la directiva de las contraseñas, por ejemplo
 Unir equipo al dominio
 ----------------------
 
-Para añadir el equipo al dominio **WC05tunombre** primero tendremos que cambiar el DNS y apuntar a Windows Server, luego en "Configuración/Sistema/Información/Dominio o grupo de trabajo"  seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:
+Para añadir el equipo **WC05tunombre** al dominio, primero tendremos que cambiar el DNS y apuntar al Windows Server, luego en "Configuración/Sistema/Información/Dominio o grupo de trabajo" seleccionamos unir a dominio. En el caso de que el cliente no disponga de entorno gráfico:
 
 .. code-block:: powershell
 
-  #Comprobamos el DNS del cliente
+  # Comprobamos el DNS del cliente
   Get-DnsClientServerAddress
 
-  #En el caso de que no apunte al servidor, lo cambiamos:
+  # En el caso de que no apunte al servidor, lo cambiamos
+  # (el InterfaceIndex es el de tu adaptador, lo ves en el comando anterior):
   Set-DnsClientServerAddress -InterfaceIndex 6 -ServerAddresses ("172.16.0.10", "8.8.8.8")
-   
-Por ultimo lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente, necesitaremos exportar el display para que aparezca el dialogo para meter la contraseña
+
+Por último lo metemos dentro del dominio con el siguiente comando que ejecutamos en el cliente; aparecerá un diálogo gráfico para introducir la contraseña
 
 .. code-block:: powershell
 
-  Add-computer -domainname "tunombre.local" -Credential  tunombre\administrador -restart -force
-   
-  #puedes comprobar que se añadido en el servidor ejecutando allí
+  Add-Computer -DomainName "tunombre.local" -Credential tunombre\administrador -Restart -Force
+
+  # puedes comprobar que se ha añadido, ejecutando en el servidor
   Get-ADComputer -Filter * | FT Name
-  
+
 .. image:: imagenes/WS22NGUI03.png
 
-En el caso de que quieras hacerlo sin exportar el display:
+En el caso de que quieras hacerlo sin diálogo gráfico (por ejemplo, en una conexión por ssh):
 
 .. code-block:: powershell
 
@@ -180,11 +183,15 @@ Es posible que al clonar los equipos, puedan surgir problemas debido a que compa
 .. image:: imagenes/sysprep.png
 
 
-Si queremos sacar la maquina del dominio, en una terminal del servidor con permiso de administrador ejecutamos:
+Si queremos sacar la máquina del dominio:
 
 .. code-block:: powershell
 
-  Remove-ADComputer -Identity "NombreDeLaComputadora"
+  # en el cliente (lo saca del dominio y lo devuelve a un grupo de trabajo):
+  Remove-Computer -UnjoinDomainCredential tunombre\administrador -Restart -Force
+
+  # en el servidor (borra la cuenta del equipo del directorio):
+  Remove-ADComputer -Identity "WC06TUNOMBRE"
 
 
 En Windows, puedes utilizar el siguiente comando para sincronizar la hora con un servidor de tiempo en línea:
@@ -212,11 +219,11 @@ y la compartimos:
 
 .. code-block:: powershell
 
-  New-SmbShare -Name "X"  -Path "C:\XY-TUNOMRE\X-tunombre" -FullAccess "X", "Administradores" 
+  New-SmbShare -Name "X" -Path "C:\XY-TUNOMBRE\X-tunombre" -FullAccess "X", "Administradores"
 
-  Name ScopeName Path                      Description
-  ---- --------- ----                      -----------
-  X    *         C:\XY-TUNOMRE\X-tunombre
+  Name ScopeName Path                        Description
+  ---- --------- ----                        -----------
+  X    *         C:\XY-TUNOMBRE\X-tunombre
 
 
 Podemos comprobar las carpetas que hay compartidas, ejecutando en el servidor:
@@ -229,11 +236,11 @@ Para acceder a ellas:
 
 .. code-block:: powershell
    
-  #Podemos ver que esta en:
+  # Podemos ver que está en:
   ls "\\WS22TUNOMBRE\X"
-   
-  #Podemos montar en el cliente en la unidad Z
-  New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X" 
+
+  # Podemos montarla en el cliente en la unidad X:
+  New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\WS22TUNOMBRE\X"
   
 Utilizando el entorno gráfico
 
@@ -264,7 +271,7 @@ Desde el servidor podemos ejecutar comandos:
    
   Invoke-Command -ComputerName WC05TUNOMBRE,WC06TUNOMBRE -ScriptBlock {HOSTNAME.EXE}
 
-Invoke-Command se comunicará con hasta 32 equipos a la vez, si ponemos más comenzará hasta terminar los 32 primeros.
+Invoke-Command se comunica con hasta 32 equipos a la vez; si ponemos más, los siguientes esperarán a que terminen los 32 primeros.
 
 Si queremos abrir una sesión
 
@@ -273,7 +280,7 @@ Si queremos abrir una sesión
   Enter-PSSession WC06TUNOMBRE
   Exit-PSSession
   
-También ofrece la opción de crear una conexión persistente "PSSession", en estas sesiones las re-conexiones son mucho más rápidas y se conservará el estado, para ello llamada PSSession con (New-PSSession) en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro -Session y pasaremos un objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.
+También ofrece la opción de crear una conexión persistente ("PSSession"), en la que las re-conexiones son mucho más rápidas y se conserva el estado. Para ello creamos la sesión con **New-PSSession** y, en lugar de usar -ComputerName con Enter-PSSession o Invoke-Command, utilizaremos su parámetro **-Session** pasándole el objeto PSSession existente y abierto. Esto permite a los comandos volver a utilizar la conexión persistente que se había creado anteriormente.
 
 .. code-block:: powershell
    
@@ -291,7 +298,7 @@ También ofrece la opción de crear una conexión persistente "PSSession", en es
   
   Invoke-Command -Session $session -ScriptBlock { Get-Service sshd }
 
-Cuando se utilizan sesiones persistentes, por otro lado, las re-conexiones son mucho más rápidas, y puesto que se están manteniendo y reutilizando las sesiones, se conservará el estado.
+Como la sesión se mantiene y se reutiliza, el estado se conserva entre llamadas:
 
 .. code-block:: powershell
    
@@ -311,7 +318,7 @@ Podemos cargar un script:
 
   Invoke-Command -Session $session -ScriptBlock $scriptBlock
 
-También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el `editor vim <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-edior-vi>`_ utilizando una conexión por `ssh <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh>`_
+También podemos cargarlo de un archivo, para editar el script lo podemos hacer directamente con el `editor vim <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-editor-vi>`_ utilizando una conexión por `ssh <https://dgtrabada.github.io/so/windows/06_powershell.html#instalar-el-servidor-ssh>`_
 
 .. code-block:: powershell
      
@@ -323,7 +330,7 @@ También podemos cargarlo de un archivo, para editar el script lo podemos hacer 
   hola tunombre\administrador
   hoy es 05/06/2024 10:52:12
 
-Para tener acceso a un recurso compartido de red en una sesión remota. utilizamos `Enable-WSManCredSSP <https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples>`_, sirve para habilitar el delegado de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente. 
+Para tener acceso a un recurso compartido de red en una sesión remota (por defecto la sesión remota no puede reutilizar nuestras credenciales contra un tercer equipo, es el llamado problema del doble salto), utilizamos `Enable-WSManCredSSP <https://learn.microsoft.com/es-es/powershell/module/microsoft.powershell.core/invoke-command?view=powershell-7.2#examples>`_, que sirve para habilitar la delegación de credenciales de CredSSP (Credential Security Support Provider) en el servidor de administración remota y en el cliente.
 
 .. code-block:: powershell
      
@@ -340,7 +347,7 @@ Para tener acceso a un recurso compartido de red en una sesión remota. utilizam
     
     Invoke-Command @parameters
     
-Ten cuenta que necesitarás acceso al entorno gráfico:
+Ten en cuenta que necesitarás acceso al entorno gráfico:
 
 .. image:: imagenes/WS22NGUI05.png
 
@@ -392,8 +399,8 @@ Vamos a mover un equipo de Computers a DespachoX, primero vemos los clientes que
 
   Get-ADComputer -Filter * | Select-Object Name, DistinguishedName
 
-  #Nuestro cliente esta en:
-  Get-ADComputer -Filter {Name  -eq "WC06TUNOMBRE"} | FT DistinguishedName
+  # Nuestro cliente está en:
+  Get-ADComputer -Filter {Name -eq "WC06TUNOMBRE"} | FT DistinguishedName
 
 Vemos las siguientes unidades organizativas:
 
@@ -406,32 +413,32 @@ Movemos el equipo al "DespachoX"
 
 .. code-block:: powershell
 
-   $IdentidadEquipo = $(Get-ADComputer -Identity "WC06TUNOMBRE").DistinguishedName
-  
+  $IdentidadEquipo = $(Get-ADComputer -Identity "WC06TUNOMBRE").DistinguishedName
+
   Move-ADObject -Identity $IdentidadEquipo -TargetPath "OU=DespachoX,DC=tunombre,DC=local" -Confirm:$False
 
-Crear y vinculamos GPO
-----------------------
+Crear y vincular GPO
+--------------------
 
-Creamos la politica de grupo:
+Creamos la política de grupo:
 
 .. code-block:: powershell
 
   New-GPO -Name "MapearX"
   
-Asignar la configuración de inicio de sesión a la GPO
+Asignar la configuración de inicio de sesión a la GPO. La clave **Run** del registro ejecuta lo que tenga como valor cada vez que se inicia sesión; como un ``.ps1`` no es directamente ejecutable, lo lanzamos a través de ``powershell.exe``:
 
 .. code-block:: powershell
 
   $parameters = @{
   Name = 'MapearX'
   Key  = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
-  ValueName = "ScriptName" 
+  ValueName = "ScriptName"
   Type = "String"
-  Value = "\\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1"
+  Value = "powershell.exe -ExecutionPolicy Bypass -File \\WS22tunombre\sysvol\tunombre.local\scripts\mount.ps1"
   }
-  
-  Set-GPRegistryValue @parameters 
+
+  Set-GPRegistryValue @parameters
 
   
 La vinculamos:
@@ -455,7 +462,7 @@ Borrarla:
 Gestión de ACL sin entorno gráfico
 ----------------------------------
 
-Access Control List o "Lista de Control de Acceso" es utilizado para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informáticos, con el comando Get-Acl podemos obtener la ACL de una archivo o carpeta.
+Access Control List o "Lista de Control de Acceso" se utiliza para definir y controlar los permisos de acceso a recursos, como archivos, carpetas, impresoras y otros objetos en un sistema informático (ver :ref:`Permisos NTFS y carpetas compartidas`). Con el comando Get-Acl podemos obtener la ACL de un archivo o carpeta.
 
 .. code-block:: powershell
 
@@ -468,48 +475,49 @@ Access Control List o "Lista de Control de Acceso" es utilizado para definir y c
   PS C:\Users> $(Get-Acl A).Owner
   BUILTIN\Administradores
   PS C:\Users> $(Get-Acl A).Group
-  WC22TUNOMBRE\Ninguno
+  TUNOMBRE\Ninguno
 
 Con el comando icacls puedes administrar las Listas de Control de Acceso (ACLs) en archivos y carpetas.
 
 .. code-block:: powershell
 
-  #Cambiar permisos en un archivo o carpeta:
-  PS C:\Users> icacls A /grant "wc22tunombre\tu_nombrea1:(OI)(CI)RW"           
+  # Cambiar permisos en un archivo o carpeta:
+  PS C:\Users> icacls A /grant "tunombre\tunombreX1:(OI)(CI)RW"
   PS C:\Users> Get-Acl A
 
   Path Owner                   Access
   ---- -----                   ------
-  A    BUILTIN\Administradores WC22TUNOMBRE\tu_nombreA1 Allow  Write, Read, Synchronize...
+  A    BUILTIN\Administradores TUNOMBRE\tunombreX1 Allow  Write, Read, Synchronize...
 
-  #le hemos dado permisos de RW al usuario tu_nombreA1
-  
-  #Para cambiar propietario
-  icacls A /setowner "wc22tunombre\tu_nombrea1"
+  # le hemos dado permisos de RW al usuario tunombreX1
+
+  # Para cambiar propietario
+  icacls A /setowner "tunombre\tunombreX1"
   
 
-Ejemplo de como dar permisos de RW a un grupo completo:
+Ejemplo de cómo dar permisos de RW a un grupo completo:
 
 .. code-block:: powershell
 
-  $permissions = "Read", "Write" 
+  $permissions = "Read", "Write"
 
   $acl = Get-Acl -Path A
 
-  # Crear una regla de acceso para el grupo A
-  $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("A", $permissions, "ContainerInherit, ObjectInherit", "None", "Allow")
+  # Crear una regla de acceso para el grupo X
+  $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("X", $permissions, "ContainerInherit, ObjectInherit", "None", "Allow")
 
   $acl.SetAccessRule($accessRule)
   Set-Acl -Path A -AclObject $acl
-  
-  
-Otro ejemplo, vamos a crear una carpeta llamada 'XY', dentro  dos subcarpetas llamadas 'X' y 'Y'.  Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'."
+
+
+Otro ejemplo, vamos a crear una carpeta llamada 'XY' y dentro dos subcarpetas llamadas 'X' y 'Y'. Definiremos los permisos para que solo el grupo 'X' tenga acceso de entrada a la carpeta 'X' dentro de 'XY'.
 
 
 Creamos las carpetas:
 
 .. code-block:: powershell
 
+  # si existía de antes, la borramos
   rm -r C:\Users\XY
 
   mkdir C:\Users\XY
@@ -522,13 +530,13 @@ Obtenemos el objeto ACL actual de la carpeta XY
 
   $acl= Get-Acl -Path "C:\Users\XY"
 
-Damos permisos para la carpeta principal (lectura y escritura)
+Damos permisos para la carpeta principal (lectura y listar el contenido)
 
 .. code-block:: powershell
 
   $permisos= "ReadAndExecute", "ListDirectory"
 
-Crear la regla de acceso para el grupo X
+Creamos las reglas de acceso para los grupos X e Y
 
 .. code-block:: powershell
 
@@ -544,7 +552,7 @@ Agregamos las reglas de acceso a la carpeta "XY"
   $acl.AddAccessRule($reglaY)
   Set-Acl -Path "C:\Users\XY" -AclObject $acl
 
-Agregamos permisos para para la carpeta "X" pueda ser modificada por el grupo "X"
+Agregamos permisos para que la carpeta "X" pueda ser modificada por el grupo "X"
 
 .. code-block:: powershell
 
@@ -557,7 +565,7 @@ Agregamos permisos para para la carpeta "X" pueda ser modificada por el grupo "X
   $acl.AddAccessRule($regla)
   Set-Acl -Path "C:\Users\XY\X" -AclObject $acl
 
-Agregamos permisos para para la carpeta "Y" pueda ser modificada por el grupo "Y"
+Agregamos permisos para que la carpeta "Y" pueda ser modificada por el grupo "Y"
 
 .. code-block:: powershell
 

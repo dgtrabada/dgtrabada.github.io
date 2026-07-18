@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Casos prácticos : Active Directory con adaptador puente" href="08_Caso_practico_AD.html" />
-    <link rel="prev" title="PowerShell" href="06_powershell.html" />
+    <link rel="prev" title="Cuestionario PowerShell" href="06_cuestionario_powershell.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -522,14 +529,10 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-directory">Active Directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controlador-de-dominio">Controlador de dominio</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos">Grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-del-dominio">Grupos del dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-perfiles-de-usuario">Tipos de perfiles de usuario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directiva-de-grupo-gpo">Directiva de Grupo GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-los-archivos">ACL de los archivos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-una-carpeta">ACL de una carpeta</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-deployment-services-wds">Windows Deployment Services (WDS)</a></li>
 </ul>
             </nav>
@@ -547,12 +550,12 @@
 <section id="active-directory">
 <h2>Active Directory<a class="headerlink" href="#active-directory" title="Link to this heading">#</a></h2>
 <p>El Directorio Activo (Active Directory en inglés) es el servicio de directorio utilizado en entornos de red de Microsoft Windows. Proporciona un conjunto de servicios de administración centralizada de recursos de red, como usuarios, grupos, equipos, impresoras y otros objetos, en un dominio de Windows.</p>
-<p>A diferencia que en los grupos de trabajo, en lo que la administración de usuarios y privilegios se hará de forma individual en cada uno de los equipos que forman parte del <strong>grupo de trabajo</strong>, es decir cada uno de los equipos pertenecientes a un grupo de trabajo tienen una relación de <strong>igual a igual</strong> entre ellos y se administran de forma local, en el <strong>Directorio Activo se organiza jerárquicamente</strong> en los siguientes componentes:</p>
+<p>A diferencia de los <strong>grupos de trabajo</strong> — donde los equipos tienen una relación de <strong>igual a igual</strong> y los usuarios y privilegios se administran de forma individual en cada equipo —, en el Directorio Activo la administración es centralizada y <strong>se organiza jerárquicamente</strong> en los siguientes componentes:</p>
 <img alt="../../_images/AD.png" src="../../_images/AD.png" />
 <ul class="simple">
 <li><p><strong>Bosque (Forest)</strong>: Es el nivel más alto en la estructura del Directorio Activo. Un bosque es una colección de uno o más dominios de Windows que comparten una relación de confianza mutua. Cada bosque tiene un nombre de dominio raíz y comparte una base de datos y una política de seguridad común.</p></li>
 <li><p><strong>Dominio (Domain)</strong>: Un dominio es una unidad lógica en el Directorio Activo que agrupa objetos relacionados, como usuarios, grupos y recursos. Cada dominio tiene un nombre único dentro del bosque y se administra de forma independiente. Los dominios pueden tener relaciones de confianza con otros dominios dentro del mismo bosque.</p></li>
-<li><p><strong>Árbol (Tree)</strong>: Un árbol es una colección de uno o más dominios que comparten una estructura de nombres contigua y una relación de confianza unidireccional. El primer dominio creado en un bosque se convierte en el dominio raíz, y los dominios adicionales se agregan como subdominios en forma de árbol.</p></li>
+<li><p><strong>Árbol (Tree)</strong>: Un árbol es una colección de uno o más dominios que comparten una estructura de nombres contigua (por ejemplo, ventas.empresa.local como subdominio de empresa.local) unidos por relaciones de confianza <strong>bidireccionales y transitivas</strong>. El primer dominio creado en un bosque se convierte en el dominio raíz, y los dominios adicionales se agregan como subdominios en forma de árbol.</p></li>
 <li><p><strong>Unidad Organizativa (Organizational Unit - OU)</strong>: Una OU es una unidad organizativa que se utiliza para organizar y administrar los objetos del Directorio Activo, como usuarios, grupos y equipos. Las OUs se crean dentro de los dominios y permiten la delegación de administración y la aplicación de políticas específicas a grupos de objetos.</p></li>
 <li><p><strong>Objeto</strong>: Los objetos en el Directorio Activo representan recursos de red, como usuarios, grupos, equipos, impresoras, entre otros. Cada objeto tiene atributos que definen sus propiedades y características.</p></li>
 <li><p><strong>Contenedores</strong>  Un contenedor es similar a una UO en términos de ser una entidad lógica utilizada para agrupar objetos relacionados dentro de un dominio de Active Directory, la principal diferencia radica en que las UOs proporcionan una estructura jerárquica para organizar y administrar objetos en un dominio de Active Directory, mientras que los contenedores son entidades más simples que se utilizan para agrupar objetos relacionados, pero sin las mismas capacidades de administración y delegación de tareas.</p></li>
@@ -562,10 +565,12 @@
 </section>
 <section id="controlador-de-dominio">
 <h2>Controlador de dominio<a class="headerlink" href="#controlador-de-dominio" title="Link to this heading">#</a></h2>
-<p>El controlador de dominio es un componente clave del directorio activo (Active Directory) que proporciona servicios de autenticación y autorización a los usuarios y equipos en un dominio de Active Directory. También proporciona servicios de replicación de directorio a través de la red y mantiene una copia del directorio activo en sí.</p>
+<p>El controlador de dominio es un componente clave del directorio activo (Active Directory) que proporciona servicios de autenticación y autorización a los usuarios y equipos en un dominio de Active Directory. También proporciona servicios de replicación de directorio a través de la red y mantiene una copia del directorio activo en sí. Un dominio puede (y suele) tener varios controladores que replican la base de datos entre sí.</p>
+<p>Active Directory depende críticamente del <strong>DNS</strong>: los clientes localizan a su controlador de dominio mediante registros DNS especiales (registros SRV); por eso, al crear un dominio, el propio servidor suele instalarse también como servidor DNS, y los clientes deben usarlo como su DNS (es lo primero que se configura en los casos prácticos).</p>
 </section>
-<section id="grupos">
-<h2>Grupos<a class="headerlink" href="#grupos" title="Link to this heading">#</a></h2>
+<section id="grupos-del-dominio">
+<h2>Grupos del dominio<a class="headerlink" href="#grupos-del-dominio" title="Link to this heading">#</a></h2>
+<p>En un dominio, cada grupo se define por dos características: su <strong>tipo</strong> (para qué sirve) y su <strong>ámbito</strong> (quién puede ser miembro y dónde se puede utilizar).</p>
 <ul class="simple">
 <li><p><strong>Tipos de grupos</strong></p>
 <ul>
@@ -576,16 +581,19 @@
 <li><p><strong>Ámbitos</strong></p>
 <ul>
 <li><p><strong>Los grupos de ámbito universal</strong>: pueden incluir como miembros las cuentas de cualquier dominio del bosque, los grupos globales y los grupos universales. Además, al grupo se le puede asignar permisos en cualquier dominio.</p></li>
-<li><p>Los grupos de ámbito global: pueden incluir como miembros las cuentas del mismo dominio y los grupos globales del mismo dominio. Además, se le puede asignar permisos en cualquier dominio.</p></li>
-<li><p><strong>Los grupos de ámbito de dominio local</strong>: pueden incluir como miembros cuentas de cualquier dominio, grupos globales, grupos universales y grupos locales de dominio pero sólo del mismo dominio que el grupo local de dominio principal. Además, los permisos de miembro sólo se pueden asignar en el mismo dominio que el grupo local de dominio principal.</p></li>
+<li><p><strong>Los grupos de ámbito global</strong>: pueden incluir como miembros las cuentas del mismo dominio y los grupos globales del mismo dominio. Además, se le puede asignar permisos en cualquier dominio.</p></li>
+<li><p><strong>Los grupos de ámbito de dominio local</strong>: pueden incluir como miembros cuentas, grupos globales y grupos universales de cualquier dominio, además de grupos de dominio local de su propio dominio. Sin embargo, sólo se les pueden asignar permisos sobre recursos de su propio dominio.</p></li>
 </ul>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La estrategia de uso que recomienda Microsoft se resume en las siglas <strong>AGDLP</strong>: las cuentas (<em>Accounts</em>) se meten en grupos <strong>G</strong>lobales, los grupos globales en grupos de <strong>D</strong>ominio <strong>L</strong>ocal, y a estos últimos se les asignan los <strong>P</strong>ermisos sobre los recursos.</p>
+</div>
 </section>
 <section id="tipos-de-perfiles-de-usuario">
 <h2>Tipos de perfiles de usuario<a class="headerlink" href="#tipos-de-perfiles-de-usuario" title="Link to this heading">#</a></h2>
-<p>Como se ha podido deducir por lo dicho hasta ahora, existen diferentes tipos de perfiles de usuario que utilizaremos según las necesidades particulares de cada momento.</p>
-<p>Entre los perfiles de usuario que podemos utilizar, se encuentran los siguientes:</p>
+<p>En un dominio, un usuario puede iniciar sesión desde cualquier equipo, así que importa mucho <strong>dónde se guarda su perfil</strong> (su escritorio, sus documentos, su configuración...). Según dónde se almacene y quién pueda modificarlo, distinguimos los siguientes tipos de perfil:</p>
 <ul class="simple">
 <li><p><strong>Perfil de usuario local</strong>: Se guarda en el disco duro local del equipo cliente, de modo que todas las modificaciones que se realicen serán específicas del ordenador en el que se han establecido.</p></li>
 <li><p><strong>Perfil de usuario móvil</strong>: Los crea el administrador y se almacenan en una carpeta compartida por el servidor. Está asociada a la cuenta del dominio, de modo que estará disponible de forma independiente al ordenador concreto desde el que inicie sesión el usuario. Dado que el perfil se encuentra en el servidor, todos los cambios realizados en éste también se guardan en el servidor.</p></li>
@@ -593,52 +601,41 @@
 <li><p><strong>Perfil de usuario temporal</strong>: Cuando se produce un error que impide cargar un perfil móvil o un perfil obligatorio, se crea un perfil temporal para facilitar el inicio de sesión del usuario. Cuando el usuario acaba su sesión, el perfil temporal se elimina y se pierden todas las modificaciones realizadas por el usuario en su entorno.</p></li>
 <li><p><strong>Perfil de usuario super-obligatorio</strong>: Este tipo de perfiles se incorpora a partir de Windows Server 2008 y su objetivo es similar al de los perfiles obligatorios, con la diferencia de que, si se produce un error que impida cargar el perfil, el usuario no podrá iniciar sesión. En otras palabras, un perfil de usuario super-obligatorio impedirá que se cargue un perfil temporal cuando exista algún motivo que impida la carga del perfil super-obligatorio.</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El perfil móvil se configura en la pestaña <strong>Perfil</strong> de las propiedades del usuario (en <em>Usuarios y equipos de Active Directory</em>), indicando una ruta a una carpeta compartida del servidor, por ejemplo <code class="docutils literal notranslate"><span class="pre">\\servidor\perfiles$\%username%</span></code>. Para convertirlo en obligatorio basta con renombrar el fichero <code class="docutils literal notranslate"><span class="pre">NTUSER.DAT</span></code> del perfil a <code class="docutils literal notranslate"><span class="pre">NTUSER.MAN</span></code>.</p>
+</div>
 </section>
 <section id="directiva-de-grupo-gpo">
 <h2>Directiva de Grupo GPO<a class="headerlink" href="#directiva-de-grupo-gpo" title="Link to this heading">#</a></h2>
-<p><strong>Directiva de Grupo</strong> es una característica de Windows NT, familia de Sistemas Operativos. Directiva de grupo es un conjunto de reglas que controlan el entorno de trabajo de cuentas de usuario y cuentas de equipo. Directiva de grupo proporciona la gestión centralizada y configuración de sistemas operativos, aplicaciones y configuración de los usuarios en un entorno de Active Directory. En otras palabras, la Directiva de Grupo, en parte, controla lo que los usuarios pueden y no pueden hacer en un sistema informático</p>
-<p>Las GPO se pueden diferenciar dependiendo del objeto al que configuran y se pueden entender en distintos niveles:</p>
+<p>Una <strong>Directiva de Grupo</strong> (<em>Group Policy Object</em>, GPO) es un conjunto de reglas que controlan el entorno de trabajo de las cuentas de usuario y de equipo: proporciona la gestión centralizada de la configuración del sistema operativo, de las aplicaciones y de los usuarios en un entorno de Active Directory. En otras palabras, la Directiva de Grupo controla, en parte, lo que los usuarios pueden y no pueden hacer en un sistema informático.</p>
+<p>Toda GPO tiene dos mitades: la <strong>Configuración del equipo</strong> (se aplica al equipo, inicie sesión quien inicie) y la <strong>Configuración de usuario</strong> (se aplica al usuario, se siente donde se siente). En un dominio se administran desde la consola <em>Administración de directivas de grupo</em> (<code class="docutils literal notranslate"><span class="pre">gpmc.msc</span></code>), vinculando cada GPO al nivel que nos interese:</p>
 <ul class="simple">
 <li><p><strong>Equipo Local</strong>: tan solo se aplican en el equipo que las tiene asignadas independientemente del dominio al que pertenezca.</p></li>
 <li><p><strong>Sitio</strong>: se aplican a los equipos y/o usuarios de un sitio, independientemente del dominio.</p></li>
 <li><p><strong>Dominio</strong>: se aplican a todos los equipos y/o usuarios de un dominio.</p></li>
 <li><p><strong>Unidad Organizativa (OU)</strong>: se aplican únicamente a los equipos y/o usuarios que pertenecen a la OU.</p></li>
 </ul>
+<p>Las directivas se aplican exactamente en ese orden — <strong>Local → Sitio → Dominio → OU</strong> — y, en caso de conflicto, gana la última en aplicarse, es decir, la más cercana al objeto (la de la OU).</p>
+<p>Los equipos refrescan las directivas periódicamente; para no esperar podemos forzar su aplicación y comprobar cuáles se han aplicado:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">gpupdate</span> <span class="p">/</span><span class="n">force</span>   <span class="c"># fuerza la aplicación inmediata de las directivas</span>
+<span class="n">gpresult</span> <span class="p">/</span><span class="nb">r </span>      <span class="c"># muestra qué GPO se han aplicado al equipo y al usuario</span>
+</pre></div>
+</div>
 </section>
 <section id="recursos-compartidos">
 <h2>Recursos compartidos<a class="headerlink" href="#recursos-compartidos" title="Link to this heading">#</a></h2>
-<p>Los <strong>permisos NTFS</strong> en Windows se refieren a los permisos de archivos y carpetas que controlan el acceso de los usuarios a esos recursos en un sistema de archivos NTFS (Sistema de archivos Nuevo Tecnológico).</p>
-<ul class="simple">
-<li><p>Nos determina que usuarios y grupos tienen acceso a determinados archivos y carpetas.</p></li>
-<li><p>Objetivo es dar seguridad a los datos almacenados en los dispositivos de almacenamiento.</p></li>
-<li><p>Marca a través de lista de control de acceso <strong>(ACL)</strong> los ficheros y carpetas</p></li>
-<li><p>Las marcas y las restricciones las marca y las aplica el Núcleo del SO</p></li>
-</ul>
-<section id="acl-de-los-archivos">
-<h3>ACL de los archivos<a class="headerlink" href="#acl-de-los-archivos" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Leer</strong>: Se puede leer el archivo y ver sus permisos, atributos y quién es su propietario.</p></li>
-<li><p><strong>Escribir</strong>: Es posible sobrescribir en el archivo. Ver al propietario y los permisos del archivo. Modificar sus atributos.</p></li>
-<li><p><strong>Lectura y Ejecución</strong>: Se pueden ejecutar aplicaciones e incluye el permiso Escribir obligatoriamente.</p></li>
-<li><p><strong>Modificar</strong>: Se puede modificar o eliminar el archivo, e incluye los permisos Escribir, y Lectura y ejecución.</p></li>
-<li><p><strong>Control Total</strong>: Puedes tomar la propiedad y modificar los permisos, e incluye todos los permisos anteriores.</p></li>
-</ul>
-</section>
-<section id="acl-de-una-carpeta">
-<h3>ACL de una carpeta<a class="headerlink" href="#acl-de-una-carpeta" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Leer</strong>: Permite ver archivos y subcarpetas dentro de la carpeta, ver los permisos y atributos de carpeta y saber quien es el propietario.</p></li>
-<li><p><strong>Escribir</strong>: Permite crear archivos y subcarpetas en la carpeta, modificar atributos de carpeta, ver el propietario y los permisos.</p></li>
-<li><p><strong>Listar el Contenido de la Carpeta</strong>: Ver los nombres de archivos y subcarpetas en la carpeta.</p></li>
-<li><p><strong>Lectura y Ejecución</strong>: Te puedes mover por las carpetas para llegar a leer otros archivos y carpetas donde en principio no tendrías permisos, además incluye los permisos de Leer y Listar el contenido de la carpeta.</p></li>
-<li><p><strong>Modificar</strong>: Puedes eliminar la carpeta e incluye los permiso de Escribir y Lectura y ejecución.</p></li>
-<li><p><strong>Control Total</strong>: Puedes modificar los permisos, tomar la propiedad, eliminar subcarpetas y archivos, y además tienes todos los permisos anteriores</p></li>
-</ul>
-</section>
+<p>Los permisos NTFS y los permisos de los recursos compartidos funcionan en un dominio igual que en un equipo aislado (ver <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs-y-carpetas-compartidas"><span class="std std-ref">Permisos NTFS y carpetas compartidas</span></a>), con una diferencia importante: los permisos ahora se asignan a los <strong>usuarios y grupos del dominio</strong>, de modo que una carpeta compartida en el servidor da servicio a todos los equipos con un único punto de administración.</p>
+<p>Sobre esta pieza se apoyan, por ejemplo, los <strong>perfiles móviles</strong> y las <strong>carpetas personales</strong> de los usuarios: una carpeta compartida en el servidor (habitualmente oculta con <code class="docutils literal notranslate"><span class="pre">$</span></code>) a la que se accede como <code class="docutils literal notranslate"><span class="pre">\\servidor\recurso</span></code> y donde el control fino de acceso se hace con los permisos NTFS.</p>
 </section>
 <section id="windows-deployment-services-wds">
 <h2>Windows Deployment Services (WDS)<a class="headerlink" href="#windows-deployment-services-wds" title="Link to this heading">#</a></h2>
-<p>Windows Deployment Services (WDS) es un servicio que nos permite, a través de un rol de Windows Server, cargar los ficheros de las imágenes de instalación de Windows en un servidor y lanzar una instalación desde el Network Boot PXE del ordenador.</p>
+<p>Windows Deployment Services (WDS) es un rol de Windows Server que permite instalar Windows en los equipos de la red sin necesidad de USB ni DVD: el servidor almacena las imágenes y el equipo cliente arranca desde la tarjeta de red (<strong>PXE</strong>, <em>Network Boot</em>), descarga del servidor un entorno de instalación y desde él instala el sistema. Se manejan dos tipos de imágenes:</p>
+<ul class="simple">
+<li><p><strong>Imagen de arranque</strong> (<code class="docutils literal notranslate"><span class="pre">boot.wim</span></code>): el entorno mínimo (Windows PE) que el cliente descarga y arranca para lanzar la instalación.</p></li>
+<li><p><strong>Imagen de instalación</strong> (<code class="docutils literal notranslate"><span class="pre">install.wim</span></code>): contiene el sistema operativo que se va a instalar; puede haber varias (distintas versiones o ediciones) en el mismo servidor.</p></li>
+</ul>
+<p>Para que funcione, la red necesita además <strong>DHCP</strong> (el cliente PXE tiene que obtener una IP antes de tener sistema operativo) y <strong>DNS</strong>.</p>
 </section>
 </section>
 
@@ -654,12 +651,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="06_powershell.html"
+       href="06_cuestionario_powershell.html"
        title="página anterior">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">PowerShell</p>
+        <p class="prev-next-title">Cuestionario PowerShell</p>
       </div>
     </a>
     <a class="right-next"
@@ -691,14 +688,10 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-directory">Active Directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#controlador-de-dominio">Controlador de dominio</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos">Grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-del-dominio">Grupos del dominio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-perfiles-de-usuario">Tipos de perfiles de usuario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directiva-de-grupo-gpo">Directiva de Grupo GPO</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-los-archivos">ACL de los archivos</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acl-de-una-carpeta">ACL de una carpeta</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursos-compartidos">Recursos compartidos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-deployment-services-wds">Windows Deployment Services (WDS)</a></li>
 </ul>
   </nav></div>

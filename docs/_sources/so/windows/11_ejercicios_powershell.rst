@@ -9,7 +9,7 @@ disk.ps1
 
     .. tab:: disk.ps1
 
-        Crea un script llamado **disk.ps1** que imprima por pantalla el porcentaje que esta ocupada la partición C:
+        Crea un script llamado **disk.ps1** que imprima por pantalla el porcentaje que está ocupada la partición C:
 
     .. tab:: Solución
 
@@ -24,7 +24,7 @@ mem.ps1
 
     .. tab:: mem.ps1
       
-        Crea un script llamado **mem.ps1**, obtiene solamente la memoria en MB ocupada  y se escriban en un archivo llamado free.log cada vez que se ejecute, sin borrar el anterior registro.
+        Crea un script llamado **mem.ps1** que obtenga solamente la memoria ocupada en MB y la escriba en un archivo llamado free.log cada vez que se ejecute, sin borrar los registros anteriores.
 
     .. tab:: Solución
 
@@ -74,7 +74,7 @@ edad.ps1
 
     .. tab:: edad.ps1
       
-        Haz un script llamado **edad.ps1** que te pregunte en que año naciste y te diga la edad que tienes
+        Haz un script llamado **edad.ps1** que te pregunte en qué año naciste y te diga la edad que tienes
 
     .. tab:: Solución
 
@@ -88,7 +88,7 @@ tres_numeros.ps1
 
     .. tab:: tres_numeros.ps1
       
-        Haz un script llamado **tres_numeros.ps1** que te pregunte al usuario tres numero enteros y devuelva la suma:
+        Haz un script llamado **tres_numeros.ps1** que pida al usuario tres números enteros y devuelva la suma:
 
     .. tab:: Solución
 
@@ -113,7 +113,7 @@ impar.ps1
 
     .. tab:: impar.ps1
       
-        Haz un script llamado **impar.ps1** que pide un número al usuario y muestre los números impares hasta ese número
+        Haz un script llamado **impar.ps1** que pida un número al usuario y muestre los números impares hasta ese número
 
     .. tab:: Solución
 
@@ -139,7 +139,7 @@ mult.ps1
 
     .. tab:: mult.ps1
       
-        Haz un script llamado **mult.ps1** que pide un número al usuario y muestre su tabla de multiplicar
+        Haz un script llamado **mult.ps1** que pida un número al usuario y muestre su tabla de multiplicar
 
     .. tab:: Solución
 
@@ -170,7 +170,7 @@ ext.ps1
             echo archivo $i > archivo_$i.dat
           }
 
-        Si hacemos (C:Users....\Ejercicio ls) veremos que se han creado 10 archivos. 
+        Si hacemos ``ls`` dentro de la carpeta Ejercicio veremos que se han creado 10 archivos.
         Puedes también recorrerlos de la siguiente forma:
         
         .. code-block:: powershell
@@ -195,7 +195,7 @@ puerta.ps1
 
     .. tab:: puerta.ps1
       
-        Haz un script llamado **puerta.ps1**, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario ingresa un código diferente de 1 a 4, se mostrará un mensaje indicando que la puerta es incorrecta.
+        Haz un script llamado **puerta.ps1**, que permite al usuario seleccionar entre cuatro puertas de diferentes colores (roja, azul, verde y amarilla). Si el usuario introduce un número que no esté entre 1 y 4, se mostrará un mensaje indicando que la puerta es incorrecta.
 
     .. tab:: Solución (if)
 
@@ -271,12 +271,12 @@ usuario.ps1
            :language: shell
 
     .. tab:: usuario_csv.ps1
-      
+
         Haz un script llamado **usuario_csv.ps1** que reciba los siguientes parámetros:
 
         .. code-block:: powershell
 
-          usuario.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 2000
+          usuario_csv.ps1 -Nombre Mario -Apellido López -Usuario mario33 -Nacimiento 2000
 
         El script debe:
 
@@ -284,7 +284,7 @@ usuario.ps1
 
           * Si el usuario tiene **14 años o más**, comprueba el archivo usuarios_medad.csv, si el usuario existe escribe el mensaje: ``No se puede crear el usuario, el usuario existe``
 
-          * Si **no esta en el archivo**, crea la entrada con el usuario y muestra el mensaje: ``Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]``
+          * Si **no está en el archivo**, crea la entrada con el usuario y muestra el mensaje: ``Se ha creado [Nombre] [Apellido] el usuario [Usuario] con contraseña [contraseña]``
 
           * En el caso de que **no exista el archivo**, lo crea y añade la entrada
 
@@ -301,12 +301,12 @@ usuario.ps1
         .. code-block:: powershell
 
           rm  usuarios_medad.csv
-          .\usuario_csv.ps1 -Nombre Juan -Apellido Gárcia -Nacimiento 2000 -Usuario juan01
+          .\usuario_csv.ps1 -Nombre Juan -Apellido García -Nacimiento 2000 -Usuario juan01
           .\usuario_csv.ps1 -Nombre Marta -Apellido López -Nacimiento 1998 -Usuario mlopez98
           # El siguiente usuario no lo crea ya que es menor de 14 años
           .\usuario_csv.ps1 -Nombre Carlos -Apellido Sánchez -Nacimiento 2021 -Usuario csanchez01
           .\usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
-          #El siguiene usuario no lo crea, existe ya en el sistema 
+          #El siguiente usuario no lo crea, existe ya en el sistema
           .\usuario_csv.ps1 -Nombre Laura -Apellido Pérez -Nacimiento 1999 -Usuario lperez99
           .\usuario_csv.ps1 -Nombre David -Apellido Martín -Nacimiento 2000 -Usuario dmartin00
           .\usuario_csv.ps1 -Nombre Ana -Apellido Gómez -Nacimiento 1997 -Usuario agomez97
@@ -317,7 +317,7 @@ usuario.ps1
           .\usuario_csv.ps1 -Nombre Javier -Apellido Ortega -Nacimiento 1994 -Usuario jortega94
           .\usuario_csv.ps1 -list
           .\usuario_csv.ps1 -delete sruiz02
-          # El sigiente usuario no lo borra ya que no existe
+          # El siguiente usuario no lo borra ya que no existe
           .\usuario_csv.ps1 -delete sruiz02
           .\usuario_csv.ps1 -delete etorres96
           .\usuario_csv.ps1 -list
@@ -452,7 +452,7 @@ rnd.ps1
 
     .. tab:: rnd.ps1
       
-        Haz un script llamado **rnd.ps1** que escoja un numero aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continué hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.
+        Haz un script llamado **rnd.ps1** que escoja un número aleatorio entre 1 y 20, pregunte al usuario, le diga si es más pequeño o más grande y que continúe hasta que acierte. Cuando el usuario acierte haz que muestre el número de intentos.
 
     .. tab:: Solución (while)
 
@@ -464,7 +464,7 @@ rnd.ps1
         .. literalinclude:: 10_powershell/rnd_do_while.ps1
            :language: shell
 
-    .. tab:: Solución (do while)
+    .. tab:: Solución (do until)
 
         .. literalinclude:: 10_powershell/rnd_do_until.ps1
            :language: shell
@@ -476,7 +476,7 @@ piedra_papel_tijera.ps1
 
     .. tab:: piedra_papel_tijera.ps1
       
-        Crea un script de PowerShell llamado **piedra_papel_tijera.ps1** que implemente el clásico juego "Piedra, Papel o Tijeras" donde el usuario compite contra la computadora. 
+        Crea un script de PowerShell llamado **piedra_papel_tijera.ps1** que implemente el clásico juego "Piedra, Papel o Tijeras" donde el usuario compite contra el ordenador.
 
     .. tab:: Solución (if)
 
@@ -497,7 +497,7 @@ dados.ps1
 
     .. tab:: dados.ps1
       
-        Haz un script llamado  dados.ps1 que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.
+        Haz un script llamado **dados.ps1** que obtenga dos números aleatorios entre el 1 y el 6, haz que la salida se vuelque en un archivo llamado tiradas.csv, en tres columnas, siendo la tercera columna la suma de los dos dados, crea un archivo con al menos 100 tiradas.
 
         Haz que el número de tiradas lo reciba como un argumento, por ejemplo:
         
@@ -505,7 +505,7 @@ dados.ps1
           
           .\dados.ps1 100
 
-        En el caso de que no reciba ningún argumento haz que pregunte cuantas tiradas quieres.
+        En el caso de que no reciba ningún argumento haz que pregunte cuántas tiradas quieres.
 
         .. code-block:: text
 
@@ -545,11 +545,11 @@ analisis.ps1
 
     .. tab:: analisis.ps1
       
-        Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el numero de tiradas y el porcentaje de veces que sale cada una, por ejemplo
-        
+        Lee el archivo que has generado en el ejercicio anterior y haz que salga por pantalla el número de tiradas y el porcentaje de veces que sale cada una, por ejemplo
+
         .. code-block:: powershell
-        
-          $ ./analisis.ps1
+
+          .\analisis.ps1
           
           De 1000 tiradas : 2(1%) 3(7%) 4(10%) 5(12%) 6(14%) 7(17%) 8(14%) 9(12%) 10(10%) 11(7%) 12(1%)
 
@@ -726,7 +726,7 @@ notas.ps1
 
         .. code-block:: powershell
 
-          $ ./notas.ps1 -help
+          .\notas.ps1 -help
 
           -help: muestra la ayuda.
           -generate: genera 10 alumnos con notas aleatorias entre 0 y 10.
@@ -970,9 +970,9 @@ usuarios_G00.ps1
 
         Crea un script llamado **usuarios_G00.ps1**, que cumpla las siguientes condiciones:
 
-        .. code-block:: bash
+        .. code-block:: powershell
 
-           ./usuarios_WSL.sh -help  
+           .\usuarios_G00.ps1 -help
              -help               Mostrar esta ayuda.
              -crear <N>          Crear N usuarios de forma aleatoria dentro de los grupos X, Y o Z.
              -borrar             Borrar todos los usuarios creados por este script.
@@ -1029,7 +1029,7 @@ crear_usuarios_grupos.ps1 (usuarios)
 
     .. tab:: crear_usuarios_grupos.ps1
       
-        Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno.         Además haz que estén dentro del grupo Usuarios para que puedan loguearse utilizando el entorno gráfico
+        Haz que el anterior script cree los siguientes usuarios dentro de los grupos correspondientes, con la contraseña alumno. Además haz que estén dentro del grupo Usuarios para que puedan iniciar sesión utilizando el entorno gráfico
 
         * GPWS01
         
@@ -1071,7 +1071,7 @@ crear_usuarios_grupos.ps1 (usuarios)
            **El usuario $nombre_usuario existe, no se crea**
         
         
-        #) En el caso de que el usuario no este en el grupo, haz que lo menta dentro del grupo y saque por pantalla:
+        #) En el caso de que el usuario no esté en el grupo, haz que lo meta dentro del grupo y saque por pantalla:
         
            **El usuario $nombre_usuario no esta en el grupo $nombre_grupo, se hace miembro**
         
@@ -1137,10 +1137,6 @@ crear_usuarios_grupos_csv.ps1
         #) Además se añada a un archivo el mensaje:
 
            **El usuario $nombre_usuario con $passwrd en el grupo $nombre_grupo se ha creado >> lista_usuarios_creados.dat**
-          
-        #) En el caso de que el usuario este en el grupo, haz que saque por pantalla:
-
-           **El usuario $nombre_usuario ya esta en el grupo $nombre_grupo no se hace nada**
 
     .. tab:: Solución
 
@@ -1222,7 +1218,7 @@ local_users.ps1
 
             .. image:: imagenes/local_users_03.png
 
-         #) Si creamos un nuevo usuario llamado **tunombre**, se creara con la contraseña ``@lumn0``
+         #) Si creamos un nuevo usuario llamado **tunombre**, se creará con la contraseña ``@lumn0``
 
             Después crea un usuario llamado **tunombre1** con una contraseña que no cumpla con las políticas de seguridad y haz que saque el error que muestra en el pantallazo sin crear el usuario.
 
@@ -1232,27 +1228,27 @@ local_users.ps1
 
             Crear el usuario **tunombre3** con una contraseña que cumpla con las políticas de seguridad en el grupo que ahora si existe **G2**.
 
-            Por ultimo lista los miembros del grupo **G2**
+            Por último lista los miembros del grupo **G2**
 
             .. image:: imagenes/local_users_04.png
 
-         #) Mete al usuario **tunombre3** en grupo **G3** que no existe sin poner **-usuario** ni **-grupo**, haz que salga el mensaje de error.
+         #) Mete al usuario **tunombre3** en el grupo **G3** que no existe sin poner **-usuario** ni **-grupo**, haz que salga el mensaje de error.
 
-            Mete al usuario **tunombre3** en grupo **G3** que no existe sin poner  **-grupo**, haz que salga el mensaje de error.
+            Mete al usuario **tunombre3** en el grupo **G3** que no existe sin poner **-grupo**, haz que salga el mensaje de error.
 
-            Mete al usuario **tunombre3** en grupo **G3**  haz que salga el mensaje de error.
+            Mete al usuario **tunombre3** en el grupo **G3**, haz que salga el mensaje de error.
 
-            Crea el grupo **G3** y mete finalmente al usuario **tunombre3** en grupo **G3**.
+            Crea el grupo **G3** y mete finalmente al usuario **tunombre3** en el grupo **G3**.
 
             Lista los usuarios del grupo **G3**
 
-            Elimina el usuario **tunombre3** del grupo **G3** (haz que se recojan los mismo errores cuando eliminamos usuarios de un grupo que cuando los metemos)
+            Elimina el usuario **tunombre3** del grupo **G3** (haz que se recojan los mismos errores cuando eliminamos usuarios de un grupo que cuando los metemos)
 
             Lista los usuarios del grupo **G3** y **G2**
 
             .. image:: imagenes/local_users_05.png
 
-         #) Por ultimo ejecuta el script `test_local_users.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/test_local_users.ps1>`_. para probar el script
+         #) Por último ejecuta el script `test_local_users.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/test_local_users.ps1>`_ para probar el script
 
             .. image:: imagenes/local_users_06.png
 
@@ -1275,9 +1271,9 @@ AD.ps1
       
          Crea un script llamado **AD.ps1**, que cumpla las siguientes condiciones
                 
-         1) Instala el Active directory utiliza como nombre de dominio : **tunombre.local**
+         1) Instala el Active Directory utilizando como nombre de dominio: **tunombre.local**
 
-            Haz que toda la decencia con el nombre del dominio dentro del script se haga con las siguientes variables: ``$dirAD="DC=tunombre,DC=local"``, ``$mail="@tunombre.local"``
+            Haz que toda la dependencia con el nombre del dominio dentro del script se maneje con las siguientes variables: ``$dirAD="DC=tunombre,DC=local"``, ``$mail="@tunombre.local"``
 
          #) Si ejecutamos:
 
@@ -1297,11 +1293,11 @@ AD.ps1
 
             .. image:: imagenes/AD_05.png
 
-         #) Haz que cree, borre y liste los usuarios del AD, si intenta crearlos y ya existe haz que salga un error por pantalla, en el caso de que intente eliminarlas y no existan haz que salga otro error por pantalla, al igual que antes si intenta crear usuarios con una contraseña insegura que de te un error, si intenta crearlo en un grupo que no existe que cree el grupo antes:
+         #) Haz que cree, borre y liste los usuarios del AD, si intenta crearlos y ya existen haz que salga un error por pantalla, en el caso de que intente eliminarlos y no existan haz que salga otro error por pantalla, al igual que antes si intenta crear usuarios con una contraseña insegura que dé un error, si intenta crearlos en un grupo que no existe que cree el grupo antes:
 
             .. image:: imagenes/AD_06.png
 
-         #) Por ultimo ejecuta el script `test_AD.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/AD.ps1>`_ para probar el script
+         #) Por último ejecuta el script `test_AD.ps1 <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/windows/10_powershell/test_AD.ps1>`_ para probar el script
 
             .. image:: imagenes/AD_07.png
 
