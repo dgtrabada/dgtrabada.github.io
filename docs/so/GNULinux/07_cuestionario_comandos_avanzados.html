@@ -726,9 +726,9 @@ marzo 20 pintura</pre>
    <div class="qp-card">
      <p class="qp-enunciado">4. Tenemos el archivo hola.txt, con las columnas separadas por un número variable de espacios:</p>
      <pre class="qp-pre">$ cat hola.txt
-a1             a2                  a3
-e1  e2           e3
-o1                   o2                               o3</pre>
+a1    a2  a3
+e1 e2    e3
+o1    o2         o3</pre>
      <div class="qp-item" data-a="0">
        <p class="qp-q">1. ¿Cómo se puede obtener la segunda columna? (ayuda: usa el comando tr)</p>
        <div class="qp-opts">
@@ -845,8 +845,358 @@ usuario6 304-100-1114 administration</pre>
      <span class="qp-nota"></span>
    </div>
 
+   <div class="qp-card">
+     <p class="qp-enunciado">7. Comillas y tratamiento de cadenas:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. Ejecutamos a=5 y después echo a, ¿qué se muestra?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_24" value="0">a</label>
+         <label class="qp-opt"><input type="radio" name="q0_24" value="1">5</label>
+         <label class="qp-opt"><input type="radio" name="q0_24" value="2">error</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Y con echo $a?</p>
+     <p><input type="text" class="qp-corto" data-a="5"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. Ejecutamos a=5 y echo "a = $a" (comillas dobles), ¿qué se muestra?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_25" value="0">a = 5</label>
+         <label class="qp-opt"><input type="radio" name="q0_25" value="1">a = $a</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">4. Ejecutamos a=5 y echo 'a = $a' (comillas simples), ¿qué se muestra?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_26" value="0">a = 5</label>
+         <label class="qp-opt"><input type="radio" name="q0_26" value="1">a = $a</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. Con a=www.fsf.org, ¿qué muestra echo ${a::3}?</p>
+     <p><input type="text" class="qp-corto" data-a="www"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. ¿Y echo ${a:1:3}?</p>
+     <p><input type="text" class="qp-corto" data-a="ww."></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">7. ¿Y echo ${a:3}?</p>
+     <p><input type="text" data-a=".fsf.org"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">8. ¿Y echo ${#a}?</p>
+     <p><input type="text" class="qp-corto" data-a="11|once"></p>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">8. Operaciones aritméticas:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. Ejecutamos a=3+4 y echo $a, ¿qué se muestra?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_27" value="0">3+4</label>
+         <label class="qp-opt"><input type="radio" name="q0_27" value="1">7</label>
+         <label class="qp-opt"><input type="radio" name="q0_27" value="2">error</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Y con echo $((a))?</p>
+     <p><input type="text" class="qp-corto" data-a="7|siete"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. Con a=10 y b=4, ¿qué muestra echo $((a/b))? (recuerda que solo opera con enteros)</p>
+     <p><input type="text" class="qp-corto" data-a="2|dos"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Y echo $((a%b)) (módulo o resto)?</p>
+     <p><input type="text" class="qp-corto" data-a="2|dos"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. x=$((RANDOM % 10 + 1)) genera números...</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_28" value="0">del 1 al 10</label>
+         <label class="qp-opt"><input type="radio" name="q0_28" value="1">del 0 al 10</label>
+         <label class="qp-opt"><input type="radio" name="q0_28" value="2">del 0 al 9</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué muestra echo 4/5 | bc -l?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_29" value="0">.80000000000000000000</label>
+         <label class="qp-opt"><input type="radio" name="q0_29" value="1">0</label>
+         <label class="qp-opt"><input type="radio" name="q0_29" value="2">4/5</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. ¿Qué hace a=$(whoami)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_30" value="0">Guarda en a la salida del comando whoami</label>
+         <label class="qp-opt"><input type="radio" name="q0_30" value="1">Guarda en a la cadena whoami</label>
+         <label class="qp-opt"><input type="radio" name="q0_30" value="2">Da un error</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">9. Filtros sobre login.dat:</p>
+     <pre class="qp-pre">$ cat login.dat
+admin      : nombre1
+gerente    : nombre2
+supervisor : nombre3
+empleado   : nombre4
+empleado   : nombre5</pre>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿Qué muestra grep -c empleado login.dat?</p>
+     <p><input type="text" class="qp-corto" data-a="2|dos"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Qué opción de grep selecciona las líneas que NO coinciden?</p>
+     <p><input type="text" class="qp-corto" data-a="-v|v"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Cómo verías las líneas que contienen empleado o admin?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_31" value="0">egrep 'empleado|admin' login.dat</label>
+         <label class="qp-opt"><input type="radio" name="q0_31" value="1">grep empleado -o admin login.dat</label>
+         <label class="qp-opt"><input type="radio" name="q0_31" value="2">grep empleado+admin login.dat</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Qué muestra grep empleado login.dat | grep 5?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_32" value="0">empleado   : nombre5</label>
+         <label class="qp-opt"><input type="radio" name="q0_32" value="1">Las dos líneas de empleado</label>
+         <label class="qp-opt"><input type="radio" name="q0_32" value="2">Nada</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. wc login.dat muestra 5 15 110, ¿qué es el 5?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_33" value="0">El número de líneas</label>
+         <label class="qp-opt"><input type="radio" name="q0_33" value="1">El número de palabras</label>
+         <label class="qp-opt"><input type="radio" name="q0_33" value="2">El número de caracteres</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="2">
+       <p class="qp-q">6. ¿Y el 110?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_34" value="0">El número de líneas</label>
+         <label class="qp-opt"><input type="radio" name="q0_34" value="1">El número de palabras</label>
+         <label class="qp-opt"><input type="radio" name="q0_34" value="2">El número de caracteres</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. En grep emple login.dat | cut -d' ' -f1 | uniq -c, ¿qué hace la opción -c de uniq?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_35" value="0">Precede cada línea con su número de ocurrencias</label>
+         <label class="qp-opt"><input type="radio" name="q0_35" value="1">Cuenta los caracteres de cada línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_35" value="2">Compara sin distinguir mayúsculas</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">8. ¿Qué hace cat login.dat | tr 'a' 'A'?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_36" value="0">Cambia todas las a minúsculas por A mayúsculas</label>
+         <label class="qp-opt"><input type="radio" name="q0_36" value="1">Cambia solo la primera a de cada línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_36" value="2">Cambia la palabra a por A</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">10. Ordenar, editar y comparar. Tenemos el archivo test.dat:</p>
+     <pre class="qp-pre">$ cat test.dat
+2 B
+3 C
+20 D
+1 A</pre>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Por qué sort test.dat coloca la línea "20 D" antes que "3 C"?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_37" value="0">Porque ordena alfabéticamente y "20" empieza por 2</label>
+         <label class="qp-opt"><input type="radio" name="q0_37" value="1">Porque 20 es mayor que 3</label>
+         <label class="qp-opt"><input type="radio" name="q0_37" value="2">Es un error de sort</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Qué opción de sort ordena numéricamente?</p>
+     <p><input type="text" class="qp-corto" data-a="-n|n"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Y numéricamente en orden inverso?</p>
+     <p><input type="text" class="qp-corto" data-a="-rn|-nr|rn|nr"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Qué hace la opción -i de sed (sed -i 's/admin/ADMIN/g' login.dat)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_38" value="0">Edita el archivo original en su lugar</label>
+         <label class="qp-opt"><input type="radio" name="q0_38" value="1">Ignora mayúsculas y minúsculas</label>
+         <label class="qp-opt"><input type="radio" name="q0_38" value="2">Pregunta antes de cada sustitución</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Qué hace sed '/^$/d' archivo.txt?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_39" value="0">Elimina las líneas en blanco</label>
+         <label class="qp-opt"><input type="radio" name="q0_39" value="1">Elimina la primera línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_39" value="2">Elimina los espacios de cada línea</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. ¿Qué muestra echo "Hola" | sed 's/./_/g'?</p>
+       <input type="text" data-a="____">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">7. ¿Qué comando une línea a línea el contenido de dos archivos, en columnas?</p>
+     <p><input type="text" class="qp-corto" data-a="paste"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">8. ¿Qué comando combina las líneas de dos archivos que comparten el primer campo?</p>
+     <p><input type="text" class="qp-corto" data-a="join"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">9. ¿Qué comando muestra las diferencias entre dos archivos?</p>
+     <p><input type="text" class="qp-corto" data-a="diff"></p>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">11. Un poco de todo:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. Ejecutamos los siguientes comandos, ¿qué contendrá new_file.dat?</p>
+     <pre class="qp-pre">$ tunombre=dani
+$ cat &lt;&lt; EOF &gt; new_file.dat
+Mi nombre es $tunombre
+hoy es $(date)
+EOF</pre>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_40" value="0">El valor de la variable y la fecha (Mi nombre es dani, hoy es mié 12 oct...)</label>
+         <label class="qp-opt"><input type="radio" name="q0_40" value="1">Las líneas escritas literalmente, con $tunombre y $(date) sin evaluar</label>
+         <label class="qp-opt"><input type="radio" name="q0_40" value="2">Da un error</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. ¿Qué hace sed -n '3p' archivo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_41" value="0">Muestra solo la tercera línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_41" value="1">Borra la tercera línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_41" value="2">Muestra las tres primeras líneas</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Qué hace sed -i 's/\t/ /g' archivo.txt?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_42" value="0">Cambia las tabulaciones por espacios en el propio archivo</label>
+         <label class="qp-opt"><input type="radio" name="q0_42" value="1">Cambia las t por espacios</label>
+         <label class="qp-opt"><input type="radio" name="q0_42" value="2">Añade una tabulación al principio de cada línea</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Qué hace tr -s ' '?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_43" value="0">Comprime las repeticiones consecutivas de espacios en uno solo</label>
+         <label class="qp-opt"><input type="radio" name="q0_43" value="1">Quita todos los espacios</label>
+         <label class="qp-opt"><input type="radio" name="q0_43" value="2">Cambia los espacios por tabulaciones</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Qué hace grep -n empleado login.dat?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_44" value="0">Muestra las coincidencias precedidas de su número de línea</label>
+         <label class="qp-opt"><input type="radio" name="q0_44" value="1">Muestra solo el número de coincidencias</label>
+         <label class="qp-opt"><input type="radio" name="q0_44" value="2">Muestra las líneas que no coinciden</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. ¿Qué opción de egrep no discrimina entre mayúsculas y minúsculas?</p>
+     <p><input type="text" class="qp-corto" data-a="-i|i"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. En un archivo con campos separados por dos puntos (campo1:campo2), ¿cómo sacarías el segundo campo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_45" value="0">cut -d ':' -f2 archivo</label>
+         <label class="qp-opt"><input type="radio" name="q0_45" value="1">cut -d2 -f ':' archivo</label>
+         <label class="qp-opt"><input type="radio" name="q0_45" value="2">cut -c ':' archivo</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">12. paste, join y diff. Tenemos estos dos archivos:</p>
+     <pre class="qp-pre">$ cat login.dat
+usuario1 u1
+usuario2 u2
+usuario3 u3</pre>
+     <pre class="qp-pre">$ cat shell.dat
+usuario1 bash
+usuario2 cshell
+usuario3 bash</pre>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué muestra la primera línea de paste login.dat shell.dat?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_46" value="0">usuario1 u1   usuario1 bash</label>
+         <label class="qp-opt"><input type="radio" name="q0_46" value="1">usuario1 u1 bash</label>
+         <label class="qp-opt"><input type="radio" name="q0_46" value="2">usuario1 bash</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. ¿Y la primera línea de join login.dat shell.dat?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_47" value="0">usuario1 u1 bash</label>
+         <label class="qp-opt"><input type="radio" name="q0_47" value="1">usuario1 u1   usuario1 bash</label>
+         <label class="qp-opt"><input type="radio" name="q0_47" value="2">u1 bash</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. Ejecutamos sed 's/u3/U3/g' login.dat &gt; login2.dat y después diff login.dat login2.dat, ¿qué señala diff?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_48" value="0">Solo la tercera línea (u3 | U3)</label>
+         <label class="qp-opt"><input type="radio" name="q0_48" value="1">Todas las líneas</label>
+         <label class="qp-opt"><input type="radio" name="q0_48" value="2">Nada, son iguales</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
 
    <script>
+   // baraja las opciones de cada pregunta al cargar la página
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.qp-opts:not([data-qp-mezclada])').forEach(function (opts) {
+       opts.dataset.qpMezclada = '1';
+       var ops = Array.from(opts.children);
+       for (var i = ops.length - 1; i > 0; i--) {
+         var j = Math.floor(Math.random() * (i + 1));
+         var t = ops[i]; ops[i] = ops[j]; ops[j] = t;
+       }
+       ops.forEach(function (l) { opts.appendChild(l); });
+     });
+   });
    function qpNorm(s) {
      return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
    }
@@ -884,8 +1234,7 @@ usuario6 304-100-1114 administration</pre>
      var card = btn.closest('.qp-card');
      card.querySelectorAll('.qp-item').forEach(function (it) {
        it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
-       var radios = it.querySelectorAll('input');
-       var correcto = radios[parseInt(it.dataset.a, 10)];
+       var correcto = it.querySelector('input[value="' + it.dataset.a + '"]');
        correcto.checked = true;
        correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
      });

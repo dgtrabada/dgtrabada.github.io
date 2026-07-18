@@ -637,6 +637,18 @@
 
 
    <script>
+   // baraja las opciones de cada pregunta al cargar la página
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.qp-opts:not([data-qp-mezclada])').forEach(function (opts) {
+       opts.dataset.qpMezclada = '1';
+       var ops = Array.from(opts.children);
+       for (var i = ops.length - 1; i > 0; i--) {
+         var j = Math.floor(Math.random() * (i + 1));
+         var t = ops[i]; ops[i] = ops[j]; ops[j] = t;
+       }
+       ops.forEach(function (l) { opts.appendChild(l); });
+     });
+   });
    function qpNorm(s) {
      return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
    }
@@ -674,8 +686,7 @@
      var card = btn.closest('.qp-card');
      card.querySelectorAll('.qp-item').forEach(function (it) {
        it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
-       var radios = it.querySelectorAll('input');
-       var correcto = radios[parseInt(it.dataset.a, 10)];
+       var correcto = it.querySelector('input[value="' + it.dataset.a + '"]');
        correcto.checked = true;
        correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
      });

@@ -89,3 +89,67 @@ Cuestionario gestión de particiones
         [2|dos]
       - 3. Queremos desmontar la primera partición del disco sdf, ¿qué comando ejecutaríamos? (escríbelo con sudo)
         = sudo umount /media/DANI | sudo umount /dev/sdf1
+
+   9. Formatear y swap:
+      - 1. ¿Qué comando da formato ext4 a la partición /dev/sdb1?
+        = mkfs.ext4 /dev/sdb1 | sudo mkfs.ext4 /dev/sdb1
+      - 2. ¿Qué comando convierte la partición /dev/sdb2 al formato swap?
+        = mkswap /dev/sdb2 | sudo mkswap /dev/sdb2
+      - 3. ¿Cómo activamos esa partición de swap?
+        = swapon /dev/sdb2 | sudo swapon /dev/sdb2
+      - 4. ¿Y cómo la desactivamos?
+        = swapoff /dev/sdb2 | sudo swapoff /dev/sdb2
+      - 5. ¿Qué utilidad detecta, verifica y corrige los errores del sistema de archivos?
+        [fsck]
+
+   10. fdisk y otras utilidades:
+      - 1. ¿Qué comando muestra los discos y particiones que hay en el sistema?
+        (x) fdisk -l
+        ( ) fdisk --show
+        ( ) ls /dev/discos
+      - 2. Dentro de fdisk, ¿qué tecla crea una partición nueva?
+        [n]
+      - 3. ¿Y cuál escribe los cambios en el disco?
+        [w]
+      - 4. ¿Qué comando muestra información de todos los dispositivos de bloque?
+        = lsblk -a | lsblk
+      - 5. ¿Qué comando sirve para determinar el tipo de un archivo?
+        [file]
+      - 6. ¿Qué hace dd if=/dev/zero of=/dev/sda bs=512 count=1?
+        (x) Borra el MBR y su tabla de particiones (escribe ceros en el primer sector)
+        ( ) Borra todo el contenido del disco
+        ( ) Crea una copia de seguridad del primer disco
+      - 7. ¿Qué comando muestra lo que ocupa un directorio?
+        (x) du -sh
+        ( ) df -h
+        ( ) free
+
+   11. El archivo /etc/fstab. Fíjate en esta línea:
+      fichero: /etc/fstab
+         /dev/sdb1   /datos   ext4   defaults   0   2
+      - 1. ¿Qué indica la segunda columna (/datos)?
+        (x) El punto de montaje
+        ( ) El dispositivo
+        ( ) La etiqueta del disco
+      - 2. ¿Qué indica la tercera columna (ext4)?
+        (x) El sistema de archivos
+        ( ) Las opciones de montaje
+        ( ) El tipo de disco
+      - 3. ¿A qué equivale la opción defaults?
+        (x) rw, suid, dev, exec, auto, nouser y async
+        ( ) Solo lectura y sin ejecución
+        ( ) A no usar ninguna opción
+      - 4. ¿Qué opción monta el dispositivo en solo lectura?
+        [ro]
+      - 5. ¿Qué opción impide ejecutar los binarios almacenados en el dispositivo?
+        [noexec]
+      - 6. ¿Qué indica el último campo (el 2)?
+        (x) El orden en que fsck revisará la partición durante el arranque
+        ( ) El número de copias de seguridad
+        ( ) La prioridad de montaje
+      - 7. Si ese campo es 0...
+        (x) La partición no se revisa
+        ( ) La partición se revisa la primera
+        ( ) No se monta
+      - 8. ¿Qué comando monta todo lo que está pendiente en el fstab (útil para probarlo sin reiniciar)?
+        = mount -a | sudo mount -a

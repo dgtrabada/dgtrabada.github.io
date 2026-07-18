@@ -756,8 +756,158 @@
      <span class="qp-nota"></span>
    </div>
 
+   <div class="qp-card">
+     <p class="qp-enunciado">9. Formatear y swap:</p>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿Qué comando da formato ext4 a la partición /dev/sdb1?</p>
+       <input type="text" data-a="mkfs.ext4 /dev/sdb1|sudo mkfs.ext4 /dev/sdb1">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Qué comando convierte la partición /dev/sdb2 al formato swap?</p>
+       <input type="text" data-a="mkswap /dev/sdb2|sudo mkswap /dev/sdb2">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Cómo activamos esa partición de swap?</p>
+       <input type="text" data-a="swapon /dev/sdb2|sudo swapon /dev/sdb2">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Y cómo la desactivamos?</p>
+       <input type="text" data-a="swapoff /dev/sdb2|sudo swapoff /dev/sdb2">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. ¿Qué utilidad detecta, verifica y corrige los errores del sistema de archivos?</p>
+     <p><input type="text" class="qp-corto" data-a="fsck"></p>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">10. fdisk y otras utilidades:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué comando muestra los discos y particiones que hay en el sistema?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_10" value="0">fdisk -l</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="1">fdisk --show</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="2">ls /dev/discos</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. Dentro de fdisk, ¿qué tecla crea una partición nueva?</p>
+     <p><input type="text" class="qp-corto" data-a="n"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Y cuál escribe los cambios en el disco?</p>
+     <p><input type="text" class="qp-corto" data-a="w"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Qué comando muestra información de todos los dispositivos de bloque?</p>
+       <input type="text" data-a="lsblk -a|lsblk">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. ¿Qué comando sirve para determinar el tipo de un archivo?</p>
+     <p><input type="text" class="qp-corto" data-a="file"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué hace dd if=/dev/zero of=/dev/sda bs=512 count=1?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_11" value="0">Borra el MBR y su tabla de particiones (escribe ceros en el primer sector)</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="1">Borra todo el contenido del disco</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="2">Crea una copia de seguridad del primer disco</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. ¿Qué comando muestra lo que ocupa un directorio?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_12" value="0">du -sh</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="1">df -h</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="2">free</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">11. El archivo /etc/fstab. Fíjate en esta línea:</p>
+     <pre class="qp-pre">$ cat /etc/fstab
+/dev/sdb1   /datos   ext4   defaults   0   2</pre>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué indica la segunda columna (/datos)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_13" value="0">El punto de montaje</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="1">El dispositivo</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="2">La etiqueta del disco</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. ¿Qué indica la tercera columna (ext4)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_14" value="0">El sistema de archivos</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="1">Las opciones de montaje</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="2">El tipo de disco</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿A qué equivale la opción defaults?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_15" value="0">rw, suid, dev, exec, auto, nouser y async</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="1">Solo lectura y sin ejecución</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="2">A no usar ninguna opción</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Qué opción monta el dispositivo en solo lectura?</p>
+     <p><input type="text" class="qp-corto" data-a="ro"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. ¿Qué opción impide ejecutar los binarios almacenados en el dispositivo?</p>
+     <p><input type="text" class="qp-corto" data-a="noexec"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué indica el último campo (el 2)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_16" value="0">El orden en que fsck revisará la partición durante el arranque</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="1">El número de copias de seguridad</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="2">La prioridad de montaje</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. Si ese campo es 0...</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_17" value="0">La partición no se revisa</label>
+         <label class="qp-opt"><input type="radio" name="q0_17" value="1">La partición se revisa la primera</label>
+         <label class="qp-opt"><input type="radio" name="q0_17" value="2">No se monta</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">8. ¿Qué comando monta todo lo que está pendiente en el fstab (útil para probarlo sin reiniciar)?</p>
+       <input type="text" data-a="mount -a|sudo mount -a">
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
 
    <script>
+   // baraja las opciones de cada pregunta al cargar la página
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.qp-opts:not([data-qp-mezclada])').forEach(function (opts) {
+       opts.dataset.qpMezclada = '1';
+       var ops = Array.from(opts.children);
+       for (var i = ops.length - 1; i > 0; i--) {
+         var j = Math.floor(Math.random() * (i + 1));
+         var t = ops[i]; ops[i] = ops[j]; ops[j] = t;
+       }
+       ops.forEach(function (l) { opts.appendChild(l); });
+     });
+   });
    function qpNorm(s) {
      return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
    }
@@ -795,8 +945,7 @@
      var card = btn.closest('.qp-card');
      card.querySelectorAll('.qp-item').forEach(function (it) {
        it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
-       var radios = it.querySelectorAll('input');
-       var correcto = radios[parseInt(it.dataset.a, 10)];
+       var correcto = it.querySelector('input[value="' + it.dataset.a + '"]');
        correcto.checked = true;
        correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
      });

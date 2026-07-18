@@ -531,6 +531,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-100">RAID 100</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-50">RAID 50</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-un-raid-0">Caso práctico: Crear un RAID 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-raid-1-con-disco-de-reserva-hot-spare">Caso práctico: RAID 1 con disco de reserva (hot spare)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-lvm">Caso práctico: Crear LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nas">NAS</a></li>
@@ -561,14 +562,14 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <section id="nivel-0">
 <h2>Nivel 0<a class="headerlink" href="#nivel-0" title="Link to this heading">#</a></h2>
 <p>Denominado configuración en bandas (striping). Consiste en almacenar datos distribuyéndolos en todas las unidades. Es utilizado para fusionar todos los discos duros en un solo disco para aumentar la capacidad de almacenamiento y el rendimiento. Disminuye la fiabilidad: si falla un solo disco se pierden todos los datos.</p>
-<a class="reference internal image-reference" href="../_images/raid0.png"><img alt="../_images/raid0.png" src="../_images/raid0.png" width="150" />
+<a class="reference internal image-reference" href="../_images/raid0.png"><img alt="../_images/raid0.png" src="../_images/raid0.png" width="220" />
 </a>
 <p>Por ejemplo, cuatro unidades de disco duro de 120 GB en una matriz RAID 0 aparecerán como una sola unidad de disco duro de 480 GB para el sistema operativo.</p>
 </section>
 <section id="nivel-1">
 <h2>Nivel 1<a class="headerlink" href="#nivel-1" title="Link to this heading">#</a></h2>
 <p>Denominado réplica (mirroring), crea una copia exacta (o espejo) de un conjunto de datos en dos o más discos. Es utilizado para garantizar la integridad de los datos: el conjunto sigue funcionando mientras quede un disco sano.</p>
-<a class="reference internal image-reference" href="../_images/raid1.png"><img alt="../_images/raid1.png" src="../_images/raid1.png" width="150" />
+<a class="reference internal image-reference" href="../_images/raid1.png"><img alt="../_images/raid1.png" src="../_images/raid1.png" width="220" />
 </a>
 <p>Por ejemplo, dos unidades de disco duro de 120 GB en una matriz RAID 1 aparecerán como una sola unidad de disco duro de 120 GB para el sistema operativo.</p>
 </section>
@@ -579,7 +580,7 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <section id="nivel-3">
 <h2>Nivel 3<a class="headerlink" href="#nivel-3" title="Link to this heading">#</a></h2>
 <p>(Striping + paridad dedicada). Divide los datos a nivel de bytes en lugar de a nivel de bloques y dedica un disco completo a guardar la paridad. Los discos son sincronizados por la controladora para funcionar al unísono. Permite tasas de transferencia muy altas, pero actualmente no se usa.</p>
-<a class="reference internal image-reference" href="../_images/raid3.png"><img alt="../_images/raid3.png" src="../_images/raid3.png" width="250" />
+<a class="reference internal image-reference" href="../_images/raid3.png"><img alt="../_images/raid3.png" src="../_images/raid3.png" width="420" />
 </a>
 </section>
 <section id="nivel-4">
@@ -589,14 +590,14 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <section id="nivel-5">
 <h2>Nivel 5<a class="headerlink" href="#nivel-5" title="Link to this heading">#</a></h2>
 <p>(Striping + paridad distribuida) Denominado conjunto de discos con paridad distribuida de entrelazado de bloques. Es una división de datos a nivel de bloques distribuyendo la información de paridad entre todos los discos miembros del conjunto, con lo que desaparece el cuello de botella del RAID 4. El RAID 5 ha logrado popularidad gracias a su bajo coste de redundancia. Generalmente se implementa con soporte hardware para el cálculo de la paridad. Necesita un mínimo de 3 discos y tolera el fallo de un disco.</p>
-<a class="reference internal image-reference" href="../_images/raid5.png"><img alt="../_images/raid5.png" src="../_images/raid5.png" width="250" />
+<a class="reference internal image-reference" href="../_images/raid5.png"><img alt="../_images/raid5.png" src="../_images/raid5.png" width="420" />
 </a>
 <p>Por ejemplo, cuatro unidades de disco duro de 120 GB en una matriz RAID 5 aparecerán como una sola unidad de 360 GB para el sistema operativo: la capacidad de un disco se dedica a la paridad.</p>
 </section>
 <section id="nivel-6">
 <h2>Nivel 6<a class="headerlink" href="#nivel-6" title="Link to this heading">#</a></h2>
 <p>Se trata de una evolución del RAID 5, donde se busca ampliar la tolerancia frente a fallos. Este aumento de tolerancia se consigue usando una doble banda de paridad (que también se distribuye entre todos los discos) y aumentando a 4 el número mínimo de discos necesarios.</p>
-<a class="reference internal image-reference" href="../_images/raid6.png"><img alt="../_images/raid6.png" src="../_images/raid6.png" width="300" />
+<a class="reference internal image-reference" href="../_images/raid6.png"><img alt="../_images/raid6.png" src="../_images/raid6.png" width="480" />
 </a>
 <p>Como resultado de las modificaciones introducidas, los RAID 6 toleran el fallo de dos discos (incluso durante la reconstrucción de uno de ellos) sin pérdida de datos.</p>
 <p>Resumen de los niveles más usados, para n discos de tamaño T:</p>
@@ -606,6 +607,7 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <th class="head"><p>Discos mín.</p></th>
 <th class="head"><p>Capacidad útil</p></th>
 <th class="head"><p>Tolerancia a fallos</p></th>
+<th class="head"><p>Rendimiento</p></th>
 </tr>
 </thead>
 <tbody>
@@ -613,29 +615,40 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <td><p>2</p></td>
 <td><p>n·T</p></td>
 <td><p>Ninguna</p></td>
+<td><p>El más rápido</p></td>
 </tr>
 <tr class="row-odd"><td><p>RAID 1</p></td>
 <td><p>2</p></td>
 <td><p>T</p></td>
 <td><p>n-1 discos</p></td>
+<td><p>Acelera la lectura</p></td>
 </tr>
 <tr class="row-even"><td><p>RAID 5</p></td>
 <td><p>3</p></td>
 <td><p>(n-1)·T</p></td>
 <td><p>1 disco</p></td>
+<td><p>Penaliza la escritura</p></td>
 </tr>
 <tr class="row-odd"><td><p>RAID 6</p></td>
 <td><p>4</p></td>
 <td><p>(n-2)·T</p></td>
 <td><p>2 discos</p></td>
+<td><p>Penaliza más la escritura</p></td>
 </tr>
 <tr class="row-even"><td><p>RAID 10</p></td>
 <td><p>4</p></td>
 <td><p>(n/2)·T</p></td>
 <td><p>1 disco por cada espejo</p></td>
+<td><p>Rápido y con redundancia</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<p>La lectura mejora en casi todos los niveles porque se puede leer de varios discos a la vez; la escritura en RAID 5 y 6 es más lenta porque cada escritura obliga a recalcular y escribir también la paridad.</p>
+<p>Además, un conjunto puede tener discos de <strong>reserva (hot spare)</strong>: discos conectados pero sin usar, que entran en acción automáticamente cuando falla un disco activo, comenzando la reconstrucción sin intervención del administrador.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Un RAID no es una copia de seguridad</strong>: la redundancia protege del fallo físico de un disco, pero no de borrados accidentales, virus/ransomware o desastres (todo lo que se borra o cifra se replica también en el resto de discos). Las copias de seguridad siguen siendo necesarias.</p>
 </div>
 </section>
 <section id="niveles-raid-anidados">
@@ -644,34 +657,34 @@ Esta tecnología fue desarrollada en 1987 por tres investigadores (Patterson, Gi
 <ul class="simple">
 <li><p><strong>RAID 0+1</strong>: se crean dos RAID 0 y se montan en espejo (RAID 1). Si falla un disco, se pierde toda su banda y el conjunto queda sin redundancia.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/raid01.png"><img alt="../_images/raid01.png" src="../_images/raid01.png" width="300" />
+<a class="reference internal image-reference" href="../_images/raid01.png"><img alt="../_images/raid01.png" src="../_images/raid01.png" width="420" />
 </a>
 <ul class="simple">
 <li><p><strong>RAID 1+0 (RAID 10)</strong>: se crean espejos RAID 1 y los datos se reparten en bandas entre ellos (RAID 0). Tolera un fallo por cada espejo y es la combinación más utilizada.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/raid10.png"><img alt="../_images/raid10.png" src="../_images/raid10.png" width="300" />
+<a class="reference internal image-reference" href="../_images/raid10.png"><img alt="../_images/raid10.png" src="../_images/raid10.png" width="420" />
 </a>
 <ul class="simple">
 <li><p><strong>RAID 5+0 (RAID 50)</strong>: varios RAID 5 unidos en bandas RAID 0.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/raid50.png"><img alt="../_images/raid50.png" src="../_images/raid50.png" width="300" />
+<a class="reference internal image-reference" href="../_images/raid50.png"><img alt="../_images/raid50.png" src="../_images/raid50.png" width="550" />
 </a>
 <ul class="simple">
 <li><p><strong>RAID 5+1 (RAID 51)</strong>: un RAID 5 replicado en espejo.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/raid51.png"><img alt="../_images/raid51.png" src="../_images/raid51.png" width="300" />
+<a class="reference internal image-reference" href="../_images/raid51.png"><img alt="../_images/raid51.png" src="../_images/raid51.png" width="550" />
 </a>
 </section>
 <section id="raid-100">
 <h2>RAID 100<a class="headerlink" href="#raid-100" title="Link to this heading">#</a></h2>
 <p>Un RAID 100 (RAID 10+0) reparte los datos en bandas sobre varios RAID 10:</p>
-<a class="reference internal image-reference" href="../_images/raid100.png"><img alt="../_images/raid100.png" src="../_images/raid100.png" width="500" />
+<a class="reference internal image-reference" href="../_images/raid100.png"><img alt="../_images/raid100.png" src="../_images/raid100.png" width="650" />
 </a>
 </section>
 <section id="raid-50">
 <h2>RAID 50<a class="headerlink" href="#raid-50" title="Link to this heading">#</a></h2>
 <p>Ejemplo del reparto de bloques y paridad en un RAID 50:</p>
-<a class="reference internal image-reference" href="../_images/raid50_3.png"><img alt="../_images/raid50_3.png" src="../_images/raid50_3.png" width="500" />
+<a class="reference internal image-reference" href="../_images/raid50_3.png"><img alt="../_images/raid50_3.png" src="../_images/raid50_3.png" width="750" />
 </a>
 </section>
 <section id="caso-practico-crear-un-raid-0">
@@ -689,6 +702,10 @@ Procedemos ahora a crear finalmente el RAID 0.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--create<span class="w"> </span>/dev/md0<span class="w"> </span>--level<span class="o">=</span>raid0<span class="w"> </span>--raid-devices<span class="o">=</span><span class="m">2</span><span class="w"> </span>/dev/sda<span class="w"> </span>/dev/sdb
 </pre></div>
 </div>
+<p>Podemos ver el estado del conjunto (discos activos, degradado, en reconstrucción...) con:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--detail<span class="w"> </span>/dev/md0
+</pre></div>
+</div>
 <p>Para formatear el RAID utilizaremos el comando</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkfs.ext4<span class="w"> </span>/dev/md0
 </pre></div>
@@ -698,6 +715,11 @@ Procedemos ahora a crear finalmente el RAID 0.</p>
 </pre></div>
 </div>
 <p>Si quisiéramos montar el RAID de forma automática cuando se inicia el ordenador, podríamos añadir algo parecido a <code class="docutils literal notranslate"><span class="pre">/dev/md0</span> <span class="pre">/punto_de_montaje</span> <span class="pre">ext4</span> <span class="pre">defaults</span> <span class="pre">0</span> <span class="pre">0</span></code> en el fichero <strong>/etc/fstab</strong></p>
+<p>Para que el conjunto conserve su nombre (md0) tras reiniciar, guardamos su configuración en mdadm.conf (si no lo hacemos, al arrancar aparecerá como md127):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--detail<span class="w"> </span>--scan<span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/mdadm/mdadm.conf
+update-initramfs<span class="w"> </span>-u
+</pre></div>
+</div>
 <p>Para cambiar un disco duro defectuoso, primero lo marcamos como fallido y después lo sacamos del conjunto:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mdadm<span class="w"> </span>--fail<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sdb
 sudo<span class="w"> </span>mdadm<span class="w"> </span>--remove<span class="w"> </span>/dev/md0<span class="w"> </span>/dev/sdb
@@ -722,6 +744,24 @@ mdadm<span class="w"> </span>--stop<span class="w"> </span>/dev/mdX
 <span class="c1"># finalmente borramos la metainformación de cada disco</span>
 <span class="c1"># para que no se vuelva a montar al reiniciar</span>
 mdadm<span class="w"> </span>--zero-superblock<span class="w"> </span>/dev/sdY
+</pre></div>
+</div>
+</section>
+<section id="caso-practico-raid-1-con-disco-de-reserva-hot-spare">
+<h2>Caso práctico: RAID 1 con disco de reserva (hot spare)<a class="headerlink" href="#caso-practico-raid-1-con-disco-de-reserva-hot-spare" title="Link to this heading">#</a></h2>
+<p>Creamos un espejo con dos discos y un tercero de reserva. Al ser un RAID con redundancia, aquí sí podremos ver una reconstrucción de verdad:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdadm<span class="w"> </span>--create<span class="w"> </span>/dev/md1<span class="w"> </span>--level<span class="o">=</span>raid1<span class="w"> </span>--raid-devices<span class="o">=</span><span class="m">2</span><span class="w"> </span>--spare-devices<span class="o">=</span><span class="m">1</span><span class="w"> </span>/dev/sdc<span class="w"> </span>/dev/sdd<span class="w"> </span>/dev/sde
+mkfs.ext4<span class="w"> </span>/dev/md1
+mdadm<span class="w"> </span>--detail<span class="w"> </span>/dev/md1<span class="w">    </span><span class="c1"># veremos 2 discos active sync y 1 spare</span>
+
+<span class="c1"># simulamos el fallo de un disco</span>
+mdadm<span class="w"> </span>--fail<span class="w"> </span>/dev/md1<span class="w"> </span>/dev/sdc
+watch<span class="w"> </span>cat<span class="w"> </span>/proc/mdstat<span class="w">     </span><span class="c1"># la reconstrucción sobre el disco de reserva</span>
+<span class="w">                           </span><span class="c1"># empieza automáticamente, sin tocar nada</span>
+
+<span class="c1"># sacamos el disco averiado y añadimos uno nuevo, que queda como reserva</span>
+mdadm<span class="w"> </span>--remove<span class="w"> </span>/dev/md1<span class="w"> </span>/dev/sdc
+mdadm<span class="w"> </span>--add<span class="w"> </span>/dev/md1<span class="w"> </span>/dev/sdf
 </pre></div>
 </div>
 </section>
@@ -832,6 +872,7 @@ resize2fs<span class="w"> </span>/dev/DatosLVM/ruta<span class="w"> </span><span
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-100">RAID 100</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raid-50">RAID 50</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-un-raid-0">Caso práctico: Crear un RAID 0</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-raid-1-con-disco-de-reserva-hot-spare">Caso práctico: RAID 1 con disco de reserva (hot spare)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lvm">LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-crear-lvm">Caso práctico: Crear LVM</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nas">NAS</a></li>

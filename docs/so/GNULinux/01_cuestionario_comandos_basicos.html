@@ -584,7 +584,13 @@
        </div>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">4. La carpeta A contiene las carpetas B y C. Ejecutamos <b>mv A/B/ A/C/</b> y después <b>ls A/C</b>, obtenemos:</p>
+       <p class="qp-q">4. Ejecutamos los siguientes comandos, ¿qué obtenemos?</p>
+     <pre class="qp-pre">$ tree A
+A
+├── B
+└── C
+$ mv A/B/ A/C/
+$ ls A/C</pre>
        <div class="qp-opts">
          <label class="qp-opt"><input type="radio" name="q0_3" value="0">B</label>
          <label class="qp-opt"><input type="radio" name="q0_3" value="1">no se puede acceder</label>
@@ -592,7 +598,17 @@
        </div>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">5. Ejecutamos: <b>mkdir A1; cd A1; mkdir B1; cd B1; mkdir C1; mkdir ../B2; mkdir ../B2/E1; cd ..; cd ..; ls A1/B2</b> y obtenemos:</p>
+       <p class="qp-q">5. Ejecutamos los siguientes comandos, ¿qué obtenemos?</p>
+     <pre class="qp-pre">$ mkdir A1
+$ cd A1
+$ mkdir B1
+$ cd B1
+$ mkdir C1
+$ mkdir ../B2
+$ mkdir ../B2/E1
+$ cd ..
+$ cd ..
+$ ls A1/B2</pre>
        <div class="qp-opts">
          <label class="qp-opt"><input type="radio" name="q0_4" value="0">E1</label>
          <label class="qp-opt"><input type="radio" name="q0_4" value="1">B2</label>
@@ -997,8 +1013,238 @@
      <span class="qp-nota"></span>
    </div>
 
+   <div class="qp-card">
+     <p class="qp-enunciado">8. Enlaces e inodos:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué comando crea un enlace simbólico de A.dat llamado B.dat?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_45" value="0">ln -s A.dat B.dat</label>
+         <label class="qp-opt"><input type="radio" name="q0_45" value="1">ln A.dat B.dat</label>
+         <label class="qp-opt"><input type="radio" name="q0_45" value="2">link -s B.dat A.dat</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. Sin la opción -s, ln crea...</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_46" value="0">un enlace duro</label>
+         <label class="qp-opt"><input type="radio" name="q0_46" value="1">un enlace simbólico</label>
+         <label class="qp-opt"><input type="radio" name="q0_46" value="2">una copia del archivo</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Comparten el mismo inodo un archivo y su enlace duro?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_47" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_47" value="1">No</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Qué comando muestra la información del inodo de un archivo?</p>
+     <p><input type="text" class="qp-corto" data-a="stat"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Con qué comando vemos los inodos al listar?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_48" value="0">ls -ai</label>
+         <label class="qp-opt"><input type="radio" name="q0_48" value="1">ls -al</label>
+         <label class="qp-opt"><input type="radio" name="q0_48" value="2">ls -as</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">9. Buscar, alias y otros:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Por qué locate es mucho más rápido que find?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_49" value="0">Porque busca en una base de datos preconstruida</label>
+         <label class="qp-opt"><input type="radio" name="q0_49" value="1">Porque busca solo en el home</label>
+         <label class="qp-opt"><input type="radio" name="q0_49" value="2">Porque no busca en los subdirectorios</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Qué comando actualiza la base de datos de locate?</p>
+       <input type="text" data-a="sudo updatedb|updatedb">
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿find busca en tiempo real recorriendo el sistema de archivos?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_50" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_50" value="1">No</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Cómo creamos el alias ll para ls -l?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_51" value="0">alias ll='ls -l'</label>
+         <label class="qp-opt"><input type="radio" name="q0_51" value="1">alias 'ls -l'=ll</label>
+         <label class="qp-opt"><input type="radio" name="q0_51" value="2">ll = alias ls -l</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. ¿En qué archivo lo guardamos para que esté disponible cada vez que abrimos una terminal?</p>
+     <p><input type="text" data-a="~/.bashrc|.bashrc|bashrc"></p>
+     </div>
+     <div class="qp-item" data-a="2">
+       <p class="qp-q">6. ¿Qué visor permite navegar hacia delante y hacia atrás por el archivo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_52" value="0">cat</label>
+         <label class="qp-opt"><input type="radio" name="q0_52" value="1">more</label>
+         <label class="qp-opt"><input type="radio" name="q0_52" value="2">less</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">7. ¿Qué comando crea un archivo vacío o actualiza su fecha de modificación?</p>
+     <p><input type="text" class="qp-corto" data-a="touch"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">8. ¿Cómo volvemos al directorio anterior?</p>
+       <input type="text" data-a="cd -">
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">10. Compresión:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Cómo creamos casas.tar.gz, comprimido con gzip, a partir del directorio casas?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_53" value="0">tar -czvf casas.tar.gz casas</label>
+         <label class="qp-opt"><input type="radio" name="q0_53" value="1">tar -xzvf casas.tar.gz casas</label>
+         <label class="qp-opt"><input type="radio" name="q0_53" value="2">gzip -r casas casas.tar.gz</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. ¿Cómo lo extraemos?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_54" value="0">tar -xzvf casas.tar.gz</label>
+         <label class="qp-opt"><input type="radio" name="q0_54" value="1">tar -czvf casas.tar.gz</label>
+         <label class="qp-opt"><input type="radio" name="q0_54" value="2">unzip casas.tar.gz</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Cómo listamos su contenido sin descomprimirlo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_55" value="0">tar -tvzf casas.tar.gz</label>
+         <label class="qp-opt"><input type="radio" name="q0_55" value="1">tar -lvzf casas.tar.gz</label>
+         <label class="qp-opt"><input type="radio" name="q0_55" value="2">cat casas.tar.gz</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">11. Instalar software:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué hace apt-get update?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_56" value="0">Actualiza la lista de paquetes disponibles</label>
+         <label class="qp-opt"><input type="radio" name="q0_56" value="1">Actualiza todos los paquetes instalados</label>
+         <label class="qp-opt"><input type="radio" name="q0_56" value="2">Instala un paquete</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">2. ¿Qué hace apt-get upgrade?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_57" value="0">Actualiza la lista de paquetes disponibles</label>
+         <label class="qp-opt"><input type="radio" name="q0_57" value="1">Actualiza todos los paquetes instalados</label>
+         <label class="qp-opt"><input type="radio" name="q0_57" value="2">Reinstala el sistema</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Qué comando desinstala un paquete eliminando también sus ficheros de configuración?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_58" value="0">apt-get purge</label>
+         <label class="qp-opt"><input type="radio" name="q0_58" value="1">apt-get remove</label>
+         <label class="qp-opt"><input type="radio" name="q0_58" value="2">apt-get clean</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Cómo instalamos manualmente un paquete .deb ya descargado?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_59" value="0">dpkg -i paquete.deb</label>
+         <label class="qp-opt"><input type="radio" name="q0_59" value="1">apt-get update paquete.deb</label>
+         <label class="qp-opt"><input type="radio" name="q0_59" value="2">install paquete.deb</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">12. Red, copias de seguridad y máquinas virtuales:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué comando muestra la IP local?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_60" value="0">ip a</label>
+         <label class="qp-opt"><input type="radio" name="q0_60" value="1">ipconfig</label>
+         <label class="qp-opt"><input type="radio" name="q0_60" value="2">ifshow</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">2. En un Ubuntu moderno, ¿dónde se configura la red con NetPlan?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_61" value="0">En /etc/netplan/01-*.yaml</label>
+         <label class="qp-opt"><input type="radio" name="q0_61" value="1">En /etc/network/interfaces</label>
+         <label class="qp-opt"><input type="radio" name="q0_61" value="2">En /etc/ip.conf</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Cómo aplicamos la configuración de NetPlan?</p>
+       <input type="text" data-a="sudo netplan apply|netplan apply">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Qué opción de rsync elimina en el destino los archivos que no existen en el origen?</p>
+     <p><input type="text" data-a="--delete|delete"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Qué opción de rsync simula la sincronización sin realizar cambios?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_62" value="0">-n (dry-run)</label>
+         <label class="qp-opt"><input type="radio" name="q0_62" value="1">-s</label>
+         <label class="qp-opt"><input type="radio" name="q0_62" value="2">-x</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Cómo arrancamos la máquina 'ubuntu-server' de VirtualBox sin interfaz gráfica?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_63" value="0">VBoxManage startvm 'ubuntu-server' --type headless</label>
+         <label class="qp-opt"><input type="radio" name="q0_63" value="1">VBoxManage list runningvms</label>
+         <label class="qp-opt"><input type="radio" name="q0_63" value="2">VBoxManage controlvm 'ubuntu-server' savestate</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
 
    <script>
+   // baraja las opciones de cada pregunta al cargar la página
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.qp-opts:not([data-qp-mezclada])').forEach(function (opts) {
+       opts.dataset.qpMezclada = '1';
+       var ops = Array.from(opts.children);
+       for (var i = ops.length - 1; i > 0; i--) {
+         var j = Math.floor(Math.random() * (i + 1));
+         var t = ops[i]; ops[i] = ops[j]; ops[j] = t;
+       }
+       ops.forEach(function (l) { opts.appendChild(l); });
+     });
+   });
    function qpNorm(s) {
      return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
    }
@@ -1036,8 +1282,7 @@
      var card = btn.closest('.qp-card');
      card.querySelectorAll('.qp-item').forEach(function (it) {
        it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
-       var radios = it.querySelectorAll('input');
-       var correcto = radios[parseInt(it.dataset.a, 10)];
+       var correcto = it.querySelector('input[value="' + it.dataset.a + '"]');
        correcto.checked = true;
        correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
      });

@@ -17,11 +17,29 @@ Cuestionario comandos básicos
         (x) La carpeta B se mueve dentro de la carpeta C
         ( ) La carpeta B sobreescribe la carpeta C
         ( ) No se puede hacer, da un error ya que la carpeta C existe
-      - 4. La carpeta A contiene las carpetas B y C. Ejecutamos **mv A/B/ A/C/** y después **ls A/C**, obtenemos:
+      - 4. Ejecutamos los siguientes comandos, ¿qué obtenemos?
+        fichero:
+           $ tree A
+           A
+           ├── B
+           └── C
+           $ mv A/B/ A/C/
+           $ ls A/C
         (x) B
         ( ) no se puede acceder
         ( ) C
-      - 5. Ejecutamos: **mkdir A1; cd A1; mkdir B1; cd B1; mkdir C1; mkdir ../B2; mkdir ../B2/E1; cd ..; cd ..; ls A1/B2** y obtenemos:
+      - 5. Ejecutamos los siguientes comandos, ¿qué obtenemos?
+        fichero:
+           $ mkdir A1
+           $ cd A1
+           $ mkdir B1
+           $ cd B1
+           $ mkdir C1
+           $ mkdir ../B2
+           $ mkdir ../B2/E1
+           $ cd ..
+           $ cd ..
+           $ ls A1/B2
         (x) E1
         ( ) B2
         ( ) no se puede acceder
@@ -221,3 +239,101 @@ Cuestionario comandos básicos
         ( ) Guardar los cambios realizados en el archivo
         ( ) Cambiar al modo de inserción
         (x) Abrir un nuevo archivo para edición
+
+   8. Enlaces e inodos:
+      - 1. ¿Qué comando crea un enlace simbólico de A.dat llamado B.dat?
+        (x) ln -s A.dat B.dat
+        ( ) ln A.dat B.dat
+        ( ) link -s B.dat A.dat
+      - 2. Sin la opción -s, ln crea...
+        (x) un enlace duro
+        ( ) un enlace simbólico
+        ( ) una copia del archivo
+      - 3. ¿Comparten el mismo inodo un archivo y su enlace duro?
+        (x) Sí
+        ( ) No
+      - 4. ¿Qué comando muestra la información del inodo de un archivo?
+        [stat]
+      - 5. ¿Con qué comando vemos los inodos al listar?
+        (x) ls -ai
+        ( ) ls -al
+        ( ) ls -as
+
+   9. Buscar, alias y otros:
+      - 1. ¿Por qué locate es mucho más rápido que find?
+        (x) Porque busca en una base de datos preconstruida
+        ( ) Porque busca solo en el home
+        ( ) Porque no busca en los subdirectorios
+      - 2. ¿Qué comando actualiza la base de datos de locate?
+        = sudo updatedb | updatedb
+      - 3. ¿find busca en tiempo real recorriendo el sistema de archivos?
+        (x) Sí
+        ( ) No
+      - 4. ¿Cómo creamos el alias ll para ls -l?
+        (x) alias ll='ls -l'
+        ( ) alias 'ls -l'=ll
+        ( ) ll = alias ls -l
+      - 5. ¿En qué archivo lo guardamos para que esté disponible cada vez que abrimos una terminal?
+        [~/.bashrc|.bashrc|bashrc]
+      - 6. ¿Qué visor permite navegar hacia delante y hacia atrás por el archivo?
+        ( ) cat
+        ( ) more
+        (x) less
+      - 7. ¿Qué comando crea un archivo vacío o actualiza su fecha de modificación?
+        [touch]
+      - 8. ¿Cómo volvemos al directorio anterior?
+        = cd -
+
+   10. Compresión:
+      - 1. ¿Cómo creamos casas.tar.gz, comprimido con gzip, a partir del directorio casas?
+        (x) tar -czvf casas.tar.gz casas
+        ( ) tar -xzvf casas.tar.gz casas
+        ( ) gzip -r casas casas.tar.gz
+      - 2. ¿Cómo lo extraemos?
+        (x) tar -xzvf casas.tar.gz
+        ( ) tar -czvf casas.tar.gz
+        ( ) unzip casas.tar.gz
+      - 3. ¿Cómo listamos su contenido sin descomprimirlo?
+        (x) tar -tvzf casas.tar.gz
+        ( ) tar -lvzf casas.tar.gz
+        ( ) cat casas.tar.gz
+
+   11. Instalar software:
+      - 1. ¿Qué hace apt-get update?
+        (x) Actualiza la lista de paquetes disponibles
+        ( ) Actualiza todos los paquetes instalados
+        ( ) Instala un paquete
+      - 2. ¿Qué hace apt-get upgrade?
+        ( ) Actualiza la lista de paquetes disponibles
+        (x) Actualiza todos los paquetes instalados
+        ( ) Reinstala el sistema
+      - 3. ¿Qué comando desinstala un paquete eliminando también sus ficheros de configuración?
+        (x) apt-get purge
+        ( ) apt-get remove
+        ( ) apt-get clean
+      - 4. ¿Cómo instalamos manualmente un paquete .deb ya descargado?
+        (x) dpkg -i paquete.deb
+        ( ) apt-get update paquete.deb
+        ( ) install paquete.deb
+
+   12. Red, copias de seguridad y máquinas virtuales:
+      - 1. ¿Qué comando muestra la IP local?
+        (x) ip a
+        ( ) ipconfig
+        ( ) ifshow
+      - 2. En un Ubuntu moderno, ¿dónde se configura la red con NetPlan?
+        (x) En /etc/netplan/01-*.yaml
+        ( ) En /etc/network/interfaces
+        ( ) En /etc/ip.conf
+      - 3. ¿Cómo aplicamos la configuración de NetPlan?
+        = sudo netplan apply | netplan apply
+      - 4. ¿Qué opción de rsync elimina en el destino los archivos que no existen en el origen?
+        [--delete|delete]
+      - 5. ¿Qué opción de rsync simula la sincronización sin realizar cambios?
+        (x) -n (dry-run)
+        ( ) -s
+        ( ) -x
+      - 6. ¿Cómo arrancamos la máquina 'ubuntu-server' de VirtualBox sin interfaz gráfica?
+        (x) VBoxManage startvm 'ubuntu-server' --type headless
+        ( ) VBoxManage list runningvms
+        ( ) VBoxManage controlvm 'ubuntu-server' savestate

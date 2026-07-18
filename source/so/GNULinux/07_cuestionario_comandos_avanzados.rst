@@ -96,9 +96,9 @@ Cuestionario comandos avanzados
 
    4. Tenemos el archivo hola.txt, con las columnas separadas por un número variable de espacios:
       fichero: hola.txt
-         a1             a2                  a3
-         e1  e2           e3
-         o1                   o2                               o3
+         a1    a2  a3
+         e1 e2    e3
+         o1    o2         o3
       - 1. ¿Cómo se puede obtener la segunda columna? (ayuda: usa el comando tr)
         (x) cat hola.txt | tr -s ' ' | cut -d' ' -f2
         ( ) cat hola.txt | cut -d' ' -f2 hola.txt
@@ -153,3 +153,172 @@ Cuestionario comandos avanzados
         (x) watch free -m
         ( ) for free -m
         ( ) while free m
+
+   7. Comillas y tratamiento de cadenas:
+      - 1. Ejecutamos a=5 y después echo a, ¿qué se muestra?
+        (x) a
+        ( ) 5
+        ( ) error
+      - 2. ¿Y con echo $a?
+        [5]
+      - 3. Ejecutamos a=5 y echo "a = $a" (comillas dobles), ¿qué se muestra?
+        (x) a = 5
+        ( ) a = $a
+      - 4. Ejecutamos a=5 y echo 'a = $a' (comillas simples), ¿qué se muestra?
+        ( ) a = 5
+        (x) a = $a
+      - 5. Con a=www.fsf.org, ¿qué muestra echo ${a::3}?
+        [www]
+      - 6. ¿Y echo ${a:1:3}?
+        [ww.]
+      - 7. ¿Y echo ${a:3}?
+        [.fsf.org]
+      - 8. ¿Y echo ${#a}?
+        [11|once]
+
+   8. Operaciones aritméticas:
+      - 1. Ejecutamos a=3+4 y echo $a, ¿qué se muestra?
+        (x) 3+4
+        ( ) 7
+        ( ) error
+      - 2. ¿Y con echo $((a))?
+        [7|siete]
+      - 3. Con a=10 y b=4, ¿qué muestra echo $((a/b))? (recuerda que solo opera con enteros)
+        [2|dos]
+      - 4. ¿Y echo $((a%b)) (módulo o resto)?
+        [2|dos]
+      - 5. x=$((RANDOM % 10 + 1)) genera números...
+        (x) del 1 al 10
+        ( ) del 0 al 10
+        ( ) del 0 al 9
+      - 6. ¿Qué muestra echo 4/5 | bc -l?
+        (x) .80000000000000000000
+        ( ) 0
+        ( ) 4/5
+      - 7. ¿Qué hace a=$(whoami)?
+        (x) Guarda en a la salida del comando whoami
+        ( ) Guarda en a la cadena whoami
+        ( ) Da un error
+
+   9. Filtros sobre login.dat:
+      fichero: login.dat
+         admin      : nombre1
+         gerente    : nombre2
+         supervisor : nombre3
+         empleado   : nombre4
+         empleado   : nombre5
+      - 1. ¿Qué muestra grep -c empleado login.dat?
+        [2|dos]
+      - 2. ¿Qué opción de grep selecciona las líneas que NO coinciden?
+        [-v|v]
+      - 3. ¿Cómo verías las líneas que contienen empleado o admin?
+        (x) egrep 'empleado|admin' login.dat
+        ( ) grep empleado -o admin login.dat
+        ( ) grep empleado+admin login.dat
+      - 4. ¿Qué muestra grep empleado login.dat | grep 5?
+        (x) empleado   : nombre5
+        ( ) Las dos líneas de empleado
+        ( ) Nada
+      - 5. wc login.dat muestra 5 15 110, ¿qué es el 5?
+        (x) El número de líneas
+        ( ) El número de palabras
+        ( ) El número de caracteres
+      - 6. ¿Y el 110?
+        ( ) El número de líneas
+        ( ) El número de palabras
+        (x) El número de caracteres
+      - 7. En grep emple login.dat | cut -d' ' -f1 | uniq -c, ¿qué hace la opción -c de uniq?
+        (x) Precede cada línea con su número de ocurrencias
+        ( ) Cuenta los caracteres de cada línea
+        ( ) Compara sin distinguir mayúsculas
+      - 8. ¿Qué hace cat login.dat | tr 'a' 'A'?
+        (x) Cambia todas las a minúsculas por A mayúsculas
+        ( ) Cambia solo la primera a de cada línea
+        ( ) Cambia la palabra a por A
+
+   10. Ordenar, editar y comparar. Tenemos el archivo test.dat:
+      fichero: test.dat
+         2 B
+         3 C
+         20 D
+         1 A
+      - 1. ¿Por qué sort test.dat coloca la línea "20 D" antes que "3 C"?
+        (x) Porque ordena alfabéticamente y "20" empieza por 2
+        ( ) Porque 20 es mayor que 3
+        ( ) Es un error de sort
+      - 2. ¿Qué opción de sort ordena numéricamente?
+        [-n|n]
+      - 3. ¿Y numéricamente en orden inverso?
+        [-rn|-nr|rn|nr]
+      - 4. ¿Qué hace la opción -i de sed (sed -i 's/admin/ADMIN/g' login.dat)?
+        (x) Edita el archivo original en su lugar
+        ( ) Ignora mayúsculas y minúsculas
+        ( ) Pregunta antes de cada sustitución
+      - 5. ¿Qué hace sed '/^$/d' archivo.txt?
+        (x) Elimina las líneas en blanco
+        ( ) Elimina la primera línea
+        ( ) Elimina los espacios de cada línea
+      - 6. ¿Qué muestra echo "Hola" | sed 's/./_/g'?
+        = ____
+      - 7. ¿Qué comando une línea a línea el contenido de dos archivos, en columnas?
+        [paste]
+      - 8. ¿Qué comando combina las líneas de dos archivos que comparten el primer campo?
+        [join]
+      - 9. ¿Qué comando muestra las diferencias entre dos archivos?
+        [diff]
+
+   11. Un poco de todo:
+      - 1. Ejecutamos los siguientes comandos, ¿qué contendrá new_file.dat?
+        fichero:
+           $ tunombre=dani
+           $ cat << EOF > new_file.dat
+           Mi nombre es $tunombre
+           hoy es $(date)
+           EOF
+        (x) El valor de la variable y la fecha (Mi nombre es dani, hoy es mié 12 oct...)
+        ( ) Las líneas escritas literalmente, con $tunombre y $(date) sin evaluar
+        ( ) Da un error
+      - 2. ¿Qué hace sed -n '3p' archivo?
+        (x) Muestra solo la tercera línea
+        ( ) Borra la tercera línea
+        ( ) Muestra las tres primeras líneas
+      - 3. ¿Qué hace sed -i 's/\t/ /g' archivo.txt?
+        (x) Cambia las tabulaciones por espacios en el propio archivo
+        ( ) Cambia las t por espacios
+        ( ) Añade una tabulación al principio de cada línea
+      - 4. ¿Qué hace tr -s ' '?
+        (x) Comprime las repeticiones consecutivas de espacios en uno solo
+        ( ) Quita todos los espacios
+        ( ) Cambia los espacios por tabulaciones
+      - 5. ¿Qué hace grep -n empleado login.dat?
+        (x) Muestra las coincidencias precedidas de su número de línea
+        ( ) Muestra solo el número de coincidencias
+        ( ) Muestra las líneas que no coinciden
+      - 6. ¿Qué opción de egrep no discrimina entre mayúsculas y minúsculas?
+        [-i|i]
+      - 7. En un archivo con campos separados por dos puntos (campo1:campo2), ¿cómo sacarías el segundo campo?
+        (x) cut -d ':' -f2 archivo
+        ( ) cut -d2 -f ':' archivo
+        ( ) cut -c ':' archivo
+
+   12. paste, join y diff. Tenemos estos dos archivos:
+      fichero: login.dat
+         usuario1 u1
+         usuario2 u2
+         usuario3 u3
+      fichero: shell.dat
+         usuario1 bash
+         usuario2 cshell
+         usuario3 bash
+      - 1. ¿Qué muestra la primera línea de paste login.dat shell.dat?
+        (x) usuario1 u1   usuario1 bash
+        ( ) usuario1 u1 bash
+        ( ) usuario1 bash
+      - 2. ¿Y la primera línea de join login.dat shell.dat?
+        (x) usuario1 u1 bash
+        ( ) usuario1 u1   usuario1 bash
+        ( ) u1 bash
+      - 3. Ejecutamos sed 's/u3/U3/g' login.dat > login2.dat y después diff login.dat login2.dat, ¿qué señala diff?
+        (x) Solo la tercera línea (u3 | U3)
+        ( ) Todas las líneas
+        ( ) Nada, son iguales

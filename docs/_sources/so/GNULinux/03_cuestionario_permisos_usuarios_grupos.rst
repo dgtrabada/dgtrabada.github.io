@@ -80,7 +80,9 @@ Cuestionario permisos, usuarios y grupos
 
    3. Interpretando los permisos:
       - 1. Ejecutamos ls -la y obtenemos:
-        texto: -rw-rw-r-- 1 alumno alumno 5 ene 4 19:02 fecha.sh
+        fichero:
+           $ ls -la
+           -rw-rw-r-- 1 alumno alumno 5 ene 4 19:02 fecha.sh
         (x) Todos pueden leer el archivo
         ( ) Sólo el propietario puede leer el archivo
         ( ) Los usuarios del grupo pueden ejecutar el archivo
@@ -88,18 +90,35 @@ Cuestionario permisos, usuarios y grupos
         (x) chmod g+x run.sh
         ( ) chmod a+x run.sh
         ( ) chmod 777 run.sh
-      - 3. Ejecutar **chmod a-rwx test**, después **chmod a+r test** y después **chmod u+x test** es igual que:
+      - 3. Ejecutar los siguientes comandos es igual que:
+        fichero:
+           $ chmod a-rwx test
+           $ chmod a+r test
+           $ chmod u+x test
         (x) chmod 544 test
         ( ) chmod 744 test
         ( ) chmod 577 test
-      - 4. Ejecutamos ls -la /usr/bin/passwd y obtenemos -rw\ **s**\ r-xr-x 1 root root 54256 mar 29 11:25 /usr/bin/passwd. ¿Qué es la s que vemos en -rw\ **s**\ r-xr-x?
+      - 4. Ejecutamos ls -la /usr/bin/passwd, ¿qué es la **s** que vemos en los permisos?
+        fichero:
+           $ ls -la /usr/bin/passwd
+           -rwsr-xr-x 1 root root 54256 mar 29 11:25 /usr/bin/passwd
         (x) Es el bit setuid
         ( ) Es un error, debería ser x
         ( ) Es un error, debería ser r
 
-   4. Práctica: crea una carpeta llamada carpeta y dentro un archivo fecha.sh que contenga la línea date (puedes usar vi, nano...). Con ls -la tienes que obtener:
-      texto: -rw-rw-r-- 1 alumno alumno 5 ene 4 19:02 fecha.sh
-      texto: Quítate todos los permisos del directorio carpeta; con ls -la obtendrás: d--------- 2 alumno alumno 4096 ene 4 19:02 carpeta
+   4. Práctica: crea una carpeta llamada carpeta y dentro de ella un archivo fecha.sh que contenga la línea date (puedes escribirlo con vi, nano...). Al terminar tiene que quedar así:
+      fichero:
+         $ mkdir carpeta
+         $ cd carpeta
+         $ vi fecha.sh          # escribe dentro la línea: date
+         $ ls -la
+         -rw-rw-r-- 1 alumno alumno 5 ene 4 19:02 fecha.sh
+         $ cd ..
+      texto: Ahora quítate **todos** los permisos del directorio carpeta; al listarlo tienes que obtener:
+      fichero:
+         $ ls -la
+         d--------- 2 alumno alumno 4096 ene 4 19:02 carpeta
+      texto: A partir de aquí irás dando permisos al usuario (u) del directorio poco a poco, y después de cada cambio probarás tres cosas: **entrar** (cd carpeta), **listar** (ls carpeta) y **crear** algo dentro (touch carpeta/prueba). Responde qué comando usaste y qué se puede hacer en cada paso.
       - 1. ¿Qué comando has utilizado para quitarte todos los permisos?
         = chmod a-rwx carpeta | chmod 000 carpeta | chmod 0 carpeta
       - 2. Intenta entrar en el directorio carpeta, ¿se puede?
@@ -141,46 +160,88 @@ Cuestionario permisos, usuarios y grupos
       - 15. Haz pruebas similares con el archivo fecha.sh, teniendo en cuenta que se ejecuta escribiendo ./fecha.sh en la terminal. ¿Qué comando ejecutas para darle permisos de ejecución? (cuando lo ejecutes deberías obtener la fecha actual)
         = chmod +x fecha.sh | chmod u+x fecha.sh | chmod a+x fecha.sh
 
-   5. Rellena los espacios:
-      - 1. r read (lectura): cuando el permiso de lectura está activo sobre un **directorio** significa que se podrá...
-        (x) listar
-        ( ) ver
-        ( ) crear
-        ( ) escribir
-        ( ) entrar
-        ( ) ejecutar
-      - los recursos almacenados en él; si está asignado a un **archivo** se podrá...
-        ( ) listar
-        (x) ver
-        ( ) crear
-        ( ) escribir
-        ( ) entrar
-        ( ) ejecutar
-      - 2. w write (escritura): cuando el permiso de escritura está activo sobre un **directorio** significa que se podrá...
-        ( ) listar
-        ( ) ver
-        (x) crear
-        ( ) escribir
-        ( ) entrar
-        ( ) ejecutar
-      - archivos en su interior; si está activado para un **archivo** significa que se podrá...
-        ( ) listar
-        ( ) ver
-        ( ) crear
-        (x) escribir
-        ( ) entrar
-        ( ) ejecutar
-      - 3. x execute (ejecución): si el permiso de ejecución está activo sobre un **directorio** significa que el usuario podrá...
-        ( ) listar
-        ( ) ver
-        ( ) crear
-        ( ) escribir
-        (x) entrar
-        ( ) ejecutar
-      - en él; y si está activo sobre un **archivo** se podrá...
-        ( ) listar
-        ( ) ver
-        ( ) crear
-        ( ) escribir
-        ( ) entrar
-        (x) ejecutar
+   5. Rellena los huecos con: listar, ver, crear, escribir, entrar o ejecutar.
+      - 1. r read (lectura):
+        Cuando el permiso de lectura está activo sobre un directorio significa que se podrá [listar] los recursos almacenados en él, si está asignado a un archivo se podrá [ver|leer] su contenido.
+      - 2. w write (escritura):
+        Cuando el permiso de escritura está activo sobre un directorio significa que se podrá [crear] archivos en su interior, si está activado para un archivo significa que se podrá [escribir|modificar] su contenido.
+      - 3. x execute (ejecución):
+        Si el permiso de ejecución está activo sobre un directorio significa que el usuario podrá [entrar] en él, y si está activo sobre un archivo se podrá [ejecutar|ejecutarlo].
+
+   6. Notación octal y umask:
+      - 1. chmod a+rwx equivale a chmod...
+        [777]
+      - 2. chmod a+rw equivale a chmod...
+        [666]
+      - 3. ¿Qué número corresponde a rwxr-x---?
+        [750]
+      - 4. ¿Qué permisos da chmod 640 a un archivo?
+        (x) rw-r-----
+        ( ) rw-r--r--
+        ( ) rwxr-----
+      - 5. Con umask 022, ¿con qué permisos se crean los directorios nuevos?
+        [755]
+      - 6. ¿Y los archivos nuevos?
+        [644]
+      - 7. ¿Qué comando cambia solo el grupo de un archivo o directorio?
+        [chgrp]
+
+   7. Permisos especiales:
+      - 1. ¿Qué bit corresponde al valor octal 4000?
+        (x) setuid
+        ( ) setgid
+        ( ) sticky
+      - 2. En un directorio con el bit setgid, lo que se crea dentro...
+        (x) Hereda el grupo del directorio
+        ( ) Hereda el propietario del directorio
+        ( ) No se puede borrar
+      - 3. ¿Qué hace el sticky bit en un directorio como /tmp?
+        (x) Impide borrar o renombrar los archivos de otros usuarios
+        ( ) Impide leer los archivos de otros usuarios
+        ( ) Hace que el directorio no se pueda borrar nunca
+      - 4. /tmp tiene permisos 777, ¿cómo le asignamos además el sticky bit?
+        = chmod 1777 /tmp | chmod o+t /tmp | sudo chmod 1777 /tmp | sudo chmod o+t /tmp
+
+   8. Más gestión de usuarios y grupos:
+      - 1. ¿Cómo añadimos el usuario al grupo admin sin sacarlo de sus otros grupos?
+        = usermod -aG admin usuario | sudo usermod -aG admin usuario | gpasswd -a usuario admin | sudo gpasswd -a usuario admin
+      - 2. ¿Cómo eliminamos un usuario borrando también su home?
+        = userdel -r usuario | sudo userdel -r usuario
+      - 3. ¿Qué comando muestra la información de caducidad de la contraseña de un usuario?
+        = chage -l usuario | sudo chage -l usuario
+      - 4. ¿Con qué comandos podemos consultar los grupos de un usuario?
+        (x) groups usuario e id usuario
+        ( ) lsgroups usuario
+        ( ) cat /etc/usuarios
+      - 5. ¿En qué archivo está definido el grupo principal de cada usuario?
+        (x) /etc/passwd
+        ( ) /etc/group
+        ( ) /etc/shadow
+      - 6. ¿Qué grupo predefinido permite leer los ficheros de log?
+        [adm]
+      - 7. ¿Con qué comando se edita de forma segura el archivo /etc/sudoers?
+        [visudo|sudo visudo]
+      - 8. En la regla usuario ALL=(ALL:ALL) ALL de sudoers, ¿qué indica el primer ALL?
+        (x) Que la regla se aplica a todos los hosts
+        ( ) Que puede ejecutar todos los comandos
+        ( ) Que se aplica a todos los usuarios
+
+   9. Sesiones y quotas:
+      - 1. ¿Qué comando muestra quién está conectado y qué está ejecutando cada uno?
+        (x) w
+        ( ) whoami
+        ( ) groups
+      - 2. ¿Qué comando muestra el historial de los últimos accesos al sistema?
+        [last]
+      - 3. ¿Para qué sirve getent (por ejemplo getent passwd)?
+        (x) Consultar las bases de datos del sistema usando NSS (usuarios locales, LDAP, NIS...)
+        ( ) Generar usuarios nuevos
+        ( ) Encriptar contraseñas
+      - 4. Para activar las quotas en /home, ¿qué opciones añadimos a su línea del fstab?
+        (x) usrquota,grpquota
+        ( ) quotas=on
+        ( ) userlimit,grouplimit
+      - 5. ¿Qué comando edita la quota de un usuario?
+        [edquota|edquota usuario|sudo edquota usuario]
+      - 6. ¿Qué comando crea un informe del uso de disco y quotas?
+        [repquota]

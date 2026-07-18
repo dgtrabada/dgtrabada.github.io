@@ -1,8 +1,17 @@
-# Genera los diagramas de los esquemas RAID del cuestionario,
-# imitando el estilo clásico de los diagramas RAID de la Wikipedia:
-# cilindros con bandas de colores por bloque y conectores ortogonales.
-# Leaf = lista de bloques (strings); nodo interno = lista de hijos.
+# Genera los diagramas RAID de la teoría y del cuestionario con un estilo
+# uniforme (inspirado en los diagramas RAID clásicos de la Wikipedia):
+# cilindros con bandas de colores por fila de bloques (A/B/C/D), subíndices
+# en la paridad (Ap -> A con p subíndice) y conectores ortogonales.
+#
+# Estructura de un esquema:
+#   * disco (hoja)            = lista de bloques:      L('A1', 'B1')
+#   * grupo sin etiqueta      = lista de hijos:        [d1, d2]
+#   * grupo con etiqueta      = tupla (label, hijos):  ('RAID 5', [d1, d2, d3])
+#
+# render(nombre, arbol, title='RAID 5+0', sizes='120GB') dibuja el árbol y
+# guarda el PNG en el directorio del propio script.
 import os
+import re
 
 import matplotlib
 matplotlib.use('Agg')
@@ -15,98 +24,141 @@ W, GAP = 1.0, 0.4            # ancho de disco y separación
 BAND, GRAY_H, RY = 0.32, 0.5, 0.115
 EDGE = '#666666'
 LINE = dict(color='#333333', lw=1.7, zorder=1)
+SERIF = 'DejaVu Serif'
 COLORS = {'A': ('#f6c46a', '#fbe3b5'),      # (banda, tapa clara)
-          'B': ('#b9d38a', '#dcebc2'),
+          'B': ('#e9ed77', '#f6f8c4'),
+          'C': ('#8de08d', '#d2f2d2'),
+          'D': ('#84c9f2', '#cfe9fa'),
           '_': ('#d8d8d8', '#ebebeb')}      # cuerpo gris
 
 
-def is_leaf(n):
-    return all(isinstance(b, str) for b in n)
+def L(*bloques):
+    return list(bloques)
 
 
-def depth(n):
-    return 1 if is_leaf(n) else 1 + max(depth(c) for c in n)
+def etiqueta(nodo):
+    return nodo[0] if isinstance(nodo, tuple) else None
 
 
-def iter_leaves(n):
-    if is_leaf(n):
-        yield n
+def hijos(nodo):
+    return nodo[1] if isinstance(nodo, tuple) else nodo
+
+
+def es_disco(nodo):
+    return not isinstance(nodo, tuple) and all(isinstance(b, str) for b in nodo)
+
+
+def profundidad(nodo):
+    return 1 if es_disco(nodo) else 1 + max(profundidad(h) for h in hijos(nodo))
+
+
+def discos_de(nodo):
+    if es_disco(nodo):
+        yield nodo
     else:
-        for c in n:
-            yield from iter_leaves(c)
+        for h in hijos(nodo):
+            yield from discos_de(h)
 
 
-def draw_disk(ax, x, blocks, idx):
-    """Cilindro con una banda por bloque (arriba) y cuerpo gris (abajo)."""
-    n = len(blocks)
-    h_total = GRAY_H + n * BAND
-    cx = x + W / 2
-    # cuerpo gris
-    ax.add_patch(Ellipse((cx, 0), W, 2*RY, facecolor=COLORS['_'][0],
-                         edgecolor=EDGE, lw=1, zorder=2))
-    ax.add_patch(Rectangle((x, 0), W, GRAY_H, facecolor=COLORS['_'][0],
-                           edgecolor='none', zorder=3))
-    ax.plot([x, x], [0, h_total], color=EDGE, lw=1, zorder=4)
-    ax.plot([x+W, x+W], [0, h_total], color=EDGE, lw=1, zorder=4)
-    # bandas de bloques, de abajo hacia arriba (última banda = último bloque)
-    y = GRAY_H
-    for b in reversed(blocks):
-        fila = 'B' if b.upper().startswith('B') else 'A'
-        cara, tapa = COLORS[fila]
-        ax.add_patch(Ellipse((cx, y), W, 2*RY, facecolor=cara,
-                             edgecolor=EDGE, lw=1, zorder=3))
-        ax.add_patch(Rectangle((x, y), W, BAND, facecolor=cara,
+def con_etiquetas(nodo):
+    if es_disco(nodo):
+        return False
+    return etiqueta(nodo) is not None or any(con_etiquetas(h) for h in hijos(nodo))
+
+
+def texto_bloque(b):
+    """Ap -> A con p subíndice; A1 se deja tal cual."""
+    m = re.fullmatch(r'([A-Za-z])([pq])', b)
+    if m:
+        return '%s$_\\mathrm{%s}$' % m.groups()
+    return b
+
+
+class Dibujo:
+    def __init__(self, ax, paso_nivel):
+        self.ax = ax
+        self.paso = paso_nivel
+        self.x = 0.0
+        self.n_disco = 0
+        self.sizes = None
+
+    def y_barra(self, nivel, y_disco_top):
+        return y_disco_top + 0.30 + (nivel - 2) * self.paso
+
+    def disco(self, bloques, y_disco_top):
+        ax, x = self.ax, self.x
+        n = len(bloques)
+        h_total = GRAY_H + n * BAND
+        cx = x + W / 2
+        ax.add_patch(Ellipse((cx, 0), W, 2*RY, facecolor=COLORS['_'][0],
+                             edgecolor=EDGE, lw=1, zorder=2))
+        ax.add_patch(Rectangle((x, 0), W, GRAY_H, facecolor=COLORS['_'][0],
                                edgecolor='none', zorder=3))
-        # la banda visible va de y-RY a y+BAND-RY (las elipses de los
-        # bordes tapan la parte alta), centramos la etiqueta ahí
-        ax.text(cx, y + BAND/2 - RY, b, ha='center', va='center',
-                fontsize=11, zorder=6, family='DejaVu Sans')
-        y += BAND
-    # tapa superior
-    tapa = COLORS['B' if blocks[0].upper().startswith('B') else 'A'][1]
-    ax.add_patch(Ellipse((cx, y), W, 2*RY, facecolor=tapa,
-                         edgecolor=EDGE, lw=1, zorder=5))
-    ax.text(cx, -RY - 0.16, 'Disk %d' % idx, ha='center', va='top',
-            fontsize=11, family='DejaVu Serif', fontweight='bold')
-    return cx, y + RY                       # punto de conexión superior
+        ax.plot([x, x], [0, h_total], color=EDGE, lw=1, zorder=4)
+        ax.plot([x+W, x+W], [0, h_total], color=EDGE, lw=1, zorder=4)
+        y = GRAY_H
+        for b in reversed(bloques):
+            fila = b[0].upper() if b[0].upper() in COLORS else 'A'
+            cara, _ = COLORS[fila]
+            ax.add_patch(Ellipse((cx, y), W, 2*RY, facecolor=cara,
+                                 edgecolor=EDGE, lw=1, zorder=3))
+            ax.add_patch(Rectangle((x, y), W, BAND, facecolor=cara,
+                                   edgecolor='none', zorder=3))
+            # la banda visible va de y-RY a y+BAND-RY (las elipses de los
+            # bordes tapan la parte alta), centramos la etiqueta ahí
+            ax.text(cx, y + BAND/2 - RY, texto_bloque(b), ha='center',
+                    va='center', fontsize=11, zorder=6)
+            y += BAND
+        tapa = COLORS[bloques[0][0].upper() if bloques[0][0].upper() in COLORS else 'A'][1]
+        ax.add_patch(Ellipse((cx, y), W, 2*RY, facecolor=tapa,
+                             edgecolor=EDGE, lw=1, zorder=5))
+        ax.text(cx, -RY - 0.16, 'Disk %d' % self.n_disco, ha='center',
+                va='top', fontsize=11, family=SERIF, fontweight='bold')
+        if self.sizes:
+            ax.text(cx, -RY - 0.44, self.sizes, ha='center', va='top',
+                    fontsize=9, family=SERIF)
+        self.n_disco += 1
+        self.x += W + GAP
+        return cx, y + RY
+
+    def nodo(self, n, y_disco_top):
+        """Dibuja n; devuelve (cx, cy) de su punto de conexión superior."""
+        if es_disco(n):
+            return self.disco(n, y_disco_top)
+        pts = [self.nodo(h, y_disco_top) for h in hijos(n)]
+        y = self.y_barra(profundidad(n), y_disco_top)
+        x0, x1 = pts[0][0], pts[-1][0]
+        self.ax.plot([x0, x1], [y, y], **LINE)                # barra horizontal
+        for px, py in pts:
+            self.ax.plot([px, px], [py + 0.03, y], **LINE)    # bajada a cada hijo
+        cx = (x0 + x1) / 2
+        if etiqueta(n):
+            self.ax.text(cx, y + 0.10, etiqueta(n), ha='center', va='bottom',
+                         fontsize=13, family=SERIF)
+            return cx, y + 0.46                # el conector del padre no pisa la etiqueta
+        return cx, y
 
 
-def y_bar(level, y_disk_top):
-    return y_disk_top + 0.30 + (level - 2) * 0.46
-
-
-def layout(ax, node, cursor, idx, y_disk_top):
-    """Dibuja node; devuelve (cx, cy) de su punto de conexión superior."""
-    if is_leaf(node):
-        x = cursor[0]
-        cursor[0] += W + GAP
-        cx, cy = draw_disk(ax, x, node, idx[0])
-        idx[0] += 1
-        return cx, cy
-    pts = [layout(ax, c, cursor, idx, y_disk_top) for c in node]
-    y = y_bar(depth(node), y_disk_top)
-    x0, x1 = pts[0][0], pts[-1][0]
-    ax.plot([x0, x1], [y, y], **LINE)                     # barra horizontal
-    for px, py in pts:
-        ax.plot([px, px], [py + 0.03, y], **LINE)         # bajada a cada hijo
-    return (x0 + x1) / 2, y
-
-
-def render(name, tree):
-    n_disks = sum(1 for _ in iter_leaves(tree))
-    n_bands = max(len(l) for l in iter_leaves(tree))
-    y_disk_top = GRAY_H + n_bands * BAND + RY
-    width = n_disks * (W + GAP) - GAP
-    top = y_bar(depth(tree), y_disk_top)
+def render(name, tree, title=None, sizes=None):
+    n_discos = sum(1 for _ in discos_de(tree))
+    n_bandas = max(len(d) for d in discos_de(tree))
+    y_disco_top = GRAY_H + n_bandas * BAND + RY
+    paso = 0.80 if con_etiquetas(tree) else 0.46
+    width = n_discos * (W + GAP) - GAP
+    alto_pie = 0.75 if sizes else 0.55
+    dib_tmp = Dibujo(None, paso)
+    top_est = dib_tmp.y_barra(profundidad(tree), y_disco_top) + 0.46
     fig, ax = plt.subplots(figsize=((width + 0.5) * 0.78,
-                                    (top + 1.05) * 0.78))
-    cursor, idx = [0.0], [0]
-    cx, cy = layout(ax, tree, cursor, idx, y_disk_top)
-    ax.plot([cx, cx], [cy, cy + 0.18], **LINE)
-    ax.text(cx, cy + 0.24, '¿RAID?', ha='center', va='bottom',
-            fontsize=15, family='DejaVu Serif', fontweight='bold')
+                                    (top_est + alto_pie + 0.55) * 0.78))
+    dib = Dibujo(ax, paso)
+    dib.sizes = sizes
+    cx, cy = dib.nodo(tree, y_disco_top)
+    if title:
+        ax.plot([cx, cx], [cy - 0.43 if etiqueta(tree) else cy, cy], color='none')
+        ax.text(cx, cy + 0.12, title, ha='center', va='bottom',
+                fontsize=17, family=SERIF)
     ax.set_xlim(-0.25, width + 0.25)
-    ax.set_ylim(-RY - 0.55, top + 0.62)
+    ax.set_ylim(-RY - alto_pie, cy + 0.70)
     ax.set_aspect('equal')
     ax.axis('off')
     fig.savefig(OUT + name, dpi=150, bbox_inches='tight',
@@ -115,9 +167,52 @@ def render(name, tree):
     print('->', name)
 
 
-L = lambda *b: list(b)   # leaf
+# ---------------------------------------------------------------- teoría
+G5A = [L('A1', 'B1', 'Cp', 'D1'), L('A2', 'Bp', 'C1', 'D2'), L('Ap', 'B2', 'C2', 'Dp')]
+G5B = [L('A3', 'B3', 'Cp', 'D3'), L('A4', 'Bp', 'C3', 'D4'), L('Ap', 'B4', 'C4', 'Dp')]
+G5C = [L('A5', 'B5', 'Cp', 'D5'), L('A6', 'Bp', 'C5', 'D6'), L('Ap', 'B6', 'C6', 'Dp')]
 
-ESQUEMAS = {
+TEORIA = {
+    'raid0.png': ('RAID 0', None,
+                  [L('A1', 'A3', 'A5', 'A7'), L('A2', 'A4', 'A6', 'A8')]),
+    'raid1.png': ('RAID 1', None,
+                  [L('A1', 'A2', 'A3', 'A4'), L('A1', 'A2', 'A3', 'A4')]),
+    'raid3.png': ('RAID 3', None,
+                  [L('A1', 'B1', 'C1', 'D1'), L('A2', 'B2', 'C2', 'D2'),
+                   L('A3', 'B3', 'C3', 'D3'), L('Ap', 'Bp', 'Cp', 'Dp')]),
+    'raid5.png': ('RAID 5', None,
+                  [L('A1', 'B1', 'C1', 'Dp'), L('A2', 'B2', 'Cp', 'D1'),
+                   L('A3', 'Bp', 'C2', 'D2'), L('Ap', 'B3', 'C3', 'D3')]),
+    'raid6.png': ('RAID 6', None,
+                  [L('A1', 'B1', 'C1', 'Dp'), L('A2', 'B2', 'Cp', 'Dq'),
+                   L('A3', 'Bp', 'Cq', 'D1'), L('Ap', 'Bq', 'C2', 'D2'),
+                   L('Aq', 'B3', 'C3', 'D3')]),
+    'raid01.png': ('RAID 0+1', None,
+                   ('RAID 1',
+                    [('RAID 0', [L('A1', 'A3', 'A5', 'A7'), L('A2', 'A4', 'A6', 'A8')]),
+                     ('RAID 0', [L('A1', 'A3', 'A5', 'A7'), L('A2', 'A4', 'A6', 'A8')])])),
+    'raid10.png': ('RAID 1+0', None,
+                   ('RAID 0',
+                    [('RAID 1', [L('A1', 'A3', 'A5', 'A7'), L('A1', 'A3', 'A5', 'A7')]),
+                     ('RAID 1', [L('A2', 'A4', 'A6', 'A8'), L('A2', 'A4', 'A6', 'A8')])])),
+    'raid100.png': ('RAID 100', None,
+                    ('RAID 0',
+                     [('RAID 0',
+                       [('RAID 1', [L('A1', 'A5', 'B1', 'B5'), L('A1', 'A5', 'B1', 'B5')]),
+                        ('RAID 1', [L('A2', 'A6', 'B2', 'B6'), L('A2', 'A6', 'B2', 'B6')])]),
+                      ('RAID 0',
+                       [('RAID 1', [L('A3', 'A7', 'B3', 'B7'), L('A3', 'A7', 'B3', 'B7')]),
+                        ('RAID 1', [L('A4', 'A8', 'B4', 'B8'), L('A4', 'A8', 'B4', 'B8')])])])),
+    'raid50.png': ('RAID 5+0', None,
+                   ('RAID 0', [('RAID 5', G5A), ('RAID 5', G5B)])),
+    'raid51.png': ('RAID 51', None,
+                   ('RAID 1', [('RAID 5', G5A), ('RAID 5', G5A)])),
+    'raid50_3.png': ('RAID 5+0', '120GB',
+                     ('RAID 0', [('RAID 5', G5A), ('RAID 5', G5B), ('RAID 5', G5C)])),
+}
+
+# ------------------------------------------------------------ cuestionario
+QUIZ = {
     # RAID (I): 6 discos de 1 TB
     'quiz_raid_i_1.png': [L('A01', 'A07'), L('A02', 'A08'), L('A03', 'A09'),
                           L('A04', 'A10'), L('A05', 'A11'), L('A06', 'A12')],
@@ -144,5 +239,8 @@ ESQUEMAS = {
                            [[L('A1', 'A3'), L('A1', 'A3')], [L('A2', 'A4'), L('A2', 'A4')]]],
 }
 
-for name, tree in ESQUEMAS.items():
-    render(name, tree)
+for name, (title, sizes, tree) in TEORIA.items():
+    render(name, tree, title=title, sizes=sizes)
+
+for name, tree in QUIZ.items():
+    render(name, tree, title='¿RAID?')

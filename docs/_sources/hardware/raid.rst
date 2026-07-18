@@ -27,7 +27,7 @@ Nivel 0
 Denominado configuración en bandas (striping). Consiste en almacenar datos distribuyéndolos en todas las unidades. Es utilizado para fusionar todos los discos duros en un solo disco para aumentar la capacidad de almacenamiento y el rendimiento. Disminuye la fiabilidad: si falla un solo disco se pierden todos los datos.
 
 .. image:: imagenes/RAID/raid0.png
-    :width: 150
+    :width: 220
 
 Por ejemplo, cuatro unidades de disco duro de 120 GB en una matriz RAID 0 aparecerán como una sola unidad de disco duro de 480 GB para el sistema operativo.
 
@@ -37,7 +37,7 @@ Nivel 1
 Denominado réplica (mirroring), crea una copia exacta (o espejo) de un conjunto de datos en dos o más discos. Es utilizado para garantizar la integridad de los datos: el conjunto sigue funcionando mientras quede un disco sano.
 
 .. image:: imagenes/RAID/raid1.png
-    :width: 150
+    :width: 220
 
 Por ejemplo, dos unidades de disco duro de 120 GB en una matriz RAID 1 aparecerán como una sola unidad de disco duro de 120 GB para el sistema operativo.
 
@@ -52,7 +52,7 @@ Nivel 3
 (Striping + paridad dedicada). Divide los datos a nivel de bytes en lugar de a nivel de bloques y dedica un disco completo a guardar la paridad. Los discos son sincronizados por la controladora para funcionar al unísono. Permite tasas de transferencia muy altas, pero actualmente no se usa.
 
 .. image:: imagenes/RAID/raid3.png
-    :width: 250
+    :width: 420
 
 Nivel 4
 =======
@@ -65,7 +65,7 @@ Nivel 5
 (Striping + paridad distribuida) Denominado conjunto de discos con paridad distribuida de entrelazado de bloques. Es una división de datos a nivel de bloques distribuyendo la información de paridad entre todos los discos miembros del conjunto, con lo que desaparece el cuello de botella del RAID 4. El RAID 5 ha logrado popularidad gracias a su bajo coste de redundancia. Generalmente se implementa con soporte hardware para el cálculo de la paridad. Necesita un mínimo de 3 discos y tolera el fallo de un disco.
 
 .. image:: imagenes/RAID/raid5.png
-    :width: 250
+    :width: 420
 
 Por ejemplo, cuatro unidades de disco duro de 120 GB en una matriz RAID 5 aparecerán como una sola unidad de 360 GB para el sistema operativo: la capacidad de un disco se dedica a la paridad.
 
@@ -75,25 +75,33 @@ Nivel 6
 Se trata de una evolución del RAID 5, donde se busca ampliar la tolerancia frente a fallos. Este aumento de tolerancia se consigue usando una doble banda de paridad (que también se distribuye entre todos los discos) y aumentando a 4 el número mínimo de discos necesarios.
 
 .. image:: imagenes/RAID/raid6.png
-    :width: 300
+    :width: 480
 
 Como resultado de las modificaciones introducidas, los RAID 6 toleran el fallo de dos discos (incluso durante la reconstrucción de uno de ellos) sin pérdida de datos.
 
 Resumen de los niveles más usados, para n discos de tamaño T:
 
-+---------+-------------+----------------+--------------------------+
-| Nivel   | Discos mín. | Capacidad útil | Tolerancia a fallos      |
-+=========+=============+================+==========================+
-| RAID 0  | 2           | n·T            | Ninguna                  |
-+---------+-------------+----------------+--------------------------+
-| RAID 1  | 2           | T              | n-1 discos               |
-+---------+-------------+----------------+--------------------------+
-| RAID 5  | 3           | (n-1)·T        | 1 disco                  |
-+---------+-------------+----------------+--------------------------+
-| RAID 6  | 4           | (n-2)·T        | 2 discos                 |
-+---------+-------------+----------------+--------------------------+
-| RAID 10 | 4           | (n/2)·T        | 1 disco por cada espejo  |
-+---------+-------------+----------------+--------------------------+
++---------+-------------+----------------+--------------------------+---------------------------+
+| Nivel   | Discos mín. | Capacidad útil | Tolerancia a fallos      | Rendimiento               |
++=========+=============+================+==========================+===========================+
+| RAID 0  | 2           | n·T            | Ninguna                  | El más rápido             |
++---------+-------------+----------------+--------------------------+---------------------------+
+| RAID 1  | 2           | T              | n-1 discos               | Acelera la lectura        |
++---------+-------------+----------------+--------------------------+---------------------------+
+| RAID 5  | 3           | (n-1)·T        | 1 disco                  | Penaliza la escritura     |
++---------+-------------+----------------+--------------------------+---------------------------+
+| RAID 6  | 4           | (n-2)·T        | 2 discos                 | Penaliza más la escritura |
++---------+-------------+----------------+--------------------------+---------------------------+
+| RAID 10 | 4           | (n/2)·T        | 1 disco por cada espejo  | Rápido y con redundancia  |
++---------+-------------+----------------+--------------------------+---------------------------+
+
+La lectura mejora en casi todos los niveles porque se puede leer de varios discos a la vez; la escritura en RAID 5 y 6 es más lenta porque cada escritura obliga a recalcular y escribir también la paridad.
+
+Además, un conjunto puede tener discos de **reserva (hot spare)**: discos conectados pero sin usar, que entran en acción automáticamente cuando falla un disco activo, comenzando la reconstrucción sin intervención del administrador.
+
+.. note::
+
+   **Un RAID no es una copia de seguridad**: la redundancia protege del fallo físico de un disco, pero no de borrados accidentales, virus/ransomware o desastres (todo lo que se borra o cifra se replica también en el resto de discos). Las copias de seguridad siguen siendo necesarias.
 
 Niveles RAID anidados
 =====================
@@ -103,22 +111,22 @@ Los niveles anidados combinan dos niveles RAID. El nombre indica el orden: prime
 * **RAID 0+1**: se crean dos RAID 0 y se montan en espejo (RAID 1). Si falla un disco, se pierde toda su banda y el conjunto queda sin redundancia.
 
 .. image:: imagenes/RAID/raid01.png
-    :width: 300
+    :width: 420
 
 * **RAID 1+0 (RAID 10)**: se crean espejos RAID 1 y los datos se reparten en bandas entre ellos (RAID 0). Tolera un fallo por cada espejo y es la combinación más utilizada.
 
 .. image:: imagenes/RAID/raid10.png
-    :width: 300
+    :width: 420
 
 * **RAID 5+0 (RAID 50)**: varios RAID 5 unidos en bandas RAID 0.
 
 .. image:: imagenes/RAID/raid50.png
-    :width: 300
+    :width: 550
 
 * **RAID 5+1 (RAID 51)**: un RAID 5 replicado en espejo.
 
 .. image:: imagenes/RAID/raid51.png
-    :width: 300
+    :width: 550
 
 
 RAID 100
@@ -127,7 +135,7 @@ RAID 100
 Un RAID 100 (RAID 10+0) reparte los datos en bandas sobre varios RAID 10:
 
 .. image:: imagenes/RAID/raid100.png
-    :width: 500
+    :width: 650
 
 RAID 50
 =======
@@ -135,7 +143,7 @@ RAID 50
 Ejemplo del reparto de bloques y paridad en un RAID 50:
 
 .. image:: imagenes/RAID/raid50_3.png
-    :width: 500
+    :width: 750
 
 Caso práctico: Crear un RAID 0
 ==============================
@@ -159,6 +167,12 @@ Procedemos ahora a crear finalmente el RAID 0.
 
   mdadm --create /dev/md0 --level=raid0 --raid-devices=2 /dev/sda /dev/sdb
 
+Podemos ver el estado del conjunto (discos activos, degradado, en reconstrucción...) con:
+
+.. code-block:: bash
+
+  mdadm --detail /dev/md0
+
 Para formatear el RAID utilizaremos el comando
 
 .. code-block:: bash
@@ -172,6 +186,13 @@ Podemos montarlo en /mnt
   mount /dev/md0 /mnt/
 
 Si quisiéramos montar el RAID de forma automática cuando se inicia el ordenador, podríamos añadir algo parecido a ``/dev/md0 /punto_de_montaje ext4 defaults 0 0`` en el fichero **/etc/fstab**
+
+Para que el conjunto conserve su nombre (md0) tras reiniciar, guardamos su configuración en mdadm.conf (si no lo hacemos, al arrancar aparecerá como md127):
+
+.. code-block:: bash
+
+  mdadm --detail --scan >> /etc/mdadm/mdadm.conf
+  update-initramfs -u
 
 Para cambiar un disco duro defectuoso, primero lo marcamos como fallido y después lo sacamos del conjunto:
 
@@ -207,6 +228,26 @@ Para borrar el RAID
   # para que no se vuelva a montar al reiniciar
   mdadm --zero-superblock /dev/sdY
 
+
+Caso práctico: RAID 1 con disco de reserva (hot spare)
+======================================================
+
+Creamos un espejo con dos discos y un tercero de reserva. Al ser un RAID con redundancia, aquí sí podremos ver una reconstrucción de verdad:
+
+.. code-block:: bash
+
+  mdadm --create /dev/md1 --level=raid1 --raid-devices=2 --spare-devices=1 /dev/sdc /dev/sdd /dev/sde
+  mkfs.ext4 /dev/md1
+  mdadm --detail /dev/md1    # veremos 2 discos active sync y 1 spare
+
+  # simulamos el fallo de un disco
+  mdadm --fail /dev/md1 /dev/sdc
+  watch cat /proc/mdstat     # la reconstrucción sobre el disco de reserva
+                             # empieza automáticamente, sin tocar nada
+
+  # sacamos el disco averiado y añadimos uno nuevo, que queda como reserva
+  mdadm --remove /dev/md1 /dev/sdc
+  mdadm --add /dev/md1 /dev/sdf
 
 LVM
 ===
