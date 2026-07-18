@@ -35,11 +35,11 @@ Control de procesos
     * [M] Ordena por uso de memoria.
     * [P] Ordena por uso del CPU.
 
-* **nice** ejecuta un comando con una prioridad determinada, o modifica la prioridad a de un proceso
+* **nice** ejecuta un comando con una prioridad determinada; **renice** modifica la prioridad de un proceso en ejecución
 * **kill** mata procesos
 * **pstree** muestra en vista de árbol (de forma jerárquica) una lista de los procesos en ejecución.
 * **nohup** permite mantener la ejecución de un comando pese a salir de la terminal
-* **jobs, fg %2, bg %1, ctrol+c, ctrol+z**
+* **jobs, fg, bg, Ctrl+C, Ctrl+Z**
 
 .. code-block:: bash
 
@@ -54,7 +54,7 @@ Control de procesos
  [2]-  Ejecutando              sleep 10m &
  [3]+  Ejecutando              sleep 10m &
  $ fg %1         #lo traemos al primer plano, bloquea la terminal
- sleep 10m       #para desbloquear terminal y no matar el proceso Ctrol+z
+ sleep 10m       #para desbloquear terminal y no matar el proceso Ctrl+Z
  ^Z              
  [1]+  Detenido                sleep 10m
  $ jobs
@@ -72,8 +72,8 @@ Control de procesos
  [1]   Terminado               sleep 10m
  [2]-  Ejecutando              sleep 10m &
  [3]+  Ejecutando              sleep 10m &
- $ fg %2        #mandamos el proceso 2 al segundo plano
- sleep 10m      #para desbloquear terminal y matar el proceso Ctrol+c
+ $ fg %2        #traemos el proceso 2 al primer plano
+ sleep 10m      #para matar el proceso Ctrl+C
  ^C           
  $ jobs
  [3]+  Ejecutando              sleep 10m &
@@ -82,10 +82,11 @@ Control de procesos
  sleep 10 & # Ponemos tarea en segundo plano añadiendo & al final del comando.
  fg %1      # Ponerlo en primer plano
  bg %1
- Ctrl+Z     # para  detener una tarea en primer plano
+ Ctrl+Z     # para detener una tarea en primer plano
  Ctrl+C     # para cancelar una tarea en primer plano
        
-**/etc/security/limits.conf** es utilizado en sistemas Unix y Linux para configurar límites de recursos y privilegios para usuarios y grupos. Este archivo permite establecer restricciones específicas sobre cómo los usuarios pueden utilizar los recursos del sistema, como la cantidad de memoria, la cantidad de procesos, el número de archivos abiertos, entre otros. También se utiliza para establecer prioridades y políticas de programación para procesos específicos.nLos límites definidos en "/etc/security/limits.conf" son aplicados por el sistema de gestión de límites de recursos (RLIMIT) del kernel. Esto permite evitar el uso excesivo de recursos por parte de usuarios o grupos, lo que podría llevar a una degradación del rendimiento del sistema o incluso a problemas de seguridad.
+**/etc/security/limits.conf** es utilizado en sistemas Unix y Linux para configurar límites de recursos y privilegios para usuarios y grupos. Este archivo permite establecer restricciones específicas sobre cómo los usuarios pueden utilizar los recursos del sistema, como la cantidad de memoria, la cantidad de procesos, el número de archivos abiertos, entre otros. También se utiliza para establecer prioridades y políticas de programación para procesos específicos.
+Los límites definidos en "/etc/security/limits.conf" son aplicados por el sistema de gestión de límites de recursos (RLIMIT) del kernel. Esto permite evitar el uso excesivo de recursos por parte de usuarios o grupos, lo que podría llevar a una degradación del rendimiento del sistema o incluso a problemas de seguridad.
 
 **/proc/self** es un atajo que permite a un proceso acceder a información sobre sí mismo a través del sistema de archivos virtual /proc, que proporciona una ventana al kernel para monitorear y gestionar procesos y recursos del sistema.
 
@@ -105,7 +106,7 @@ Ficheros y directorios
    ls ???.dat #ver archivos que tienen 3 caracteres y terminan en .dat
    ls -ai     #ver inodos
   
-* **ln -s** hacer links simbólicos -P son links duros sobre archivos
+* **ln -s** crea enlaces simbólicos; sin la opción -s, ln crea enlaces duros (solo sobre archivos, comparten el mismo inodo)
 
   .. image:: imagenes/ln_s.png
 
@@ -115,12 +116,14 @@ Ficheros y directorios
 * **cp -r** copiar
 * **mv** mover, renombrar
 * **rm -fr** borrar
+* **touch** crea un archivo vacío o actualiza su fecha de modificación
 * **mkdir** crear directorio
 * **cd** cambiar directorio
 
-  * Entrar en A : ``cd A`` 
-  * Subir un nivel : ``cd ..`` 
+  * Entrar en A : ``cd A``
+  * Subir un nivel : ``cd ..``
   * Ir al home (ruta al directorio personal del usuario actual): ``cd <enter>`` o ``cd $HOME``
+  * Volver al directorio anterior : ``cd -``
 
 * **whereis** localiza los archivos binarios (ejecutables), páginas de manual (man) y archivos fuente de un comando o programa
 * **pwd** muestra tu ubicación como **ruta absoluta** (ej: /home/usuario/docs), que empieza desde / y es fija. Las **rutas relativas** (ej: docs) dependen del directorio actual: si pwd dice /home/usuario/docs, entonces es la ruta relativa docs y /home/usuario/docs la ruta absoluta
@@ -129,7 +132,7 @@ Ficheros y directorios
   .. code-block:: bash
 
     locate sshd_config
-    locate *.ssh
+    locate "*.ssh"
     locate -i SSH                   # Ignorar mayúsculas/minúsculas
     locate -r "ssh[0-9]*\.conf$"    # utiliza expresiones regulares
     sudo updatedb                   # actualizar su base de datos
@@ -141,8 +144,8 @@ Ficheros y directorios
     find /etc -name "sshd_config"     # Busca en el directorio /etc (y todos sus subdirectorios) un archivo llamado exactamente "sshd_config"
     find /etc -iname "sshd_config"    # ignorando mayúsculas/minúsculas
     find /etc -name "sshd_config" -ls # muestra permisos, dueño, tamaño, etc.
-    find -name *dat
-    find -not -name *dat
+    find . -name "*dat"                # las comillas evitan que el shell expanda el *
+    find . -not -name "*dat"
     find . -type f -size +20M         # para buscar por tamaño
     find /home -size 1M               # exactamente de 1MB. +1M busca los mayores y con -1M los menores de 1MB
   
@@ -163,7 +166,7 @@ Para hacer que los alias sean persistentes y estén disponibles cada vez que abr
 Visualizadores de archivos
 ==========================
     
-* **cat** visualizar el contenido archivo, si queremos numerar las lineas ``cat -n``
+* **cat** visualizar el contenido del archivo, si queremos numerar las líneas ``cat -n``
 * **more** ver archivos página por página, si queremos abrir el archivo comenzando en la línea número n ``more +n``, more +50 acceso.log
 * **less** visor avanzado con navegación completa
 
@@ -177,7 +180,7 @@ Editor vi
   * :w -> guardar
   * :q -> salir
   * :wq -> guardar y salir
-  * :q! -> salir sin guardariiuyuyiuy
+  * :q! -> salir sin guardar
   * :n  -> ir a la linea n
   * shift + R -> REEMPLAZAR
   * /cadena -> buscar cadena (n, shift+n)
@@ -188,9 +191,9 @@ Editor vi
   * :redo -> rehacer 
   * :%s/cadena1/cadena2/g -> sustituir una cadena
   * G -> ir al final del archivo
-  * :set number -> ver los número de linea (:set nu ; :set nonu)
-  
-  Para configurar configuración por defecto en el archivo .vimrc como por ejemplo:
+  * :set number -> ver los números de línea (:set nu ; :set nonu)
+
+  Para establecer la configuración por defecto usamos el archivo .vimrc, por ejemplo:
   
   .. code-block:: bash 
  
@@ -204,11 +207,11 @@ Editor vi
      export EDITOR=/usr/bin/vim
 
   Esta configuración se aplica solo para la sesión actual, para que sea permanente agrega esta línea al archivo .bashrc
-   
+
   .. code-block:: bash
 
-    echo 'export EDITOR=/usr/bin/vi' >> ~/.bashrc
-    bash
+    echo 'export EDITOR=/usr/bin/vim' >> ~/.bashrc
+    source ~/.bashrc     # recarga la configuración en la sesión actual
    
 Compresión
 ==========
@@ -217,22 +220,30 @@ Compresión
 
   .. image:: imagenes/tar.png
 
-Para listar los archivos sin descomprimirlo podemos ejecutar ``tar -tvzf A.tar.gz``
+.. code-block:: bash
+
+  tar -czvf A.tar.gz carpeta/   # crear el tarball comprimido con gzip
+  tar -xzvf A.tar.gz            # extraerlo
+  tar -tvzf A.tar.gz            # listar los archivos sin descomprimir
+  zip -r A.zip carpeta/         # comprimir en formato zip
+  unzip A.zip                   # descomprimir el zip
 
 Instalar software
 =================
 
 * **apt-get update** actualiza la lista de paquetes disponibles
-* **apt-get upgrade** actualiza el paquete indicado si existe versión nueva en repositorio.
-* **apt-get install** instala un paquete y sus dependencias (+install -remove)
+* **apt-get upgrade** actualiza todos los paquetes instalados a la última versión disponible en los repositorios.
+* **apt-get install** instala un paquete y sus dependencias (si ya está instalado, lo actualiza)
 
   * con la opción --reinstall reinstala el paquete.
-  
-* **apt-get remove** desinstala un paquete instalado (+install -remove)
+
+* **apt-get remove** desinstala un paquete instalado
 * **apt-get purge** desinstala eliminando ficheros de configuración.
 * **apt-get install -f** resuelve las dependencias de paquetes rotos instalando lo necesario.
 * **dpkg --configure -a** intenta reconfigurar todos los paquetes desplegados no configurados
 * **dpkg -i** instalación manual
+
+En las versiones recientes puede usarse el comando **apt** (``apt update``, ``apt upgrade``, ``apt install``...), que unifica las funciones de apt-get y apt-cache con una salida más amigable.
 
 Configuración de la red
 =======================
@@ -246,8 +257,9 @@ Configuración de la red
 * **Reiniciar tarjeta de red**
 
   .. code-block:: bash
-  
-    sudo service networking restart
+
+    sudo systemctl restart systemd-networkd   # en servidores con netplan/networkd
+    sudo systemctl restart NetworkManager     # en equipos de escritorio
 
 * **Activar/desactivar tarjeta red**
   
@@ -312,11 +324,11 @@ Gestión de particiones
 * **mkfs.ext4 /dev/sdX1** dar formato ext4 a la partición sdX1
 * **fsck** Utilidad para detectar, verificar y corregir los errores del sistema de archivo
 * **mkswap /dev/sdX1** para convertir la partición /dev/sdX1 al formato SWAP
-* **mkswapon** activan particiones de swap
-* **mkswapoff** desactivan particiones de swap
+* **swapon** activa particiones de swap
+* **swapoff** desactiva particiones de swap
 
 * **df -h** muestra el estado actual de las particiones montadas
-* **du -skh** tamaño de archivos
+* **du -sh** tamaño de archivos y directorios
 * **mount** se utiliza para conectar (montar) un sistema de archivos (disco, USB, partición, recurso de red) en un directorio (punto de montaje) para poder acceder a sus archivos. Para montar utilizamos ``mount [opciones] <dispositivo> <punto_montaje>`` y para desmontar ``umount <punto_montaje>``
 
   .. code-block:: bash
@@ -328,14 +340,14 @@ Gestión de particiones
     
 * **lsblk -a** nos muestra información de todos los dispositivos de bloque
 * **file** sirve para determinar el tipo archivo
-* **dd** copia y clona datos discos y particiones.
+* **dd** copia y clona datos, discos y particiones.
   Podemos usarlo para limpiar nuestro MBR y la tabla de particiones
 
   .. code-block:: bash
   
    dd if=/dev/zero of=/dev/sda bs=512 count=1 
   
-* **/etc/fstab** # contiene información sobre sistemas de archivos del sistema y sus puntos de montaje y opciones, las distribuciones recientes, se implementa un sistema de automontaje automático.
+* **/etc/fstab** contiene información sobre los sistemas de archivos del sistema, sus puntos de montaje y opciones; en las distribuciones recientes se implementa además un sistema de automontaje.
 
   .. code-block:: bash
 
@@ -361,9 +373,9 @@ Gestión de particiones
 
   La estructura de las instrucciones es de 6 columnas separadas por espacios o tabuladores
 
-  **<dispositivo> <punto_de_montaje> <sistema_de_archivos> <opciones> <dump-freq> <pass-num>**
+  * **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.
 
-  * **<dispositivo>** es el directorio lógico que hace referencia a una partición o recurso. Nombre del dispositivo o etiqueta, podríamos sustituir la segunda linea por:
+  * **<dispositivo>** es el directorio lógico que hace referencia a una partición o recurso. Nombre del dispositivo o etiqueta, podríamos sustituir la línea de /home por:
 
     .. code-block:: bash
   
@@ -377,8 +389,9 @@ Gestión de particiones
     * **rw**: indica que el dispositivo se monta con permisos de lectura y escritura.
     * **ro**: indica que el dispositivo se monta con permisos de lectura solamente.
     * **owner**: indica que el usuario conectado al sistema localmente en primer lugar tiene derechos a montar y desmontar el dispositivo (se adueña de este).
-    * **user** : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser. users : indica que cualquier usuario puede montar y cualquiera también, puede  desmontar el dispositivo.
-    * **suid** : indica que el permiso ``s'' tenga efecto para los ejecutables presentes en el dispositivo. La opción opuesta es nosuid. (Todos los ejecutables del sistema se ejecutan como si fueran invocados por el root)
+    * **user** : indica que cualquier usuario puede montar y solo el mismo usuario podrá desmontar el dispositivo. La opción opuesta es nouser.
+    * **users** : indica que cualquier usuario puede montar y cualquiera también puede desmontar el dispositivo.
+    * **suid** : indica que el bit "s" (SUID/SGID) tenga efecto para los ejecutables presentes en el dispositivo: se ejecutan con los permisos del dueño del archivo (normalmente root) en vez de con los del usuario que los invoca. La opción opuesta es nosuid.
     * **exec** : indica que los binarios ejecutables almacenados en el dispositivo se pueden ejecutar. La opción opuesta es noexec.
     * **async** : expresa que todas las operaciones de entrada y salida se hacen de forma asíncrona, o sea, no necesariamente en el momento en que se invocan. La opción opuesta es sync.
     * **dev** : indica que se interprete como tal a los dispositivos especiales de bloques y de caracteres presentes en el dispositivo. La opción opuesta es nodev.
@@ -386,7 +399,7 @@ Gestión de particiones
     * **defaults** : es una opción equivalente a la unión de rw, suid, dev, exec, auto, nouser y async.
 
   * **<dump-freq>** es el comando que utiliza dump para hacer respaldos del sistema de archivos, si es cero no se toma en cuenta ese dispositivo.
-  * **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.,2​3​
+  * **<pass-num>** indica el orden en que la aplicación fsck revisará la partición en busca de errores durante el inicio, si es cero el dispositivo no se revisa.
 
 rsync
 =====
@@ -428,5 +441,12 @@ Consejos adicionales
 * Usa ``-n`` para simular una sincronización antes de ejecutarla realmente. Esto te permitirá ver qué cambios se realizarán sin efectuarlos.
 
 * Usa ``--exclude`` para evitar copiar ciertos archivos o directorios. Por ejemplo, ``--exclude=archivo.txt`` evitará la copia del archivo llamado archivo.txt.
+
+.. toctree::
+   :hidden:
+
+   cuestionario_procesos.rst
+   cuestionario_comandos_basicos.rst
+   cuestionario_gestion_particiones.rst
 
   

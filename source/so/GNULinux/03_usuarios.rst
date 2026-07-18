@@ -33,7 +33,7 @@ Algunos grupos predefinidos son:
 
 * **adm**: permite leer ficheros de log y monitorizar tareas
 * **cdrom**, floppy, audio, video: dan acceso a estos dispositivos
-* **sudo**: permite utilizar sudo sin introducir la contraseña del usuario
+* **sudo**: sus miembros pueden ejecutar comandos como administrador con sudo (introduciendo su propia contraseña)
 * **shadow**: permite acceso al fichero de contraseñas /etc/shadow
 * **usuario**: cuando se crea un usuario es habitual que el sistema le asigne como grupo principal uno con el nombre del propio usuario
 
@@ -44,7 +44,7 @@ Para gestionar los grupos podemos utilizar los siguientes comandos:
   .. code-block:: bash
     
    groupadd GA
-   groupadd –g 1020 GA # crea el grupo con un GID específico
+   groupadd -g 1020 GA # crea el grupo con un GID específico
 
 * **groupdel** para eliminar grupos del sistema
 
@@ -59,33 +59,36 @@ Para gestionar los grupos podemos utilizar los siguientes comandos:
   
   .. code-block:: bash
 
-   gpasswd -A usuario GA    # señala como administrador del grupo GA al usuario al1
-   gpasswd GA           # cambia el passwd del grupo admin
-   gpasswd -a usuario admin # añade el usuario al1 al grupo admin
+   gpasswd -A usuario GA # señala como administrador del grupo GA al usuario
+   gpasswd GA            # cambia la contraseña del grupo GA
+   gpasswd -a usuario GA # añade el usuario al grupo GA
+   gpasswd -d usuario GA # saca al usuario del grupo GA
 
 
 Gestión de usuarios
 ===================
 
-* **useradd** añade nuevos usuarios al sistema.
+* **adduser / deluser** son los asistentes interactivos de Debian/Ubuntu para crear y borrar usuarios (piden la contraseña, crean el home a partir de /etc/skel...). Se configuran en /etc/adduser.conf.
+
+* **useradd** añade nuevos usuarios al sistema (comando de bajo nivel, no pregunta nada).
 
   * -g Grupo principal que queremos tenga el usuario (debe existir previamente)
   * -d Carpeta home del usuario. Suele ser /home/nombre-usuario
   * -m Crear carpeta home si es que no existe.
-  * -s Intérprete de comandos (shell) del usuario. Suele ser /bin/bashuseradd al1
+  * -s Intérprete de comandos (shell) del usuario. Suele ser /bin/bash
   
   .. code-block:: bash
     
    sudo useradd -g grupo -d /home/usuario -m -s /bin/bash usuario
  
-  * Para asignar una contraseña podemos al usuario podemos ingresarla después de crear el usuario ``sudo passwd usuario`` o durante la creación del usuario con la opción ``-p $( mkpasswd -m sha-512 -s cambiame)`` también podríamos poner la contraseña encriptada directamente. Podemos instalar mkpasswd con ``apt install whois``
+  * Para asignar una contraseña al usuario podemos ingresarla después de crearlo con ``sudo passwd usuario``, o durante la creación con la opción ``-p $(mkpasswd -m sha-512 cambiame)`` (la opción -p espera la contraseña ya cifrada). Podemos instalar mkpasswd con ``apt install whois``
 
 * **passwd usuario** establecer la contraseña del usuario o cambiarla
 
   .. code-block:: bash
   
-   passwd -d usuario # deshabilita
-   passwd -l usuario # bloquea ! /etc/shadow
+   passwd -d usuario # elimina la contraseña (la deja vacía)
+   passwd -l usuario # bloquea la cuenta (añade ! a la contraseña en /etc/shadow)
    passwd -u usuario # desbloquea
 
 * **userdel usuario** elimina el usuario. (-r elimina y borra su home)
@@ -95,23 +98,24 @@ Gestión de usuarios
   .. code-block:: bash
   
    usermod -s /bin/csh usuario       # cambia shell
-   usermod -G cdrom,mldonkey usuario # grupos
-   usermod -e 2010-1-1 usuario       # expira
-   usermod -g  grupo usuario         # fuerza usuario a grupo principal
-   usermod -aG admin al1             # añadir un usuario a un grupo secundario.
+   usermod -G cdrom,audio usuario    # establece los grupos secundarios (sustituye la lista actual)
+   usermod -e 2010-1-1 usuario       # expira la cuenta en esa fecha
+   usermod -g grupo usuario          # cambia el grupo principal
+   usermod -aG admin usuario         # añade (-a) el usuario a un grupo secundario sin quitar los demás
 
 * **chfn** cambia la información de contacto de un usuario.
 
 * **chsh** cambia el shell del usuario especificado.
 
-* **chage** permite cambiar el password y los datos del usuario.
+* **chage** gestiona la caducidad de la contraseña y de la cuenta del usuario.
 
   .. code-block:: bash
-  
-   chage -E 2011-1-11 usuario #expirar
-   chage -l 7 usuario #7 días antes de ser bloqueada
-   chage -M 7 usuario #7 días para modificar la contraseña,
-                  #luego del cual deberá modificarla en forma obligatoria
+
+   chage -l usuario           # muestra la información de caducidad
+   chage -E 2011-1-11 usuario # la cuenta expira en esa fecha
+   chage -W 7 usuario         # avisa 7 días antes de que caduque la contraseña
+   chage -M 7 usuario         # la contraseña dura 7 días como máximo,
+                              # después deberá cambiarla de forma obligatoria
 
 
 Comandos adicionales
@@ -128,7 +132,7 @@ encontramos los diferentes campos:
 
   usuario ALL=(ALL:ALL) ALL 
 
-* El **primer campo** indica el nombre de usuario al que se aplicará la regla (root).
+* El **primer campo** indica el nombre de usuario al que se aplicará la regla.
 
 * El primer "**ALL**" indica que esta regla se aplica a todos los hosts.
 
@@ -192,10 +196,10 @@ encontramos los diferentes campos:
  write, wall, mesg, newgrp, ...
  
 
-Añadir Quotas a los usuarios:
-=============================
+Añadir Quotas a los usuarios
+============================
 
-las cuotas (quotas) permiten limitar el espacio en disco que un usuario o grupo puede utilizar en un sistema de archivos específico. (`vídeo <https://mediateca.educa.madrid.org/video/145lrmv6eqsma3pi>`_)
+Las cuotas (quotas) permiten limitar el espacio en disco que un usuario o grupo puede utilizar en un sistema de archivos específico. (`vídeo <https://mediateca.educa.madrid.org/video/145lrmv6eqsma3pi>`_)
 
 .. code-block:: bash
 
@@ -224,5 +228,10 @@ las cuotas (quotas) permiten limitar el espacio en disco que un usuario o grupo 
  edquota -g grupo
  
  #crear un informe del uso del disco para el grupo y por usuarios
- repquota -vg /home 
+ repquota -vg /home
  repquota -vu -a
+
+.. toctree::
+   :hidden:
+
+   cuestionario_permisos_usuarios_grupos.rst

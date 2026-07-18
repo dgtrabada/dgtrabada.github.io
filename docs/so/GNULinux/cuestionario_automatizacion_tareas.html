@@ -1,0 +1,963 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cuestionario automatización de tareas &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/cuestionario_automatizacion_tareas';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Comandos avanzados" href="07_comandos_avanzados.html" />
+    <link rel="prev" title="Automatización de tareas y servicios" href="06_automatizacion_tareas.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricidad.html">Transición, la electricidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_licencias.html">Cuestionario de licencias</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos.html">Cuestionario gestión de procesos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_archivos.html">Cuestionario gestión de archivos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión del arranque</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_arranque.html">Cuestionario gestión del arranque</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../maquinas_virtuales.html">La virtualización</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">GNU/Linux</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cuestionario_gestion_particiones.html">Cuestionario gestión de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="03_usuarios.html">Usuarios y grupos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="cuestionario_permisos_usuarios_grupos.html">Cuestionario permisos, usuarios y grupos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_apache.html">Apache</a></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="06_automatizacion_tareas.html">Automatización de tareas y servicios</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Cuestionario automatización de tareas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="07_comandos_avanzados.html">Comandos avanzados</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="cuestionario_comandos_avanzados.html">Cuestionario comandos avanzados</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/12_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_almacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsulados.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnóstico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Tipos de redes 802.11</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/casos_practicos.html">Casos prácticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimiento.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un módulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/cuestionario_automatizacion_tareas.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cuestionario automatización de tareas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="cuestionario-automatizacion-de-tareas">
+<h1>Cuestionario automatización de tareas<a class="headerlink" href="#cuestionario-automatizacion-de-tareas" title="Link to this heading">#</a></h1>
+
+   <style>
+   .qp-card { border: 1px solid rgba(128,128,128,.45); border-radius: 8px; padding: 1em 1.2em; margin: 1em 0; }
+   .qp-card p.qp-enunciado { font-weight: bold; margin-top: 0; }
+   .qp-item { margin: 0 0 1em 0; }
+   .qp-item .qp-q, .qp-bloq .qp-q { margin: 0 0 .3em 0; }
+   .qp-bloq { margin: 0 0 1em 0; }
+   .qp-opts { display: flex; flex-direction: column; align-items: flex-start; gap: .1em; }
+   .qp-opt { border: 1.5px solid transparent; border-radius: 5px; padding: 1px 10px; cursor: pointer; }
+   .qp-opt input { margin-right: .4em; }
+   .qp-opt.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+   .qp-opt.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+   .qp-card table { border-collapse: collapse; margin: .4em 0; }
+   .qp-card table.qp-tabla th, .qp-card table.qp-tabla td { border: 1px solid rgba(128,128,128,.5); padding: 3px 8px; text-align: center; }
+   .qp-card table.qp-filas td { border: none; padding: 2px 6px; }
+   .qp-card table.qp-num { counter-reset: fila; }
+   .qp-card table.qp-num tr td:first-child::before { counter-increment: fila; content: counter(fila) ". "; }
+   .qp-card input[type=text] { width: var(--qpw, 11em); max-width: 100%; padding: 2px 6px; border: 1.5px solid rgba(128,128,128,.6);
+                    border-radius: 4px; background: transparent; color: inherit; font-family: monospace; }
+   .qp-card input.qp-corto { width: 5em; text-align: center; }
+   .qp-card input.qp-l { width: 24em; }
+   .qp-card input.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+   .qp-card input.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+   .qp-card button { margin-top: .6em; margin-right: .6em; padding: 4px 14px; border-radius: 5px;
+                     border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
+   .qp-card button:hover { background: rgba(128,128,128,.15); }
+   .qp-nota { margin-left: .4em; font-weight: bold; }
+   .qp-card pre.qp-pre { margin: .4em 0; padding: 5px 10px; border: 1px solid rgba(128,128,128,.35);
+                    border-radius: 5px; font-family: monospace; font-size: .95em; line-height: 1.3;
+                    overflow-x: auto; background: rgba(128,128,128,.08); }
+   .qp-img { max-width: 100%; height: auto; background: white; border-radius: 4px; padding: 4px; }
+   </style>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">1. El comando at:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Qué comando utilizamos para programar un trabajo que se ejecute una sola vez a una hora concreta?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_0" value="0">at</label>
+         <label class="qp-opt"><input type="radio" name="q0_0" value="1">cron</label>
+         <label class="qp-opt"><input type="radio" name="q0_0" value="2">sleep</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Cómo vemos la lista de trabajos pendientes?</p>
+       <input type="text" data-a="at -l|atq">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Cómo borramos el trabajo número 16?</p>
+       <input type="text" data-a="at -d 16|atrm 16">
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. Una vez escritos los comandos en el prompt de at, ¿cómo guardamos el trabajo y salimos?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_1" value="0">Ctrl+D</label>
+         <label class="qp-opt"><input type="radio" name="q0_1" value="1">Ctrl+C</label>
+         <label class="qp-opt"><input type="radio" name="q0_1" value="2">Escribiendo exit</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">5. ¿Se cancela el trabajo si cerramos la sesión antes de la hora programada?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_2" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_2" value="1">No</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿En qué ficheros se controla qué usuarios pueden usar at?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_3" value="0">/etc/at.allow y /etc/at.deny</label>
+         <label class="qp-opt"><input type="radio" name="q0_3" value="1">/etc/at.conf</label>
+         <label class="qp-opt"><input type="radio" name="q0_3" value="2">/etc/security/at.conf</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">2. El comando crontab:</p>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿Cómo editamos nuestro fichero crontab?</p>
+       <input type="text" data-a="crontab -e">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Cómo mostramos nuestro fichero crontab?</p>
+       <input type="text" data-a="crontab -l">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Cómo borramos nuestro fichero crontab?</p>
+       <input type="text" data-a="crontab -r">
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Cuál es el orden correcto de los campos de una línea del crontab?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_4" value="0">minuto hora díaDelMes mes díaDeLaSemana comando</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="1">hora minuto díaDelMes mes díaDeLaSemana comando</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="2">comando minuto hora díaDelMes mes díaDeLaSemana</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Cada cuánto tiempo revisa cron si tiene tareas que ejecutar?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_5" value="0">Cada minuto</label>
+         <label class="qp-opt"><input type="radio" name="q0_5" value="1">Cada segundo</label>
+         <label class="qp-opt"><input type="radio" name="q0_5" value="2">Cada hora</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">3. Interpreta las siguientes líneas del crontab:</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">1. ¿Cuándo se ejecuta <b>00 5 * * 0 comando</b>?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_6" value="0">A las 5:00 todos los domingos</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="1">A las 5:00 todos los días</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="2">Cada minuto de 5:00 a 5:59 los domingos</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">2. ¿Cuándo se ejecuta * 5 * * Sun comando?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_7" value="0">A las 5:00 todos los domingos</label>
+         <label class="qp-opt"><input type="radio" name="q0_7" value="1">Cada minuto de 5:00 a 5:59 todos los domingos</label>
+         <label class="qp-opt"><input type="radio" name="q0_7" value="2">Cada 5 minutos los domingos</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Cuándo se ejecuta <b>45 19 1 * * comando</b>?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_8" value="0">A las 19:45 del día 1 de cada mes</label>
+         <label class="qp-opt"><input type="radio" name="q0_8" value="1">A las 19:45 todos los días de enero</label>
+         <label class="qp-opt"><input type="radio" name="q0_8" value="2">El 19 de cada mes a la 1:45</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">4. ¿Cuándo se ejecuta <b>00 12 16 * Wed comando</b>?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_9" value="0">Al mediodía de los días 16 solo si caen en miércoles</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="1">Al mediodía de los días 16 y además todos los miércoles</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="2">Solo al mediodía de los miércoles</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">5. ¿Cuándo se ejecuta * * * * * comando?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_10" value="0">Cada minuto</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="1">Cada hora</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="2">Nunca</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. Escribe la línea del crontab para ejecutar /root/b.sh todos los días a las 8:15</p>
+       <input type="text" data-a="15 8 * * * /root/b.sh">
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">4. Systemd y las unidades:</p>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿Qué proceso tiene el PID 1 en un sistema con systemd?</p>
+     <p><input type="text" data-a="systemd"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿Qué extensión tienen los archivos de unidad de los servicios?</p>
+     <p><input type="text" data-a=".service|service"></p>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿En qué directorio crea el administrador sus propias unidades?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_11" value="0">/etc/systemd/system/</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="1">/usr/lib/systemd/system/</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="2">/run/systemd/system/</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">4. ¿En qué sección del archivo de unidad se pone ExecStart?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_12" value="0">[Unit]</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="1">[Service]</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="2">[Install]</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="2">
+       <p class="qp-q">5. ¿En qué sección se pone WantedBy=multi-user.target?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_13" value="0">[Unit]</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="1">[Service]</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="2">[Install]</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué opción de [Unit] define solo el orden de arranque, sin activar la otra unidad?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_14" value="0">After</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="1">Requires</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="2">Wants</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="2">
+       <p class="qp-q">7. ¿Qué Type usamos para un script que hace un trabajo sencillo y termina?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_15" value="0">simple</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="1">forking</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="2">oneshot</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">8. ¿Qué comando hay que ejecutar después de crear un archivo de unidad nuevo para que systemd lo lea?</p>
+       <input type="text" data-a="systemctl daemon-reload|sudo systemctl daemon-reload">
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">5. Targets:</p>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿A qué target corresponde el runlevel 3 (multiusuario sin gráfico)?</p>
+     <p><input type="text" data-a="multi-user.target|multi-user"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">2. ¿A qué target corresponde el runlevel 5 (multiusuario con entorno gráfico)?</p>
+     <p><input type="text" data-a="graphical.target|graphical"></p>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">3. ¿Cómo vemos el target con el que arranca el sistema?</p>
+       <input type="text" data-a="systemctl get-default">
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">4. ¿Qué comando cambia de target en caliente, sin reiniciar?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_16" value="0">systemctl isolate</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="1">systemctl set-default</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="2">systemctl switch</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">6. Systemctl y journalctl:</p>
+     <div class="qp-bloq">
+       <p class="qp-q">1. ¿Cómo habilitamos el servicio ssh para que arranque automáticamente con el sistema?</p>
+       <input type="text" data-a="systemctl enable ssh|sudo systemctl enable ssh">
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">2. ¿Qué orden recarga la configuración de un servicio sin reiniciarlo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_17" value="0">restart</label>
+         <label class="qp-opt"><input type="radio" name="q0_17" value="1">reload</label>
+         <label class="qp-opt"><input type="radio" name="q0_17" value="2">refresh</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">3. ¿Qué opción marca un servicio como completamente inarrancable?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_18" value="0">disable</label>
+         <label class="qp-opt"><input type="radio" name="q0_18" value="1">mask</label>
+         <label class="qp-opt"><input type="radio" name="q0_18" value="2">stop</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">4. ¿Cómo vemos los registros del sistema en tiempo real (como tail -f)?</p>
+       <input type="text" data-a="journalctl -f">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">5. ¿Cómo vemos solo los registros del servicio ssh?</p>
+       <input type="text" data-a="journalctl -u ssh|journalctl -u ssh.service">
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. ¿Cómo vemos los registros del arranque actual?</p>
+       <input type="text" data-a="journalctl -b">
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+
+   <script>
+   function qpNorm(s) {
+     return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
+   }
+   function qpAcierta(inp) {
+     var valor = qpNorm(inp.value);
+     var sinCeros = valor.replace(/^0+(?=.)/, '');
+     return inp.dataset.a.split('|').some(function (alt) {
+       alt = qpNorm(alt);
+       return valor === alt || (alt.length < 9 && sinCeros === alt);
+     });
+   }
+   function qpCorregir(btn) {
+     var card = btn.closest('.qp-card');
+     var aciertos = 0, total = 0;
+     card.querySelectorAll('.qp-item').forEach(function (it) {
+       total++;
+       it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+       var sel = it.querySelector('input:checked');
+       if (sel) {
+         var ok = sel.value === it.dataset.a;
+         sel.closest('.qp-opt').className = 'qp-opt ' + (ok ? 'qp-ok' : 'qp-mal');
+         if (ok) aciertos++;
+       }
+     });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       total++;
+       var ok = qpAcierta(inp);
+       inp.classList.remove('qp-ok', 'qp-mal');
+       inp.classList.add(ok ? 'qp-ok' : 'qp-mal');
+       if (ok) aciertos++;
+     });
+     card.querySelector('.qp-nota').textContent = aciertos + ' / ' + total;
+   }
+   function qpSolucion(btn) {
+     var card = btn.closest('.qp-card');
+     card.querySelectorAll('.qp-item').forEach(function (it) {
+       it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+       var radios = it.querySelectorAll('input');
+       var correcto = radios[parseInt(it.dataset.a, 10)];
+       correcto.checked = true;
+       correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
+     });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       inp.value = inp.dataset.a.split('|')[0];
+       inp.classList.remove('qp-mal'); inp.classList.add('qp-ok');
+     });
+     card.querySelector('.qp-nota').textContent = 'Solución';
+   }
+   function qpLimpiar(btn) {
+     var card = btn.closest('.qp-card');
+     card.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
+     card.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       inp.value = ''; inp.classList.remove('qp-ok', 'qp-mal');
+     });
+     card.querySelector('.qp-nota').textContent = '';
+   }
+   </script>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06_automatizacion_tareas.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Automatización de tareas y servicios</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07_comandos_avanzados.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Comandos avanzados</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

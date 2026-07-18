@@ -7,6 +7,9 @@ Sintaxis del contenido (por indentación):
     1. Enunciado de la tarjeta:              <- línea sin indentar = nueva tarjeta
        | continuación del enunciado          <- se une con salto de línea
        texto: párrafo adicional
+       fichero: cal.dat                      <- listado monoespaciado compacto,
+          enero 1 pintura                       si se indica nombre añade "$ cat nombre"
+          enero 15 cocina
        imagen: imagenes/foto.png 340         <- ruta relativa al .rst y ancho opcional
        tabla: Título opcional                <- tabla con bordes, la 1ª fila es cabecera
           | Col A | Col B |
@@ -61,6 +64,9 @@ CSS = """
                      border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
    .qp-card button:hover { background: rgba(128,128,128,.15); }
    .qp-nota { margin-left: .4em; font-weight: bold; }
+   .qp-card pre.qp-pre { margin: .4em 0; padding: 5px 10px; border: 1px solid rgba(128,128,128,.35);
+                    border-radius: 5px; font-family: monospace; font-size: .95em; line-height: 1.3;
+                    overflow-x: auto; background: rgba(128,128,128,.08); }
    .qp-img { max-width: 100%; height: auto; background: white; border-radius: 4px; padding: 4px; }
    </style>
 """
@@ -231,7 +237,7 @@ class Cuestionario(Directive):
             elif s.startswith('imagen:'):
                 out.append(self.imagen(s[len('imagen:'):].strip(), base, env))
                 i += 1
-            elif s.startswith('tabla:') or s.startswith('filas:'):
+            elif s.startswith('tabla:') or s.startswith('filas:') or s.startswith('fichero:'):
                 sub = []
                 j = i + 1
                 while j < n and (not lineas[j].strip() or indent_de(lineas[j]) > ind):
@@ -240,8 +246,10 @@ class Cuestionario(Directive):
                     j += 1
                 if s.startswith('tabla:'):
                     out.append(self.tabla(s[len('tabla:'):].strip(), sub))
-                else:
+                elif s.startswith('filas:'):
                     out.append(self.filas(s[len('filas:'):].strip(), sub))
+                else:
+                    out.append(self.fichero(s[len('fichero:'):].strip(), sub))
                 i = j
             elif nivel_pregunta and s.startswith('- '):
                 sub = []
@@ -277,9 +285,10 @@ class Cuestionario(Directive):
                 i += 1
             elif s.startswith('texto:') or s.startswith('imagen:') or \
                     s.startswith('tabla:') or s.startswith('filas:') or \
+                    s.startswith('fichero:') or \
                     ('[' in s and ']' in s):
                 fin = i + 1
-                if s.startswith('tabla:') or s.startswith('filas:'):
+                if s.startswith('tabla:') or s.startswith('filas:') or s.startswith('fichero:'):
                     ind = indent_de(lineas[i])
                     while fin < n and (not lineas[fin].strip() or indent_de(lineas[fin]) > ind):
                         fin += 1
@@ -327,6 +336,13 @@ class Cuestionario(Directive):
         nombre = os.path.splitext(os.path.basename(ruta))[0].replace('_', ' ')
         return ('     <img class="qp-img"%s alt="%s"\n'
                 '          src="data:image/%s;base64,%s">' % (ancho, esc(nombre), ext, b64))
+
+    def fichero(self, titulo, lineas):
+        cuerpo = []
+        if titulo:
+            cuerpo.append('$ cat %s' % esc(titulo))
+        cuerpo.extend(esc(l) for l in lineas)
+        return '     <pre class="qp-pre">%s</pre>' % '\n'.join(cuerpo)
 
     def tabla(self, titulo, filas):
         out = ['     <table class="qp-tabla">']

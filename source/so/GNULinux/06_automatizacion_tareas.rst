@@ -3,7 +3,7 @@ Automatización de tareas y servicios
 ************************************
 
 Comando at
-**********
+==========
 
 Permite indicar el momento en que se quiere ejecutar un trabajo ``at [opciones ] TIME`` , para ver los trabajos utilizamos ``at -l`` y para borrarlos ``at -d`` como se puede ver en el siguiente ejemplo:
 
@@ -43,7 +43,7 @@ Más opciones:
 Control de acceso: /etc/at.allow, /etc/at.deny
 
 Crontab
-*******
+=======
 
 Cron se emplea para ejecución de trabajos periódicos, utilizamos el comando crontab para configurar los procesos a ejecutar , para modificarlo utilizaremos:
 
@@ -81,11 +81,15 @@ Ejemplos:
  45 19 1 * *      A las 7:45 p.m. del primero de cada mes
  01 * 20 7 *      Al minuto 1 de cada hora del 20 de julio
  10 1 * 12 1      A la 1:10 a.m. todos los lunes de diciembre
- 00 12 16 * Wen   Al mediodía de los días 16 de cada mes y que sea Miércoles
- 30 9 20 7 4      A las 9:30 a.m. del dia 20 de julio y que sea jueves
- 30 9 20 7 *      A las 9:30 a.m. del dia 20 de julio sin importar el día de la semana
+ 00 12 16 * Wed   Al mediodía de los días 16 de cada mes y también todos los miércoles
+ 30 9 20 7 4      A las 9:30 a.m. del día 20 de julio y también todos los jueves de julio
+ 30 9 20 7 *      A las 9:30 a.m. del día 20 de julio sin importar el día de la semana
  20 * * * 6       Al minuto 20 de cada hora de los sábados
  20 * * 1 6       Al minuto 20 de cada hora de los sábados de enero
+
+.. warning::
+
+   Cuando se especifican a la vez el **día del mes** y el **día de la semana** (ninguno de los dos es \*), cron ejecuta la tarea cuando se cumple **uno u otro** (unión), no los dos a la vez. Por eso ``00 12 16 * Wed`` se ejecuta los días 16 **y además** todos los miércoles.
 
 Ejemplo que se ejecute cada minuto:
 
@@ -104,13 +108,13 @@ Ejemplo de la utilización de rsync para hacer copias de seguridad
  rsync -av --delete -e 'ssh -p22' dani@IP:/home/dani/ /media/dani/Backup/
 
 Systemd
-*******
+=======
 
 Antiguamente se utilizaba el proceso init,  este es el proceso “padre”, es el primer proceso que se ejecuta al iniciar el sistema(es lanzado directamente por el kernel), y se encarga de lanzar todos los demás procesos.
 
-Hace ya tiempo salió la noticia de que Ubuntu cambiaría su sistema init por Upstart, esto ocurrirá con la versión de Ubuntu 15.04 Vivid Vervet. El demonio init tradicional es estrictamente síncrono, bloqueando futuras tareas hasta que la actual se haya completado. Sus tareas deben ser definidas por adelantado, y solo pueden ser ejecutadas cuando el demonio init cambia de estado (cuando la máquina se arranca o se apaga).
+El demonio init tradicional es estrictamente síncrono: bloquea las tareas siguientes hasta que la actual se haya completado, y sus tareas deben definirse por adelantado y solo se ejecutan cuando init cambia de estado (cuando la máquina se arranca o se apaga). Para superar estas limitaciones Ubuntu lo sustituyó primero por Upstart y, desde Ubuntu 15.04, por Systemd, que es lo que usan hoy prácticamente todas las distribuciones.
 
-Hoy en día Ubuntu ha cambiado upstart por Systemd. Systemd está hecho para proveer un mejor framework para expresar las dependencias del servicio, permite hacer más trabajo paralelamente al inicio del sistema y reducir la sobrecarga del shell. El nombre viene del sufijo system daemon (procesos en segundo plano) con la letra “d”.
+Systemd está hecho para proveer un mejor framework para expresar las dependencias del servicio, permite hacer más trabajo paralelamente al inicio del sistema y reducir la sobrecarga del shell. El nombre viene del sufijo system daemon (procesos en segundo plano) con la letra “d”.
 Lo podemos comprobar:
 
 .. code-block:: bash
@@ -133,7 +137,7 @@ Existen varios tipos de **units**, no sólo servicios, cuyos archivos se nombran
 
 Los archivos que definen los units (y los targets) se pueden encontrar básicamente en tres ubicaciones distintas:
 
-* **/usr/lib/systemd/system/**: unidades distribuidas con paquetes RPM instalados.
+* **/usr/lib/systemd/system/**: unidades distribuidas con los paquetes instalados (en Debian/Ubuntu, /lib/systemd/system/).
 * **/run/systemd/system/**: unidades creadas en tiempo de ejecución. Tiene precedencia sobre el directorio anterior.
 * **/etc/systemd/system/**: unidades creadas y administradas por el administrador del sistema. Este directorio tiene precedencia sobre el directorio anterior.
 
@@ -197,24 +201,30 @@ Configura el tipo de arranque del procesos de la unidad la cual afecta a la func
 
 Indica el target al que pertenece este unit. Esto provoca que el comando systemctl enable <servicio>.service cree los enlaces simbólicos necesarios dentro del target multi-user.target.wants sin necesidad de hacerlo manualmente.
 
-Lo que se consigue con esto es que el servicio se ejecute automáticamente al arrancar se target.
+Lo que se consigue con esto es que el servicio se ejecute automáticamente al arrancar ese target.
 
 Los Targets
-***********
+===========
 
-Un conjunto de units definen un target. El target es el equivalente al concepto de runlevel, es decir un conjunto de servicios que se ejecutan en determinadas circunstancias. Así por ejemplo, el runlevel 3 de System V corresponde al target multi-user.target en systemd y el runlevel 5 correspondería al target llamado  graphical.target 0 # Apaga el sistema
+Un conjunto de units definen un target. El target es el equivalente al concepto de runlevel, es decir, un conjunto de servicios que se ejecutan en determinadas circunstancias. Los runlevels clásicos de System V y su target equivalente son:
 
-* 1, Mono usuario #Modo mono-usuario
-* 2, 4 Modo de inicio definido por el usuario/sistema, por default identico a 3
-* 3 Multiusuario, entorno grafico
-* 5 Multiusuario, entorno grafico, todos los servicios del nivel 3 mas un entorno grafico
-* 6 Reinicio
-reinicio #Shell de emergencia
+* **0** Apagado del sistema → poweroff.target
+* **1** Monousuario (mantenimiento) → rescue.target
+* **2, 4** Modo definido por el usuario/sistema, por defecto idéntico al 3
+* **3** Multiusuario, sin entorno gráfico → multi-user.target
+* **5** Multiusuario con entorno gráfico (todos los servicios del nivel 3 más el gráfico) → graphical.target
+* **6** Reinicio → reboot.target
 
-A diferencia de los runlevels, los targets se pueden ejecutar a la vez.
+A diferencia de los runlevels, los targets se pueden ejecutar a la vez. Comandos útiles:
+
+.. code-block:: bash
+
+ systemctl get-default            # target con el que arranca el sistema
+ sudo systemctl set-default multi-user.target
+ sudo systemctl isolate graphical.target   # cambiar de target en caliente
 
 Systemctl
-*********
+=========
 
 En Systemd la forma de controlar los servicios del sistema cambia. Los servicios ya no se controlan a través de /etc/init.d y tampoco se utiliza el comando “service”. Aquí se utiliza el gestor de servicios llamado **systemctl**.
 
@@ -226,7 +236,7 @@ systemctl es una herramienta potente con muchas opciones. A continuación se lis
 
  systemctl                              #Lista servicios y unidades disponibles en el sistema.
  systemctl list-unit-files              #Lista ficheros de unidades
- systemctl list-units                   #Lista servicios disponibles q
+ systemctl list-units                   #Lista las unidades cargadas
  systemctl list-dependencies <servicio> #Lista las dependencias de un servicio
  systemctl show <service>               # Visualizar las propiedades del unit.
  systemctl start <servicio>             # Arrancar servicios.
@@ -236,7 +246,7 @@ systemctl es una herramienta potente con muchas opciones. A continuación se lis
  systemctl enable <servicio>            # Habilita un servicio en el arranque.
  systemctl disable <servicio>           # Deshabilita un servicio en el arranque.
  systemctl restart <servicio>           # Reinicia un servicio.
- systemctl reload <servicio>            # Recarga la configuración de un servicio si reiniciarlo
+ systemctl reload <servicio>            # Recarga la configuración de un servicio sin reiniciarlo
  systemctl mask <servicio>              # Marca un servicio como completamente inarrancable
  
 Ejemplo :
@@ -270,7 +280,7 @@ Servicio A personalizado se ejecuta automáticamente en el arranque con el targe
  Type=simple
  ExecStart=/bin/servicioA.sh
  [Install]
- WantedBy=multi-user.targe
+ WantedBy=multi-user.target
 
 Servicio A se ejecuta automáticamente con el arranque en el target multi-user.target. El servicio A una vez iniciado, lanza al servicio B:
 
@@ -314,16 +324,17 @@ Servicio A se ejecuta automáticamente con el arranque en el target multi-user.t
 servicio B
 
 .. code-block:: bash
+
  [Unit]
  Description=Servicio B
  [Service]
  Type=simple
  ExecStart=/bin/servicioB.sh
- [Install] 
+ [Install]
 
 
 Acceder a los registros del sistema
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 La forma básica de acceder a los registros del sistema es:
 
@@ -355,7 +366,7 @@ La forma básica de acceder a los registros del sistema es:
 
 
 Ejemplo de servicio encendido
-***********************
+=============================
 
 .. code-block:: bash
  
@@ -381,6 +392,12 @@ Para que se inicie automáticamente utilizamos el sistema systemctl
  WantedBy=multi-user.target
 
  $ chmod +x /root/encendido.sh
+ $ systemctl daemon-reload           # recarga los archivos de unidades tras crear uno nuevo
  $ systemctl enable encendido.service
  $ systemctl start encendido.service
- $ systemctl list-unit-files 
+ $ systemctl list-unit-files
+
+.. toctree::
+   :hidden:
+
+   cuestionario_automatizacion_tareas.rst

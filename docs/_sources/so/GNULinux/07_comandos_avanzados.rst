@@ -97,7 +97,7 @@ Comandos avanzados
    $ echo ${a::$((${#a}-3))}
    www.fsf. 
   
-* **Redireccionamiento > , >> , > , &> , <**
+* **Redireccionamiento > , >> , 2> , &> , <**
 
   .. code-block:: bash
   
@@ -141,7 +141,7 @@ Comandos avanzados
    $ echo "Mi nombre es $tunombre
    hoy es $(date)" >> new_file.dat
 
-  * **tee** ambos a fichero y a pantalla ``ls -l | tee salida.txt``
+  * **tee** envía la salida a la vez al fichero y a la pantalla ``ls -l | tee salida.txt``
   
   * **/dev/null** descarta la salida
   
@@ -153,7 +153,7 @@ Comandos avanzados
 
   * **orden1 || orden2** la orden2 solo se ejecuta si la orden1 devuelve un estado de   salida distinto de 0
 
-* **head y tail** head muestra las primeras lineas y tail las ultimas, por defecto muestran 10 lineas
+* **head y tail** head muestra las primeras líneas y tail las últimas, por defecto muestran 10 líneas
 
   .. code-block:: bash
   
@@ -243,8 +243,8 @@ Comandos avanzados
    $ grep -c empleado login.dat
    2
    
-   # con la opción -n muestra el número de lineas
-   $ grep -n empleado login.dat # muestra solo el nº de lineas
+   # con la opción -n antepone el número de línea a cada coincidencia
+   $ grep -n empleado login.dat
    4:empleado   : nombre4
    5:empleado   : nombre5
 
@@ -260,7 +260,7 @@ Comandos avanzados
    empleado   : nombre5
 
    
-* **egrep** es el comando grep extendido, este comando permite el uso de expresiones regulares más complejas que grep
+* **egrep** es el comando grep extendido, este comando permite el uso de expresiones regulares más complejas que grep (hoy en día se recomienda escribirlo como ``grep -E``)
 
   .. code-block:: bash
   
@@ -282,7 +282,7 @@ Comandos avanzados
    empleado   : nombre4 
    empleado   : nombre5 
 
-* **uniq** quita las lineas duplicadas
+* **uniq** quita las líneas duplicadas **consecutivas** (por eso se suele usar después de sort)
 
   .. code-block:: bash
   
@@ -384,7 +384,7 @@ Comandos avanzados
    nombre3
    
    
-   # con la opción -s quita los caracteres duplicados (tr -s ' ')
+   # con la opción -s comprime las repeticiones consecutivas del carácter (tr -s ' ')
    
    $ cat login.dat | tr -s ' ' 
    admin : nombre1 
@@ -420,7 +420,7 @@ Comandos avanzados
    
    #si utilizamos la opción -i el archivo original se editará en su lugar
    $ sed -i 's/admin/ADMIN/g' login.dat
-   $ cat linea.dat
+   $ cat login.dat
    ADMIN      : nombre1 
    gerente    : nombre2 
    supervisor : nombre3 
@@ -437,11 +437,11 @@ Comandos avanzados
    echo "Hola" | sed 's/./_/g'
 
 
-* **paste** muestra por pantalla el contenido de dos archivos
+* **paste** une línea a línea el contenido de dos archivos, en columnas (para estos ejemplos usamos un login.dat nuevo y un shell.dat)
 
   .. code-block:: bash
 
-   $ head login.dat shell.dat 
+   $ head login.dat shell.dat
    ==> login.dat <==
    usuario1 u1
    usuario2 u2
@@ -458,7 +458,7 @@ Comandos avanzados
    usuario3 u3   usuario3 bash
 
 
-* **join** mezcla el contenido de dos archivos
+* **join** mezcla el contenido de dos archivos combinando las líneas que comparten el primer campo
 
   .. code-block:: bash
 
@@ -478,10 +478,15 @@ Comandos avanzados
    ---
    > usuario3 U3
    
-   $ diff -yW60 login.dat  login2.dat 
+   $ diff -yW60 login.dat  login2.dat
    usuario1 u1            usuario1 u1
    usuario2 u2            usuario2 u2
    usuario3 u3         |  usuario3 U3
+
+.. toctree::
+   :hidden:
+
+   cuestionario_comandos_avanzados.rst
 
 
 
