@@ -5,30 +5,30 @@ Centro de Proceso de Datos (CPD)
 Introducción
 ============
 
-Un **Centro de Proceso de Datos**, Centro de Datos, Centro de cálculo, Data Center ó CPD, es la ubicación (sala, edificio) o simplemente un espacio determinado en una sala) donde se concentran todos los recursos informáticos que dan soporte a una o varias organizaciones.
+Un **Centro de Proceso de Datos**, Centro de Datos, Centro de cálculo, Data Center o CPD, es la ubicación (sala, edificio o simplemente un espacio determinado dentro de una sala) donde se concentran todos los recursos informáticos que dan soporte a una o varias organizaciones.
 
-En la construcción de cualquier CPD, a parte de la infraestructura informática, hay que tener en cuenta otro tipo de instalaciones que permitan proporcionar una cierta tolerancia a fallos inevitables, directa o indirectamente relacionados con los dispositivos meramente informáticos. En gran parte, estas instalaciones o medidas adoptadas para proporcionar esta tolerancia a fallos se basan en la redundancia, puesto que es inevitable que cualquier dispositivo pueda fallar de manera impredecible.
+En la construcción de cualquier CPD, aparte de la infraestructura informática, hay que tener en cuenta otro tipo de instalaciones que permitan proporcionar una cierta tolerancia a fallos inevitables, directa o indirectamente relacionados con los dispositivos meramente informáticos. En gran parte, estas instalaciones o medidas adoptadas para proporcionar esta tolerancia a fallos se basan en la redundancia, puesto que es inevitable que cualquier dispositivo pueda fallar de manera impredecible.
 
 El Estándar TIA 942
 ===================
 
-Concebido como una guía para los diseñadores e instaladores de centros de datos (Data Centers), el estándar TIA-942 Standar TIA-942(2005) proporciona una serie de recomendaciones y directrices para la instalación de sus infraestructuras.
+Concebido como una guía para los diseñadores e instaladores de centros de datos (Data Centers), el estándar TIA-942 (2005) proporciona una serie de recomendaciones y directrices para la instalación de sus infraestructuras.
 
-El estándar TIA942 aprobado en 2005 por ANSI-TIA (American National Standards Institute – Telecomunications Industry Association), clasifica a este tipo de centros en varios grupos, llamados TIER, indicando así su nivel de fiabilidad en función del nivel de disponibilidad.
+El estándar TIA-942, aprobado en 2005 por ANSI-TIA (American National Standards Institute – Telecommunications Industry Association), clasifica a este tipo de centros en varios grupos, llamados TIER, indicando así su nivel de fiabilidad en función del nivel de disponibilidad.
 
 El nivel de fiabilidad de un centro de datos viene indicado por uno de los cuatro niveles de fiabilidad llamados TIER, en función de su redundancia. A mayor número de TIER, mayor disponibilidad, y por tanto mayores costes de construcción y mantenimiento.
 
 +----------+-----------------+---------+------------------------+ 
 | TIER     | %Disponibilidad | %Parada | Tiempo anual de parada |
 +==========+=================+=========+========================+
-| TIER I   |     99.67%      |  0.33%  |      28,82 horas       |
-+----------+-----------------+---------+------------------------+ 
-| TIER II  |     99.74%      |  0.25%  |      22,68 horas       |
-+----------+-----------------+---------+------------------------+ 
-| TIER III |     99,982%     |  0.02%  |       1,57 horas       |
-+----------+-----------------+---------+------------------------+ 
-| TIER IV  |    100,00%      |  0.01%  |      52,56 minutos     |
-+----------+-----------------+---------+------------------------+ 
+| TIER I   |     99,671%     | 0,329%  |      28,8 horas        |
++----------+-----------------+---------+------------------------+
+| TIER II  |     99,741%     | 0,259%  |      22,7 horas        |
++----------+-----------------+---------+------------------------+
+| TIER III |     99,982%     | 0,018%  |       1,6 horas        |
++----------+-----------------+---------+------------------------+
+| TIER IV  |     99,995%     | 0,005%  |      26,3 minutos      |
++----------+-----------------+---------+------------------------+
 
 TIER I- Nivel 1 (Básico)
 ------------------------
@@ -37,9 +37,7 @@ TIER I- Nivel 1 (Básico)
 
 * Un solo paso de corriente y distribución de aire acondicionado, sin componentes redundantes.
 
-* Puede contar o no contar con piso elevado, UPS o generador.
-
-* Generador independiente.
+* Puede contar o no contar con suelo técnico (piso elevado), UPS o generador.
 
 * Debe apagarse completamente para realizar mantenimiento preventivo.
   
@@ -50,8 +48,8 @@ TIER II- Nivel II (Componentes redundantes)
 
 * Ruta única de alimentación eléctrica y enfriamiento, incluye componentes redundantes.
 
-* Cuenta con piso elevado, UPS y generador.
-  
+* Cuenta con suelo técnico, UPS y generador.
+
 TIER III- Nivel III (Mantenimiento concurrente)
 ------------------------------------------------
 
@@ -59,7 +57,7 @@ TIER III- Nivel III (Mantenimiento concurrente)
 
 * Múltiples rutas de alimentación eléctrica y de enfriamiento, una sola ruta activa.
 
-* Cuenta con piso elevado.
+* Cuenta con suelo técnico.
 
 * Equipos de TI cuentan con doble alimentación eléctrica.
   
@@ -84,15 +82,15 @@ Infraestructura física
 
 * **La iluminación**
 
-  La iluminación será de un mínimo de 500 lux en el plano horizontal y 200 luxen el plano vertical, medido a 1 m  por encima del piso terminado en medio de todos los pasillos entre armarios
-  
+  La iluminación será de un mínimo de 500 lux en el plano horizontal y 200 lux en el plano vertical, medido a 1 m por encima del piso terminado en medio de todos los pasillos entre armarios
+
 * **Puertas**
 
-  Las puertas deberán estar a una distancia mínima de 1 m de ancho y 2,13 m de alto, sin umbrales, bisagras para abrir hacia afuera o corredera.
+  Las puertas deberán tener un mínimo de 1 m de ancho y 2,13 m de alto, sin umbrales, con bisagras para abrir hacia afuera o correderas.
 
 * **Carga en suelo**
 
-  La capacidad de carga del piso en la sala de informática será suficiente para asumir la carga concentrada y distribuida de los equipos instalados con cableado asociado y los medios de comunicación. La capacidad de carga del piso distribuido mínima será de 7.2 kPA (150 lb/ft2). La capacidad de carga del piso distribuido recomendado es de 12 kPA (250 lb/ft2).El piso deberá tener también un mínimo de 1,2 kPA (25 lb/ft2) capacidad para soportar cargas colgantes que se encuentran suspendidos en la parte inferior de la planta (por ejemplo, las escalas de cable suspendido del techo de la planta inferior, es recomendado el piso es de 2,4 kPA (50 lb/ft2)).
+  La capacidad de carga del piso en la sala de informática será suficiente para asumir la carga concentrada y distribuida de los equipos instalados con el cableado asociado y los medios de comunicación. La capacidad de carga distribuida mínima será de 7,2 kPa (150 lb/ft²), y la recomendada de 12 kPa (250 lb/ft²). El piso deberá tener también una capacidad mínima de 1,2 kPa (25 lb/ft²) para soportar las cargas colgantes suspendidas de su parte inferior (por ejemplo, las bandejas de cable suspendidas del techo de la planta inferior); lo recomendado son 2,4 kPa (50 lb/ft²).
 
 * **Los parámetros operativos**
 
@@ -104,7 +102,7 @@ Infraestructura física
   * Tasa máxima de variación: 5°C por hora.
   * Equipos de humidificación y deshumidificación  dependiendo de las condiciones ambientales locales
 
-  La temperatura y la humedad se medirá después de que el equipo está en funcionamiento. Las mediciones deberán realizarse a una distancia de 1,5 m  por encima del nivel del suelo cada 3 a 6 m  a lo largo de la línea central de los pasillos fríos y en cualquier ubicación en la admisión de aire de los equipos operativos. 
+  La temperatura y la humedad se medirán después de que el equipo esté en funcionamiento. Las mediciones deberán realizarse a una distancia de 1,5 m  por encima del nivel del suelo cada 3 a 6 m  a lo largo de la línea central de los pasillos fríos y en cualquier ubicación en la admisión de aire de los equipos operativos. 
 
 * **Doble acometida eléctrica**
 
@@ -116,7 +114,7 @@ Infraestructura física
 
   .. image:: imagenes/CPD/DC_separacion_cables.png 
 
-  En el caso de que los cables no tengan apantallamiento, la distancia se duplicara. En el caso de que los cables se instalen en la misma bandeja, los cables de corriente tendrán que estar separados por la parte de abajo con una bandeja de metal con toma de tierra NEMA VE 2-2001. 
+  En el caso de que los cables no tengan apantallamiento, la distancia se duplicará. En el caso de que los cables se instalen en la misma bandeja, los cables de corriente tendrán que estar separados por la parte de abajo con una bandeja de metal con toma de tierra NEMA VE 2-2001. 
   
 Medidas contra incendios
 ------------------------
@@ -178,8 +176,8 @@ Los pasillos de aire caliente y frío: Dado que la mayoría de los dispositivos 
 
 La norma TIA 942 especifica la forma en que puede ser fomentada esta forma de refrigeración, utilizando la refrigeración adecuada para los dispositivos, así como piso técnico perforado en los pasillos fríos, para una mejor circulación del aire y situar los armarios enfrentados en los pasillos fríos (front to front) y dispuestos de forma contraria en los pasillos calientes (rear to rear). Todo ello combinado con un detallado estudio de la separación de los armarios, de las características propias de los equipos utilizados, lo que ayuda a predecir el comportamiento de la temperatura y por tanto de la circulación del aire; para evitar mezclar flujos de aire en un mismo pasillo.
 
-El cerramiento de los pasillos: Mediante la instalación de cerramientos aumentamos la eficacia del sistema de pasillos,. 
-    
+El cerramiento de los pasillos: Mediante la instalación de cerramientos aumentamos la eficacia del sistema de pasillos.
+
 Con ello se consigue:
 
 * Homogeneizar la temperatura en toda la altura del pasillo, evitando variaciones entre el suelo y el techo (hasta 10 °C)
@@ -202,7 +200,7 @@ Con ello se consigue:
       
     .. image:: imagenes/CPD/armario3.png
       
-  Ejemplos de diseños CPD, anexo H, estandar TIA-942
+  Ejemplos de diseños CPD, anexo H, estándar TIA-942
       
   .. image:: imagenes/CPD/pasillos2.jpeg
       
@@ -227,24 +225,24 @@ Un armario o rack es un bastidor dedicado a alojar equipos informáticos y elect
 
 .. image:: imagenes/CPD/rack.png
 
-En la imagen siguiente se puede ver las unidad de un rack, también conocida como *U*, que define la unidad mínima en altura de un dispositivo. Cada "U" equivale a 1,75 pulgadas (44.45 mm) de alto , Los armarios rack se suelen fabricar con alturas comprendidas entre 12U y 47U, pero podemos encontrar murales rack en alturas menores, de 6U en adelante
+En la imagen siguiente se puede ver la unidad de rack, también conocida como *U*, que define la unidad mínima en altura de un dispositivo. Cada "U" equivale a 1,75 pulgadas (44.45 mm) de alto. Los armarios rack se suelen fabricar con alturas comprendidas entre 12U y 47U, pero podemos encontrar racks murales en alturas menores, de 6U en adelante
 
 .. image:: imagenes/CPD/U.png
 
-Tienen una anchura estándar de 600, 800 mm y un fondo de 600, 800, 900, 1000 y 1200mm.  Se suelen fabricar  con  alturas comprendidas entre 12U y 47U, aunque pueden existir medidas mas pequeñas.
+Tienen una anchura estándar de 600 u 800 mm y un fondo de 600, 800, 900, 1000 o 1200 mm.
 
-Las especificaciones de una rack estándar se encuentran bajo las normas equivalentes DIN 41494 parte 1 y 7, UNE-20539 parte 1 y parte 2 e IEC 297 parte 1 y 2, EIA 310-D
+Las especificaciones de un rack estándar se encuentran bajo las normas equivalentes DIN 41494 parte 1 y 7, UNE-20539 parte 1 y parte 2 e IEC 297 parte 1 y 2, EIA 310-D
 
 .. image:: imagenes/CPD/rack1.png
 .. image:: imagenes/CPD/rack2.png
 
-El peinado de Rack de datos o maquillado es una actividad que organiza los cables de datos y de datos al rack o armario de datos con el que cuenta la compañía.
+El peinado del rack (o maquillado) es la actividad de organizar los cables de datos y de alimentación del rack o armario de datos con el que cuenta la compañía.
 
 .. image:: imagenes/CPD/rackcables.png
 
 Según el estándar TIA-942 un mínimo de 1 m de espacio libre delante serán proporcionados para la instalación de los equipos. Un mínimo de 0,6 m de espacio libre en la parte trasera deberá ser proporcionada para el acceso de servicio en la parte posterior de los racks y armarios. Además la  altura máxima del armario rack será de 2,4 m.
 
-El cableado utilizando suele ser Ethernet a 1 Gbps, a 10 Gbps ó, en algunos casos, utilizando fibra óptica.
+El cableado utilizado suele ser Ethernet a 1 Gbps, a 10 Gbps o, en algunos casos, fibra óptica.
 
 .. image:: imagenes/CPD/switch2.png
 
@@ -252,20 +250,20 @@ El cableado utilizando suele ser Ethernet a 1 Gbps, a 10 Gbps ó, en algunos cas
 
 Aunque no es un dispositivo como tal, a la hora de montar un servidor en rack en un CPD, se utiliza lo que se conoce como patch panel como punto donde terminan todos los cables de red de todos los hosts conectados a dicho CPD. De esta manera, cualquier equipo o servidor de la red tendrá una conexión en un puerto de un patch panel.
 
-El objetivo de un patch panel no es otro que el ofrecer una mayor comodidad y flexibilidad en la forma en que se conectan los servidores con los hosts de la red, haciendo que no sea necesario "tocar" los cables que van desde el CPD hasta las estaciones de trabajo, sino que simplemente conectado o desconectado los latiguillos de red podamos modificar la conectividad de una zona concreta de la red, añadir un nuevo host o desconectar temporalmente uno ya existente.
+El objetivo de un patch panel no es otro que el ofrecer una mayor comodidad y flexibilidad en la forma en que se conectan los servidores con los hosts de la red, haciendo que no sea necesario "tocar" los cables que van desde el CPD hasta las estaciones de trabajo, sino que simplemente conectando o desconectando los latiguillos de red podamos modificar la conectividad de una zona concreta de la red, añadir un nuevo host o desconectar temporalmente uno ya existente.
 
 .. image:: imagenes/CPD/ppanel.png
 
 Cableado horizontal
 -------------------
 
-Para este cableado se utilizara como mínimo los sistemas de cobre clasificados por categoría para 10 Gb/s. Los centros de datos de todo el mundo se están moviendo rápidamente para abordar el crecimiento del ancho de banda. Muchos administradores de centros de datos que buscan controlar los costos han elegido cobre de par trenzado Cat 6A para aplicaciones de 10 Gb/s, ya que es la opción más rentable para redes de capa de acceso.
+Para este cableado se utilizarán como mínimo los sistemas de cobre clasificados por categoría para 10 Gb/s. Los centros de datos de todo el mundo se están moviendo rápidamente para abordar el crecimiento del ancho de banda. Muchos administradores de centros de datos que buscan controlar los costos han elegido cobre de par trenzado Cat 6A para aplicaciones de 10 Gb/s, ya que es la opción más rentable para redes de capa de acceso.
 De hecho, el coste de los canales 10GBASE-T es al menos un 30% más bajo que los canales SFP + alternativos.
 
 Red de almacenamiento
 ---------------------
 
-En un CPD es muy habitual diseñar e implementar lo que se conoce como Red de Almacenamiento, ya sea de tipo NAS, SAN o iSAN. Normalmente los discos duran no van conectados directamente a los equipos (DAS), sino que forman parte de la red y son capaces de conectarse a ésta de una forma autónoma.
+En un CPD es muy habitual diseñar e implementar lo que se conoce como Red de Almacenamiento, ya sea de tipo NAS, SAN o iSAN. Normalmente los discos duros no van conectados directamente a los equipos (DAS), sino que forman parte de la red y son capaces de conectarse a esta de una forma autónoma.
 
 Redundancia
 -----------
@@ -302,25 +300,25 @@ Sistemas Operativos (CPD)
 
 En cuanto a Sistemas Operativos, lo más habitual será encontrarnos con las versiones Server de todos los sistemas más conocidos:
 
-* Windows: Windows 2003 Server, Windows Server 2008, Windows Server 2012
-  
-* Linux: Red Hat Enterprise, Rocky,  Debian, CentOS
+* Windows: Windows Server 2016, 2019, 2022...
 
-* OS X (Apple): OS X Server
+* Linux: Red Hat Enterprise, Rocky, AlmaLinux, Debian, Ubuntu Server
+
+* macOS (Apple): macOS Server
 
 Virtualización de Sistemas
 --------------------------
 
 Desde hace ya algún tiempo se ha empezado a virtualizar sistemas, debido principalmente a que se comprobó que los equipos informáticos estaban infrautilizados y se les podía sacar más rendimiento. No todos los usuarios o clientes necesitan un equipo completo para los servicios que tienen contratados. Es así como aparecen lo que se conoce como VPS (Virtual Private Server), de forma que en un equipo físico (equipo anfitrión) se pueden crear varias máquinas virtuales. Cada usuario o cliente tiene acceso a una de esas máquinas virtuales y la maneja como si fuera suya, aunque realmente varios usuarios o clientes están haciendo uso de una misma máquina física.
 
-Herramientas como VirtualBox, VMWare, KVM o Xen hacen posible la virtualización de sistemas.
+Herramientas como VirtualBox, VMware, KVM o Xen hacen posible la virtualización de sistemas.
   
 Herramientas de control y monitorización
 ----------------------------------------
 
 Cuando se dispone de tanto equipamiento informático (en un solo CPD puede haber cientos de equipos informáticos y otros dispositivos) se hace muy necesario poder monitorizar su comportamiento. No es posible evaluar el rendimiento o vigilar los equipos de forma manual.
 
-Herramientas como Nagio,s ganglia, etc permiten monitorizar todo el equipamiento informático de una manera automática y gráfica, de manera que en caso de fallo es la propia aplicación quién avisa a los técnicos del equipo que ha fallado y por qué.
+Herramientas como Nagios, Ganglia, etc. permiten monitorizar todo el equipamiento informático de una manera automática y gráfica, de manera que en caso de fallo es la propia aplicación quien avisa a los técnicos del equipo que ha fallado y por qué.
 
 .. image:: imagenes/CPD/monitorizacion1.png
 
@@ -328,5 +326,5 @@ Herramientas como Nagio,s ganglia, etc permiten monitorizar todo el equipamiento
 Inventariado del Hardware
 -------------------------
 
-De la misma manera que ocurre con la monitorización, cuando se dispone de cientos de equipos informáticos, no es posible mantener un inventario actualizado de forma manual. Será necesaria alguna aplicación que permita inventariar toda la red de equipos de forma automática, como por ejemplo Open-AudIT, opsi, openDCIM , OCSING, openITCOCKPIT, Spacewalk , Kuwaiba, FusionInventory, et...  Además, será muy útil a la hora de elaborar informes sobre el hardware utilizado, características, software instalado en cada equipo, . . .
+De la misma manera que ocurre con la monitorización, cuando se dispone de cientos de equipos informáticos, no es posible mantener un inventario actualizado de forma manual. Será necesaria alguna aplicación que permita inventariar toda la red de equipos de forma automática, como por ejemplo Open-AudIT, opsi, openDCIM, OCS Inventory NG, openITCOCKPIT, Spacewalk, Kuwaiba, FusionInventory, etc. Además, será muy útil a la hora de elaborar informes sobre el hardware utilizado, características, software instalado en cada equipo, . . .
 

@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -520,7 +527,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-generales">Comandos generales:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-generales">Comandos generales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-duros">Discos duros</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bios-uefi">BIOS/UEFI</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu">CPU</a></li>
@@ -541,7 +548,7 @@
 <h1>Herramientas de diagnóstico<a class="headerlink" href="#herramientas-de-diagnostico" title="Link to this heading">#</a></h1>
 <img alt="../_images/diagnostico.png" src="../_images/diagnostico.png" />
 <section id="comandos-generales">
-<h2>Comandos generales:<a class="headerlink" href="#comandos-generales" title="Link to this heading">#</a></h2>
+<h2>Comandos generales<a class="headerlink" href="#comandos-generales" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>ls</strong> listar contenido</p></li>
 <li><p><strong>mkdir &lt;carpeta&gt;</strong> crear la carpeta</p></li>
@@ -559,7 +566,7 @@
 </section>
 <section id="discos-duros">
 <h2>Discos duros<a class="headerlink" href="#discos-duros" title="Link to this heading">#</a></h2>
-<ul class="simple">
+<ul>
 <li><p><strong>GParted</strong> es un editor de particiones para el entorno de escritorio GNOME</p></li>
 <li><p><strong>Clonezilla</strong> utilidad para la clonación y copia de seguridad de disco.</p></li>
 <li><p><strong>mount &lt;device&gt; &lt;punto de montaje&gt;</strong> montar los dispositivos, discos duros, isos, etc ...</p></li>
@@ -568,50 +575,40 @@
 <li><p><strong>dd</strong> permite copiar y convertir datos de archivos a bajo nivel</p></li>
 <li><p><strong>fdisk -l</strong> particiones que están montadas y espacio utilizado</p></li>
 <li><p><strong>hdparm</strong> utilidad puede ajustar parámetros del disco</p>
-<ul>
+<ul class="simple">
 <li><p>hdparm -t /dev/sda # ver la velocidad de transferencia</p></li>
 </ul>
 </li>
-<li><p><strong>smartctl -i /dev/sda</strong> para conocer el modelo de disco duro, y saber si soporta SMART</p></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
+<li><p><strong>smartctl -i /dev/sda</strong> para conocer el modelo de disco duro, y saber si soporta SMART</p>
+<ul class="simple">
 <li><p>smartctl -s on /dev/sda # habilitar soporte SMART</p></li>
 <li><p>smartctl -H /dev/sda # chequear el estado del SMART</p></li>
 <li><p>Modo gráfico : gsmartcontrol</p></li>
 </ul>
-</div></blockquote>
+</li>
+<li><p><strong>badblocks</strong></p>
 <ul class="simple">
-<li><p><strong>badblocks*</strong></p></li>
+<li><p>badblocks -s -v /dev/sda -o salida.txt # para saber si el disco duro tiene sectores defectuosos</p></li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><p>badblocks -s -v /dev/sda -o salida.txt # Para saber si el disco duro tiene sectores defectuosos ejecutamos</p></li>
-</ul>
-</div></blockquote>
+</li>
+<li><p><strong>hddtemp</strong></p>
 <ul class="simple">
-<li><p><strong>Hddtemp-0.3</strong></p></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
 <li><p>hddtemp /dev/sda # obtenemos la temperatura del primer disco</p></li>
 </ul>
-</div></blockquote>
-<ul>
+</li>
 <li><p><strong>Palimpsest</strong></p>
 <img alt="../_images/palimpsest.png" src="../_images/palimpsest.png" />
 </li>
 <li><p><strong>TestDisk</strong>: (testdisk) Nos permite hacer recuperación de particiones y sectores de arranque para distintos formatos.</p></li>
 <li><p><strong>PhotoRec</strong> : (photorec) Es un software de recuperación de datos, diseñado para recuperar archivos perdidos, incluyendo vídeos, documentos, archivos de discos duros, CD-ROM, y las imágenes borradas de las tarjetas de memorias de las cámara digitales (de ahí el nombre). PhotoRec ignora el sistema de archivos, y hace una búsqueda profunda de los datos, funcionando incluso si dicho sistema de archivos está muy dañado o ha sido formateado.</p></li>
 <li><p><strong>Foremost</strong> : Es un software de recuperación de datos</p></li>
-<li><p><strong>RAID:</strong></p></li>
+<li><p><strong>RAID:</strong></p>
+<ul class="simple">
+<li><p>mdadm --create # crear un RAID por software</p></li>
+<li><p>mdadm # administrar los discos del RAID</p></li>
 </ul>
-<blockquote>
-<div><ul class="simple">
-<li><p>mknod #creación del RAID</p></li>
-<li><p>mdadm #administrar discos del raid</p></li>
+</li>
 </ul>
-</div></blockquote>
 </section>
 <section id="bios-uefi">
 <h2>BIOS/UEFI<a class="headerlink" href="#bios-uefi" title="Link to this heading">#</a></h2>
@@ -633,11 +630,9 @@
 <ul>
 <li><p><strong>cat /proc/meminfo</strong></p></li>
 <li><p><strong>free -m</strong></p>
-<p>Para ver el uso en tiempo real utilizamos:   watch -n 1 free -m</p>
+<p>Para ver el uso en tiempo real utilizamos: watch -n 1 free -m</p>
+<p>Como se puede observar hay una gran cantidad de memoria en la caché, de la cual aproximadamente la mitad está siendo utilizada por las aplicaciones abiertas. Para liberar páginas guardadas en la caché, inodos y entradas de directorio basta con ejecutar el comando: sudo sync ; sudo sysctl -w vm.drop_caches=3</p>
 </li>
-</ul>
-<p>Como se puede observar hay una gran cantidad de memoria en el caché, de la cual aproximadamente la mitad está siendo utilizada por las aplicaciones abiertas. Para liberar páginas guardadas en el caché, inodos y entradas de directorio basta con ejecutar el comando:    sudo sync ;   sudo sysctl -w vm.drop_caches=3</p>
-<ul>
 <li><p><strong>Memtest86+</strong></p>
 <img alt="../_images/memtest.png" src="../_images/memtest.png" />
 </li>
@@ -646,16 +641,16 @@
 <section id="dispositivos">
 <h2>Dispositivos<a class="headerlink" href="#dispositivos" title="Link to this heading">#</a></h2>
 <ul>
-<li><p><strong>lshal</strong> nos informa de todos los dispositivos reconocidos por nuestro sistema operativo.
-Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando
-* lshal | grep info.product | cut -d# -f2 | sort</p></li>
+<li><p><strong>lshal</strong> nos informa de todos los dispositivos reconocidos por nuestro sistema operativo (obsoleto en las distribuciones actuales, hoy se usa lshw).
+Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando:
+lshal | grep info.product | cut -d# -f2 | sort</p></li>
 <li><p><strong>lspci</strong> nos informa sobre los dispositivos PCI</p></li>
-<li><p><strong>lsusb</strong> para ver los dispositivos USB
-Si queremos ver solamente los dispositivos activos
+<li><p><strong>lsusb</strong> para ver los dispositivos USB.
+Si queremos ver solamente los dispositivos activos:
 lsusb | grep -v 0000:0000</p></li>
 <li><p>Otros:</p>
 <ul class="simple">
-<li><p>Install | I-Nex</p></li>
+<li><p>I-Nex</p></li>
 <li><p>Bonnie++ es un programa utilizado para comprobar el rendimiento de discos duros y sistemas de archivos. Permite la creación de tests de lectura, escritura y borrado de archivos de diversos tamaños, etc.</p></li>
 <li><p>Ide-smart</p></li>
 <li><p>Lm_sensors.</p></li>
@@ -720,7 +715,7 @@ lsusb | grep -v 0000:0000</p></li>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-generales">Comandos generales:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-generales">Comandos generales</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discos-duros">Discos duros</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bios-uefi">BIOS/UEFI</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu">CPU</a></li>

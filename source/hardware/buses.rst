@@ -15,13 +15,13 @@ Los principales buses son:
 Bus ATA
 =======
 
-ATA "Advanced Technology Attachmen” permite conectar periféricos de almacenamiento de manera directa con la placa madre mediante un cable de cinta, generalmente compuesto de 40 alambres paralelos y tres conectores. Utiliza un modo de transmisión paralelo
+ATA "Advanced Technology Attachment" permite conectar periféricos de almacenamiento de manera directa con la placa base mediante un cable de cinta, generalmente compuesto de 40 hilos paralelos y tres conectores. Utiliza un modo de transmisión paralelo
 
 .. image:: imagenes/BUS/ata.png
     :width: 400
 
-En el cable, se debe establecer uno de los periféricos como cable maestro y el otro como esclavo.
-Pondremos un jumper en los dispositivos, esto hará que funcionen como esclavos o maestro
+En el mismo cable, se debe establecer uno de los periféricos como maestro y el otro como esclavo.
+Pondremos un jumper en los dispositivos; esto hará que funcionen como maestro o como esclavo
 
 .. image:: imagenes/BUS/jumper.png
     :width: 400
@@ -30,7 +30,7 @@ Bus Serial ATA
 ==============
 
 
-El cable utilizado por el estándar Serial ATA es un cable redondeado que contiene 7 hilos con un conector de 8 mm en su extremo. utiliza un modo de transmisión serie.
+El cable utilizado por el estándar Serial ATA es un cable redondeado que contiene 7 hilos con un conector de 8 mm en su extremo. Utiliza un modo de transmisión serie.
 
 .. image:: imagenes/BUS/sata.png
     :width: 400
@@ -97,7 +97,8 @@ Existen dos anchuras de bus SCSI:
 
 * Estrecho (de 8 bits) permite conectar hasta 8 dispositivos físicos.
 * Ancho (de 16 bits) permite conectar hasta 16 dispositivos.
-* RJ21 50-pin telco connector
+
+Conector RJ21 de 50 pines (telco):
 
 .. image:: imagenes/BUS/SCASI2.png
     :width: 400
@@ -106,7 +107,7 @@ Existen dos anchuras de bus SCSI:
 Ranura M.2
 ==========
 
-Sustituye al estándar mSATA, puede llegar hasta una velocidad de transferencia de 3500 MB/s
+Sustituye al estándar mSATA. Con PCIe 3.0 x4 puede llegar hasta una velocidad de transferencia de 3500 MB/s (los NVMe actuales sobre PCIe 4.0 y 5.0 superan los 7000 MB/s)
 
 .. image:: imagenes/BUS/M2_2.jpeg
     :width: 400
@@ -122,7 +123,7 @@ El factor de forma U.2 fue desarrollado por el Grupo de trabajo de factor de for
 Ranura PCIe
 ===========
 
-Las ranuras PCIe (PCI-Express) nacen en como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso).
+Las ranuras PCIe (PCI-Express) nacen como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso). El ancho de banda es por línea (*lane*) y se multiplica por el número de líneas de la ranura (x1, x4, x16):
 
 * PCIe 1.0 x1: 250MB/s
 * PCIe 1.0 x4: 1GB/s (250MB/s x 4)
@@ -154,29 +155,27 @@ Tabla de velocidades
 +---------------------+----------------------+
 | SATA III            | 600 MB/s             |
 +---------------------+----------------------+
-| SATA IV             | 1200 MB/s            |
-+---------------------+----------------------+
 | SCSI-2 Extendido    | 20 MB/s              |
 +---------------------+----------------------+
 |SCSI-3 (Ultra-5 SCSI)| 640 MB/s             |
 +---------------------+----------------------+
-| SAS-1               | 375 MB/s             |
+| SAS-1               | 300 MB/s             |
 +---------------------+----------------------+
-| SAS-2               | 750 MB/s             |
+| SAS-2               | 600 MB/s             |
 +---------------------+----------------------+
-| SAS-3               | 1500 MB/s            |
+| SAS-3               | 1200 MB/s            |
 +---------------------+----------------------+
-| SAS-4               | 2812  MB/s           |
+| SAS-4               | 2400 MB/s            |
 +---------------------+----------------------+
-| PCIe 1.0            | 250 MB/s             |
+| PCIe 1.0 (por línea)| 250 MB/s             |
 +---------------------+----------------------+
-| PCIe 2.0            | 500 MB/s             |
+| PCIe 2.0 (por línea)| 500 MB/s             |
 +---------------------+----------------------+
-| PCIe 3.0            | 1000 MB/s            |
+| PCIe 3.0 (por línea)| 1000 MB/s            |
 +---------------------+----------------------+
-| PCIe 4.0            | 2000 MB/s            |
+| PCIe 4.0 (por línea)| 2000 MB/s            |
 +---------------------+----------------------+
-| M.2                 | 3500 MB/s            |
+| M.2 (PCIe 3.0 x4)   | 3500 MB/s            |
 +---------------------+----------------------+
 
 .. image:: imagenes/BUS/velocidad.png

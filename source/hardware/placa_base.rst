@@ -2,24 +2,24 @@
 La placa base, el “chipset”, la EPROM
 *************************************
 
-**La placa base**, también denominada motherboard "placa madre", es una placa de circuito impreso en la que conectamos todos los componentes y periféricos de un equipo microinformático.
+**La placa base**, también denominada motherboard o "placa madre", es una placa de circuito impreso en la que conectamos todos los componentes y periféricos de un equipo microinformático.
 
 El factor de forma
 ==================
 
-El factor de forma son unos estándares que definen algunas características físicas de la placa base. Referencia como es la geometría, las dimensiones, la disposición y los requisitos eléctricos de la placa base. Los factores de forma más habituales son los siguientes
+El factor de forma son unos estándares que definen algunas características físicas de la placa base: referencia cómo es la geometría, las dimensiones, la disposición y los requisitos eléctricos de la placa base. Los factores de forma más habituales son los siguientes:
 
 * **ATX (Advanced Technology Extended)** estándar (30.5 x 24.4 cm). Dominante en PCs de escritorio.
   
-* **Micro-ATX (mATX)** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de las placas ATX y el panel lateral es idéntico. Por esta razón, las placas micro-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente.
+* **Micro-ATX (mATX)** (24.4 x 24.4 cm), es compatible con la ATX, los puntos de anclaje coinciden con algunos de los de las placas ATX y el panel trasero es idéntico. Por esta razón, las placas micro-ATX pueden instalarse en cajas ATX ya que, además, utilizan los mismos conectores para la alimentación de corriente.
 
 * **Mini-ITX** (17.0 x 17.0 cm) Sistemas ultracompactos.
 
 * **Thin-ITX** (17.0 × 17.0 × 2.5 cm) All-in-One y sistemas embebidos.
 
-Además existen multitud de formatos especializados como **E-ATX (Extended ATX)** (30.5x33.0) usado en workstations y servidores, **Mini-STX (5×5)** (14.7 × 14.0 cm), **Nano-ITX* (12.0 x 12.0 cm) o **Pico-ITX** (10.0 x 7.2 cm) para  IoT y dispositivos miniaturizados
+Además existen multitud de formatos especializados como **E-ATX (Extended ATX)** (30.5 x 33.0 cm) usado en workstations y servidores, **Mini-STX (5×5)** (14.7 × 14.0 cm), **Nano-ITX** (12.0 x 12.0 cm) o **Pico-ITX** (10.0 x 7.2 cm) para IoT y dispositivos miniaturizados
 
-Existen muchos factores obsoletos como el **BTX** (Tecnología Balanceada Extendida) fue un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco.
+Existen muchos factores obsoletos como el **BTX** (Balanced Technology Extended), un formato diseñado para mejorar tanto la disposición de componentes como la circulación de aire, la acústica y la disipación del calor. Los distintos conectores (ranuras de memoria, ranuras de expansión) se hallan distribuidos en paralelo, en el sentido de la circulación del aire. De esta manera, el microprocesador está ubicado al final de la carcasa, cerca de la entrada de aeración, donde el aire resulta más fresco.
 
 .. image:: imagenes/placa_base/tamaño_placa_base.jpg
 
@@ -50,7 +50,7 @@ Para borrar los datos del CMOS hay que cortocircuitar dos patillas en el lugar i
 
 
 La BIOS se encuentra en la memoria ROM, EPROM o FLASH EPROM.
-La memoria ROM es una memoria que solo se puede leer Read-Only Memory.
+La memoria ROM es una memoria que solo se puede leer (Read-Only Memory).
 EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable y borrable).
 
 .. image:: imagenes/placa_base/eprom.png
@@ -58,7 +58,7 @@ EPROM son las siglas de Erasable Programmable Read-Only Memory (ROM programable 
 La botonera
 -----------
 
-Salvo los botones (Power SW y Reset) el resto tienen posición, hay que conectar en el pin + el cable que NO es masa (suele ser de color negro o blanco). Algunas placas traen un adaptador que a modo de plantilla nos facilita la conexión.
+Salvo los botones (Power SW y Reset), el resto tienen posición: hay que conectar en el pin + el cable que NO es masa (la masa suele ser el cable negro o blanco). Algunas placas traen un adaptador que a modo de plantilla nos facilita la conexión.
 
 .. image:: imagenes/placa_base/botonera1.png
   :width: 200
@@ -92,7 +92,7 @@ Conectores de la RAM
 Ranura AGP
 ----------
 
-AGP "Accelerated Graphics port", es una interfaz gráfica, su tasa de transferencia va desde los 300 MB/s hasta los 2GB/s
+AGP "Accelerated Graphics Port", es una interfaz gráfica, su tasa de transferencia va desde los 266 MB/s (AGP 1x) hasta los 2.1 GB/s (AGP 8x)
 
 .. image:: imagenes/placa_base/agp.jpeg
 
@@ -106,7 +106,7 @@ PCI "Peripheral Component Interconnect " con una tasa de transferencia máxima d
 Ranura PCIe
 -----------
 
-Las ranuras PCIe (PCI-Express) nacen en como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso).
+Las ranuras PCIe (PCI-Express) nacen como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso).
 
 - PCIe 1.0 x1: 250MB/s
 
@@ -182,7 +182,7 @@ F_AUDIO
 COM (serie)
 -----------
 
-El puerto COM se usa a menudo para la comunicación de datos de bajo nivel, como la configuración de BIOS, la depuración de hardware y la programación de microcontroladore
+El puerto COM se usa a menudo para la comunicación de datos de bajo nivel, como la configuración de BIOS, la depuración de hardware y la programación de microcontroladores
 
 .. image:: imagenes/placa_base/com.png
 .. image:: imagenes/placa_base/com2.png
@@ -205,7 +205,7 @@ M.2
 SPDIF
 -----
 
-transmisión de señales de audio digital utilizada para conectar dispositivos de audio, como reproductores de CD, reproductores de DVD
+Es una interfaz de transmisión de señales de audio digital utilizada para conectar dispositivos de audio, como reproductores de CD o de DVD
 
 .. image:: imagenes/placa_base/spidf.jpeg
 

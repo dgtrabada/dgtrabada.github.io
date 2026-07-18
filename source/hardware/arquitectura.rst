@@ -12,7 +12,7 @@ Fíjate en el siguiente ordenador:
 
 
 
-Las computadoras con arquitectura Von Neumann se refiere a las arquitecturas de computadoras que utilizan el mismo dispositivo de almacenamiento tanto para las instrucciones como para los datos (a diferencia de la arquitectura Harvard).
+La arquitectura Von Neumann se refiere a las computadoras que utilizan el mismo dispositivo de almacenamiento tanto para las instrucciones como para los datos (a diferencia de la arquitectura Harvard, que los separa).
 
 
 .. image:: imagenes/arquitectura/VN1.png
@@ -32,17 +32,17 @@ Ejemplo:
 
 `Paso a paso pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_sencillo.pdf>`_
 
-Instrucciones para hacer los cuestionarios.
-===========================================
+Instrucciones para hacer los cuestionarios
+==========================================
 
-En el caso de que quieras practicar utilizando un papel como haremos en el examen, puedes descárgate la hoja de ejercicios desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.pdf>`_ si lo prefieres puedes descargártelo para practicar utilizando el LibreOffice desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
+En el caso de que quieras practicar utilizando un papel como haremos en el examen, puedes descargarte la hoja de ejercicios desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.pdf>`_; si lo prefieres, puedes descargártela para practicar utilizando LibreOffice desde `aquí <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/imagenes/arquitectura/VN_template.ods>`_. Como ejemplo vamos a realizar el siguiente ejercicio:
 
 .. image:: imagenes/arquitectura/Ejemplo_enunciado.png
 
 .. image:: imagenes/arquitectura/Ejemplo_sol.png
 
-Funcionamiento:
-===============
+Funcionamiento
+==============
 
 * `VonNewmann.pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/9d4cb4a90040e1a2aaef405191bf3de6111d948a/source/hardware/imagenes/arquitectura/VonNewmann.pdf>`_
 * `Contador + decodificador <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/hardware/imagenes/arquitectura/contador%2Bdecodificador.sim1>`_

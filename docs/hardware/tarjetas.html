@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -522,8 +529,8 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-graficas">Tarjetas gráficas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-de-sonido">Tarjetas de sonido</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjeta-de-red-pci-pcmia-inalambricas">Tarjeta de red (PCI, PCMIA, INALÁMBRICAS)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-sintonizadores-de-television">Tarjetas sintonizadores de televisión.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjeta-de-red-pci-pcmcia-inalambricas">Tarjeta de red (PCI, PCMCIA, inalámbricas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-sintonizadoras-de-television">Tarjetas sintonizadoras de televisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptadores-de-interfaz">Adaptadores de interfaz</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controladoras-raid">Controladoras RAID</a></li>
 </ul>
@@ -542,10 +549,10 @@
   <section id="tarjetas-de-expansion">
 <h1>Tarjetas de expansión<a class="headerlink" href="#tarjetas-de-expansion" title="Link to this heading">#</a></h1>
 <p>Se utilizan para agregar una nueva función o para mejorar una existente.
-Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero tendremos que quitar las ranura trasera del panel trasero de la carcasa, este es el sitio por donde se mostrara al exterior.</p>
+Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero tendremos que quitar la tapa de la ranura trasera del panel trasero de la carcasa, que es el sitio por donde se mostrará al exterior.</p>
 <img alt="../_images/tarjeta1.jpeg" src="../_images/tarjeta1.jpeg" />
-<p>Finalmente la atornillaremos al chasis, siempre que sea posible, se recomienda dejar una ranura vacía entre las tarjetas para permitir una mejor circulación de aire.</p>
-<p>Los tipos de tarjetas de expansión mas comunes son:</p>
+<p>Finalmente la atornillaremos al chasis; siempre que sea posible, se recomienda dejar una ranura vacía entre las tarjetas para permitir una mejor circulación de aire.</p>
+<p>Los tipos de tarjetas de expansión más comunes son:</p>
 <section id="tarjetas-graficas">
 <h2>Tarjetas gráficas<a class="headerlink" href="#tarjetas-graficas" title="Link to this heading">#</a></h2>
 <img alt="../_images/tarjeta_graf1.png" src="../_images/tarjeta_graf1.png" />
@@ -555,7 +562,7 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 <ul class="simple">
 <li><p><strong>GPU</strong> : (graphics processing unit o unidad de procesamiento gráfico) es un procesador como la CPU dedicado al procesamiento de gráficos; su razón de ser es aligerar la carga de trabajo del procesador central y, por ello, está optimizada para el cálculo en coma flotante, predominante en las funciones 3D. Tres de las más importantes características son la frecuencia de reloj del núcleo, que puede oscilar entre 825 MHz en las tarjetas de gama baja, y 2000 MHz (e incluso más) en las de gama alta, el número de procesadores shaders (estos shaders unificados reciben el nombre de núcleos CUDA en el caso de NVIDIA y procesadores stream en el caso de AMD) y el número de pipelines (vertex y fragment shaders), encargadas de traducir una imagen 3D compuesta por vértices y líneas en una imagen 2D compuesta por píxeles.</p></li>
 <li><p><strong>RAMDAC</strong>: Conversor analógico-digital (DAC) de la memoria RAM, empleado en las tarjetas gráficas para transformar la señal digital con que trabaja el ordenador en una salida analógica que pueda entender el monitor.</p></li>
-<li><p><strong>Ray tracing</strong> es una tecnología desarrollada por NVIDIA que se encarga de mejorar las iluminaciones, sombras y reflejos de los videojuegos. En español, ray tracing significa trazado de rayos y hace referencia a un cálculo mucho más preciso de las iluminaciones del juego que impactan en los reflejos y sombras.</p></li>
+<li><p><strong>Ray tracing</strong> (trazado de rayos) es una técnica de renderizado que calcula de forma mucho más precisa las iluminaciones, sombras y reflejos de los videojuegos. NVIDIA la popularizó con la aceleración por hardware de sus tarjetas RTX, y AMD también la soporta en sus tarjetas actuales.</p></li>
 <li><p><strong>GDDR</strong>. Las memorias GDDR (Graphics Double Data Rate) son una variación de las memorias RAM DDR, a las que se les ha aumentado la velocidad respecto a las memorias DDR, debido a que las tarjetas gráficas necesitan procesar mucha información, y leer y escribir continuamente a una velocidad muy alta.</p>
 <ul>
 <li><p><strong>GDDR5</strong>: Puede alcanzar velocidades de transferencias de hasta 17 GB/s.</p></li>
@@ -564,12 +571,12 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 <li><p><strong>HBM2</strong> (High Bandwidth Memory 2) es la segunda generación de la memoria HBM, un tipo de memoria RAM de alto rendimiento diseñada para ofrecer enorme ancho de banda y bajo consumo energético, principalmente utilizada en tarjetas gráficas de gama alta, inteligencia artificial y supercomputación. 256–460 GB/s</p></li>
 </ul>
 </li>
-<li><p><strong>Velocidad de Refresco</strong>. Rapidez con que el contenido de la memoria de vídeo se envía al monitor, es el número de veces por segundo que se dibuja la pantalla. La resolución está relacionada con la velocidad de refresco: a mayor resolución, menor velocidad de refresco. Se mide en Hz. Velocidades de refresco habituales son 75Hz,  80Hz o 85HZ. El mínimo es 60 Hz. Para jugar, podemos encontrar velocidades de refresco de 144 a 240Hz</p></li>
+<li><p><strong>Velocidad de Refresco</strong>. Rapidez con que el contenido de la memoria de vídeo se envía al monitor, es el número de veces por segundo que se dibuja la pantalla. La resolución está relacionada con la velocidad de refresco: a mayor resolución, menor velocidad de refresco. Se mide en Hz. Velocidades de refresco habituales son 75Hz, 80Hz o 85Hz. El mínimo es 60 Hz. Para jugar, podemos encontrar velocidades de refresco de 144 a 240Hz</p></li>
 <li><p><strong>Profundidad de color</strong>: Número de bits usados para el color de cada píxel. Determina el número máximo de colores que puede mostrar una imagen de forma simultánea</p></li>
 </ul>
 <div class="pst-scrollable-table-container"><table class="table">
 <tbody>
-<tr class="row-odd"><td><p>Bitts</p></td>
+<tr class="row-odd"><td><p>Bits</p></td>
 <td><p>Nº Colores</p></td>
 <td><p>Nombre</p></td>
 </tr>
@@ -612,7 +619,7 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 </li>
 <li><p><strong>OpenGL</strong>: Es una especificación estándar que define una API multilenguaje y multiplataforma para escribir aplicaciones que produzcan gráficos 2D y 3D. Es el principal competidor de Direct3D de Microsoft.</p></li>
 <li><p><strong>DirectX</strong>: Es una colección de APIs creadas para facilitar tareas relacionadas con la programación de juegos en la plataforma Microsoft Windows.</p></li>
-<li><p><strong>SLI y CrossFire</strong>: Tecnología de Intel/Nvidia y AMD/ATI respectivamente, que permite conectar dos tarjetas gráficas en un mismo ordenador con el objetivo de aumentar el rendimiento gráfico.</p>
+<li><p><strong>SLI y CrossFire</strong>: Tecnologías de NVIDIA y AMD/ATI respectivamente, que permiten conectar dos tarjetas gráficas en un mismo ordenador con el objetivo de aumentar el rendimiento gráfico.</p>
 <img alt="../_images/graficas.png" src="../_images/graficas.png" />
 </li>
 <li><p><strong>VGA</strong>: Estándar analógico diseñado para monitores CRT: sufre de ruido y distorsión por la conversión de digital a analógico y el error de muestreo al evaluar los píxeles a enviar al monitor.  Este tipo de interfaz se usa para enviar 3 señales analógicas a la pantalla. Dichas señales corresponden a los componentes rojos, azules y verdes de la imagen.</p>
@@ -627,7 +634,7 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 <li><p><strong>Video Compuesto</strong>: Analógico de muy baja resolución mediante conector RCA.</p>
 <img alt="../_images/rca.png" src="../_images/rca.png" />
 </li>
-<li><p><strong>HDMI</strong>: Tecnología digital que pretende sustituir todas las anteriores. Es una norma de audio y video digital de alta definición. Permite el uso de vídeo estándar, mejorado o de alta definición, así como audio digital multicanal en un único cable puede llegar a 4,9 Gbit/s.</p>
+<li><p><strong>HDMI</strong>: Tecnología digital que pretende sustituir todas las anteriores. Es una norma de audio y vídeo digital de alta definición. Permite el uso de vídeo estándar, mejorado o de alta definición, así como audio digital multicanal en un único cable; la versión 1.0 llegaba a 4,9 Gbit/s y las actuales (HDMI 2.1) alcanzan los 48 Gbit/s.</p>
 <a class="reference internal image-reference" href="../_images/hdmi.png"><img alt="../_images/hdmi.png" src="../_images/hdmi.png" width="300" />
 </a>
 </li>
@@ -682,18 +689,18 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 </li>
 <li><p><strong>Conversores DAC y ADC</strong>: Conversor digital-analógico y analógico-digital respectivamente</p></li>
 <li><p><strong>Formato MIDI</strong>: MIDI (Musical Instrument Digital Interface). Permite la comunicación entre instrumentos musicales y tarjetas de sonido.</p></li>
-<li><p><strong>Formato MP3</strong>: MP3 (MPEG-1 Audio Layer 3), Estándar de compresión de archivos de audio, Como el oído humano no es capaz de percibir todos los sonidos que se emiten  estos no se incluyen, consiguiendo un mayor grado de compresión. Una canción de 3min. En formato CD-DA ocupa 33MB. En formato mp3 sólo 3MB</p></li>
-<li><p><strong>Formato WMA</strong>: WMA (Windows Media Audio), WMA (Windows Media Audio). Calidad similar a mp3 pero con mejores tasas de compresión</p></li>
-<li><p><strong>Formato OGG ORBIS</strong>. Formato libre  usado en codecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.</p></li>
-<li><p><strong>Formato MP3 PRO</strong>. Formato libre  usado en codecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.</p></li>
+<li><p><strong>Formato MP3</strong>: MP3 (MPEG-1 Audio Layer 3), estándar de compresión de archivos de audio. Como el oído humano no es capaz de percibir todos los sonidos que se emiten, estos no se incluyen, consiguiendo un mayor grado de compresión. Una canción de 3 min en formato CD-DA ocupa 33MB; en formato mp3, solo 3MB</p></li>
+<li><p><strong>Formato WMA</strong>: WMA (Windows Media Audio). Calidad similar a mp3 pero con mejores tasas de compresión</p></li>
+<li><p><strong>Formato OGG VORBIS</strong>. Formato libre usado en códecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.</p></li>
+<li><p><strong>Formato MP3 PRO</strong>. Versión mejorada del MP3 (no libre) que añade compresión adicional, manteniendo la calidad con archivos más pequeños.</p></li>
 <li><p><strong>Formato MP4</strong>: MP4 es un formato de audio y/o vídeo, con mayor compresión y potencia. Almacenan diferentes tipos de datos, desde música a imágenes, y la idea es intentar ser un formato único, en el que se podría incluso almacenar datos de diferentes tipos en un mismo archivo.</p></li>
 <li><p><strong>Sonido envolvente</strong> : Los sistemas más usados son Dolby Prologic Surround, Dolby Digital AC-3 y DTS.</p>
 <img alt="../_images/dolby.png" src="../_images/dolby.png" />
 </li>
 </ul>
 </section>
-<section id="tarjeta-de-red-pci-pcmia-inalambricas">
-<h2>Tarjeta de red (PCI, PCMIA, INALÁMBRICAS)<a class="headerlink" href="#tarjeta-de-red-pci-pcmia-inalambricas" title="Link to this heading">#</a></h2>
+<section id="tarjeta-de-red-pci-pcmcia-inalambricas">
+<h2>Tarjeta de red (PCI, PCMCIA, inalámbricas)<a class="headerlink" href="#tarjeta-de-red-pci-pcmcia-inalambricas" title="Link to this heading">#</a></h2>
 <a class="reference internal image-reference" href="../_images/red.png"><img alt="../_images/red.png" src="../_images/red.png" width="300" />
 </a>
 <a class="reference internal image-reference" href="../_images/red2.png"><img alt="../_images/red2.png" src="../_images/red2.png" width="300" />
@@ -703,8 +710,8 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
 <a class="reference internal image-reference" href="../_images/wifi1.png"><img alt="../_images/wifi1.png" src="../_images/wifi1.png" width="300" />
 </a>
 </section>
-<section id="tarjetas-sintonizadores-de-television">
-<h2>Tarjetas sintonizadores de televisión.<a class="headerlink" href="#tarjetas-sintonizadores-de-television" title="Link to this heading">#</a></h2>
+<section id="tarjetas-sintonizadoras-de-television">
+<h2>Tarjetas sintonizadoras de televisión<a class="headerlink" href="#tarjetas-sintonizadoras-de-television" title="Link to this heading">#</a></h2>
 <img alt="../_images/TV.png" src="../_images/TV.png" />
 </section>
 <section id="adaptadores-de-interfaz">
@@ -781,8 +788,8 @@ Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero te
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-graficas">Tarjetas gráficas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-de-sonido">Tarjetas de sonido</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjeta-de-red-pci-pcmia-inalambricas">Tarjeta de red (PCI, PCMIA, INALÁMBRICAS)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-sintonizadores-de-television">Tarjetas sintonizadores de televisión.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjeta-de-red-pci-pcmcia-inalambricas">Tarjeta de red (PCI, PCMCIA, inalámbricas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tarjetas-sintonizadoras-de-television">Tarjetas sintonizadoras de televisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptadores-de-interfaz">Adaptadores de interfaz</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#controladoras-raid">Controladoras RAID</a></li>
 </ul>

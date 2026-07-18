@@ -8,11 +8,11 @@ Partes:
 #######
 
 * **El chasis**, que es el esqueleto interno metálico que va a soportar la instalación de los diversos componentes.
-* **La cubierta**, que será la parte que hace de “tapa” de la caja, por la cual se accede a la parte interna, y que habitualmente, en las torres, es una de los paneles laterales.
+* **La cubierta**, que será la parte que hace de “tapa” de la caja, por la cual se accede a la parte interna, y que habitualmente, en las torres, es uno de los paneles laterales.
 * **El panel frontal**, donde estará situada la ranura de toma de aire para ventilación, y las partes que quedan al exterior de las bahías donde se sitúan las unidades de almacenamiento, así como algún acceso externo a conectores usb o de audio.
-* **El panel posterior**, donde saldrán al exterior todas las conexiones habituales para elementos externos (puertos usb, conectores audio, conexión VGA para pantalla, puertos para teclado y raton, …..), así como la salida de ventilación y corriente de la fuente de alimentación.
+* **El panel posterior**, donde saldrán al exterior todas las conexiones habituales para elementos externos (puertos usb, conectores de audio, conexión VGA para pantalla, puertos para teclado y ratón...), así como la salida de ventilación y corriente de la fuente de alimentación.
 * **La pared lateral** (al fondo) donde se instalará la placa base.
-* **La ranuras traseras** (a la izquierda) por donde se mostrarán al exterior las conexiones de las diversas placas electrónicas que se instalen en la placa base.
+* **Las ranuras traseras** (a la izquierda) por donde se mostrarán al exterior las conexiones de las diversas placas electrónicas que se instalen en la placa base.
 * **Las bahías** (a la derecha) donde se colocarán las unidades de almacenamiento (unidades de cd, dvd 5 ¼, discos duros 3½ ).
 
 .. image:: imagenes/carcasa/carcasa1.jpg
@@ -21,14 +21,14 @@ Funciones
 #########
 
 * **Protección** de los componentes electrónicos internos.
-* **Ventilación**, esencial por las altas temperaturas que pueden alcanzar los diferentes componentes electrónicos en funcionamientos, por lo cual será conveniente la utilización de los ventiladores internos y de las rejillas de respiración.
+* **Ventilación**, esencial por las altas temperaturas que pueden alcanzar los diferentes componentes electrónicos en funcionamiento, por lo cual será conveniente la utilización de los ventiladores internos y de las rejillas de respiración.
 
 .. image:: imagenes/carcasa/carcasa2.png
 
 Tamaños
 #######
 
-* **Barebone** (Mini iTX, HTPC): Son de pequeño tamaño. Los barebone tienen el problema del calentamiento. Por lo general, poseen una o dos bahías de 5 ¼ y una o dos bahías de 3 ½.
+* **Barebone** (Mini-ITX, HTPC): Son de pequeño tamaño. Los barebone tienen el problema del calentamiento. Por lo general, poseen una o dos bahías de 5 ¼ y una o dos bahías de 3 ½.
 
 * **Minitorre**: 1 o 2 bahías de 5 ¼ y 2 o 3 de 3 ½, Su calentamiento es normal y no tiene el problema de los barebone.
 
@@ -42,7 +42,7 @@ Tamaños
 
   .. image:: imagenes/carcasa/mediatorre.png
   
-* **Torre**: Es el más grande. Puedes colocar una gran cantidad de dispositivos y es usado cuando se precisa una gran cantidad de dispositivos.
+* **Torre**: Es el más grande; se usa cuando se precisa colocar una gran cantidad de dispositivos.
 
   .. image:: imagenes/carcasa/torre.png
 
@@ -54,7 +54,7 @@ Tamaños
 
   .. image:: imagenes/carcasa/rack.png
 
-* **Modding**: El modding es un tipo de gabinete que es totalmente estético incluso se podría decir en algunos casos que son poco funcionales.
+* **Modding**: El modding es un tipo de caja totalmente estética; incluso se podría decir que en algunos casos son poco funcionales.
 
   .. image:: imagenes/carcasa/modding.png
 

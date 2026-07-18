@@ -35,7 +35,7 @@ Hardware
 
 Prácticas de taller
 
-* `Cuaderno de taller (versión pdf a dos caras) <https://github.com/dgtrabada/dgtrabada.github.io/blob/cb7e8096be8f353f5a5762880b100a45c10920f5/source/hardware/taller/PRACTICAS-TALLER.pdf>`_
-* `Cuadreno de taller (versión cuadernillo) <https://github.com/dgtrabada/dgtrabada.github.io/blob/cb7e8096be8f353f5a5762880b100a45c10920f5/source/hardware/taller/PRACTICAS-TALLER.pdf>`_
-* `Cuaderno de taller (versión odt) <https://github.com/dgtrabada/dgtrabada.github.io/blob/cb7e8096be8f353f5a5762880b100a45c10920f5/source/hardware/taller/PRACTICAS-TALLER.odt>`_
+* `Cuaderno de taller (versión pdf a dos caras) <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/taller/PRACTICAS-TALLER.pdf>`_
+* `Cuaderno de taller (versión cuadernillo) <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/taller/PRACTICAS-TALLER_cuaderno.pdf>`_
+* `Cuaderno de taller (versión odt) <https://github.com/dgtrabada/dgtrabada.github.io/blob/master/source/hardware/taller/PRACTICAS-TALLER.odt>`_
 

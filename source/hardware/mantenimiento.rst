@@ -22,20 +22,20 @@ Hay tres niveles de mantenimiento:
 Nivel de mantenimiento de hardware
 ==================================
 
-Cuida el buen estado de los equipos y periféricos del sistema, los fallos suelen ser por desgastarse de los materiales o por accidentes.
-  
+Cuida el buen estado de los equipos y periféricos del sistema; los fallos suelen ser por desgaste de los materiales o por accidentes.
+
 Dentro del mantenimiento del hardware tenemos:
 
-* La limpieza de los hardware
-* Comprueba que funcione todo correctamente (voltaje. temperatura)
-* Reemplaza o repara los componentes desgastados o que funcione mal
+* La limpieza del hardware
+* Comprobar que funcione todo correctamente (voltaje, temperatura)
+* Reemplazar o reparar los componentes desgastados o que funcionen mal
 
-Nivel de mantenimiento de software.
+Nivel de mantenimiento de software
 ==================================
 
-Se centra en las aplicaciones y los datos de tenga el sistema.
-  
-Los fallos se dan de forma de pérdida de información, virus, troyanos, gusanos, etc ...
+Se centra en las aplicaciones y los datos que tenga el sistema.
+
+Los fallos se dan en forma de pérdida de información, virus, troyanos, gusanos, etc.
   
 Dentro del mantenimiento de software tenemos:
 
@@ -43,12 +43,12 @@ Dentro del mantenimiento de software tenemos:
 * Actualizaciones de seguridad
 * Copias de seguridad.
 
-Imaginad que pasaría si se perdieran la base de datos de la facturación de una empresa y ésta no se pudiera recuperar al estar sólo en un ordenador que se ha averiado o eliminado la información accidentalmente o bajándolo a nuestro nivel si perdéis los trabajos que tenéis realizados para entregar en clase.
+Imaginad qué pasaría si se perdiera la base de datos de la facturación de una empresa y esta no se pudiera recuperar por estar solo en un ordenador que se ha averiado o del que se ha eliminado la información accidentalmente; o, bajándolo a nuestro nivel, si perdéis los trabajos que tenéis realizados para entregar en clase.
 
 Nivel de mantenimiento de documentación
 =======================================
 
-Cuando se instala, se mantiene o se repara un sistema informático hay que actualizar la documentación y dejar un registro de todas la tareas de mantenimiento.
+Cuando se instala, se mantiene o se repara un sistema informático hay que actualizar la documentación y dejar un registro de todas las tareas de mantenimiento.
 
 Técnicas auxiliares de mantenimiento 
 ====================================
@@ -59,7 +59,7 @@ Resulta mucho más barato cambiar algún dispositivo que el tratar de repararlo 
 
 * **Limpieza interna del PC:**
 
-  Esta tarea busca retirar el polvo que se adhiere a las piezas y al interior en general de nuestro PC. Ante todo debe desconectarse los cables externos que alimentan de electricidad a nuestra PC y de los demás componentes periféricos. Para esta limpieza puede usarse algún aparato soplador o una pequeña aspiradora especial acompañada de un pincel pequeño. Poner especial énfasis en las cercanías al Microprocesador y a la Fuente.
+  Esta tarea busca retirar el polvo que se adhiere a las piezas y al interior en general de nuestro PC. Ante todo deben desconectarse los cables externos que alimentan de electricidad a nuestro PC y a los demás componentes periféricos. Para esta limpieza puede usarse algún aparato soplador o una pequeña aspiradora especial acompañada de un pincel pequeño. Poner especial énfasis en las cercanías del microprocesador y de la fuente.
     
   .. image:: imagenes/mantenimiento/limpieza1.jpeg
     :width: 200
@@ -105,7 +105,7 @@ Es indispensable contar con las herramientas y material adecuados para el manten
 
 * **Destornilladores planos y de estrella.**
 
-  Estos destornilladores son empleados para retirar los tornillos que mantienen fija la tapa exterior que cubre y protege al CPU, dentro del CPU existen algunos componentes que requiere ser extraídos con la ayuda de un destornillador.
+  Estos destornilladores son empleados para retirar los tornillos que mantienen fija la tapa exterior que cubre y protege la caja; en su interior existen algunos componentes que requieren ser extraídos con la ayuda de un destornillador.
   
   .. image:: imagenes/mantenimiento/destornillador.png
 
@@ -124,15 +124,15 @@ Es indispensable contar con las herramientas y material adecuados para el manten
   
   .. image:: imagenes/mantenimiento/pinzas.png
 
-* **Limpiador de para elementos electrónicos**
-  
-  Se puede utilizar el Alcohol isopropílico también conocido como Propanol, que es el líquido más importante para realizar limpiezas de tarjetas de los equipos (ordenadores, impresoras, monitores, etc.), es un compuesto que tiene un secado demasiado rápido por lo cual ayuda a realizar un trabajo muy eficiente. Es un alcohol que quita la grasa con gran facilidad.
+* **Limpiador para elementos electrónicos**
+
+  Se puede utilizar el alcohol isopropílico (isopropanol), que es el líquido más importante para realizar limpiezas de tarjetas de los equipos (ordenadores, impresoras, monitores, etc.); es un compuesto que se seca muy rápido, por lo cual ayuda a realizar un trabajo muy eficiente, y quita la grasa con gran facilidad.
 
 * **Aspiradora portátil / aire comprimido.**
 
   .. image:: imagenes/mantenimiento/aspirador.png
 
-MEDIDAS DE SEGURIDAD
+Medidas de seguridad
 ====================
 
 Antes de continuar detallaremos una serie de precauciones y medidas de seguridad que hay que tener en cuenta en todo mantenimiento
@@ -140,7 +140,7 @@ Antes de continuar detallaremos una serie de precauciones y medidas de seguridad
 Precauciones con la corriente eléctrica.
 ----------------------------------------
 
-Los ordenadores trabajan a ±12 y ±5 voltios, que resultan inofensivos, pero para obtener esa tensión de la red eléctrica (220 voltios aprox.), necesita transformarla. Debido a esto, en el interior de la maquina hay varios puntos por los que circula la misma tensión de la red. Estos puntos son:
+Los ordenadores trabajan a ±12 y ±5 voltios, que resultan inofensivos, pero para obtener esa tensión de la red eléctrica (230 voltios aprox.) necesitan transformarla. Debido a esto, en el interior de la máquina hay varios puntos por los que circula la misma tensión de la red. Estos puntos son:
 
 * El interior de la fuente de alimentación.
 * El cable que va desde la fuente hasta el interruptor.
@@ -148,4 +148,4 @@ Los ordenadores trabajan a ±12 y ±5 voltios, que resultan inofensivos, pero pa
 
 Por lo tanto hay que tener muy en cuenta que no se debe montar y desmontar con el ordenador enchufado a la red eléctrica.
 
-Para no dañar algunos componentes como la placa base ó la memoria RAM, es necesario descargar la electricidad estática que pueda tener nuestro cuerpo. Para eso hay unas pulseras hechas de cinta conductora y provistas de un cable fino con una pinza que se coloca a tierra, y que es recomendable tener puesta mientras se tocan los equipos. Otra solución consiste en tocar con una mano, antes de proceder, la toma de tierra.
+Para no dañar algunos componentes como la placa base o la memoria RAM, es necesario descargar la electricidad estática que pueda tener nuestro cuerpo. Para eso hay unas pulseras hechas de cinta conductora y provistas de un cable fino con una pinza que se coloca a tierra, y que es recomendable tener puesta mientras se tocan los equipos. Otra solución consiste en tocar con una mano, antes de proceder, la toma de tierra.

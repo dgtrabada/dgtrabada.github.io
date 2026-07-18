@@ -4,7 +4,7 @@ Fuentes de Alimentación
 
 
 Los componentes internos del sistema van a estar alimentados por una corriente continua con valores entre -12V y 12V. Sin embargo la tensión que obtenemos de la red eléctrica es alterna con un valor de 230 V y una frecuencia de 50 Hz.
-Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación .
+Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación.
 
 .. image:: imagenes/fuentes/fuente_alimentacion.png
   :width: 300
@@ -16,10 +16,10 @@ Funcionamiento
 
 .. image:: imagenes/fuentes/fuente_alimentacion_circuito.png
 
-* **Transformación** : Se disminuye la corriente alterna de entrada (230 V 50 Hz)
+* **Transformación** : Se disminuye la tensión alterna de entrada (230 V 50 Hz)
 * **Rectificación** : Con la ayuda de diodos se consigue que la corriente siempre sea positiva.
 * **Filtración** : Se utiliza un condensador para corregir las caídas de tensión.
-* **Regulación** : se corrigen lo picos que quedan en la señal.
+* **Regulación** : se corrigen los picos que quedan en la señal.
 
 Fuente Simple (con rectificación simple, no corregimos la señal negativa)
 
@@ -34,11 +34,11 @@ Características de las fuentes de alimentación
 
 * **Potencia máxima total.**
 
-  Expresada en vatios (w). Especifica la máxima potencia que, puntualmente, puede proporcionar la fuente.
+  Expresada en vatios (W). Especifica la máxima potencia que, puntualmente, puede proporcionar la fuente.
 
 * **Potencia combinada**
 
-  Aunque la potencia máxima total nos dá una idea de la carga total que podrá soportar, es más relevante la potencia soportada por cada una de las salidas. 
+  Aunque la potencia máxima total nos da una idea de la carga total que podrá soportar, es más relevante la potencia soportada por cada una de las salidas.
   
   Hay que tener en cuenta que el aumento de potencia de algunos dispositivos actuales ha aumentado más que la de otros (Micros, tarjetas gráficas, etc).
 
@@ -71,17 +71,17 @@ Cómo elegir la fuente de alimentación
 
 Lo recomendable es elegir una fuente de alimentación de marca conocida. En la actualidad, algunas marcas comerciales, respetan más sus especificaciones que otras. Antec, Corsair, Enermax, Fortron (FSP Group), Seasonic
 
-* No adquirir una fuente de alimentación muy exacta, ya que calentará mucho y el ventilador hará ruido, ni muy potente, ya que el rendimiento no será bueno.
-* **PFC** (Power Factor Correction)  es la relación entre la potencia real (potencia aparente) suministrada por la red eléctrica y la potencia que la fuente puede ofrecer (potencia activa o de trabajo). El factor de potencia ideal es 1, pero veréis que está representado por decimales que van desde 0 hasta 1. Lamentablemente, la corriente eléctrica viaja dando picos de voltaje. Para rectificar estos picos, la fuente de alimentación equipa transformadores internos. Mediante estos transformadores, la fuente proporciona corriente continua para los componentes PC. En otras palabras, es imposible conseguir ese 1, pero sí llegar al 0.95-0.99.
+* No adquirir una fuente de alimentación muy justa de potencia, ya que se calentará mucho y el ventilador hará ruido, ni muy sobrada, ya que trabajará con poca carga y el rendimiento no será bueno.
+* **PFC** (Power Factor Correction). El factor de potencia es la relación entre la potencia activa o de trabajo (la que realmente aprovecha la fuente) y la potencia aparente (la que se demanda de la red eléctrica). El factor de potencia ideal es 1, pero veréis que está representado por decimales que van desde 0 hasta 1: en la práctica es imposible conseguir ese 1, pero sí llegar al 0.95-0.99 con circuitos de corrección (PFC).
 
   * **PFC Pasivo**: Se trata de una corrección pasiva que consiste en un núcleo de ferrita en la entrada de la fuente de alimentación. El valor de factor de potencia en caso de utilizar PFC pasivo ronda entre unos 60-80% (0.6-0.8). Su uso tiene varios inconvenientes, como por ejemplo, la necesidad de seleccionar el voltaje de entrada mediante un interruptor y el “ruido” electromagnético que llega a producir.
-    
-    .. image:: imagenes/fuentes/PCPactivo.png
-     :width: 200
-    
-  * **PFC Activo**: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarlo con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.
-    
+
     .. image:: imagenes/fuentes/PFCpasivo.png
+     :width: 200
+
+  * **PFC Activo**: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarla con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.
+
+    .. image:: imagenes/fuentes/PCPactivo.png
      :width: 200
     
   * La contaminación sonora: Algunas fuentes de alimentación son silenciosas incluso en carga, otras no tanto... Lo mejor es permanecer debajo de 45dB, se debe evitar las fuentes que superan los 50dB en carga.
@@ -120,9 +120,9 @@ Lo recomendable es elegir una fuente de alimentación de marca conocida. En la a
 Cuidados de la fuente de alimentación
 =====================================
 
-* Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor  provocando pérdida de de refrigeración en el PC, provocando calentamiento y mal funcionamiento o bloqueo del ordenador -> mantenerla limpia de polvo.
-* Mejor reponer (barata) que reparar (problemas de difícil diagnostico -> microcortes).
-* Desenchufar siempre la corriente (220V) antes de abrir el ordenador.
+* Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor provocando pérdida de refrigeración en el PC, calentamiento y mal funcionamiento o bloqueo del ordenador -> mantenerla limpia de polvo.
+* Mejor reponer (barata) que reparar (problemas de difícil diagnóstico -> microcortes).
+* Desenchufar siempre la corriente (230V) antes de abrir el ordenador.
 * Precaución: anotar la posición de los conectores o no desconectar (sobre todo de la placa).
 
 

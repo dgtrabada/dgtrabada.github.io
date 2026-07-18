@@ -4,8 +4,8 @@ Herramientas de diagnóstico
 
 .. image:: imagenes/diagnostico/diagnostico.png
 
-Comandos generales:
--------------------
+Comandos generales
+------------------
 
 * **ls** listar contenido
 
@@ -54,15 +54,18 @@ Discos duros
   * hdparm -t /dev/sda # ver la velocidad de transferencia
 
 * **smartctl -i /dev/sda** para conocer el modelo de disco duro, y saber si soporta SMART
- * smartctl -s on /dev/sda # habilitar soporte SMART
- * smartctl -H /dev/sda # chequear el estado del SMART
- * Modo gráfico : gsmartcontrol
 
-* **badblocks***
- * badblocks -s -v /dev/sda -o salida.txt # Para saber si el disco duro tiene sectores defectuosos ejecutamos
+  * smartctl -s on /dev/sda # habilitar soporte SMART
+  * smartctl -H /dev/sda # chequear el estado del SMART
+  * Modo gráfico : gsmartcontrol
 
-* **Hddtemp-0.3**
- * hddtemp /dev/sda # obtenemos la temperatura del primer disco
+* **badblocks**
+
+  * badblocks -s -v /dev/sda -o salida.txt # para saber si el disco duro tiene sectores defectuosos
+
+* **hddtemp**
+
+  * hddtemp /dev/sda # obtenemos la temperatura del primer disco
 
 * **Palimpsest**
 
@@ -76,9 +79,9 @@ Discos duros
 
 * **RAID:**
 
- * mknod #creación del RAID
+  * mdadm --create # crear un RAID por software
 
- * mdadm #administrar discos del raid
+  * mdadm # administrar los discos del RAID
 
 BIOS/UEFI
 ---------
@@ -102,8 +105,9 @@ Memoria
 
 * **free -m**
 
-  Para ver el uso en tiempo real utilizamos:   watch -n 1 free -m
-Como se puede observar hay una gran cantidad de memoria en el caché, de la cual aproximadamente la mitad está siendo utilizada por las aplicaciones abiertas. Para liberar páginas guardadas en el caché, inodos y entradas de directorio basta con ejecutar el comando:    sudo sync ;   sudo sysctl -w vm.drop_caches=3
+  Para ver el uso en tiempo real utilizamos: watch -n 1 free -m
+
+  Como se puede observar hay una gran cantidad de memoria en la caché, de la cual aproximadamente la mitad está siendo utilizada por las aplicaciones abiertas. Para liberar páginas guardadas en la caché, inodos y entradas de directorio basta con ejecutar el comando: sudo sync ; sudo sysctl -w vm.drop_caches=3
 
 * **Memtest86+**
   
@@ -112,19 +116,19 @@ Como se puede observar hay una gran cantidad de memoria en el caché, de la cual
 Dispositivos
 ------------
 
-* **lshal** nos informa de todos los dispositivos reconocidos por nuestro sistema operativo.
-  Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando
-  * lshal | grep info.product | cut -d# -f2 | sort
+* **lshal** nos informa de todos los dispositivos reconocidos por nuestro sistema operativo (obsoleto en las distribuciones actuales, hoy se usa lshw).
+  Obtenemos una salida muy extensa por lo que vamos a limitarla utilizando:
+  lshal | grep info.product | cut -d# -f2 | sort
 
 * **lspci** nos informa sobre los dispositivos PCI
 
-* **lsusb** para ver los dispositivos USB
-  Si queremos ver solamente los dispositivos activos
+* **lsusb** para ver los dispositivos USB.
+  Si queremos ver solamente los dispositivos activos:
   lsusb | grep -v 0000:0000
 
 * Otros:
 
-  * Install | I-Nex
+  * I-Nex
   * Bonnie++ es un programa utilizado para comprobar el rendimiento de discos duros y sistemas de archivos. Permite la creación de tests de lectura, escritura y borrado de archivos de diversos tamaños, etc.
   * Ide-smart
   * Lm_sensors.

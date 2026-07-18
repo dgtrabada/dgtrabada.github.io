@@ -13,7 +13,7 @@ PGA
 
 Como se muestra en figura estos zócalos llevan una de sus esquinas diferenciada para la correcta colocación del procesador.
   
-Los procesadores de AMD, de momento, siguen empleando los tradicionales pines. Este sistema ha sido el empleado por todos hasta que INTEL sacó otros contactos en sus 775.Este sistema es algo más delicado de manipular por la posibilidad de doblar o romper un pin, para ensamblarlo primero abriremos el seguro (palanquilla) del zócalo, sacamos con mucho cuidado el microprocesador de su estuche, sujetándolo por los bordes, y lo colocamos en el zócalo. Debe entrar sin hacer ninguna presión ni, por supuesto, forzarlo. Una vez en su correcta posición, ejercemos una ligera presión sobre el microprocesador y cerramos la palanquilla.
+Los procesadores de AMD emplearon los tradicionales pines hasta hace poco (los Ryzen los llevaron hasta el socket AM4; con AM5 pasaron a LGA). Este sistema fue el empleado por todos hasta que INTEL sacó otros contactos en su socket 775. Es algo más delicado de manipular por la posibilidad de doblar o romper un pin: para ensamblarlo primero abriremos el seguro (palanquilla) del zócalo, sacamos con mucho cuidado el microprocesador de su estuche, sujetándolo por los bordes, y lo colocamos en el zócalo. Debe entrar sin hacer ninguna presión ni, por supuesto, forzarlo. Una vez en su correcta posición, ejercemos una ligera presión sobre el microprocesador y cerramos la palanquilla.
 
 LGA
 ===

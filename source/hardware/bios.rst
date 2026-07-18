@@ -4,13 +4,13 @@ BIOS
 
 **La BIOS**, Sistema básico de entradas y salidas, del inglés "Basic Input/Output System" es un componente esencial que se usa para controlar el hardware.
 
-Es un pequeño programa que está grabado en un pequeño chip de memoria llamados CMOS  situado en la placa base, se puede modificar a través del setup.
+Es un pequeño programa que está grabado en un chip de memoria de la placa base. Su configuración se guarda en la memoria **CMOS** y se puede modificar a través del setup.
 
-CMOS es una especie de memoria RAM, en ella se guardan los datos de configuración de la BIOS permitiendo modificarlos, puesto que es una memoria RAM, para evitar que estos datos se pierdan, se alimenta de una pila.
+La CMOS es una especie de memoria RAM: en ella se guardan los datos de configuración de la BIOS permitiendo modificarlos y, puesto que es una memoria RAM, para evitar que estos datos se pierdan se alimenta de una pila.
 
-Como fabricantes de BIOS destacan `Award <https://www.award.com/>`_, `AMI <https://www.ami.com/>`_ y `Phoenix <https://www.phoenix.com/>`_.
+Como fabricantes de BIOS destacan `AMI <https://www.ami.com/>`_, Phoenix y la clásica Award (absorbida por Phoenix).
 
-Este programa está almacenado en una memoria localizada en la placa base, antiguamente la memoria era de tipo EPROM (ROM Erased PROgramable), actualmente se almacenan en memorias flash  EEPROM (ELECTRICALLY ERASABLE PROGRAMMABLE READ-ONLY MEMORY) y la más usada actualmente  FLASH ROM, la cual puede ser regrabada sin el empleo de dispositivos de borrado. Consecuentemente, es posible actualizarla fácilmente
+El programa de la BIOS está almacenado en una memoria de solo lectura de la placa base: antiguamente era de tipo EPROM (Erasable Programmable ROM, que se borraba con luz ultravioleta), después EEPROM (Electrically Erasable Programmable ROM) y actualmente memoria **flash**, que puede ser regrabada sin el empleo de dispositivos de borrado. Consecuentemente, es posible actualizarla fácilmente ("flashear" la BIOS).
 
 .. image:: imagenes/BIOS/pila1.png
   :height: 150
@@ -26,7 +26,7 @@ Procedimientos de POST (Power-On Self Test). Verificaciones básicas.
 
 Cuando se enciende o se restablece un sistema informático, la BIOS realiza un inventario del hardware conectado al ordenador y efectúa un diagnóstico llamado Prueba automática en el encendido (POST, Power-On Self Test) para comprobar que el equipo funciona correctamente.
 
-La secuencia del POST pueden variar según el fabricante, la placa base y la versión. A continuación vemos una posible secuencia del POST:
+La secuencia del POST puede variar según el fabricante, la placa base y la versión. A continuación vemos una posible secuencia del POST:
 
 1. Test al controlador del teclado para verificar que está disponible
 2. Arranca la actividad del chipset
@@ -42,7 +42,7 @@ La secuencia del POST pueden variar según el fabricante, la placa base y la ver
 .. image:: imagenes/BIOS/post.jpg
    :width: 400
     
-Si en algún momento el POST encuentra un error, intentará continuar con el inicio del ordenador. Sin embargo, si el error es serio, el BIOS detendrá la carga del sistema y:
+Si en algún momento el POST encuentra un error, intentará continuar con el inicio del ordenador. Sin embargo, si el error es serio, la BIOS detendrá la carga del sistema y:
 
 * De ser posible, mostrará un mensaje en la pantalla (porque el dispositivo puede no haber sido inicializado o puede presentar fallas);
 
@@ -55,37 +55,37 @@ Si en algún momento el POST encuentra un error, intentará continuar con el ini
   * 5 cortos: error del procesador.
   * 6 cortos: error de teclado.
   * 8 cortos: error en tarjeta gráfica.
-  * 1 pitido ni largo ni corto: como bien he dicho al inicio, este pitido indica que el POST ha concluido con éxito. La BIOS comenzará a buscar una unidad con un sistema operativo o con el instalador del mismo y lo iniciará.
+  * 1 pitido ni largo ni corto: este pitido indica que el POST ha concluido con éxito. La BIOS comenzará a buscar una unidad con un sistema operativo o con el instalador del mismo y lo iniciará.
 
 * Zumbador de la placa base.
 
   .. image:: imagenes/BIOS/zumbador.png
      :width: 200
     
-* Otra forma es con un código (denominado código POST) al puerto serial del ordenador, que puede recuperarse a través de hardware especial de diagnósticos. La tarjeta de diagnóstico POST:
+* Otra forma es enviando un código (denominado código POST) a un puerto de E/S del ordenador (tradicionalmente el 80h), que puede leerse a través de hardware especial de diagnóstico. La tarjeta de diagnóstico POST:
 
   .. image:: imagenes/BIOS/diagnostico_post.png
      :width: 250
 
-  * Cuando se encienda el ordenador comenzaran a aparecer combinaciones de teclas y números. Cada combinación indica que se está probando algún componente del equipo.
-  * Si no hay problemas en el display de la tarjeta aparecerá el código "00" o "FF", que significa que la computadora se encuentra lista para buscar el sistema operativo.
+  * Cuando se encienda el ordenador comenzarán a aparecer combinaciones de letras y números en el display. Cada combinación indica que se está probando algún componente del equipo.
+  * Si no hay problemas, en el display de la tarjeta aparecerá el código "00" o "FF", que significa que el ordenador se encuentra listo para buscar el sistema operativo.
 
 EL SETUP
 ========
 
-El SETUP es un programa configuración de la BIOS, que permite acceder a los parámetros de configuración básica que están almacenados en la memoria CMOS.
+El SETUP es un programa de configuración de la BIOS, que permite acceder a los parámetros de configuración básica que están almacenados en la memoria CMOS.
 
-El SETUP se activa en la mayoría de los casos pulsando la tecla DEL,SUPR, F2...
+El SETUP se activa en la mayoría de los casos pulsando la tecla Supr (DEL), F2...
 
 .. image:: imagenes/BIOS/setup.png
    :width: 400
 
-Un análisis de la pantalla de inicio para entrar al SETUP obtenemos que:
+Si analizamos la pantalla de inicio para entrar al SETUP obtenemos que:
 
 | Award Medallion BIOS v6.0, An Energy Star Ally
 | Intel(R) Celeron(TM) 433 MHz Processor
 | Memory Test : 196608K OK
-| Pres DEL to enter SETUP
+| Press DEL to enter SETUP
 
 Es una BIOS (AWARD), el número de versión es la 6, y cumple Energy Star
 Este es el procesador instalado en la placa base
@@ -100,25 +100,25 @@ A través del menú principal del Setup puedes acceder a los diferentes submenú
    :width: 400
 
 * **Standard CMOS Setup**: desde esta pantalla accederemos a la configuración de nuestros discos y disqueteras, así como la hora y fecha del sistema.
-* **Advanced CMOS Setup**: (Configuraciones Avanzadas de la BIOS) puedes, por ejemplo, escoger si, al encender el ordenador, se lleva a cabo una autocompro bación rápida o profunda. O determinar cuál es la secuencia de arranque, el orden en el que la BIOS debe buscar el sistema operativo en las distintas unidades de disco.
+* **Advanced CMOS Setup**: (Configuraciones Avanzadas de la BIOS) puedes, por ejemplo, escoger si, al encender el ordenador, se lleva a cabo una autocomprobación rápida o profunda. O determinar cuál es la secuencia de arranque, el orden en el que la BIOS debe buscar el sistema operativo en las distintas unidades de disco.
 * **Advanced Chipset Setup**: A través de él podrás, entre otras cosas, determinar la velocidad a la que se puede acceder a la RAM.
 * **Integrated Peripherals** (Periféricos Integrados) puedes configurar todos los puertos y dispositivos que forman parte de la placa base, como las conexiones del disco duro, los puertos USB, o las tarjetas gráficas, de red o sonido integradas.
 * **Power Management Setup**: la gestión de energía es uno de los apartados más importantes en los modernos PCs. Desde este menú controlamos todas sus opciones.
 * **PCI / Plug and Play Setup**: puedes determinar si los componentes independientes de tu ordenador, es decir, las tarjetas de expansión, deben configurarse desde la BIOS o desde el sistema operativo
-* **Fail-Safe Defaults**, prueba a cargar los Valores Optimizados, u Optimized Defaults.Esta configuración es la que el fabricante de la placa base considera como la mejor en la mayor parte de los casos (ten en cuenta que los componentes conectados a la placa pueden ser muy diferentes, por lo que existe la posibilidad de que esta opción no sea siempre la óptima)
-* **Set User Password**, Supervisor Password, o Contraseña de Administrador
+* **Fail-Safe Defaults**, prueba a cargar los Valores Optimizados, u Optimized Defaults. Esta configuración es la que el fabricante de la placa base considera como la mejor en la mayor parte de los casos (ten en cuenta que los componentes conectados a la placa pueden ser muy diferentes, por lo que existe la posibilidad de que esta opción no sea siempre la óptima)
+* **Set User Password / Set Supervisor Password**: establecen la contraseña de usuario y la de supervisor (administrador) de la BIOS
 * **Change Language Setting**: en determinadas BIOS muy concretas nos permite seleccionar un idioma distinto al inglés. Así, muy pronto veremos BIOS en castellano.
-* **Auto Configuration with Optimal Settings**: tendremos la posibilidad de reconfigurar todas las opciones a los valores teóricamente más óptimos, es decir, con los que el equipo debería obtener las mejores prestaciones. Esta es, sin embargo, una opción arriesgada, dada la inmensa variedad de configuraciones existentes. .
+* **Auto Configuration with Optimal Settings**: tendremos la posibilidad de reconfigurar todas las opciones a los valores teóricamente más óptimos, es decir, con los que el equipo debería obtener las mejores prestaciones. Esta es, sin embargo, una opción arriesgada, dada la inmensa variedad de configuraciones existentes.
 * **Auto Configuration with Fail Safe Settings**: desde aquí lograremos algo parecido al caso anterior, aunque colocándose los valores en los ajustes de fábrica. Resulta perfecto para solucionar errores o problemas de configuración si modificamos varios valores y no sabemos cuál de ellos falla.
 * **Save Settings and Exit**: grabar los valores modificados y salir es tan sencillo como pulsar Enter sobre esta opción.
 * **Exit Without Saving**: seleccionado esta función saldremos de la utilidad de configuración de la BIOS, aunque sin grabar ninguno de los cambios que hayamos realizado.
-* **Load Optimized Defaults**; cargar los valores por defecto
-* **Cómo saltarse la password de la BIOS**. qué hacer si sufre una repentina amnesia o si la BIOS trae una password ya introducida. Mediante un jumper en la placa base: en algunas, no todas, existe un jumper que al cerrarse (al conectarse ambas patillas), y tras unos minutos de espera, permite borrar la BIOS limpiamente, en el caso de que no exista el jumper desconecte la pila
+* **Load Optimized Defaults**: cargar los valores por defecto
+* **Cómo saltarse la password de la BIOS**: qué hacer si sufres una repentina amnesia o si la BIOS trae una password ya introducida. Mediante un jumper en la placa base (suele llamarse CLR_CMOS o similar): en algunas, no todas, existe un jumper que al cerrarse (al conectarse ambas patillas), y tras unos minutos de espera, permite borrar la configuración limpiamente; en el caso de que no exista el jumper, desconecta la pila durante unos minutos
 
 Standard CMOS Features
 ======================
 
-utilizaremos este menú para configurar la hora del sistema y fecha, ver las unidades de discos detectados, decidir qué tipos de errores harán que el sistema se detenga y no inicie.
+Utilizaremos este menú para configurar la hora y la fecha del sistema, ver las unidades de disco detectadas y decidir qué tipos de errores harán que el sistema se detenga y no inicie.
 
 .. image:: imagenes/BIOS/standar_cmos.png
       :width: 400
@@ -154,11 +154,11 @@ Utilice este menú para configurar la secuencia de arranque de los dispositivos,
 * **Boot Sequence**: Mediante esta opción estableceremos el orden en el que el ordenador intentará cargar un sistema operativo desde las distintas unidades.
 
   * **1st Boot Device**: desde aquí indicaremos cuál es la primera unidad que se utilizará para buscar un sistema de arranque.
-  * **2st Boot Device**: indicaremos cuál será la segunda unidad en la que se buscará un sistema de arranque en caso de que la primera falle.
-  * **3st Boot Device**: en último caso siempre podremos indicar que busque el sistema en un tercer soporte, a elegir entre discos duros, disquetera, CD-ROM, LS-120 o SCSI.
+  * **2nd Boot Device**: indicaremos cuál será la segunda unidad en la que se buscará un sistema de arranque en caso de que la primera falle.
+  * **3rd Boot Device**: en último caso siempre podremos indicar que busque el sistema en un tercer soporte, a elegir entre discos duros, disquetera, CD-ROM, LS-120 o SCSI.
   * **PXE Boot to LAN** nos permite arrancar sistemas operativos a través de una red
   
-* **Anti-Virus Protection** Si activas la protección antivirus, la BIOS sólo evita, sinpreguntar, que se pueda sobrescribir en el sector MBR.
+* **Anti-Virus Protection**: si activas la protección antivirus, la BIOS impide (o avisa) cuando algo intenta sobrescribir el sector de arranque (MBR), donde solían instalarse los virus de arranque.
 * **CPU Internal Cache / CPU External Cache**. Sirven para activar o desactivar las memoria temporales (cachés) que incorpora el procesador, las denominadas cachés de nivel 1, o caché L1, y de segundo nivel o L2.
 * **S.M.A.R.T. For Hard Disks**: activa o desactiva la característica SMART de predicción de fallos en los discos duros que lo soporten.
 * **BootUp Num-Lock**: si la colocamos en Enabled, nuestra BIOS activará automáticamente el teclado numérico durante el arranque.
@@ -173,12 +173,12 @@ Esta parte de la BIOS afecta a partes críticas del sistema como el procesador, 
 
 Las últimas placas bases permiten ajustar la frecuencia del procesador mediante la BIOS en vez de usando los típicos jumpers. Normalmente dicha configuración se encuentra en este apartado de la BIOS. Entre ellas destacan la posibilidad de cambiar el FSB de la placa base o el multiplicador del procesador.
 
-CAS ( Column Address Strobe ), nos referimos a una señal enviada a la RAM que asigna una determinada posición de memoria con una columna de direcciones. El otro parámetro, íntimamente ligado a CAS es RAS ( R o w A d d r e s s S t r o b e) y es igualmente una señal encargada de asignar una determinada posición de memoria a  una fila de direcciones.
+Con CAS (Column Address Strobe) nos referimos a una señal enviada a la RAM que selecciona la columna de la posición de memoria a la que se quiere acceder. El otro parámetro, íntimamente ligado a CAS, es RAS (Row Address Strobe), la señal que selecciona la fila de esa posición de memoria.
 
 Power Management Setup
-=====================
+======================
 
-Habilitar y deshabilitar desde que dispositivos queremos que el sistema se inicie tras hibernar o apagar el equipo. Elegir que queremos que ocurra si la electricidad vuelve tras un corte de suministro. Programar una fecha y una hora para que el sistema autoarranque. Elegir el funcionamiento del botón de apagado el sistema se apague inmediatamente o preferimos tener que esperar 4 segundos.
+Habilitar y deshabilitar desde qué dispositivos queremos que el sistema se inicie tras hibernar o apagar el equipo. Elegir qué queremos que ocurra si la electricidad vuelve tras un corte de suministro. Programar una fecha y una hora para que el sistema autoarranque. Elegir el funcionamiento del botón de apagado (que el sistema se apague inmediatamente o que haya que mantenerlo pulsado 4 segundos).
 
 .. image:: imagenes/BIOS/power_managment_setup.png
    :width: 400
@@ -217,7 +217,7 @@ Muestra los voltajes suministrados por la fuente de alimentación, temperaturas 
 * **CPU Temperature**: esta opción muestra la temperatura actual de nuestra CPU.
 * **CPU Overheat Warning**: con este apartado podremos elegir si deseamos que el sistema nos avise en caso de que se produzca una subida excesiva de la temperatura de la CPU del sistema.
 * **CPU Overheat Warning Temperature**: especifica la temperatura a la que saltará la alarma en caso de haber activado la opción anterior.
-* **CPU / Chasis / Termal Control Fan**: indica la revoluciones de cada uno de los posibles ventiladores instalados en nuestro sistema, como son el del procesador o los de la carcasa.
+* **CPU / Chassis / Thermal Fan Control**: indica las revoluciones de cada uno de los posibles ventiladores instalados en nuestro sistema, como son el del procesador o los de la carcasa.
 
 
 .. image:: imagenes/BIOS/bios_setup_utility_1.png

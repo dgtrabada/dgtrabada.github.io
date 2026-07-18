@@ -2,19 +2,18 @@
 Ventilación
 ***********
 
-Dado que el procesador emite calor, se hace necesario disiparlo a fin de evitar que los circuitos se derritan. Esta es la razón por la que generalmente se monta sobre un disipador térmico, hecho de un metal conductor del calor (cobre o aluminio) a fin de ampliar la superficie de transferencia de temperatura del procesador. Para mejorar la conducción del calor se utiliza pasta térmica y por lo general, el disipador está acompañado de un ventilador para mejorar la circulación de aire y la transferencia de calor. La unidad también incluye un ventilador que expulsa el aire caliente de la carcasa, dejando entrar el aire fresco del exterior.
+Dado que el procesador emite calor, se hace necesario disiparlo a fin de evitar que los circuitos se derritan. Esta es la razón por la que generalmente se monta sobre un disipador térmico, hecho de un metal conductor del calor (cobre o aluminio) a fin de ampliar la superficie de transferencia de temperatura del procesador. Para mejorar la conducción del calor se utiliza pasta térmica y, por lo general, el disipador está acompañado de un ventilador para mejorar la circulación de aire y la transferencia de calor. La caja también incluye ventiladores que expulsan el aire caliente, dejando entrar el aire fresco del exterior.
 
 .. image:: imagenes/ventilacion/ventilador1.png
 
 Disipadores de Calor
 ====================
 
-Es una estructura metálica (por lo general de aluminio) que va montado encima del Microprocesador para ayudar a disipar el calor que genera.
+Es una estructura metálica (por lo general de aluminio) que va montada encima del microprocesador para ayudar a disipar el calor que genera.
 
 .. image:: imagenes/ventilacion/disipador1.png
 
-Los pliegues del disipador hacen que aumente su área
-"La Ley de Fourier indica que el flujo de calor es directamente proporcional a la superficie de contacto y a la constante de conductividad térmica
+Los pliegues del disipador hacen que aumente su área: la Ley de Fourier indica que el flujo de calor es directamente proporcional a la superficie de contacto y a la constante de conductividad térmica
 
 .. image:: imagenes/ventilacion/fourier.png
 
@@ -51,7 +50,7 @@ Por aire
 
   .. image:: imagenes/ventilacion/activa.png
 
-Refrigeración Liquida
+Refrigeración líquida
 ---------------------
 
 * **Por Agua**
@@ -65,7 +64,7 @@ Refrigeración Liquida
   
 * **Refrigeración Líquida por Inmersión**
 
-  El pc es totalmente sumergido en un líquido de conductividad eléctrica muy baja, como el aceite mineral. El pc se mantiene enfriado por el intercambio de calor entre sus partes, el líquido refrigerante y el aire del ambiente.
+  El PC es totalmente sumergido en un líquido de conductividad eléctrica muy baja, como el aceite mineral. El PC se mantiene enfriado por el intercambio de calor entre sus partes, el líquido refrigerante y el aire del ambiente.
   
   .. image:: imagenes/ventilacion/liquida.png
   
@@ -76,21 +75,21 @@ Refrigeración Liquida
 Otras formas de refrigeración
 -----------------------------
 
-* **Refrigeración por Metal Líquido** "
+* **Refrigeración por Metal Líquido**
 
-  El metal líquido, también conocido como LM, funciona igual que la pasta térmica, rellenando los espacios microscópicos que hay entre las superficies del componente y del disipador de calor. ... El galio es un metal blando con un punto de fusión bajo y un punto de ebullición alto"
+  El metal líquido, también conocido como LM, funciona igual que la pasta térmica, rellenando los espacios microscópicos que hay entre las superficies del componente y del disipador de calor, pero con mejor conductividad térmica. Suele estar basado en galio, un metal blando con un punto de fusión bajo y un punto de ebullición alto. Ojo: es conductor de la electricidad y corroe el aluminio.
   
   .. image:: imagenes/ventilacion/metal.png
     
 * **Refrigeración Termoeléctrica**
   
-  (Celula de Peltier) "El principio de funcionamiento de la refrigeración termoeléctrica por células Peltier es bastante sencillo. Se usan dos placas cerámicas, las cuales están separados por pilares, fabricados con dos tipos de semiconductores: el tipo P (boro, indio, galio) y el tipo N (fósforo, arsénico, antimonio). Cuando se hace circular una corriente continua por entre ambas placas cerámicas, una de ellas se enfría. Mientras que todo el calor que pierde esta, lo recoge la segunda placa cerámica."
+  (Célula de Peltier) El principio de funcionamiento de la refrigeración termoeléctrica por células Peltier es bastante sencillo. Se usan dos placas cerámicas, las cuales están separadas por pilares, fabricados con dos tipos de semiconductores: el tipo P (boro, indio, galio) y el tipo N (fósforo, arsénico, antimonio). Cuando se hace circular una corriente continua entre ambas placas cerámicas, una de ellas se enfría, mientras que todo el calor que pierde esta lo recoge la segunda placa cerámica.
 
   .. image:: imagenes/ventilacion/peltier.png
   
 * **Refrigeración por Heatpipes**
-  
-  Un heatpipe es un puente térmico, tienen una elevada conductividad térmica, la capacidad del material de cambiar de temperatura, sea para calentarse o para enfriarse
+
+  Un heatpipe es un tubo sellado que contiene un fluido: en el extremo caliente el fluido se evapora absorbiendo calor, viaja al extremo frío, se condensa cediendo el calor y vuelve por capilaridad. El resultado es un puente térmico con una conductividad térmica efectiva muy elevada, y es la base de la mayoría de los disipadores de aire modernos
 
 
 * **Refrigeración por Cambio de Fase**
@@ -107,5 +106,5 @@ Otras formas de refrigeración
   
 * **Refrigeración por Criogenia**
   
-  La criogenia es el conjunto de técnicas utilizadas para enfriar un material a la temperatura de ebullición del nitrógeno o a temperaturas aún más bajas. ... El uso de helio líquido en lugar de nitrógeno permite alcanzar la temperatura de ebullición de éste, que es de 4,22 K (-268,93 °C)
+  La criogenia es el conjunto de técnicas utilizadas para enfriar un material a la temperatura de ebullición del nitrógeno o a temperaturas aún más bajas. El uso de helio líquido en lugar de nitrógeno permite alcanzar la temperatura de ebullición de este, que es de 4,22 K (-268,93 °C)
 

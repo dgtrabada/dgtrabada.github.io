@@ -2,9 +2,9 @@
 Puertas lógicas
 ***************
 
-En 1854 George Boole desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.
+En 1854 George Boole desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira en torno al álgebra de Boole.
 
-El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)
+El álgebra de Boole está formada por variables lógicas (a,b,c…) que pueden tomar los valores 0 o 1 y operadores lógicos (AND = * , OR = +, ...)
 
 
 .. image:: imagenes/puertas/puertas_logicas.png
@@ -15,10 +15,10 @@ El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden t
 
 .. image:: imagenes/puertas/simplificacion_funciones_3.png
 
-Circuitos combinacionales:
+Circuitos combinacionales
 =========================
 
-Resuelve una función lógica a partir de sus entradas, de tal forma que sus salidas toman valores que solo dependen de sus entradas
+Resuelven una función lógica a partir de sus entradas, de tal forma que sus salidas toman valores que solo dependen de sus entradas
 
 .. image:: imagenes/puertas/circuito_combinacional.png
   :width: 200
@@ -29,7 +29,7 @@ Dentro de la variada gama de circuitos combinacionales, tenemos los denominados 
   :width: 400
 
 
-* **Decodificador** tiene n entradas y 2\ :sup:`n`\  salidas, su función es generar el código binario correspondiente a la entrada
+* **Decodificador** tiene n entradas y 2\ :sup:`n`\  salidas, su función es activar la salida que corresponde al código binario presente en la entrada
 
   .. image:: imagenes/puertas/decodificador.png
     :width: 300
@@ -38,7 +38,7 @@ Dentro de la variada gama de circuitos combinacionales, tenemos los denominados 
     :width: 400
 
 
-* **Codificador** Tiene  2\ :sup:`n`\   entradas y n salidas, su función es generar el código binario correspondiente a la entrada.
+* **Codificador** Tiene  2\ :sup:`n`\   entradas y n salidas, su función es generar el código binario correspondiente a la entrada activa.
 
   .. image:: imagenes/puertas/codificador.png
     :width: 300
@@ -58,10 +58,10 @@ Dentro de la variada gama de circuitos combinacionales, tenemos los denominados 
 
 
 
-Circuitos secuenciales:
-=========================
+Circuitos secuenciales
+======================
 
-Resuelve una función lógica tal que los valores de sus salidas en un determinado momento dependen de los valores de sus entradas en ese momento y de los valores con anterioridad es decir la salida no solo depende de la entrada, sino que también de los estados anteriores.
+Resuelven una función lógica tal que los valores de sus salidas en un determinado momento dependen de los valores de sus entradas en ese momento y de los valores anteriores; es decir, la salida no solo depende de la entrada, sino también de los estados anteriores.
 
 .. image:: imagenes/puertas/circuito_secuencial.png
   :width: 400
@@ -82,7 +82,7 @@ Circuitos capaces de retener información, mantienen su último estado hasta que
   .. image:: imagenes/puertas/JK.png
     :width: 250  
 
-* **Biestable T** (Disparador, cambia en el 01)
+* **Biestable T** (Toggle o disparador: cambia de estado en cada pulso de reloj cuando T=1)
 
   .. image:: imagenes/puertas/T.png
     :width: 450 
@@ -92,7 +92,7 @@ Circuitos capaces de retener información, mantienen su último estado hasta que
   .. image:: imagenes/puertas/D.png
     :width: 250 
 
-* **Registros** : Una colección de dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hace con un registro de desplazamiento.
+* **Registros** : Una colección de dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hacer con un registro de desplazamiento.
 
   .. image:: imagenes/puertas/Registro.png
     :width: 400 

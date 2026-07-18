@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -539,7 +546,7 @@
   <section id="fuentes-de-alimentacion">
 <h1>Fuentes de Alimentación<a class="headerlink" href="#fuentes-de-alimentacion" title="Link to this heading">#</a></h1>
 <p>Los componentes internos del sistema van a estar alimentados por una corriente continua con valores entre -12V y 12V. Sin embargo la tensión que obtenemos de la red eléctrica es alterna con un valor de 230 V y una frecuencia de 50 Hz.
-Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación .</p>
+Para convertir la tensión alterna de la red en continua utilizaremos una fuente de alimentación.</p>
 <a class="reference internal image-reference" href="../_images/fuente_alimentacion.png"><img alt="../_images/fuente_alimentacion.png" src="../_images/fuente_alimentacion.png" width="300" />
 </a>
 <img alt="../_images/fuente_alimentacion2.png" src="../_images/fuente_alimentacion2.png" />
@@ -547,10 +554,10 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <h2>Funcionamiento<a class="headerlink" href="#funcionamiento" title="Link to this heading">#</a></h2>
 <img alt="../_images/fuente_alimentacion_circuito.png" src="../_images/fuente_alimentacion_circuito.png" />
 <ul class="simple">
-<li><p><strong>Transformación</strong> : Se disminuye la corriente alterna de entrada (230 V 50 Hz)</p></li>
+<li><p><strong>Transformación</strong> : Se disminuye la tensión alterna de entrada (230 V 50 Hz)</p></li>
 <li><p><strong>Rectificación</strong> : Con la ayuda de diodos se consigue que la corriente siempre sea positiva.</p></li>
 <li><p><strong>Filtración</strong> : Se utiliza un condensador para corregir las caídas de tensión.</p></li>
-<li><p><strong>Regulación</strong> : se corrigen lo picos que quedan en la señal.</p></li>
+<li><p><strong>Regulación</strong> : se corrigen los picos que quedan en la señal.</p></li>
 </ul>
 <p>Fuente Simple (con rectificación simple, no corregimos la señal negativa)</p>
 <img alt="../_images/fuente_simple_alimentacion_circuito.png" src="../_images/fuente_simple_alimentacion_circuito.png" />
@@ -561,10 +568,10 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <h2>Características de las fuentes de alimentación<a class="headerlink" href="#caracteristicas-de-las-fuentes-de-alimentacion" title="Link to this heading">#</a></h2>
 <ul>
 <li><p><strong>Potencia máxima total.</strong></p>
-<p>Expresada en vatios (w). Especifica la máxima potencia que, puntualmente, puede proporcionar la fuente.</p>
+<p>Expresada en vatios (W). Especifica la máxima potencia que, puntualmente, puede proporcionar la fuente.</p>
 </li>
 <li><p><strong>Potencia combinada</strong></p>
-<p>Aunque la potencia máxima total nos dá una idea de la carga total que podrá soportar, es más relevante la potencia soportada por cada una de las salidas.</p>
+<p>Aunque la potencia máxima total nos da una idea de la carga total que podrá soportar, es más relevante la potencia soportada por cada una de las salidas.</p>
 <p>Hay que tener en cuenta que el aumento de potencia de algunos dispositivos actuales ha aumentado más que la de otros (Micros, tarjetas gráficas, etc).</p>
 </li>
 <li><p><strong>Eficiencia</strong></p>
@@ -589,15 +596,15 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <h2>Cómo elegir la fuente de alimentación<a class="headerlink" href="#como-elegir-la-fuente-de-alimentacion" title="Link to this heading">#</a></h2>
 <p>Lo recomendable es elegir una fuente de alimentación de marca conocida. En la actualidad, algunas marcas comerciales, respetan más sus especificaciones que otras. Antec, Corsair, Enermax, Fortron (FSP Group), Seasonic</p>
 <ul>
-<li><p>No adquirir una fuente de alimentación muy exacta, ya que calentará mucho y el ventilador hará ruido, ni muy potente, ya que el rendimiento no será bueno.</p></li>
-<li><p><strong>PFC</strong> (Power Factor Correction)  es la relación entre la potencia real (potencia aparente) suministrada por la red eléctrica y la potencia que la fuente puede ofrecer (potencia activa o de trabajo). El factor de potencia ideal es 1, pero veréis que está representado por decimales que van desde 0 hasta 1. Lamentablemente, la corriente eléctrica viaja dando picos de voltaje. Para rectificar estos picos, la fuente de alimentación equipa transformadores internos. Mediante estos transformadores, la fuente proporciona corriente continua para los componentes PC. En otras palabras, es imposible conseguir ese 1, pero sí llegar al 0.95-0.99.</p>
+<li><p>No adquirir una fuente de alimentación muy justa de potencia, ya que se calentará mucho y el ventilador hará ruido, ni muy sobrada, ya que trabajará con poca carga y el rendimiento no será bueno.</p></li>
+<li><p><strong>PFC</strong> (Power Factor Correction). El factor de potencia es la relación entre la potencia activa o de trabajo (la que realmente aprovecha la fuente) y la potencia aparente (la que se demanda de la red eléctrica). El factor de potencia ideal es 1, pero veréis que está representado por decimales que van desde 0 hasta 1: en la práctica es imposible conseguir ese 1, pero sí llegar al 0.95-0.99 con circuitos de corrección (PFC).</p>
 <ul>
 <li><p><strong>PFC Pasivo</strong>: Se trata de una corrección pasiva que consiste en un núcleo de ferrita en la entrada de la fuente de alimentación. El valor de factor de potencia en caso de utilizar PFC pasivo ronda entre unos 60-80% (0.6-0.8). Su uso tiene varios inconvenientes, como por ejemplo, la necesidad de seleccionar el voltaje de entrada mediante un interruptor y el “ruido” electromagnético que llega a producir.</p>
-<a class="reference internal image-reference" href="../_images/PCPactivo.png"><img alt="../_images/PCPactivo.png" src="../_images/PCPactivo.png" width="200" />
+<a class="reference internal image-reference" href="../_images/PFCpasivo.png"><img alt="../_images/PFCpasivo.png" src="../_images/PFCpasivo.png" width="200" />
 </a>
 </li>
-<li><p><strong>PFC Activo</strong>: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarlo con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.</p>
-<a class="reference internal image-reference" href="../_images/PFCpasivo.png"><img alt="../_images/PFCpasivo.png" src="../_images/PFCpasivo.png" width="200" />
+<li><p><strong>PFC Activo</strong>: se trata de un circuito electrónico, capaz de ajustar la tensión de entrada (ya no hace falta seleccionarla con un interruptor). El valor de factor de potencia en algunos casos se acerca a 99% (0.99). Este circuito requiere un filtro EMI. Casi todas las fuentes de alimentación de gama alta, media-alta y media-baja incorporan hoy en día el PFC Activo.</p>
+<a class="reference internal image-reference" href="../_images/PCPactivo.png"><img alt="../_images/PCPactivo.png" src="../_images/PCPactivo.png" width="200" />
 </a>
 </li>
 <li><p>La contaminación sonora: Algunas fuentes de alimentación son silenciosas incluso en carga, otras no tanto... Lo mejor es permanecer debajo de 45dB, se debe evitar las fuentes que superan los 50dB en carga.</p></li>
@@ -642,9 +649,9 @@ Para convertir la tensión alterna de la red en continua utilizaremos una fuente
 <section id="cuidados-de-la-fuente-de-alimentacion">
 <h2>Cuidados de la fuente de alimentación<a class="headerlink" href="#cuidados-de-la-fuente-de-alimentacion" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor  provocando pérdida de de refrigeración en el PC, provocando calentamiento y mal funcionamiento o bloqueo del ordenador -&gt; mantenerla limpia de polvo.</p></li>
-<li><p>Mejor reponer (barata) que reparar (problemas de difícil diagnostico -&gt; microcortes).</p></li>
-<li><p>Desenchufar siempre la corriente (220V) antes de abrir el ordenador.</p></li>
+<li><p>Como consecuencia de la circulación de aire recoge mucho polvo del PC. La acumulación de polvo puede bloquear o entorpecer las aspas del extractor provocando pérdida de refrigeración en el PC, calentamiento y mal funcionamiento o bloqueo del ordenador -&gt; mantenerla limpia de polvo.</p></li>
+<li><p>Mejor reponer (barata) que reparar (problemas de difícil diagnóstico -&gt; microcortes).</p></li>
+<li><p>Desenchufar siempre la corriente (230V) antes de abrir el ordenador.</p></li>
 <li><p>Precaución: anotar la posición de los conectores o no desconectar (sobre todo de la placa).</p></li>
 </ul>
 </section>

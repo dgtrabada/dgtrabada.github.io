@@ -5,7 +5,7 @@ Periféricos
 Periféricos
 ===========
 
-Se entenderá por periférico al conjunto de dispositivos que, sin pertenecer al núcleo fundamental de la computador, permitan realizar operaciones de entrada/salida (E/S) complementarias al proceso de datos que realiza la CPU.
+Se entenderá por periférico al conjunto de dispositivos que, sin pertenecer al núcleo fundamental del ordenador, permiten realizar operaciones de entrada/salida (E/S) complementarias al proceso de datos que realiza la CPU.
 
 Tipos de periféricos
 ====================
@@ -65,12 +65,12 @@ Los cuatro tipos de teclados para PC más importantes son:
 
   .. image:: imagenes/perifericos/teclado7.png
   
-Mouse
-=====
+Ratón (mouse)
+-------------
 
 Los elementos esenciales del mouse óptico son, básicamente, una pequeña cámara (que toma unas 1.500 imágenes por segundo), un diodo emisor de luz roja (LED) y un software de procesamiento digital de imagen en tiempo real (DSP).
 El LED ilumina la superficie sobre la que se arrastra el ratón. Esta luz es reflejada sobre la superficie y es capturada por el sensor CMOS. Este sensor envía cada imagen a un procesador digital de señales (DSP) para que las analice.
-El DSP es capaz de detectar patrones en las imágenes y ver como estos patrones se movieron con respecto a la última imagen. Basado en el cambio de patrones en una secuencia de imágenes el DSP determina cuánto se movió el mouse y envía las coordenadas correspondientes a la computador.
+El DSP es capaz de detectar patrones en las imágenes y ver como estos patrones se movieron con respecto a la última imagen. Basado en el cambio de patrones en una secuencia de imágenes el DSP determina cuánto se movió el mouse y envía las coordenadas correspondientes al ordenador.
 
 Monitor
 -------
@@ -81,19 +81,19 @@ Monitor
 
 * Pantalla de plasma o **PDP** (Plasma Display Panel) Su sistema consta de múltiples y diminutas celdas que se sitúan entre dos paneles de cristal compuestos por una mezcla de gases
 
-* **TFT** "Thin Film Transistor"  ó transistor de película delgada. Se trata de una tecnología basada en transistores de efecto de campo, esto es, se coloca sobre una placa de cristal un electrodo (lamina que conduce electricidad), sobre la cuál se colocan capas delgadas, y al activarse por medio del electrodo cada una, se van activando los colores, formándose de esta forma cada píxel.
+* **TFT** "Thin Film Transistor" o transistor de película delgada. Se trata de una tecnología basada en transistores de efecto de campo, esto es, se coloca sobre una placa de cristal un electrodo (lámina que conduce electricidad), sobre la cual se colocan capas delgadas, y al activarse por medio del electrodo cada una, se van activando los colores, formándose de esta forma cada píxel.
 
-* **LED**: pantallas de diodos LED. e caracteriza por estar compuesto por diodos emisores de luz o leds
+* **LED**: pantallas de diodos LED. Se caracterizan por estar compuestas por diodos emisores de luz o leds
 
 * Un diodo orgánico de emisión de luz u **OLED** (siglas en inglés de organic light-emitting diode) es un tipo de diodo que se basa en una capa electroluminiscente formada por una película de componentes orgánicos que reaccionan a una determinada estimulación eléctrica, generando y emitiendo luz por sí mismos.
 
 **Especificaciones**
 
-* **Resolución**: el número de píxeles que puede mostrar la pantalla, por ejemplo 640 x 480 (640 píxeles de largo, 480 píxeles de ancho)
+* **Resolución**: el número de píxeles que puede mostrar la pantalla, por ejemplo 640 x 480 (640 píxeles de ancho, 480 píxeles de alto)
 
 * **El tamaño**: se calcula al medir la diagonal de la pantalla y se expresa en pulgadas (una pulgada equivale aproximadamente a 2,54 cm), por ejemplo 17 pulgadas tenemos una diagonal de aproximadamente 43 cm;
 
-* **La frecuencia de refresco**: es la velocidad con la que se refresca la información de la pantalla. A mayor frecuencia de refresco mayor resolución y obtenemos imágenes más estables y nítidas. Las frecuencias de refresco que se consideran dentro de lo habitual son las que se encuentran entre los 60Hz y 70Hz, si se utilizan frecuencias por encima de los 70Hz, como por ejemplo 75, 80 o 90 Hz se estará trabajando con el mínimo de fatiga visual Ejemplo, para una resolución de 1024 x 768 su frecuencia de refresco no debe estar por debajo de 75Hz
+* **La frecuencia de refresco**: es la velocidad con la que se refresca la información de la pantalla. A mayor frecuencia de refresco obtenemos imágenes más estables y nítidas. Las frecuencias de refresco que se consideran dentro de lo habitual son las que se encuentran entre los 60Hz y 70Hz, si se utilizan frecuencias por encima de los 70Hz, como por ejemplo 75, 80 o 90 Hz se estará trabajando con el mínimo de fatiga visual Ejemplo, para una resolución de 1024 x 768 su frecuencia de refresco no debe estar por debajo de 75Hz
 
 Pantallas táctiles
 ------------------
@@ -155,7 +155,7 @@ La impresora generalmente se caracteriza por los siguientes elementos:
 Scanner
 =======
 
-Se utiliza para introducir imágenes de papel, libros, negativos o diapositivas. Una de las características más relevantes de la calidad de un escáner es la resolución, medida en píxeles por pulgada (ppp). Los fabricantes de escáneres en vez de referirse a la resolución óptica real del escáner, prefieren hacer referencia a la resolución interpolada, que es mucho mayor gracias a la interpolación software. La mayoría de los escáneres económicos pueden capturar internamente imágenes con 30 bits (1.000'000.000 de colores) o 36 bits (68.000'000.000), pero las imágenes son luego almacenadas solamente con 24 bits. Los escáneres más costosos almacenan la imagen con 30 y 36 bits.
+Se utiliza para introducir imágenes de papel, libros, negativos o diapositivas. Una de las características más relevantes de la calidad de un escáner es la resolución, medida en píxeles por pulgada (ppp). Los fabricantes de escáneres en vez de referirse a la resolución óptica real del escáner, prefieren hacer referencia a la resolución interpolada, que es mucho mayor gracias a la interpolación software. La mayoría de los escáneres económicos pueden capturar internamente imágenes con 30 bits (unos 1.073 millones de colores) o 36 bits (unos 68.719 millones), pero las imágenes son luego almacenadas solamente con 24 bits. Los escáneres más costosos almacenan la imagen con 30 y 36 bits.
 
 .. image:: imagenes/perifericos/scanner.png
 
@@ -177,7 +177,7 @@ Es una pequeña cámara digital conectada a una computadora la cual puede captur
 
 **Características**:
 
-* *Resolución máxima de transmisión* para la mayoría de webcams de gama media/alta es de 640 x 480. Pero esto sólo no es suficiente, tan importante como la resolución es conseguir que la imagen se transmita lo suficientemente rápido y sin perdida de calidad, y para ello necesitaremos que la cámara, si dispone de suficiente ancho de banda, sea capaz de generar hasta 30 fotogramas por segundo.
+* *Resolución máxima de transmisión* para la mayoría de webcams de gama media/alta es de 640 x 480. Pero esto solo no es suficiente, tan importante como la resolución es conseguir que la imagen se transmita lo suficientemente rápido y sin pérdida de calidad, y para ello necesitaremos que la cámara, si dispone de suficiente ancho de banda, sea capaz de generar hasta 30 fotogramas por segundo.
 
 * Para probar la óptica, es conveniente situarse a diferentes distancias para comprobar la diferencia de calidad en la imagen y la posibilidad de enfocar
 
@@ -185,7 +185,7 @@ Es una pequeña cámara digital conectada a una computadora la cual puede captur
 
 * En algunos casos, podemos encontrarnos con que queremos tener la cámara lejos del PC, y podemos tener problemas con la señal a través del puerto USB. Para esta circunstancia especial, existen cámaras basadas en tecnología inalámbrica que nos permiten situarlas hasta a 100 metros de distancia de nuestro equipo. Son perfectas como dispositivos de vigilancia o para realizar videoconferencias en lugares diferentes a donde tenemos el equipo.
 
-* Las webcams están ampliando sus usos, y a parte de videoconferencias por Internet, se están empezando a utilizar como cámaras de seguridad. Ahora podemos encontrar modelos incluso con visor infrarrojo para poder ver de noche.
+* Las webcams están ampliando sus usos, y aparte de videoconferencias por Internet, se están empezando a utilizar como cámaras de seguridad. Ahora podemos encontrar modelos incluso con visor infrarrojo para poder ver de noche.
 
 Proyector de vídeo
 ==================
@@ -202,18 +202,18 @@ Proyector de vídeo
 
   .. image:: imagenes/perifericos/proyectorLED.png
 
-Sistemas biométricos.
-=====================
+Sistemas biométricos
+====================
 
 **¿Qué es?** La Biometría es una tecnología que utiliza alguna característica biofísica de la persona para ser identificada.
 
-Cada individuo posee una información biológica que lo diferencia de los demás y lo hace único. Un dispositivo de identificación biométrica verifica automáticamente la identidad de la persona mediante la medición de sus características físicas.Las técnicas biométricas más conocidas son nueve y están basadas en los siguientes indicadores biométricos:
+Cada individuo posee una información biológica que lo diferencia de los demás y lo hace único. Un dispositivo de identificación biométrica verifica automáticamente la identidad de la persona mediante la medición de sus características físicas. Las técnicas biométricas más conocidas son nueve y están basadas en los siguientes indicadores biométricos:
 
 * Rostro
 
   .. image:: imagenes/perifericos/biometrico1.png
   
-* Termo grama del rostro
+* Termograma del rostro
 
   .. image:: imagenes/perifericos/biometrico2.png
   
@@ -241,7 +241,7 @@ Cada individuo posee una información biológica que lo diferencia de los demás
 
   .. image:: imagenes/perifericos/biometrico8.png
 
-*  Firma
+* Firma
 
   .. image:: imagenes/perifericos/biometrico9.png
 

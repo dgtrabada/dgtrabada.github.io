@@ -3,13 +3,13 @@ Tarjetas de expansión
 *********************
 
 Se utilizan para agregar una nueva función o para mejorar una existente.
-Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero tendremos que quitar las ranura trasera del panel trasero de la carcasa, este es el sitio por donde se mostrara al exterior.
+Para ensamblar la tarjeta de expansión en la ranura correspondiente, primero tendremos que quitar la tapa de la ranura trasera del panel trasero de la carcasa, que es el sitio por donde se mostrará al exterior.
 
 .. image:: imagenes/tarjetas/tarjeta1.jpeg
 
-Finalmente la atornillaremos al chasis, siempre que sea posible, se recomienda dejar una ranura vacía entre las tarjetas para permitir una mejor circulación de aire.
+Finalmente la atornillaremos al chasis; siempre que sea posible, se recomienda dejar una ranura vacía entre las tarjetas para permitir una mejor circulación de aire.
 
-Los tipos de tarjetas de expansión mas comunes son:
+Los tipos de tarjetas de expansión más comunes son:
 
 Tarjetas gráficas
 =================
@@ -25,7 +25,7 @@ Tarjetas gráficas
 
 * **RAMDAC**: Conversor analógico-digital (DAC) de la memoria RAM, empleado en las tarjetas gráficas para transformar la señal digital con que trabaja el ordenador en una salida analógica que pueda entender el monitor.
 
-* **Ray tracing** es una tecnología desarrollada por NVIDIA que se encarga de mejorar las iluminaciones, sombras y reflejos de los videojuegos. En español, ray tracing significa trazado de rayos y hace referencia a un cálculo mucho más preciso de las iluminaciones del juego que impactan en los reflejos y sombras.
+* **Ray tracing** (trazado de rayos) es una técnica de renderizado que calcula de forma mucho más precisa las iluminaciones, sombras y reflejos de los videojuegos. NVIDIA la popularizó con la aceleración por hardware de sus tarjetas RTX, y AMD también la soporta en sus tarjetas actuales.
 
 * **GDDR**. Las memorias GDDR (Graphics Double Data Rate) son una variación de las memorias RAM DDR, a las que se les ha aumentado la velocidad respecto a las memorias DDR, debido a que las tarjetas gráficas necesitan procesar mucha información, y leer y escribir continuamente a una velocidad muy alta.
 
@@ -37,12 +37,12 @@ Tarjetas gráficas
 
   * **HBM2** (High Bandwidth Memory 2) es la segunda generación de la memoria HBM, un tipo de memoria RAM de alto rendimiento diseñada para ofrecer enorme ancho de banda y bajo consumo energético, principalmente utilizada en tarjetas gráficas de gama alta, inteligencia artificial y supercomputación. 256–460 GB/s
 
-* **Velocidad de Refresco**. Rapidez con que el contenido de la memoria de vídeo se envía al monitor, es el número de veces por segundo que se dibuja la pantalla. La resolución está relacionada con la velocidad de refresco: a mayor resolución, menor velocidad de refresco. Se mide en Hz. Velocidades de refresco habituales son 75Hz,  80Hz o 85HZ. El mínimo es 60 Hz. Para jugar, podemos encontrar velocidades de refresco de 144 a 240Hz
+* **Velocidad de Refresco**. Rapidez con que el contenido de la memoria de vídeo se envía al monitor, es el número de veces por segundo que se dibuja la pantalla. La resolución está relacionada con la velocidad de refresco: a mayor resolución, menor velocidad de refresco. Se mide en Hz. Velocidades de refresco habituales son 75Hz, 80Hz o 85Hz. El mínimo es 60 Hz. Para jugar, podemos encontrar velocidades de refresco de 144 a 240Hz
 
 * **Profundidad de color**: Número de bits usados para el color de cada píxel. Determina el número máximo de colores que puede mostrar una imagen de forma simultánea 
 
 +-----+--------------------------+-------------------------------+    
-|Bitts| Nº Colores               | Nombre                        |
+|Bits | Nº Colores               | Nombre                        |
 +-----+--------------------------+-------------------------------+    
 | 1   | 2                        | Monocromo                     |
 +-----+--------------------------+-------------------------------+    
@@ -70,7 +70,7 @@ Tarjetas gráficas
 
 * **DirectX**: Es una colección de APIs creadas para facilitar tareas relacionadas con la programación de juegos en la plataforma Microsoft Windows.
 
-* **SLI y CrossFire**: Tecnología de Intel/Nvidia y AMD/ATI respectivamente, que permite conectar dos tarjetas gráficas en un mismo ordenador con el objetivo de aumentar el rendimiento gráfico.
+* **SLI y CrossFire**: Tecnologías de NVIDIA y AMD/ATI respectivamente, que permiten conectar dos tarjetas gráficas en un mismo ordenador con el objetivo de aumentar el rendimiento gráfico.
 
   .. image:: imagenes/tarjetas/graficas.png
 
@@ -90,7 +90,7 @@ Tarjetas gráficas
 
   .. image:: imagenes/tarjetas/rca.png
 
-* **HDMI**: Tecnología digital que pretende sustituir todas las anteriores. Es una norma de audio y video digital de alta definición. Permite el uso de vídeo estándar, mejorado o de alta definición, así como audio digital multicanal en un único cable puede llegar a 4,9 Gbit/s.
+* **HDMI**: Tecnología digital que pretende sustituir todas las anteriores. Es una norma de audio y vídeo digital de alta definición. Permite el uso de vídeo estándar, mejorado o de alta definición, así como audio digital multicanal en un único cable; la versión 1.0 llegaba a 4,9 Gbit/s y las actuales (HDMI 2.1) alcanzan los 48 Gbit/s.
 
   .. image:: imagenes/tarjetas/hdmi.png
     :width: 300
@@ -144,13 +144,13 @@ Tarjetas de sonido
 
 * **Formato MIDI**: MIDI (Musical Instrument Digital Interface). Permite la comunicación entre instrumentos musicales y tarjetas de sonido.
 
-* **Formato MP3**: MP3 (MPEG-1 Audio Layer 3), Estándar de compresión de archivos de audio, Como el oído humano no es capaz de percibir todos los sonidos que se emiten  estos no se incluyen, consiguiendo un mayor grado de compresión. Una canción de 3min. En formato CD-DA ocupa 33MB. En formato mp3 sólo 3MB
+* **Formato MP3**: MP3 (MPEG-1 Audio Layer 3), estándar de compresión de archivos de audio. Como el oído humano no es capaz de percibir todos los sonidos que se emiten, estos no se incluyen, consiguiendo un mayor grado de compresión. Una canción de 3 min en formato CD-DA ocupa 33MB; en formato mp3, solo 3MB
 
-* **Formato WMA**: WMA (Windows Media Audio), WMA (Windows Media Audio). Calidad similar a mp3 pero con mejores tasas de compresión
+* **Formato WMA**: WMA (Windows Media Audio). Calidad similar a mp3 pero con mejores tasas de compresión
 
-* **Formato OGG ORBIS**. Formato libre  usado en codecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.
+* **Formato OGG VORBIS**. Formato libre usado en códecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.
 
-* **Formato MP3 PRO**. Formato libre  usado en codecs. Nivel de calidad superior a MP3 con una tasa de compresión similar.
+* **Formato MP3 PRO**. Versión mejorada del MP3 (no libre) que añade compresión adicional, manteniendo la calidad con archivos más pequeños.
 
 * **Formato MP4**: MP4 es un formato de audio y/o vídeo, con mayor compresión y potencia. Almacenan diferentes tipos de datos, desde música a imágenes, y la idea es intentar ser un formato único, en el que se podría incluso almacenar datos de diferentes tipos en un mismo archivo.
 
@@ -158,8 +158,8 @@ Tarjetas de sonido
 
   .. image:: imagenes/tarjetas/dolby.png
 
-Tarjeta de red (PCI, PCMIA, INALÁMBRICAS)
-========================================
+Tarjeta de red (PCI, PCMCIA, inalámbricas)
+==========================================
 
 .. image:: imagenes/tarjetas/red.png
   :width: 300
@@ -170,8 +170,8 @@ Tarjeta de red (PCI, PCMIA, INALÁMBRICAS)
 .. image:: imagenes/tarjetas/wifi.png
   :width: 300
 
-Tarjetas sintonizadores de televisión.
-======================================
+Tarjetas sintonizadoras de televisión
+=====================================
 
 .. image:: imagenes/tarjetas/TV.png
 

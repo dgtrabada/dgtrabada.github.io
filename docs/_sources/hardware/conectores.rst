@@ -17,11 +17,11 @@ La **transmisión de datos paralela** consiste en enviar datos en forma simultá
 
 .. image:: imagenes/conectores/paralelo.png
 
-Puerto de serie
+Puerto serie
 
 .. image:: imagenes/conectores/pserie.png
 
-Puerto de paralelo
+Puerto paralelo
 
 .. image:: imagenes/conectores/pparalelo.png
 
@@ -37,7 +37,7 @@ Puertos USB (Bus de serie universal)
 
 * Conectores "Tipo A", que tienen forma rectangular y se utilizan generalmente para dispositivos que consumen poco ancho de banda (como teclados, ratones, y cámaras Web)
 
-* Conectores "Tipo B", que tienen forma cuadrada y se utilizan generalmente para dispositivos con altos requisitos de ancho de banda (como discos rígidos externos)
+* Conectores "Tipo B", que tienen forma cuadrada y se utilizan generalmente en el extremo del dispositivo (como impresoras o discos duros externos)
 
 .. image:: imagenes/conectores/usb.png
 
@@ -67,7 +67,7 @@ Velocidades
 +---------------+------------------+
 | USB 3.0 - 3.1 | 600 - 1200 MB/s  |
 +---------------+------------------+
-| Firewire      | 100-400 MB/s     |
+| Firewire      | 50 - 100 MB/s    |
 +---------------+------------------+
 | e-SATA        | 600 MB/s         |
 +---------------+------------------+
@@ -90,7 +90,7 @@ BIOS FlashBackTM button
 
 .. image:: imagenes/conectores/bios.png
 
-intel® LAN
+Intel® LAN
 
 .. image:: imagenes/conectores/lan.png
 

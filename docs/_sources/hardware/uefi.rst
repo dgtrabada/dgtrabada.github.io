@@ -6,7 +6,7 @@ UEFI
 
 * Compatibilidad y emulación del BIOS para los sistemas operativos solo compatibles con esta última.
 * Soporte completo para la Tabla de particiones GUID (GPT), se pueden crear hasta 128 particiones por disco
-* El MBR solo permite hasta 32 bits por cada sector de la unidad de almacenamiento, lo cual acaba limitando el tamaño máximo de estas unidades a los 2 TB. Sin embargo, el GPT permite un máximo de 64 bit por sector, lo que se traduce en que es capaz de ser empleado con unidades de 9,4 ZB
+* El MBR usa direcciones de sector de 32 bits, lo cual acaba limitando el tamaño máximo de las unidades de almacenamiento a 2 TB. Sin embargo, GPT usa direcciones de sector de 64 bits, lo que se traduce en que es capaz de ser empleado con unidades de hasta 9,4 ZB
 * Capacidad de arranque desde unidades de almacenamiento grandes, dado que no sufren de las limitaciones del MBR.
 * Independiente de la arquitectura y controladores de la CPU.
 * Entorno amigable y flexible Pre-Sistema Operativo, incluyendo capacidades de red.
@@ -17,15 +17,15 @@ UEFI
 
 Mediante la utilidad EZ Tuning Wizard lograremos optimizar nuestro sistema de una manera sencilla hasta el extremo. Tan solo habremos de responder las preguntas que se nos van haciendo para que la BIOS optimice el rendimiento del sistema. Detecta el consumo, pregunta sobre el tipo de refrigeración utilizada y el uso final del equipo para finalmente sugerir un nivel de overclocking que se puede aplicar de forma automática.
 
-**"Advanced Mode"**, que es módulo que sustituye al EZ Mode, en este modo podremos configurar todos los parámetros  de forma manual
+**"Advanced Mode"** es el modo que sustituye al EZ Mode: en él podremos configurar todos los parámetros de forma manual
 
 .. image:: imagenes/UEFI/uefi2.png
 
-**"AI Tweaker"** seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el ratio del microprocesador, tremendamente útil en las versiones "K" en los que el ratio está desbloqueado, las tensiones, DIGI+ Power y la administración de la energía. Los menus son muy profundos ofreciendo múltiples opciones.
+En **"AI Tweaker"** seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el multiplicador del microprocesador (tremendamente útil en las versiones "K", en las que está desbloqueado), las tensiones, DIGI+ Power y la administración de la energía. Los menús son muy profundos ofreciendo múltiples opciones.
 
 .. image:: imagenes/UEFI/uefi3.png
 
-En la pestaña ***"Advanced"** se da al usuario la posibilidad de configurar parámetros hasta un punto que satisfará hasta al más enfermo de los entusiastas.
+En la pestaña **"Advanced"** se da al usuario la posibilidad de configurar parámetros hasta un punto que satisfará al más exigente de los entusiastas.
 
 .. image:: imagenes/UEFI/uefi4.png
 
@@ -33,11 +33,11 @@ Echamos un vistazo al apartado de configuración del microprocesador:
 
 .. image:: imagenes/UEFI/uefi5.png
 
-El apartado "Monitor" se ve las temperaturas y parámetros de nuestros ventiladores. 
+En el apartado "Monitor" se ven las temperaturas y los parámetros de nuestros ventiladores.
 
 .. image:: imagenes/UEFI/uefi6.png
 
-Entrando en la sección "QFan control" podremos configurar los ventiladores a nuestro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standar, silent, turbo o velocidad máxima)
+Entrando en la sección "QFan control" podremos configurar los ventiladores a nuestro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standard, Silent, Turbo o velocidad máxima)
 
 .. image:: imagenes/UEFI/uefi7.png
 

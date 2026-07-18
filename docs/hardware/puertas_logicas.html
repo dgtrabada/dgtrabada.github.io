@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -520,8 +527,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-combinacionales">Circuitos combinacionales:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-secuenciales">Circuitos secuenciales:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-combinacionales">Circuitos combinacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-secuenciales">Circuitos secuenciales</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biestables">Biestables</a></li>
 </ul>
 </li>
@@ -538,22 +545,22 @@
                   
   <section id="puertas-logicas">
 <h1>Puertas lógicas<a class="headerlink" href="#puertas-logicas" title="Link to this heading">#</a></h1>
-<p>En 1854 George Boole desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira entorno al álgebra de Boole.</p>
-<p>El álgebra de Boole esta formada por variables lógicas (a,b,c…) que pueden tomar loa valores 0 ó 1 y operadores lógicos (AND = * , OR = +, ...)</p>
+<p>En 1854 George Boole desarrolló una teoría matemática que permitió la representación de circuitos de conmutación “teoría de circuitos lógicos”. Esta teoría gira en torno al álgebra de Boole.</p>
+<p>El álgebra de Boole está formada por variables lógicas (a,b,c…) que pueden tomar los valores 0 o 1 y operadores lógicos (AND = * , OR = +, ...)</p>
 <img alt="../_images/puertas_logicas.png" src="../_images/puertas_logicas.png" />
 <img alt="../_images/simplificacion_funciones_1.png" src="../_images/simplificacion_funciones_1.png" />
 <img alt="../_images/simplificacion_funciones_2.png" src="../_images/simplificacion_funciones_2.png" />
 <img alt="../_images/simplificacion_funciones_3.png" src="../_images/simplificacion_funciones_3.png" />
 <section id="circuitos-combinacionales">
-<h2>Circuitos combinacionales:<a class="headerlink" href="#circuitos-combinacionales" title="Link to this heading">#</a></h2>
-<p>Resuelve una función lógica a partir de sus entradas, de tal forma que sus salidas toman valores que solo dependen de sus entradas</p>
+<h2>Circuitos combinacionales<a class="headerlink" href="#circuitos-combinacionales" title="Link to this heading">#</a></h2>
+<p>Resuelven una función lógica a partir de sus entradas, de tal forma que sus salidas toman valores que solo dependen de sus entradas</p>
 <a class="reference internal image-reference" href="../_images/circuito_combinacional.png"><img alt="../_images/circuito_combinacional.png" src="../_images/circuito_combinacional.png" width="200" />
 </a>
 <p>Dentro de la variada gama de circuitos combinacionales, tenemos los denominados circuitos aritméticos, estos tienen como objetivo realizar operaciones aritméticas como por ejemplo sumadores, comparadores, etc..</p>
 <a class="reference internal image-reference" href="../_images/comparador.jpeg"><img alt="../_images/comparador.jpeg" src="../_images/comparador.jpeg" width="400" />
 </a>
 <ul>
-<li><p><strong>Decodificador</strong> tiene n entradas y 2<sup>n</sup> salidas, su función es generar el código binario correspondiente a la entrada</p>
+<li><p><strong>Decodificador</strong> tiene n entradas y 2<sup>n</sup> salidas, su función es activar la salida que corresponde al código binario presente en la entrada</p>
 <a class="reference internal image-reference" href="../_images/decodificador.png"><img alt="../_images/decodificador.png" src="../_images/decodificador.png" width="300" />
 </a>
 </li>
@@ -564,7 +571,7 @@
 </dd>
 </dl>
 <ul>
-<li><p><strong>Codificador</strong> Tiene  2<sup>n</sup>  entradas y n salidas, su función es generar el código binario correspondiente a la entrada.</p>
+<li><p><strong>Codificador</strong> Tiene  2<sup>n</sup>  entradas y n salidas, su función es generar el código binario correspondiente a la entrada activa.</p>
 <a class="reference internal image-reference" href="../_images/codificador.png"><img alt="../_images/codificador.png" src="../_images/codificador.png" width="300" />
 </a>
 </li>
@@ -579,8 +586,8 @@
 </ul>
 </section>
 <section id="circuitos-secuenciales">
-<h2>Circuitos secuenciales:<a class="headerlink" href="#circuitos-secuenciales" title="Link to this heading">#</a></h2>
-<p>Resuelve una función lógica tal que los valores de sus salidas en un determinado momento dependen de los valores de sus entradas en ese momento y de los valores con anterioridad es decir la salida no solo depende de la entrada, sino que también de los estados anteriores.</p>
+<h2>Circuitos secuenciales<a class="headerlink" href="#circuitos-secuenciales" title="Link to this heading">#</a></h2>
+<p>Resuelven una función lógica tal que los valores de sus salidas en un determinado momento dependen de los valores de sus entradas en ese momento y de los valores anteriores; es decir, la salida no solo depende de la entrada, sino también de los estados anteriores.</p>
 <a class="reference internal image-reference" href="../_images/circuito_secuencial.png"><img alt="../_images/circuito_secuencial.png" src="../_images/circuito_secuencial.png" width="400" />
 </a>
 <section id="biestables">
@@ -595,7 +602,7 @@
 <a class="reference internal image-reference" href="../_images/JK.png"><img alt="../_images/JK.png" src="../_images/JK.png" width="250" />
 </a>
 </li>
-<li><p><strong>Biestable T</strong> (Disparador, cambia en el 01)</p>
+<li><p><strong>Biestable T</strong> (Toggle o disparador: cambia de estado en cada pulso de reloj cuando T=1)</p>
 <a class="reference internal image-reference" href="../_images/T.png"><img alt="../_images/T.png" src="../_images/T.png" width="450" />
 </a>
 </li>
@@ -603,7 +610,7 @@
 <a class="reference internal image-reference" href="../_images/D.png"><img alt="../_images/D.png" src="../_images/D.png" width="250" />
 </a>
 </li>
-<li><p><strong>Registros</strong> : Una colección de dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hace con un registro de desplazamiento.</p>
+<li><p><strong>Registros</strong> : Una colección de dos o más biestables D, con una entrada común, además de almacenar una serie de bits pueden ser usados para pasar una señal de serie a paralelo, esto lo podemos hacer con un registro de desplazamiento.</p>
 <a class="reference internal image-reference" href="../_images/Registro.png"><img alt="../_images/Registro.png" src="../_images/Registro.png" width="400" />
 </a>
 </li>
@@ -663,8 +670,8 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-combinacionales">Circuitos combinacionales:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-secuenciales">Circuitos secuenciales:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-combinacionales">Circuitos combinacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circuitos-secuenciales">Circuitos secuenciales</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biestables">Biestables</a></li>
 </ul>
 </li>

@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -549,17 +556,17 @@ Algunos de estos buses están serigrafiados en la placa base ya que conectan ele
 <p>Los principales buses son:</p>
 <section id="bus-ata">
 <h2>Bus ATA<a class="headerlink" href="#bus-ata" title="Link to this heading">#</a></h2>
-<p>ATA &quot;Advanced Technology Attachmen” permite conectar periféricos de almacenamiento de manera directa con la placa madre mediante un cable de cinta, generalmente compuesto de 40 alambres paralelos y tres conectores. Utiliza un modo de transmisión paralelo</p>
+<p>ATA &quot;Advanced Technology Attachment&quot; permite conectar periféricos de almacenamiento de manera directa con la placa base mediante un cable de cinta, generalmente compuesto de 40 hilos paralelos y tres conectores. Utiliza un modo de transmisión paralelo</p>
 <a class="reference internal image-reference" href="../_images/ata.png"><img alt="../_images/ata.png" src="../_images/ata.png" width="400" />
 </a>
-<p>En el cable, se debe establecer uno de los periféricos como cable maestro y el otro como esclavo.
-Pondremos un jumper en los dispositivos, esto hará que funcionen como esclavos o maestro</p>
+<p>En el mismo cable, se debe establecer uno de los periféricos como maestro y el otro como esclavo.
+Pondremos un jumper en los dispositivos; esto hará que funcionen como maestro o como esclavo</p>
 <a class="reference internal image-reference" href="../_images/jumper.png"><img alt="../_images/jumper.png" src="../_images/jumper.png" width="400" />
 </a>
 </section>
 <section id="bus-serial-ata">
 <h2>Bus Serial ATA<a class="headerlink" href="#bus-serial-ata" title="Link to this heading">#</a></h2>
-<p>El cable utilizado por el estándar Serial ATA es un cable redondeado que contiene 7 hilos con un conector de 8 mm en su extremo. utiliza un modo de transmisión serie.</p>
+<p>El cable utilizado por el estándar Serial ATA es un cable redondeado que contiene 7 hilos con un conector de 8 mm en su extremo. Utiliza un modo de transmisión serie.</p>
 <a class="reference internal image-reference" href="../_images/sata.png"><img alt="../_images/sata.png" src="../_images/sata.png" width="400" />
 </a>
 <p>Conectores basados en el bus SATA con diferente patillaje</p>
@@ -612,14 +619,14 @@ Existen dos anchuras de bus SCSI:</p>
 <ul class="simple">
 <li><p>Estrecho (de 8 bits) permite conectar hasta 8 dispositivos físicos.</p></li>
 <li><p>Ancho (de 16 bits) permite conectar hasta 16 dispositivos.</p></li>
-<li><p>RJ21 50-pin telco connector</p></li>
 </ul>
+<p>Conector RJ21 de 50 pines (telco):</p>
 <a class="reference internal image-reference" href="../_images/SCASI2.png"><img alt="../_images/SCASI2.png" src="../_images/SCASI2.png" width="400" />
 </a>
 </section>
 <section id="ranura-m-2">
 <h2>Ranura M.2<a class="headerlink" href="#ranura-m-2" title="Link to this heading">#</a></h2>
-<p>Sustituye al estándar mSATA, puede llegar hasta una velocidad de transferencia de 3500 MB/s</p>
+<p>Sustituye al estándar mSATA. Con PCIe 3.0 x4 puede llegar hasta una velocidad de transferencia de 3500 MB/s (los NVMe actuales sobre PCIe 4.0 y 5.0 superan los 7000 MB/s)</p>
 <a class="reference internal image-reference" href="../_images/M2_2.jpeg"><img alt="../_images/M2_2.jpeg" src="../_images/M2_2.jpeg" width="400" />
 </a>
 </section>
@@ -631,7 +638,7 @@ Existen dos anchuras de bus SCSI:</p>
 </section>
 <section id="ranura-pcie">
 <h2>Ranura PCIe<a class="headerlink" href="#ranura-pcie" title="Link to this heading">#</a></h2>
-<p>Las ranuras PCIe (PCI-Express) nacen en como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso).</p>
+<p>Las ranuras PCIe (PCI-Express) nacen como respuesta a la necesidad de un bus más rápido que los PCI o los AGP (para gráficas en este caso). El ancho de banda es por línea (<em>lane</em>) y se multiplica por el número de líneas de la ranura (x1, x4, x16):</p>
 <ul class="simple">
 <li><p>PCIe 1.0 x1: 250MB/s</p></li>
 <li><p>PCIe 1.0 x4: 1GB/s (250MB/s x 4)</p></li>
@@ -669,40 +676,37 @@ Existen dos anchuras de bus SCSI:</p>
 <tr class="row-even"><td><p>SATA III</p></td>
 <td><p>600 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>SATA IV</p></td>
-<td><p>1200 MB/s</p></td>
-</tr>
-<tr class="row-even"><td><p>SCSI-2 Extendido</p></td>
+<tr class="row-odd"><td><p>SCSI-2 Extendido</p></td>
 <td><p>20 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>SCSI-3 (Ultra-5 SCSI)</p></td>
+<tr class="row-even"><td><p>SCSI-3 (Ultra-5 SCSI)</p></td>
 <td><p>640 MB/s</p></td>
 </tr>
-<tr class="row-even"><td><p>SAS-1</p></td>
-<td><p>375 MB/s</p></td>
+<tr class="row-odd"><td><p>SAS-1</p></td>
+<td><p>300 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>SAS-2</p></td>
-<td><p>750 MB/s</p></td>
+<tr class="row-even"><td><p>SAS-2</p></td>
+<td><p>600 MB/s</p></td>
 </tr>
-<tr class="row-even"><td><p>SAS-3</p></td>
-<td><p>1500 MB/s</p></td>
+<tr class="row-odd"><td><p>SAS-3</p></td>
+<td><p>1200 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>SAS-4</p></td>
-<td><p>2812  MB/s</p></td>
+<tr class="row-even"><td><p>SAS-4</p></td>
+<td><p>2400 MB/s</p></td>
 </tr>
-<tr class="row-even"><td><p>PCIe 1.0</p></td>
+<tr class="row-odd"><td><p>PCIe 1.0 (por línea)</p></td>
 <td><p>250 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>PCIe 2.0</p></td>
+<tr class="row-even"><td><p>PCIe 2.0 (por línea)</p></td>
 <td><p>500 MB/s</p></td>
 </tr>
-<tr class="row-even"><td><p>PCIe 3.0</p></td>
+<tr class="row-odd"><td><p>PCIe 3.0 (por línea)</p></td>
 <td><p>1000 MB/s</p></td>
 </tr>
-<tr class="row-odd"><td><p>PCIe 4.0</p></td>
+<tr class="row-even"><td><p>PCIe 4.0 (por línea)</p></td>
 <td><p>2000 MB/s</p></td>
 </tr>
-<tr class="row-even"><td><p>M.2</p></td>
+<tr class="row-odd"><td><p>M.2 (PCIe 3.0 x4)</p></td>
 <td><p>3500 MB/s</p></td>
 </tr>
 </tbody>

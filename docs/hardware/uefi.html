@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -528,7 +535,7 @@
 <ul class="simple">
 <li><p>Compatibilidad y emulación del BIOS para los sistemas operativos solo compatibles con esta última.</p></li>
 <li><p>Soporte completo para la Tabla de particiones GUID (GPT), se pueden crear hasta 128 particiones por disco</p></li>
-<li><p>El MBR solo permite hasta 32 bits por cada sector de la unidad de almacenamiento, lo cual acaba limitando el tamaño máximo de estas unidades a los 2 TB. Sin embargo, el GPT permite un máximo de 64 bit por sector, lo que se traduce en que es capaz de ser empleado con unidades de 9,4 ZB</p></li>
+<li><p>El MBR usa direcciones de sector de 32 bits, lo cual acaba limitando el tamaño máximo de las unidades de almacenamiento a 2 TB. Sin embargo, GPT usa direcciones de sector de 64 bits, lo que se traduce en que es capaz de ser empleado con unidades de hasta 9,4 ZB</p></li>
 <li><p>Capacidad de arranque desde unidades de almacenamiento grandes, dado que no sufren de las limitaciones del MBR.</p></li>
 <li><p>Independiente de la arquitectura y controladores de la CPU.</p></li>
 <li><p>Entorno amigable y flexible Pre-Sistema Operativo, incluyendo capacidades de red.</p></li>
@@ -537,17 +544,17 @@
 </ul>
 <img alt="../_images/uefi1.png" src="../_images/uefi1.png" />
 <p>Mediante la utilidad EZ Tuning Wizard lograremos optimizar nuestro sistema de una manera sencilla hasta el extremo. Tan solo habremos de responder las preguntas que se nos van haciendo para que la BIOS optimice el rendimiento del sistema. Detecta el consumo, pregunta sobre el tipo de refrigeración utilizada y el uso final del equipo para finalmente sugerir un nivel de overclocking que se puede aplicar de forma automática.</p>
-<p><strong>&quot;Advanced Mode&quot;</strong>, que es módulo que sustituye al EZ Mode, en este modo podremos configurar todos los parámetros  de forma manual</p>
+<p><strong>&quot;Advanced Mode&quot;</strong> es el modo que sustituye al EZ Mode: en él podremos configurar todos los parámetros de forma manual</p>
 <img alt="../_images/uefi2.png" src="../_images/uefi2.png" />
-<p><strong>&quot;AI Tweaker&quot;</strong> seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el ratio del microprocesador, tremendamente útil en las versiones &quot;K&quot; en los que el ratio está desbloqueado, las tensiones, DIGI+ Power y la administración de la energía. Los menus son muy profundos ofreciendo múltiples opciones.</p>
+<p>En <strong>&quot;AI Tweaker&quot;</strong> seremos capaces de personalizar y poner a punto multitud de parámetros, entre los que encontramos la frecuencia de la memoria, el multiplicador del microprocesador (tremendamente útil en las versiones &quot;K&quot;, en las que está desbloqueado), las tensiones, DIGI+ Power y la administración de la energía. Los menús son muy profundos ofreciendo múltiples opciones.</p>
 <img alt="../_images/uefi3.png" src="../_images/uefi3.png" />
-<p>En la pestaña <strong>*&quot;Advanced&quot;</strong> se da al usuario la posibilidad de configurar parámetros hasta un punto que satisfará hasta al más enfermo de los entusiastas.</p>
+<p>En la pestaña <strong>&quot;Advanced&quot;</strong> se da al usuario la posibilidad de configurar parámetros hasta un punto que satisfará al más exigente de los entusiastas.</p>
 <img alt="../_images/uefi4.png" src="../_images/uefi4.png" />
 <p>Echamos un vistazo al apartado de configuración del microprocesador:</p>
 <img alt="../_images/uefi5.png" src="../_images/uefi5.png" />
-<p>El apartado &quot;Monitor&quot; se ve las temperaturas y parámetros de nuestros ventiladores.</p>
+<p>En el apartado &quot;Monitor&quot; se ven las temperaturas y los parámetros de nuestros ventiladores.</p>
 <img alt="../_images/uefi6.png" src="../_images/uefi6.png" />
-<p>Entrando en la sección &quot;QFan control&quot; podremos configurar los ventiladores a nuestro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standar, silent, turbo o velocidad máxima)</p>
+<p>Entrando en la sección &quot;QFan control&quot; podremos configurar los ventiladores a nuestro antojo, distinguiéndolos entre DC y PWM, y definiendo el perfil (Standard, Silent, Turbo o velocidad máxima)</p>
 <img alt="../_images/uefi7.png" src="../_images/uefi7.png" />
 <p>En la siguiente pantalla tendremos acceso a todo lo relativo con el arranque del equipo:</p>
 <img alt="../_images/uefi8.png" src="../_images/uefi8.png" />

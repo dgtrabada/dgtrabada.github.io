@@ -25,7 +25,7 @@ Diccionario de la BIOS/UEFI
   boot
    arranque
 
-  boot secuence
+  boot sequence
    secuencia de arranque
 
   bug
@@ -35,7 +35,7 @@ Diccionario de la BIOS/UEFI
    ráfagas
 
   bus
-   línea de datos, cable de datos .
+   línea de datos, cable de datos
 
   channel
    canal
@@ -59,13 +59,13 @@ Diccionario de la BIOS/UEFI
    configuración
 
   copyright
-   derechos de autor .
+   derechos de autor
 
   core
    corazón, núcleo, motor
 
   crack
-   invadir
+   romper una protección
 
   daemon
    demonio, proceso en segundo plano
@@ -113,7 +113,7 @@ Diccionario de la BIOS/UEFI
    primero
 
   frame
-   cuadro,marco
+   cuadro, marco
 
   frequency
    frecuencia
@@ -131,7 +131,7 @@ Diccionario de la BIOS/UEFI
    dirección de sistema anfitrión
 
   ide drives
-   controladores ide
+   unidades IDE
 
   interface
    interfaz
@@ -161,7 +161,7 @@ Diccionario de la BIOS/UEFI
    teclado
 
   laptop
-   computador portátil
+   ordenador portátil
 
   last
    último
@@ -199,8 +199,8 @@ Diccionario de la BIOS/UEFI
   mouse
    mouse, ratón
 
-  network (red)
-   una red de ordenadores
+  network
+   red (de ordenadores)
 
   optimized
    optimizado
@@ -216,9 +216,6 @@ Diccionario de la BIOS/UEFI
 
   partition
    partición
-
-  password
-   contraseña
 
   password
    contraseña
@@ -284,13 +281,13 @@ Diccionario de la BIOS/UEFI
    seleccionar
 
   self test
-   auto comprobación
+   autocomprobación
 
   serial
    serie
 
   set
-   elegir
+   establecer, fijar
 
   setting
    ajustes
@@ -317,7 +314,7 @@ Diccionario de la BIOS/UEFI
    estado
 
   supervisor
-   controlador de procesos
+   supervisor, administrador
 
   suspend
    suspender
@@ -338,7 +335,7 @@ Diccionario de la BIOS/UEFI
    tiempo
 
   trojan
-   Troyano
+   troyano
 
   type
    tipo
@@ -356,10 +353,10 @@ Diccionario de la BIOS/UEFI
    valores
 
   viewer
-   espectador
+   visor
 
   voltage
-   tensión , voltaje
+   tensión, voltaje
 
   wait
    esperar
@@ -374,8 +371,8 @@ Diccionario de la BIOS/UEFI
    ancho
 
   worm
-   Gusano
+   gusano
 
   write
-   Escribir
+   escribir
 

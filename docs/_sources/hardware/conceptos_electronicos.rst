@@ -9,7 +9,7 @@ El Átomo
 
 El núcleo del átomo es su parte central. Tiene carga positiva, y en él se concentra casi toda la masa del mismo. Sin embargo, ocupa una fracción muy pequeña del volumen del átomo: su radio es unas diez mil veces más pequeño. El núcleo está formado por protones (carga +) y neutrones (sin carga).
 
-Alrededor del núcleo se encuentran los electrones (carga -), partículas de carga negativa (Culombios) y masa muy pequeña comparada con la de los protones y neutrones: un 0,05% aproximadamente. Los electrones se encuentran alrededor del núcleo, ligados por la fuerza electromagnética que éste ejerce sobre ellos, y ocupando la mayor parte del tamaño del átomo, en la llamada nube de electrones.
+Alrededor del núcleo se encuentran los electrones (carga -), partículas de carga negativa (medida en culombios) y masa muy pequeña comparada con la de los protones y neutrones: un 0,05% aproximadamente. Los electrones se encuentran alrededor del núcleo, ligados por la fuerza electromagnética que éste ejerce sobre ellos, y ocupando la mayor parte del tamaño del átomo, en la llamada nube de electrones.
 
 .. image:: imagenes/conceptos_electronicos/atomo.png
     :width: 250
@@ -52,10 +52,10 @@ La diferencia de potencial, tensión eléctrica o voltaje cuantifica la diferenc
 En el Sistema Internacional de Unidades se expresa en Voltios (V).
 Se puede medir con un voltímetro colocado en paralelo.
 
-La tensión que llega a nuestros hogares es de 220 V alterna, a una frecuencia de 50 Hz.
+La tensión que llega a nuestros hogares es de 230 V alterna, a una frecuencia de 50 Hz.
 
-Resistencia.
-============
+Resistencia
+===========
 
 La resistencia eléctrica de un objeto es una medida de su oposición al paso de corriente.
 La unidad de la resistencia en el Sistema Internacional de Unidades es el ohmio (Ω). Podemos utilizar el polímetro para medir la resistencia o utilizar el código de colores.
@@ -76,7 +76,7 @@ El cuarto color indica la tolerancia, por ejemplo dorado ±5%
 
 En general podemos decir que los materiales pueden ser :
 
-* **Conductores** : permiten el paso de la corriente, como por ejemplo la plata el cobre, hierro, etc
+* **Conductores** : permiten el paso de la corriente, como por ejemplo la plata, el cobre, el hierro, etc
 * **Aislantes** : no permiten el paso de la corriente, como por ejemplo el caucho, madera, aire, vidrio, plástico, cartón, etc
 * **Semiconductores** : se pueden comportar como conductores o aislantes según el voltaje al que se les someta, como por ejemplo el silicio, el carburo de silicio, etc ...
 
@@ -110,12 +110,12 @@ Utilizando la Ley de Ohm : I = V/R = 12 V / 6 Ω = 2 A
 
 .. image:: imagenes/conceptos_electronicos/ejemplo2.png
 
-Utilizando la Ley de Ohm : V=RI = 2 Ω 4 A = 8V
+Utilizando la Ley de Ohm : V = RI = 2 Ω × 4 A = 8 V
 
 Potencia
 ========
 
-La potencia eléctrica se define como el producto de la tensión por la intensidad que circula por el circuito. la potencia se mide en vatios (W). La fórmula para calcularla es:
+La potencia eléctrica se define como el producto de la tensión por la intensidad que circula por el circuito. La potencia se mide en vatios (W). La fórmula para calcularla es:
 
 :math:`P=VI`
 
@@ -124,17 +124,17 @@ Medidor de potencia eléctrica
 .. image:: imagenes/conceptos_electronicos/potenciometro.png
   :width: 100
 
-**Ejemplo:** Calcular la potencia del ejercicio anterior : P = VI = 12 V * 2 A = 24 w
+**Ejemplo:** Calcular la potencia del ejercicio anterior : P = VI = 12 V * 2 A = 24 W
 
 Ejemplo de cálculo de consumo:
 ------------------------------
 
 La potencia de los ordenadores se encuentran entre los siguientes rangos:
 
-* CPU: 40-130 w (consumo medio ~ 85 w)
-* monitor LCD : ~ 30 w
+* CPU: 40-130 W (consumo medio ~ 85 W)
+* monitor LCD : ~ 30 W
 
-Si tomamos que 1 kWh esta a 0,3 € ¿Cuánto costaría tener el monitor encendido durante una hora?
+Si tomamos que 1 kWh está a 0,3 € ¿Cuánto costaría tener el monitor encendido durante una hora?
 
 0.3 €/kWh * 0.03 kW * 1h = 0.009 €
 
@@ -158,7 +158,7 @@ Es un dispositivo que almacena energía eléctrica. La capacidad de un condensad
 Diodos
 ------
 
-Permite la circulación de la corriente electrica a través de él en un sentido.
+Permite la circulación de la corriente eléctrica a través de él en un solo sentido.
 
 .. image:: imagenes/conceptos_electronicos/led.png
 
