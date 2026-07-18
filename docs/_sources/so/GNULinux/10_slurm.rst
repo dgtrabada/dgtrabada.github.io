@@ -2,7 +2,7 @@
 Slurm
 *****
 
-**Slurm** (Simple Linux Utility for Resources Management), es un sistema de gestión de tareas y de clústeres (nodos o servidores de cómputo).
+**Slurm** (Simple Linux Utility for Resource Management) es un sistema de gestión de tareas y de clústeres (nodos o servidores de cómputo). Es el gestor de colas más usado en los supercomputadores actuales.
 
 .. code-block:: bash
 
@@ -15,7 +15,7 @@ Slurm
 Caso práctico: Red interna con NIS, NFS, autofs y Slurm
 *******************************************************
 
-Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs.
+Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs. Puedes apoyarte en los vídeos [#v1]_.
 
 Empezamos instalando en el servidor **compute-0-0** el controlador central:
 
@@ -23,13 +23,13 @@ Empezamos instalando en el servidor **compute-0-0** el controlador central:
 
  root@compute-0-0:~# apt install slurm-wlm
 
-Necesitamos que el cliente compute-0-1 seán accesibles por el root desde el servidor sin el uso de contraseña, y que tengan instalado **slurmd**
+Necesitamos que el cliente compute-0-1 sea accesible por el root desde el servidor sin el uso de contraseña, y que tenga instalado **slurmd**
 
 .. code-block:: bash
 
  root@compute-0-1:~# apt-get install slurmd
  
-**Munge** es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. comprueba que se haya instalado en caso contrario instálalo
+**Munge** es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. Comprueba que se haya instalado; en caso contrario, instálalo
 
 .. code-block:: bash
 
@@ -39,14 +39,15 @@ Lo instalamos en todos los nodos y copiamos la clave desde el controlador **comp
 
 .. code-block:: bash
 
- root@compute-0-1:~# apt-get install munge 
- root@compute-0-0:~# scp /etc/munge/munge.key compute-0-1:/etc/munge/  
+ root@compute-0-1:~# apt-get install munge
+ root@compute-0-0:~# scp /etc/munge/munge.key compute-0-1:/etc/munge/
+ root@compute-0-1:~# systemctl restart munge
 
 
 .. code-block:: bash
- 
+
  root@compute-0-0:~# munge -n | ssh compute-0-1 unmunge
- Tiene que aparecer STATUS: Success.
+ # Tiene que aparecer STATUS: Success.
 
 Lo siguiente que hacemos es configurar el archivo de configuración del slurm ``/etc/slurm/slurm.conf``
 
@@ -96,7 +97,7 @@ Copiamos la configuración de slurm desde compute-0-0 a compute-0-1:
 
  root@compute-0-0:~# scp /etc/slurm/slurm.conf  compute-0-1:/etc/slurm/slurm.conf
 
-Cambiamos permisos y lanzamos slurmd en **compute-0-1**
+Lanzamos slurmd en **compute-0-1**
 
 .. code-block:: bash
 
@@ -117,14 +118,22 @@ Comprobar desde el servidor el estado del nodo
 .. code-block:: bash
 
  root@compute-0-0:~# sinfo
- PARTITION AVAL   TIMELIMIT   NODES  STATE NODELIST
- debug*      up      infite       1   idle compute-0-1
+ PARTITION AVAIL  TIMELIMIT   NODES  STATE NODELIST
+ debug*       up   infinite       1   idle compute-0-1
 
-En el caso de que no se cambie el estado automaticamente lo podemos intentar a cambiar a mano
+En el caso de que no cambie el estado automáticamente, podemos intentar cambiarlo a mano
 
 .. code-block:: bash
 
  scontrol update nodename=compute-0-1 state=idle
+
+Ya podemos probar el clúster lanzando trabajos:
+
+.. code-block:: bash
+
+ tunombre1@compute-0-0:~$ srun hostname
+ compute-0-1
+ tunombre1@compute-0-0:~$ squeue
 
 Clonamos otro cliente **compute-0-2**, cambiamos en compute-0-0:/etc/slurm/slurm.conf
 
@@ -148,7 +157,7 @@ Hacemos la instalación en **compute-0-2** desde el **compute-0-0**
  ssh compute-0-2 systemctl restart slurmd.service
  ssh compute-0-2 systemctl status slurmd.service
 
- !Cambiamos también en compute-0-1
+ # Cambiamos también en compute-0-1
  scp /etc/slurm/slurm.conf  compute-0-1:/etc/slurm/slurm.conf
  ssh compute-0-1 systemctl restart slurmd.service
 
@@ -182,6 +191,8 @@ El script para lanzar a la partición tuapellido2
  test.x >> salida
 
 
+
+.. rubric:: Notas
 
 .. [#v1] vídeos
 

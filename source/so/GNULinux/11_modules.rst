@@ -2,7 +2,7 @@
 Environment modules
 *******************
 
-Modules permite el cambio rápido de un entorno a otro porque nos deja cargar o borrar las variables necesarios para un programa ejecutando un comando sencillo y avisa si hay conflictos entre un entorno ya definido con otro que el usuario quiere cargar.
+Modules permite el cambio rápido de un entorno a otro porque nos deja cargar o borrar las variables necesarias para un programa ejecutando un comando sencillo, y avisa si hay conflictos entre un entorno ya definido y otro que el usuario quiere cargar. Es la herramienta habitual en los clústeres de cálculo para ofrecer varias versiones del mismo software.
 
 Los modulefiles están escritos en Tcl (Tool Command Language) y son
 interpretados por el modulecmd que se ejecuta cada vez que invocamos
@@ -20,15 +20,15 @@ Los comandos básicos de la herramienta son:
 
 .. code-block:: bash
 
- module avail   # Muestra los módulos de entornos de programas disponibles
- module load    # Carga el entorno del programa <prog> de la versión por defecto
- module load    # Carga el entorno del programa <prog> de la versión <vers>
- module list    # Muestra los módulos cargados actualmente
- module unload  # Quita el entorno del <prog>
- module show    # Muestra el entorno que define el módulo
- module whatis  # información que aparecerá al usar module whatis modulefile
+ module avail              # Muestra los módulos de entornos de programas disponibles
+ module load <prog>        # Carga el entorno del programa <prog> de la versión por defecto
+ module load <prog>/<vers> # Carga el entorno del programa <prog> de la versión <vers>
+ module list               # Muestra los módulos cargados actualmente
+ module unload <prog>      # Quita el entorno del <prog>
+ module show <prog>        # Muestra el entorno que define el módulo
+ module whatis <prog>      # Muestra la descripción del módulo
 
-Para configurar modules enviroment empezamos instalando en el **servidor y clientes** :
+Para configurar environment modules empezamos instalando en el **servidor y clientes** :
 
 .. code-block:: bash
 
@@ -43,7 +43,7 @@ Podemos comprobar que se ha instalado
  dot  module-git  module-info  modules  null  use.own 
 
 
-Vamos a crear un nuevo modulo
+Vamos a crear un nuevo módulo
 
 .. code-block:: bash
 
@@ -61,10 +61,14 @@ Vamos a crear un nuevo modulo
  prepend-path PATH /export/apps/test/bin
 
  root@compute-0-0:~# cat /export/apps/test/bin/test.x
+ #!/bin/bash
  echo hola $(whoami)
  echo hoy es $(date)
 
-Tenemos que copiar el modulo al resto de los nodos, pero el ejecutable o script lo exportaremos por nfs
+ # recuerda darle permisos de ejecución
+ root@compute-0-0:~# chmod +x /export/apps/test/bin/test.x
+
+Tenemos que copiar el módulo al resto de los nodos, pero el ejecutable o script lo exportaremos por nfs
 
 .. code-block:: bash
 
@@ -90,7 +94,7 @@ Tenemos que copiar el modulo al resto de los nodos, pero el ejecutable o script 
  apps compute-0-0:/export/&
  
 
-Volvemos a lanzar el proceso y comprobamos que ahora si existe el comando test.x
+Volvemos a lanzar el trabajo de Slurm y comprobamos que ahora sí existe el comando test.x
 
 .. code-block:: bash
 

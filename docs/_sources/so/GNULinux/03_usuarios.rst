@@ -124,9 +124,9 @@ Comandos adicionales
 visudo
 ^^^^^^
 
-Tradicionalmente, **visudo** abre el archivo **/etc/sudoers** con el editor de texto vi. Sin embargo, Ubuntu, ha configurado visudo para utilizar el editor de texto nano en su lugar.
-Para cambiarlo de nuevo a vi, emita el siguiente comando: ``sudo update-alternatives --config editor``
-encontramos los diferentes campos:
+Tradicionalmente, **visudo** abre el archivo **/etc/sudoers** con el editor de texto vi (comprobando la sintaxis antes de guardar, por eso nunca se edita el archivo directamente). Sin embargo, Ubuntu ha configurado visudo para utilizar el editor de texto nano en su lugar.
+Para cambiarlo de nuevo a vi, ejecuta el siguiente comando: ``sudo update-alternatives --config editor``.
+En una regla de sudoers encontramos los siguientes campos:
 
 .. code-block:: bash
 
@@ -136,9 +136,9 @@ encontramos los diferentes campos:
 
 * El primer "**ALL**" indica que esta regla se aplica a todos los hosts.
 
-* **(ALL:ALL)** Esta parte de la regla especifica el usuario y el grupo al que se puede cambiar mediante sudo. En este caso, "ALL" significa que el usuario username puede cambiar a cualquier usuario y grupo. Podrías restringirlo a un usuario y grupo específico si lo deseas.
+* **(ALL:ALL)** Esta parte de la regla especifica el usuario y el grupo al que se puede cambiar mediante sudo. En este caso, "ALL" significa que el usuario puede cambiar a cualquier usuario y grupo. Podrías restringirlo a un usuario y grupo específico si lo deseas.
 
-* El ultimo **ALL** indica los comandos específicos que un usuario puede ejecutar con privilegios de administrador. Por ejemplo ``usuario ALL=(ALL:ALL) /bin/ls, /usr/bin/apt-get``
+* El último **ALL** indica los comandos específicos que un usuario puede ejecutar con privilegios de administrador. Por ejemplo ``usuario ALL=(ALL:ALL) /bin/ls, /usr/bin/apt-get``
   
 .. code-block:: bash
 

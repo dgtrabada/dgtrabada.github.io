@@ -538,8 +538,9 @@
 <h1>NFS<a class="headerlink" href="#nfs" title="Link to this heading">#</a></h1>
 <p>Las siglas <strong>NFS</strong> provienen del inglés Network File System (Sistema de archivos de red). Se trata de un protocolo, implementado en 1984 por la empresa Sun Microsystems, que se utiliza en redes de área local para crear un sistema de archivos distribuido.
 El objetivo de NFS es que varios usuarios (o programas) de una red local puedan acceder a archivos y directorios compartidos como si fuesen locales. De esta forma, se puede centralizar la capacidad de almacenamiento de la red, pudiendo ser más reducida en los clientes.</p>
-<p>Actualmente, el protocolo NFS está incluido en la mayoría de las distribuciones Linux, y en las diferentes versiones del sistema operativo OSX de Apple.</p>
-<p>En los sistemas Microsoft, la situación es algo más confusa: Para las versiones 2000, 2003 y XP, había que descargar e instalar el paquete Windows Services for UNIX). En Windows 8 ya se incluye de fábrica, pero sólo en la versión Enterprise edition y, hasta el momento de escribir este documento, no existe forma de instalarlo en otras versiones más modestas. De hecho, los usuarios que actualizan desde las ediciones Windows 7 Ultimate o Windows 7 Enterprise a la edición Windows 8 Pro, no podrán seguir usando NFS.</p>
+<p>Actualmente, el protocolo NFS está incluido en la mayoría de las distribuciones Linux y en macOS.</p>
+<p>En los sistemas Microsoft la situación es algo más confusa: en las versiones antiguas (2000, XP, 2003) había que instalar el paquete Windows Services for UNIX, y hoy en día el cliente NFS viene incluido solo en las ediciones Pro y Enterprise de Windows 10/11 (se activa en «Características de Windows»); en las ediciones Home no está disponible, y en redes Windows lo habitual es compartir con SMB (Samba).</p>
+<p>Puedes apoyarte en los vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <section id="servidor-nfs">
 <h2>Servidor NFS<a class="headerlink" href="#servidor-nfs" title="Link to this heading">#</a></h2>
 <p>Instalamos</p>
@@ -554,11 +555,13 @@ apt<span class="w"> </span>install<span class="w"> </span>nfs-kernel-server
 <ul class="simple">
 <li><p><strong>rw</strong>: Da permisos de lectura y escritura al cliente</p></li>
 <li><p><strong>sync</strong>: sincronizar la escritura</p></li>
-<li><p><strong>no_subtree_check</strong>: permite que no se compruebe el camino hasta el directorio que se exporta, en el caso de que el usuario no tenga permisos sobre el directorio exportado</p></li>
-<li><p><strong>no_root_squash</strong>: permite que los usuarios root de los equipos cliente tengan acceso root en el servido</p></li>
+<li><p><strong>no_subtree_check</strong>: desactiva la comprobación de que cada acceso esté dentro del subárbol exportado (mejora el rendimiento y evita problemas al renombrar archivos)</p></li>
+<li><p><strong>no_root_squash</strong>: permite que los usuarios root de los equipos cliente tengan acceso root en el servidor (cómodo en el laboratorio, pero inseguro en producción; lo contrario, root_squash, es lo predeterminado)</p></li>
 </ul>
-<p>Cada vez que cambiemos el archivo <code class="docutils literal notranslate"><span class="pre">/etc/exports</span></code> tendremos que reiniciar el servicio</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>nfs-kernel-server.service
+<p>Cada vez que cambiemos el archivo <code class="docutils literal notranslate"><span class="pre">/etc/exports</span></code> tendremos que recargar los exports o reiniciar el servicio</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>exportfs<span class="w"> </span>-ra<span class="w">                                   </span><span class="c1"># recarga los exports</span>
+exportfs<span class="w"> </span>-v<span class="w">                                    </span><span class="c1"># muestra lo que se está exportando</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span>nfs-kernel-server.service<span class="w">    </span><span class="c1"># o reiniciamos el servicio</span>
 </pre></div>
 </div>
 <p>Una forma abreviada de incluir más nodos sería:</p>
@@ -576,13 +579,17 @@ apt<span class="w"> </span>install<span class="w"> </span>nfs-kernel-server
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>nfs-common
 </pre></div>
 </div>
-<p>Para probar que funciona el nfs podemos montar a mano el directorio ejecutamos como root en el cliente:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/home/tunombre1
+<p>Podemos consultar qué exporta el servidor y, para probar que funciona, montar el directorio a mano; ejecutamos como root en el cliente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>showmount<span class="w"> </span>-e<span class="w"> </span><span class="m">172</span>.16.0.10<span class="w">     </span><span class="c1"># lista lo que exporta el servidor</span>
+mkdir<span class="w"> </span>/home/tunombre1
 mount<span class="w"> </span><span class="m">172</span>.16.0.10:/home/tunombre1<span class="w"> </span>/home/tunombre1
 </pre></div>
 </div>
 <p>En el caso de que queramos que los cambios sean permanentes copiamos en /etc/fstab del cliente:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">172</span>.16.0.10:/home/tunombre1<span class="w"> </span>/home/tunombre1<span class="w"> </span>nfs<span class="w"> </span>auto,noatime,nolock,bg,nfsvers<span class="o">=</span><span class="m">3</span>,intr,tcp,actimeo<span class="o">=</span><span class="m">1800</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
+<span class="c1"># con las versiones modernas (NFSv4) basta con:</span>
+<span class="m">172</span>.16.0.10:/home/tunombre1<span class="w"> </span>/home/tunombre1<span class="w"> </span>nfs<span class="w"> </span>defaults<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 <p>Uno de los problemas que plantea el uso de NFS es que no permite validar a los usuarios que tratan de acceder a una carpeta compartida. En realidad, el servidor NFS envía al cliente los permisos de cada archivo y subcarpeta que encuentre dentro de la carpeta compartida. Además, también se envía el UID del usuario propietario y el GID de su grupo principal.</p>
@@ -592,7 +599,7 @@ mount<span class="w"> </span><span class="m">172</span>.16.0.10:/home/tunombre1<
 <h2>Montar un sistema de archivos NFS usando autofs<a class="headerlink" href="#montar-un-sistema-de-archivos-nfs-usando-autofs" title="Link to this heading">#</a></h2>
 <p>Otra opción para montar datos compartidos con NFS es utilizar autofs. Autofs utiliza el demonio automount para controlar los puntos de montaje dinámicamente tan sólo montándolos cuando sea necesario.</p>
 <p>Autofs consulta el mapa maestro del archivo de configuración /etc/auto.master para ver qué puntos de montaje se han definido. Luego arranca un proceso automount con los parámetros adecuados para cada punto de montaje. Cada línea del mapa maestro define un punto de montaje y un archivo de mapa separado que define el sistema de archivos que se tiene que montar en este punto de montaje. Por ejemplo, el archivo /etc/auto.misc define los puntos de montaje en el directorio /misc; esta relación debe ser definida en el archivo /etc/auto.master.</p>
-<p>En el caso de que marcaste la opción de que se cree el directorio automáticamente en el cliente <strong>sudo pam-auth-update</strong>, vuelve a ejecutar el comando en el cliente y esta vez déjalo desmarcado</p>
+<p>Si en el cliente marcaste con <strong>sudo pam-auth-update</strong> la opción de crear el directorio automáticamente, vuelve a ejecutar el comando y esta vez déjala desmarcada: ahora los homes vendrán montados del servidor y no queremos que se creen en local</p>
 <p>Vamos a configurar autofs para montar de forma automática el home de los usuarios, para ello vamos a instalar en los <strong>clientes</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>autofs
 </pre></div>
@@ -608,13 +615,14 @@ tunombre2<span class="w"> </span>compute-0-0:/home/tunombre2
 tunombre3<span class="w"> </span>compute-0-0:/home/tunombre3
 </pre></div>
 </div>
-<p>No lo hacemos así para exportar el home de los usuarios por separado, de otra forma cada vez que un usuario se logueara en el cliente todas las carpetas se exportarían, podemos escribirlo de una forma más resumida:</p>
+<p>En vez de escribir una línea por usuario, podemos usar la forma resumida, que monta bajo demanda solo el home del usuario que inicia sesión:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*<span class="w">    </span>compute-0-0:/home/<span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>El asterisco (*) se utiliza para reemplazar el punto de montaje y (&amp;) lo que queremos montar</p>
-<p>Hacemos que se inicie cuando se reinicia el cliente <strong>compute-0-1</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>autofs
+<p>El asterisco (*) representa cualquier nombre que se pida bajo /home, y el ampersand (&amp;) repite ese mismo nombre en la ruta del servidor (por ejemplo, al entrar tunombre2 se monta compute-0-0:/home/tunombre2).</p>
+<p>Aplicamos los cambios y hacemos que se inicie cuando se reinicia el cliente <strong>compute-0-1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>autofs
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>autofs
 </pre></div>
 </div>
 <p>Fíjate como funcionaría:</p>
@@ -624,9 +632,10 @@ tunombre1@compute-0-1:/root$<span class="w"> </span>df<span class="w"> </span>-h
 compute-0-0:/home/tunombre1<span class="w"> </span>116G<span class="w">   </span>128K<span class="w">   </span>110G<span class="w">   </span><span class="m">1</span>%<span class="w"> </span>/home/tunombre1
 </pre></div>
 </div>
+<p class="rubric">Notas</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="v1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>vídeos</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/1cp8qi6cxvc9cpb5">NIS NFS autofs Ubuntu Server 26.04 LTS</a></p></li>

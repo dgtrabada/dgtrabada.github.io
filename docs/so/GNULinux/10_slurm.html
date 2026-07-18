@@ -534,7 +534,7 @@
                   
   <section id="slurm">
 <h1>Slurm<a class="headerlink" href="#slurm" title="Link to this heading">#</a></h1>
-<p><strong>Slurm</strong> (Simple Linux Utility for Resources Management), es un sistema de gestión de tareas y de clústeres (nodos o servidores de cómputo).</p>
+<p><strong>Slurm</strong> (Simple Linux Utility for Resource Management) es un sistema de gestión de tareas y de clústeres (nodos o servidores de cómputo). Es el gestor de colas más usado en los supercomputadores actuales.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w">    </span><span class="c1"># Envía un trabajo para su ejecución</span>
 scancel<span class="w"> </span><span class="c1"># Finaliza trabajos que se encuentren en ejecución o pendientes</span>
 sinfo<span class="w">   </span><span class="c1"># Muestra información sobre el estado de los nodos de cómputo</span>
@@ -544,26 +544,27 @@ sbatch<span class="w">  </span><span class="c1"># Envía un script para su poste
 </div>
 <section id="caso-practico-red-interna-con-nis-nfs-autofs-y-slurm">
 <h2>Caso práctico: Red interna con NIS, NFS, autofs y Slurm<a class="headerlink" href="#caso-practico-red-interna-con-nis-nfs-autofs-y-slurm" title="Link to this heading">#</a></h2>
-<p>Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs.</p>
+<p>Partiremos del caso práctico de NIS, NFS y autofs con red interna, donde se exportan los usuarios por NIS y el home por NFS automontado con autofs. Puedes apoyarte en los vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>Empezamos instalando en el servidor <strong>compute-0-0</strong> el controlador central:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>slurm-wlm
 </pre></div>
 </div>
-<p>Necesitamos que el cliente compute-0-1 seán accesibles por el root desde el servidor sin el uso de contraseña, y que tengan instalado <strong>slurmd</strong></p>
+<p>Necesitamos que el cliente compute-0-1 sea accesible por el root desde el servidor sin el uso de contraseña, y que tenga instalado <strong>slurmd</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>slurmd
 </pre></div>
 </div>
-<p><strong>Munge</strong> es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. comprueba que se haya instalado en caso contrario instálalo</p>
+<p><strong>Munge</strong> es un servicio de autenticación. Se utilizará con Slurm para validar sus procesos. Comprueba que se haya instalado; en caso contrario, instálalo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>unmunge
 </pre></div>
 </div>
 <p>Lo instalamos en todos los nodos y copiamos la clave desde el controlador <strong>compute-0-0</strong> a los clientes, ejemplo con el nodo compute-0-1</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>munge
 root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>/etc/munge/munge.key<span class="w"> </span>compute-0-1:/etc/munge/
+root@compute-0-1:~#<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>munge
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>unmunge
-Tiene<span class="w"> </span>que<span class="w"> </span>aparecer<span class="w"> </span>STATUS:<span class="w"> </span>Success.
+<span class="c1"># Tiene que aparecer STATUS: Success.</span>
 </pre></div>
 </div>
 <p>Lo siguiente que hacemos es configurar el archivo de configuración del slurm <code class="docutils literal notranslate"><span class="pre">/etc/slurm/slurm.conf</span></code></p>
@@ -607,7 +608,7 @@ sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </sp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute-0-1:/etc/slurm/slurm.conf
 </pre></div>
 </div>
-<p>Cambiamos permisos y lanzamos slurmd en <strong>compute-0-1</strong></p>
+<p>Lanzamos slurmd en <strong>compute-0-1</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>slurmd.service
 systemctl<span class="w"> </span>start<span class="w"> </span>slurmd.service
 systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
@@ -620,12 +621,18 @@ systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld.service
 </div>
 <p>Comprobar desde el servidor el estado del nodo</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>sinfo
-PARTITION<span class="w"> </span>AVAL<span class="w">   </span>TIMELIMIT<span class="w">   </span>NODES<span class="w">  </span>STATE<span class="w"> </span>NODELIST
-debug*<span class="w">      </span>up<span class="w">      </span>infite<span class="w">       </span><span class="m">1</span><span class="w">   </span>idle<span class="w"> </span>compute-0-1
+PARTITION<span class="w"> </span>AVAIL<span class="w">  </span>TIMELIMIT<span class="w">   </span>NODES<span class="w">  </span>STATE<span class="w"> </span>NODELIST
+debug*<span class="w">       </span>up<span class="w">   </span>infinite<span class="w">       </span><span class="m">1</span><span class="w">   </span>idle<span class="w"> </span>compute-0-1
 </pre></div>
 </div>
-<p>En el caso de que no se cambie el estado automaticamente lo podemos intentar a cambiar a mano</p>
+<p>En el caso de que no cambie el estado automáticamente, podemos intentar cambiarlo a mano</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>compute-0-1<span class="w"> </span><span class="nv">state</span><span class="o">=</span>idle
+</pre></div>
+</div>
+<p>Ya podemos probar el clúster lanzando trabajos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tunombre1@compute-0-0:~$<span class="w"> </span>srun<span class="w"> </span>hostname
+compute-0-1
+tunombre1@compute-0-0:~$<span class="w"> </span>squeue
 </pre></div>
 </div>
 <p>Clonamos otro cliente <strong>compute-0-2</strong>, cambiamos en compute-0-0:/etc/slurm/slurm.conf</p>
@@ -645,7 +652,7 @@ scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
 ssh<span class="w"> </span>compute-0-2<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd.service
 
-!Cambiamos<span class="w"> </span>también<span class="w"> </span>en<span class="w"> </span>compute-0-1
+<span class="c1"># Cambiamos también en compute-0-1</span>
 scp<span class="w"> </span>/etc/slurm/slurm.conf<span class="w">  </span>compute-0-1:/etc/slurm/slurm.conf
 ssh<span class="w"> </span>compute-0-1<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd.service
 
@@ -675,9 +682,10 @@ hostname<span class="w"> </span>&gt;&gt;<span class="w"> </span>salida
 test.x<span class="w"> </span>&gt;&gt;<span class="w"> </span>salida
 </pre></div>
 </div>
+<p class="rubric">Notas</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="v1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p>vídeos</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/tcin64zidtfs928c">NIS NFS autofs Slurm modules enviroment Ubuntu Server 26.04 LTS</a></p></li>

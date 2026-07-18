@@ -6,9 +6,12 @@ Originalmente **NIS** se llamaba *Páginas Amarillas (Yellow Pages)*, o *YP*, qu
 
 DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hace que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.
 
+Hoy en día NIS se considera un servicio antiguo y en producción suele sustituirse por **LDAP** (que veremos más adelante), pero sigue siendo la forma más sencilla de entender qué es un servicio de directorio: un único servidor con las cuentas y muchos clientes que las consultan.
 
 Caso práctico: NIS con red NAT y red Interna
 ********************************************
+
+Puedes apoyarte en los vídeos [#v1]_.
 
 * Haz dos clones enlazados de **MV Ubuntu Server 26.04** haz que tengan las siguientes IPs:
 
@@ -21,7 +24,7 @@ Caso práctico: NIS con red NAT y red Interna
 
     * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
 
-Cambia el nombre de la maquinas en el archivo ``/etc/hostname`` cambia la ip en ``/etc/netplan/00-installer-config.yaml`` y revisa ``/etc/hosts``
+Cambia el nombre de las máquinas en el archivo ``/etc/hostname``, cambia la IP en ``/etc/netplan/00-installer-config.yaml`` y revisa ``/etc/hosts``
 
 Para habilitar la conectividad, es necesario que el servidor actúe como router, reenviando el tráfico entre redes. Esto puede configurarse utilizando herramientas como systemd [#systemd]_ o nftables [#nftables]_, que permite definir reglas de encaminamiento y NAT.
 
@@ -39,11 +42,12 @@ Instala el servidor NIS en el servidor (compute-0-0)
 
 .. code-block:: bash
 
-  apt-get -y install portmap
-  
-  #Instalamos dominio servidor.X.nis  donde X son las 3 primeras iniciales de tu nombre
-  apt-get -y install nis 
-  
+  apt-get -y install rpcbind   # en versiones antiguas el paquete se llamaba portmap
+
+  # Instalamos nis; durante la instalación pedirá el dominio NIS,
+  # pon servidor.X.nis donde X son las 3 primeras iniciales de tu nombre
+  apt-get -y install nis
+
 En ``/etc/hosts`` añadimos:
 
 .. code-block:: bash
@@ -56,18 +60,21 @@ Ejecuta el comando domainname para mostrar o configurar el nombre de dominio de 
 
   domainname servidor.X.nis
   
-Copia el nombre de su servidor NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypserv.service que inicia la nis)
+Copia el nombre del dominio NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypserv.service que inicia la nis)
 
 .. code-block:: bash
 
-  # Actualizamos la base de datos y creamos los mapas de la NIS
-  /usr/sbin/ypserv start
-  /usr/sbin/rpc.ypxfrd
+  # Arrancamos el servidor y creamos los mapas de la NIS
+  systemctl start ypserv
   /usr/lib/yp/ypinit -m
-  
+
   # Comprobamos
   rpcinfo -p
-  
+
+.. note::
+
+   Si más adelante creas o modificas usuarios en el servidor, recuerda **regenerar los mapas** para que los clientes vean los cambios: ``make -C /var/yp``
+
 En el caso de que no funcione, puedes buscar posibles errores en firewall (iptables -F)
 
 Iniciar el servidor nis :
@@ -77,7 +84,7 @@ Iniciar el servidor nis :
   systemctl enable ypserv.service 
   systemctl status ypserv.service
   
-Configurar archivo de ``/etc/hosts``, mete a todos los clientes.
+Configura el archivo ``/etc/hosts`` del servidor añadiendo a todos los clientes.
 
 
 Configuración del cliente
@@ -89,15 +96,15 @@ Instala el cliente NIS en el cliente **compute-0-1**
 
   apt-get -y install nis 
   
-Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo 
+Podemos comprobar el dominio NIS con el comando nisdomainname (sin argumentos lo muestra; con argumento lo establece):
 
 .. code-block:: bash
 
   nisdomainname servidor.X.nis
 
-Copia el nombre de su servidor NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypbind.service que inicia la nis)
+Copia el nombre del dominio NIS en el archivo ``/etc/defaultdomain`` (de aquí lo leerá el servicio ypbind.service que inicia la nis)
 
-En ``/etc/nsswitch.conf`` añadiendo al final de cada línea la palabra "nis".
+En ``/etc/nsswitch.conf`` añadimos al final de cada línea la palabra "nis".
 
 .. code-block:: bash
 
@@ -110,21 +117,23 @@ En /etc/yp.conf  añadimos ``ypserver <ip_del_servidor_nis>``, y añade el servi
 Por último lanzamos el servicio ypbind
 
 .. code-block:: bash
-  
-  ypbind
 
-para comprobarlo puedes utilizar el comando:
+  systemctl start ypbind
 
-.. code-block:: bash
-
-  getent passwd
-
-Para hacer que se cree el directorio de los usuarios de forma automática marcarlo con el siguiente comando:
+Para comprobarlo puedes utilizar los siguientes comandos (deben aparecer los usuarios del servidor):
 
 .. code-block:: bash
 
-  sudo pam-auth-update 
-  
+  ypcat passwd            # muestra el mapa de usuarios que sirve la NIS
+  getent passwd           # usuarios locales + los de la NIS
+  su - tunombre1          # probamos a entrar con un usuario de la NIS
+
+Para hacer que se cree el directorio de los usuarios de forma automática, ejecuta el siguiente comando y marca la opción de crear el directorio home en el primer inicio de sesión (mkhomedir):
+
+.. code-block:: bash
+
+  sudo pam-auth-update
+
 PAM (Pluggable Authentication Modules) establece una interfaz entre los programas de usuario y distintos métodos de autenticación.   De esta forma, el método de autenticación se hace transparente para los programas.
 
 Haz que el cliente NIS se inicie como servicios en el arranque del sistema, para ello
@@ -137,7 +146,7 @@ Haz que el cliente NIS se inicie como servicios en el arranque del sistema, para
 
 Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F 
 
-Con entorno gráfico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart
+Con entorno gráfico (por ejemplo xfce), si queremos que en la pantalla de inicio se pueda escribir el nombre de un usuario de la NIS, en ``/usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf`` añadimos ``greeter-show-manual-login=true`` y reiniciamos el entorno gráfico con ``sudo service lightdm restart``
 
    
 .. rubric:: Notas
@@ -184,7 +193,7 @@ Con entorno gráfico, por ejemplo para el xfce, si queremos que aparezca en la p
 
 * Recuerda crear los usuarios en el servidor nis.
 
-* Si no lo habías realizado, ejecutamos en el cliente ``sudo pam-auth-update`` y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)
+* Si no lo habías realizado, ejecutamos en el cliente ``sudo pam-auth-update`` y marcamos que se cree el directorio automáticamente; de esta forma, cuando un usuario acceda al cliente (compute-0-1) por primera vez se creará su home.
 
 .. [#nftables] nftables
 

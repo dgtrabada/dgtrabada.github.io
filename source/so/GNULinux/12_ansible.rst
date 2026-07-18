@@ -8,7 +8,7 @@ El **Inventario** es el archivo host para Ansible. En él se incluye informació
 
 Los **Módulos**, como en otros lenguajes, serían las librerías que ejecuta Ansible.
 
-Los **Playbooks** se encargan de definir todas las tareas que debemos realizar sobre un conjunto de nodos administrador.
+Los **Playbooks** se encargan de definir todas las tareas que debemos realizar sobre un conjunto de nodos administrados.
 
 Los **Roles** es una agrupación de ficheros, tareas y plantillas
 
@@ -31,26 +31,26 @@ Añadimos al final del archivo :
  server2 ansible_host=172.16.0.12
  
  [all:vars]
- ansible python interpreter=/usr/bin/python3
+ ansible_python_interpreter=/usr/bin/python3
 
 
 Para consultar el inventario
 
 .. code-block:: bash
 
- root@compute-0-0:~# ansible-inventory --list -y 
+ root@compute-0-0:~# ansible-inventory --list -y
  all:
    children:
      server:
        hosts:
          server0:
-           ansible python interpreter: /usr/bin/python3
+           ansible_python_interpreter: /usr/bin/python3
            ansible_host: 172.16.0.10
          server1:
-           ansible python interpreter: /usr/bin/python3
+           ansible_python_interpreter: /usr/bin/python3
            ansible_host: 172.16.0.11
          server2:
-           ansible python interpreter: /usr/bin/python3
+           ansible_python_interpreter: /usr/bin/python3
            ansible_host: 172.16.0.12
      ungrouped: {}
 
@@ -113,7 +113,7 @@ Podemos especificar múltiples hosts separándolos con comas:
  ansible server1,server2 -m ping -u root
 
 Playbook
-*******
+********
 
 Ansible ad hoc están bien para algo rápido, sin embargo para organizar varios modulos se utilizan los playbook, por ejemplo:
 
@@ -182,7 +182,7 @@ Ejecutamos con ansible el playbook
  ok: [server0]
  ok: [server2]
 
- PLAY RECA P******************************************************************************
+ PLAY RECAP ******************************************************************************
  server0       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0   
  server1       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0   
  server2       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0   
@@ -194,7 +194,7 @@ Podríamos ejecutarlo solo en el server1
 
  ansible-playbook -l server1 playbook.yml
  
-Para cambiar el grupo de hosts por defecto.
+Para usar otro archivo de inventario distinto del predeterminado:
 
 .. code-block:: bash
 
@@ -271,7 +271,7 @@ Consideraciones
 - Es recomendable mantener los roles simples y reutilizables.
 
 Uso de un rol en un playbook
-===========================
+============================
 
 Un rol se utiliza dentro de un playbook de la siguiente forma:
 
@@ -284,7 +284,7 @@ Un rol se utiliza dentro de un playbook de la siguiente forma:
 De esta forma, todas las tareas definidas en el rol se ejecutarán sobre los hosts indicados.
 
 Ventajas de usar roles
-=====================
+======================
 
 - Facilitan la reutilización del código.
 - Mejoran la organización y legibilidad.
@@ -338,7 +338,7 @@ Vamos a crear el compute-0-3 utilizando ansible, para ello crea un rol llamado `
  ├── templates
  │   ├── auto.home.j2
  |   ├── auto.master.j2
- │   ├── ldap.conf.j2
+ │   ├── nslcd.conf.j2
  │   └── nsswitch.conf.j2
  ├── tests
  │   ├── inventory
@@ -350,14 +350,14 @@ En el archivo ``cluster-tunombre/tasks/main.yml`` tenemos:
 
 .. code-block:: bash
 
- # tasks file for cluster-tunombre (Versión Moderna con libnss-ldapd)
- 
+ # tasks file for cluster-tunombre (versión moderna con libnss-ldapd/nslcd)
+
  - name: Instalar paquetes cliente LDAP modernos
    apt:
      name:
-       - libnss-ldap       # Para NSS (getent passwd, grupos)
-       - libpam-ldap       # Para PAM (autenticación)
-       - ldap-utils         # Utilidades como ldapsearch
+       - libnss-ldapd      # Para NSS (getent passwd, grupos), usa el demonio nslcd
+       - libpam-ldapd      # Para PAM (autenticación)
+       - ldap-utils        # Utilidades como ldapsearch
      state: present
      update_cache: yes
  
@@ -496,9 +496,7 @@ Vamos a empezar creando la imagen desde el siguiente ``Dockerfile``
 
  CMD service ssh start && sleep infinity
 
-Hacemos las imágenes (si hace falta) y levantamos los contenedores en segundo plano ``docker compose up -d --build``.
-
-Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 3 contenedores que simulan máquinas de un clúster
+Utilizaremos el siguiente ``docker-compose.yml``, que define un mini clúster de 3 contenedores que simulan máquinas de un clúster
 
 .. code-block:: bash
 
@@ -543,9 +541,9 @@ Utilizaremos el siguiente ``docker-compose.yml`` que define un mini clúster de 
 
 Podemos levantar el cluster ``docker compose up -d --build`` y conectarnos con ``docker exec -it --user root compute-0-0 bash``
 
-Instalamos ansible en compute-0-0 y exportamos la clave publica a todos los nodos. 
+Instalamos ansible en compute-0-0 y exportamos la clave pública a todos los nodos (ssh-keygen + ssh-copy-id).
 
-Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook sobre el inventario cluster.yml para aplicar la automatización en los hosts definidos.
+Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook cluster.yml sobre el inventario para aplicar la automatización en los hosts definidos.
 
 .. code-block:: bash
 
@@ -560,7 +558,7 @@ Chequeamos el servidor ``ldapsearch -xLLL -b "dc=ldap,dc=tunombre,dc=local"``, y
  ldapadd -x -D "cn=admin,dc=ldap,dc=tunombre,dc=local" -W -f test.ldif
 
 
-Videos
+Vídeos
 ******
 * `Ansible LDAP autofs en Ubuntu 26.04 LTS <https://mediateca.educa.madrid.org/video/jeos9oi2i2pqzcwz>`_
 * `Ansible LDAP autofs en Ubuntu 24.04 LTS <https://mediateca.educa.madrid.org/video/m8p67seyxyz16zrk>`_

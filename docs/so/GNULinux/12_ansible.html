@@ -532,7 +532,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Vídeos</a></li>
 </ul>
             </nav>
         </div>
@@ -549,7 +549,7 @@
 <p>El <strong>nodo de control</strong>, es la máquina que tiene instalado Ansible. Desde ella administraremos el resto de nodos.</p>
 <p>El <strong>Inventario</strong> es el archivo host para Ansible. En él se incluye información, estática o dinámica, de los nodos administrados y su información. Datos como IP o nombre.</p>
 <p>Los <strong>Módulos</strong>, como en otros lenguajes, serían las librerías que ejecuta Ansible.</p>
-<p>Los <strong>Playbooks</strong> se encargan de definir todas las tareas que debemos realizar sobre un conjunto de nodos administrador.</p>
+<p>Los <strong>Playbooks</strong> se encargan de definir todas las tareas que debemos realizar sobre un conjunto de nodos administrados.</p>
 <p>Los <strong>Roles</strong> es una agrupación de ficheros, tareas y plantillas</p>
 <p>Una <strong>Task</strong> se podría definir como una acción a realizar.</p>
 <p>Instalamos ansible:</p>
@@ -564,7 +564,7 @@ server1<span class="w"> </span><span class="nv">ansible_host</span><span class="
 server2<span class="w"> </span><span class="nv">ansible_host</span><span class="o">=</span><span class="m">172</span>.16.0.12
 
 <span class="o">[</span>all:vars<span class="o">]</span>
-ansible<span class="w"> </span>python<span class="w"> </span><span class="nv">interpreter</span><span class="o">=</span>/usr/bin/python3
+<span class="nv">ansible_python_interpreter</span><span class="o">=</span>/usr/bin/python3
 </pre></div>
 </div>
 <p>Para consultar el inventario</p>
@@ -574,13 +574,13 @@ all:
 <span class="w">    </span>server:
 <span class="w">      </span>hosts:
 <span class="w">        </span>server0:
-<span class="w">          </span>ansible<span class="w"> </span>python<span class="w"> </span>interpreter:<span class="w"> </span>/usr/bin/python3
+<span class="w">          </span>ansible_python_interpreter:<span class="w"> </span>/usr/bin/python3
 <span class="w">          </span>ansible_host:<span class="w"> </span><span class="m">172</span>.16.0.10
 <span class="w">        </span>server1:
-<span class="w">          </span>ansible<span class="w"> </span>python<span class="w"> </span>interpreter:<span class="w"> </span>/usr/bin/python3
+<span class="w">          </span>ansible_python_interpreter:<span class="w"> </span>/usr/bin/python3
 <span class="w">          </span>ansible_host:<span class="w"> </span><span class="m">172</span>.16.0.11
 <span class="w">        </span>server2:
-<span class="w">          </span>ansible<span class="w"> </span>python<span class="w"> </span>interpreter:<span class="w"> </span>/usr/bin/python3
+<span class="w">          </span>ansible_python_interpreter:<span class="w"> </span>/usr/bin/python3
 <span class="w">          </span>ansible_host:<span class="w"> </span><span class="m">172</span>.16.0.12
 <span class="w">    </span>ungrouped:<span class="w"> </span><span class="o">{}</span>
 </pre></div>
@@ -686,7 +686,7 @@ ok:<span class="w"> </span><span class="o">[</span>server1<span class="o">]</spa
 ok:<span class="w"> </span><span class="o">[</span>server0<span class="o">]</span>
 ok:<span class="w"> </span><span class="o">[</span>server2<span class="o">]</span>
 
-PLAY<span class="w"> </span>RECA<span class="w"> </span>P******************************************************************************
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>******************************************************************************
 server0<span class="w">       </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span>
 server1<span class="w">       </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span>
 server2<span class="w">       </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span>
@@ -696,7 +696,7 @@ server2<span class="w">       </span>:<span class="w"> </span><span class="nv">o
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>-l<span class="w"> </span>server1<span class="w"> </span>playbook.yml
 </pre></div>
 </div>
-<p>Para cambiar el grupo de hosts por defecto.</p>
+<p>Para usar otro archivo de inventario distinto del predeterminado:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>playbook.yml<span class="w"> </span>-i<span class="w"> </span>ansible_hosts
 </pre></div>
 </div>
@@ -823,7 +823,7 @@ cluster_tunombre/
 ├──<span class="w"> </span>templates
 │<span class="w">   </span>├──<span class="w"> </span>auto.home.j2
 <span class="p">|</span><span class="w">   </span>├──<span class="w"> </span>auto.master.j2
-│<span class="w">   </span>├──<span class="w"> </span>ldap.conf.j2
+│<span class="w">   </span>├──<span class="w"> </span>nslcd.conf.j2
 │<span class="w">   </span>└──<span class="w"> </span>nsswitch.conf.j2
 ├──<span class="w"> </span>tests
 │<span class="w">   </span>├──<span class="w"> </span>inventory
@@ -833,14 +833,14 @@ cluster_tunombre/
 </pre></div>
 </div>
 <p>En el archivo <code class="docutils literal notranslate"><span class="pre">cluster-tunombre/tasks/main.yml</span></code> tenemos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># tasks file for cluster-tunombre (Versión Moderna con libnss-ldapd)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># tasks file for cluster-tunombre (versión moderna con libnss-ldapd/nslcd)</span>
 
 -<span class="w"> </span>name:<span class="w"> </span>Instalar<span class="w"> </span>paquetes<span class="w"> </span>cliente<span class="w"> </span>LDAP<span class="w"> </span>modernos
 <span class="w">  </span>apt:
 <span class="w">    </span>name:
-<span class="w">      </span>-<span class="w"> </span>libnss-ldap<span class="w">       </span><span class="c1"># Para NSS (getent passwd, grupos)</span>
-<span class="w">      </span>-<span class="w"> </span>libpam-ldap<span class="w">       </span><span class="c1"># Para PAM (autenticación)</span>
-<span class="w">      </span>-<span class="w"> </span>ldap-utils<span class="w">         </span><span class="c1"># Utilidades como ldapsearch</span>
+<span class="w">      </span>-<span class="w"> </span>libnss-ldapd<span class="w">      </span><span class="c1"># Para NSS (getent passwd, grupos), usa el demonio nslcd</span>
+<span class="w">      </span>-<span class="w"> </span>libpam-ldapd<span class="w">      </span><span class="c1"># Para PAM (autenticación)</span>
+<span class="w">      </span>-<span class="w"> </span>ldap-utils<span class="w">        </span><span class="c1"># Utilidades como ldapsearch</span>
 <span class="w">    </span>state:<span class="w"> </span>present
 <span class="w">    </span>update_cache:<span class="w"> </span>yes
 
@@ -971,8 +971,7 @@ RUN<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </s
 CMD<span class="w"> </span>service<span class="w"> </span>ssh<span class="w"> </span>start<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sleep<span class="w"> </span>infinity
 </pre></div>
 </div>
-<p>Hacemos las imágenes (si hace falta) y levantamos los contenedores en segundo plano <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--build</span></code>.</p>
-<p>Utilizaremos el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> que define un mini clúster de 3 contenedores que simulan máquinas de un clúster</p>
+<p>Utilizaremos el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code>, que define un mini clúster de 3 contenedores que simulan máquinas de un clúster</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>services:
 <span class="w">  </span>compute-0-0:
 <span class="w">    </span>build:<span class="w"> </span>.
@@ -1014,8 +1013,8 @@ networks:
 </pre></div>
 </div>
 <p>Podemos levantar el cluster <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span> <span class="pre">--build</span></code> y conectarnos con <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">--user</span> <span class="pre">root</span> <span class="pre">compute-0-0</span> <span class="pre">bash</span></code></p>
-<p>Instalamos ansible en compute-0-0 y exportamos la clave publica a todos los nodos.</p>
-<p>Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook sobre el inventario cluster.yml para aplicar la automatización en los hosts definidos.</p>
+<p>Instalamos ansible en compute-0-0 y exportamos la clave pública a todos los nodos (ssh-keygen + ssh-copy-id).</p>
+<p>Descarga el rol dgtrabada.ansible desde Ansible Galaxy, entramos en su directorio de pruebas y ejecutamos el playbook cluster.yml sobre el inventario para aplicar la automatización en los hosts definidos.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-galaxy<span class="w"> </span>role<span class="w"> </span>install<span class="w"> </span>dgtrabada.ansible
 <span class="nb">cd</span><span class="w"> </span>~/.ansible/roles/dgtrabada.ansible/tests
 ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span class="w"> </span>cluster.yml
@@ -1027,7 +1026,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span
 </div>
 </section>
 <section id="videos">
-<h2>Videos<a class="headerlink" href="#videos" title="Link to this heading">#</a></h2>
+<h2>Vídeos<a class="headerlink" href="#videos" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/jeos9oi2i2pqzcwz">Ansible LDAP autofs en Ubuntu 26.04 LTS</a></p></li>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/m8p67seyxyz16zrk">Ansible LDAP autofs en Ubuntu 24.04 LTS</a></p></li>
@@ -1095,7 +1094,7 @@ ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory<span
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-compute-0-3">Caso práctico: compute-0-3</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-ansible">Docker + ansible</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Videos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videos">Vídeos</a></li>
 </ul>
   </nav></div>
 

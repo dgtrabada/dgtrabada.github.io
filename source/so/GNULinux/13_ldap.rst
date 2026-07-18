@@ -27,7 +27,7 @@ Entre los atributos que suelen emplearse habitualmente, encontramos los siguient
 * givenname: Nombre de pila.
 * sn (surname): Apellido de la persona.
 * o (organization): Entidad a la que pertenece la persona.
-* u (organizational unit): El departamento en el que trabaja la persona.
+* ou (organizational unit): El departamento en el que trabaja la persona.
 * mail: dirección de correo electrónico de la persona.
 
 .. image:: imagenes/LDAP.png
@@ -84,11 +84,10 @@ Por ejemplo, las siguientes líneas son equivalentes:
 
 .. code-block:: bash
 
- dn: uid=alumno1, ou=ldap, dc=tunombre,dc=local
+ dn: uid=alumno1, ou=ldap, dc=tunombre, dc=local
 
  dn: uid=alumno1, ou=ldap,
-
-  dc=tunombre,dc=es
+  dc=tunombre, dc=local
 
 Vamos insertar los siguientes objetos en el LDAP
 
@@ -212,7 +211,7 @@ Editar Objetos:
 
  $ cat change.ldif 
 
- dn: uid=tunombre4,dc=ldap,dc=tunombre,dc=local
+ dn: uid=tunombre4,ou=usuarios,dc=ldap,dc=tunombre,dc=local
  changetype: modify
  replace: uidNumber
  uidNumber: 1014
@@ -225,7 +224,7 @@ Añadir Objetos:
 
  $ cat add.ldif
 
- dn: uid=tunombre4,dc=ldap,dc=tunombre,dc=local
+ dn: uid=tunombre4,ou=usuarios,dc=ldap,dc=tunombre,dc=local
  changetype: modify
  add: homePhone
  homePhone: 1234567
@@ -237,7 +236,7 @@ Para borrar por ejemplo el objeto tunombre1 :
 
 .. code-block:: bash
 
- ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1,dc=ldap,dc=tunombre,dc=local"
+ ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local"
 
 Cuando lo borramos, aunque no aparezca nada, si hacemos un ldapsearch veremos que no está
 
@@ -254,12 +253,12 @@ Para hacer copias de seguridad y restaurarlas utilizamos:
  $ slapcat -l backup.ldif #hacemos un backup
 
  #borramos los usuarios, por error ...
- sudo ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1......,dc=ldap,dc=tunombre,dc=local"
+ sudo ldapdelete -x -W -D "cn=admin,dc=ldap,dc=tunombre,dc=local" "uid=tunombre1......,ou=usuarios,dc=ldap,dc=tunombre,dc=local"
  systemctl stop slapd.service  #antes de restaurar paramos el servicio
  rm -Rf /var/lib/ldap/* #limpiamos el directorio ldap
  slapadd -v -c -l backup.ldif  #restauramos
  slapindex -v #rehacemos indices
- chown -Rf openldap.openldap /var/lib/ldap/*
+ chown -Rf openldap:openldap /var/lib/ldap/*
  systemctl start slapd.service
 
 Configuración de los clientes: Autenticación con OpenLDAP
@@ -271,7 +270,7 @@ Configuración de los clientes: Autenticación con OpenLDAP
 
  #URI del servidor LDAP:  ldap://172.16.0.10
  #Base de búsqueda en el servidor LDAP: dc=ldap,dc=tunombre,dc=local
- #/etc/nsswith.conf marcamos passwd y group
+ #/etc/nsswitch.conf marcamos passwd y group
 
 
  # En el caso de que necesitmos reconfigurar 
@@ -284,10 +283,7 @@ Configuración de los clientes: Autenticación con OpenLDAP
  # marcar que se cree el directorio automaticamente
  pam-auth-update 
 
-Algunos de estos comandos ya no están actualizados o tienen problemas lo importante es:
-
-
-para comprobarlo puedes utilizar el comando:
+Algunos de estos paquetes han ido cambiando con las versiones de Ubuntu (hoy en día se recomienda la variante moderna libnss-ldapd/libpam-ldapd, que usa el demonio nslcd); lo importante es que al final el cliente vea los usuarios del LDAP. Para comprobarlo puedes utilizar el comando:
 
 .. code-block:: bash
 

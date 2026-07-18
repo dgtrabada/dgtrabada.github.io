@@ -540,14 +540,16 @@
 <h1>NIS<a class="headerlink" href="#nis" title="Link to this heading">#</a></h1>
 <p>Originalmente <strong>NIS</strong> se llamaba <em>Páginas Amarillas (Yellow Pages)</em>, o <em>YP</em>, que todavía se utiliza para referirse a él. Desafortunadamente, ese nombre es una marca registrada de British Telecom, que exigió a Sun abandonar ese nombre. Sin embargo YP permanece como prefijo en los nombres de la mayoría de las órdenes relacionadas con NIS, como ypserv e ypbind.</p>
 <p>DNS sirve un rango limitado de información, siendo la más importante la correspondencia entre el nombre de nodo y la dirección IP. Para otros tipos de información, no existe un servicio especializado así. Por otra parte, si sólo se administra una pequeña LAN sin conectividad a Internet, no parece que merezca la pena configurar DNS. Ésta es la razón por la que Sun desarrolló el Sistema de Información de Red (NIS). NIS proporciona prestaciones de acceso a bases de datos genéricas que pueden utilizarse para distribuir, por ejemplo, la información contenida en los ficheros passwd y groups a todos los nodos de su red. Esto hace que la red parezca un sistema individual, con las mismas cuentas en todos los nodos. De manera similar, se puede usar NIS para distribuir la información de nombres de nodo contenida en /etc/hosts a todas las máquinas de la red.</p>
+<p>Hoy en día NIS se considera un servicio antiguo y en producción suele sustituirse por <strong>LDAP</strong> (que veremos más adelante), pero sigue siendo la forma más sencilla de entender qué es un servicio de directorio: un único servidor con las cuentas y muchos clientes que las consultan.</p>
 <section id="caso-practico-nis-con-red-nat-y-red-interna">
 <h2>Caso práctico: NIS con red NAT y red Interna<a class="headerlink" href="#caso-practico-nis-con-red-nat-y-red-interna" title="Link to this heading">#</a></h2>
+<p>Puedes apoyarte en los vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
 <ul class="simple">
 <li><p>Haz dos clones enlazados de <strong>MV Ubuntu Server 26.04</strong> haz que tengan las siguientes IPs:</p>
 <ul>
 <li><p>compute-0-0: (Servidor NIS)</p>
 <ul>
-<li><p>Tarjeta red modo &quot;Red Nat <a class="footnote-reference brackets" href="#rednat1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> 10.0.2.10/24 utiliza el puerto 2222 del anfitrión&quot;</p></li>
+<li><p>Tarjeta red modo &quot;Red Nat <a class="footnote-reference brackets" href="#rednat1" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> 10.0.2.10/24 utiliza el puerto 2222 del anfitrión&quot;</p></li>
 <li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 </ul>
 </li>
@@ -559,8 +561,8 @@
 </ul>
 </li>
 </ul>
-<p>Cambia el nombre de la maquinas en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code> cambia la ip en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> y revisa <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code></p>
-<p>Para habilitar la conectividad, es necesario que el servidor actúe como router, reenviando el tráfico entre redes. Esto puede configurarse utilizando herramientas como systemd <a class="footnote-reference brackets" href="#systemd" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> o nftables <a class="footnote-reference brackets" href="#nftables" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, que permite definir reglas de encaminamiento y NAT.</p>
+<p>Cambia el nombre de las máquinas en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>, cambia la IP en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> y revisa <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code></p>
+<p>Para habilitar la conectividad, es necesario que el servidor actúe como router, reenviando el tráfico entre redes. Esto puede configurarse utilizando herramientas como systemd <a class="footnote-reference brackets" href="#systemd" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> o nftables <a class="footnote-reference brackets" href="#nftables" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, que permite definir reglas de encaminamiento y NAT.</p>
 <section id="configuracion-del-servidor">
 <h3>Configuración del servidor<a class="headerlink" href="#configuracion-del-servidor" title="Link to this heading">#</a></h3>
 <p>Crea los siguientes usuarios y grupos en el servidor <strong>compute-0-0</strong></p>
@@ -571,9 +573,10 @@
 <li><p><strong>tunombre4</strong> con contraseña <strong>alumno</strong> dentro del grupo <strong>tuapellido</strong></p></li>
 </ul>
 <p>Instala el servidor NIS en el servidor (compute-0-0)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>portmap
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>rpcbind<span class="w">   </span><span class="c1"># en versiones antiguas el paquete se llamaba portmap</span>
 
-<span class="c1">#Instalamos dominio servidor.X.nis  donde X son las 3 primeras iniciales de tu nombre</span>
+<span class="c1"># Instalamos nis; durante la instalación pedirá el dominio NIS,</span>
+<span class="c1"># pon servidor.X.nis donde X son las 3 primeras iniciales de tu nombre</span>
 apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
@@ -585,15 +588,18 @@ apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>domainname<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
-<p>Copia el nombre de su servidor NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypserv.service que inicia la nis)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Actualizamos la base de datos y creamos los mapas de la NIS</span>
-/usr/sbin/ypserv<span class="w"> </span>start
-/usr/sbin/rpc.ypxfrd
+<p>Copia el nombre del dominio NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypserv.service que inicia la nis)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Arrancamos el servidor y creamos los mapas de la NIS</span>
+systemctl<span class="w"> </span>start<span class="w"> </span>ypserv
 /usr/lib/yp/ypinit<span class="w"> </span>-m
 
 <span class="c1"># Comprobamos</span>
 rpcinfo<span class="w"> </span>-p
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si más adelante creas o modificas usuarios en el servidor, recuerda <strong>regenerar los mapas</strong> para que los clientes vean los cambios: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-C</span> <span class="pre">/var/yp</span></code></p>
 </div>
 <p>En el caso de que no funcione, puedes buscar posibles errores en firewall (iptables -F)</p>
 <p>Iniciar el servidor nis :</p>
@@ -601,7 +607,7 @@ rpcinfo<span class="w"> </span>-p
 systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
 </pre></div>
 </div>
-<p>Configurar archivo de <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>, mete a todos los clientes.</p>
+<p>Configura el archivo <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> del servidor añadiendo a todos los clientes.</p>
 </section>
 <section id="configuracion-del-cliente">
 <h3>Configuración del cliente<a class="headerlink" href="#configuracion-del-cliente" title="Link to this heading">#</a></h3>
@@ -609,12 +615,12 @@ systemctl<span class="w"> </span>status<span class="w"> </span>ypserv.service
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nis
 </pre></div>
 </div>
-<p>Podemos comprobar el nombre del servidor NIS (servidor.X.nis) con el comando nisdomainname o domainname en el caso de que queramos cambiarlo</p>
+<p>Podemos comprobar el dominio NIS con el comando nisdomainname (sin argumentos lo muestra; con argumento lo establece):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nisdomainname<span class="w"> </span>servidor.X.nis
 </pre></div>
 </div>
-<p>Copia el nombre de su servidor NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypbind.service que inicia la nis)</p>
-<p>En <code class="docutils literal notranslate"><span class="pre">/etc/nsswitch.conf</span></code> añadiendo al final de cada línea la palabra &quot;nis&quot;.</p>
+<p>Copia el nombre del dominio NIS en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/defaultdomain</span></code> (de aquí lo leerá el servicio ypbind.service que inicia la nis)</p>
+<p>En <code class="docutils literal notranslate"><span class="pre">/etc/nsswitch.conf</span></code> añadimos al final de cada línea la palabra &quot;nis&quot;.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
 group:<span class="w"> </span>files<span class="w"> </span>systemd<span class="w"> </span>nis
 shadow:<span class="w"> </span>files<span class="w"> </span>nis
@@ -622,14 +628,16 @@ shadow:<span class="w"> </span>files<span class="w"> </span>nis
 </div>
 <p>En /etc/yp.conf  añadimos <code class="docutils literal notranslate"><span class="pre">ypserver</span> <span class="pre">&lt;ip_del_servidor_nis&gt;</span></code>, y añade el servidor al /etc/hosts</p>
 <p>Por último lanzamos el servicio ypbind</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ypbind
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>ypbind
 </pre></div>
 </div>
-<p>para comprobarlo puedes utilizar el comando:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
+<p>Para comprobarlo puedes utilizar los siguientes comandos (deben aparecer los usuarios del servidor):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ypcat<span class="w"> </span>passwd<span class="w">            </span><span class="c1"># muestra el mapa de usuarios que sirve la NIS</span>
+getent<span class="w"> </span>passwd<span class="w">           </span><span class="c1"># usuarios locales + los de la NIS</span>
+su<span class="w"> </span>-<span class="w"> </span>tunombre1<span class="w">          </span><span class="c1"># probamos a entrar con un usuario de la NIS</span>
 </pre></div>
 </div>
-<p>Para hacer que se cree el directorio de los usuarios de forma automática marcarlo con el siguiente comando:</p>
+<p>Para hacer que se cree el directorio de los usuarios de forma automática, ejecuta el siguiente comando y marca la opción de crear el directorio home en el primer inicio de sesión (mkhomedir):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pam-auth-update
 </pre></div>
 </div>
@@ -640,11 +648,11 @@ systemctl<span class="w"> </span>status<span class="w"> </span>ypbind.service
 </pre></div>
 </div>
 <p>Si diera algún error al conectar, podría ser por el firewall, para borrar las reglas: iptables -F</p>
-<p>Con entorno gráfico, por ejemplo para el xfce, si queremos que aparezca en la pantalla de inicio en /usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf  añadimos greeter-show-manual-login=true y reiniciamos el entorno gráfico sudo service lightdm restart</p>
+<p>Con entorno gráfico (por ejemplo xfce), si queremos que en la pantalla de inicio se pueda escribir el nombre de un usuario de la NIS, en <code class="docutils literal notranslate"><span class="pre">/usr/share/lightdm/lightdm.conf.d/50-greeter-wrapper.conf</span></code> añadimos <code class="docutils literal notranslate"><span class="pre">greeter-show-manual-login=true</span></code> y reiniciamos el entorno gráfico con <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">lightdm</span> <span class="pre">restart</span></code></p>
 <p class="rubric">Notas</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="systemd" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
 <p>systemd</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>/root/enrutar.sh
 <span class="c1">#!/bin/bash</span>
@@ -683,11 +691,11 @@ systemctl<span class="w"> </span>start<span class="w"> </span>enrutar.service
 </div>
 </li>
 <li><p>Recuerda crear los usuarios en el servidor nis.</p></li>
-<li><p>Si no lo habías realizado, ejecutamos en el cliente <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pam-auth-update</span></code> y marcamos que se cree el directorio automáticamente, de esta forma cuando un usuario acceda al cliente (compute-0-1)</p></li>
+<li><p>Si no lo habías realizado, ejecutamos en el cliente <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pam-auth-update</span></code> y marcamos que se cree el directorio automáticamente; de esta forma, cuando un usuario acceda al cliente (compute-0-1) por primera vez se creará su home.</p></li>
 </ul>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="nftables" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
 <p>nftables</p>
 </aside>
 </aside>
@@ -725,12 +733,12 @@ systemctl<span class="w"> </span>start<span class="w"> </span>nftables
 </div>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="rednat1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">3</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">3</a><span class="fn-bracket">]</span></span>
 <p>Configuración red NAT</p>
 <img alt="../../_images/redNAT.png" src="../../_images/redNAT.png" />
 </aside>
 <aside class="footnote brackets" id="v1" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">4</a><span class="fn-bracket">]</span></span>
 <p>vídeos</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/jhn2ix9u1fkthko9">NIS red NAT Ubuntu Server 26.04 LTS red NAT</a></p></li>
