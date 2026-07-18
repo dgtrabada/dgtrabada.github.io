@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -521,7 +528,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-de-virtualbox">Comandos útiles de VirtualBox</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-26-04">Caso práctico: MV Ubuntu Server 26.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
@@ -561,7 +568,7 @@
 <p>Algunos conceptos clave relacionados con la virtualización son:</p>
 <ul>
 <li><p><strong>Hipervisor</strong>: También conocido como monitor de máquina virtual (VMM), es el software o firmware responsable de crear y gestionar las máquinas virtuales. Se encarga de asignar y administrar los recursos físicos entre las VM.</p>
-<p>Existen dos tipos principales de hipervisores, también conocidos como monitores de máquina virtual (VMM):</p>
+<p>Existen dos tipos principales de hipervisores:</p>
 <ul class="simple">
 <li><p><strong>Hipervisor de tipo 1 o &quot;nativo&quot;</strong> (Bare Metal Hypervisor): Este tipo de hipervisor se ejecuta directamente sobre el hardware físico sin depender de un sistema operativo anfitrión. Actúa como una capa de virtualización entre el hardware y las máquinas virtuales. Algunos ejemplos de hipervisores de tipo 1 son:</p>
 <ul>
@@ -589,16 +596,16 @@
 <li><p><strong>Escalabilidad</strong>: La virtualización permite escalar verticalmente (aumentar los recursos asignados a una VM) o escalar horizontalmente (agregar más VM) según las necesidades de carga de trabajo.</p></li>
 </ul>
 <p>La virtualización se utiliza en diversos entornos, como servidores, redes, almacenamiento y escritorios, proporcionando flexibilidad, eficiencia y mayor aprovechamiento de los recursos informáticos.</p>
-<p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual</p>
-<p>Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..</p>
+<p>Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual.</p>
+<p>Hay varias aplicaciones muy conocidas capaces de hacer esto; las más famosas son VMware, VirtualBox, QEMU, etc.</p>
 <section id="virtualbox">
 <h2>VirtualBox<a class="headerlink" href="#virtualbox" title="Link to this heading">#</a></h2>
 <img alt="../_images/virtualbox.png" src="../_images/virtualbox.png" />
 <p>Resumen:</p>
 <p><strong>OVF/OVA</strong> : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).</p>
-<p><strong>Clonación completa</strong>, una copia exacta (incluyendo todos los archivos de disco duro virtual) de la máquina original serán creados.</p>
-<p><strong>Clonación enlazada</strong>, una nueva máquina será creada, pero los archivos de las unidades de disco duro virtuales serán vinculados a los archivos de disco duro virtual de la máquina original y no podrá mover la nueva máquina virtual a una computadora diferente sin mover los originales también.</p>
-<p><em>Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.</em></p>
+<p><strong>Clonación completa</strong>: se crea una copia exacta e independiente de la máquina original, incluyendo todos los archivos de disco duro virtual. Tarda más y ocupa más espacio, pero el clon no depende para nada de la máquina original (se puede mover o borrar cualquiera de las dos).</p>
+<p><strong>Clonación enlazada</strong>: se crea una nueva máquina, pero sus discos virtuales no son una copia, sino archivos de <strong>diferencias</strong> vinculados a los discos de la máquina original (VirtualBox crea para ello una instantánea de la original). Por eso el clon se crea casi al instante y ocupa muy poco espacio: solo va guardando lo que cambia respecto a la original. A cambio, la máquina original no se puede borrar mientras existan sus clones, y no podrás mover el clon a otro ordenador sin mover también los discos originales. Es la que usaremos en los casos prácticos para crear varias máquinas a partir de una misma base.</p>
+<p>Al clonar, en <strong>Política de dirección MAC</strong> conviene elegir <strong>&quot;Generar nuevas direcciones MAC para todos los adaptadores de red&quot;</strong>: como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, y si el clon conserva las MAC de la original tendremos problemas de red a nivel de enlace en cuanto arranquen las dos a la vez. Si nos encontramos con MAC duplicadas después de clonar, hay que cambiarlas a mano en la configuración de red de la MV.</p>
 <p><strong>VirtualBox Guest Additions</strong> es un conjunto de controladores y aplicaciones del sistema que mejoran el rendimiento y la funcionalidad de un sistema operativo invitado que se ejecuta dentro de una máquina virtual de VirtualBox. Cuando instalas las Guest Additions en el sistema operativo invitado, se habilitan funciones como carpetas compartidas, integración de ratón sin problemas, mejor soporte de video y mejor rendimiento.</p>
 <p>El paquete de Guest Additions proporciona controladores adicionales para el hardware de tu máquina virtual, incluyendo gráficos, redes y dispositivos de entrada. También incluye utilidades que te permiten redimensionar la ventana de la máquina virtual dinámicamente, compartir carpetas entre el sistema anfitrión y el invitado, y habilitar el intercambio de portapapeles.</p>
 <p><strong>Las instantáneas (snapshots)</strong> en VirtualBox son una característica que te permite guardar el estado actual de una máquina virtual en un punto específico del tiempo. Con las instantáneas, puedes capturar una imagen completa de la máquina virtual, incluyendo su configuración, discos virtuales y memoria, y luego restaurarla posteriormente si es necesario.</p>
@@ -621,30 +628,30 @@ Para utilizarlo tenemos que crear la red NAT : Desde el menú Archivo -&gt; Pref
 </ul>
 </li>
 </ul>
-<section id="comandos-utiles-virtualbox">
-<h3>Comandos útiles virtualBox:<a class="headerlink" href="#comandos-utiles-virtualbox" title="Link to this heading">#</a></h3>
+<section id="comandos-utiles-de-virtualbox">
+<h3>Comandos útiles de VirtualBox<a class="headerlink" href="#comandos-utiles-de-virtualbox" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">list</span> <span class="pre">vms</span></code>: Listar máquinas virtuales</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">list</span> <span class="pre">vms</span> <span class="pre">runningvms</span></code>: Listar máquinas virtuales que están ejecutándose</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">list</span> <span class="pre">runningvms</span></code>: Listar máquinas virtuales que están ejecutándose</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">startvm</span> <span class="pre">'Ubuntu</span> <span class="pre">Server</span> <span class="pre">24.04'</span> <span class="pre">--type</span> <span class="pre">headless</span></code>: Ejecutarla sin entorno gráfico</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">controlvm</span> <span class="pre">'Ubuntu</span> <span class="pre">Server</span> <span class="pre">16.04'</span> <span class="pre">savestate</span></code>: Guardar el estado</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VBoxManage</span> <span class="pre">controlvm</span> <span class="pre">'Ubuntu</span> <span class="pre">Server</span> <span class="pre">24.04'</span> <span class="pre">savestate</span></code>: Guardar el estado</p></li>
 </ul>
-<p>En modo gráfico:</p>
+<p>En modo gráfico (<code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span></code> es la <strong>tecla anfitrión</strong> por defecto):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">Supr</span></code> : Ctrl + Atl + Supr</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span></code> : Salir de pantalla</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span></code> : libera el ratón y el teclado capturados por la MV</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">Supr</span></code> : Ctrl + Alt + Supr</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">f</span></code> : pasar/volver de pantalla completa</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">c</span></code>: pasar/volver modo escalado</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl_derecho</span> <span class="pre">+</span> <span class="pre">c</span></code> : pasar/volver de modo escalado</p></li>
 </ul>
 </section>
 <section id="caso-practico-mv-ubuntu-server-26-04">
 <h3>Caso práctico: MV Ubuntu Server 26.04<a class="headerlink" href="#caso-practico-mv-ubuntu-server-26-04" title="Link to this heading">#</a></h3>
 <ul>
 <li><p>Descárgate el sistema operativo Ubuntu Server 26.04 LTS en formato (ISO) de su página oficial</p></li>
-<li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
-<li><p>Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual <strong>MV Ubuntu Server 26.04</strong></p></li>
+<li><p>Utiliza un disco de 200 GB y 2 GB de RAM</p></li>
+<li><p>Iniciamos la máquina y procedemos a la instalación, llama a esta máquina virtual <strong>MV Ubuntu Server 26.04</strong></p></li>
 <li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde <strong>X.Y</strong> son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.</p></li>
-<li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8,</p></li>
+<li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8</p></li>
 <li><p>Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout</p>
 <img alt="../_images/MV_Ubuntu_Server_22.04.jpg" src="../_images/MV_Ubuntu_Server_22.04.jpg" />
 </li>
@@ -663,17 +670,17 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 <h3>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Link to this heading">#</a></h3>
 <ul>
 <li><p>Descárgate la ISO de Windows 11 de la página de <a class="reference external" href="https://www.microsoft.com/es-es/software-download/windows11">Microsoft</a></p></li>
-<li><p>Creamos una nueva maquina virtual llamada <strong>Windows11</strong></p></li>
-<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB.  Omite la instalación desantendida y habilita EFI, Secure Boot y el TPM</p></li>
+<li><p>Creamos una nueva máquina virtual llamada <strong>Windows11</strong></p></li>
+<li><p>Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB. Omite la instalación desatendida y habilita EFI, Secure Boot y el TPM</p></li>
 <li><p>Para la instalación desconecta el cable de red virtual:</p>
 <p>Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado</p>
 </li>
-<li><p>En el caso de que aparezca el aviso de <strong>&quot;startup.nsh&quot;</strong> en Virtualbox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menu de instalación.</p></li>
+<li><p>En el caso de que aparezca el aviso de <strong>&quot;startup.nsh&quot;</strong> en VirtualBox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menú de instalación.</p></li>
 <li><p>Selecciona &quot;No tengo clave de producto&quot; y selecciona Windows 11 Education</p></li>
 <li><p>Selecciona la instalación personalizada : instalar solo Windows (avanzado)</p></li>
 <li><p>Configuramos Windows con una cuenta local <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, para ello :</p>
 <ul class="simple">
-<li><p>Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos &quot;No tengo internet&quot;,</p></li>
+<li><p>Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos &quot;No tengo internet&quot;</p></li>
 <li><p>Seguimos con <strong>Continuar con la configuración limitada</strong></p></li>
 <li><p>Configuramos Windows con una cuenta local</p>
 <ul>
@@ -690,8 +697,8 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 </li>
 </ul>
 </li>
-<li><p><strong>No</strong> permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que &quot;<strong>No</strong>&quot; o &quot;<strong>Solo los obligatorios</strong>&quot;,  le daremos los mínimos permisos a Microsoft sobre nuestros datos y maquinas.</p></li>
-<li><p>De igual manera rechazamos la ayuda del asistente digital, ni usamos el reconocimiento de voz en línea</p></li>
+<li><p><strong>No</strong> permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que &quot;<strong>No</strong>&quot; o &quot;<strong>Solo los obligatorios</strong>&quot;: le daremos los mínimos permisos a Microsoft sobre nuestros datos y máquinas.</p></li>
+<li><p>De igual manera rechazamos la ayuda del asistente digital y no usamos el reconocimiento de voz en línea</p></li>
 </ul>
 <p class="rubric">Notas</p>
 <aside class="footnote-list brackets">
@@ -705,31 +712,31 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 <h3>Caso práctico: Windows Server 2022<a class="headerlink" href="#caso-practico-windows-server-2022" title="Link to this heading">#</a></h3>
 <p>Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.</p>
 <ul class="simple">
-<li><p><strong>Windows Server Standard:</strong> permite ejecutar como máximo dos VMs en hasta dos procesadores y 64GB RAM. Es ideal para un entorno no virtualizado o poco virtualizado en el que se desee incluir características de alta disponibilidad.</p></li>
-<li><p><strong>Windows Server  Datacenter:</strong> permite ejecutar un número ilimitado de VMs en hasta dos procesadores. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.</p></li>
-<li><p>Respecto a la interfaz de usuario, se ofrecen dos posibilidades pero siempre se podrá pasar de una opción a la otra libremente en cualquier momento.</p>
+<li><p><strong>Windows Server Standard:</strong> la licencia da derecho a ejecutar como máximo dos máquinas virtuales. Es ideal para un entorno no virtualizado o poco virtualizado.</p></li>
+<li><p><strong>Windows Server Datacenter:</strong> permite ejecutar un número ilimitado de máquinas virtuales. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.</p></li>
+<li><p>Respecto a la interfaz de usuario, durante la instalación se ofrecen dos posibilidades (desde Windows Server 2016 la elección es definitiva: ya no se puede pasar de una a otra después de instalar, como sí permitía Windows Server 2012):</p>
 <ul>
 <li><p><strong>Server Core:</strong> reduce el espacio requerido en el disco, la posible superficie expuesta a ataques y especialmente los requisitos de servicio y reinicio del servidor.</p></li>
-<li><p><strong>Servidor con una GUI:</strong> ofrece los elementos de la interfaz de usuario y las herramientas de administración de gráficos.</p></li>
+<li><p><strong>Servidor con experiencia de escritorio (GUI):</strong> ofrece los elementos de la interfaz de usuario y las herramientas de administración gráficas.</p></li>
 </ul>
 </li>
 </ul>
-<p>Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
+<p>Si no dispones de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección <a class="reference external" href="https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022">https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022</a></p>
 <ul class="simple">
-<li><p>Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y un memoria de vídeo de 128MB</p></li>
+<li><p>Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB</p></li>
 <li><p>Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)</p></li>
 <li><p>Contraseña del Administrador: &#64;lumn0</p></li>
-<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
+<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP, <strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2</p></li>
 <li><p>Configurar nombre: Panel / Servidor local : Cambiamos nombre equipo, le llamamos SRV-tunombre</p></li>
 <li><p>Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria</p></li>
-<li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar</p></li>
+<li><p>Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de Firewall de Windows con seguridad avanzada y nos vamos a las <strong>reglas de entrada</strong>, que es donde el firewall nos está bloqueando el tráfico. Buscamos la regla <strong>“Archivos e impresoras compartidas (petición eco: ICMPv4 de entrada)”</strong> y, con el botón derecho, la habilitamos</p></li>
 </ul>
 </section>
 <section id="caso-practico-windows-server-2022-sin-gui">
 <h3>Caso práctico: Windows Server 2022 sin GUI<a class="headerlink" href="#caso-practico-windows-server-2022-sin-gui" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Creamos una maquina virtual llamada <strong>WS22tunombre</strong>, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB</p></li>
-<li><p>Para la instalación seleccionamos:  Windows Server 22 Standard Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)</p></li>
+<li><p>Creamos una máquina virtual llamada <strong>WS22tunombre</strong>, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB</p></li>
+<li><p>Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation, <strong>sin</strong> &quot;experiencia de escritorio&quot; (la versión Server Core, sin la mayor parte del entorno gráfico)</p></li>
 <li><p>Instalación nueva : Personalizada, instalar solo Windows (avanzado) y usamos todo el disco.</p></li>
 <li><p>Contraseña del Administrador: &#64;lumn0</p></li>
 <li><p>Instala el servidor ssh</p></li>
@@ -793,7 +800,7 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 </li>
 <li><p><strong>Macvlan</strong></p>
 <ul>
-<li><p>Asigna una dirección MAC única a cada contenedor, esto hace aparecer como dispositivos físicos en la red.</p></li>
+<li><p>Asigna una dirección MAC única a cada contenedor, lo que los hace aparecer como dispositivos físicos en la red.</p></li>
 <li><p>Los contenedores tienen su propia dirección IP en la red física.</p></li>
 <li><p>Útil para integrar contenedores en redes existentes que dependen de la comunicación a nivel de capa 2.</p></li>
 </ul>
@@ -812,14 +819,14 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span></code>: Etiquetamos la imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">push</span></code>: Subimos la imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span></code>: Descarga una imagen de Docker Hub u otro repositorio.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>: lista las imagenes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code>: lista las imágenes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rmi</span></code>: Elimina una imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>: Crea y ejecuta un contenedor a partir de una imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code>: Muestra los contenedores en ejecución.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code>: Muestra todos los contenedores.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">compute-0-0</span> <span class="pre">/bin/bash</span></code> : Acceder a una shell Bash dentro de un contenedor.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stop</span></code> / <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span></code>: Detiene o inicia un contenedor.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Mandamos los cambios a la imagen.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>: Guarda los cambios de un contenedor en la imagen.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span></code>: Elimina un contenedor.</p></li>
 </ul>
 </section>
@@ -877,11 +884,11 @@ docker<span class="w"> </span>ps
 <li><p>Automatizar flujos de trabajo</p></li>
 </ul>
 <p>Para construir una imagen de Docker, necesitamos crear el archivo <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>, veamos el siguiente para construirnos una imagen de Ubuntu 24.04:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
-FROM<span class="w"> </span>ubuntu:24.04
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="c"># Usar Ubuntu 24.04 como imagen base</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:24.04</span>
 
-<span class="c1"># Actualizar los repositorios y paquetes</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+<span class="c"># Actualizar los repositorios y paquetes</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
 </pre></div>
 </div>
 <p>Las instrucciones más comunes en un Dockerfile:</p>
@@ -911,20 +918,20 @@ docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
 </div>
 <img alt="../_images/docker_pull.png" src="../_images/docker_pull.png" />
 <p>Vamos a instalar el editor vim y la actualizamos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Listar imagenes:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Listar imágenes:</span>
 $<span class="w"> </span>docker<span class="w"> </span>images
 
 REPOSITORY<span class="w">         </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">          </span>SIZE
 dgtrabada/ubuntu<span class="w">   </span><span class="m">24</span>.04<span class="w">     </span>e9b7aed9fff2<span class="w">   </span><span class="m">10</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>267MB
 
-<span class="c1">#Creamos un nuevo contendor</span>
+<span class="c1">#Creamos un nuevo contenedor</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
 
-<span class="c1">#instalamos el editor vim (apt-get install vim)</span>
+<span class="c1">#instalamos el editor vim</span>
 root@e9b7aed9fff2:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim
 
-<span class="c1">#nos salidmos del contenedor (Ctrl+d)</span>
-<span class="c1">#listamos los contendores:</span>
+<span class="c1">#nos salimos del contenedor (Ctrl+d)</span>
+<span class="c1">#listamos los contenedores:</span>
 $<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
 CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                    </span>COMMAND<span class="w">         </span>CREATED<span class="w">         </span>STATUS<span class="w">         </span>PORTS<span class="w">     </span>NAMES
 406694d11d68<span class="w">   </span>dgtrabada/ubuntu:24.04<span class="w">   </span><span class="s2">&quot;/bin/bash&quot;</span><span class="w">   </span><span class="m">2</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">2</span><span class="w"> </span>minutes
@@ -941,7 +948,7 @@ $<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </sp
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Se bajará la imagen</span>
 $<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>dgtrabada/ubuntu:24.04
 
-<span class="c1">#Crear un nuevo contendor</span>
+<span class="c1">#Crear un nuevo contenedor</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
 </pre></div>
 </div>
@@ -956,12 +963,12 @@ root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>insta
 root@4e7e1f17f985:/#<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssh-server
 </pre></div>
 </div>
-<p>Configuramos ssh para poder loguearnos como root:</p>
+<p>Configuramos ssh para poder iniciar sesión como root:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@4e7e1f17f985:/#<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
 root@4e7e1f17f985:/#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
 root@4e7e1f17f985:/#<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
 
-<span class="c1">#Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh</span>
+<span class="c1">#Por último lanzamos el demonio sshd y ya puedes conectarte por ssh</span>
 root@4e7e1f17f985:/#<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
@@ -973,27 +980,27 @@ sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
 <span class="c1">#subimos la imagen a Docker Hub</span>
 $<span class="w"> </span>docker<span class="w"> </span>push<span class="w"> </span>dgtrabada/ubuntu:24.04
 
-<span class="c1">#podemos lanzar el contedor con ssh:</span>
+<span class="c1">#podemos lanzar el sshd del contenedor con:</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>4e7e1f17f985<span class="w"> </span>/usr/sbin/sshd
 </pre></div>
 </div>
-<p>Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Usar Ubuntu 24.04 como imagen base</span>
-FROM<span class="w"> </span>ubuntu:24.04
+<p>Fíjate que podríamos haber hecho lo mismo con el siguiente Dockerfile:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="c"># Usar Ubuntu 24.04 como imagen base</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:24.04</span>
 
-<span class="c1"># Actualizar los repositorios y paquetes</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+<span class="c"># Actualizar los repositorios y paquetes</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
 
-<span class="c1"># Instalamos</span>
-RUN<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping<span class="w"> </span>openssh-server
+<span class="c"># Instalamos</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>vim<span class="w"> </span>iproute2<span class="w"> </span>iputils-ping<span class="w"> </span>openssh-server
 
-RUN<span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
+<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>/var/run/sshd
 
-<span class="c1"># Cambiar la contraseña del usuario root</span>
-RUN<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
+<span class="c"># Cambiar la contraseña del usuario root</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;root:alumno&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chpasswd
 
-<span class="c1"># Permitir el acceso por SSH al root</span>
-RUN<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
+<span class="c"># Permitir el acceso por SSH al root</span>
+<span class="k">RUN</span><span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/&#39;</span><span class="w"> </span>/etc/ssh/sshd_config
 </pre></div>
 </div>
 </section>
@@ -1007,15 +1014,15 @@ a39dbd6d158e<span class="w">   </span>host<span class="w">      </span>host<span
 1092da8fd7e1<span class="w">   </span>none<span class="w">      </span>null<span class="w">      </span><span class="nb">local</span>
 </pre></div>
 </div>
-<p>Vamos a crear una nueva subnet llamada red16, que por defecto se creara en modo bridge:</p>
+<p>Vamos a crear una nueva subred llamada red16, que por defecto se creará en modo bridge:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--subnet<span class="o">=</span><span class="m">172</span>.16.0.0/16<span class="w"> </span>red16
 </pre></div>
 </div>
-<p>Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0</p>
+<p>Crearemos un contenedor con ip 172.16.0.100 llamado compute-0-0</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#primero lo creamos</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--network<span class="w"> </span>red16<span class="w"> </span>--ip<span class="w"> </span><span class="m">172</span>.16.0.100<span class="w">  </span>--hostname<span class="w"> </span>compute-0-0<span class="w"> </span>--name<span class="w"> </span>compute-0-0<span class="w"> </span>dgtrabada/ubuntu:24.04<span class="w"> </span>/bin/bash
 
-<span class="c1">#Para lanzamos el contenedor:</span>
+<span class="c1">#Para lanzar el contenedor:</span>
 docker<span class="w"> </span>start<span class="w">  </span>compute-0-0
 
 <span class="c1">#levantamos el servidor ssh</span>
@@ -1037,7 +1044,7 @@ docker<span class="w"> </span>start<span class="w">  </span>compute-0-2
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>compute-0-2<span class="w"> </span>/usr/sbin/sshd<span class="w"> </span>-D<span class="w"> </span><span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>Apagar las maquinas:</p>
+<p>Apagar las máquinas:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>stop<span class="w">  </span>compute-0-0
 docker<span class="w"> </span>stop<span class="w">  </span>compute-0-1
 docker<span class="w"> </span>stop<span class="w">  </span>compute-0-2
@@ -1056,49 +1063,49 @@ docker<span class="w"> </span>stop<span class="w">  </span>compute-0-2
 <li><p><strong>Networks</strong> (opcional): Define las redes personalizadas que se utilizarán.</p></li>
 <li><p><strong>Volumes</strong> (opcional): Define los volúmenes personalizados que se utilizarán para almacenar datos.</p></li>
 </ul>
-<p>En los ejemplos anteriores podríamos levantar las tres maquinas con el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> ejecutando <strong>docker-compose up -d</strong>, para este ejemplo tienes que tener red16 ya creada</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>version:<span class="w"> </span><span class="s1">&#39;3.8&#39;</span>
-services:
+<p>En los ejemplos anteriores podríamos levantar las tres máquinas con el siguiente <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> ejecutando <strong>docker-compose up -d</strong>, para este ejemplo tienes que tener red16 ya creada</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
 
-<span class="w">  </span>compute-0-0:
-<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
-<span class="w">    </span>container_name:<span class="w"> </span>compute-0-0
-<span class="w">    </span>hostname:<span class="w"> </span>compute-0-0
-<span class="w">    </span>networks:
-<span class="w">      </span>red16:
-<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.100
-<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
-<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+<span class="w">  </span><span class="nt">compute-0-0</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dgtrabada/ubuntu:24.04</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-0</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-0</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">red16</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ipv4_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.16.0.100</span>
+<span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="w">  </span>compute-0-1:
-<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
-<span class="w">    </span>container_name:<span class="w"> </span>compute-0-1
-<span class="w">    </span>hostname:<span class="w"> </span>compute-0-1
-<span class="w">    </span>networks:
-<span class="w">      </span>red16:
-<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.101
-<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
-<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+<span class="w">  </span><span class="nt">compute-0-1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dgtrabada/ubuntu:24.04</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-1</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-1</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">red16</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ipv4_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.16.0.101</span>
+<span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="w">  </span>compute-0-2:
-<span class="w">    </span>image:<span class="w"> </span>dgtrabada/ubuntu:24.04
-<span class="w">    </span>container_name:<span class="w"> </span>compute-0-2
-<span class="w">    </span>hostname:<span class="w"> </span>compute-0-2
-<span class="w">    </span>networks:
-<span class="w">      </span>red16:
-<span class="w">        </span>ipv4_address:<span class="w"> </span><span class="m">172</span>.16.0.102
-<span class="w">    </span>tty:<span class="w"> </span><span class="nb">true</span>
-<span class="w">    </span>stdin_open:<span class="w"> </span><span class="nb">true</span>
+<span class="w">  </span><span class="nt">compute-0-2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dgtrabada/ubuntu:24.04</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-2</span>
+<span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-0-2</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">red16</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ipv4_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.16.0.102</span>
+<span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-networks:
-<span class="w">  </span>red16:
-<span class="w">    </span>external:<span class="w"> </span><span class="nb">true</span>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">red16</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 </section>
 <section id="kubernetes">
 <h3>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading">#</a></h3>
-<p>También conocido como <strong>K8s</strong> es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones contenorizadas.</p>
+<p>También conocido como <strong>K8s</strong> es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones en contenedores.</p>
 <p>Fue desarrollado originalmente por Google y ahora es mantenido por la Cloud Native Computing Foundation (CNCF).</p>
 <section id="partes-principales">
 <h4>Partes Principales<a class="headerlink" href="#partes-principales" title="Link to this heading">#</a></h4>
@@ -1149,41 +1156,45 @@ networks:
 </section>
 <section id="caso-practico-instalar-kubernetes-en-ubuntu-24-04">
 <h3>Caso práctico: Instalar kubernetes en Ubuntu 24.04<a class="headerlink" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><p>#actualizamos
-sudo apt-get update
-sudo apt-get upgrade -y</p>
-<p>#Desactivamos la swap
-sudo swapoff -a</p>
-<p>#Para que no se active cuandose reinicie el sistema comenta la linea en el /etc/fstab, El kubelet, que es el agente principal de Kubernetes que corre en cada nodo del clúster, requiere que el swap esté desactivado. Kubernetes asume que el swap está desactivado para garantizar un rendimiento consistente y predecible de las aplicaciones. Si el swap está habilitado, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, lo que puede causar una degradación significativa del rendimiento y afectar la estabilidad de las aplicaciones.</p>
-<p>#Configurar el enrutamiento IP
-sudo modprobe br_netfilter</p>
-</div></blockquote>
-<p>echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward</p>
-<blockquote>
-<div><p>#Instalar dependencias necesarias
-sudo apt-get install -y apt-transport-https ca-certificates curl</p>
-<p>#Instalar docker
-sudo apt-get install -y docker.io
-sudo systemctl enable docker #habilitamos
-sudo systemctl start docker #iniciamos</p>
-<p>#Añadir la clave GPG de Kubernetes
-curl -s <a class="reference external" href="https://packages.cloud.google.com/apt/doc/apt-key.gpg">https://packages.cloud.google.com/apt/doc/apt-key.gpg</a> | sudo apt-key add -
-#Añadir el repositorio de Kubernetes
-sudo bash -c 'cat &lt;&lt;EOF &gt;/etc/apt/sources.list.d/kubernetes.list</p>
-</div></blockquote>
-<p>deb <a class="reference external" href="http://apt.kubernetes.io/">http://apt.kubernetes.io/</a> kubernetes-xenial main
-EOF'</p>
-<blockquote>
-<div><p>#Actualizar el repositorio e instalar kubeadm, kubelet y kubectl
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-#si da problemas intenta:
-#snap install kubeadm --classic
-#snap install kubectl --classic
-#snap install kubelet --classic</p>
-<p>sudo apt-mark hold kubelet kubeadm kubectl</p>
-</div></blockquote>
+<p>El <strong>kubelet</strong> (el agente de Kubernetes que corre en cada nodo del clúster) requiere que la <strong>swap esté desactivada</strong>: Kubernetes lo asume para garantizar un rendimiento consistente y predecible de las aplicaciones. Si la swap está habilitada, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, degradando el rendimiento y la estabilidad.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#actualizamos</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+
+<span class="c1">#Desactivamos la swap</span>
+sudo<span class="w"> </span>swapoff<span class="w"> </span>-a
+<span class="c1">#y comentamos su linea en /etc/fstab para que no se active al reiniciar</span>
+
+<span class="c1">#Configurar el enrutamiento IP</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>br_netfilter
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+
+<span class="c1">#Instalar dependencias necesarias</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apt-transport-https<span class="w"> </span>ca-certificates<span class="w"> </span>curl<span class="w"> </span>gpg
+
+<span class="c1">#Instalar docker</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker.io
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker<span class="w"> </span><span class="c1">#habilitamos</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker<span class="w"> </span><span class="c1">#iniciamos</span>
+
+<span class="c1">#Añadir la clave GPG del repositorio de Kubernetes</span>
+<span class="c1">#(cambia v1.33 por la rama estable que quieras instalar, hay un repositorio por versión)</span>
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+<span class="c1">#Añadir el repositorio de Kubernetes</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/kubernetes.list
+
+<span class="c1">#Actualizar el repositorio e instalar kubeadm, kubelet y kubectl</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>kubelet<span class="w"> </span>kubeadm<span class="w"> </span>kubectl
+
+<span class="c1">#los marcamos para que apt no los actualice por su cuenta</span>
+<span class="c1">#(las actualizaciones de un cluster se hacen de forma controlada con kubeadm)</span>
+sudo<span class="w"> </span>apt-mark<span class="w"> </span>hold<span class="w"> </span>kubelet<span class="w"> </span>kubeadm<span class="w"> </span>kubectl
+</pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -1236,7 +1247,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtualbox">VirtualBox</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-virtualbox">Comandos útiles virtualBox:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-de-virtualbox">Comandos útiles de VirtualBox</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-26-04">Caso práctico: MV Ubuntu Server 26.04</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>

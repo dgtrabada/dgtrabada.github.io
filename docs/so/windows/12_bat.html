@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -524,93 +531,127 @@
                   
   <section id="scripting-bat">
 <h1>Scripting .bat<a class="headerlink" href="#scripting-bat" title="Link to this heading">#</a></h1>
-<p>Un archivo o programa de procesamiento por lotes es un archivo de texto sin formato que contiene uno o más comandos de MS-DOS y que tiene asignado una extensión BAT.</p>
-<p>Cuando se escribe el nombre del programa de procesamiento por lotes en la línea de comandos, los comandos se ejecutan como un grupo.</p>
+<p>Un archivo o programa de procesamiento por lotes es un archivo de texto sin formato que contiene uno o más comandos de MS-DOS y que tiene asignada la extensión <strong>.bat</strong>.</p>
+<p>Cuando se escribe el nombre del programa de procesamiento por lotes en la línea de comandos (cmd), los comandos se ejecutan como un grupo. Es el lenguaje de scripting clásico de MS-DOS y Windows, anterior a PowerShell.</p>
 <ul>
 <li><p><strong>pause</strong>: suspende la ejecución de un programa de procesamiento por lotes y muestra un mensaje indicando al usuario que presione cualquier tecla para continuar.</p></li>
 <li><p><strong>rem</strong> permite que se incluyan comentarios</p></li>
-<li><p><strong>echo [texto]</strong> muestra el texto por pantalla &#64;(on/off) para presentar los comandos por pantalla en un script</p>
+<li><p><strong>echo [texto]</strong> muestra el texto por pantalla. Con <strong>echo on/off</strong> se activa o desactiva que cada comando se muestre por pantalla al ejecutarse, y la <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> delante de un comando evita que se muestre ese comando concreto: por eso los scripts suelen empezar con <code class="docutils literal notranslate"><span class="pre">&#64;echo</span> <span class="pre">off</span></code> (desactiva la presentación de comandos sin mostrarse ni siquiera él mismo).</p>
 <p>Ejemplo:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="nb">type</span><span class="w"> </span>hola.bat
-@echo<span class="w"> </span>off
-rem<span class="w"> </span>Esto<span class="w"> </span>es<span class="w"> </span>un<span class="w"> </span>comentario
-rem<span class="w"> </span>@echo<span class="w"> </span>on<span class="w"> </span>se<span class="w"> </span>presentaran<span class="w"> </span>los<span class="w"> </span>comandos<span class="w"> </span>por<span class="w"> </span>pantalla
-<span class="nb">echo</span><span class="w"> </span>Hola<span class="w"> </span>Mundo
-pause
-C:<span class="se">\&gt;</span>hola.bat
-Hola<span class="w"> </span>Mundo
-Presione<span class="w"> </span>una<span class="w"> </span>tecla<span class="w"> </span>para<span class="w"> </span>continuar<span class="w"> </span>.<span class="w"> </span>.<span class="w"> </span>.
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;type hola.bat</span>
+<span class="p">@</span><span class="k">echo</span> off
+<span class="c1">rem Esto es un comentario</span>
+<span class="c1">rem con @echo on se presentarian los comandos por pantalla</span>
+<span class="k">echo</span> Hola Mundo
+<span class="k">pause</span>
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;hola.bat</span>
+Hola Mundo
+Presione una tecla para continuar . . .
 </pre></div>
 </div>
 </li>
 <li><p><strong>for</strong> (repite un comando)</p>
-<p>FOR %%variable IN (conjunto) DO comando [parametros_del_comando]</p>
-<p>Ejemplo:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:&gt;type<span class="w"> </span><span class="k">for</span>.bat
-@echo<span class="w"> </span>off
-<span class="nb">echo</span><span class="w"> </span>-------------------------------
-<span class="nb">echo</span><span class="w"> </span>cuenta<span class="w"> </span>hasta<span class="w"> </span><span class="m">10</span><span class="w"> </span>de<span class="w"> </span><span class="m">2</span><span class="w"> </span>en<span class="w"> </span><span class="m">2</span>
-<span class="k">for</span><span class="w"> </span>/L<span class="w"> </span>%%j<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,10<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span>hola<span class="w"> </span>%%j
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">FOR</span> <span class="se">%%</span>variable <span class="k">IN</span> <span class="p">(</span>conjunto<span class="p">)</span> <span class="k">DO</span> comando [parametros_del_comando]
+</pre></div>
+</div>
+<p>Ojo: dentro de un archivo .bat la variable se escribe con dos porcentajes (<code class="docutils literal notranslate"><span class="pre">%%j</span></code>), pero al usar for directamente en la línea de comandos se escribe con uno solo (<code class="docutils literal notranslate"><span class="pre">%j</span></code>).</p>
+<p>Ejemplo con <code class="docutils literal notranslate"><span class="pre">/L</span></code>, que genera una lista de números (inicio, paso, fin):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;type for.bat</span>
+<span class="p">@</span><span class="k">echo</span> off
+<span class="k">echo</span> -------------------------------
+<span class="k">echo</span> cuenta hasta 10 de 2 en 2
+<span class="k">for</span> <span class="k">/L</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span><span class="mi">1</span>,<span class="mi">2</span>,<span class="mi">10</span><span class="p">)</span> <span class="k">do</span> <span class="k">echo</span> hola <span class="se">%%</span>j
 
-C:<span class="se">\&gt;</span><span class="k">for</span>.bat
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;for.bat</span>
 -------------------------------
-cuenta<span class="w"> </span>hasta<span class="w"> </span><span class="m">10</span><span class="w"> </span>de<span class="w"> </span><span class="m">2</span><span class="w"> </span>en<span class="w"> </span><span class="m">2</span>
-hola<span class="w"> </span><span class="m">1</span>
-hola<span class="w"> </span><span class="m">3</span>
-hola<span class="w"> </span><span class="m">5</span>
-hola<span class="w"> </span><span class="m">7</span>
-hola<span class="w"> </span><span class="m">9</span>
+cuenta hasta 10 de 2 en 2
+hola 1
+hola 3
+hola 5
+hola 7
+hola 9
 </pre></div>
 </div>
-<p>Ejemplo con el parámetro /R ejecuta el comando recursivamente:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>/R<span class="w"> </span>%x<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span>*<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>@echo<span class="w"> </span>%x
+<p>Con el parámetro <code class="docutils literal notranslate"><span class="pre">/R</span></code> el comando se ejecuta recursivamente, recorriendo el directorio y todos sus subdirectorios (aquí en la línea de comandos, por eso la variable lleva un solo <code class="docutils literal notranslate"><span class="pre">%</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> /R <span class="nv">%x in (*) do @echo %</span>x
 </pre></div>
 </div>
-<p>Visualizamos todas las dll que empiecen por a de C:WindowsSystem32</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>/R<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="w"> </span>%x<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span>A*.dll<span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>@echo<span class="w"> </span>%xde<span class="w"> </span>C:<span class="se">\W</span>INNT
+<p>Visualizamos todas las dll que empiecen por A de C:\Windows\System32:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> /R C:\Windows\System32 <span class="nv">%x in (A*.dll) do @echo %</span>x
 </pre></div>
 </div>
 </li>
-<li><p><strong>Parámetros de entrada</strong>, los valores suministrados al ejecutar el archivo .bat se les llaman argumentos y se denotan %0, %1, ..., %9.</p></li>
-<li><p><strong>shift</strong> cambia los valores de los parámetros reemplazables %0 a %9 copiando cada parámetro en el anterior, es decir, el valor de %1 es copiado en %0, el valor de %2 es copiado en %1 y así sucesivamente.</p></li>
+<li><p><strong>Parámetros de entrada</strong>: a los valores suministrados al ejecutar el archivo .bat se les llama argumentos y se denotan %0, %1, ..., %9 (%0 es el propio nombre del script).</p></li>
+<li><p><strong>shift</strong> cambia los valores de los parámetros reemplazables %0 a %9 copiando cada parámetro en el anterior, es decir, el valor de %1 es copiado en %0, el valor de %2 es copiado en %1 y así sucesivamente. Sirve para procesar más de 9 argumentos o para recorrerlos uno a uno.</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;type args.bat</span>
+<span class="p">@</span><span class="k">echo</span> off
+<span class="k">echo</span> el script se llama <span class="nv">%0</span>
+<span class="k">echo</span> el primer argumento es <span class="nv">%1</span> y el segundo <span class="nv">%2</span>
+<span class="k">shift</span>
+<span class="k">echo</span> tras shift, el primer argumento es <span class="nv">%1</span>
+
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;args.bat uno dos tres</span>
+el script se llama args.bat
+el primer argumento es uno y el segundo dos
+tras shift, el primer argumento es dos
+</pre></div>
+</div>
+</li>
 <li><p><strong>if</strong> (condicional)</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="nb">type</span><span class="w"> </span><span class="k">if</span>.bat
-@echo<span class="w"> </span>off
-<span class="nb">set</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span>%1
-<span class="nb">set</span><span class="w"> </span><span class="nv">b</span><span class="o">=</span>%2
-<span class="nb">echo</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>%a%<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>equ<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>y<span class="w"> </span>%b%<span class="w"> </span>son<span class="w"> </span>iguales
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>neq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>y<span class="w"> </span>%b%<span class="w"> </span>son<span class="w"> </span>distintos
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>leq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>geq<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>lss<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="k">if</span><span class="w"> </span>%a%<span class="w"> </span>gtr<span class="w"> </span>%b%<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>%b%<span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>que<span class="w"> </span>%b%
-<span class="nb">echo</span><span class="w"> </span>-------------------------------------
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;type if.bat</span>
+<span class="p">@</span><span class="k">echo</span> off
+<span class="k">set</span> <span class="nv">a</span><span class="p">=</span><span class="nv">%1</span>
+<span class="k">set</span> <span class="nv">b</span><span class="p">=</span><span class="nv">%2</span>
+<span class="k">echo</span> a = <span class="nv">%a%</span> ; b = <span class="nv">%b%</span>
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">equ</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> y <span class="nv">%b%</span> son iguales
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">neq</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> y <span class="nv">%b%</span> son distintos
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">leq</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> es menor o igual que <span class="nv">%b%</span>
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">geq</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> es mayor o igual que <span class="nv">%b%</span>
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">lss</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> es menor que <span class="nv">%b%</span>
+<span class="k">if</span> <span class="nv">%a%</span> <span class="ow">gtr</span> <span class="nv">%b%</span> <span class="k">echo</span> <span class="nv">%a%</span> es mayor que <span class="nv">%b%</span>
+<span class="k">echo</span> -------------------------------------
 
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
-<span class="m">3</span><span class="w"> </span>y<span class="w"> </span><span class="m">3</span><span class="w"> </span>son<span class="w"> </span>iguales
-<span class="m">3</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">3</span>
-<span class="m">3</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">3</span>
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt; if.bat 3 3</span>
+a = 3 ; b = 3
+3 y 3 son iguales
+3 es menor o igual que 3
+3 es mayor o igual que 3
 -------------------------------------
 
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-<span class="m">5</span><span class="w"> </span>y<span class="w"> </span><span class="m">5</span><span class="w"> </span>son<span class="w"> </span>distintos
-<span class="m">5</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">5</span>
-<span class="m">5</span><span class="w"> </span>es<span class="w"> </span>menor<span class="w"> </span>que<span class="w"> </span><span class="m">5</span>
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt; if.bat 3 5</span>
+a = 3 ; b = 5
+3 y 5 son distintos
+3 es menor o igual que 5
+3 es menor que 5
 -------------------------------------
 
-C:<span class="se">\&gt;</span><span class="w"> </span><span class="k">if</span>.bat<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span>
-<span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-<span class="m">1</span><span class="w"> </span>y<span class="w"> </span><span class="m">1</span><span class="w"> </span>son<span class="w"> </span>distintos
-<span class="m">1</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>o<span class="w"> </span>igual<span class="w"> </span>que<span class="w"> </span><span class="m">1</span>
-<span class="m">1</span><span class="w"> </span>es<span class="w"> </span>mayor<span class="w"> </span>que<span class="w"> </span><span class="m">1</span>
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt; if.bat 3 1</span>
+a = 3 ; b = 1
+3 y 1 son distintos
+3 es mayor o igual que 1
+3 es mayor que 1
 -------------------------------------
 </pre></div>
 </div>
 </li>
-<li><p><strong>goto</strong> se va a una línea marcada por una etiqueta especificada por el usuario dentro de un programa de procesamiento por lotes.</p></li>
+<li><p><strong>goto</strong> salta a una línea marcada por una etiqueta (una línea que empieza por <code class="docutils literal notranslate"><span class="pre">:</span></code>) dentro del programa de procesamiento por lotes. Combinado con if permite construir bucles:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;type goto.bat</span>
+<span class="p">@</span><span class="k">echo</span> off
+<span class="k">set</span> <span class="k">/a</span> <span class="nv">contador</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">:</span><span class="nl">inicio</span>
+<span class="k">set</span> <span class="k">/a</span> <span class="nv">contador</span><span class="o">+=</span><span class="mi">1</span>
+<span class="k">echo</span> vuelta <span class="nv">%contador%</span>
+<span class="k">if</span> <span class="nv">%contador%</span> <span class="ow">lss</span> 3 <span class="k">goto</span> <span class="nl">inicio</span>
+<span class="k">echo</span> fin
+
+C<span class="p">:</span><span class="nl">\</span><span class="c1">&gt;goto.bat</span>
+vuelta 1
+vuelta 2
+vuelta 3
+fin
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
 

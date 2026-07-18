@@ -10,7 +10,7 @@ Algunos conceptos clave relacionados con la virtualización son:
 
 * **Hipervisor**: También conocido como monitor de máquina virtual (VMM), es el software o firmware responsable de crear y gestionar las máquinas virtuales. Se encarga de asignar y administrar los recursos físicos entre las VM.
 
-  Existen dos tipos principales de hipervisores, también conocidos como monitores de máquina virtual (VMM):
+  Existen dos tipos principales de hipervisores:
 
   * **Hipervisor de tipo 1 o "nativo"** (Bare Metal Hypervisor): Este tipo de hipervisor se ejecuta directamente sobre el hardware físico sin depender de un sistema operativo anfitrión. Actúa como una capa de virtualización entre el hardware y las máquinas virtuales. Algunos ejemplos de hipervisores de tipo 1 son:
   
@@ -39,9 +39,9 @@ Algunos conceptos clave relacionados con la virtualización son:
 
 La virtualización se utiliza en diversos entornos, como servidores, redes, almacenamiento y escritorios, proporcionando flexibilidad, eficiencia y mayor aprovechamiento de los recursos informáticos.
 
-Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual
+Que sus componentes sean virtuales no quiere decir necesariamente que no existan. Por ejemplo, una máquina virtual puede tener unos recursos reservados de 2 GB de RAM y 20 GB de disco duro, que salen del PC donde está instalada la máquina virtual.
 
-Hay varias aplicaciones muy conocidas capaz de hacer esto, aunque las más famosas son VMWare, VirtualBox, QEMU , etc..
+Hay varias aplicaciones muy conocidas capaces de hacer esto; las más famosas son VMware, VirtualBox, QEMU, etc.
 
 VirtualBox
 ==========
@@ -52,11 +52,11 @@ Resumen:
 
 **OVF/OVA** : es un estándar abierto para empaquetar y distribuir un dispositivo virtual que consta de una o varias máquinas virtuales (VM).
 
-**Clonación completa**, una copia exacta (incluyendo todos los archivos de disco duro virtual) de la máquina original serán creados.
+**Clonación completa**: se crea una copia exacta e independiente de la máquina original, incluyendo todos los archivos de disco duro virtual. Tarda más y ocupa más espacio, pero el clon no depende para nada de la máquina original (se puede mover o borrar cualquiera de las dos).
 
-**Clonación enlazada**, una nueva máquina será creada, pero los archivos de las unidades de disco duro virtuales serán vinculados a los archivos de disco duro virtual de la máquina original y no podrá mover la nueva máquina virtual a una computadora diferente sin mover los originales también.
+**Clonación enlazada**: se crea una nueva máquina, pero sus discos virtuales no son una copia, sino archivos de **diferencias** vinculados a los discos de la máquina original (VirtualBox crea para ello una instantánea de la original). Por eso el clon se crea casi al instante y ocupa muy poco espacio: solo va guardando lo que cambia respecto a la original. A cambio, la máquina original no se puede borrar mientras existan sus clones, y no podrás mover el clon a otro ordenador sin mover también los discos originales. Es la que usaremos en los casos prácticos para crear varias máquinas a partir de una misma base.
 
-*Puede que en algún momento, por diversos motivos, nos encontremos con alguna dirección MAC duplicada en una MV (poco frecuente) o entre MV diferentes. Como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, esto nos daría problemas de red a nivel de enlace. Para evitar este problema debemos cambiar las MAC para que no estén duplicadas.*
+Al clonar, en **Política de dirección MAC** conviene elegir **"Generar nuevas direcciones MAC para todos los adaptadores de red"**: como ya sabemos, en una misma LAN no puede haber dos interfaces de red con igual MAC, y si el clon conserva las MAC de la original tendremos problemas de red a nivel de enlace en cuanto arranquen las dos a la vez. Si nos encontramos con MAC duplicadas después de clonar, hay que cambiarlas a mano en la configuración de red de la MV.
 
 **VirtualBox Guest Additions** es un conjunto de controladores y aplicaciones del sistema que mejoran el rendimiento y la funcionalidad de un sistema operativo invitado que se ejecuta dentro de una máquina virtual de VirtualBox. Cuando instalas las Guest Additions en el sistema operativo invitado, se habilitan funciones como carpetas compartidas, integración de ratón sin problemas, mejor soporte de video y mejor rendimiento.
 
@@ -89,33 +89,33 @@ En Avanzado, podemos cambiar otras opciones, como puede ser el permitir que ambo
 
 
 
-Comandos útiles virtualBox:
----------------------------
+Comandos útiles de VirtualBox
+-----------------------------
 
 - ``VBoxManage list vms``: Listar máquinas virtuales
-- ``VBoxManage list vms runningvms``: Listar máquinas virtuales que están ejecutándose
+- ``VBoxManage list runningvms``: Listar máquinas virtuales que están ejecutándose
 - ``VBoxManage startvm 'Ubuntu Server 24.04' --type headless``: Ejecutarla sin entorno gráfico
-- ``VBoxManage controlvm 'Ubuntu Server 16.04' savestate``: Guardar el estado
+- ``VBoxManage controlvm 'Ubuntu Server 24.04' savestate``: Guardar el estado
 
-En modo gráfico:
+En modo gráfico (``Ctrl_derecho`` es la **tecla anfitrión** por defecto):
 
-* ``Ctrl_derecho + Supr`` : Ctrl + Atl + Supr
-* ``Ctrl_derecho`` : Salir de pantalla
+* ``Ctrl_derecho`` : libera el ratón y el teclado capturados por la MV
+* ``Ctrl_derecho + Supr`` : Ctrl + Alt + Supr
 * ``Ctrl_derecho + f`` : pasar/volver de pantalla completa
-* ``Ctrl_derecho + c``: pasar/volver modo escalado
+* ``Ctrl_derecho + c`` : pasar/volver de modo escalado
 
 Caso práctico: MV Ubuntu Server 26.04
 -------------------------------------
 
 * Descárgate el sistema operativo Ubuntu Server 26.04 LTS en formato (ISO) de su página oficial
 
-* Utiliza un disco de 200 GB y 2G de RAM
+* Utiliza un disco de 200 GB y 2 GB de RAM
 
-* Iniciamos la maquina y procedemos a la instalación, llama a esta maquina virtual **MV Ubuntu Server 26.04**
+* Iniciamos la máquina y procedemos a la instalación, llama a esta máquina virtual **MV Ubuntu Server 26.04**
 
 * Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.
 
-* **DNS** 8.8.8.8, **Gateway** 10.0.0.2 y **subred** 10.0.0.0/8, 
+* **DNS** 8.8.8.8, **Gateway** 10.0.0.2 y **subred** 10.0.0.0/8
 
 * Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout
 
@@ -137,15 +137,15 @@ Caso práctico: Windows 11
 
 * Descárgate la ISO de Windows 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
 
-* Creamos una nueva maquina virtual llamada **Windows11**
+* Creamos una nueva máquina virtual llamada **Windows11**
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB.  Omite la instalación desantendida y habilita EFI, Secure Boot y el TPM
+* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB. Omite la instalación desatendida y habilita EFI, Secure Boot y el TPM
 
 * Para la instalación desconecta el cable de red virtual:
   
   Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado
   
-* En el caso de que aparezca el aviso de **"startup.nsh"** en Virtualbox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menu de instalación.
+* En el caso de que aparezca el aviso de **"startup.nsh"** en VirtualBox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menú de instalación.
 
 * Selecciona "No tengo clave de producto" y selecciona Windows 11 Education  
 
@@ -153,9 +153,9 @@ Caso práctico: Windows 11
 
 * Configuramos Windows con una cuenta local [#f1]_, para ello :
 
-  * Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos "No tengo internet",
- 
-  * Seguimos con **Continuar con la configuración limitada** 
+  * Omitimos una segunda distribución de teclado y cuando se quiera conectar a una red seleccionamos "No tengo internet"
+
+  * Seguimos con **Continuar con la configuración limitada**
   
   * Configuramos Windows con una cuenta local
  
@@ -168,9 +168,9 @@ Caso práctico: Windows 11
     * ¿Cuál es el nombre de la ciudad en la que naciste? **@lumn0**      
     * ¿Cuál era tu apodo de infancia? **@lumn0**
 
-* **No** permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que "**No**" o "**Solo los obligatorios**",  le daremos los mínimos permisos a Microsoft sobre nuestros datos y maquinas.
+* **No** permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que "**No**" o "**Solo los obligatorios**": le daremos los mínimos permisos a Microsoft sobre nuestros datos y máquinas.
 
-* De igual manera rechazamos la ayuda del asistente digital, ni usamos el reconocimiento de voz en línea
+* De igual manera rechazamos la ayuda del asistente digital y no usamos el reconocimiento de voz en línea
 
 .. rubric:: Notas
   
@@ -182,38 +182,38 @@ Caso práctico: Windows Server 2022
 Windows Server es la plataforma para crear una infraestructura de aplicaciones conectadas, redes y servicios web. Como administrador de Windows Server, probablemente haya usado muchas de las consolas nativas de Administración de Microsoft (MMC) de Windows Server para mantener la infraestructura segura y disponible.
 
 
-* **Windows Server Standard:** permite ejecutar como máximo dos VMs en hasta dos procesadores y 64GB RAM. Es ideal para un entorno no virtualizado o poco virtualizado en el que se desee incluir características de alta disponibilidad.
+* **Windows Server Standard:** la licencia da derecho a ejecutar como máximo dos máquinas virtuales. Es ideal para un entorno no virtualizado o poco virtualizado.
 
-* **Windows Server  Datacenter:** permite ejecutar un número ilimitado de VMs en hasta dos procesadores. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.
+* **Windows Server Datacenter:** permite ejecutar un número ilimitado de máquinas virtuales. Se recomienda para un entorno altamente virtualizado que requiera características de alta disponibilidad, incluida la agrupación en clústeres.
 
-* Respecto a la interfaz de usuario, se ofrecen dos posibilidades pero siempre se podrá pasar de una opción a la otra libremente en cualquier momento.
+* Respecto a la interfaz de usuario, durante la instalación se ofrecen dos posibilidades (desde Windows Server 2016 la elección es definitiva: ya no se puede pasar de una a otra después de instalar, como sí permitía Windows Server 2012):
 
   * **Server Core:** reduce el espacio requerido en el disco, la posible superficie expuesta a ataques y especialmente los requisitos de servicio y reinicio del servidor.
-  
-  * **Servidor con una GUI:** ofrece los elementos de la interfaz de usuario y las herramientas de administración de gráficos.
-  
-Si no dispones de de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
 
-* Creamos una maquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y un memoria de vídeo de 128MB
+  * **Servidor con experiencia de escritorio (GUI):** ofrece los elementos de la interfaz de usuario y las herramientas de administración gráficas.
+
+Si no dispones de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
+
+* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)
 
 * Contraseña del Administrador: @lumn0
 
-* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza ¿DHCP?, **DNS** 8.8.8.8, **Gateway** 10.0.0.2
+* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde X.Y son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP, **DNS** 8.8.8.8, **Gateway** 10.0.0.2
 
 * Configurar nombre: Panel / Servidor local : Cambiamos nombre equipo, le llamamos SRV-tunombre
 
 * Comprobar que la zona horaria sea la correcta : Servidor local / Ajustar zona horaria
 
-* Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de firewall de Windows con seguridad avanzada nos vamos a las reglas entrantes, que es donde nos está bloqueando el tráfico firewall. Nos dirigimos a la zona de la derecha y buscamos “Archivos e impresoras compartidas (petición eco IMCPv4…” solicitud de echo entrante v4 y damos a habilitar
+* Habilitamos ping : Administrador del servidor / Panel / Herramientas, buscamos la opción de Firewall de Windows con seguridad avanzada y nos vamos a las **reglas de entrada**, que es donde el firewall nos está bloqueando el tráfico. Buscamos la regla **“Archivos e impresoras compartidas (petición eco: ICMPv4 de entrada)”** y, con el botón derecho, la habilitamos
 
 Caso práctico: Windows Server 2022 sin GUI
 ------------------------------------------
 
-* Creamos una maquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
+* Creamos una máquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
 
-* Para la instalación seleccionamos:  Windows Server 22 Standard Evaluation (instalamos la versión sin la mayor parte del entorno gráfico)
+* Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation, **sin** "experiencia de escritorio" (la versión Server Core, sin la mayor parte del entorno gráfico)
 
 * Instalación nueva : Personalizada, instalar solo Windows (avanzado) y usamos todo el disco.
 
@@ -291,7 +291,7 @@ Herramientas como Docker Swarm y Kubernetes permiten gestionar y escalar grandes
 
 * **Macvlan**
 
-  - Asigna una dirección MAC única a cada contenedor, esto hace aparecer como dispositivos físicos en la red.
+  - Asigna una dirección MAC única a cada contenedor, lo que los hace aparecer como dispositivos físicos en la red.
   - Los contenedores tienen su propia dirección IP en la red física.
   - Útil para integrar contenedores en redes existentes que dependen de la comunicación a nivel de capa 2.
 
@@ -307,14 +307,14 @@ Gestión de imágenes y contenedores
 - ``docker tag``: Etiquetamos la imagen.
 - ``docker push``: Subimos la imagen.
 - ``docker pull``: Descarga una imagen de Docker Hub u otro repositorio.
-- ``docker images``: lista las imagenes.
+- ``docker images``: lista las imágenes.
 - ``docker rmi``: Elimina una imagen.
 - ``docker run``: Crea y ejecuta un contenedor a partir de una imagen.
 - ``docker ps``: Muestra los contenedores en ejecución.
 - ``docker ps -a``: Muestra todos los contenedores.
 - ``docker exec -it compute-0-0 /bin/bash`` : Acceder a una shell Bash dentro de un contenedor.
 - ``docker stop`` / ``docker start``: Detiene o inicia un contenedor.
-- ``docker commit``: Mandamos los cambios a la imagen.
+- ``docker commit``: Guarda los cambios de un contenedor en la imagen.
 - ``docker rm``: Elimina un contenedor.
 
 Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
@@ -375,7 +375,7 @@ Lo primero que haremos es darnos de alta en `Docker Hub <https://hub.docker.com/
 
 Para construir una imagen de Docker, necesitamos crear el archivo ``Dockerfile``, veamos el siguiente para construirnos una imagen de Ubuntu 24.04:
 
-.. code-block:: bash
+.. code-block:: dockerfile
 
   # Usar Ubuntu 24.04 como imagen base
   FROM ubuntu:24.04
@@ -423,20 +423,20 @@ Vamos a instalar el editor vim y la actualizamos:
 
 .. code-block:: bash
 
-  #Listar imagenes:
+  #Listar imágenes:
   $ docker images
-  
+
   REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
   dgtrabada/ubuntu   24.04     e9b7aed9fff2   10 minutes ago   267MB
 
-  #Creamos un nuevo contendor
+  #Creamos un nuevo contenedor
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
-  
-  #instalamos el editor vim (apt-get install vim)
+
+  #instalamos el editor vim
   root@e9b7aed9fff2:/# apt-get install -y vim
-  
-  #nos salidmos del contenedor (Ctrl+d)
-  #listamos los contendores:
+
+  #nos salimos del contenedor (Ctrl+d)
+  #listamos los contenedores:
   $ docker ps -a
   CONTAINER ID   IMAGE                    COMMAND         CREATED         STATUS         PORTS     NAMES
   406694d11d68   dgtrabada/ubuntu:24.04   "/bin/bash"   2 minutes ago   Up 2 minutes   
@@ -454,8 +454,8 @@ Para ejecutar este contenedor en cualquier otro ordenador con docker lo único q
 
   #Se bajará la imagen
   $ docker pull dgtrabada/ubuntu:24.04
-  
-  #Crear un nuevo contendor
+
+  #Crear un nuevo contenedor
   docker run -it dgtrabada/ubuntu:24.04 /bin/bash
 
 .. image:: imagenes/docker.png
@@ -472,7 +472,7 @@ Nos bajamos la imagen del repositorio, creamos un contenedor e instalamos los co
   root@4e7e1f17f985:/# apt-get install -y iproute2 iputils-ping
   root@4e7e1f17f985:/# apt-get install -y openssh-server
   
-Configuramos ssh para poder loguearnos como root:
+Configuramos ssh para poder iniciar sesión como root:
 
 .. code-block:: bash
 
@@ -480,7 +480,7 @@ Configuramos ssh para poder loguearnos como root:
   root@4e7e1f17f985:/# echo 'root:alumno' | chpasswd
   root@4e7e1f17f985:/# sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-  #Por ultimo lanzamos el demonio sshd y ya puedes conectarte por ssh
+  #Por último lanzamos el demonio sshd y ya puedes conectarte por ssh
   root@4e7e1f17f985:/# /usr/sbin/sshd -D &
 
 .. image:: imagenes/docker_ssh.png
@@ -495,13 +495,13 @@ Salimos del contenedor y mandamos los cambios a la imagen
   #subimos la imagen a Docker Hub
   $ docker push dgtrabada/ubuntu:24.04
   
-  #podemos lanzar el contedor con ssh:
+  #podemos lanzar el sshd del contenedor con:
   docker exec -it 4e7e1f17f985 /usr/sbin/sshd
-  
 
-Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:
 
-.. code-block:: bash
+Fíjate que podríamos haber hecho lo mismo con el siguiente Dockerfile:
+
+.. code-block:: dockerfile
 
   # Usar Ubuntu 24.04 como imagen base
   FROM ubuntu:24.04
@@ -511,14 +511,14 @@ Fíjate que podríamos haber hecho lo mismo con el siguiente dockerfile:
 
   # Instalamos
   RUN apt-get install -y vim iproute2 iputils-ping openssh-server
- 
+
   RUN mkdir /var/run/sshd
 
-  # Cambiar la contraseña del usuario root 
+  # Cambiar la contraseña del usuario root
   RUN echo 'root:alumno' | chpasswd
 
   # Permitir el acceso por SSH al root
-  RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 
 
@@ -537,21 +537,21 @@ docker tiene por defecto 3 redes
   1092da8fd7e1   none      null      local
   
   
-Vamos a crear una nueva subnet llamada red16, que por defecto se creara en modo bridge:
+Vamos a crear una nueva subred llamada red16, que por defecto se creará en modo bridge:
 
 .. code-block:: bash
 
   docker network create --subnet=172.16.0.0/16 red16
 
-Crearemos un contenedor con ip 172.16.0.100 llamdo compute-0-0
+Crearemos un contenedor con ip 172.16.0.100 llamado compute-0-0
 
 .. code-block:: bash
 
   #primero lo creamos
   docker run -it --network red16 --ip 172.16.0.100  --hostname compute-0-0 --name compute-0-0 dgtrabada/ubuntu:24.04 /bin/bash
-  
-  #Para lanzamos el contenedor:
-  docker start  compute-0-0 
+
+  #Para lanzar el contenedor:
+  docker start  compute-0-0
   
   #levantamos el servidor ssh
   docker exec -it compute-0-0 /usr/sbin/sshd -D &
@@ -573,7 +573,7 @@ Hacemos lo mismo para compute-0-1 compute-0-2, con ips 172.16.0.101 y 172.16.0.1
     docker start  compute-0-2 
     docker exec -it compute-0-2 /usr/sbin/sshd -D &
  
-  Apagar las maquinas:
+  Apagar las máquinas:
     
   .. code-block:: bash
   
@@ -593,9 +593,9 @@ Típicamente contiene varias secciones importantes:
 * **Networks** (opcional): Define las redes personalizadas que se utilizarán.
 * **Volumes** (opcional): Define los volúmenes personalizados que se utilizarán para almacenar datos.
 
-En los ejemplos anteriores podríamos levantar las tres maquinas con el siguiente ``docker-compose.yml`` ejecutando **docker-compose up -d**, para este ejemplo tienes que tener red16 ya creada 
+En los ejemplos anteriores podríamos levantar las tres máquinas con el siguiente ``docker-compose.yml`` ejecutando **docker-compose up -d**, para este ejemplo tienes que tener red16 ya creada
 
-.. code-block:: bash
+.. code-block:: yaml
 
   version: '3.8'
   services:
@@ -637,7 +637,7 @@ En los ejemplos anteriores podríamos levantar las tres maquinas con el siguient
 Kubernetes
 ----------
 
-También conocido como **K8s** es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones contenorizadas.
+También conocido como **K8s** es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones en contenedores.
 
 Fue desarrollado originalmente por Google y ahora es mantenido por la Cloud Native Computing Foundation (CNCF).
 
@@ -691,6 +691,9 @@ Funcionamiento Básico
 Caso práctico: Instalar kubernetes en Ubuntu 24.04
 --------------------------------------------------
 
+El **kubelet** (el agente de Kubernetes que corre en cada nodo del clúster) requiere que la **swap esté desactivada**: Kubernetes lo asume para garantizar un rendimiento consistente y predecible de las aplicaciones. Si la swap está habilitada, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, degradando el rendimiento y la estabilidad.
+
+.. code-block:: bash
 
   #actualizamos
   sudo apt-get update
@@ -698,36 +701,33 @@ Caso práctico: Instalar kubernetes en Ubuntu 24.04
 
   #Desactivamos la swap
   sudo swapoff -a
-  
-  #Para que no se active cuandose reinicie el sistema comenta la linea en el /etc/fstab, El kubelet, que es el agente principal de Kubernetes que corre en cada nodo del clúster, requiere que el swap esté desactivado. Kubernetes asume que el swap está desactivado para garantizar un rendimiento consistente y predecible de las aplicaciones. Si el swap está habilitado, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, lo que puede causar una degradación significativa del rendimiento y afectar la estabilidad de las aplicaciones.
-  
+  #y comentamos su linea en /etc/fstab para que no se active al reiniciar
+
   #Configurar el enrutamiento IP
   sudo modprobe br_netfilter
-echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward
+  echo '1' | sudo tee /proc/sys/net/ipv4/ip_forward
 
   #Instalar dependencias necesarias
-  sudo apt-get install -y apt-transport-https ca-certificates curl
-  
+  sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
   #Instalar docker
   sudo apt-get install -y docker.io
   sudo systemctl enable docker #habilitamos
   sudo systemctl start docker #iniciamos
-  
-  #Añadir la clave GPG de Kubernetes
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+  #Añadir la clave GPG del repositorio de Kubernetes
+  #(cambia v1.33 por la rama estable que quieras instalar, hay un repositorio por versión)
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
   #Añadir el repositorio de Kubernetes
-  sudo bash -c 'cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-deb http://apt.kubernetes.io/ kubernetes-xenial main
-EOF'
-  
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list
+
   #Actualizar el repositorio e instalar kubeadm, kubelet y kubectl
   sudo apt-get update
   sudo apt-get install -y kubelet kubeadm kubectl
-  #si da problemas intenta:
-  #snap install kubeadm --classic
-  #snap install kubectl --classic
-  #snap install kubelet --classic
 
-  
+  #los marcamos para que apt no los actualice por su cuenta
+  #(las actualizaciones de un cluster se hacen de forma controlada con kubeadm)
   sudo apt-mark hold kubelet kubeadm kubectl
-   
