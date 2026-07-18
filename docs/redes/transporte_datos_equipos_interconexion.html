@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -550,18 +554,18 @@
 <section id="concentradores-o-hub-nivel-fisico">
 <h2>Concentradores o hub  (nivel físico)<a class="headerlink" href="#concentradores-o-hub-nivel-fisico" title="Link to this heading">#</a></h2>
 <img alt="../_images/hubico.png" src="../_images/hubico.png" />
-<p>El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos, es decir además regenera la señal. Para conectar un Hub-Hub lo hacemos con cable cruzado.</p>
+<p>El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos (estos últimos, además, regeneran la señal). Para conectar un Hub-Hub lo hacemos con cable cruzado.</p>
 <a class="reference internal image-reference" href="../_images/hub.png"><img alt="../_images/hub.png" src="../_images/hub.png" width="300" />
 </a>
 </section>
 <section id="bridge-puente-nivel-2-enlace-tramas">
 <h2>Bridge (puente)(nivel 2 enlace &quot;tramas&quot;)<a class="headerlink" href="#bridge-puente-nivel-2-enlace-tramas" title="Link to this heading">#</a></h2>
-<p>Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red</p>
+<p>Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre tráfico local y no local, reduciendo así el tráfico de la red</p>
 </section>
 <section id="switch-conmutador-nivel-2">
 <h2>Switch (conmutador) (nivel 2)<a class="headerlink" href="#switch-conmutador-nivel-2" title="Link to this heading">#</a></h2>
 <img alt="../_images/switchico.png" src="../_images/switchico.png" />
-<p>Es un Hub inteligente analiza las MAC de los equipos conectados, de esa forma solo manda los mensajes a un solo equipo disminuyendo considerablemente el tráfico de la red</p>
+<p>Es un hub inteligente: analiza las MAC de los equipos conectados y de esa forma solo manda cada mensaje al equipo destinatario, disminuyendo considerablemente el tráfico de la red</p>
 <img alt="../_images/schitch.png" src="../_images/schitch.png" />
 <a class="reference internal image-reference" href="../_images/hub_switch.png"><img alt="../_images/hub_switch.png" src="../_images/hub_switch.png" width="300" />
 </a>
@@ -569,12 +573,12 @@
 <section id="el-router-encaminador-nivel-3-red">
 <h2>El router (encaminador) (nivel 3 Red)<a class="headerlink" href="#el-router-encaminador-nivel-3-red" title="Link to this heading">#</a></h2>
 <img alt="../_images/routerico.png" src="../_images/routerico.png" />
-<p>Se ocupan del encaminamiento de los paquetes entre sus distintos puertos, para ello utilizamos tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas y proporcionan seguridad y reducir la congestión de la red.</p>
+<p>Se ocupan del encaminamiento de los paquetes entre sus distintos puertos; para ello utilizan tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas, proporcionan seguridad y reducen la congestión de la red.</p>
 <img alt="../_images/router.png" src="../_images/router.png" />
 </section>
 <section id="pasarela-o-gateway-nivel-4-de-transporte">
 <h2>Pasarela o Gateway (nivel 4 de transporte)<a class="headerlink" href="#pasarela-o-gateway-nivel-4-de-transporte" title="Link to this heading">#</a></h2>
-<p>Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red</p>
+<p>Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas o protocolos diferentes. Es decir, es la puerta de enlace entre una red y otra</p>
 </section>
 </section>
 

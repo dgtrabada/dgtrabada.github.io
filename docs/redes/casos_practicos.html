@@ -250,9 +250,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -330,10 +337,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -530,7 +534,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-telnet-ssh">Caso práctico: telnet &amp; ssh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-cloud">Caso práctico: Router Cisco (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinámico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-cloud">Caso práctico: Ubuntu (Cloud)</a></li>
@@ -559,7 +563,7 @@
 <li><p>Install the appliance on your local computer</p></li>
 <li><p>Cuando estés en (Required files) presiona Import y busca los archivos que te has descargado.</p></li>
 </ol>
-<p>Realiza la siguiente red, necesitarás añadir otro slots en el router (PA-FE-TX)</p>
+<p>Realiza la siguiente red, necesitarás añadir otro slot en el router (PA-FE-TX)</p>
 <img alt="../_images/cisco7200_01.png" src="../_images/cisco7200_01.png" />
 <p>Configura los pcs virtuales (VPC)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">192</span>.168.1.10/24
@@ -574,7 +578,7 @@ ip<span class="w"> </span><span class="m">192</span>.168.2.10/24<span class="w">
 </div>
 <p>Fíjate que los Pcs virtuales (VPC) no pueden verse los que están en subredes diferentes</p>
 <img alt="../_images/cisco7200_02.png" src="../_images/cisco7200_02.png" />
-<p>Vamos a configuración las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y FastEthernet0/1 para la ip 192.168.2.1</p>
+<p>Vamos a configurar las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y a FastEthernet1/0 la ip 192.168.2.1</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
 configure<span class="w"> </span>terminal
 <span class="w"> </span>interface<span class="w"> </span>FastEthernet0/0
@@ -744,7 +748,6 @@ interface<span class="w"> </span>FastEthernet1/0
 <span class="w"> </span>no<span class="w"> </span>shutdown
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.2.2
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.2.2
-ip<span class="w"> </span>route<span class="w"> </span><span class="m">192</span>.168.4.0<span class="w"> </span><span class="m">255</span>.255.252.0<span class="w"> </span><span class="m">192</span>.168.1.1
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">192</span>.168.2.2
 end
 write<span class="w"> </span>memory
@@ -764,7 +767,6 @@ interface<span class="w"> </span>FastEthernet2/0
 <span class="w"> </span>no<span class="w"> </span>shutdown
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.2.1
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">20</span>.0.0.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">192</span>.168.3.2
-ip<span class="w"> </span>route<span class="w"> </span><span class="m">172</span>.16.0.0<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="m">172</span>.16.0.1
 ip<span class="w"> </span>route<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="m">192</span>.168.3.2
 end
 write<span class="w"> </span>memory
@@ -800,8 +802,8 @@ write<span class="w"> </span>memory
 </div>
 </section>
 <section id="caso-practico-router-cisco-enrutamiento-dinamico">
-<h2>Caso práctico: Router Cisco (Enrutamiento dinamico)<a class="headerlink" href="#caso-practico-router-cisco-enrutamiento-dinamico" title="Link to this heading">#</a></h2>
-<p>vamos a configurar los anteriores routers con <strong>OSPF</strong> (Open Shortest Path First) es un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.</p>
+<h2>Caso práctico: Router Cisco (Enrutamiento dinámico)<a class="headerlink" href="#caso-practico-router-cisco-enrutamiento-dinamico" title="Link to this heading">#</a></h2>
+<p>Vamos a configurar los anteriores routers con <strong>OSPF</strong> (Open Shortest Path First), un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.</p>
 <p>Configura el router con la ip <strong>10.4.X.Y</strong>, siendo X e Y los valores de tu ip</p>
 <p><strong>R1</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">enable</span>
@@ -874,10 +876,10 @@ write<span class="w"> </span>memory
 </pre></div>
 </div>
 <p>Podemos diagnosticar el funcionamiento con los siguientes comandos:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>neighbor<span class="w">                  </span><span class="c1"># Lista de routers vecinos OSPF y su estado.</span>
-show<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>ospf<span class="w">                     </span><span class="c1"># La base de datos de enlaces (LSDB) con todos los LSA (Link-State Advertisements).</span>
-show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>interface<span class="w"> </span>FastEthernet1/0<span class="w"> </span><span class="c1"># Rutas en la tabla de enrutamiento aprendidas por OSPF</span>
-show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>database<span class="w"> </span>summary<span class="w">          </span><span class="c1">#Muestra información general</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>neighbor<span class="w">                  </span><span class="c1"># Lista de routers vecinos OSPF y su estado</span>
+show<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>ospf<span class="w">                     </span><span class="c1"># Rutas de la tabla de enrutamiento aprendidas por OSPF</span>
+show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>interface<span class="w"> </span>FastEthernet1/0<span class="w"> </span><span class="c1"># Información OSPF de la interfaz (área, coste, temporizadores)</span>
+show<span class="w"> </span>ip<span class="w"> </span>ospf<span class="w"> </span>database<span class="w">                  </span><span class="c1"># La base de datos de enlaces (LSDB) con los LSA (Link-State Advertisements)</span>
 </pre></div>
 </div>
 </section>
@@ -1060,7 +1062,7 @@ ip<span class="w"> </span><span class="m">10</span>.0.11.10/24<span class="w"> <
 <h2>Caso práctico: Ubuntu (Docker)<a class="headerlink" href="#caso-practico-ubuntu-docker" title="Link to this heading">#</a></h2>
 <p>Crea la siguiente red:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Router Cisco (7R)</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Configuración de ubuntu</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><img alt="../_images/ubuntu_1.png" src="../_images/ubuntu_1.png" />
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Red</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Configuración de ubuntu</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><img alt="../_images/ubuntu_1.png" src="../_images/ubuntu_1.png" />
 </div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>auto<span class="w"> </span>eth0
 iface<span class="w"> </span>eth0<span class="w"> </span>inet<span class="w"> </span>static
 <span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.4.104.100
@@ -1080,7 +1082,7 @@ iface<span class="w"> </span>eth2<span class="w"> </span>inet<span class="w"> </
 </pre></div>
 </div>
 </div></div>
-<p>Para Habilitar IP forwarding en ubuntu:</p>
+<p>Para habilitar el IP forwarding en Ubuntu:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
 <span class="c1"># Para que sea permanente añade o modifica esta línea en /etc/sysctl.conf:</span>
 net.ipv4.ip_forward<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
@@ -1093,7 +1095,7 @@ sysctl<span class="w"> </span>-p
 <h2>Caso práctico: Ubuntu (Cloud)<a class="headerlink" href="#caso-practico-ubuntu-cloud" title="Link to this heading">#</a></h2>
 <p>Vamos a utilizar Cloud para proporcionar internet a Ubuntu</p>
 <img alt="../_images/ubuntu_2.png" src="../_images/ubuntu_2.png" />
-<p>Instalamos en ubuntu las  iptables <a class="footnote-reference brackets" href="#iptables" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>Instalamos en Ubuntu iptables <a class="footnote-reference brackets" href="#iptables" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>update
 apt<span class="w"> </span>install<span class="w"> </span>iptables
 </pre></div>
@@ -1121,8 +1123,8 @@ Es una herramienta de línea de comandos en sistemas Linux que permite configura
 </section>
 <section id="caso-practico-router-mikrotik">
 <h2>Caso práctico: Router MikroTik<a class="headerlink" href="#caso-practico-router-mikrotik" title="Link to this heading">#</a></h2>
-<p>MikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos <a class="reference external" href="https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router">mikrotik-chr.gnsa y la chr-7.16.img</a></p>
-<p>Para añadirlo a GNS3 New template / Import an appliance file (.gn3a extension)</p>
+<p>MikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos <a class="reference external" href="https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router">mikrotik-chr.gns3a y la chr-7.16.img</a></p>
+<p>Para añadirlo a GNS3: New template / Import an appliance file (extensión .gns3a)</p>
 <img alt="../_images/MikroTik01.png" src="../_images/MikroTik01.png" />
 <p>Vamos a utilizar tres ordenadores con la siguiente configuración:</p>
 <img alt="../_images/MikroTik02.png" src="../_images/MikroTik02.png" />
@@ -1143,7 +1145,7 @@ ip<span class="w"> </span><span class="m">10</span>.0.2.10/24<span class="w"> </
 /ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="nv">address</span><span class="o">=</span><span class="m">10</span>.0.2.1/24<span class="w"> </span><span class="nv">interface</span><span class="o">=</span>ether2
 </pre></div>
 </div>
-<p>Puedes comprobar que todo esta bien con el comando <code class="docutils literal notranslate"><span class="pre">/ip</span> <span class="pre">address</span> <span class="pre">print</span></code></p>
+<p>Puedes comprobar que todo está bien con el comando <code class="docutils literal notranslate"><span class="pre">/ip</span> <span class="pre">address</span> <span class="pre">print</span></code></p>
 <p>Por defecto, MikroTik ya enruta paquetes entre interfaces con direcciones IP directamente conectadas.
 Para verificar que las rutas existen, utiliza:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/ip<span class="w"> </span>route<span class="w"> </span>print
@@ -1153,7 +1155,7 @@ Para verificar que las rutas existen, utiliza:</p>
 <span class="m">1</span><span class="w">    </span><span class="m">10</span>.0.2.0/24<span class="w">     </span>ether2<span class="w">     </span><span class="m">0</span>
 </pre></div>
 </div>
-<p>Comprueba que ahora si llega y sube un pantallazo del ping y de las tablas de enrutamiento.</p>
+<p>Comprueba que ahora sí llega y sube un pantallazo del ping y de las tablas de enrutamiento.</p>
 </section>
 <section id="caso-practico-vyos">
 <h2>Caso práctico: Vyos<a class="headerlink" href="#caso-practico-vyos" title="Link to this heading">#</a></h2>
@@ -1161,8 +1163,8 @@ Para verificar que las rutas existen, utiliza:</p>
 <img alt="../_images/Routers.png" src="../_images/Routers.png" />
 <p>Como podemos ver en la figura tenemos tres segmentos de red /24 y dos segmentos de red que unen los router en /30.</p>
 <p>Para este caso práctico vamos a utilizar <strong>GNS3</strong> que es un software de emulación de red de código abierto que permite a los usuarios simular topologías de red complejas y experimentar con diferentes configuraciones de red y <strong>VyOS</strong>, que es un sistema operativo de red de código abierto basado en el proyecto Vyatta. Está diseñado para ser utilizado como un enrutador de red, firewall, VPN y plataforma de virtualización de red.</p>
-<p>Para instalar un Router pulsaremos a (New</p>
-<p>La forma más rápida de configurar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:</p>
+<p>Para instalar el router VyOS lo añadimos como plantilla en GNS3 (New template / Install an appliance from the GNS3 server) y buscamos VyOS en la categoría Routers.</p>
+<p>La forma más rápida de configurar los 6 clientes es utilizando el botón de la derecha del ratón y pulsando Edit config, copiamos en cada caso la configuración correspondiente:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span>pcname<span class="w"> </span><span class="m">10</span>.0.1.10/24
 ip<span class="w"> </span><span class="m">10</span>.0.1.10<span class="w"> </span><span class="m">10</span>.0.1.254<span class="w"> </span><span class="m">24</span>
 
@@ -1182,7 +1184,7 @@ ip<span class="w"> </span><span class="m">10</span>.0.3.10<span class="w"> </spa
 ip<span class="w"> </span><span class="m">10</span>.0.3.11<span class="w"> </span><span class="m">10</span>.0.3.254<span class="w"> </span><span class="m">24</span>
 </pre></div>
 </div>
-<p>Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que estén en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con <strong>R2</strong>, abrimos la teminal y vemos que no esta configuradas las interfaces de red</p>
+<p>Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que estén en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con <strong>R2</strong>, abrimos la terminal y vemos que no están configuradas las interfaces de red</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vyos@vyos:~$<span class="w"> </span>show<span class="w"> </span>interfaces
 Codes:<span class="w"> </span>S<span class="w"> </span>-<span class="w"> </span>State,<span class="w"> </span>L<span class="w"> </span>-<span class="w"> </span>Link,<span class="w"> </span>u<span class="w"> </span>-<span class="w"> </span>Up,<span class="w"> </span>D<span class="w"> </span>-<span class="w"> </span>Down,<span class="w"> </span>A<span class="w"> </span>-<span class="w"> </span>Admin<span class="w"> </span>Down
 Interface<span class="w">        </span>IP<span class="w"> </span>Address<span class="w">                        </span>S/L<span class="w">  </span>Description
@@ -1218,7 +1220,7 @@ vyos@vyos#<span class="w"> </span><span class="nb">set</span><span class="w"> </
 <span class="o">[</span>edit<span class="o">]</span>
 </pre></div>
 </div>
-<p>Para que los cambios tengan efectos los subimos y salvamos:</p>
+<p>Para que los cambios tengan efecto los subimos y salvamos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vyos@vyos#<span class="w"> </span>commit
 <span class="o">[</span>edit<span class="o">]</span>
 vyos@vyos#<span class="w"> </span>save
@@ -1271,7 +1273,6 @@ save
 </pre></div>
 </div>
 <p>Comprobamos la tabla de encaminamiento de <strong>R1</strong></p>
-<img alt="../_images/R2.png" src="../_images/R2.png" />
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vyos@vyos#<span class="w"> </span>netstat<span class="w"> </span>-r
 Kernel<span class="w"> </span>IP<span class="w"> </span>routing<span class="w"> </span>table
 Destination<span class="w">     </span>Gateway<span class="w">         </span>Genmask<span class="w">         </span>Flags<span class="w">   </span>MSS<span class="w"> </span>Window<span class="w">  </span>irtt<span class="w"> </span>Iface
@@ -1312,7 +1313,6 @@ save
 </pre></div>
 </div>
 <p>Comprobamos la tabla de encaminamiento de <strong>R3</strong></p>
-<img alt="../_images/R2.png" src="../_images/R2.png" />
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vyos@vyos#<span class="w"> </span>netstat<span class="w"> </span>-r
 Kernel<span class="w"> </span>IP<span class="w"> </span>routing<span class="w"> </span>table
 Destination<span class="w">     </span>Gateway<span class="w">         </span>Genmask<span class="w">         </span>Flags<span class="w">   </span>MSS<span class="w"> </span>Window<span class="w">  </span>irtt<span class="w"> </span>Iface
@@ -1400,7 +1400,7 @@ Destination<span class="w">     </span>Gateway<span class="w">         </span>Ge
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-telnet-ssh">Caso práctico: telnet &amp; ssh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-cloud">Caso práctico: Router Cisco (Cloud)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-estatico">Caso práctico: Router Cisco (Enrutamiento estático)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinamico)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-enrutamiento-dinamico">Caso práctico: Router Cisco (Enrutamiento dinámico)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-router-cisco-7r">Caso práctico: Router Cisco (7R)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-docker">Caso práctico: Ubuntu (Docker)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-ubuntu-cloud">Caso práctico: Ubuntu (Cloud)</a></li>

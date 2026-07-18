@@ -3,7 +3,7 @@ Sistema de comunicación
 ***********************
 
 Modelo de comunicación desarrollado por Shannon
-##########
+###############################################
 
 .. image:: imagenes/shannon.png
 

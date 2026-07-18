@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -522,7 +526,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atenuacion">Atenuación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interferencias">Interferencias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido-calor">Ruido (Calor)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido">Ruido</a></li>
 </ul>
             </nav>
         </div>
@@ -538,17 +542,17 @@
 <h1>Perturbaciones en la transmisión de datos<a class="headerlink" href="#perturbaciones-en-la-transmision-de-datos" title="Link to this heading">#</a></h1>
 <section id="atenuacion">
 <h2>Atenuación<a class="headerlink" href="#atenuacion" title="Link to this heading">#</a></h2>
-<p>Se refiere a la atenuación de la señal debido a la resistencia eléctrica que presenta tanto el canal de transmisión como el resto de los elementos</p>
+<p>Se refiere a la pérdida de intensidad de la señal debida a la resistencia eléctrica que presenta tanto el canal de transmisión como el resto de los elementos</p>
 <img alt="../_images/atenuacion.png" src="../_images/atenuacion.png" />
 </section>
 <section id="interferencias">
 <h2>Interferencias<a class="headerlink" href="#interferencias" title="Link to this heading">#</a></h2>
-<p>Las señales procedentes de otras transmisiones pueden interferir o darse en nuestras transmisiones. Esto ocurre cuando la señal de un circuito se acopla a otro circuito debido al efecto de la inducción electromagnética. Vemos un ejemplo en el acoplamiento entre pares de cables o en el cable coaxial, hacemos una apantallamiento <strong>Jaula de Faraday</strong></p>
+<p>Las señales procedentes de otras transmisiones pueden interferir o colarse en nuestras transmisiones. Esto ocurre cuando la señal de un circuito se acopla a otro circuito debido al efecto de la inducción electromagnética. Vemos un ejemplo en el acoplamiento entre pares de cables; para evitarlo, en el cable coaxial se hace un apantallamiento (<strong>jaula de Faraday</strong>)</p>
 <img alt="../_images/interferencias.png" src="../_images/interferencias.png" />
 </section>
-<section id="ruido-calor">
-<h2>Ruido (Calor)<a class="headerlink" href="#ruido-calor" title="Link to this heading">#</a></h2>
-<p>Perturbación aleatoria, puede ser debido a muchas causas como, vibraciones térmicas de los componentes del sistema, perturbaciones atmosféricas, motores, etc ...</p>
+<section id="ruido">
+<h2>Ruido<a class="headerlink" href="#ruido" title="Link to this heading">#</a></h2>
+<p>Perturbación aleatoria, puede ser debida a muchas causas como vibraciones térmicas de los componentes del sistema (ruido térmico), perturbaciones atmosféricas, motores, etc.</p>
 </section>
 </section>
 
@@ -601,7 +605,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atenuacion">Atenuación</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interferencias">Interferencias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido-calor">Ruido (Calor)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruido">Ruido</a></li>
 </ul>
   </nav></div>
 

@@ -2,7 +2,7 @@
 Cableado Estructurado
 *********************
 
-Un sistema de cableado estructurado es el sistema colectivo de componentes, como cables, canalizaciones, conectores, etiquetas, espacios y demás dispositivos que deben ser instalados para establecer una infraestructura de interconexión para los componentes de una red de datos. Al instalar una red hay que tener en cuenta los factores
+Un sistema de cableado estructurado es el sistema colectivo de componentes, como cables, canalizaciones, conectores, etiquetas, espacios y demás dispositivos que deben ser instalados para establecer una infraestructura de interconexión para los componentes de una red de datos. Al instalar una red hay que tener en cuenta los siguientes factores:
 
 * Económico: cableado funcional con mínimo coste
 
@@ -32,15 +32,15 @@ Un sistema de cableado estructurado es el sistema colectivo de componentes, como
 
   * No se permiten puentes, derivaciones o empalmes a lo largo de todo el trayecto del cableado
   
-  * Se debe considerar su proximidad con el cableado eléctrico que genera altos niveles de interferencia electromagnética (motores, elevadores, transformadores etc) y cuyas limitaciones se  encuentran en el estándar ANSI/EIA/TIA 569
-  
-  * La máxima longitud permitida independientemente del tipo de medio de TX utilizado es 100 metros = 90 m + 3m usuario + 7 m patchpannel
-  
-  * Cableado Vertical: La interconexión entre los armarios de telecomunicaciones, cuarto de equipos y entrada de servicios.
+  * Se debe considerar su proximidad con el cableado eléctrico que genera altos niveles de interferencia electromagnética (motores, elevadores, transformadores, etc.) y cuyas limitaciones se encuentran en el estándar ANSI/EIA/TIA 569
 
-* Se utiliza un cableado multipar UTP y STP. También Fibra Óptica multimodo y monomodo
+  * La máxima longitud permitida independientemente del tipo de medio de TX utilizado es 100 metros = 90 m + 3 m de usuario + 7 m de patch panel
 
-* La distancia máxima sobre voz es de UTP 800 metros, STP 700 metros, Fibra MM 62.5/125um 200 metros
+* Cableado Vertical: La interconexión entre los armarios de telecomunicaciones, cuarto de equipos y entrada de servicios.
+
+  * Se utiliza un cableado multipar UTP y STP. También Fibra Óptica multimodo y monomodo
+
+  * La distancia máxima sobre voz es de UTP 800 metros, STP 700 metros, Fibra MM 62.5/125um 2000 metros
 
   .. image:: imagenes/rack1.png
     :width: 200
@@ -90,10 +90,10 @@ Un sistema de cableado estructurado es el sistema colectivo de componentes, como
   
   * Crimpadora
 
-  .. image:: imagenes/crimpadora.png
-      :width: 200
-      
-  * Tester  
+    .. image:: imagenes/crimpadora.png
+        :width: 200
+
+  * Tester
 
     .. image:: imagenes/testes.png
       :width: 200

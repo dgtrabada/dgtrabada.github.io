@@ -13,7 +13,7 @@ Para instalar el router Cisco 7200 en GNS3 seguiremos los siguientes pasos:
 #. Install the appliance on your local computer 
 #. Cuando estés en (Required files) presiona Import y busca los archivos que te has descargado.
 
-Realiza la siguiente red, necesitarás añadir otro slots en el router (PA-FE-TX)
+Realiza la siguiente red, necesitarás añadir otro slot en el router (PA-FE-TX)
 
 .. image:: imagenes/cisco7200_01.png
 
@@ -34,7 +34,7 @@ Fíjate que los Pcs virtuales (VPC) no pueden verse los que están en subredes d
 
 .. image:: imagenes/cisco7200_02.png
 
-Vamos a configuración las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y FastEthernet0/1 para la ip 192.168.2.1
+Vamos a configurar las interfaces de red del router, pondremos a FastEthernet0/0 la ip 192.168.1.1 y a FastEthernet1/0 la ip 192.168.2.1
 
 .. code-block:: bash
 
@@ -249,9 +249,8 @@ Caso práctico: Router Cisco (Enrutamiento estático)
   interface FastEthernet1/0
    ip address 192.168.2.1 255.255.255.252
    no shutdown
-  ip route 172.16.0.0 255.255.255.0 192.168.2.2 
+  ip route 172.16.0.0 255.255.255.0 192.168.2.2
   ip route 20.0.0.0 255.255.255.0 192.168.2.2
-  ip route 192.168.4.0 255.255.252.0 192.168.1.1
   ip route 0.0.0.0 0.0.0.0 192.168.2.2
   end
   write memory
@@ -273,7 +272,6 @@ Caso práctico: Router Cisco (Enrutamiento estático)
    no shutdown
   ip route 192.168.1.0 255.255.255.0 192.168.2.1
   ip route 20.0.0.0 255.255.255.0 192.168.3.2
-  ip route 172.16.0.0 255.255.255.0 172.16.0.1
   ip route 0.0.0.0 0.0.0.0 192.168.3.2
   end
   write memory
@@ -312,10 +310,10 @@ Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip
 
 
 
-Caso práctico: Router Cisco (Enrutamiento dinamico)
+Caso práctico: Router Cisco (Enrutamiento dinámico)
 ===================================================
 
-vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First) es un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red. 
+Vamos a configurar los anteriores routers con **OSPF** (Open Shortest Path First), un protocolo de enrutamiento dinámico utilizado en redes IP para determinar las mejores rutas hacia destinos dentro de una red.
 
 Configura el router con la ip **10.4.X.Y**, siendo X e Y los valores de tu ip
 
@@ -402,10 +400,10 @@ Podemos diagnosticar el funcionamiento con los siguientes comandos:
 
 .. code-block:: bash
 
-  show ip ospf neighbor                  # Lista de routers vecinos OSPF y su estado.
-  show ip route ospf                     # La base de datos de enlaces (LSDB) con todos los LSA (Link-State Advertisements).
-  show ip ospf interface FastEthernet1/0 # Rutas en la tabla de enrutamiento aprendidas por OSPF 
-  show ip ospf database summary          #Muestra información general
+  show ip ospf neighbor                  # Lista de routers vecinos OSPF y su estado
+  show ip route ospf                     # Rutas de la tabla de enrutamiento aprendidas por OSPF
+  show ip ospf interface FastEthernet1/0 # Información OSPF de la interfaz (área, coste, temporizadores)
+  show ip ospf database                  # La base de datos de enlaces (LSDB) con los LSA (Link-State Advertisements)
 
 
 Caso práctico: Router Cisco (7R)
@@ -622,7 +620,7 @@ Crea la siguiente red:
 
 .. tabs::
 
-    .. tab:: Router Cisco (7R)
+    .. tab:: Red
 
         .. image:: imagenes/ubuntu_1.png
 
@@ -648,7 +646,7 @@ Crea la siguiente red:
 	           netmask 255.255.255.0
 
 
-Para Habilitar IP forwarding en ubuntu:
+Para habilitar el IP forwarding en Ubuntu:
 
 .. code-block:: bash
 
@@ -665,7 +663,7 @@ Vamos a utilizar Cloud para proporcionar internet a Ubuntu
 
 .. image:: imagenes/ubuntu_2.png
 
-Instalamos en ubuntu las  iptables [#iptables]_
+Instalamos en Ubuntu iptables [#iptables]_
 
 .. code-block:: bash
 
@@ -696,9 +694,9 @@ Configuramos el NAT para que todo lo que salga por eth0 use su IP como origen
 Caso práctico: Router MikroTik
 ==============================
 
-MikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos `mikrotik-chr.gnsa y la chr-7.16.img <https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router>`_ 
+MikroTik utiliza RouterOS, un sistema operativo basado en Linux diseñado específicamente para la gestión de redes, podemos bajarnos `mikrotik-chr.gns3a y la chr-7.16.img <https://gns3.com/marketplace/appliances/mikrotik-cloud-hosted-router>`_
 
-Para añadirlo a GNS3 New template / Import an appliance file (.gn3a extension) 
+Para añadirlo a GNS3: New template / Import an appliance file (extensión .gns3a)
 
 .. image:: imagenes/MikroTik01.png
 
@@ -728,7 +726,7 @@ Asigna las IPs a las Interfaces de MikroTik
   /ip address add address=10.0.1.1/24 interface=ether1
   /ip address add address=10.0.2.1/24 interface=ether2
 
-Puedes comprobar que todo esta bien con el comando ``/ip address print``
+Puedes comprobar que todo está bien con el comando ``/ip address print``
 
 Por defecto, MikroTik ya enruta paquetes entre interfaces con direcciones IP directamente conectadas.
 Para verificar que las rutas existen, utiliza:
@@ -741,7 +739,7 @@ Para verificar que las rutas existen, utiliza:
   0    10.0.1.0/24     ether1     0
   1    10.0.2.0/24     ether2     0
 
-Comprueba que ahora si llega y sube un pantallazo del ping y de las tablas de enrutamiento.
+Comprueba que ahora sí llega y sube un pantallazo del ping y de las tablas de enrutamiento.
 
 Caso práctico: Vyos
 ===================
@@ -754,9 +752,9 @@ Como podemos ver en la figura tenemos tres segmentos de red /24 y dos segmentos 
 
 Para este caso práctico vamos a utilizar **GNS3** que es un software de emulación de red de código abierto que permite a los usuarios simular topologías de red complejas y experimentar con diferentes configuraciones de red y **VyOS**, que es un sistema operativo de red de código abierto basado en el proyecto Vyatta. Está diseñado para ser utilizado como un enrutador de red, firewall, VPN y plataforma de virtualización de red.
 
-Para instalar un Router pulsaremos a (New
+Para instalar el router VyOS lo añadimos como plantilla en GNS3 (New template / Install an appliance from the GNS3 server) y buscamos VyOS en la categoría Routers.
 
-La forma más rápida de configurar los 6 clientes es utilizando el botón de la derecha del ráton y pulsando Edit config, copiamos en cada caso la confiruación correspondiente:
+La forma más rápida de configurar los 6 clientes es utilizando el botón de la derecha del ratón y pulsando Edit config, copiamos en cada caso la configuración correspondiente:
 
 .. code-block:: bash
   
@@ -778,7 +776,7 @@ La forma más rápida de configurar los 6 clientes es utilizando el botón de la
  set pcname 10.0.3.11/24
  ip 10.0.3.11 10.0.3.254 24
 
-Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que estén en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con **R2**, abrimos la teminal y vemos que no esta configuradas las interfaces de red
+Abre una terminal y comprueba que los clientes solo pueden hacer ping con nodos que estén en su misma subred, para que puedan verse todos entre sí pasamos a configurar los routers, para ello empezamos con **R2**, abrimos la terminal y vemos que no están configuradas las interfaces de red
 
 .. code-block:: bash
    
@@ -823,7 +821,7 @@ Añadimos las siguientes rutas estáticas:
  vyos@vyos# set protocols static route 10.0.3.0/24 next-hop 10.0.0.6
  [edit]
 
-Para que los cambios tengan efectos los subimos y salvamos:
+Para que los cambios tengan efecto los subimos y salvamos:
 
 .. code-block:: bash
 
@@ -887,8 +885,6 @@ Para el caso **R1**, ponemos un resumen de los comandos utilizados
 
 Comprobamos la tabla de encaminamiento de **R1**
 
-.. image:: imagenes/R2.png
-
 .. code-block:: bash
 
  vyos@vyos# netstat -r
@@ -934,8 +930,6 @@ Para el caso de **R3**
  save
 
 Comprobamos la tabla de encaminamiento de **R3**
-
-.. image:: imagenes/R2.png
 
 .. code-block:: bash
 

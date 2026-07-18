@@ -5,21 +5,21 @@ Arquitecturas basadas en niveles
 Arquitectura OSI
 ================
 
-En 1983 se completa la migración a la arquitectura de comunicación TCP/IP, en 1978 the International Standards Organization (ISO) propuso el modelo (OSI) Open Systems Interconections, que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.
+En 1983 se completa la migración a la arquitectura de comunicación TCP/IP; en 1978 la International Standards Organization (ISO) propuso el modelo OSI (Open Systems Interconnection), que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.
 
 Modelo de referencia OSI
 
 .. image:: imagenes/OSI.png
 
-1. **Capa física**. En esta capa se encuentra los medios materiales para la comunicación como las placas, cables, conectores, es decir medio mecánicas y eléctricos. La capa física se ocupa de la transmisión de bits a lo largo de un canal de comunicación. Debe de garantizar que un bit que se manda llegue con el mismo valor.
+1. **Capa física**. En esta capa se encuentran los medios materiales para la comunicación como las placas, cables, conectores, es decir, medios mecánicos y eléctricos. La capa física se ocupa de la transmisión de bits a lo largo de un canal de comunicación. Debe garantizar que un bit que se manda llegue con el mismo valor.
 
-2. **Capa de enlace**. Aporta un servicio de transferencia de datos fiable a través del enlace físico para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen un par bits entre los tramas de datos para hacer el control de errores, esta capa se encarga de solucionar los problemas de reenvío, o mensajes duplicados.
+2. **Capa de enlace**. Aporta un servicio de transferencia de datos fiable a través del enlace físico; para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen unos bits de control entre las tramas de datos para hacer el control de errores; esta capa se encarga de solucionar los problemas de reenvío o mensajes duplicados.
 
 3. **Capa de red**. Este nivel encamina los paquetes de la fuente al destino final a través de encaminadores (routers) intermedios. Tiene que evitar la congestión y manejar saltos cuando la fuente y destino de las redes es diferente.
 
 4. **Capa de transporte**. La función principal es aceptar los datos de la capa superior y dividirlos en unidades más pequeñas, para pasarlos a la capa de red, asegurando que todos los segmentos llegan y se reensamblan los paquetes
 
-5. **Capa de sesión**. Permite a los usuarios loguearse entre sí permitiendo acceder a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos máquinas, también puede encargarse de recuperar el sistema en el caso de producirse un fallo.
+5. **Capa de sesión**. Permite a los usuarios establecer sesiones entre sí, permitiendo acceder a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos máquinas; también puede encargarse de recuperar el sistema en el caso de producirse un fallo.
 
 6. **Capa de presentación**. Se encarga de traducir la información del formato máquina a un formato que pueda entender el usuario.
 
@@ -67,7 +67,7 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
 
 .. image:: imagenes/datagrama.png
 
-* **VERS**: Es la versión del protocolo IP. La versión actual es la 6.
+* **VERS**: Es la versión del protocolo IP. La de la figura es la 4 (IPv4), que convive actualmente con la versión 6 (IPv6).
     
 * **LON**: Es la longitud de la cabecera IP de 32 en 32 bits. No incluye el campo de datos.
         
@@ -97,7 +97,7 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
     
 * **Datos** : este campo contiene los datos a enviar, siendo su longitud múltiplo de 8 bits. El valor máximo de la longitud es 65.535 bytes (64 Kbytes). El campo comenzará con el contenido de la cabecera del protocolo de siguiente nivel: TCP o UDP.
 
-**TCP** (Transmisión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:
+**TCP** (Transmission Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino; es TCP el que se encarga de ello. Las aplicaciones que usan TCP necesitan sincronizarse para:
 
 * Iniciar la comunicación: mientras un programa “escucha” otro se conecta
     
@@ -144,9 +144,9 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
         
 * **Ventana** (16 bits). Número de bytes que el emisor del segmento está dispuesto a aceptar por  parte del destino.
     
-* **Suma de verificación** (24 bits). Suma de comprobación de errores del segmento actual. Para su cálculo se utiliza una pseudo-cabecera que también incluye las direcciones IP origen y destino.
+* **Suma de verificación** (16 bits). Suma de comprobación de errores del segmento actual. Para su cálculo se utiliza una pseudo-cabecera que también incluye las direcciones IP origen y destino.
 
-* **Puntero de urgencia** (8 bits). Se utiliza cuando se están enviando datos urgentes que tienen preferencia sobre todos los demás e indica el siguiente byte del campo Datos que sigue a los datos urgentes. Esto le permite al destino identificar donde terminan los datos urgentes. Nótese que un mismo segmento puede contener tanto datos urgentes (al principio) como normales (después de los urgentes).
+* **Puntero de urgencia** (16 bits). Se utiliza cuando se están enviando datos urgentes que tienen preferencia sobre todos los demás e indica el siguiente byte del campo Datos que sigue a los datos urgentes. Esto le permite al destino identificar donde terminan los datos urgentes. Nótese que un mismo segmento puede contener tanto datos urgentes (al principio) como normales (después de los urgentes).
     
 * **Opciones** (variable). Si está presente únicamente se define una opción: el tamaño máximo de segmento que será aceptado.
     
@@ -156,12 +156,12 @@ En la arquitectura TCP/IP la capa de red es casi totalmente asimilable a la capa
     
 
 
-* **UDP** (User Datagram Protocol). Permite la transmisión de mensajes sin la necesidad de establecer una conexión previa, y sin garantías de entrega. Mayor rendimiento que el TCP. Permite al igual que el protocolo TCP la multiplexión por medio de puertos.
+* **UDP** (User Datagram Protocol). Permite la transmisión de mensajes sin la necesidad de establecer una conexión previa, y sin garantías de entrega. Mayor rendimiento que el TCP. Permite al igual que el protocolo TCP la multiplexación por medio de puertos.
 
   .. image:: imagenes/UDP.png
     
-El nivel de aplicación.
------------------------
+El nivel de aplicación
+----------------------
 
 En este nivel se incluyen todos los protocolos de alto nivel que utilizan los programas para comunicarse.
 En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentación y aplicación del modelo OSI.
@@ -188,9 +188,9 @@ El comando netstat controla las conexiones TCP/UDP abiertas en el sistema Puerto
 
 Ejemplos:
 
-* Netstat /?: Ayuda
-* Netstat -b: Conexiones actuales y el proceso que las maneja en el ordenador
-* Netstat –a: Conexiones actuales y puertos a la escucha en el ordenador
+* netstat /? : Ayuda
+* netstat -b : Conexiones actuales y el proceso que las maneja en el ordenador
+* netstat -a : Conexiones actuales y puertos a la escucha en el ordenador
        
 
 

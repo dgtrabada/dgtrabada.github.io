@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -530,16 +534,16 @@
 <a class="reference internal image-reference" href="../_images/TTT1.png"><img alt="../_images/TTT1.png" src="../_images/TTT1.png" width="400" />
 </a>
 </li>
-<li><p><strong>Transmisión asíncrona</strong>. Una transmisión es asíncrona cuando el proceso de sincronización entre el emisor y el receptor se realiza en cada palabra de código transmitida. Por ejemplo, 1 bit start, 8 bits carácter y 3 bits stop, en este caso el rendimiento (8/14)~60%</p></li>
+<li><p><strong>Transmisión asíncrona</strong>. Una transmisión es asíncrona cuando el proceso de sincronización entre el emisor y el receptor se realiza en cada palabra de código transmitida. Por ejemplo, con 1 bit de start, 8 bits de carácter y 3 bits de stop, el rendimiento es 8/12 ~ 67%</p></li>
 </ul>
 <p>Además podemos clasificarla como <strong>digital y analógica</strong></p>
 <ul class="simple">
-<li><p><strong>Transmisión analógica.</strong> La función continua en el tiempo y puede tomar cualquier valor contiguo dentro del rango que permite el medio de transmisión.</p></li>
-<li><p><strong>Transmisión digital.</strong> La funciones discretas en el tiempo y solo puede tomar varios valores dentro de un rango.</p></li>
+<li><p><strong>Transmisión analógica.</strong> La función es continua en el tiempo y puede tomar cualquier valor continuo dentro del rango que permite el medio de transmisión.</p></li>
+<li><p><strong>Transmisión digital.</strong> La función es discreta en el tiempo y solo puede tomar unos pocos valores dentro de un rango.</p></li>
 </ul>
 <p>Si tomamos la <strong>direccionalidad de la transmisión</strong>, podemos clasificar la transmisión de datos en los siguientes tipos</p>
 <ul>
-<li><p><strong>Simplex.</strong> La transmisión tienen lugar en un solo sentido, (TV, rádio)</p>
+<li><p><strong>Simplex.</strong> La transmisión tiene lugar en un solo sentido (TV, radio)</p>
 <a class="reference internal image-reference" href="../_images/TTT2.png"><img alt="../_images/TTT2.png" src="../_images/TTT2.png" width="300" />
 </a>
 </li>
@@ -547,14 +551,14 @@
 <a class="reference internal image-reference" href="../_images/TTT3.png"><img alt="../_images/TTT3.png" src="../_images/TTT3.png" width="300" />
 </a>
 </li>
-<li><p><strong>Dúplex (full - dúplex).</strong> Transmisión bidireccional y además simultánea, es decir, es decir puede tener lugar en ambos sentidos y al mismo tiempo. (Teléfono)</p>
+<li><p><strong>Dúplex (full - dúplex).</strong> Transmisión bidireccional y además simultánea, es decir, puede tener lugar en ambos sentidos y al mismo tiempo (teléfono)</p>
 <a class="reference internal image-reference" href="../_images/TTT4.png"><img alt="../_images/TTT4.png" src="../_images/TTT4.png" width="300" />
 </a>
 </li>
 </ul>
 <p>Según el <strong>modo de transmisión</strong> tendríamos:</p>
 <ul class="simple">
-<li><p><strong>Serie.</strong> Los datos se transmiten por un solo bit por un solo canal de transmisión</p></li>
+<li><p><strong>Serie.</strong> Los datos se transmiten bit a bit por un solo canal de transmisión</p></li>
 <li><p><strong>Paralelo.</strong> Consiste en la transmisión simultánea de N bits</p></li>
 </ul>
 </section>

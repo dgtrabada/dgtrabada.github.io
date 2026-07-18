@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Tipos de redes 802.11 &#8212; dgtrabada</title>
+    <title>Redes inalámbricas &#8212; dgtrabada</title>
   
   
   
@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -510,7 +514,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Tipos de redes 802.11</h1>
+    <h1>Redes inalámbricas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -520,12 +524,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tipos de redes 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-canal-de-una-red-802-11">El canal de una red 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-ssid-de-una-red-802-11">El SSID de una red 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-en-802-11">Seguridad en 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-redes-802-11">Tipos de redes 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-canal-de-una-red-802-11">El canal de una red 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-ssid-de-una-red-802-11">El SSID de una red 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-en-802-11">Seguridad en 802.11</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -536,19 +539,21 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="tipos-de-redes-802-11">
-<h1>Tipos de redes 802.11<a class="headerlink" href="#tipos-de-redes-802-11" title="Link to this heading">#</a></h1>
+  <section id="redes-inalambricas">
+<h1>Redes inalámbricas<a class="headerlink" href="#redes-inalambricas" title="Link to this heading">#</a></h1>
+<section id="tipos-de-redes-802-11">
+<h2>Tipos de redes 802.11<a class="headerlink" href="#tipos-de-redes-802-11" title="Link to this heading">#</a></h2>
 <p>Las redes 802.11 son un conjunto de estándares para redes inalámbricas (Wi-Fi) desarrollados por el Institute of Electrical and Electronics Engineers (IEEE). Estos estándares definen las características técnicas de las redes Wi-Fi, como la frecuencia de operación, el ancho de banda, la velocidad de transmisión y el alcance.</p>
 <p>Versiones más utilizadas hoy en día</p>
 <ol class="arabic simple">
-<li><p><strong>IEEE 802.11n (Wi-Fi 4)</strong>, Frecuencia: 2.4 GHz y 5 GHz (dual-band). Velocidad máxima: Hasta <strong>600 Mbps</strong>. Fue un gran salto en velocidad y alcance respecto a sus predecesores (802.11a/b/g).Es compatible con dispositivos más antiguos que operan en 2.4 GHz. Los canales 1, 6 y 11 son los únicos que no se superponen. Sigue siendo ampliamente utilizado en hogares y pequeñas empresas debido a su relación costo-beneficio.</p></li>
+<li><p><strong>IEEE 802.11n (Wi-Fi 4)</strong>, Frecuencia: 2.4 GHz y 5 GHz (dual-band). Velocidad máxima: Hasta <strong>600 Mbps</strong>. Fue un gran salto en velocidad y alcance respecto a sus predecesores (802.11a/b/g). Es compatible con dispositivos más antiguos que operan en 2.4 GHz. Los canales 1, 6 y 11 son los únicos que no se superponen. Sigue siendo ampliamente utilizado en hogares y pequeñas empresas debido a su relación costo-beneficio.</p></li>
 <li><p><strong>IEEE 802.11ac (Wi-Fi 5)</strong>. Frecuencia: 5 GHz (y 2.4 GHz en algunos casos). Velocidad máxima: Hasta <strong>6.9 Gbps</strong> (en condiciones ideales). Ofrece velocidades mucho más altas que 802.11n, ideal para streaming de video 4K, juegos en línea y aplicaciones de alta demanda. Introduce MU-MIMO (Multi-User MIMO), que permite atender a múltiples dispositivos simultáneamente. Es el estándar dominante en routers y dispositivos modernos desde su lanzamiento en 2013.</p></li>
 <li><p><strong>IEEE 802.11ax (Wi-Fi 6)</strong>. Frecuencia: 2.4 GHz y 5 GHz (dual-band). Velocidad máxima: Hasta <strong>9.6 Gbps</strong>. Diseñado para mejorar el rendimiento en entornos con muchos dispositivos conectados (como hogares inteligentes o áreas públicas). Introduce OFDMA (Orthogonal Frequency-Division Multiple Access), que permite una mayor eficiencia en la transmisión de datos. Compatible con versiones anteriores (802.11a/b/g/n/ac). Se está adoptando rápidamente en routers y dispositivos nuevos (desde 2019).</p></li>
 <li><p><strong>IEEE 802.11be (Wi-Fi 7)</strong>. Frecuencia: 2.4 GHz, 5 GHz y 6 GHz (tri-band). Velocidad máxima: Hasta <strong>46 Gbps</strong>. Ofrece velocidades extremadamente altas y mejoras significativas en la eficiencia espectral. Ideal para aplicaciones futuras como realidad aumentada, inteligencia artificial y IoT de alta densidad.</p></li>
 </ol>
 </section>
 <section id="el-canal-de-una-red-802-11">
-<h1>El canal de una red 802.11<a class="headerlink" href="#el-canal-de-una-red-802-11" title="Link to this heading">#</a></h1>
+<h2>El canal de una red 802.11<a class="headerlink" href="#el-canal-de-una-red-802-11" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Banda de 2.4 GHz</strong>:</p>
 <ul>
@@ -574,18 +579,19 @@
 </ul>
 </section>
 <section id="el-ssid-de-una-red-802-11">
-<h1>El SSID de una red 802.11<a class="headerlink" href="#el-ssid-de-una-red-802-11" title="Link to this heading">#</a></h1>
+<h2>El SSID de una red 802.11<a class="headerlink" href="#el-ssid-de-una-red-802-11" title="Link to this heading">#</a></h2>
 <p>El SSID es una cadena de texto de hasta 32 caracteres que identifica una red Wi-Fi. Es visible para cualquier dispositivo que busque redes inalámbricas cercanas. Puede incluir letras, números y algunos caracteres especiales (como guiones o guiones bajos).</p>
 </section>
 <section id="seguridad-en-802-11">
-<h1>Seguridad en 802.11<a class="headerlink" href="#seguridad-en-802-11" title="Link to this heading">#</a></h1>
-<p>Para encriptar o codificar la información que de la red podemos usar distintos tipos de cifrado:</p>
+<h2>Seguridad en 802.11<a class="headerlink" href="#seguridad-en-802-11" title="Link to this heading">#</a></h2>
+<p>Para encriptar o codificar la información que viaja por la red podemos usar distintos tipos de cifrado:</p>
 <ul class="simple">
 <li><p><strong>WEP</strong> Privacidad equivalente a cableado, se encarga de encriptar la información o los datos utilizando claves preconfiguradas para cifrar y descifrar los datos. Puede utilizar claves de 64 bits, 128 bits o 256 bits. Al ser un método bastante débil, ya que es fácilmente descifrable, no es muy recomendable utilizarlo.</p></li>
-<li><p><strong>WPA-PSK</strong> que utiliza un algoritmo complejo de encriptación, utilizando el protocolo TKIP que es el que cambia la clave dinámicamente. Por lo que WPA-PSK es vulnerable en la primera conexión al punto de acceso que es donde utiliza la clave preestablecida, después va cambiando las claves de forma dinámica. Se ha mejorado con el <strong>WAP2</strong> y <strong>WPA3</strong></p></li>
+<li><p><strong>WPA-PSK</strong> que utiliza un algoritmo complejo de encriptación, utilizando el protocolo TKIP que es el que cambia la clave dinámicamente. Por lo que WPA-PSK es vulnerable en la primera conexión al punto de acceso, que es donde utiliza la clave preestablecida; después va cambiando las claves de forma dinámica. Se ha mejorado con <strong>WPA2</strong> y <strong>WPA3</strong></p></li>
 </ul>
-<p>Otras medidas de seguridad es filtrar las direcciones MAC, ocultar SSID.</p>
-<p>También podemos instalar un servicio de autentificación, que debe verificar los permisos y claves de los usuarios</p>
+<p>Otras medidas de seguridad son filtrar las direcciones MAC u ocultar el SSID.</p>
+<p>También podemos instalar un servicio de autenticación, que debe verificar los permisos y claves de los usuarios</p>
+</section>
 </section>
 
 
@@ -635,12 +641,11 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tipos de redes 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-canal-de-una-red-802-11">El canal de una red 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#el-ssid-de-una-red-802-11">El SSID de una red 802.11</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-en-802-11">Seguridad en 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-redes-802-11">Tipos de redes 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-canal-de-una-red-802-11">El canal de una red 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-ssid-de-una-red-802-11">El SSID de una red 802.11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seguridad-en-802-11">Seguridad en 802.11</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

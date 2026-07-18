@@ -21,7 +21,7 @@ Concentradores o hub  (nivel físico)
 
 .. image:: imagenes/hubico.png
   
-El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos, es decir además regenera la señal. Para conectar un Hub-Hub lo hacemos con cable cruzado.
+El concentrador funciona repitiendo cada paquete en cada uno de los puertos con los que cuenta, excepto en el que ha recibido el paquete. Pueden ser pasivos o activos (estos últimos, además, regeneran la señal). Para conectar un Hub-Hub lo hacemos con cable cruzado.
 
 .. image:: imagenes/hub.png
     :width: 300
@@ -29,15 +29,15 @@ El concentrador funciona repitiendo cada paquete en cada uno de los puertos con 
 Bridge (puente)(nivel 2 enlace "tramas")
 ========================================
 
-Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre trafico local y no local, reduciendo así el tráfico de la red 
+Su principal función es adaptar una red a otra (redes con diferentes topologías y diferentes protocolos). Distingue entre tráfico local y no local, reduciendo así el tráfico de la red
 
 
-Switch (conmutador) (nivel 2)  
+Switch (conmutador) (nivel 2)
 =============================
 
 .. image:: imagenes/switchico.png
-    
-Es un Hub inteligente analiza las MAC de los equipos conectados, de esa forma solo manda los mensajes a un solo equipo disminuyendo considerablemente el tráfico de la red
+
+Es un hub inteligente: analiza las MAC de los equipos conectados y de esa forma solo manda cada mensaje al equipo destinatario, disminuyendo considerablemente el tráfico de la red
 
 .. image:: imagenes/schitch.png
   
@@ -49,14 +49,14 @@ El router (encaminador) (nivel 3 Red)
 
 .. image:: imagenes/routerico.png
 
-Se ocupan del encaminamiento de los paquetes entre sus distintos puertos, para ello utilizamos tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas y proporcionan seguridad y reducir la congestión de la red.
+Se ocupan del encaminamiento de los paquetes entre sus distintos puertos; para ello utilizan tablas de enrutamiento, interpretan las direcciones lógicas de la capa 3 en vez de la MAC, son capaces de cambiar el formato de las tramas, proporcionan seguridad y reducen la congestión de la red.
 
 .. image:: imagenes/router.png
 
 Pasarela o Gateway (nivel 4 de transporte)
 ==========================================
 
-Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas diferentes. Es decir, es una puerta de enlace con una red
+Una pasarela, puerta de acceso o gateway es un dispositivo que permite interconectar redes que utilizan arquitecturas o protocolos diferentes. Es decir, es la puerta de enlace entre una red y otra
     
 
 

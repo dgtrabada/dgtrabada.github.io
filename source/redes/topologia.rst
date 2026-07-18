@@ -7,7 +7,7 @@ Cuando hablamos de la topología física de una red nos referimos a la distribuc
 Topología en bus
 ================
 
-Se caracteriza por tener un único canal de comunicaciones, llamado bus, al cual se conectan los diferentes dispositivos. Los extremos del cable se terminan con una resistencia llamado terminador que además de indicar que no existen más ordenadores en el extremo, permiten cerrar el bus (evitan reflexiones)
+Se caracteriza por tener un único canal de comunicaciones, llamado bus, al cual se conectan los diferentes dispositivos. Los extremos del cable se terminan con una resistencia llamada terminador que, además de indicar que no existen más ordenadores en el extremo, permite cerrar el bus (evita reflexiones)
 
 Tiene como ventaja que es fácil de instalar y mantener y el principal inconveniente que si se rompe el cable por algún punto la red queda inoperativa por completo
 
@@ -24,7 +24,7 @@ Cada estación está conectada a la siguiente y la última está conectada a la 
 Topología en estrella
 =====================
 
-Todos los ordenadores están conectados a un punto central y todas las comunicaciones han de hacerse necesariamente a través de éste, la principal ventaja es que si un cable o un equipo deja de funcionar el resto de la red no se ve afectada, sin embargo si el nodo central falta, toda la red se desconecta.
+Todos los ordenadores están conectados a un punto central y todas las comunicaciones han de hacerse necesariamente a través de éste, la principal ventaja es que si un cable o un equipo deja de funcionar el resto de la red no se ve afectada; sin embargo, si el nodo central falla, toda la red se desconecta.
 
 .. image:: imagenes/topologia_estrella.png
 
@@ -41,8 +41,6 @@ Topología en malla
 Cada nodo tiene sus propias conexiones con los demás nodos, como se puede ver necesitamos N(N-1)/2 conexiones, estas redes se dan en sitios en los que no puede existir ninguna interrupción, como por ejemplo una central nuclear
 
 .. image:: imagenes/topologia_malla.png
-
-Necesitaremos N(N-1)/2 conexiones
 
 Topología mixta o híbrida
 =========================

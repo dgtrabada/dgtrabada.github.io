@@ -12,7 +12,7 @@ Se reservaron ciertos rangos de direcciones IP de las clases A, B y C para permi
 
 .. image:: imagenes/ip_clases.png
 
-Dirección de red (Network) es la primera dirección de una subred y se usa para identificarla. No se puede asignar a un host,La dirección de red se obtiene estableciendo todos los bits de la parte de host en 0, veamos el ejemplo con la siguiente IP de tipo B 128.192.244.240:
+Dirección de red (Network) es la primera dirección de una subred y se usa para identificarla. No se puede asignar a un host. La dirección de red se obtiene estableciendo todos los bits de la parte de host en 0, veamos el ejemplo con la siguiente IP de tipo B 128.192.224.240:
 
 .. code-block::
 
@@ -41,17 +41,17 @@ Esta última red de clase B, pertenece a las direcciones APIPA (Automatic Privat
 El subnetting IP
 ================
 
-La subnetting (o subdivisión de redes) es una técnica utilizada para dividir una red de direcciones IP en subredes más pequeñas y eficientes. En otras palabras, se trata de dividir una red IP en varias subredes más pequeñas, para que los dispositivos puedan comunicarse de manera más eficiente.
+El subnetting (o subdivisión de redes) es una técnica utilizada para dividir una red de direcciones IP en subredes más pequeñas y eficientes. En otras palabras, se trata de dividir una red IP en varias subredes más pequeñas, para que los dispositivos puedan comunicarse de manera más eficiente.
 
-Por tanto si tengo por ejemplo la dirección de host **172.17**.12.95 ya sabemos que es de **clase B** con mascara **255.255.0.0** y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.
+Por tanto si tengo por ejemplo la dirección de host **172.17**.12.95 ya sabemos que es de **clase B** con máscara **255.255.0.0** y que pertenece a la red 172.17.0.0 sin necesidad de especificar máscara ninguna. Y esto es así porque el 172 inicial de la dirección pertenece a la clase B.
 
 Ahora bien ¿Y si queremos disponer de redes más pequeñas que pertenezcan al espacio de direccionamiento 172.17.x.x?
 
 Nada impide hacer lo siguiente:
 
-- **172.17.1**.0 con mascara 255.255.255.0
-- **172.17.2**.0 con mascara 255.255.255.0
-- **172.17.3**.0 con mascara 255.255.255.0
+- **172.17.1**.0 con máscara 255.255.255.0
+- **172.17.2**.0 con máscara 255.255.255.0
+- **172.17.3**.0 con máscara 255.255.255.0
 - ...
 
 Pero claro la red 172.17.1.0 255.255.255.0 no es en realidad una red de clase C, sino que con la máscara hemos definido una subred (subnet) de tipo C dentro de la red 172.17.0.0 que es una red tipo B y mucho más amplia.
@@ -68,9 +68,9 @@ CIDR
 
 Hoy en día, **CIDR (Classless Inter-Domain Routing)** es el estándar utilizado en redes IP para la asignación y gestión de direcciones, reemplazando en gran medida el sistema antiguo de clases A, B y C, en esencia, aplica lo mismo que el subnetting pero ampliando el concepto. En CIDR no existen clases A, B o C. El valor de la dirección IP no implica ninguna máscara implícita, como sucedía antes con los primeros bits de la dirección. **En CIDR toda definición de una red IP debe ser acompañada de una definición de máscara que concreta la red.** 
 
-Por ejemplo, cuando hablamos en términos de CIDR no podemos decir que la dirección 172.17.25.12 pertenezca a la red 172.17.0.0 a menos que se especifique como 172.16.25.12/16.
+Por ejemplo, cuando hablamos en términos de CIDR no podemos decir que la dirección 172.17.25.12 pertenezca a la red 172.17.0.0 a menos que se especifique como 172.17.25.12/16.
 
-En CIDR ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red, utiliza la nomenclatura de barra invertida, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).
+En CIDR ya no hay clases como tal, sino redes definidas por el prefijo que acompaña a la dirección de red; utiliza la nomenclatura de la barra, del tipo /xx (donde xx representa los bits puestos a 1 de la máscara en binario) y está basada en lo que se denominó variable-length subnet masking (VLSM).
 
 Así por ejemplo, hablando en términos de subnetting, podemos decir que la red:
 172.17.11.25 con máscara 255.255.255.0 (que no es en realidad una red de clase C) es una subred (o subnet) de la red de clase B 172.17.0.0.
@@ -104,7 +104,7 @@ Ejemplos
 
   tomamos los 4 primeros bits
 
-  **1111** 0000 = **128 + 64 + 32 + 16** + 0*8 + 4*0 + 2*0 + 1*0 = 240
+  **1111** 0000 = **128 + 64 + 32 + 16** + 0·8 + 0·4 + 0·2 + 0·1 = 240
 
   es decir 194.168.100.0/28 (255.255.255.240)
 
@@ -125,9 +125,9 @@ Ejemplos
   .. image:: imagenes/subred3.png
 
 
-* **Volvamos al caso anterior, 194.168.100.0 (Ejemplo de subneting clásico)** y hagamos n=2, es decir 194.168.100.0/26 (255.255.255.192)
+* **Volvamos al caso anterior, 194.168.100.0 (Ejemplo de subnetting clásico)** y hagamos n=2, es decir 194.168.100.0/26 (255.255.255.192)
 
-  Hay :math:`2^{6}-2 = 60` hosts por subred
+  Hay :math:`2^{6}-2 = 62` hosts por subred
 
   .. image:: imagenes/subred4.png
 
@@ -176,12 +176,12 @@ Vamos a optimizar el espacio de direcciones utilizando VLSM para cumplir con los
         * Rango útil: 192.168.0.49 - 192.168.0.50
         * Broadcast: 192.168.0.51
 
-     1. **192.168.0.52/30**
+     2. **192.168.0.52/30**
 
         * Rango útil: 192.168.0.53 - 192.168.0.54
         * Broadcast: 192.168.0.55
 
-     1. **192.168.0.56/30**
+     3. **192.168.0.56/30**
 
         * Rango útil: 192.168.0.57 - 192.168.0.58
         * Broadcast: 192.168.0.59
@@ -202,7 +202,7 @@ Los routers mantienen una tabla de encaminamiento en la que registran las rutas 
 - La **dirección de red** se obtiene realizando una operación lógica **AND** entre la **dirección IP** y la **máscara de subred**:  
   `Dirección_de_red = Dirección_IP AND Máscara`.
 
-- Si dos direcciones IP pertenecen a la misma red, entonces **IP1 XOR IP2 = 0**. Esto indica que ambos hosts están en la misma red.
+- Si dos direcciones IP pertenecen a la misma red, entonces **(IP1 XOR IP2) AND Máscara = 0**: al hacer el XOR, los bits de la parte de red se anulan y solo pueden quedar a 1 bits de la parte de host.
 
 - La **dirección de broadcast** se obtiene con la operación **OR** entre la dirección de red y el complemento de la máscara:  
   `Dirección_de_Broadcast = Dirección_de_red OR NOT Máscara`.  **Esta es siempre la última dirección de una red o subred**.

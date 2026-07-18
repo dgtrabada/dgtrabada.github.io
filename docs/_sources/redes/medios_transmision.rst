@@ -19,7 +19,7 @@ Según el medio de transmisión podemos tener:
 * :ref:`Medios de transmisión inalámbricos`
   
   
-Según el tipos de transmisión
+Según el tipo de transmisión
 
 * :ref:`Analógica y digital`  
 * :ref:`En banda base y Modulada`
@@ -31,7 +31,7 @@ Medios de transmisión cableados
 Cable de par trenzado
 ---------------------
 
-Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pares trenzados. Puede tener un recubrimiento metálico externo STP (Shielded twister pair) o no tenerlo UTP (UnShielded twister pair)
+Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pares trenzados. Puede tener un recubrimiento metálico externo STP (Shielded twisted pair) o no tenerlo UTP (Unshielded twisted pair)
 
 .. image:: imagenes/cable_trenzado.png
 
@@ -45,9 +45,9 @@ Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pare
   
     .. image:: imagenes/RJ11.png
 
-* **Categoría 2-5** son UTP desde 4 Mhz hasta 100 Mhz  y desde 4 Mbps hasta 1000 Mbps de 
+* **Categoría 2-5** son UTP desde 4 MHz hasta 100 MHz y desde 4 Mbps hasta 1000 Mbps
 
-* **Categoría 6,7**, son STP 100 Mhz, desde 250 Mbps hasta 10000 Mbps (1Gb !)
+* **Categoría 6, 7**, son STP de 250 MHz a 600 MHz, desde 1000 Mbps hasta 10000 Mbps (¡10 Gbps!)
 
   * Conector RJ45:
   
@@ -76,7 +76,7 @@ Consta de conductores de núcleo de cobre rodeados por un aislante, tiene 4 pare
 Cable coaxial
 -------------
 
-Consta de un núcleo de cobre sólido rodeado por un aislante. Una malla central aisla de las interferencias (principio de la jaula de la jaula de Faraday", puede actuar como una antena conforme aumenta la distancia, emite señales que pueden ser registradas y puede recibir interferencias externas.
+Consta de un núcleo de cobre sólido rodeado por un aislante. Una malla aísla de las interferencias (principio de la jaula de Faraday); sin apantallamiento, el cable puede actuar como una antena conforme aumenta la distancia: emite señales que pueden ser registradas y puede recibir interferencias externas.
 
 
 .. image:: imagenes/cable_coaxial.png
@@ -85,11 +85,11 @@ Consta de un núcleo de cobre sólido rodeado por un aislante. Una malla central
 +-------------+-----------------+-------------------+
 |             | Fino (10Base-2) | Grueso (10Base-5) | 
 +=============+=================+===================+
-| Ancho Banda | ~80-400 Mhz     | ~800 Mhz          |
+| Ancho Banda | ~80-400 MHz     | ~800 MHz          |
 +-------------+-----------------+-------------------+
-| Velocidad   | ~10Mpb          | 1Gbps             |
+| Velocidad   | 10 Mbps         | 10 Mbps           |
 +-------------+-----------------+-------------------+
-| Distancia   | ~180m           | ~ 500 m           |
+| Distancia   | ~185 m          | ~ 500 m           |
 +-------------+-----------------+-------------------+
 | Conector    | BNC             | AUI               |
 +-------------+-----------------+-------------------+
@@ -109,7 +109,7 @@ Conector (10Base-5)
 Fibra óptica
 ------------
 
-Cada filamento consta de un núcleo central de plástico o cristal (óxido de silicio y zinc ) con un alto índice de refracción, rodeado de una capa de un material similar con un índice de refracción ligeramente menor (plástico).
+Cada filamento consta de un núcleo central de plástico o cristal (óxido de silicio) con un alto índice de refracción, rodeado de una capa de un material similar con un índice de refracción ligeramente menor (revestimiento).
 
 .. image:: imagenes/fibra_optica.png
 
@@ -133,7 +133,12 @@ Fibra multimodo
 ---------------
 
 
-Una fibra multimodo es aquella en la que los haces de luz pueden circular por más de un modo o camino. Esto supone que no llegan todos a la vez. Una fibra multimodo puede tener más de mil modos de propagación de luz. Las fibras multimodo se usan comúnmente en aplicaciones de corta distancia, menores a 2 km, es simple de diseñar y económico.
+Una fibra multimodo es aquella en la que los haces de luz pueden circular por más de un modo o camino. Esto supone que no llegan todos a la vez. Una fibra multimodo puede tener más de mil modos de propagación de luz. Las fibras multimodo se usan comúnmente en aplicaciones de corta distancia, menores a 2 km; son simples de diseñar y económicas.
+
+Fibra monomodo
+--------------
+
+Una fibra monomodo tiene un núcleo mucho más fino y solo permite un modo de propagación: todos los haces recorren el mismo camino, por lo que la señal se degrada mucho menos y puede recorrer largas distancias (decenas de kilómetros). Es la que se utiliza en las redes de las operadoras y en los enlaces de larga distancia.
 
 Medios de transmisión inalámbricos
 ==================================
@@ -144,7 +149,7 @@ Se denomina espectro electromagnético a la distribución energética del conjun
 
 El espectro visible por el ojo humano (luz) estaría entre el Infrarrojo < 3,84x10\ :sup:`14` (Hz) y el ultravioleta > 7,89×10\ :sup:`14`   (Hz)
 
-El radiotelescopio usados en radioastronomía opera en diversas bandas de frecuencia entre 2 y 90 GHz
+Los radiotelescopios usados en radioastronomía operan en diversas bandas de frecuencia entre 2 y 90 GHz
 
 Sistemas radioterrestres
 ------------------------
@@ -155,14 +160,14 @@ Las ondas electromagnéticas utilizadas en las emisiones de radio no requieren d
 
   .. image:: imagenes/tierra.png
   
-* **Microondas**, f ~ GHz (ancho de bandas más elevado) d ~ 50-100 Km por la superficie terrestre, se usan para transmitir señales entre satélites y estaciones terrestre, las redes Wi-Fi y 5G operan en frecuencias de microondas, los radares usan microondas para detectar objetos y medir distancias.
+* **Microondas**, f ~ GHz (ancho de banda más elevado) d ~ 50-100 km por la superficie terrestre, se usan para transmitir señales entre satélites y estaciones terrestres; las redes Wi-Fi y 5G operan en frecuencias de microondas, y los radares usan microondas para detectar objetos y medir distancias.
 
 * **Infrarrojos**, se enlazan transmisores y receptores que modulan la luz infrarroja no coherente. Deben estar alineados directamente o con una reflexión en una superficie. No pueden atravesar las paredes.
 
 Satélites
 ---------
 
-Se utilizan satélites con ondas geoestacionarias, R~5.6 RT, teóricamente se necesitan al menos 3 satélites para cubrir toda la tierra,  los datos se mandan en microondas sobre una onda portadora que suele ser señal de radio.
+Se utilizan satélites en órbita geoestacionaria, R~5.6 RT; teóricamente se necesitan al menos 3 satélites para cubrir toda la Tierra. Los datos se mandan en microondas sobre una onda portadora que suele ser señal de radio.
 
 Tipos de transmisión y comunicación
 ===================================
@@ -184,9 +189,9 @@ En banda base y Modulada
 
 **Transmisión en banda base**. Ocurre cuando no se hace ningún tipo de alteración a la señal que se pretende transmitir
 
-Transmisión en banda ancha o modulada​ . Ocurre cuando la señal sufre un proceso de modulación. La modulación consiste generalmente en combinar la señal a transmitir con otra señal que facilita el transporte de ambas cuando están combinadas. En éste proceso, la señal es alterada en alguna magnitud (amplitud, fase o frecuencia) según guía otra señal -llamada moduladora-.
+**Transmisión en banda ancha o modulada**. Ocurre cuando la señal sufre un proceso de modulación. La modulación consiste generalmente en combinar la señal a transmitir con otra señal que facilita el transporte de ambas cuando están combinadas. En este proceso, la señal es alterada en alguna magnitud (amplitud, fase o frecuencia) según guía otra señal -llamada moduladora-.
 
-* **Señal modulada**. Es la resultante de unir ambas según la modulación elegida, contiene la información de la modulada y la facilidad de transmisión de la portadora.
+* **Señal modulada**. Es la resultante de unir ambas según la modulación elegida, contiene la información de la moduladora y la facilidad de transmisión de la portadora.
 
 * **Señal moduladora** . Representa lo que se quiere transmitir. No puede viajar por el medio con facilidad
 

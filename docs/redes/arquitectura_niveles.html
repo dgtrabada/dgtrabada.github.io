@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../genindex.html" />
     <link rel="search" title="Búsqueda" href="../search.html" />
     <link rel="next" title="Transporte de datos y equipos de interconexión" href="transporte_datos_equipos_interconexion.html" />
-    <link rel="prev" title="Tipos de redes 802.11" href="redes_inalambricas.html" />
+    <link rel="prev" title="Redes inalámbricas" href="redes_inalambricas.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../so/windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../so/windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../so/windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../so/windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -525,7 +529,7 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura-tcp-ip">Arquitectura TCP/IP</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-nivel-de-aplicacion">El nivel de aplicación.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-nivel-de-aplicacion">El nivel de aplicación</a></li>
 </ul>
 </li>
 </ul>
@@ -543,15 +547,15 @@
 <h1>Arquitecturas basadas en niveles<a class="headerlink" href="#arquitecturas-basadas-en-niveles" title="Link to this heading">#</a></h1>
 <section id="arquitectura-osi">
 <h2>Arquitectura OSI<a class="headerlink" href="#arquitectura-osi" title="Link to this heading">#</a></h2>
-<p>En 1983 se completa la migración a la arquitectura de comunicación TCP/IP, en 1978 the International Standards Organization (ISO) propuso el modelo (OSI) Open Systems Interconections, que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.</p>
+<p>En 1983 se completa la migración a la arquitectura de comunicación TCP/IP; en 1978 la International Standards Organization (ISO) propuso el modelo OSI (Open Systems Interconnection), que al final quedó como un modelo teórico ya que el TCP/IP ya estaba totalmente extendido.</p>
 <p>Modelo de referencia OSI</p>
 <img alt="../_images/OSI.png" src="../_images/OSI.png" />
 <ol class="arabic simple">
-<li><p><strong>Capa física</strong>. En esta capa se encuentra los medios materiales para la comunicación como las placas, cables, conectores, es decir medio mecánicas y eléctricos. La capa física se ocupa de la transmisión de bits a lo largo de un canal de comunicación. Debe de garantizar que un bit que se manda llegue con el mismo valor.</p></li>
-<li><p><strong>Capa de enlace</strong>. Aporta un servicio de transferencia de datos fiable a través del enlace físico para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen un par bits entre los tramas de datos para hacer el control de errores, esta capa se encarga de solucionar los problemas de reenvío, o mensajes duplicados.</p></li>
+<li><p><strong>Capa física</strong>. En esta capa se encuentran los medios materiales para la comunicación como las placas, cables, conectores, es decir, medios mecánicos y eléctricos. La capa física se ocupa de la transmisión de bits a lo largo de un canal de comunicación. Debe garantizar que un bit que se manda llegue con el mismo valor.</p></li>
+<li><p><strong>Capa de enlace</strong>. Aporta un servicio de transferencia de datos fiable a través del enlace físico; para ello tiene que fraccionar el mensaje en tramas de datos. Por otro lado se incluyen unos bits de control entre las tramas de datos para hacer el control de errores; esta capa se encarga de solucionar los problemas de reenvío o mensajes duplicados.</p></li>
 <li><p><strong>Capa de red</strong>. Este nivel encamina los paquetes de la fuente al destino final a través de encaminadores (routers) intermedios. Tiene que evitar la congestión y manejar saltos cuando la fuente y destino de las redes es diferente.</p></li>
 <li><p><strong>Capa de transporte</strong>. La función principal es aceptar los datos de la capa superior y dividirlos en unidades más pequeñas, para pasarlos a la capa de red, asegurando que todos los segmentos llegan y se reensamblan los paquetes</p></li>
-<li><p><strong>Capa de sesión</strong>. Permite a los usuarios loguearse entre sí permitiendo acceder a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos máquinas, también puede encargarse de recuperar el sistema en el caso de producirse un fallo.</p></li>
+<li><p><strong>Capa de sesión</strong>. Permite a los usuarios establecer sesiones entre sí, permitiendo acceder a su sistema de tiempo compartido a distancia, o transferir un archivo entre dos máquinas; también puede encargarse de recuperar el sistema en el caso de producirse un fallo.</p></li>
 <li><p><strong>Capa de presentación</strong>. Se encarga de traducir la información del formato máquina a un formato que pueda entender el usuario.</p></li>
 <li><p><strong>Capa de aplicación</strong>. es el más cercano al usuario, proporciona servicios como el correo electrónico, acceso a bases de datos, transferencia de documentos, etc</p></li>
 </ol>
@@ -595,7 +599,7 @@
 <p><strong>IP</strong> (Internet Protocol), IP es un protocolo encargado de transportar los datagramas o paquetes</p>
 <img alt="../_images/datagrama.png" src="../_images/datagrama.png" />
 <ul class="simple">
-<li><p><strong>VERS</strong>: Es la versión del protocolo IP. La versión actual es la 6.</p></li>
+<li><p><strong>VERS</strong>: Es la versión del protocolo IP. La de la figura es la 4 (IPv4), que convive actualmente con la versión 6 (IPv6).</p></li>
 <li><p><strong>LON</strong>: Es la longitud de la cabecera IP de 32 en 32 bits. No incluye el campo de datos.</p></li>
 <li><p><strong>Tipo de servicio</strong> : Es un indicador de la calidad de servicio solicitado por este datagrama IP.</p></li>
 <li><p><strong>Longitud total</strong> : Longitud total del datagrama, cabecera y datos, especificado en bytes.</p></li>
@@ -611,7 +615,7 @@
 <li><p><strong>Relleno</strong> : Si se usa una opción, el datagrama se rellena con todos los bytes a cero hasta llegar a los 32 bits.</p></li>
 <li><p><strong>Datos</strong> : este campo contiene los datos a enviar, siendo su longitud múltiplo de 8 bits. El valor máximo de la longitud es 65.535 bytes (64 Kbytes). El campo comenzará con el contenido de la cabecera del protocolo de siguiente nivel: TCP o UDP.</p></li>
 </ul>
-<p><strong>TCP</strong> (Transmisión Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino es TCP el que se encarga de ellos. Las aplicaciones que usan TCP necesitan sincronizarse para:</p>
+<p><strong>TCP</strong> (Transmission Control Protocol). TCP es el responsable de ensamblar los datagramas recibidos por el receptor, ya que la red IP puede desordenarlos al utilizar caminos diversos para alcanzar su destino. IP no garantiza que los paquetes lleguen a su destino; es TCP el que se encarga de ello. Las aplicaciones que usan TCP necesitan sincronizarse para:</p>
 <ul>
 <li><p>Iniciar la comunicación: mientras un programa “escucha” otro se conecta</p></li>
 <li><p>Terminar la comunicación: aunque un sentido de la comunicación esté cortado, el otro puede seguir activo</p></li>
@@ -641,17 +645,17 @@
 </ul>
 </li>
 <li><p><strong>Ventana</strong> (16 bits). Número de bytes que el emisor del segmento está dispuesto a aceptar por  parte del destino.</p></li>
-<li><p><strong>Suma de verificación</strong> (24 bits). Suma de comprobación de errores del segmento actual. Para su cálculo se utiliza una pseudo-cabecera que también incluye las direcciones IP origen y destino.</p></li>
-<li><p><strong>Puntero de urgencia</strong> (8 bits). Se utiliza cuando se están enviando datos urgentes que tienen preferencia sobre todos los demás e indica el siguiente byte del campo Datos que sigue a los datos urgentes. Esto le permite al destino identificar donde terminan los datos urgentes. Nótese que un mismo segmento puede contener tanto datos urgentes (al principio) como normales (después de los urgentes).</p></li>
+<li><p><strong>Suma de verificación</strong> (16 bits). Suma de comprobación de errores del segmento actual. Para su cálculo se utiliza una pseudo-cabecera que también incluye las direcciones IP origen y destino.</p></li>
+<li><p><strong>Puntero de urgencia</strong> (16 bits). Se utiliza cuando se están enviando datos urgentes que tienen preferencia sobre todos los demás e indica el siguiente byte del campo Datos que sigue a los datos urgentes. Esto le permite al destino identificar donde terminan los datos urgentes. Nótese que un mismo segmento puede contener tanto datos urgentes (al principio) como normales (después de los urgentes).</p></li>
 <li><p><strong>Opciones</strong> (variable). Si está presente únicamente se define una opción: el tamaño máximo de segmento que será aceptado.</p></li>
 <li><p><strong>Relleno</strong>. Se utiliza para que la longitud de la cabecera sea múltiplo de 32 bits.</p></li>
 <li><p><strong>Datos</strong>. Información que envía la aplicación.</p></li>
-<li><p><strong>UDP</strong> (User Datagram Protocol). Permite la transmisión de mensajes sin la necesidad de establecer una conexión previa, y sin garantías de entrega. Mayor rendimiento que el TCP. Permite al igual que el protocolo TCP la multiplexión por medio de puertos.</p>
+<li><p><strong>UDP</strong> (User Datagram Protocol). Permite la transmisión de mensajes sin la necesidad de establecer una conexión previa, y sin garantías de entrega. Mayor rendimiento que el TCP. Permite al igual que el protocolo TCP la multiplexación por medio de puertos.</p>
 <img alt="../_images/UDP.png" src="../_images/UDP.png" />
 </li>
 </ul>
 <section id="el-nivel-de-aplicacion">
-<h3>El nivel de aplicación.<a class="headerlink" href="#el-nivel-de-aplicacion" title="Link to this heading">#</a></h3>
+<h3>El nivel de aplicación<a class="headerlink" href="#el-nivel-de-aplicacion" title="Link to this heading">#</a></h3>
 <p>En este nivel se incluyen todos los protocolos de alto nivel que utilizan los programas para comunicarse.
 En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentación y aplicación del modelo OSI.</p>
 <p>Algunos de los protocolos de la capa de aplicación son:</p>
@@ -668,9 +672,9 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
 <p>El comando netstat controla las conexiones TCP/UDP abiertas en el sistema Puertos utilizados, procesos conectados, estado de la conexión,…</p>
 <p>Ejemplos:</p>
 <ul class="simple">
-<li><p>Netstat /?: Ayuda</p></li>
-<li><p>Netstat -b: Conexiones actuales y el proceso que las maneja en el ordenador</p></li>
-<li><p>Netstat –a: Conexiones actuales y puertos a la escucha en el ordenador</p></li>
+<li><p>netstat /? : Ayuda</p></li>
+<li><p>netstat -b : Conexiones actuales y el proceso que las maneja en el ordenador</p></li>
+<li><p>netstat -a : Conexiones actuales y puertos a la escucha en el ordenador</p></li>
 </ul>
 </section>
 </section>
@@ -693,7 +697,7 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Tipos de redes 802.11</p>
+        <p class="prev-next-title">Redes inalámbricas</p>
       </div>
     </a>
     <a class="right-next"
@@ -728,7 +732,7 @@ En la arquitectura TCP/IP este nivel incluye a los niveles de sesión, presentac
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura-tcp-ip">Arquitectura TCP/IP</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-nivel-de-aplicacion">El nivel de aplicación.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-nivel-de-aplicacion">El nivel de aplicación</a></li>
 </ul>
 </li>
 </ul>
