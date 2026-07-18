@@ -48,8 +48,8 @@
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Active Directory Domain Services (AD DS)" href="07_AD_DS.html" />
-    <link rel="prev" title="Comandos ms-dos" href="05_comandos_dos.html" />
+    <link rel="next" title="Cuestionario PowerShell" href="06_cuestionario_powershell.html" />
+    <link rel="prev" title="Cuestionario comandos MS-DOS" href="05_cuestionario_comandos_dos.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">PowerShell</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -545,7 +552,7 @@
                   
   <section id="powershell">
 <h1>PowerShell<a class="headerlink" href="#powershell" title="Link to this heading">#</a></h1>
-<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la <strong>licencia MIT</strong>, que es una licencia de software libre y de código abierto</p>
+<p>PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la <strong>licencia MIT</strong>, que es una licencia de software libre y de código abierto. A diferencia de cmd o bash, sus comandos no devuelven texto plano sino <strong>objetos</strong>, que podemos filtrar y manipular por sus propiedades.</p>
 <p>Los <strong>cmdlets</strong> (comandos) de PowerShell son comandos simples que se utilizan para realizar tareas específicas dentro de PowerShell,  trabajan directamente con objetos .NET y sus métodos, podemos ver todos los los cmdlets, funciones u scripts con <strong>Get-Command</strong></p>
 <p>Un objeto es una instancia de una clase, los objetos tienen propiedades (atributos o campos) y métodos, por ejemplo :</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># Obtener la fecha y hora actuales</span>
@@ -646,10 +653,10 @@
 <ul class="simple">
 <li><p><strong>ps -&gt; Get-Process</strong> ver procesos</p></li>
 <li><p><strong>kill -&gt; Stop-Process</strong> mata procesos</p></li>
-<li><p><strong>Get-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Stop-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Start-Service -ProcessName &lt;servicio&gt;</strong></p></li>
-<li><p><strong>Suspend-Service -ProcessName &lt;servicio&gt;</strong></p></li>
+<li><p><strong>Get-Service -Name &lt;servicio&gt;</strong> estado de un servicio</p></li>
+<li><p><strong>Stop-Service -Name &lt;servicio&gt;</strong> para un servicio</p></li>
+<li><p><strong>Start-Service -Name &lt;servicio&gt;</strong> arranca un servicio</p></li>
+<li><p><strong>Suspend-Service -Name &lt;servicio&gt;</strong> suspende un servicio</p></li>
 </ul>
 <p>Ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">calc</span><span class="p">.</span><span class="n">exe</span>
@@ -663,7 +670,7 @@
 <section id="alias">
 <h2>Alias <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a><a class="headerlink" href="#alias" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>New-Alias -Name &quot;ver&quot; -Value Get-ChildItem</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">New-Alias</span> <span class="pre">-Name</span> <span class="pre">ver</span> <span class="pre">-Value</span> <span class="pre">Get-ChildItem</span></code> crea el alias ver</p></li>
 <li><p><strong>Get-Alias</strong> ver los alias que hay en el sistema</p></li>
 </ul>
 </section>
@@ -676,7 +683,7 @@
 <li><p><strong>mv -&gt; Move-Item</strong> mover, renombrar</p></li>
 <li><p><strong>rm, rm -r -&gt; Remove-Item</strong> borrar</p></li>
 <li><p><strong>mkdir</strong> crear directorio</p></li>
-<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas, para ver los archivos ocultos -h</p>
+<li><p><strong>ls -&gt; Get-ChildItem</strong> listar archivos y carpetas; con <strong>-Force</strong> muestra también los ocultos (y con -Hidden, solo los ocultos)</p>
 <ul>
 <li><p>l (vínculo)</p></li>
 <li><p>d (directorio)</p></li>
@@ -947,8 +954,8 @@
 <p><strong>Get-Content archivo.dat -tail 10 -wait</strong> es como el comando tail -f en GNULinux</p>
 <p><strong>(Get-Content archivo.dat)[2]</strong> podemos ver la linea 3</p>
 </li>
-<li><p><strong>select -&gt; Select-Object</strong>  se utiliza para procesar cada objeto en un flujo de datos.</p></li>
-<li><p><strong>% -&gt; ForEach-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p>
+<li><p><strong>select -&gt; Select-Object</strong> se utiliza para seleccionar y proyectar propiedades específicas de un objeto.</p></li>
+<li><p><strong>% -&gt; ForEach-Object</strong> se utiliza para procesar cada objeto en un flujo de datos.</p>
 <p><strong>Get-Content -head 3 archivo.dat | select -Last 1</strong></p>
 </li>
 <li><p><strong>sls -&gt; Select-String = grep</strong> filtrar,</p></li>
@@ -976,8 +983,7 @@
 <span class="n">2</span> <span class="n">linea</span>
 <span class="n">3</span> <span class="n">linea</span>
 
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="n">vi</span> <span class="p">.\</span><span class="n">archivo</span><span class="p">.</span><span class="n">dat</span>         <span class="c"># % -&gt; ForEach-Object</span>
-<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span> <span class="nb">Get-Content</span> <span class="n">archivo</span><span class="p">.</span><span class="n">dat</span> <span class="p">|</span> <span class="p">%{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span> <span class="p">}</span>     <span class="c"># % -&gt; ForEach-Object</span>
 <span class="n">1</span> <span class="n">linea</span>
 <span class="n">B</span> <span class="n">linea</span>
 <span class="n">3</span> <span class="n">linea</span>
@@ -1034,8 +1040,8 @@
 <ul class="simple">
 <li><p><strong>Get-PSDrive</strong> cmdlet obtiene las unidades de la sesión actual.</p></li>
 <li><p><strong>Get-NetAdapter</strong> en PowerShell te mostrará información sobre las interfaces de red</p></li>
-<li><p><strong>Get-WmiObject</strong> obtener información sobre el procesador</p></li>
-<li><p><strong>Get-CimInstance</strong> se utiliza para recuperar instancias de una clase</p></li>
+<li><p><strong>Get-WmiObject</strong> obtener información sobre el hardware consultando WMI (es el método clásico de Windows PowerShell)</p></li>
+<li><p><strong>Get-CimInstance</strong> se utiliza para recuperar instancias de una clase (es el sustituto moderno de Get-WmiObject, el único disponible en PowerShell 7)</p></li>
 </ul>
 <p>Ejemplo:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\&gt;</span>  <span class="nb">Get-PSDrive</span>
@@ -1183,7 +1189,7 @@
 <ul>
 <li><p><strong>Reiniciar</strong></p>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="n">shutdown</span> <span class="p">/</span><span class="nb">r</span>
-<span class="n">shutdown</span> <span class="p">/</span><span class="n">f</span> <span class="c">#de forma forzosa</span>
+<span class="n">shutdown</span> <span class="p">/</span><span class="nb">r </span><span class="p">/</span><span class="n">f</span>    <span class="c">#reinicia forzando el cierre de las aplicaciones</span>
 </pre></div>
 </div>
 </li>
@@ -1225,8 +1231,8 @@
 <span class="c"># Mostrar conexiones y puertos en escucha</span>
 <span class="n">netstat</span> <span class="n">-ano</span>
 
- <span class="c"># Ver el proceso asociado a un puerto::</span>
- <span class="nb">Get-Process</span> <span class="n">-Id</span> <span class="p">(</span><span class="nb">Get-NetTCPConnection</span> <span class="n">-LocalPort</span> <span class="n">80</span><span class="p">).</span><span class="n">OwningProcess</span>
+<span class="c"># Ver el proceso asociado a un puerto</span>
+<span class="nb">Get-Process</span> <span class="n">-Id</span> <span class="p">(</span><span class="nb">Get-NetTCPConnection</span> <span class="n">-LocalPort</span> <span class="n">80</span><span class="p">).</span><span class="n">OwningProcess</span>
 </pre></div>
 </div>
 </li>
@@ -1372,20 +1378,22 @@
 </pre></div>
 </div>
 <p>Abre el archivo de perfil en tu editor de texto preferido. Puedes hacerlo ejecutando el siguiente comando:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim90</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:\</span><span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)\</span><span class="n">Vim</span><span class="p">\</span><span class="n">vim91</span><span class="p">\</span><span class="n">vim</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
 </pre></div>
 </div>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">notepad</span> <span class="nv">$PROFILE</span>
 </pre></div>
 </div>
 <p>Agrega el comando Set-Alias con el alias que deseas crear y el comando que deseas asociar. Por ejemplo:</p>
-<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim90\vim.exe&#39;</span>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-Alias</span> <span class="n">-Name</span> <span class="n">vi</span> <span class="n">-Value</span> <span class="s1">&#39;C:\Program Files (x86)\Vim\vim91\vim.exe&#39;</span>
 </pre></div>
 </div>
 <p>Guarda el archivo y cierra el editor de texto.</p>
 <p>Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.</p>
 </aside>
 </aside>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 </section>
 
@@ -1401,20 +1409,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="05_comandos_dos.html"
+       href="05_cuestionario_comandos_dos.html"
        title="página anterior">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Comandos ms-dos</p>
+        <p class="prev-next-title">Cuestionario comandos MS-DOS</p>
       </div>
     </a>
     <a class="right-next"
-       href="07_AD_DS.html"
+       href="06_cuestionario_powershell.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">Active Directory Domain Services (AD DS)</p>
+        <p class="prev-next-title">Cuestionario PowerShell</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

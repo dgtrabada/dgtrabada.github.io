@@ -14,20 +14,20 @@ Explorador de Windows
 
   .. image:: imagenes/explorador.png
 
-* Podemos buscar archivos por tamaño **System.Size: > 100 MB**
+* Podemos buscar archivos por tamaño ``System.Size: > 100 MB``
 
-* Podemos buscar por una cierta extensión y tamaño **System.Size: > 100 MB .reg**
+* Podemos buscar por una cierta extensión y tamaño ``System.Size: > 100 MB .reg``
 
-* Solo por extensión ***.reg**, empiezan por An y acaban por dat **\"An*dat\"**
+* Solo por extensión ``*.reg``; que empiecen por An y acaben por dat ``"An*dat"``
 
-* Entre varios tamaños **System.Size: > 100 MB < 200MB**
+* Entre varios tamaños ``System.Size: > 100 MB < 200MB``
 
-* por fecha de modificación **fechademodificación:hoy**
+* Por fecha de modificación ``fechademodificación:hoy``
 
 Administrador de tareas
 =======================
 
-Para ver el Administrador de tareas, tienes que hacer clic sobre cualquier espacio libre de la barra de tareas del Escritorio.
+Para ver el Administrador de tareas, haz clic derecho sobre cualquier espacio libre de la barra de tareas del Escritorio (o sobre el botón Inicio) y elige «Administrador de tareas»; también puedes abrirlo con **Ctrl+Mayús+Esc**.
 
 .. image:: imagenes/administrador_tareas.png
 
@@ -56,7 +56,7 @@ Además, en la parte superior, se muestra su modelo exacto (en mi caso, Intel(R)
 
 Si observáramos un consumo excesivo de procesador (un gráfico estadístico que muestra continuamente valores elevados), podríamos tener un proceso que funciona de forma inadecuada y está consumiendo demasiado tiempo de procesador. También puede ocurrir que estemos ejecutando demasiados programas de forma simultánea. En cualquier caso, habremos comprobado que el procesador estará suponiendo un cuello de botella en el rendimiento del equipo.
 
-Cuando tenemos varios procesadores, o un procesador con varios núcleos, podemos mostrar gráficos de uso diferenciados para cada uno de ellos.Haciendo clic sobre la categoría Memoria en el panel izquierdo, obtendremos detalles sobre el uso de la RAM.
+Cuando tenemos varios procesadores, o un procesador con varios núcleos, podemos mostrar gráficos de uso diferenciados para cada uno de ellos. Haciendo clic sobre la categoría Memoria en el panel izquierdo, obtendremos detalles sobre el uso de la RAM.
 
 Información sobre la memoria.
 
@@ -129,9 +129,7 @@ En el caso de que queramos finalizar una tarea con el Administrador de tareas si
 
 .. image:: imagenes/administrador_tareas_finalizar.png
 
-Otra pestaña muy interesante es la de **Rendimiento**, que se centra en mostrarnos información sobre nuestros componentes internos de hardware como el procesador, la memoria o el disco duro.
-
-Aquí podremos conocer, en tiempo real, el consumo que hacemos de cada una de los núcleos del procesador, la velocidad de procesado actual, la memoria RAM libre y ocupada, así como la velocidad de trabajo de los discos duros que tenemos instalados e incluso de la conexión a la red que estemos usando en ese mismo instante.
+En resumen, la pestaña **Rendimiento** nos permite conocer en tiempo real el consumo de cada uno de los núcleos del procesador, la velocidad de procesado actual, la memoria RAM libre y ocupada, así como la velocidad de trabajo de los discos que tenemos instalados e incluso de la conexión a la red que estemos usando en ese mismo instante.
 
 .. image:: imagenes/administrador_tareas7.png
 
@@ -159,14 +157,41 @@ Cada equipo perteneciente al grupo de trabajo debe disponer de su cuenta de usua
 
 Todos los usuarios de una red local pueden pertenecer a un grupo de trabajo sin necesidad de pedir permiso ni introducir ninguna contraseña. Por lo tanto, cuando compartimos una carpeta hay que configurar de forma adecuada los permisos y los usuarios que tendrán acceso a nuestra carpeta compartida.
 
+Administración de discos
+========================
+
+Con **diskmgmt.msc** (Administración de discos) podemos inicializar discos nuevos, crear, formatear, extender o reducir particiones (Windows las llama *volúmenes*) y cambiar las letras de unidad, todo de forma gráfica — es el equivalente al gparted de GNU/Linux.
+
+Desde la línea de comandos disponemos de **diskpart** (como administrador):
+
+.. code-block:: powershell
+
+ diskpart
+ list disk                         # discos del equipo
+ select disk 1                     # elegimos el disco
+ clean                             # borra su tabla de particiones
+ create partition primary size=10240   # partición primaria de 10 GB
+ format fs=ntfs quick label=datos  # formato NTFS rápido
+ assign letter=E                   # le asigna la letra E:
+ exit
+
 Copia de seguridad y restauración
 =================================
 
 Existen dos tipos principales de copias de seguridad:
 
-* **Copia de seguridad de los archivos**. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras.
+* **Copia de seguridad de los archivos**. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras. En Windows se hace con el **Historial de archivos** (necesita una unidad externa o de red).
 
-* **Copia de seguridad del sistema**. La copia de seguridad del sistema te permite crear una copia de todo el sistema operativo Windows que en ese momento tienes en tu ordenador, es decir, de todos los programas, los archivos y los valores de configuración.
+* **Copia de seguridad del sistema**. La copia de seguridad del sistema te permite crear una copia de todo el sistema operativo Windows que en ese momento tienes en tu ordenador, es decir, de todos los programas, los archivos y los valores de configuración. Se hace creando una **imagen de sistema** (Panel de control → Copia de seguridad y restauración).
+
+Además, Windows cuenta con los **puntos de restauración** (Restaurar sistema): instantáneas de los archivos del sistema y del registro que se crean automáticamente antes de instalar programas, controladores o actualizaciones. No afectan a los documentos del usuario: solo devuelven el *sistema* a un estado anterior.
+
+.. code-block:: powershell
+
+ sysdm.cpl     # pestaña Protección del sistema: activar la protección y crear puntos manualmente
+ rstrui        # asistente para restaurar el sistema a un punto anterior
+
+Si Windows no llega a arrancar, disponemos del **entorno de recuperación (WinRE)**: se entra manteniendo pulsada la tecla **Mayús mientras se hace clic en Reiniciar** (o desde Configuración → Recuperación → Inicio avanzado, o automáticamente tras varios arranques fallidos). Desde él podemos arrancar en **modo seguro**, usar la reparación de inicio, abrir un símbolo del sistema, restaurar un punto de restauración o recuperar una imagen de sistema.
 
 El registro de Windows
 ======================
@@ -179,8 +204,8 @@ El registro de Windows es una base de datos donde aplicaciones y controladores g
 
 * Estructura del registro (Jerarquía de carpetas)
 
-  * HKE/Claves/Subclaves
-  * HKEY = HomeKey = Clave
+  * HKEY/Claves/Subclaves
+  * HKEY = Handle to a Key (identificador de clave)
 
 * Tipos:
 
@@ -192,16 +217,14 @@ El registro de Windows es una base de datos donde aplicaciones y controladores g
   * **HKEY_CLASSES_ROOT**,  contiene información sobre aplicaciones registradas.
     
   * **HKEY_CURRENT_USER**,  almacena configuraciones específicas del usuario con sesión iniciada en esos momentos.
-  
-    * Acceso directo a la clave HKEY_USER que concierne al Directorio Activo.
-    
+
+    * Es un acceso directo a la rama de HKEY_USERS correspondiente al usuario actual.
+
     * Control Panel/Desktop/WallPaper/  Imagen de fondo de escritorio
-    
+
   * **HKEY_LOCAL_MACHINE**, almacena configuraciones específicas del equipo local.
-  
-  * **HKEY_USERS**, contiene subclaves correspondientes a las claves 
-  
-  * **HKEY_CURRENT_USER** de cada perfil de usuario cargado activamente en el equipo, aunque normalmente solo se cargan los subárboles de usuario correspondientes a los usuarios con sesión iniciada en esos momentos.
+
+  * **HKEY_USERS**, contiene una subclave (equivalente a HKEY_CURRENT_USER) por cada perfil de usuario cargado activamente en el equipo, aunque normalmente solo se cargan los subárboles de los usuarios con sesión iniciada en esos momentos.
   
   * **HKEY_CURRENT_CONFIG**,  contiene la información referente a algunos de los dispositivos Plug and Play que tiene el ordenador.
   
@@ -237,71 +260,33 @@ El registro de Windows es una base de datos donde aplicaciones y controladores g
 Comandos Panel de Control
 =========================
 
-* **ACCESS.CPL**: abre las opciones de accesibilidad (únicamente para XP).
-* **APPWIZ.CPL**: abre Agregar o quitar programas.
-* **AZMAN.MSC**: abre el administrador de autorización (únicamente para Vista).
-* **CERTMGR.MSC**: abre los certificados para el usuario actual.
-* **CLICONFG**: abre la herramienta de configuración de cliente de red SQL.
-* **COLLAB.CPL**: abre la visualización instantánea (únicamente para Vista).
-* **COMEXP.MSC o DCOMCNFG**: abre los servicio de componentes (únicamente para Vista).
-* **COMPMGMT.MSC**: abre la administración de equipos.
-* **COMPUTERDEFAULTS**: abre la herramienta de programas predeterminados (únicamente para Vista).
-* **CONTROL /NAME MICROSOFT.BACKUPANDRESTORECENTER**: abre el centro de respaldo y recuperación (para Vista únicamente).
-* **CONTROL ADMINTOOLS**: abre las herramientas administrativas.
-* **CONTROL COLOR**: abre las propiedades de pantalla.
-* **CONTROL FOLDERS**: abre las opciones de carpeta.
-* **CONTROL FONTS**: abre las fuentes.
-* **CONTROL INTERNATIONAL o INTL.CPL**: abre la configuración regional y de idioma.
-* **CONTROL KEYBOARD**: abre las propiedades del teclado.
-* **CONTROL MOUSE o MAIN.CPL**: abre las propiedades del mouse.
-* **CONTROL PRINTERS**: impresoras y faxes disponibles.
-* **CONTROL USERPASSWORDS**: abre las cuentas de usuario.
-* **CONTROL USERPASSWORDS2 o NETPLWIZ**: administración de usuarios y su acceso.
-* **CONTROL**: abre el Panel de control.
-* **CREDWIZ**: abre la ventana para hacer copias de seguridad y restaurar contraseñas de usuarios (únicamente para Vista).
-* **DESK.CPL**: abre las propiedades de pantalla.
-* **DEVMGMT.MSC**: abre el Administrador de dispositivos.
-* **DRWTSN32**: abre Dr. Watson (para XP únicamente).
-* **DXDIAG**: abre la herramienta de diagnóstico de DirectX.
-* **EVENTVWR o EVENTVWR.MSC**: abre el Visor de sucesos.
-* **FSMGMT.MSC**: abre las carpetas compartidas.
-* **GPEDIT.MSC**: abre el editor de directiva de grupo (para las ediciones profesionales y más de Windows).
-* **HDWWIZ.CPL**: abre el asistente para agregar hardware.
-* **INFOCARDCPL.CPL**: abre el asistente de compatibilidad de programas.
-* **IRPROPS.CPL**: abre la utilidad de infrarrojos.
-* **ISCSICPL**: abre la herramienta de configuración del iniciador ISCI Microsoft (únicamente para Vista).
-* **JOY.CPL**: abre el dispositivo de juegos.
-* **LPKSETUP**: abre el asistente de instalación y desinstalación de idiomas (únicamente para Vista).
-* **LUSRMGR.MSC**: abre el editor de usuarios locales y grupos.
-* **MDSCHED**: abre la herramienta de diagnóstico de la memoria (únicamente para Vista).
-* **MMC**: abre una nueva consola vacía.
-* **MMSYS.CPL**: abre las propiedades de dispositivos de sonido y audio.
-* **MOBSYNC**: abre elementos para sincronizar.
-* **MSCONFIG**: abre la utilidad de configuración del sistema.
-* **NAPCLCFG.MSC**: abre la herramienta de configuración del cliente NAP (únicamente para Vista).
-* **NTMSMGR.MSC**: abre el administrador de medios de almacenamiento extraíbles.
-* **NTMSOPRQ.MSC**: abre las solicitudes del operador de medios de almacenamiento extraíbles.
-* **ODBCAD32**: abre el administrador de orígenes de datos ODBC.
-* **OPTIONALFEATURES**: abre la herramienta Agregar o quitar componentes Windows (únicamente para Vista).
-* **PERFMON o PERFMON.MSC**: abre el monitor de rendimiento de Windows.
-* **POWERCFG.CPL**: abre el administrador de opciones de energía.
-* **REGEDIT o REGEDT32** (únicamente para Vista): abre el editor del registro.
-* **REKEYWIZ**: abre el administrador de certificados de cifrado de archivos (únicamente para Vista).
-* **RSOP.MSC**: abre el conjunto resultante de directivas.
-* **SECPOL.MSC**: abre la configuración de seguridad local.
-* **SERVICES.MSC**: abre el administrador de servicios.
-* **SLUI**: abre el asistente de activación de Windows (únicamente para Vista).
-* **SYSDM.CPL**: abre las propiedades del sistema.
-* **SYSEDIT**: abre el editor de configuración del sistema (atención, manipular con prudencia).
-* **SYSKEY**: abre la herramienta de protección de la base de datos de cuentas de Windows (atención, manipular con mucha prudencia).
-* **TABLETPC.CPL**: abre la configuración para Tablet PC (únicamente para Vista).
-* **TASKSCHD.MSC o CONTROL SCHEDTASKS**: abre el planificador de tareas (únicamente para Vista).
-* **TELEPHON.CPL**: abre la herramienta de información de la ubicación.
-* **TIMEDATE.CPL**: abre las propiedades de fecha y hora.
-* **TPM.MSC**: abre la herramienta gestión de módulo de plataforma protegida en el equipo local (únicamente para Vista).
-* **UTILMAN**: abre el administrador de utilidades.
-* **VERIFIER**: abre el administrador del comprobador de controlador.
-* **WMIMGMT.MSC**: abre el instrumental de administración de Windows.
-* **WSCUI.CPL**: abre el centro de seguridad de Windows.
-* **WUAUCPL.CPL**: abre el servicio de actualizaciones automáticas de Windows (únicamente para XP).
+Todas estas herramientas pueden abrirse escribiendo su comando en Ejecutar (**Win+R**) o en la búsqueda del menú Inicio. Estos son los más utilizados:
 
+* **control**: abre el Panel de control clásico.
+* **sysdm.cpl**: propiedades del sistema.
+* **appwiz.cpl**: programas y características (agregar o quitar programas).
+* **optionalfeatures**: activar o desactivar características de Windows.
+* **compmgmt.msc**: administración de equipos (agrupa varias de las siguientes).
+* **devmgmt.msc**: administrador de dispositivos.
+* **diskmgmt.msc**: administración de discos (particiones).
+* **services.msc**: administrador de servicios.
+* **msconfig**: utilidad de configuración del sistema (arranque).
+* **regedit**: editor del registro.
+* **lusrmgr.msc**: usuarios y grupos locales.
+* **netplwiz** (o control userpasswords2): administración de cuentas de usuario.
+* **gpedit.msc**: editor de directivas de grupo local (ediciones Pro y superiores).
+* **secpol.msc**: directivas de seguridad local.
+* **taskschd.msc**: programador de tareas.
+* **eventvwr.msc**: visor de eventos.
+* **perfmon.msc**: monitor de rendimiento.
+* **mdsched**: diagnóstico de la memoria.
+* **dxdiag**: herramienta de diagnóstico de DirectX.
+* **ncpa.cpl**: conexiones de red.
+* **firewall.cpl**: firewall de Windows.
+* **desk.cpl**: configuración de pantalla.
+* **main.cpl**: propiedades del ratón.
+* **mmsys.cpl**: dispositivos de sonido.
+* **powercfg.cpl**: opciones de energía.
+* **timedate.cpl**: fecha y hora.
+* **intl.cpl**: configuración regional y de idioma.
+* **mmc**: abre una consola de administración vacía.

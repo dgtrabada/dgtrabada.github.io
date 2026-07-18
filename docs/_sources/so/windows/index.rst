@@ -8,6 +8,7 @@ Windows
    01_historia.rst
    02_configuracion.rst
    03_usuarios_grupos.rst
+   03b_permisos_ntfs.rst
    04_arranque.rst
    05_comandos_dos.rst
    06_powershell.rst

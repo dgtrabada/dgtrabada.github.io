@@ -48,7 +48,7 @@
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="PowerShell" href="06_powershell.html" />
+    <link rel="next" title="Cuestionario comandos MS-DOS" href="05_cuestionario_comandos_dos.html" />
     <link rel="prev" title="Arranque de Windows" href="04_arranque.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -248,8 +248,12 @@
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Comandos ms-dos</a></li>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Comandos ms-dos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
@@ -497,7 +501,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -513,6 +519,14 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-comandos-utiles">Otros comandos útiles</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -532,7 +546,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 <li><p><strong>cd ..</strong>  sube un directorio</p></li>
 <li><p><strong>cd</strong> indica el path en el que te encuentras</p></li>
 <li><p><strong>cd &lt;Nombre directorio&gt;</strong> cambia al directorio especificado</p></li>
-<li><p><strong>cd &lt;letra unidad&gt;:</strong> para cambiar de unidad</p></li>
+<li><p>Para cambiar de unidad se escribe su letra seguida de dos puntos (<strong>E:</strong>); cd E: solo muestra el directorio actual de esa unidad, aunque <strong>cd /d E:\ruta</strong> sí cambia de unidad y directorio a la vez</p></li>
 </ul>
 </li>
 <li><p><strong>cls</strong> limpia la pantalla</p></li>
@@ -541,17 +555,18 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 <li><p><strong>dir /ah</strong> archivos ocultos</p></li>
 <li><p><strong>dir /as</strong> archivos de sistema</p></li>
 <li><p><strong>dir /ad</strong> directorios</p></li>
-<li><p><strong>dir /aa</strong> archivos con indicador de lectura/escritura</p></li>
+<li><p><strong>dir /aa</strong> archivos con el atributo de archivo (listos para copia de seguridad)</p></li>
 <li><p><strong>dir /ar</strong> archivos de sólo lectura</p></li>
-<li><p><strong>dir /ad</strong> fecha y hora (más antiguo)</p></li>
-<li><p><strong>dir /as</strong> tamaño (más pequeño)</p></li>
-<li><p><strong>dir /ag</strong> directorios agrupados antes de los archivos</p></li>
-<li><p><strong>dir /a-h</strong> el guión “-“ seguido de un indicador hace justamente lo contrario.</p></li>
+<li><p><strong>dir /a-h</strong> el guión “-“ seguido de un indicador hace justamente lo contrario</p></li>
+<li><p><strong>dir /od</strong> ordenados por fecha y hora (el más antiguo primero)</p></li>
+<li><p><strong>dir /os</strong> ordenados por tamaño (el más pequeño primero)</p></li>
+<li><p><strong>dir /og</strong> directorios agrupados antes de los archivos</p></li>
+<li><p><strong>dir /o-d, /o-s ...</strong> con el guión se invierte el orden</p></li>
 </ul>
 </li>
 <li><p><strong>md, mkdir</strong> crea directorios</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span><span class="w"> </span>mkdir<span class="w"> </span>TEST
-C:<span class="se">\T</span>EST&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>TEST
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&gt;</span>mkdir<span class="w"> </span>TEST
+C:<span class="se">\&gt;</span><span class="nb">cd</span><span class="w"> </span>TEST
 C:<span class="se">\T</span>EST&gt;mkdir<span class="w"> </span>A<span class="w"> </span>B<span class="w"> </span>C
 C:<span class="se">\T</span>EST&gt;dir
 <span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
@@ -572,7 +587,7 @@ C:<span class="se">\T</span>EST&gt;dir
 <li><p>+H / -H → Hidden (oculto)</p></li>
 </ul>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;attrib<span class="w"> </span>+h<span class="w"> </span>A
-C:<span class="se">\&gt;</span>dir
+C:<span class="se">\T</span>EST&gt;dir
 <span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>.
 <span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>..
 <span class="m">15</span>/03/2023<span class="w">  </span><span class="m">10</span>:14<span class="w">    </span>&lt;DIR&gt;<span class="w">          </span>B
@@ -638,7 +653,7 @@ C:<span class="se">\T</span>EST&gt;dir
 </pre></div>
 </div>
 </li>
-<li><p><strong>tree/deltree</strong> lista/Borra un directorio con todos sus contenidos.</p>
+<li><p><strong>tree</strong> muestra el árbol de directorios (con <strong>/F</strong> muestra también los archivos). El antiguo deltree desapareció de Windows: para borrar un directorio con todo su contenido se usa <strong>rd /S</strong>.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;tree
 Listado<span class="w"> </span>de<span class="w"> </span>rutas<span class="w"> </span>de<span class="w"> </span>carpetas
 El<span class="w"> </span>número<span class="w"> </span>de<span class="w"> </span>serie<span class="w"> </span>del<span class="w"> </span>volumen<span class="w"> </span>es<span class="w"> </span>203A-19E6
@@ -692,28 +707,28 @@ C:.
 <li><p><strong>echo</strong> - mostrar mensajes (eco) por pantalla, también puede activar o desactivar la presentación de comandos por pantalla</p>
 <ul class="simple">
 <li><p><strong>%APPDATA%</strong> ruta de los programas del usuario.</p></li>
-<li><p><strong>%CMDCMDLINE%</strong> comando al intérprete de comandos (cmd.exe).</p></li>
+<li><p><strong>%CMDCMDLINE%</strong> línea de comandos con la que se inició el intérprete (cmd.exe).</p></li>
 <li><p><strong>%CD%</strong> muestra el directorio actual.</p></li>
 <li><p><strong>%COMPUTERNAME%</strong> nombre del equipo.</p></li>
 <li><p><strong>%DATE%</strong> fecha actual</p></li>
 <li><p><strong>%HOMEDRIVE%</strong> unidad en la que está ubicado el directorio actual del usuario.</p></li>
 <li><p><strong>%HOMEPATH%</strong> la ruta al directorio del usuario</p></li>
 <li><p><strong>%OS%</strong> sistema operativo instalado.</p></li>
-<li><p><strong>%PATH%</strong> archivos ejecutables más importantes del sistema.</p></li>
+<li><p><strong>%PATH%</strong> rutas donde el sistema busca los ejecutables.</p></li>
 <li><p><strong>%PATHEXT%</strong> extensiones que el sistema considera ejecutables.</p></li>
-<li><p><strong>%RANDOM%</strong> Muestra un número entero entre 0 y 32167 elegido al azar.</p></li>
+<li><p><strong>%RANDOM%</strong> Muestra un número entero entre 0 y 32767 elegido al azar.</p></li>
 <li><p><strong>%SYSTEMDRIVE%</strong> unidad en la que se ubica el sistema</p></li>
 <li><p><strong>%SYSTEMROOT%</strong> directorio raíz del sistema.</p></li>
 <li><p><strong>%TEMP%</strong> directorio temporal para las aplicaciones.</p></li>
 <li><p><strong>%TMP%</strong> directorio temporal para las aplicaciones.</p></li>
-<li><p><strong>%TIME%</strong> Muestra la fecha del día.</p></li>
+<li><p><strong>%TIME%</strong> Muestra la hora actual.</p></li>
 <li><p><strong>%USERDOMAIN%</strong> dominio al que pertenece la cuenta actual.</p></li>
 <li><p><strong>%USERNAME%</strong> nombre de usuario que corresponde a la cuenta actual.</p></li>
 <li><p><strong>%USERPROFILE%</strong> ubicación del perfil de usuario de la cuenta actual.</p></li>
 <li><p><strong>%WINDIR%</strong> directorio del sistema</p></li>
 </ul>
 </li>
-<li><p><strong>set</strong> - Muestra, establece o quita variables de entorno</p>
+<li><p><strong>set</strong> - Muestra, establece o quita variables de entorno. Con la opción <strong>/a</strong> evalúa la operación aritmética; sin ella solo sustituye el texto de las variables:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="w"> </span><span class="nv">a</span><span class="o">=</span><span class="m">1</span>
 <span class="nb">set</span><span class="w"> </span><span class="nv">b</span><span class="o">=</span><span class="m">3</span>
 <span class="nb">set</span><span class="w"> </span>/a<span class="w"> </span><span class="nv">sum</span><span class="o">=</span>a+b
@@ -722,7 +737,7 @@ C:.
 
 <span class="nb">set</span><span class="w"> </span><span class="nv">str</span><span class="o">=</span>%a%+%b%
 <span class="nb">echo</span><span class="w"> </span>%str%
-a+b
+<span class="m">1</span>+3
 </pre></div>
 </div>
 </li>
@@ -796,7 +811,7 @@ C:<span class="se">\T</span>EST&gt;find<span class="w"> </span>/N<span class="w"
 </pre></div>
 </div>
 </li>
-<li><p><strong>ping</strong> se utiliza para medir la latencia o tiempo que tardan en comunicarse dos puntos remotos</p>
+<li><p><strong>ping</strong> comprueba la conectividad con otro equipo y mide la latencia o tiempo que tardan en comunicarse dos puntos remotos</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\T</span>EST&gt;ping<span class="w"> </span><span class="m">8</span>.8.8.8
 
 Haciendo<span class="w"> </span>ping<span class="w"> </span>a<span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span>con<span class="w"> </span><span class="m">32</span><span class="w"> </span>bytes<span class="w"> </span>de<span class="w"> </span>datos:
@@ -850,6 +865,22 @@ Microsoft<span class="w"> </span>Windows<span class="w"> </span><span class="o">
 </div>
 </li>
 </ul>
+<section id="otros-comandos-utiles">
+<h2>Otros comandos útiles<a class="headerlink" href="#otros-comandos-utiles" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>comando /?</strong> muestra la ayuda de cualquier comando (help lista todos)</p></li>
+<li><p><strong>tasklist</strong> lista los procesos en ejecución; <strong>taskkill /PID n</strong> o <strong>taskkill /IM nombre.exe</strong> los mata</p></li>
+<li><p><strong>systeminfo</strong> información completa del equipo y del sistema</p></li>
+<li><p><strong>chkdsk</strong> comprueba y repara errores del disco</p></li>
+<li><p><strong>sfc /scannow</strong> comprueba y repara los archivos del sistema</p></li>
+<li><p><strong>shutdown /s /t 0</strong> apaga el equipo; <strong>shutdown /r /t 0</strong> lo reinicia</p></li>
+<li><p><strong>tracert</strong> muestra la ruta que siguen los paquetes hasta un destino</p></li>
+<li><p><strong>nslookup</strong> consulta el DNS</p></li>
+<li><p><strong>netstat -an</strong> muestra las conexiones de red y puertos a la escucha</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
 </section>
 
 
@@ -873,11 +904,11 @@ Microsoft<span class="w"> </span>Windows<span class="w"> </span><span class="o">
       </div>
     </a>
     <a class="right-next"
-       href="06_powershell.html"
+       href="05_cuestionario_comandos_dos.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">PowerShell</p>
+        <p class="prev-next-title">Cuestionario comandos MS-DOS</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -887,6 +918,23 @@ Microsoft<span class="w"> </span>Windows<span class="w"> </span><span class="o">
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otros-comandos-utiles">Otros comandos útiles</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

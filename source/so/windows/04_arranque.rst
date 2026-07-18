@@ -2,18 +2,22 @@
 Arranque de Windows
 *******************
 
-lo primero que se va a cargar son los ajustes del firmware, por lo que se comprueba que el sistema de disco es válido para llevar a cabo el inicio del PC, y en el caso de que el sistema esté listo se pasa a la siguiente fase. Por tanto, si el equipo tiene un MBR válido, lo que se traduce a un registro de arranque maestro, el proceso de arranque carga el conocido como “Administrador de arranque de Windows”, para a continuación pasar a la segunda fase.
+En resumen, el arranque de Windows pasa por estas fases:
 
-Tras esto entra en juego el administrador de arranque de Windows, lo que sirve para determinar si en ese equipo disponemos de varios sistemas operativos instalados, o tan solo de uno. En el caso de que sean varios los sistemas que pueden arrancar el PC, en pantalla se muestra un menú con los nombres de estos para que podamos seleccionar el que más nos interesa en ese momento, todo con el fin de que se realice el arranque en base a nuestras necesidades.
+1. **Firmware (BIOS/UEFI)**: el POST comprueba el hardware y localiza el dispositivo de arranque (el MBR en sistemas BIOS, o la partición EFI en sistemas UEFI/GPT).
+2. **Administrador de arranque de Windows** (bootmgr): lee la configuración de arranque (**BCD**) y, si hay varios sistemas, muestra el menú para elegir.
+3. **Cargador del sistema** (winload.exe): carga el núcleo de Windows (ntoskrnl.exe) y los controladores esenciales.
+4. **Inicio del sistema**: se lee la configuración del Registro, se cargan el resto de controladores y servicios, y winlogon presenta la pantalla de inicio de sesión.
 
-inicio de windows
-Por tanto, al elegir Windows, que es el que nos ocupa en este caso, se pone en marcha el fichero “Winload.exe” que es el que comienza la carga del software de Microsoft. Es entonces cuando empieza la tercera fase del proceso, por lo que el mencionado “WinLoad.exe” comienza con la carga de los controladores más importantes con los que cuenta el equipo y así poder iniciar el Kernel del propio Windows. Por tanto, en este paso el núcleo del sistema utiliza los controladores para «comunicarse» con el hardware que tenemos instalado y lograr que el proceso de arranque siga su curso sin problema alguno.
+Lo primero que se va a cargar son los ajustes del firmware, que comprueba que el sistema de disco es válido para llevar a cabo el inicio del PC; si el equipo tiene un MBR (o una partición EFI) válido, el proceso de arranque carga el conocido como “Administrador de arranque de Windows” y pasa a la segunda fase.
 
-Y para terminar os vamos a hablar de la última fase, que es en la que se recoge la configuración del Registro de Windows, así como el resto controladores adicionales, entre otros elementos necesarios para el correcto funcionamiento del sistema operativo.
+El administrador de arranque de Windows determina si en el equipo disponemos de varios sistemas operativos instalados o tan solo de uno. En el caso de que sean varios, en pantalla se muestra un menú con sus nombres para que podamos seleccionar el que nos interese.
 
-Por lo tanto, una vez se carga esto, el control en ese momento lo toma el proceso de gestión del sistema, con lo que a continuación se carga la interfaz de usuario, además del resto del hardware y el software instalado. Por tanto, finalizado este paso, en pantalla aparece la habitual interfaz de inicio de sesión de Windows para que podamos introducir las correspondientes credenciales de acceso.
+Al elegir Windows se pone en marcha el fichero “winload.exe”, que comienza la carga de los controladores más importantes del equipo para poder iniciar el kernel del propio Windows. En este paso el núcleo del sistema utiliza los controladores para «comunicarse» con el hardware instalado.
 
-Eso sí también merece la pena saber que cuando iniciamos Windows en un ordenador que tiene soporte UEFI, la función llamada “Trusted Boot” protege el equipo desde el mismo momento en el que comienza el inicio del mismo. Así, lo primero que hace es localizar el gestor de arranque del sistema operativo, mientras que los PCs sin arranque seguro ejecutan cualquier gestor de arranque que encuentren en el disco duro, pero con UEFI, en primer lugar se verifica que el firmware esté firmado digitalmente para que todo el proceso se lleve a cabo con mayor seguridad y fiabilidad.
+En la última fase se recoge la configuración del Registro de Windows, así como el resto de controladores adicionales y demás elementos necesarios para el correcto funcionamiento del sistema operativo. Una vez cargado esto, se carga la interfaz de usuario y aparece la habitual pantalla de inicio de sesión de Windows para introducir las credenciales de acceso.
+
+En los ordenadores con UEFI, el **arranque seguro (Secure Boot)** verifica que el gestor de arranque esté firmado digitalmente antes de ejecutarlo (un PC sin arranque seguro ejecuta cualquier gestor de arranque que encuentre en el disco), y la función **Trusted Boot** continúa esa cadena de confianza comprobando la firma del kernel y de los controladores durante el arranque de Windows.
 
 msconfig
 ========
@@ -33,9 +37,9 @@ Como vemos, la utilidad msconfig nos brinda una serie de opciones a elegir, esta
 
 * **Inicio normal**. Es la opción por defecto e indica que Windows cargará todos los elementos, controladores y servicios de inicio que han sido instalados, únicamente cuando se han realizado cambios en los controladores, servicios o aplicaciones que se cargan durante el arranque podemos seleccionar una opción adicional.
 
-* **Inicio con diagnóstico**. Su uso es similar al inicio en modo seguro ya conocido por todos, al seleccionar esta opción solo se ejecutarán los servicios y controladores de Windows, adicional a ello, el inicio de Diagnóstico está en la capacidad de ejecutar servicios de red o servicios aplicaciones de terceros, que son de un alto impacto para la seguridad del sistema tal como el antivirus, firewall, etc. Por lo general podemos iniciar Windows con esta opción para comprobar si los servicios de Windows están afectando algún parámetro de uso del sistema y así descartar estas opciones.
+* **Inicio con diagnóstico**. Su uso es similar al inicio en modo seguro: al seleccionar esta opción solo se ejecutarán los servicios y controladores básicos de Windows. Ten en cuenta que esto deja sin arrancar los servicios de terceros, incluidos algunos de alto impacto para la seguridad como el antivirus o el firewall. Se suele usar para comprobar si algún servicio o programa de inicio es el causante de un problema, y así descartarlo.
 
-* **Inicio selectivo**. Al seleccionar esta opción, Windows iniciará solo con los servicios y controladores básicos, también con esta opción será posible seleccionar otros servicios y elementos de inicio a ejecutar directamente desde las pestañas Servicios y Inicio.
+* **Inicio selectivo**. Al seleccionar esta opción, Windows iniciará con los servicios básicos más aquellos servicios y elementos de inicio que dejemos marcados en las pestañas Servicios e Inicio.
 
 Hoy en día es normal, para muchos usuarios, contar con modo de arranque dual el cual nos permite tener dos sistemas operativos instalados en el disco duro aprovechando así todos los recursos de hardware, en caso de contar con más de un sistema operativo instalado, la herramienta msconfig nos da la opción de elegir cuál de ellos será la opción predeterminada.
 
@@ -47,7 +51,7 @@ Existen una serie de opciones avanzadas en el sistema operativo que nos darán l
 
 .. image:: imagenes/opciones_avanzadas.png
 
-En la sección “Numero de procesadores” podemos definir la cantidad de procesadores disponibles en base al CPU de nuestro equipo (2, 4, 8 o más procesadores).
+En la sección “Número de procesadores” podemos definir la cantidad de procesadores disponibles en base al CPU de nuestro equipo (2, 4, 8 o más procesadores).
 
 En la sección “Cantidad máxima de memoria” podremos asignar la cantidad de RAM que deseamos que Windows aplique al proceso de arranque, allí podemos usar toda la capacidad de la RAM instalada.
 
@@ -89,6 +93,17 @@ Dar clic derecho sobre él y seleccionar la opción “Deshabilitar”.
 Seleccionarlo y pulsar en el botón “Deshabilitar” ubicado en la parte inferior
 
 Finalmente, en la pestaña “Herramientas” de msconfig, disponemos de un conjunto de herramientas del sistema como Información del sistema, Editor del registro, Visor de eventos, Monitor de rendimiento y más, las cuales nos permiten realizar una tarea mucho más completa. Podemos ver que cada herramienta tiene asociado un comando de ejecución.
+
+El BCD y bcdedit
+================
+
+La configuración del administrador de arranque (los sistemas del menú, el predeterminado, el tiempo de espera...) se guarda en el **BCD** (Boot Configuration Data), el equivalente en Windows al grub de Linux. Se puede consultar y modificar desde una consola como administrador con **bcdedit**:
+
+.. code-block:: powershell
+
+ bcdedit /enum                        # muestra las entradas de arranque
+ bcdedit /timeout 10                  # cambia el tiempo de espera del menú a 10 segundos
+ bcdedit /default {identificador}     # cambia el sistema que arranca por defecto
 
 Gestión de servicios (PowerShell)
 =================================

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Windows &#8212; dgtrabada</title>
+    <title>Permisos NTFS y carpetas compartidas &#8212; dgtrabada</title>
   
   
   
@@ -44,12 +44,12 @@
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script src="../../_static/translations.js?v=f85f4cfb"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/03b_permisos_ntfs';</script>
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Historia de Windows" href="01_historia.html" />
-    <link rel="prev" title="Ejercicios de shell scripting" href="../GNULinux/15_ejercicios_shell_scripting.html" />
+    <link rel="next" title="Arranque de Windows" href="04_arranque.html" />
+    <link rel="prev" title="Usuarios y grupos Windows" href="03_usuarios_grupos.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -244,20 +244,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Windows</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Windows</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
-</ul>
-</details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
-</ul>
-</details></li>
+<li class="toctree-l3"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -441,7 +435,7 @@
       
       
       
-      <li><a href="../../_sources/so/windows/index.rst" target="_blank"
+      <li><a href="../../_sources/so/windows/03b_permisos_ntfs.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Descargar archivo fuente"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -504,7 +498,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -515,11 +511,20 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Windows</h1>
+    <h1>Permisos NTFS y carpetas compartidas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpetas-compartidas">Carpetas compartidas</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -529,26 +534,56 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="windows">
-<h1>Windows<a class="headerlink" href="#windows" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06_powershell.html">PowerShell</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12_bat.html">Scripting .bat</a></li>
+  <section id="permisos-ntfs-y-carpetas-compartidas">
+<h1>Permisos NTFS y carpetas compartidas<a class="headerlink" href="#permisos-ntfs-y-carpetas-compartidas" title="Link to this heading">#</a></h1>
+<section id="permisos-ntfs">
+<h2>Permisos NTFS<a class="headerlink" href="#permisos-ntfs" title="Link to this heading">#</a></h2>
+<p>El sistema de archivos NTFS permite asignar permisos a archivos y carpetas mediante <strong>listas de control de acceso (ACL)</strong>: cada archivo o carpeta lleva una lista de entradas que indican qué usuarios y grupos pueden hacer qué. Se configuran desde <strong>Propiedades → pestaña Seguridad</strong>.</p>
+<p>Los permisos básicos sobre una carpeta son:</p>
+<ul class="simple">
+<li><p><strong>Control total</strong>: todo lo anterior más cambiar permisos y tomar posesión.</p></li>
+<li><p><strong>Modificar</strong>: leer, ejecutar, escribir y borrar.</p></li>
+<li><p><strong>Lectura y ejecución</strong>: ver el contenido y ejecutar programas.</p></li>
+<li><p><strong>Mostrar el contenido de la carpeta</strong>: listar lo que contiene.</p></li>
+<li><p><strong>Lectura</strong>: leer archivos y atributos.</p></li>
+<li><p><strong>Escritura</strong>: crear archivos y carpetas y modificar su contenido.</p></li>
 </ul>
+<p>Reglas que hay que conocer:</p>
+<ul class="simple">
+<li><p><strong>Los permisos se acumulan</strong>: los permisos efectivos de un usuario son la suma de los suyos y los de todos los grupos a los que pertenece.</p></li>
+<li><p><strong>Denegar tiene prioridad sobre permitir</strong>: si cualquiera de sus grupos tiene una denegación explícita, el usuario queda denegado.</p></li>
+<li><p><strong>Herencia</strong>: las subcarpetas y archivos heredan por defecto los permisos de la carpeta que los contiene; se puede romper la herencia en Propiedades → Seguridad → Opciones avanzadas.</p></li>
+<li><p>El <strong>propietario</strong> de un archivo siempre puede cambiar sus permisos, y un administrador puede <strong>tomar posesión</strong> de cualquier archivo.</p></li>
+<li><p>Podemos comprobar qué puede hacer realmente un usuario en Propiedades → Seguridad → Opciones avanzadas → <strong>Acceso efectivo</strong>.</p></li>
+</ul>
+<p>Desde la línea de comandos, las ACL se administran con <strong>icacls</strong>:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span>                            <span class="c"># ver los permisos</span>
+<span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">grant</span> <span class="n">maria</span><span class="p">:(</span><span class="n">OI</span><span class="p">)(</span><span class="n">CI</span><span class="p">)</span><span class="n">M</span>     <span class="c"># concede Modificar, heredable a archivos (OI) y carpetas (CI)</span>
+<span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">remove</span> <span class="n">maria</span>              <span class="c"># quita sus entradas</span>
+<span class="n">icacls</span> <span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">setowner</span> <span class="n">maria</span>            <span class="c"># cambia el propietario</span>
+</pre></div>
 </div>
+<p>Las letras de permiso más usadas en icacls son <strong>F</strong> (control total), <strong>M</strong> (modificar), <strong>RX</strong> (lectura y ejecución), <strong>R</strong> (lectura) y <strong>W</strong> (escritura).</p>
+</section>
+<section id="carpetas-compartidas">
+<h2>Carpetas compartidas<a class="headerlink" href="#carpetas-compartidas" title="Link to this heading">#</a></h2>
+<p>Para acceder a una carpeta desde otro equipo de la red hay que <strong>compartirla</strong>: Propiedades → pestaña <strong>Compartir</strong> → <strong>Uso compartido avanzado</strong>. El recurso queda accesible como <code class="docutils literal notranslate"><span class="pre">\\equipo\recurso</span></code>, utilizando el protocolo SMB (el mismo que implementa Samba en GNU/Linux).</p>
+<p>Los <strong>permisos del recurso compartido</strong> son solo tres — <strong>Control total</strong>, <strong>Cambiar</strong> y <strong>Leer</strong> — y se aplican únicamente cuando se accede <strong>a través de la red</strong> (no afectan al usuario sentado en el equipo).</p>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p>Cuando un usuario accede por red, se combinan los permisos del recurso compartido y los permisos NTFS, y se aplica <strong>el más restrictivo</strong> de los dos. Por eso una configuración habitual es compartir el recurso con permisos amplios y afinar el control con los permisos NTFS.</p>
+</div>
+<p>Windows comparte automáticamente algunos recursos administrativos <strong>ocultos</strong>, cuyo nombre termina en <code class="docutils literal notranslate"><span class="pre">$</span></code> y no aparecen al explorar la red: <code class="docutils literal notranslate"><span class="pre">C$</span></code> (la unidad C:), <code class="docutils literal notranslate"><span class="pre">ADMIN$</span></code> (la carpeta de Windows)... Podemos crear los nuestros añadiendo <code class="docutils literal notranslate"><span class="pre">$</span></code> al nombre del recurso.</p>
+<p>Desde la línea de comandos:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="n">share</span>                                  <span class="c"># lista los recursos compartidos</span>
+<span class="n">net</span> <span class="n">share</span> <span class="n">datos</span><span class="p">=</span><span class="n">C</span><span class="p">:\</span><span class="n">datos</span> <span class="p">/</span><span class="n">grant</span><span class="p">:</span><span class="n">maria</span><span class="p">,</span><span class="n">change</span>   <span class="c"># comparte C:\datos con permiso Cambiar para maria</span>
+<span class="n">net</span> <span class="n">share</span> <span class="n">datos</span> <span class="p">/</span><span class="n">delete</span>                    <span class="c"># deja de compartir</span>
+<span class="n">net</span> <span class="n">use</span>                                    <span class="c"># lista las conexiones de red</span>
+<span class="n">net</span> <span class="n">use</span> <span class="n">Z</span><span class="p">:</span> <span class="p">\\</span><span class="n">servidor</span><span class="p">\</span><span class="n">datos</span>                <span class="c"># conecta el recurso como unidad Z:</span>
+<span class="n">net</span> <span class="n">use</span> <span class="n">Z</span><span class="p">:</span> <span class="p">/</span><span class="n">delete</span>                         <span class="c"># desconecta la unidad</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -563,20 +598,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../GNULinux/15_ejercicios_shell_scripting.html"
+       href="03_usuarios_grupos.html"
        title="página anterior">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Ejercicios de shell scripting</p>
+        <p class="prev-next-title">Usuarios y grupos Windows</p>
       </div>
     </a>
     <a class="right-next"
-       href="01_historia.html"
+       href="04_arranque.html"
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">Historia de Windows</p>
+        <p class="prev-next-title">Arranque de Windows</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -586,6 +621,24 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permisos-ntfs">Permisos NTFS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carpetas-compartidas">Carpetas compartidas</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

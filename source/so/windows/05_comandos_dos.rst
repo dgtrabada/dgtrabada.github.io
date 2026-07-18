@@ -10,7 +10,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **cd ..**  sube un directorio
   * **cd** indica el path en el que te encuentras
   * **cd <Nombre directorio>** cambia al directorio especificado
-  * **cd <letra unidad>:** para cambiar de unidad
+  * Para cambiar de unidad se escribe su letra seguida de dos puntos (**E:**); cd E: solo muestra el directorio actual de esa unidad, aunque **cd /d E:\\ruta** sí cambia de unidad y directorio a la vez
   
 * **cls** limpia la pantalla
 
@@ -19,20 +19,21 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   * **dir /ah** archivos ocultos
   * **dir /as** archivos de sistema
   * **dir /ad** directorios
-  * **dir /aa** archivos con indicador de lectura/escritura
+  * **dir /aa** archivos con el atributo de archivo (listos para copia de seguridad)
   * **dir /ar** archivos de sólo lectura
-  * **dir /ad** fecha y hora (más antiguo)
-  * **dir /as** tamaño (más pequeño)
-  * **dir /ag** directorios agrupados antes de los archivos
-  * **dir /a-h** el guión “-“ seguido de un indicador hace justamente lo contrario.
+  * **dir /a-h** el guión “-“ seguido de un indicador hace justamente lo contrario
+  * **dir /od** ordenados por fecha y hora (el más antiguo primero)
+  * **dir /os** ordenados por tamaño (el más pequeño primero)
+  * **dir /og** directorios agrupados antes de los archivos
+  * **dir /o-d, /o-s ...** con el guión se invierte el orden
 
 
 * **md, mkdir** crea directorios
 
   .. code-block:: shell
 
-    C:\> mkdir TEST
-    C:\TEST> cd TEST
+    C:\>mkdir TEST
+    C:\>cd TEST
     C:\TEST>mkdir A B C
     C:\TEST>dir
     15/03/2023  10:14    <DIR>          .
@@ -53,7 +54,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
   .. code-block:: shell
     
     C:\TEST>attrib +h A
-    C:\>dir
+    C:\TEST>dir
     15/03/2023  10:14    <DIR>          .
     15/03/2023  10:14    <DIR>          ..
     15/03/2023  10:14    <DIR>          B
@@ -121,7 +122,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
                    4 dirs  607.208.062.976 bytes libres
 
 
-* **tree/deltree** lista/Borra un directorio con todos sus contenidos.
+* **tree** muestra el árbol de directorios (con **/F** muestra también los archivos). El antiguo deltree desapareció de Windows: para borrar un directorio con todo su contenido se usa **rd /S**.
 
   .. code-block:: shell
 
@@ -175,39 +176,39 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
 * **echo** - mostrar mensajes (eco) por pantalla, también puede activar o desactivar la presentación de comandos por pantalla
 
   * **%APPDATA%** ruta de los programas del usuario.
-  * **%CMDCMDLINE%** comando al intérprete de comandos (cmd.exe).
+  * **%CMDCMDLINE%** línea de comandos con la que se inició el intérprete (cmd.exe).
   * **%CD%** muestra el directorio actual.
   * **%COMPUTERNAME%** nombre del equipo.
   * **%DATE%** fecha actual
   * **%HOMEDRIVE%** unidad en la que está ubicado el directorio actual del usuario.
   * **%HOMEPATH%** la ruta al directorio del usuario
   * **%OS%** sistema operativo instalado.
-  * **%PATH%** archivos ejecutables más importantes del sistema.
+  * **%PATH%** rutas donde el sistema busca los ejecutables.
   * **%PATHEXT%** extensiones que el sistema considera ejecutables.
-  * **%RANDOM%** Muestra un número entero entre 0 y 32167 elegido al azar.
+  * **%RANDOM%** Muestra un número entero entre 0 y 32767 elegido al azar.
   * **%SYSTEMDRIVE%** unidad en la que se ubica el sistema
   * **%SYSTEMROOT%** directorio raíz del sistema.
   * **%TEMP%** directorio temporal para las aplicaciones.
   * **%TMP%** directorio temporal para las aplicaciones.
-  * **%TIME%** Muestra la fecha del día.
+  * **%TIME%** Muestra la hora actual.
   * **%USERDOMAIN%** dominio al que pertenece la cuenta actual.
   * **%USERNAME%** nombre de usuario que corresponde a la cuenta actual.
   * **%USERPROFILE%** ubicación del perfil de usuario de la cuenta actual.
   * **%WINDIR%** directorio del sistema
   
-* **set** - Muestra, establece o quita variables de entorno
- 
+* **set** - Muestra, establece o quita variables de entorno. Con la opción **/a** evalúa la operación aritmética; sin ella solo sustituye el texto de las variables:
+
   .. code-block:: shell
-  
+
     set a=1
     set b=3
     set /a sum=a+b
     echo %sum%
     4
-    
+
     set str=%a%+%b%
     echo %str%
-    a+b
+    1+3
 
 
 * **Redireccionamiento** Envía la salida a un archivo o dispositivo (si no existe lo crea)
@@ -289,7 +290,7 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
     C:\TEST>del salida2.txt
 
 
-* **ping** se utiliza para medir la latencia o tiempo que tardan en comunicarse dos puntos remotos
+* **ping** comprueba la conectividad con otro equipo y mide la latencia o tiempo que tardan en comunicarse dos puntos remotos
 
   .. code-block:: shell
   
@@ -347,4 +348,22 @@ Si se accede al archivo desde el directorio actual, la ruta es una ruta de acces
    C:\TEST>vol
     El volumen de la unidad C no tiene etiqueta.
     El número de serie del volumen es: 203A-19E6
+
+Otros comandos útiles
+=====================
+
+* **comando /?** muestra la ayuda de cualquier comando (help lista todos)
+* **tasklist** lista los procesos en ejecución; **taskkill /PID n** o **taskkill /IM nombre.exe** los mata
+* **systeminfo** información completa del equipo y del sistema
+* **chkdsk** comprueba y repara errores del disco
+* **sfc /scannow** comprueba y repara los archivos del sistema
+* **shutdown /s /t 0** apaga el equipo; **shutdown /r /t 0** lo reinicia
+* **tracert** muestra la ruta que siguen los paquetes hasta un destino
+* **nslookup** consulta el DNS
+* **netstat -an** muestra las conexiones de red y puertos a la escucha
+
+.. toctree::
+   :hidden:
+
+   05_cuestionario_comandos_dos.rst
     

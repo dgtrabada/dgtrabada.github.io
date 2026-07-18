@@ -2,7 +2,7 @@
 PowerShell
 **********
 
-PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la **licencia MIT**, que es una licencia de software libre y de código abierto
+PowerShell es una interfaz de consola con posibilidad de escritura y unión de comandos por medio de instrucciones. Es compatible con muchas plataformas, incluyendo Windows, macOS y Linux. PowerShell se distribuye bajo la **licencia MIT**, que es una licencia de software libre y de código abierto. A diferencia de cmd o bash, sus comandos no devuelven texto plano sino **objetos**, que podemos filtrar y manipular por sus propiedades.
 
 Los **cmdlets** (comandos) de PowerShell son comandos simples que se utilizan para realizar tareas específicas dentro de PowerShell,  trabajan directamente con objetos .NET y sus métodos, podemos ver todos los los cmdlets, funciones u scripts con **Get-Command**
 
@@ -114,10 +114,10 @@ Control de procesos y servicios
 
 * **ps -> Get-Process** ver procesos
 * **kill -> Stop-Process** mata procesos
-* **Get-Service -ProcessName <servicio>**
-* **Stop-Service -ProcessName <servicio>** 
-* **Start-Service -ProcessName <servicio>**
-* **Suspend-Service -ProcessName <servicio>**
+* **Get-Service -Name <servicio>** estado de un servicio
+* **Stop-Service -Name <servicio>** para un servicio
+* **Start-Service -Name <servicio>** arranca un servicio
+* **Suspend-Service -Name <servicio>** suspende un servicio
 
 Ejemplo:
 
@@ -134,7 +134,7 @@ Ejemplo:
 Alias [#alias]_
 ===============
 
-* **New-Alias -Name \"ver\" -Value Get-ChildItem**
+* ``New-Alias -Name ver -Value Get-ChildItem`` crea el alias ver
 * **Get-Alias** ver los alias que hay en el sistema
 
 
@@ -147,7 +147,7 @@ Ficheros y directorios
 * **mv -> Move-Item** mover, renombrar
 * **rm, rm -r -> Remove-Item** borrar
 * **mkdir** crear directorio
-* **ls -> Get-ChildItem** listar archivos y carpetas, para ver los archivos ocultos -h
+* **ls -> Get-ChildItem** listar archivos y carpetas; con **-Force** muestra también los ocultos (y con -Hidden, solo los ocultos)
   
   * l (vínculo)
   * d (directorio)
@@ -460,9 +460,9 @@ Visualizadores de archivos, filtros y búsqueda de información
   
   **(Get-Content archivo.dat)[2]** podemos ver la linea 3
 
-* **select -> Select-Object**  se utiliza para procesar cada objeto en un flujo de datos.
+* **select -> Select-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
 
-* **% -> ForEach-Object** se utiliza para seleccionar y proyectar propiedades específicas de un objeto.
+* **% -> ForEach-Object** se utiliza para procesar cada objeto en un flujo de datos.
 
   **Get-Content -head 3 archivo.dat | select -Last 1**
   
@@ -495,8 +495,7 @@ Ejemplo:
   2 linea
   3 linea
 
-  PS C:\> vi .\archivo.dat         # % -> ForEach-Object   
-  PS C:\>  Get-Content archivo.dat | %{ $_ -replace '2', 'B' }
+  PS C:\> Get-Content archivo.dat | %{ $_ -replace '2', 'B' }     # % -> ForEach-Object
   1 linea
   B linea
   3 linea
@@ -547,12 +546,12 @@ Ejemplo:
   AJRouter                                   Servicio de enrutador de AllJoyn
 
 Información de hardware
-======================
+=======================
 
 * **Get-PSDrive** cmdlet obtiene las unidades de la sesión actual.
 * **Get-NetAdapter** en PowerShell te mostrará información sobre las interfaces de red
-* **Get-WmiObject** obtener información sobre el procesador
-* **Get-CimInstance** se utiliza para recuperar instancias de una clase
+* **Get-WmiObject** obtener información sobre el hardware consultando WMI (es el método clásico de Windows PowerShell)
+* **Get-CimInstance** se utiliza para recuperar instancias de una clase (es el sustituto moderno de Get-WmiObject, el único disponible en PowerShell 7)
 
 Ejemplo:
 
@@ -712,7 +711,7 @@ Configuración de Windows (PowerShell)
   .. code-block:: PowerShell
  
    shutdown /r
-   shutdown /f #de forma forzosa
+   shutdown /r /f    #reinicia forzando el cierre de las aplicaciones
    
 * **Apagar**  
 
@@ -761,10 +760,10 @@ Configuración de Windows (PowerShell)
    netstat -an   
    
    # Mostrar conexiones y puertos en escucha
-   netstat -ano 
+   netstat -ano
 
-    # Ver el proceso asociado a un puerto::
-    Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess
+   # Ver el proceso asociado a un puerto
+   Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess
 
 Instalar el servidor ssh
 ========================
@@ -809,7 +808,7 @@ En el caso que que quieras conectarte a una sesión de powershell, abre el archi
 
 
 Instalar editor vi
-=================
+==================
 
 * Con Chocolatey:
 
@@ -933,7 +932,7 @@ Para ser administrador
 
   .. code-block:: powershell
 
-    C:\Program Files (x86)\Vim\vim90\vim.exe $PROFILE
+    C:\Program Files (x86)\Vim\vim91\vim.exe $PROFILE
     
   .. code-block:: powershell
 
@@ -943,8 +942,13 @@ Para ser administrador
 
   .. code-block:: powershell
   
-    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim90\vim.exe' 
+    Set-Alias -Name vi -Value 'C:\Program Files (x86)\Vim\vim91\vim.exe'
 
   Guarda el archivo y cierra el editor de texto.
 
   Cierra y vuelve a abrir PowerShell. El alias que agregaste debería estar disponible al principio de cada sesión.
+
+.. toctree::
+   :hidden:
+
+   06_cuestionario_powershell.rst
