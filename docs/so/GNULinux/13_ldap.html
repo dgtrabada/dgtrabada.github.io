@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -526,6 +530,9 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-del-servidor-ldap">Instalación del servidor LDAP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-la-estructura-del-directorio">Crear la estructura del directorio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-los-clientes-autenticacion-con-openldap">Configuración de los clientes: Autenticación con OpenLDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-overlays-de-openldap">Los overlays de OpenLDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-overlay-ppolicy">El overlay ppolicy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ampliar-el-esquema-crear-un-atributo-nuevo-quota">Ampliar el esquema: crear un atributo nuevo (quota)</a></li>
 </ul>
             </nav>
         </div>
@@ -765,7 +772,7 @@ pam-auth-update
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd
 </pre></div>
 </div>
-<p>Podemos instalar libpam-pwquality en el cliente para controlar la complejidad de las contraseñas al cambiarlas.</p>
+<p>Podemos instalar en el cliente <code class="docutils literal notranslate"><span class="pre">libpam-pwquality</span></code> para controlar la complejidad de las contraseñas al cambiarlas. Es la pieza que complementa al overlay <strong>ppolicy</strong>, la política de contraseñas del servidor que veremos a continuación.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpam-pwquality
 </pre></div>
 </div>
@@ -782,6 +789,346 @@ pam-auth-update
 <span class="nv">ocredit</span><span class="o">=</span>-1<span class="w"> </span>→<span class="w"> </span>símbolo<span class="w"> </span>obligatorio
 </pre></div>
 </div>
+</section>
+<section id="los-overlays-de-openldap">
+<h2>Los overlays de OpenLDAP<a class="headerlink" href="#los-overlays-de-openldap" title="Link to this heading">#</a></h2>
+<p>Un <strong>overlay</strong> es un módulo que se intercala entre el <em>frontend</em> de slapd (la parte que atiende las peticiones LDAP) y el <em>backend</em> (la base de datos donde se guardan realmente las entradas, hoy en día <strong>mdb</strong>). Cada operación (bind, add, modify, search...) atraviesa los overlays configurados antes de llegar a la base de datos, de modo que estos pueden modificarla, rechazarla o generar información adicional sin que el cliente tenga que hacer nada especial.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cliente<span class="w"> </span>──▶<span class="w"> </span>frontend<span class="w"> </span>slapd<span class="w"> </span>──▶<span class="w"> </span><span class="o">[</span><span class="w"> </span>overlay<span class="w"> </span><span class="o">]</span><span class="w"> </span>──▶<span class="w"> </span><span class="o">[</span><span class="w"> </span>overlay<span class="w"> </span><span class="o">]</span><span class="w"> </span>──▶<span class="w"> </span>backend<span class="w"> </span>mdb
+<span class="w">                                 </span>ppolicy<span class="w">         </span>memberof<span class="w">      </span>/var/lib/ldap
+</pre></div>
+</div>
+<p>Algunos de los overlays más utilizados son:</p>
+<ul class="simple">
+<li><p><strong>ppolicy</strong>: políticas de contraseñas (longitud, caducidad, historial, bloqueo por intentos fallidos).</p></li>
+<li><p><strong>memberof</strong>: mantiene en cada usuario el atributo <code class="docutils literal notranslate"><span class="pre">memberOf</span></code> con los grupos a los que pertenece.</p></li>
+<li><p><strong>refint</strong> (integridad referencial): si borramos un usuario, lo elimina también de los grupos en los que aparecía.</p></li>
+<li><p><strong>syncprov</strong>: proporciona la replicación (un servidor LDAP proveedor y varias réplicas).</p></li>
+<li><p><strong>unique</strong>: obliga a que un atributo no se repita en todo el directorio (por ejemplo <code class="docutils literal notranslate"><span class="pre">uidNumber</span></code> o <code class="docutils literal notranslate"><span class="pre">mail</span></code>).</p></li>
+<li><p><strong>accesslog</strong> y <strong>auditlog</strong>: registran las modificaciones que se hacen sobre el directorio.</p></li>
+<li><p><strong>dynlist</strong>: grupos dinámicos, cuyos miembros se calculan con una búsqueda en lugar de estar escritos a mano.</p></li>
+</ul>
+<p>Los overlays se activan sobre una base de datos concreta y se configuran en la <strong>configuración dinámica</strong> (<code class="docutils literal notranslate"><span class="pre">cn=config</span></code>), que es la que sustituyó al antiguo fichero <code class="docutils literal notranslate"><span class="pre">/etc/ldap/slapd.conf</span></code>. Podemos consultarla con:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-b<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>config<span class="w"> </span>-LLL<span class="w"> </span>dn
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>module<span class="o">{</span><span class="m">0</span><span class="o">}</span>,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>schema,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">olcDatabase</span><span class="o">={</span><span class="m">0</span><span class="o">}</span>config,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">olcDatabase</span><span class="o">={</span><span class="m">1</span><span class="o">}</span>mdb,cn<span class="o">=</span>config
+...
+</pre></div>
+</div>
+<p>Las opciones <code class="docutils literal notranslate"><span class="pre">-Y</span> <span class="pre">EXTERNAL</span> <span class="pre">-H</span> <span class="pre">ldapi:///</span></code> significan que nos conectamos por el socket local de UNIX y que nos autenticamos como el usuario del sistema con el que ejecutamos el comando (por eso hay que ser <strong>root</strong> y no hace falta contraseña). Nuestro directorio de usuarios es la base de datos <code class="docutils literal notranslate"><span class="pre">olcDatabase={1}mdb,cn=config</span></code>.</p>
+</section>
+<section id="el-overlay-ppolicy">
+<h2>El overlay ppolicy<a class="headerlink" href="#el-overlay-ppolicy" title="Link to this heading">#</a></h2>
+<p>El overlay <strong>ppolicy</strong> (<em>password policy</em>) permite imponer una política de contraseñas <strong>en el servidor</strong>, de forma que se aplique a todos los clientes por igual. Con él podemos exigir una longitud mínima, que la contraseña caduque cada cierto tiempo, que no se repitan las últimas contraseñas usadas o que la cuenta se bloquee tras varios intentos fallidos de autenticación.</p>
+<p><strong>1. Cargar el módulo</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>ppolicy_modulo.ldif
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>module<span class="o">{</span><span class="m">0</span><span class="o">}</span>,cn<span class="o">=</span>config
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>olcModuleLoad
+olcModuleLoad:<span class="w"> </span>ppolicy
+
+$<span class="w"> </span>ldapmodify<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-f<span class="w"> </span>ppolicy_modulo.ldif
+</pre></div>
+</div>
+<p>Si la entrada <code class="docutils literal notranslate"><span class="pre">cn=module{0},cn=config</span></code> no existiera, habría que crearla con <code class="docutils literal notranslate"><span class="pre">ldapadd</span></code> indicando además <code class="docutils literal notranslate"><span class="pre">objectClass:</span> <span class="pre">olcModuleList</span></code>, <code class="docutils literal notranslate"><span class="pre">cn:</span> <span class="pre">module</span></code> y <code class="docutils literal notranslate"><span class="pre">olcModulePath:</span> <span class="pre">/usr/lib/ldap</span></code>.</p>
+<p>Desde OpenLDAP 2.5 el propio módulo incorpora el esquema de ppolicy, así que no hay que cargarlo aparte. Puedes comprobar si el esquema está disponible con:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-b<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>schema,cn<span class="o">=</span>config<span class="w"> </span>-LLL<span class="w"> </span>dn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>ppolicy
+</pre></div>
+</div>
+<p>En versiones antiguas (2.4) sí era necesario añadirlo a mano con <code class="docutils literal notranslate"><span class="pre">ldapadd</span> <span class="pre">-Y</span> <span class="pre">EXTERNAL</span> <span class="pre">-H</span> <span class="pre">ldapi:///</span> <span class="pre">-f</span> <span class="pre">/etc/ldap/schema/ppolicy.ldif</span></code>.</p>
+<p><strong>2. Crear las políticas dentro del árbol</strong></p>
+<p>Las políticas son entradas normales del directorio, así que las creamos en una unidad organizativa propia con el usuario administrador de siempre:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>politicas.ldif
+
+dn:<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>policies,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>organizationalUnit
+ou:<span class="w"> </span>policies
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>default,ou<span class="o">=</span>policies,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>top
+objectClass:<span class="w"> </span>device
+objectClass:<span class="w"> </span>pwdPolicy
+cn:<span class="w"> </span>default
+pwdAttribute:<span class="w"> </span>userPassword
+pwdMinLength:<span class="w"> </span><span class="m">8</span>
+pwdMinAge:<span class="w"> </span><span class="m">0</span>
+pwdMaxAge:<span class="w"> </span><span class="m">7776000</span>
+pwdExpireWarning:<span class="w"> </span><span class="m">604800</span>
+pwdInHistory:<span class="w"> </span><span class="m">5</span>
+pwdMustChange:<span class="w"> </span>TRUE
+pwdAllowUserChange:<span class="w"> </span>TRUE
+pwdMaxFailure:<span class="w"> </span><span class="m">5</span>
+pwdLockout:<span class="w"> </span>TRUE
+pwdLockoutDuration:<span class="w"> </span><span class="m">900</span>
+pwdGraceAuthNLimit:<span class="w"> </span><span class="m">3</span>
+pwdCheckQuality:<span class="w"> </span><span class="m">1</span>
+
+$<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>politicas.ldif
+</pre></div>
+</div>
+<p>Fíjate en que <code class="docutils literal notranslate"><span class="pre">pwdPolicy</span></code> es una clase <strong>auxiliar</strong>, por lo que necesita acompañarse de una clase estructural; por convenio se utiliza <code class="docutils literal notranslate"><span class="pre">device</span></code>. El significado de los atributos es:</p>
+<ul class="simple">
+<li><p><strong>pwdAttribute</strong>: el atributo sobre el que se aplica la política. Es obligatorio y en la práctica siempre vale <code class="docutils literal notranslate"><span class="pre">userPassword</span></code>.</p></li>
+<li><p><strong>pwdMinLength</strong>: longitud mínima de la contraseña.</p></li>
+<li><p><strong>pwdMinAge</strong> / <strong>pwdMaxAge</strong>: segundos que deben pasar como mínimo antes de poder volver a cambiarla y segundos que tarda en caducar (7776000 s = 90 días).</p></li>
+<li><p><strong>pwdExpireWarning</strong>: con cuánta antelación se avisa al usuario de la caducidad (604800 s = 7 días).</p></li>
+<li><p><strong>pwdInHistory</strong>: cuántas contraseñas antiguas se recuerdan para impedir que se reutilicen.</p></li>
+<li><p><strong>pwdMustChange</strong>: obliga al usuario a cambiar la contraseña la primera vez que entra después de que el administrador se la haya cambiado.</p></li>
+<li><p><strong>pwdAllowUserChange</strong>: permite que el usuario cambie su propia contraseña.</p></li>
+<li><p><strong>pwdMaxFailure</strong>, <strong>pwdLockout</strong> y <strong>pwdLockoutDuration</strong>: bloquea la cuenta tras 5 fallos consecutivos durante 900 s (15 minutos). Si <code class="docutils literal notranslate"><span class="pre">pwdLockoutDuration</span></code> es 0, el bloqueo es permanente hasta que lo levante el administrador.</p></li>
+<li><p><strong>pwdGraceAuthNLimit</strong>: cuántas veces se puede entrar todavía con la contraseña ya caducada (para poder cambiarla).</p></li>
+<li><p><strong>pwdCheckQuality</strong>: 0 no comprueba la calidad, 1 la comprueba si puede y 2 la exige siempre. Ojo, la comprobación real de complejidad (mayúsculas, dígitos, símbolos...) necesita un módulo externo declarado en <code class="docutils literal notranslate"><span class="pre">pwdCheckModule</span></code>; sin él conviene dejarlo en 1 y controlar la complejidad en el cliente con <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code>, como hicimos al configurar los equipos.</p></li>
+</ul>
+<p><strong>3. Activar el overlay sobre la base de datos</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>ppolicy_overlay.ldif
+
+dn:<span class="w"> </span><span class="nv">olcOverlay</span><span class="o">=</span>ppolicy,olcDatabase<span class="o">={</span><span class="m">1</span><span class="o">}</span>mdb,cn<span class="o">=</span>config
+objectClass:<span class="w"> </span>olcOverlayConfig
+objectClass:<span class="w"> </span>olcPPolicyConfig
+olcOverlay:<span class="w"> </span>ppolicy
+olcPPolicyDefault:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>default,ou<span class="o">=</span>policies,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+olcPPolicyHashCleartext:<span class="w"> </span>TRUE
+olcPPolicyUseLockout:<span class="w"> </span>TRUE
+
+$<span class="w"> </span>ldapadd<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-f<span class="w"> </span>ppolicy_overlay.ldif
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">olcPPolicyDefault</span></code> indica la política que se aplica a todas las entradas que no tengan una propia, <code class="docutils literal notranslate"><span class="pre">olcPPolicyHashCleartext</span></code> cifra las contraseñas que lleguen en claro en un <code class="docutils literal notranslate"><span class="pre">ldapadd</span></code> o un <code class="docutils literal notranslate"><span class="pre">ldapmodify</span></code> y <code class="docutils literal notranslate"><span class="pre">olcPPolicyUseLockout</span></code> hace que el servidor conteste con el error &quot;cuenta bloqueada&quot; en lugar de con un simple &quot;credenciales inválidas&quot; (es más cómodo para el usuario, pero da más información a un atacante).</p>
+<p><strong>4. Comprobar que funciona</strong></p>
+<p>La política actúa al cambiar la contraseña con <code class="docutils literal notranslate"><span class="pre">ldappasswd</span></code>, que es la operación extendida que usan también los clientes PAM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nos rechaza una contraseña demasiado corta</span>
+ldappasswd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-W<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>-s<span class="w"> </span><span class="s2">&quot;1234&quot;</span><span class="w"> </span><span class="s2">&quot;uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span>
+Result:<span class="w"> </span>Constraint<span class="w"> </span>violation<span class="w"> </span><span class="o">(</span><span class="m">19</span><span class="o">)</span>
+Additional<span class="w"> </span>info:<span class="w"> </span>Password<span class="w"> </span>fails<span class="w"> </span>quality<span class="w"> </span>checking<span class="w"> </span>policy
+</pre></div>
+</div>
+<p>Y también al autenticarse. Si fallamos cinco veces seguidas, la cuenta se bloquea:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapwhoami<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-w<span class="w"> </span>claveincorrecta
+ldap_bind:<span class="w"> </span>Invalid<span class="w"> </span>credentials<span class="w"> </span><span class="o">(</span><span class="m">49</span><span class="o">)</span>
+additional<span class="w"> </span>info:<span class="w"> </span>Account<span class="w"> </span>locked
+</pre></div>
+</div>
+<p>El overlay guarda el resultado de todo esto en <strong>atributos operacionales</strong>, que no se ven en un <code class="docutils literal notranslate"><span class="pre">ldapsearch</span></code> normal porque hay que pedirlos explícitamente con <code class="docutils literal notranslate"><span class="pre">+</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-W<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>-b<span class="w"> </span><span class="s2">&quot;uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="s2">&quot;+&quot;</span>
+
+pwdChangedTime:<span class="w"> </span>20260907101500Z
+pwdFailureTime:<span class="w"> </span>20260907103012Z
+pwdAccountLockedTime:<span class="w"> </span>20260907103012Z
+</pre></div>
+</div>
+<p>Para desbloquear la cuenta antes de que pase el tiempo de castigo basta con borrar ese atributo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>desbloquear.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+delete:<span class="w"> </span>pwdAccountLockedTime
+-
+delete:<span class="w"> </span>pwdFailureTime
+
+$<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>desbloquear.ldif
+</pre></div>
+</div>
+<p>Podemos tener varias políticas a la vez (por ejemplo una <code class="docutils literal notranslate"><span class="pre">cn=estricta</span></code> para los administradores) y asignárselas a un usuario concreto con el atributo <code class="docutils literal notranslate"><span class="pre">pwdPolicySubentry</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>pwdPolicySubentry
+pwdPolicySubentry:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>estricta,ou<span class="o">=</span>policies,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+</pre></div>
+</div>
+<p><strong>Los atributos shadow no son una política</strong></p>
+<p>Cuando creamos los usuarios les pusimos <code class="docutils literal notranslate"><span class="pre">shadowMax</span></code>, <code class="docutils literal notranslate"><span class="pre">shadowWarning</span></code>, <code class="docutils literal notranslate"><span class="pre">shadowMin</span></code>... ¿no hacen ya lo mismo que ppolicy? Pues no: esos atributos son solo <strong>datos</strong>. Vienen de la clase <code class="docutils literal notranslate"><span class="pre">shadowAccount</span></code> (esquema <strong>nis</strong>) y son la copia literal de los campos del fichero <code class="docutils literal notranslate"><span class="pre">/etc/shadow</span></code> de toda la vida. El servidor LDAP no los mira nunca: se limita a guardarlos y a devolverlos cuando alguien pregunta por ellos. Quien decide qué hacer con esa información es el <strong>cliente</strong>, concretamente el módulo PAM de la máquina en la que el usuario inicia sesión.</p>
+<p>De ahí salen las diferencias importantes:</p>
+<ul class="simple">
+<li><p><strong>Quién aplica la regla.</strong> ppolicy actúa en el servidor, dentro de la propia operación LDAP, así que no hay forma de saltárselo. Los <code class="docutils literal notranslate"><span class="pre">shadow*</span></code> dependen de que el cliente esté bien configurado: un equipo mal configurado, o un servicio que se autentique haciendo directamente un <em>bind</em> contra el LDAP (una aplicación web, un servidor de correo, Samba), se los salta por completo.</p></li>
+<li><p><strong>Bloqueo por intentos fallidos.</strong> No existe ningún atributo <code class="docutils literal notranslate"><span class="pre">shadow</span></code> para esto. En local de eso se encarga <code class="docutils literal notranslate"><span class="pre">faillock</span></code> (antes <code class="docutils literal notranslate"><span class="pre">pam_tally2</span></code>), pero lleva la cuenta <strong>en cada máquina por separado</strong>: con 20 clientes, 5 intentos por máquina son 100 intentos contra la misma cuenta. ppolicy los cuenta en el servidor, que es donde tiene sentido contarlos.</p></li>
+<li><p><strong>Historial y longitud.</strong> <code class="docutils literal notranslate"><span class="pre">pwdInHistory</span></code> impide reutilizar las últimas contraseñas y <code class="docutils literal notranslate"><span class="pre">pwdMinLength</span></code> exige una longitud mínima. Los <code class="docutils literal notranslate"><span class="pre">shadow*</span></code> no guardan las contraseñas antiguas ni saben nada de su longitud.</p></li>
+<li><p><strong>Se mantiene solo.</strong> <code class="docutils literal notranslate"><span class="pre">pwdChangedTime</span></code> lo actualiza el servidor cada vez que la contraseña cambia. <code class="docutils literal notranslate"><span class="pre">shadowLastChange</span></code>, en cambio, hay que mantenerlo a mano: si cambiamos la contraseña con <code class="docutils literal notranslate"><span class="pre">ldappasswd</span></code>, ese atributo <strong>no se toca</strong> y la caducidad que calcule el cliente será falsa.</p></li>
+<li><p><strong>Unidades.</strong> Los <code class="docutils literal notranslate"><span class="pre">shadow*</span></code> se cuentan en días desde el 1 de enero de 1970; los <code class="docutils literal notranslate"><span class="pre">pwd*</span></code> en segundos y con marcas de tiempo completas (<code class="docutils literal notranslate"><span class="pre">20260907101500Z</span></code>).</p></li>
+</ul>
+<p>Merece la pena mirar con esta luz los valores del usuario de ejemplo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>shadowLastChange:<span class="w"> </span><span class="m">10877</span><span class="w">   </span><span class="c1"># 10877 días desde el 1/1/1970, es decir, el 13/10/1999</span>
+shadowMax:<span class="w"> </span><span class="m">999999</span><span class="w">         </span><span class="c1"># la contraseña caduca dentro de 2739 años: nunca</span>
+shadowMin:<span class="w"> </span><span class="m">8</span><span class="w">              </span><span class="c1"># no puede cambiarla hasta 8 días después del último cambio</span>
+shadowWarning:<span class="w"> </span><span class="m">7</span><span class="w">          </span><span class="c1"># avisar 7 días antes de que caduque</span>
+shadowExpire:<span class="w"> </span>-1<span class="w">          </span><span class="c1"># la cuenta no expira nunca</span>
+</pre></div>
+</div>
+<p>Es decir, esos valores no imponen ninguna política: están puestos para que no estorben (y el <code class="docutils literal notranslate"><span class="pre">shadowMin:</span> <span class="pre">8</span></code> es más bien un despiste, porque impide al usuario cambiar su contraseña durante 8 días; lo habitual es 0). Para ver cómo los interpreta el cliente puedes usar <code class="docutils literal notranslate"><span class="pre">chage</span> <span class="pre">-l</span> <span class="pre">tunombre1</span></code>, que los lee por NSS igual que <code class="docutils literal notranslate"><span class="pre">getent</span> <span class="pre">passwd</span></code>.</p>
+<p>¿Conviene entonces quitarlos? No, porque muchas herramientas los siguen leyendo (<code class="docutils literal notranslate"><span class="pre">chage</span></code>, <code class="docutils literal notranslate"><span class="pre">login</span></code>, las migraciones desde <code class="docutils literal notranslate"><span class="pre">/etc/shadow</span></code>), pero la política que de verdad se cumple siempre es la de ppolicy. Si mantienes las dos, procura que no se contradigan y recuerda que la complejidad de la contraseña sigue siendo cosa del cliente con <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code>.</p>
+<p><strong>ppolicy no comprueba la complejidad</strong></p>
+<p>Con el overlay funcionando podría parecer que las contraseñas ya están bajo control, pero falta una pieza: ppolicy sabe cuánto mide una contraseña, cuándo se cambió y cuántas veces se ha fallado al usarla, pero <strong>no juzga si es una buena contraseña</strong>. Que sea <code class="docutils literal notranslate"><span class="pre">12345678</span></code> o el nombre del usuario le da igual mientras cumpla <code class="docutils literal notranslate"><span class="pre">pwdMinLength</span></code>. Eso es lo que hace en el cliente el módulo <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code>, que instalamos al configurar los equipos.</p>
+<p>Y al revés, <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code> tampoco puede sustituir a ppolicy, porque se ocupa únicamente de la complejidad de la contraseña nueva y lo hace en el cliente:</p>
+<ul class="simple">
+<li><p>Hay que instalarlo y configurarlo en <strong>todos</strong> los equipos. El cliente que se quede sin configurar no aplica ninguna regla, y bastará con que el usuario cambie ahí su contraseña para saltarse la política.</p></li>
+<li><p>Solo interviene cuando el cambio pasa por PAM (el comando <code class="docutils literal notranslate"><span class="pre">passwd</span></code>). Si la contraseña se cambia por otro camino —<code class="docutils literal notranslate"><span class="pre">ldappasswd</span></code>, phpLDAPadmin, una web de autoservicio, Samba, una aplicación que escriba en el directorio— no se entera nadie.</p></li>
+<li><p>No sabe nada de caducidad, ni de historial, ni de bloquear la cuenta tras varios intentos fallidos. El módulo <code class="docutils literal notranslate"><span class="pre">pam_pwhistory</span></code> sí guarda un historial, pero en el fichero local <code class="docutils literal notranslate"><span class="pre">/etc/security/opasswd</span></code> de cada máquina, lo cual no sirve de nada cuando los usuarios están en el directorio y entran en cualquier equipo del aula.</p></li>
+</ul>
+<p>El reparto razonable es este:</p>
+<ul class="simple">
+<li><p><strong>ppolicy (servidor)</strong>: longitud mínima, caducidad y aviso, historial, bloqueo por intentos fallidos y forzar el cambio después de que el administrador reponga la contraseña. Se cumple siempre, venga la petición de donde venga.</p></li>
+<li><p><strong>pam_pwquality (cliente)</strong>: la complejidad fina (mayúsculas, dígitos, símbolos, parecido con la anterior o con el nombre del usuario), que el servidor no puede juzgar por sí solo.</p></li>
+</ul>
+<p>De hecho, los dos actúan uno detrás del otro. Cuando un usuario del directorio ejecuta <code class="docutils literal notranslate"><span class="pre">passwd</span></code> en un cliente, PAM pasa primero por <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code>, que rechaza la contraseña si es pobre, y solo entonces <code class="docutils literal notranslate"><span class="pre">pam_ldap</span></code> envía el cambio al servidor, donde ppolicy comprueba lo suyo y todavía puede rechazarlo (por ejemplo, si es una de las cinco últimas que ya había usado).</p>
+<p>Si quisiéramos que la complejidad se comprobase también en el servidor, habría que añadir un módulo externo y declararlo con <code class="docutils literal notranslate"><span class="pre">pwdCheckModule</span></code> en la política, junto con <code class="docutils literal notranslate"><span class="pre">pwdCheckQuality:</span> <span class="pre">2</span></code>. El más conocido es <code class="docutils literal notranslate"><span class="pre">ppm.so</span></code>, del proyecto LTB, que no viene en los repositorios de Ubuntu y hay que compilar; por eso en este montaje dejamos esa parte en manos de <code class="docutils literal notranslate"><span class="pre">pam_pwquality</span></code>.</p>
+</section>
+<section id="ampliar-el-esquema-crear-un-atributo-nuevo-quota">
+<h2>Ampliar el esquema: crear un atributo nuevo (quota)<a class="headerlink" href="#ampliar-el-esquema-crear-un-atributo-nuevo-quota" title="Link to this heading">#</a></h2>
+<p>El <strong>esquema</strong> es la definición de todo lo que puede guardarse en el directorio: los tipos de atributo (<code class="docutils literal notranslate"><span class="pre">attributetype</span></code>) y las clases de objeto (<code class="docutils literal notranslate"><span class="pre">objectclass</span></code>) que los agrupan. Los esquemas que trae slapd de serie los podemos listar así:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-b<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>schema,cn<span class="o">=</span>config<span class="w"> </span>-LLL<span class="w"> </span>dn
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>schema,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">={</span><span class="m">0</span><span class="o">}</span>core,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">={</span><span class="m">1</span><span class="o">}</span>cosine,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">={</span><span class="m">2</span><span class="o">}</span>nis,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">={</span><span class="m">3</span><span class="o">}</span>inetorgperson,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+</pre></div>
+</div>
+<p>De ahí salen los atributos que hemos usado hasta ahora: <code class="docutils literal notranslate"><span class="pre">cn</span></code> y <code class="docutils literal notranslate"><span class="pre">objectClass</span></code> vienen de <strong>core</strong>, <code class="docutils literal notranslate"><span class="pre">homePhone</span></code> de <strong>cosine</strong>, <code class="docutils literal notranslate"><span class="pre">uidNumber</span></code>, <code class="docutils literal notranslate"><span class="pre">gidNumber</span></code>, <code class="docutils literal notranslate"><span class="pre">homeDirectory</span></code> y <code class="docutils literal notranslate"><span class="pre">loginShell</span></code> de <strong>nis</strong>, y <code class="docutils literal notranslate"><span class="pre">displayName</span></code> o <code class="docutils literal notranslate"><span class="pre">mail</span></code> de <strong>inetorgperson</strong>.</p>
+<p>Si necesitamos guardar información que no está prevista en ninguno de ellos —por ejemplo la <strong>cuota de disco</strong> que le corresponde a cada usuario— podemos definir nuestros propios atributos.</p>
+<p><strong>Los OID</strong></p>
+<p>Cada atributo y cada clase de objeto se identifican con un <strong>OID</strong> (<em>Object Identifier</em>), un número jerárquico único en el mundo. Para usar el directorio en producción hay que solicitar a la IANA un <em>Private Enterprise Number</em> propio (es gratuito), que nos daría un arco del tipo <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.&lt;nuestro</span> <span class="pre">número&gt;</span></code>. Para las prácticas usaremos un OID inventado dentro de ese arco, <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.99999</span></code>, reservando la rama <code class="docutils literal notranslate"><span class="pre">.1</span></code> para los atributos y la <code class="docutils literal notranslate"><span class="pre">.2</span></code> para las clases.</p>
+<p><strong>Definir el esquema</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>quota.ldif
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>quota,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+objectClass:<span class="w"> </span>olcSchemaConfig
+cn:<span class="w"> </span>quota
+olcAttributeTypes:<span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="m">1</span>.3.6.1.4.1.99999.1.1
+<span class="w">  </span>NAME<span class="w"> </span><span class="s1">&#39;quotaMB&#39;</span>
+<span class="w">  </span>DESC<span class="w"> </span><span class="s1">&#39;Cuota de disco del usuario en megabytes&#39;</span>
+<span class="w">  </span>EQUALITY<span class="w"> </span>integerMatch
+<span class="w">  </span>ORDERING<span class="w"> </span>integerOrderingMatch
+<span class="w">  </span>SYNTAX<span class="w"> </span><span class="m">1</span>.3.6.1.4.1.1466.115.121.1.27
+<span class="w">  </span>SINGLE-VALUE<span class="w"> </span><span class="o">)</span>
+olcAttributeTypes:<span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="m">1</span>.3.6.1.4.1.99999.1.2
+<span class="w">  </span>NAME<span class="w"> </span><span class="s1">&#39;quotaFS&#39;</span>
+<span class="w">  </span>DESC<span class="w"> </span><span class="s1">&#39;Sistema de ficheros sobre el que se aplica la cuota&#39;</span>
+<span class="w">  </span>EQUALITY<span class="w"> </span>caseIgnoreMatch
+<span class="w">  </span>SUBSTR<span class="w"> </span>caseIgnoreSubstringsMatch
+<span class="w">  </span>SYNTAX<span class="w"> </span><span class="m">1</span>.3.6.1.4.1.1466.115.121.1.15<span class="o">{</span><span class="m">256</span><span class="o">}</span>
+<span class="w">  </span>SINGLE-VALUE<span class="w"> </span><span class="o">)</span>
+olcObjectClasses:<span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="m">1</span>.3.6.1.4.1.99999.2.1
+<span class="w">  </span>NAME<span class="w"> </span><span class="s1">&#39;quotaUser&#39;</span>
+<span class="w">  </span>DESC<span class="w"> </span><span class="s1">&#39;Usuario con cuota de disco&#39;</span>
+<span class="w">  </span>SUP<span class="w"> </span>top
+<span class="w">  </span>AUXILIARY
+<span class="w">  </span>MUST<span class="w"> </span><span class="o">(</span><span class="w"> </span>quotaMB<span class="w"> </span><span class="o">)</span>
+<span class="w">  </span>MAY<span class="w"> </span><span class="o">(</span><span class="w"> </span>quotaFS<span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">)</span>
+</pre></div>
+</div>
+<p>Repasemos las palabras clave:</p>
+<ul class="simple">
+<li><p><strong>NAME</strong>: el nombre con el que usaremos el atributo en los LDIF.</p></li>
+<li><p><strong>DESC</strong>: una descripción libre, muy recomendable para que otro administrador entienda para qué sirve.</p></li>
+<li><p><strong>SYNTAX</strong>: el tipo de dato. Los más habituales son <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.1466.115.121.1.15</span></code> (<em>Directory String</em>, texto UTF-8), <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.1466.115.121.1.27</span></code> (<em>Integer</em>), <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.1466.115.121.1.7</span></code> (<em>Boolean</em>) y <code class="docutils literal notranslate"><span class="pre">1.3.6.1.4.1.1466.115.121.1.12</span></code> (un DN). El <code class="docutils literal notranslate"><span class="pre">{256}</span></code> es la longitud máxima sugerida.</p></li>
+<li><p><strong>EQUALITY</strong>, <strong>ORDERING</strong> y <strong>SUBSTR</strong>: las reglas que usará el servidor para comparar valores en las búsquedas. Sin <code class="docutils literal notranslate"><span class="pre">EQUALITY</span></code> no podríamos buscar <code class="docutils literal notranslate"><span class="pre">(quotaMB=2048)</span></code>, y sin <code class="docutils literal notranslate"><span class="pre">ORDERING</span></code> no funcionaría <code class="docutils literal notranslate"><span class="pre">(quotaMB&gt;=1024)</span></code>.</p></li>
+<li><p><strong>SINGLE-VALUE</strong>: el atributo solo admite un valor (por defecto los atributos LDAP son multivaluados).</p></li>
+<li><p><strong>SUP top</strong>: la clase deriva de <code class="docutils literal notranslate"><span class="pre">top</span></code>, como todas.</p></li>
+<li><p><strong>AUXILIARY</strong>: es una clase auxiliar, es decir, sirve para <strong>añadir</strong> atributos a entradas que ya existen. Cada entrada tiene una única clase <strong>STRUCTURAL</strong> (la que dice qué es: <code class="docutils literal notranslate"><span class="pre">inetOrgPerson</span></code>, <code class="docutils literal notranslate"><span class="pre">posixGroup</span></code>, <code class="docutils literal notranslate"><span class="pre">organizationalUnit</span></code>...) y tantas auxiliares como necesite. Por eso nuestros usuarios pueden ser a la vez <code class="docutils literal notranslate"><span class="pre">inetOrgPerson</span></code>, <code class="docutils literal notranslate"><span class="pre">posixAccount</span></code> y <code class="docutils literal notranslate"><span class="pre">shadowAccount</span></code>.</p></li>
+<li><p><strong>MUST</strong> y <strong>MAY</strong>: atributos obligatorios y opcionales de la clase. Si marcamos <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> como obligatorio, cualquier entrada que añada la clase <code class="docutils literal notranslate"><span class="pre">quotaUser</span></code> tendrá que darle un valor.</p></li>
+</ul>
+<p><strong>Cargar el esquema</strong></p>
+<p>Los esquemas forman parte de la configuración, así que se cargan contra <code class="docutils literal notranslate"><span class="pre">cn=config</span></code> y no con el usuario admin del directorio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapadd<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-f<span class="w"> </span>quota.ldif
+
+adding<span class="w"> </span>new<span class="w"> </span>entry<span class="w"> </span><span class="s2">&quot;cn=quota,cn=schema,cn=config&quot;</span>
+</pre></div>
+</div>
+<p>Y comprobamos que está:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-b<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>schema,cn<span class="o">=</span>config<span class="w"> </span>-LLL<span class="w"> </span><span class="s2">&quot;(cn=*quota*)&quot;</span><span class="w"> </span>dn
+
+dn:<span class="w"> </span><span class="nv">cn</span><span class="o">={</span><span class="m">4</span><span class="o">}</span>quota,cn<span class="o">=</span>schema,cn<span class="o">=</span>config
+</pre></div>
+</div>
+<p>El <code class="docutils literal notranslate"><span class="pre">{4}</span></code> es el número de orden que le ha asignado slapd, que se lo pone él solo. Si te equivocas al escribir la definición, slapd rechazará el LDIF con un mensaje bastante claro del estilo <code class="docutils literal notranslate"><span class="pre">olcAttributeTypes:</span> <span class="pre">value</span> <span class="pre">#0</span> <span class="pre">invalid</span> <span class="pre">per</span> <span class="pre">syntax</span></code>.</p>
+<p>Ten en cuenta que <strong>un esquema ya cargado no se puede modificar cómodamente</strong>: por diseño solo se permite añadir. Para corregir un atributo hay que editar a mano el fichero <code class="docutils literal notranslate"><span class="pre">/etc/ldap/slapd.d/cn=config/cn=schema/cn={4}quota.ldif</span></code>, borrar la línea del <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">CRC32</span></code> del principio (que ya no cuadraría) y reiniciar <code class="docutils literal notranslate"><span class="pre">slapd</span></code>. Por eso conviene probar las definiciones en una máquina de pruebas antes de llevarlas a producción.</p>
+<p><strong>Usar el atributo nuevo</strong></p>
+<p>Ahora ya podemos añadirle la clase auxiliar y los atributos a un usuario existente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>quota_usuario.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>objectClass
+objectClass:<span class="w"> </span>quotaUser
+-
+add:<span class="w"> </span>quotaMB
+quotaMB:<span class="w"> </span><span class="m">2048</span>
+
+$<span class="w"> </span>ldapmodify<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="nv">cn</span><span class="o">=</span>admin,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>quota_usuario.ldif
+</pre></div>
+</div>
+<p>Habrás notado que aquí no hemos puesto <code class="docutils literal notranslate"><span class="pre">quotaFS</span></code>, y es a propósito. Un dato que vale lo mismo para todos los usuarios (<code class="docutils literal notranslate"><span class="pre">/home</span></code>) no debe repetirse en cada entrada: ocupa espacio, hay que mantenerlo en cientos de sitios y, el día que cambie el punto de montaje, tendríamos que modificar todas las entradas del directorio. Por eso <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> es <strong>MUST</strong> (cada usuario tiene la suya, es lo que de verdad varía) y <code class="docutils literal notranslate"><span class="pre">quotaFS</span></code> es <strong>MAY</strong>: solo se rellena en el usuario que sea una excepción, por ejemplo alguien cuyo <code class="docutils literal notranslate"><span class="pre">home</span></code> esté en otro volumen.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre2,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>objectClass
+objectClass:<span class="w"> </span>quotaUser
+-
+add:<span class="w"> </span>quotaMB
+quotaMB:<span class="w"> </span><span class="m">10240</span>
+-
+add:<span class="w"> </span>quotaFS
+quotaFS:<span class="w"> </span>/scratch
+</pre></div>
+</div>
+<p>El valor común lo guardamos una sola vez. Ojo, en LDAP <strong>los atributos no se heredan</strong> de la entrada padre a las hijas (lo único que se hereda son las clases de objeto, con <code class="docutils literal notranslate"><span class="pre">SUP</span></code>), así que ponerlo en <code class="docutils literal notranslate"><span class="pre">ou=usuarios</span></code> no hace que los usuarios lo tengan: es simplemente el sitio donde el script irá a buscar el valor por defecto, igual que podríamos tenerlo en su fichero de configuración.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dn:<span class="w"> </span><span class="nv">ou</span><span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+add:<span class="w"> </span>objectClass
+objectClass:<span class="w"> </span>quotaUser
+-
+add:<span class="w"> </span>quotaMB
+quotaMB:<span class="w"> </span><span class="m">2048</span>
+-
+add:<span class="w"> </span>quotaFS
+quotaFS:<span class="w"> </span>/home
+</pre></div>
+</div>
+<p>Esta es una decisión de diseño que aparece continuamente al montar un directorio: lo que distingue a cada entrada va en la entrada, y lo que es común va en un único sitio. Es la misma idea del overlay ppolicy que acabamos de ver, donde la política está una sola vez en <code class="docutils literal notranslate"><span class="pre">cn=default,ou=policies</span></code> y solo los usuarios especiales llevan su propio <code class="docutils literal notranslate"><span class="pre">pwdPolicySubentry</span></code>.</p>
+<p>Aclarado esto, fíjate también en que <code class="docutils literal notranslate"><span class="pre">quotaFS</span></code> vale <code class="docutils literal notranslate"><span class="pre">/home</span></code> y no <code class="docutils literal notranslate"><span class="pre">/home/tunombre1</span></code>. Las cuotas de disco de GNU/Linux no se aplican a directorios, sino a <strong>sistemas de ficheros</strong>: el contador lo lleva el propio sistema de archivos, que suma los bloques y los inodos que pertenecen a cada <strong>UID</strong> en todo el volumen. Por eso <code class="docutils literal notranslate"><span class="pre">setquota</span></code> espera un punto de montaje y, si le pasáramos <code class="docutils literal notranslate"><span class="pre">/home/tunombre1</span></code>, respondería <code class="docutils literal notranslate"><span class="pre">Mountpoint</span> <span class="pre">(or</span> <span class="pre">device)</span> <span class="pre">/home/tunombre1</span> <span class="pre">not</span> <span class="pre">found</span></code>. Si necesitáramos limitar un directorio concreto habría que recurrir a las cuotas de proyecto de XFS (opción de montaje <code class="docutils literal notranslate"><span class="pre">prjquota</span></code>) o dar a cada usuario su propio volumen lógico con LVM.</p>
+<p>Podemos buscar por el atributo nuevo como por cualquier otro, incluso con comparaciones gracias a la regla <code class="docutils literal notranslate"><span class="pre">ORDERING</span></code> que declaramos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-s<span class="w"> </span>one<span class="w"> </span><span class="s2">&quot;(quotaMB&gt;=1024)&quot;</span><span class="w"> </span>uid<span class="w"> </span>quotaMB<span class="w"> </span>quotaFS
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+uid:<span class="w"> </span>tunombre1
+quotaMB:<span class="w"> </span><span class="m">2048</span>
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre2,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+uid:<span class="w"> </span>tunombre2
+quotaMB:<span class="w"> </span><span class="m">10240</span>
+quotaFS:<span class="w"> </span>/scratch
+</pre></div>
+</div>
+<p>El <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">one</span></code> limita la búsqueda a los hijos directos de la unidad organizativa, para que no nos aparezca la propia <code class="docutils literal notranslate"><span class="pre">ou=usuarios</span></code>, que también tiene ahora un <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code>. Los ámbitos de búsqueda de <code class="docutils literal notranslate"><span class="pre">ldapsearch</span></code> son <code class="docutils literal notranslate"><span class="pre">base</span></code> (solo la entrada indicada), <code class="docutils literal notranslate"><span class="pre">one</span></code> (sus hijos directos) y <code class="docutils literal notranslate"><span class="pre">sub</span></code> (todo el subárbol, el valor por omisión).</p>
+<p>Para cambiar la cuota de un usuario usaríamos <code class="docutils literal notranslate"><span class="pre">replace</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">add</span></code>, igual que hicimos antes con <code class="docutils literal notranslate"><span class="pre">uidNumber</span></code>.</p>
+<p><strong>Aplicar la cuota en los clientes</strong></p>
+<p>El directorio solo guarda el dato: el atributo <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> no limita nada por sí mismo. Quien tiene que aplicarlo es el servidor de ficheros, con el sistema de cuotas del sistema de archivos (paquete <code class="docutils literal notranslate"><span class="pre">quota</span></code>, opción <code class="docutils literal notranslate"><span class="pre">usrquota</span></code> en <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> y comando <code class="docutils literal notranslate"><span class="pre">setquota</span></code>). Si, como en el montaje que hemos hecho con NFS y autofs, los <code class="docutils literal notranslate"><span class="pre">/home</span></code> están exportados desde un servidor, la cuota hay que aplicarla <strong>en ese servidor</strong>, que es donde reside el sistema de ficheros de verdad; en los clientes solo se ve el resultado. Un pequeño script puede leer el directorio y aplicar la cuota de cada usuario:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">BASE</span><span class="o">=</span><span class="s2">&quot;ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span>
+
+<span class="c1"># Volumen por defecto, guardado una sola vez en la propia unidad organizativa</span>
+<span class="nv">FS_DEF</span><span class="o">=</span><span class="k">$(</span>ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span>base<span class="w"> </span>quotaFS<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;/^quotaFS:/{print $2}&#39;</span><span class="k">)</span>
+
+ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BASE</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span>one<span class="w"> </span><span class="s2">&quot;(quotaMB=*)&quot;</span><span class="w"> </span>uid<span class="w"> </span>quotaMB<span class="w"> </span>quotaFS<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+awk<span class="w"> </span>-v<span class="w"> </span><span class="nv">defecto</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FS_DEF</span><span class="s2">&quot;</span><span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">    /^uid:/     {u=$2}</span>
+<span class="s1">    /^quotaMB:/ {mb=$2}</span>
+<span class="s1">    /^quotaFS:/ {fs=$2}</span>
+<span class="s1">    /^$/        {if (u) print u, mb, (fs ? fs : defecto); u=&quot;&quot;; fs=&quot;&quot;}</span>
+<span class="s1">    END         {if (u) print u, mb, (fs ? fs : defecto)}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>usuario<span class="w"> </span>mb<span class="w"> </span>volumen<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">bloques</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">mb</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="k">))</span><span class="w">            </span><span class="c1"># setquota trabaja en bloques de 1 KB</span>
+<span class="w">    </span>setquota<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuario</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$bloques</span><span class="w"> </span><span class="nv">$bloques</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$volumen</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cuota de </span><span class="nv">$usuario</span><span class="s2">: </span><span class="si">${</span><span class="nv">mb</span><span class="si">}</span><span class="s2"> MB en </span><span class="nv">$volumen</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Este es exactamente el mismo enfoque que usan servicios como el correo o Samba: guardan en LDAP los atributos que necesitan (<code class="docutils literal notranslate"><span class="pre">mailQuota</span></code>, <code class="docutils literal notranslate"><span class="pre">sambaSID</span></code>...) mediante esquemas propios y luego cada servicio los lee y los aplica.</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="v1" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -866,6 +1213,9 @@ pam-auth-update
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-del-servidor-ldap">Instalación del servidor LDAP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-la-estructura-del-directorio">Crear la estructura del directorio</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-los-clientes-autenticacion-con-openldap">Configuración de los clientes: Autenticación con OpenLDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-overlays-de-openldap">Los overlays de OpenLDAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-overlay-ppolicy">El overlay ppolicy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ampliar-el-esquema-crear-un-atributo-nuevo-quota">Ampliar el esquema: crear un atributo nuevo (quota)</a></li>
 </ul>
   </nav></div>
 

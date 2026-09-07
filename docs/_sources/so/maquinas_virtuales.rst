@@ -317,51 +317,6 @@ Gestión de imágenes y contenedores
 - ``docker commit``: Guarda los cambios de un contenedor en la imagen.
 - ``docker rm``: Elimina un contenedor.
 
-Caso práctico: Instalación de Docker en Ubuntu 24.04 LTS
----------------------------------------------------------
-
-.. code-block:: bash
-
-  # Desinstalación de versiones antiguas
-  sudo apt-get remove docker.io
-  sudo apt-get remove docker-doc
-  sudo apt-get remove docker-compose
-  sudo apt-get remove docker-compose-v2
-  sudo apt-get remove podman-docker
-  sudo apt-get remove containerd
-  sudo apt-get remove runc
-  
-  # Añade la clave GPG oficial de Docker:
-  sudo apt update
-  sudo apt install -y ca-certificates curl
-  sudo install -m 0755 -d /etc/apt/keyrings
-  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-  sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-  # Añadir el repositorio a las fuentes de APT:
-  echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
- 
-  sudo apt update
-
-  #Instalar los paquetes de Docker Engine
-  sudo apt install -y docker-ce docker-ce-cli containerd.io \
-  docker-buildx-plugin docker-compose-plugin
-
-  #Asignación de permisos al usuario para ejecutar docker cli
-  sudo groupadd docker
-  sudo usermod -aG docker $USER
-  newgrp docker
-
-  #Configuración del arranque automático de los servicios
-  sudo systemctl enable docker.service
-  sudo systemctl enable containerd.service
-
-  #Comprobaciones
-  docker ps
-
 
 Caso práctico: construir una imagen de docker y subirla al repositorio
 ----------------------------------------------------------------------
@@ -377,8 +332,8 @@ Para construir una imagen de Docker, necesitamos crear el archivo ``Dockerfile``
 
 .. code-block:: dockerfile
 
-  # Usar Ubuntu 24.04 como imagen base
-  FROM ubuntu:24.04
+  # Usar Ubuntu 26.04 como imagen base
+  FROM ubuntu:26.04
 
   # Actualizar los repositorios y paquetes
   RUN apt-get update && apt-get upgrade -y
@@ -399,13 +354,13 @@ Construimos la imagen:
 
 .. code-block:: bash
 
-  docker build -t ubuntu:24.04 .
+  docker build -t ubuntu:26.04 .
 
 Etiquetamos la imagen:
 
 .. code-block:: bash
 
-  docker tag ubuntu:24.04 dgtrabada/ubuntu:24.04
+  docker tag ubuntu:26.04 dgtrabada/ubuntu:26.04
 
 
 Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos ``push``:
@@ -413,11 +368,7 @@ Para subir la imagen, primero iniciar sesión en Docker Hub y luego la subimos `
 .. code-block:: bash
 
   docker login
-
-  docker push dgtrabada/ubuntu:24.04
-  
-  
-.. image:: imagenes/docker_pull.png
+  docker push dgtrabada/ubuntu:26.04
 
 Vamos a instalar el editor vim y la actualizamos:
 
@@ -426,37 +377,38 @@ Vamos a instalar el editor vim y la actualizamos:
   #Listar imágenes:
   $ docker images
 
-  REPOSITORY         TAG       IMAGE ID       CREATED          SIZE
-  dgtrabada/ubuntu   24.04     e9b7aed9fff2   10 minutes ago   267MB
+  IMAGE                    ID             DISK USAGE   CONTENT SIZE   EXTRA
+  dgtrabada/ubuntu:26.04   619a114072f4        264MB         80.9MB 
 
   #Creamos un nuevo contenedor
-  docker run -it dgtrabada/ubuntu:24.04 /bin/bash
+  docker run -it dgtrabada/ubuntu:26.04 /bin/bash
 
   #instalamos el editor vim
-  root@e9b7aed9fff2:/# apt-get install -y vim
+  root@2e9067d8c411:/# apt-get install -y vim
 
   #nos salimos del contenedor (Ctrl+d)
   #listamos los contenedores:
   $ docker ps -a
-  CONTAINER ID   IMAGE                    COMMAND         CREATED         STATUS         PORTS     NAMES
-  406694d11d68   dgtrabada/ubuntu:24.04   "/bin/bash"   2 minutes ago   Up 2 minutes   
+  CONTAINER ID   IMAGE                    COMMAND       CREATED              STATUS
+  2e9067d8c411   dgtrabada/ubuntu:26.04   "/bin/bash"   About a minute ago   Exited (0)
+
 
   #mandamos los cambios a la imagen
-  $ docker commit 406694d11d68 dgtrabada/ubuntu:24.04
-  sha256:bffbb89703458ec685907be409c758e07207a3420d513780b247aa9d4ebe1d2a
+  $ docker commit 2e9067d8c411 dgtrabada/ubuntu:26.04
+  sha256:eb5c8844fc747851d08fd5fa22f0bfceb98502cd949d8b2d31c9c361e2e41533
   
   #subimos la imagen a Docker Hub
-  $ docker push dgtrabada/ubuntu:24.04
+  $ docker push dgtrabada/ubuntu:26.04
 
 Para ejecutar este contenedor en cualquier otro ordenador con docker lo único que tenemos que hacer es:
 
 .. code-block:: bash
 
   #Se bajará la imagen
-  $ docker pull dgtrabada/ubuntu:24.04
+  $ docker pull dgtrabada/ubuntu:26.04
 
   #Crear un nuevo contenedor
-  docker run -it dgtrabada/ubuntu:24.04 /bin/bash
+  docker run -it dgtrabada/ubuntu:26.04 /bin/bash
 
 .. image:: imagenes/docker.png
   :width: 400px
@@ -468,20 +420,20 @@ Nos bajamos la imagen del repositorio, creamos un contenedor e instalamos los co
 
 .. code-block:: bash
 
-  root@4e7e1f17f985:/# apt update
-  root@4e7e1f17f985:/# apt-get install -y iproute2 iputils-ping
-  root@4e7e1f17f985:/# apt-get install -y openssh-server
+  root@f11caab2ee73:/# apt update
+  root@f11caab2ee73:/# apt-get install -y iproute2 iputils-ping
+  root@f11caab2ee73:/# apt-get install -y openssh-server
   
 Configuramos ssh para poder iniciar sesión como root:
 
 .. code-block:: bash
 
-  root@4e7e1f17f985:/# mkdir /var/run/sshd
-  root@4e7e1f17f985:/# echo 'root:alumno' | chpasswd
-  root@4e7e1f17f985:/# sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  root@f11caab2ee73:/# mkdir /var/run/sshd
+  root@f11caab2ee73:/# echo 'root:alumno' | chpasswd
+  root@f11caab2ee73:/# sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
   #Por último lanzamos el demonio sshd y ya puedes conectarte por ssh
-  root@4e7e1f17f985:/# /usr/sbin/sshd -D &
+  root@f11caab2ee73:/# /usr/sbin/sshd -D &
 
 .. image:: imagenes/docker_ssh.png
 
@@ -489,22 +441,22 @@ Salimos del contenedor y mandamos los cambios a la imagen
 
 .. code-block:: bash
 
-  $ docker commit 4e7e1f17f985 dgtrabada/ubuntu:24.04
-  sha256:fc2ab89b8f222c6b10d9c66e3c055e9e1c0dbfa45add33e603b8043b6c1a1beb
+  $ docker commit 2e9067d8c411 dgtrabada/ubuntu:26.04
+  sha256:4e8ab55280e13f6bcaa6eeb0065596375ff6a0418ddc53d150afd1f4ecac7d7b
   
   #subimos la imagen a Docker Hub
-  $ docker push dgtrabada/ubuntu:24.04
+  $ docker push dgtrabada/ubuntu:26.04
   
   #podemos lanzar el sshd del contenedor con:
-  docker exec -it 4e7e1f17f985 /usr/sbin/sshd
+  docker exec -it f11caab2ee73 /usr/sbin/sshd
 
 
 Fíjate que podríamos haber hecho lo mismo con el siguiente Dockerfile:
 
 .. code-block:: dockerfile
 
-  # Usar Ubuntu 24.04 como imagen base
-  FROM ubuntu:24.04
+  # Usar Ubuntu 26.04 como imagen base
+  FROM ubuntu:26.04
 
   # Actualizar los repositorios y paquetes
   RUN apt-get update && apt-get upgrade -y
@@ -597,42 +549,40 @@ En los ejemplos anteriores podríamos levantar las tres máquinas con el siguien
 
 .. code-block:: yaml
 
-  version: '3.8'
   services:
-
     compute-0-0:
-      image: dgtrabada/ubuntu:24.04
+      image: ubuntu:26.04
       container_name: compute-0-0
       hostname: compute-0-0
+      command: sleep infinity
       networks:
         red16:
-          ipv4_address: 172.16.0.100
-      tty: true
-      stdin_open: true
-
+          ipv4_address: 172.16.0.10
+  
     compute-0-1:
-      image: dgtrabada/ubuntu:24.04
+      image: ubuntu:26.04
       container_name: compute-0-1
       hostname: compute-0-1
+      command: sleep infinity
       networks:
         red16:
-          ipv4_address: 172.16.0.101
-      tty: true
-      stdin_open: true
-
+          ipv4_address: 172.16.0.11
+  
     compute-0-2:
-      image: dgtrabada/ubuntu:24.04
+      image: ubuntu:26.04
       container_name: compute-0-2
       hostname: compute-0-2
+      command: sleep infinity
       networks:
         red16:
-          ipv4_address: 172.16.0.102
-      tty: true
-      stdin_open: true
+          ipv4_address: 172.16.0.12
 
   networks:
-    red16:
-      external: true
+    red-tunombre:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 172.16.0.0/16
 
 Kubernetes
 ----------
