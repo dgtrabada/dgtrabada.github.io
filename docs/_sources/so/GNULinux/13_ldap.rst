@@ -696,7 +696,67 @@ Podemos buscar por el atributo nuevo como por cualquier otro, incluso con compar
 
 El ``-s one`` limita la búsqueda a los hijos directos de la unidad organizativa, para que no nos aparezca la propia ``ou=usuarios``, que también tiene ahora un ``quotaMB``. Los ámbitos de búsqueda de ``ldapsearch`` son ``base`` (solo la entrada indicada), ``one`` (sus hijos directos) y ``sub`` (todo el subárbol, el valor por omisión).
 
-Para cambiar la cuota de un usuario usaríamos ``replace`` en lugar de ``add``, igual que hicimos antes con ``uidNumber``.
+Para **cambiar** la cuota de un usuario usaríamos ``replace`` en lugar de ``add``, igual que hicimos antes con ``uidNumber``:
+
+.. code-block:: bash
+
+ $ cat cambia_quota.ldif
+
+ dn: uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local
+ changetype: modify
+ replace: quotaMB
+ quotaMB: 4096
+
+Y aquí aparece un detalle que da guerra en cuanto queremos hacer esto desde un script: **si la entrada ya tiene la clase quotaUser, volver a añadirla es un error**, y el ``ldapmodify`` entero se rechaza.
+
+.. code-block:: bash
+
+ ldap_modify: Type or value exists (20)
+         additional info: modify/add: objectClass: value #0 already exists
+
+Es decir, el LDIF de antes (``add: objectClass`` más ``add: quotaMB``) sirve **una sola vez**. Un script que tenga que dejar la cuota en un valor determinado, sin saber cómo está la entrada, tiene que mirar primero si la clase está puesta y actuar en consecuencia:
+
+.. code-block:: bash
+
+ # ¿tiene ya la clase auxiliar?
+ ldapsearch -xLLL -b "ou=usuarios,dc=ldap,dc=tunombre,dc=local" -s one \
+     "(&(uid=tunombre1)(objectClass=quotaUser))" dn
+
+ # si la tiene:     changetype: modify + replace: quotaMB
+ # si no la tiene:  changetype: modify + add: objectClass y add: quotaMB
+
+Cuando hay que añadir la clase y el atributo, **las dos operaciones van en el mismo** ``ldapmodify``, separadas por la línea con un guion, y no en dos pasos: como ``quotaMB`` es ``MUST`` de ``quotaUser``, una entrada que tuviera la clase sin el atributo no sería válida y el servidor rechazaría el primer paso. Las operaciones de un mismo ``ldapmodify`` se aplican todas o ninguna, así que la entrada nunca se queda a medias.
+
+Por la misma razón, para **quitarle** la cuota a un usuario hay que borrar el atributo y la clase a la vez:
+
+.. code-block:: bash
+
+ $ cat quita_quota.ldif
+
+ dn: uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local
+ changetype: modify
+ delete: quotaMB
+ -
+ delete: objectClass
+ objectClass: quotaUser
+
+Y para **crear un usuario que ya nazca con su cuota** no hace falta el paso de modificación: la clase va entre las demás y el atributo con el resto, en el mismo ``ldapadd`` con el que creamos la entrada:
+
+.. code-block:: bash
+
+ dn: uid=tunombre1,ou=usuarios,dc=ldap,dc=tunombre,dc=local
+ objectClass: inetOrgPerson
+ objectClass: posixAccount
+ objectClass: shadowAccount
+ objectClass: quotaUser
+ uid: tunombre1
+ uidNumber: 1011
+ gidNumber: 501
+ homeDirectory: /home/tunombre1
+ ...
+ quotaMB: 2048
+
+Una observación sobre el nombre: al atributo lo llamamos ``quotaMB`` y no ``quota`` para que la unidad quede en el propio nombre. No es un capricho: ``setquota`` trabaja en bloques de 1 KiB, así que la conversión aparece siempre en los scripts y conviene no tener ninguna duda sobre en qué unidad está guardado el valor. Además, ``quota`` es un nombre que utilizan ya otros esquemas de OpenLDAP, y slapd rechaza un esquema que repita el nombre de un atributo que exista.
 
 **Aplicar la cuota en los clientes**
 
@@ -724,6 +784,29 @@ El directorio solo guarda el dato: el atributo ``quotaMB`` no limita nada por s�
  done
 
 Este es exactamente el mismo enfoque que usan servicios como el correo o Samba: guardan en LDAP los atributos que necesitan (``mailQuota``, ``sambaSID``...) mediante esquemas propios y luego cada servicio los lee y los aplica.
+
+Del sistema de cuotas en sí ya hablamos al gestionar los usuarios: la opción ``usrquota`` en ``/etc/fstab``, ``quotacheck``, ``quotaon``, los dos límites de ``setquota`` y los informes de ``repquota``. Aquí solo queda por atar un cabo que es propio de tener los usuarios en el directorio.
+
+**Antes de que setquota funcione: los nombres**
+
+El script de arriba llama a ``setquota -u "$usuario"`` con el **nombre** del usuario, y eso solo funciona si la máquina donde se ejecuta resuelve los usuarios del directorio; es decir, si además de servidor es **cliente LDAP de sí misma**, con la configuración de ``nsswitch`` y ``nslcd`` que vimos antes. Y como el sistema de ficheros de los ``/home`` está en el servidor, es justo ahí donde hace falta el cliente:
+
+.. code-block:: bash
+
+ apt install libnss-ldapd libpam-ldapd     # URI del servidor: ldap://127.0.0.1/
+                                           # base: dc=ldap,dc=tunombre,dc=local
+                                           # marcar passwd, group y shadow
+
+ getent passwd tunombre1    # tiene que aparecer la entrada del LDAP
+
+Si ``getent`` no lo devuelve, ``setquota`` contesta ``setquota: user tunombre1 does not exist`` y ``repquota`` muestra números de UID (``#10001``) en lugar de nombres, porque el sistema de cuotas trabaja internamente con el UID y solo traduce a nombre si alguien sabe hacerlo.
+
+Cuidado también con la caché. Si en la máquina corre ``nscd``, guarda ``passwd`` y ``group``, de modo que un usuario recién creado tarda en aparecer y uno recién borrado sigue apareciendo un rato. Después de tocar el directorio conviene invalidarla:
+
+.. code-block:: bash
+
+ nscd -i passwd
+ nscd -i group
 
 .. [#v1] vídeos
 

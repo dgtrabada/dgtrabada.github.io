@@ -248,9 +248,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -328,10 +335,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -749,6 +753,57 @@ repquota<span class="w"> </span>-vg<span class="w"> </span>/home
 repquota<span class="w"> </span>-vu<span class="w"> </span>-a
 </pre></div>
 </div>
+<p><strong>Cuota blanda, cuota dura y periodo de gracia</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">setquota</span></code> no recibe un límite, sino cuatro, y después el punto de montaje:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>setquota<span class="w"> </span>-u<span class="w"> </span>usuario<span class="w"> </span>&lt;bloques_blanda&gt;<span class="w"> </span>&lt;bloques_dura&gt;<span class="w"> </span>&lt;inodos_blanda&gt;<span class="w"> </span>&lt;inodos_dura&gt;<span class="w"> </span>/home
+
+<span class="c1">#5 MB de aviso y 10 MB de tope, sin limitar el numero de ficheros</span>
+setquota<span class="w"> </span>-u<span class="w"> </span>tunombre1<span class="w"> </span><span class="m">5120</span><span class="w"> </span><span class="m">10240</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>/home
+</pre></div>
+</div>
+<p>Los bloques son de 1 KiB, un <code class="docutils literal notranslate"><span class="pre">0</span></code> significa «sin límite» y las versiones actuales de <code class="docutils literal notranslate"><span class="pre">quota-tools</span></code> admiten sufijos, con lo que la orden anterior también se puede escribir <code class="docutils literal notranslate"><span class="pre">setquota</span> <span class="pre">-u</span> <span class="pre">tunombre1</span> <span class="pre">5M</span> <span class="pre">10M</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">/home</span></code>. Los dos últimos valores limitan el número de ficheros (inodos) en lugar del espacio.</p>
+<p>La diferencia entre los dos límites de espacio es lo que hace útil el sistema:</p>
+<ul class="simple">
+<li><p>La <strong>cuota dura</strong> no se puede rebasar nunca. La escritura falla en el momento con <code class="docutils literal notranslate"><span class="pre">Disk</span> <span class="pre">quota</span> <span class="pre">exceeded</span></code>, y ese mensaje es la forma que tiene un script de enterarse de que el usuario ha llegado al tope.</p></li>
+<li><p>La <strong>cuota blanda</strong> sí se puede rebasar, pero al hacerlo arranca un <strong>periodo de gracia</strong>, siete días por omisión, que se cambia con <code class="docutils literal notranslate"><span class="pre">edquota</span> <span class="pre">-t</span></code>. Mientras dura, el usuario sigue trabajando; si el plazo se agota sin que baje del límite, la blanda empieza a comportarse como si fuera dura.</p></li>
+</ul>
+<p>Poner el mismo valor en los dos límites, que es lo más fácil, deja al usuario sin espacio de golpe y sin aviso previo. Es más razonable dejarle margen, por ejemplo la mitad: blanda <code class="docutils literal notranslate"><span class="pre">5120</span></code> y dura <code class="docutils literal notranslate"><span class="pre">10240</span></code>.</p>
+<p>Para ver el estado tenemos dos comandos, y los dos marcan los límites rebasados:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#desde la sesion del propio usuario, en unidades legibles</span>
+quota<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>tunombre1
+
+<span class="w">     </span>Filesystem<span class="w">   </span>space<span class="w">   </span>quota<span class="w">   </span>limit<span class="w">   </span>grace<span class="w">   </span>files<span class="w">   </span>quota<span class="w">   </span>limit<span class="w">   </span>grace
+<span class="w">      </span>/dev/sda3<span class="w">   </span>9232K*<span class="w">  </span>5120K<span class="w">  </span>10240K<span class="w">   </span>6days<span class="w">      </span><span class="m">13</span><span class="w">       </span><span class="m">0</span><span class="w">       </span><span class="m">0</span>
+
+<span class="c1">#informe de todo el volumen</span>
+repquota<span class="w"> </span>-u<span class="w"> </span>/home
+
+User<span class="w">            </span>used<span class="w">    </span>soft<span class="w">    </span>hard<span class="w">  </span>grace<span class="w">    </span>used<span class="w">  </span>soft<span class="w">  </span>hard<span class="w">  </span>grace
+----------------------------------------------------------------------
+tunombre1<span class="w"> </span>+-<span class="w">    </span><span class="m">9232</span><span class="w">    </span><span class="m">5120</span><span class="w">   </span><span class="m">10240</span><span class="w">  </span>6days<span class="w">      </span><span class="m">13</span><span class="w">     </span><span class="m">0</span><span class="w">     </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Si preferimos leer los valores en megabytes, <code class="docutils literal notranslate"><span class="pre">-s</span></code> admite que le digamos las unidades, con un carácter para el espacio y otro para los inodos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>repquota<span class="w"> </span>--human-readable<span class="o">=</span>m,k<span class="w"> </span>/home
+
+User<span class="w">            </span>used<span class="w">    </span>soft<span class="w">    </span>hard<span class="w">  </span>grace<span class="w">    </span>used<span class="w">  </span>soft<span class="w">  </span>hard<span class="w">  </span>grace
+----------------------------------------------------------------------
+tunombre1<span class="w"> </span>+-<span class="w">     </span>10M<span class="w">      </span>5M<span class="w">     </span>10M<span class="w">  </span>6days<span class="w">      </span>1k<span class="w">    </span>0k<span class="w">    </span>0k
+</pre></div>
+</div>
+<p>Hay que darle los dos caracteres: con <code class="docutils literal notranslate"><span class="pre">--human-readable=m</span></code> a secas responde <code class="docutils literal notranslate"><span class="pre">Bad</span> <span class="pre">output</span> <span class="pre">format</span> <span class="pre">units</span> <span class="pre">for</span> <span class="pre">human</span> <span class="pre">readable</span> <span class="pre">output:</span> <span class="pre">m</span></code>. Y conviene saber que <strong>redondea hacia arriba</strong>, así que los 9232K del ejemplo anterior salen aquí como <code class="docutils literal notranslate"><span class="pre">10M</span></code> y un usuario que ocupa 9 MB de 10 parece estar lleno. Con cuotas de pocos megabytes es más fiable la salida en KB; con cuotas de cientos de megabytes, la de megabytes se lee mucho mejor.</p>
+<p>El <code class="docutils literal notranslate"><span class="pre">*</span></code> de <code class="docutils literal notranslate"><span class="pre">quota</span></code> y el <code class="docutils literal notranslate"><span class="pre">+</span></code> de la columna de indicadores de <code class="docutils literal notranslate"><span class="pre">repquota</span></code> (el primero es el de bloques y el segundo el de inodos) significan lo mismo: ese límite blando está rebasado y hay un plazo en marcha, el que aparece en la columna <code class="docutils literal notranslate"><span class="pre">grace</span></code>. De estas columnas sale cualquier informe de ocupación que queramos construir después con AWK.</p>
+<p><strong>Dos rarezas cuando esto se automatiza</strong></p>
+<p>La primera: <code class="docutils literal notranslate"><span class="pre">quotaon</span> <span class="pre">-p</span></code> informa <strong>por su salida y no por su código de retorno</strong>. Con las cuotas activas escribe <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">on</span></code> y, aun así, devuelve un código distinto de cero.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>quotaon<span class="w"> </span>-pu<span class="w"> </span>/home
+user<span class="w"> </span>quota<span class="w"> </span>on<span class="w"> </span>/home<span class="w"> </span><span class="o">(</span>/dev/sda3<span class="o">)</span><span class="w"> </span>is<span class="w"> </span>on
+
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$?</span>
+<span class="m">1</span>
+</pre></div>
+</div>
+<p>Hay que mirar por tanto lo que escribe (<code class="docutils literal notranslate"><span class="pre">quotaon</span> <span class="pre">-pu</span> <span class="pre">/home</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-qi</span> <span class="pre">'is</span> <span class="pre">on'</span></code>) y no fiarse del <code class="docutils literal notranslate"><span class="pre">$?</span></code>. En un script con <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-o</span> <span class="pre">pipefail</span></code> el despiste se paga doble, porque el código del primer comando contamina el de toda la tubería y el script concluye que las cuotas están apagadas cuando están funcionando.</p>
+<p>La segunda: <code class="docutils literal notranslate"><span class="pre">quotacheck</span></code> <strong>se niega a trabajar si las cuotas ya están activas</strong>, y avisa con <code class="docutils literal notranslate"><span class="pre">Quota</span> <span class="pre">for</span> <span class="pre">users</span> <span class="pre">is</span> <span class="pre">enabled</span> <span class="pre">on</span> <span class="pre">mountpoint</span> <span class="pre">/home</span> <span class="pre">so</span> <span class="pre">quotacheck</span> <span class="pre">might</span> <span class="pre">damage</span> <span class="pre">the</span> <span class="pre">file</span></code>. Es razonable que lo haga, porque el escaneo solo hace falta la primera vez, para crear <code class="docutils literal notranslate"><span class="pre">aquota.user</span></code> y <code class="docutils literal notranslate"><span class="pre">aquota.group</span></code>. Un script que se ejecute más de una vez tiene que comprobar antes si están activas y saltárselo si lo están.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>

@@ -231,6 +231,73 @@ Las cuotas (quotas) permiten limitar el espacio en disco que un usuario o grupo 
  repquota -vg /home
  repquota -vu -a
 
+**Cuota blanda, cuota dura y periodo de gracia**
+
+``setquota`` no recibe un límite, sino cuatro, y después el punto de montaje:
+
+.. code-block:: bash
+
+ setquota -u usuario <bloques_blanda> <bloques_dura> <inodos_blanda> <inodos_dura> /home
+
+ #5 MB de aviso y 10 MB de tope, sin limitar el numero de ficheros
+ setquota -u tunombre1 5120 10240 0 0 /home
+
+Los bloques son de 1 KiB, un ``0`` significa «sin límite» y las versiones actuales de ``quota-tools`` admiten sufijos, con lo que la orden anterior también se puede escribir ``setquota -u tunombre1 5M 10M 0 0 /home``. Los dos últimos valores limitan el número de ficheros (inodos) en lugar del espacio.
+
+La diferencia entre los dos límites de espacio es lo que hace útil el sistema:
+
+* La **cuota dura** no se puede rebasar nunca. La escritura falla en el momento con ``Disk quota exceeded``, y ese mensaje es la forma que tiene un script de enterarse de que el usuario ha llegado al tope.
+* La **cuota blanda** sí se puede rebasar, pero al hacerlo arranca un **periodo de gracia**, siete días por omisión, que se cambia con ``edquota -t``. Mientras dura, el usuario sigue trabajando; si el plazo se agota sin que baje del límite, la blanda empieza a comportarse como si fuera dura.
+
+Poner el mismo valor en los dos límites, que es lo más fácil, deja al usuario sin espacio de golpe y sin aviso previo. Es más razonable dejarle margen, por ejemplo la mitad: blanda ``5120`` y dura ``10240``.
+
+Para ver el estado tenemos dos comandos, y los dos marcan los límites rebasados:
+
+.. code-block:: bash
+
+ #desde la sesion del propio usuario, en unidades legibles
+ quota -s -u tunombre1
+
+      Filesystem   space   quota   limit   grace   files   quota   limit   grace
+       /dev/sda3   9232K*  5120K  10240K   6days      13       0       0
+
+ #informe de todo el volumen
+ repquota -u /home
+
+ User            used    soft    hard  grace    used  soft  hard  grace
+ ----------------------------------------------------------------------
+ tunombre1 +-    9232    5120   10240  6days      13     0     0
+
+Si preferimos leer los valores en megabytes, ``-s`` admite que le digamos las unidades, con un carácter para el espacio y otro para los inodos:
+
+.. code-block:: bash
+
+ repquota --human-readable=m,k /home
+
+ User            used    soft    hard  grace    used  soft  hard  grace
+ ----------------------------------------------------------------------
+ tunombre1 +-     10M      5M     10M  6days      1k    0k    0k
+
+Hay que darle los dos caracteres: con ``--human-readable=m`` a secas responde ``Bad output format units for human readable output: m``. Y conviene saber que **redondea hacia arriba**, así que los 9232K del ejemplo anterior salen aquí como ``10M`` y un usuario que ocupa 9 MB de 10 parece estar lleno. Con cuotas de pocos megabytes es más fiable la salida en KB; con cuotas de cientos de megabytes, la de megabytes se lee mucho mejor.
+
+El ``*`` de ``quota`` y el ``+`` de la columna de indicadores de ``repquota`` (el primero es el de bloques y el segundo el de inodos) significan lo mismo: ese límite blando está rebasado y hay un plazo en marcha, el que aparece en la columna ``grace``. De estas columnas sale cualquier informe de ocupación que queramos construir después con AWK.
+
+**Dos rarezas cuando esto se automatiza**
+
+La primera: ``quotaon -p`` informa **por su salida y no por su código de retorno**. Con las cuotas activas escribe ``is on`` y, aun así, devuelve un código distinto de cero.
+
+.. code-block:: bash
+
+ quotaon -pu /home
+ user quota on /home (/dev/sda3) is on
+
+ echo $?
+ 1
+
+Hay que mirar por tanto lo que escribe (``quotaon -pu /home | grep -qi 'is on'``) y no fiarse del ``$?``. En un script con ``set -o pipefail`` el despiste se paga doble, porque el código del primer comando contamina el de toda la tubería y el script concluye que las cuotas están apagadas cuando están funcionando.
+
+La segunda: ``quotacheck`` **se niega a trabajar si las cuotas ya están activas**, y avisa con ``Quota for users is enabled on mountpoint /home so quotacheck might damage the file``. Es razonable que lo haga, porque el escaneo solo hace falta la primera vez, para crear ``aquota.user`` y ``aquota.group``. Un script que se ejecute más de una vez tiene que comprobar antes si están activas y saltárselo si lo están.
+
 .. toctree::
    :hidden:
 

@@ -1105,7 +1105,56 @@ quotaFS:<span class="w"> </span>/scratch
 </pre></div>
 </div>
 <p>El <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">one</span></code> limita la búsqueda a los hijos directos de la unidad organizativa, para que no nos aparezca la propia <code class="docutils literal notranslate"><span class="pre">ou=usuarios</span></code>, que también tiene ahora un <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code>. Los ámbitos de búsqueda de <code class="docutils literal notranslate"><span class="pre">ldapsearch</span></code> son <code class="docutils literal notranslate"><span class="pre">base</span></code> (solo la entrada indicada), <code class="docutils literal notranslate"><span class="pre">one</span></code> (sus hijos directos) y <code class="docutils literal notranslate"><span class="pre">sub</span></code> (todo el subárbol, el valor por omisión).</p>
-<p>Para cambiar la cuota de un usuario usaríamos <code class="docutils literal notranslate"><span class="pre">replace</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">add</span></code>, igual que hicimos antes con <code class="docutils literal notranslate"><span class="pre">uidNumber</span></code>.</p>
+<p>Para <strong>cambiar</strong> la cuota de un usuario usaríamos <code class="docutils literal notranslate"><span class="pre">replace</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">add</span></code>, igual que hicimos antes con <code class="docutils literal notranslate"><span class="pre">uidNumber</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>cambia_quota.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+replace:<span class="w"> </span>quotaMB
+quotaMB:<span class="w"> </span><span class="m">4096</span>
+</pre></div>
+</div>
+<p>Y aquí aparece un detalle que da guerra en cuanto queremos hacer esto desde un script: <strong>si la entrada ya tiene la clase quotaUser, volver a añadirla es un error</strong>, y el <code class="docutils literal notranslate"><span class="pre">ldapmodify</span></code> entero se rechaza.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldap_modify:<span class="w"> </span>Type<span class="w"> </span>or<span class="w"> </span>value<span class="w"> </span>exists<span class="w"> </span><span class="o">(</span><span class="m">20</span><span class="o">)</span>
+<span class="w">        </span>additional<span class="w"> </span>info:<span class="w"> </span>modify/add:<span class="w"> </span>objectClass:<span class="w"> </span>value<span class="w"> </span><span class="c1">#0 already exists</span>
+</pre></div>
+</div>
+<p>Es decir, el LDIF de antes (<code class="docutils literal notranslate"><span class="pre">add:</span> <span class="pre">objectClass</span></code> más <code class="docutils literal notranslate"><span class="pre">add:</span> <span class="pre">quotaMB</span></code>) sirve <strong>una sola vez</strong>. Un script que tenga que dejar la cuota en un valor determinado, sin saber cómo está la entrada, tiene que mirar primero si la clase está puesta y actuar en consecuencia:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ¿tiene ya la clase auxiliar?</span>
+ldapsearch<span class="w"> </span>-xLLL<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;ou=usuarios,dc=ldap,dc=tunombre,dc=local&quot;</span><span class="w"> </span>-s<span class="w"> </span>one<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;(&amp;(uid=tunombre1)(objectClass=quotaUser))&quot;</span><span class="w"> </span>dn
+
+<span class="c1"># si la tiene:     changetype: modify + replace: quotaMB</span>
+<span class="c1"># si no la tiene:  changetype: modify + add: objectClass y add: quotaMB</span>
+</pre></div>
+</div>
+<p>Cuando hay que añadir la clase y el atributo, <strong>las dos operaciones van en el mismo</strong> <code class="docutils literal notranslate"><span class="pre">ldapmodify</span></code>, separadas por la línea con un guion, y no en dos pasos: como <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> es <code class="docutils literal notranslate"><span class="pre">MUST</span></code> de <code class="docutils literal notranslate"><span class="pre">quotaUser</span></code>, una entrada que tuviera la clase sin el atributo no sería válida y el servidor rechazaría el primer paso. Las operaciones de un mismo <code class="docutils literal notranslate"><span class="pre">ldapmodify</span></code> se aplican todas o ninguna, así que la entrada nunca se queda a medias.</p>
+<p>Por la misma razón, para <strong>quitarle</strong> la cuota a un usuario hay que borrar el atributo y la clase a la vez:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>quita_quota.ldif
+
+dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+changetype:<span class="w"> </span>modify
+delete:<span class="w"> </span>quotaMB
+-
+delete:<span class="w"> </span>objectClass
+objectClass:<span class="w"> </span>quotaUser
+</pre></div>
+</div>
+<p>Y para <strong>crear un usuario que ya nazca con su cuota</strong> no hace falta el paso de modificación: la clase va entre las demás y el atributo con el resto, en el mismo <code class="docutils literal notranslate"><span class="pre">ldapadd</span></code> con el que creamos la entrada:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dn:<span class="w"> </span><span class="nv">uid</span><span class="o">=</span>tunombre1,ou<span class="o">=</span>usuarios,dc<span class="o">=</span>ldap,dc<span class="o">=</span>tunombre,dc<span class="o">=</span><span class="nb">local</span>
+objectClass:<span class="w"> </span>inetOrgPerson
+objectClass:<span class="w"> </span>posixAccount
+objectClass:<span class="w"> </span>shadowAccount
+objectClass:<span class="w"> </span>quotaUser
+uid:<span class="w"> </span>tunombre1
+uidNumber:<span class="w"> </span><span class="m">1011</span>
+gidNumber:<span class="w"> </span><span class="m">501</span>
+homeDirectory:<span class="w"> </span>/home/tunombre1
+...
+quotaMB:<span class="w"> </span><span class="m">2048</span>
+</pre></div>
+</div>
+<p>Una observación sobre el nombre: al atributo lo llamamos <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> y no <code class="docutils literal notranslate"><span class="pre">quota</span></code> para que la unidad quede en el propio nombre. No es un capricho: <code class="docutils literal notranslate"><span class="pre">setquota</span></code> trabaja en bloques de 1 KiB, así que la conversión aparece siempre en los scripts y conviene no tener ninguna duda sobre en qué unidad está guardado el valor. Además, <code class="docutils literal notranslate"><span class="pre">quota</span></code> es un nombre que utilizan ya otros esquemas de OpenLDAP, y slapd rechaza un esquema que repita el nombre de un atributo que exista.</p>
 <p><strong>Aplicar la cuota en los clientes</strong></p>
 <p>El directorio solo guarda el dato: el atributo <code class="docutils literal notranslate"><span class="pre">quotaMB</span></code> no limita nada por sí mismo. Quien tiene que aplicarlo es el servidor de ficheros, con el sistema de cuotas del sistema de archivos (paquete <code class="docutils literal notranslate"><span class="pre">quota</span></code>, opción <code class="docutils literal notranslate"><span class="pre">usrquota</span></code> en <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> y comando <code class="docutils literal notranslate"><span class="pre">setquota</span></code>). Si, como en el montaje que hemos hecho con NFS y autofs, los <code class="docutils literal notranslate"><span class="pre">/home</span></code> están exportados desde un servidor, la cuota hay que aplicarla <strong>en ese servidor</strong>, que es donde reside el sistema de ficheros de verdad; en los clientes solo se ve el resultado. Un pequeño script puede leer el directorio y aplicar la cuota de cada usuario:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -1129,6 +1178,22 @@ awk<span class="w"> </span>-v<span class="w"> </span><span class="nv">defecto</s
 </pre></div>
 </div>
 <p>Este es exactamente el mismo enfoque que usan servicios como el correo o Samba: guardan en LDAP los atributos que necesitan (<code class="docutils literal notranslate"><span class="pre">mailQuota</span></code>, <code class="docutils literal notranslate"><span class="pre">sambaSID</span></code>...) mediante esquemas propios y luego cada servicio los lee y los aplica.</p>
+<p>Del sistema de cuotas en sí ya hablamos al gestionar los usuarios: la opción <code class="docutils literal notranslate"><span class="pre">usrquota</span></code> en <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>, <code class="docutils literal notranslate"><span class="pre">quotacheck</span></code>, <code class="docutils literal notranslate"><span class="pre">quotaon</span></code>, los dos límites de <code class="docutils literal notranslate"><span class="pre">setquota</span></code> y los informes de <code class="docutils literal notranslate"><span class="pre">repquota</span></code>. Aquí solo queda por atar un cabo que es propio de tener los usuarios en el directorio.</p>
+<p><strong>Antes de que setquota funcione: los nombres</strong></p>
+<p>El script de arriba llama a <code class="docutils literal notranslate"><span class="pre">setquota</span> <span class="pre">-u</span> <span class="pre">&quot;$usuario&quot;</span></code> con el <strong>nombre</strong> del usuario, y eso solo funciona si la máquina donde se ejecuta resuelve los usuarios del directorio; es decir, si además de servidor es <strong>cliente LDAP de sí misma</strong>, con la configuración de <code class="docutils literal notranslate"><span class="pre">nsswitch</span></code> y <code class="docutils literal notranslate"><span class="pre">nslcd</span></code> que vimos antes. Y como el sistema de ficheros de los <code class="docutils literal notranslate"><span class="pre">/home</span></code> está en el servidor, es justo ahí donde hace falta el cliente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>libnss-ldapd<span class="w"> </span>libpam-ldapd<span class="w">     </span><span class="c1"># URI del servidor: ldap://127.0.0.1/</span>
+<span class="w">                                          </span><span class="c1"># base: dc=ldap,dc=tunombre,dc=local</span>
+<span class="w">                                          </span><span class="c1"># marcar passwd, group y shadow</span>
+
+getent<span class="w"> </span>passwd<span class="w"> </span>tunombre1<span class="w">    </span><span class="c1"># tiene que aparecer la entrada del LDAP</span>
+</pre></div>
+</div>
+<p>Si <code class="docutils literal notranslate"><span class="pre">getent</span></code> no lo devuelve, <code class="docutils literal notranslate"><span class="pre">setquota</span></code> contesta <code class="docutils literal notranslate"><span class="pre">setquota:</span> <span class="pre">user</span> <span class="pre">tunombre1</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">exist</span></code> y <code class="docutils literal notranslate"><span class="pre">repquota</span></code> muestra números de UID (<code class="docutils literal notranslate"><span class="pre">#10001</span></code>) en lugar de nombres, porque el sistema de cuotas trabaja internamente con el UID y solo traduce a nombre si alguien sabe hacerlo.</p>
+<p>Cuidado también con la caché. Si en la máquina corre <code class="docutils literal notranslate"><span class="pre">nscd</span></code>, guarda <code class="docutils literal notranslate"><span class="pre">passwd</span></code> y <code class="docutils literal notranslate"><span class="pre">group</span></code>, de modo que un usuario recién creado tarda en aparecer y uno recién borrado sigue apareciendo un rato. Después de tocar el directorio conviene invalidarla:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nscd<span class="w"> </span>-i<span class="w"> </span>passwd
+nscd<span class="w"> </span>-i<span class="w"> </span>group
+</pre></div>
+</div>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="v1" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
