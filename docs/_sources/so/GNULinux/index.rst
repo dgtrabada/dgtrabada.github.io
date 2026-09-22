@@ -21,5 +21,6 @@ GNU/Linux
    13_ldap.rst
    12_ansible.rst
    14_rockylinux.rst
+   14_kubernetes.rst
    15_shell_scripting.rst
    15_ejercicios_shell_scripting.rst

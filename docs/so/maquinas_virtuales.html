@@ -240,6 +240,7 @@
 <li class="toctree-l3"><a class="reference internal" href="GNULinux/13_ldap.html">LDAP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="GNULinux/12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GNULinux/14_kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
@@ -538,12 +539,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml">docker-compose.yml</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">Kubernetes</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partes-principales">Partes Principales</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento-basico">Funcionamiento Básico</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04">Caso práctico: Instalar kubernetes en Ubuntu 24.04</a></li>
 </ul>
 </li>
 </ul>
@@ -1052,99 +1047,6 @@ docker<span class="w"> </span>stop<span class="w">  </span>compute-0-2
 </pre></div>
 </div>
 </section>
-<section id="kubernetes">
-<h3>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading">#</a></h3>
-<p>También conocido como <strong>K8s</strong> es un sistema open-source para la automatización del despliegue, escalado y gestión de aplicaciones en contenedores.</p>
-<p>Fue desarrollado originalmente por Google y ahora es mantenido por la Cloud Native Computing Foundation (CNCF).</p>
-<section id="partes-principales">
-<h4>Partes Principales<a class="headerlink" href="#partes-principales" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><strong>Nodo (Node)</strong>:</p>
-<ul>
-<li><p><strong>Nodos Maestro (Master Nodes)</strong>: Administran el clúster y toman decisiones sobre la gestión del clúster.</p></li>
-<li><p><strong>Nodos de Trabajo (Worker Nodes)</strong>: Ejecutan las aplicaciones en contenedores.</p></li>
-</ul>
-</li>
-<li><p><strong>Pod</strong>:
-- La unidad de despliegue más pequeña en Kubernetes, que puede contener uno o varios contenedores.</p></li>
-<li><p><strong>Controlador (Controller)</strong>: Mantienen el estado deseado del clúster. Tipos de controladores incluyen:</p>
-<ul>
-<li><p><strong>Deployment</strong>: Administra la creación y escalado de un conjunto de pods.</p></li>
-<li><p><strong>ReplicaSet</strong>: Asegura que un número específico de pods estén corriendo.</p></li>
-<li><p><strong>StatefulSet</strong>: Administra la persistencia y el orden de los pods.</p></li>
-<li><p><strong>DaemonSet</strong>: Asegura que todos (o algunos) nodos ejecuten una copia de un pod.</p></li>
-</ul>
-</li>
-<li><p><strong>Servicio (Service)</strong>: Define un conjunto lógico de pods y una política para acceder a ellos. Tipos de servicios incluyen:</p>
-<ul>
-<li><p><strong>ClusterIP</strong>: Expone el servicio en una IP interna del clúster.</p></li>
-<li><p><strong>NodePort</strong>: Expone el servicio en el mismo puerto en cada nodo del clúster.</p></li>
-<li><p><strong>LoadBalancer</strong>: Utiliza un balanceador de carga externo.</p></li>
-</ul>
-</li>
-<li><p><strong>ConfigMap y Secret</strong>:</p>
-<ul>
-<li><p><strong>ConfigMap</strong>: Separa la configuración estática del código de la aplicación.</p></li>
-<li><p><strong>Secret</strong>: Almacena y gestiona información sensible.</p></li>
-</ul>
-</li>
-<li><p><strong>Volumen (Volume)</strong>: Permiten el almacenamiento persistente de datos en los contenedores.</p></li>
-<li><p><strong>Ingress</strong>: Gestiona el acceso externo a los servicios en un clúster, típicamente mediante HTTP.</p></li>
-<li><p><strong>Namespace</strong>: Divide un clúster de Kubernetes en secciones virtuales para separar ambientes como desarrollo, testing y producción.</p></li>
-</ul>
-</section>
-<section id="funcionamiento-basico">
-<h4>Funcionamiento Básico<a class="headerlink" href="#funcionamiento-basico" title="Link to this heading">#</a></h4>
-<ol class="arabic simple">
-<li><p><strong>Planificación</strong>: El planificador asigna pods a los nodos de trabajo basándose en la disponibilidad de recursos.</p></li>
-<li><p><strong>Orquestación y Gestión</strong>: Kubernetes garantiza que la aplicación esté en el estado deseado y reprograma pods en caso de fallos.</p></li>
-<li><p><strong>Escalado</strong>: Kubernetes puede escalar automáticamente la cantidad de instancias de una aplicación.</p></li>
-<li><p><strong>Mantenimiento y Actualización</strong>: Kubernetes permite actualizaciones sin tiempo de inactividad mediante controladores como Deployment que gestionan actualizaciones de manera gradual.</p></li>
-</ol>
-</section>
-</section>
-<section id="caso-practico-instalar-kubernetes-en-ubuntu-24-04">
-<h3>Caso práctico: Instalar kubernetes en Ubuntu 24.04<a class="headerlink" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04" title="Link to this heading">#</a></h3>
-<p>El <strong>kubelet</strong> (el agente de Kubernetes que corre en cada nodo del clúster) requiere que la <strong>swap esté desactivada</strong>: Kubernetes lo asume para garantizar un rendimiento consistente y predecible de las aplicaciones. Si la swap está habilitada, el sistema puede empezar a mover partes de la memoria de trabajo de los contenedores al disco, degradando el rendimiento y la estabilidad.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#actualizamos</span>
-sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
-
-<span class="c1">#Desactivamos la swap</span>
-sudo<span class="w"> </span>swapoff<span class="w"> </span>-a
-<span class="c1">#y comentamos su linea en /etc/fstab para que no se active al reiniciar</span>
-
-<span class="c1">#Configurar el enrutamiento IP</span>
-sudo<span class="w"> </span>modprobe<span class="w"> </span>br_netfilter
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-
-<span class="c1">#Instalar dependencias necesarias</span>
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apt-transport-https<span class="w"> </span>ca-certificates<span class="w"> </span>curl<span class="w"> </span>gpg
-
-<span class="c1">#Instalar docker</span>
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker.io
-sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker<span class="w"> </span><span class="c1">#habilitamos</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker<span class="w"> </span><span class="c1">#iniciamos</span>
-
-<span class="c1">#Añadir la clave GPG del repositorio de Kubernetes</span>
-<span class="c1">#(cambia v1.33 por la rama estable que quieras instalar, hay un repositorio por versión)</span>
-curl<span class="w"> </span>-fsSL<span class="w"> </span>https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/kubernetes-apt-keyring.gpg
-
-<span class="c1">#Añadir el repositorio de Kubernetes</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/kubernetes.list
-
-<span class="c1">#Actualizar el repositorio e instalar kubeadm, kubelet y kubectl</span>
-sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>kubelet<span class="w"> </span>kubeadm<span class="w"> </span>kubectl
-
-<span class="c1">#los marcamos para que apt no los actualice por su cuenta</span>
-<span class="c1">#(las actualizaciones de un cluster se hacen de forma controlada con kubeadm)</span>
-sudo<span class="w"> </span>apt-mark<span class="w"> </span>hold<span class="w"> </span>kubelet<span class="w"> </span>kubeadm<span class="w"> </span>kubectl
-</pre></div>
-</div>
-</section>
 </section>
 </section>
 
@@ -1209,12 +1111,6 @@ sudo<span class="w"> </span>apt-mark<span class="w"> </span>hold<span class="w">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-servidor-de-ssh-ip-y-ping">Caso práctico: Instalar servidor de ssh, ip y ping</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-contenedores-en-una-misma-subred">Caso práctico: Contenedores en una misma subred</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docker-compose-yml">docker-compose.yml</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kubernetes">Kubernetes</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partes-principales">Partes Principales</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#funcionamiento-basico">Funcionamiento Básico</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalar-kubernetes-en-ubuntu-24-04">Caso práctico: Instalar kubernetes en Ubuntu 24.04</a></li>
 </ul>
 </li>
 </ul>
