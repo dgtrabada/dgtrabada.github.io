@@ -242,6 +242,7 @@
 <li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
 <li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Ejercicios de shell scripting</a></li>
 </ul>
@@ -250,9 +251,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
@@ -330,10 +338,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Tipos de redes 802.11</a></li>
-
-
-
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
@@ -529,7 +534,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-ip-sh">lastlog_ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">tabla_multiplicar_read.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-sh">meteo.sh</a></li>
@@ -639,7 +644,8 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 <section id="lastlog-ip-sh">
 <h2>lastlog_ip.sh<a class="headerlink" href="#lastlog-ip-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">lastlog_ip.sh</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog_ip.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada ip, por ejemplo</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">lastlog_ip.sh</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog_ip.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada ip.</p>
+<p>Si tu máquina tiene pocas conexiones descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log">last_w.log</a>, que contiene la salida de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code> de una máquina con muchas conexiones, y utiliza <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">last_w.log</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code>, tiene que quedar</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">16</span><span class="w"> </span><span class="m">10</span>.2.104.100
 <span class="m">11</span><span class="w"> </span><span class="m">10</span>.2.3.100
 <span class="m">10</span><span class="w"> </span><span class="m">139</span>.47.103.76
@@ -647,6 +653,18 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 <span class="m">8</span><span class="w"> </span><span class="m">2</span>.153.195.106
 <span class="m">8</span><span class="w"> </span><span class="m">10</span>.2.4.100
 <span class="m">8</span><span class="w"> </span><span class="m">10</span>.2.105.106
+<span class="m">7</span><span class="w"> </span><span class="m">10</span>.2.104.101
+<span class="m">6</span><span class="w"> </span><span class="m">10</span>.2.3.101
+<span class="m">5</span><span class="w"> </span><span class="m">150</span>.244.65.12
+<span class="m">5</span><span class="w"> </span><span class="m">10</span>.2.106.100
+<span class="m">4</span><span class="w"> </span><span class="m">88</span>.27.14.203
+<span class="m">4</span><span class="w"> </span><span class="m">10</span>.2.4.101
+<span class="m">3</span><span class="w"> </span><span class="m">79</span>.145.22.87
+<span class="m">3</span><span class="w"> </span><span class="m">10</span>.2.106.101
+<span class="m">2</span><span class="w"> </span><span class="m">62</span>.83.190.44
+<span class="m">2</span><span class="w"> </span><span class="m">10</span>.2.105.101
+<span class="m">1</span><span class="w"> </span><span class="m">83</span>.45.201.19
+<span class="m">1</span><span class="w"> </span><span class="m">10</span>.2.107.100
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -664,13 +682,21 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 <section id="lastlog-sh">
 <h2>lastlog.sh<a class="headerlink" href="#lastlog-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">lastlog.sh</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen, por ejemplo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">44</span><span class="w"> </span>alumno1<span class="w"> </span>smr1
-<span class="m">32</span><span class="w"> </span>alumno2<span class="w"> </span>smr1
-<span class="m">14</span><span class="w"> </span>alumno3<span class="w"> </span>asir1
-<span class="m">4</span><span class="w"> </span>alumno4<span class="w"> </span>asir2
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">lastlog.sh</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen.</p>
+<p>Si tu máquina tiene pocas conexiones descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log">last_w.log</a>, que contiene la salida de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code> de una máquina con muchas conexiones, y utiliza <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">last_w.log</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code>, tiene que quedar</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">24</span><span class="w"> </span>alumno1<span class="w"> </span>smr1
+<span class="m">20</span><span class="w"> </span>alumno2<span class="w"> </span>smr1
+<span class="m">18</span><span class="w"> </span>alumno3<span class="w"> </span>smr1
+<span class="m">14</span><span class="w"> </span>alumno4<span class="w"> </span>asir1
+<span class="m">11</span><span class="w"> </span>alumno5<span class="w"> </span>asir1
+<span class="m">9</span><span class="w"> </span>alumno6<span class="w"> </span>asir1
+<span class="m">7</span><span class="w"> </span>alumno7<span class="w"> </span>asir2
+<span class="m">5</span><span class="w"> </span>alumno8<span class="w"> </span>asir2
+<span class="m">3</span><span class="w"> </span>profesor<span class="w"> </span>profesor
+<span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root
 </pre></div>
 </div>
+<p>Los usuarios <code class="docutils literal notranslate"><span class="pre">alumno1</span></code> ... <code class="docutils literal notranslate"><span class="pre">alumno8</span></code> tienen que existir en tu máquina, si no <code class="docutils literal notranslate"><span class="pre">groups</span></code> no podrá decir a qué grupo pertenecen</p>
 </div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span>reboot<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w">  </span>wtmp<span class="k">)</span>
@@ -701,8 +727,8 @@ alumno4<span class="w"> </span>:<span class="w"> </span>asir2
 </div>
 </div></div>
 </section>
-<section id="id1">
-<h2>tabla_multiplicar_read.sh<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h2>tabla_multiplicar_read.sh<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-7-7-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-2" name="7-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntará por el número al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
 <ul class="simple">
@@ -3620,7 +3646,7 @@ rm<span class="w"> </span>-fr<span class="w"> </span>usuarios.ldif
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-ip-sh">lastlog_ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">tabla_multiplicar_read.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-sh">meteo.sh</a></li>

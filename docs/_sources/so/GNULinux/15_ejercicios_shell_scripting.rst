@@ -74,7 +74,9 @@ lastlog_ip.sh
 
     .. tab:: lastlog_ip.sh
 
-        Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada ip, por ejemplo
+        Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada ip.
+
+        Si tu máquina tiene pocas conexiones descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que contiene la salida de ``last -w`` de una máquina con muchas conexiones, y utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
 
         .. code-block:: bash
           
@@ -85,6 +87,18 @@ lastlog_ip.sh
            8 2.153.195.106
            8 10.2.4.100
            8 10.2.105.106
+           7 10.2.104.101
+           6 10.2.3.101
+           5 150.244.65.12
+           5 10.2.106.100
+           4 88.27.14.203
+           4 10.2.4.101
+           3 79.145.22.87
+           3 10.2.106.101
+           2 62.83.190.44
+           2 10.2.105.101
+           1 83.45.201.19
+           1 10.2.107.100
 
 
     .. tab:: Solución
@@ -99,14 +113,24 @@ lastlog.sh
 
     .. tab:: lastlog.sh
 
-        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen, por ejemplo
+        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen.
+
+        Si tu máquina tiene pocas conexiones descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que contiene la salida de ``last -w`` de una máquina con muchas conexiones, y utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
 
         .. code-block:: bash
           
-           44 alumno1 smr1
-           32 alumno2 smr1
-           14 alumno3 asir1
-           4 alumno4 asir2
+           24 alumno1 smr1
+           20 alumno2 smr1
+           18 alumno3 smr1
+           14 alumno4 asir1
+           11 alumno5 asir1
+           9 alumno6 asir1
+           7 alumno7 asir2
+           5 alumno8 asir2
+           3 profesor profesor
+           2 root root
+
+        Los usuarios ``alumno1`` ... ``alumno8`` tienen que existir en tu máquina, si no ``groups`` no podrá decir a qué grupo pertenecen
 
 
     .. tab:: Solución
