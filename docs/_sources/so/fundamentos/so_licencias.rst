@@ -22,7 +22,7 @@ Tipos software y licencias
 
  You should have received a copy of the GNU General Public License
  along with this program. 
- If not, see <http://www.gnu.org/licenses/>;.
+ If not, see <http://www.gnu.org/licenses/>.
 
  */
 
@@ -31,7 +31,7 @@ Tipos software y licencias
  int main() {
    int c,d,n=100;
    bool es_primo=false;
-   c=0;
+   c=1;
    while (c < n) {
      c++;
      es_primo=true;
@@ -65,7 +65,7 @@ Tipos software y licencias
    
    ./a.out
    
-`Registro Territorial de la Propiedad Intelectual <https://www.comunidad.madrid/gobierno/informacion-juridica-legislacion/registro-territorial-propiedad-intelectual>`_
+Para dejar constancia de la autoría de un programa se puede inscribir en el `Registro Territorial de la Propiedad Intelectual <https://www.comunidad.madrid/gobierno/informacion-juridica-legislacion/registro-territorial-propiedad-intelectual>`_, aunque no es obligatorio: los derechos de autor existen desde el momento en que se crea la obra.
 
 
 Tipos de software
@@ -75,7 +75,7 @@ Tipos de software
 
 * **Software de programación:** Es el conjunto de herramientas que permiten al programador desarrollar programas de informática, usando diferentes alternativas y lenguajes de programación, de una manera práctica. Incluyen en forma básica: Editores de texto, Compiladores,  Intérpretes, Depuradores, Entornos de desarrollo integrados (IDE): Agrupan las anteriores herramientas, usualmente en un entorno visual, de forma tal que el programador no necesite introducir múltiples comandos para compilar, interpretar, depurar, etc. Habitualmente cuentan con una avanzada interfaz gráfica de usuario (GUI).
  
-* **Software de aplicación:** Es aquel que permite a los usuarios llevar a cabo una o varias tareas específicas, en cualquier campo de actividad susceptible de ser automatizado o asistido, con especial énfasis en los negocios. Incluye entre muchos otros: Aplicaciones para Control de sistemas y automatización industrial, Aplicaciones ofimáticas,  Software educativo, Software empresarial, Bases de datos, Videojuegos Software médico, etc
+* **Software de aplicación:** Es aquel que permite a los usuarios llevar a cabo una o varias tareas específicas, en cualquier campo de actividad susceptible de ser automatizado o asistido, con especial énfasis en los negocios. Incluye entre muchos otros: Aplicaciones para Control de sistemas y automatización industrial, Aplicaciones ofimáticas,  Software educativo, Software empresarial, Bases de datos, Videojuegos, Software médico, etc
 
 
 
@@ -102,9 +102,19 @@ Mientras que las licencias más permisivas con los usuarios, presentan leyendas 
 
 *Derechos de Copia © Nombre del Autor y/o Nombre de la Editorial. Se permite la copia en cualquier formato siempre y cuando no se alteren los contenidos y se haga reconocimiento de los autores/editorial.*
 
-Por lo tanto, una Licencia de Uso debe indicar como mínimo, la voluntad del autor en los siguientes aspectos:
-
 La licencia no pone en consideración el reconocimiento de la autoría de la obra, porque como lo establece el Derecho Moral en el Derecho de Autor, esto no es negociable. Siempre que se conozca la autoría de una obra se debe indicar.
+
+Software gratuito no es lo mismo que software libre
+===================================================
+
+Que un programa se pueda descargar sin pagar no significa que sea libre. Según su forma de distribución encontramos:
+
+* **Freeware**: se puede usar gratis, pero no se tiene acceso al código fuente ni se permite modificarlo; el autor conserva todos los derechos. Por ejemplo, Google Chrome o Adobe Acrobat Reader.
+* **Shareware**: se puede probar gratis durante un tiempo o con funciones limitadas, y después hay que pagar para seguir usándolo. Por ejemplo, WinRAR.
+* **Demo o versión de prueba (trial)**: versión limitada, en tiempo o en funciones, de un programa comercial, para evaluarlo antes de comprarlo.
+* **Dominio público**: el programa no tiene derechos de autor patrimoniales, bien porque han caducado o porque el autor ha renunciado a ellos, y se puede usar, modificar y distribuir sin ninguna condición.
+
+El freeware, el shareware y las demos son **software privativo**: gratis o no, el usuario no tiene las libertades del software libre.
 
 Software privativo
 ==================
@@ -116,7 +126,7 @@ El software privativo es cualquier software que no es libre. Está prohibido su 
 Licencia Retail
 ---------------
 
-Windows Retail es la licencia “de toda la vida” que podemos adquirir en la propia página de microsoft.com. Esta licencia **va ligada a una cuenta de Microsoft**, de manera que podremos activar cualquier equipo tan solo iniciando sesión, pero esto no quiere decir que podamos activar todos los equipos con una sola licencia, tendremos que desactivar primero un ordenador antes de activarlo en el siguiente, la ventaja es que podremos hacer cambio en el hardware sin tener que comprar otra licencia.
+Windows Retail es la licencia “de toda la vida” que podemos adquirir en la propia página de microsoft.com o en una tienda. Lo que la caracteriza es que **se puede trasladar de un equipo a otro**, aunque solo puede estar activada en un equipo a la vez: tendremos que desactivarla primero en un ordenador antes de activarla en el siguiente. También podremos hacer cambios en el hardware sin tener que comprar otra licencia. Desde Windows 10 la licencia se puede **vincular a una cuenta de Microsoft**, lo que facilita reactivarla al cambiar de equipo iniciando sesión.
 En las licencias de tipo retail, normalmente podemos elegir entre una licencia completa, o una licencia de actualización, que permite actualizar un sistema anterior al nuevo, por un coste algo más reducido.
 
 .. code-block:: shell
@@ -130,7 +140,7 @@ Licencia VOLUMEN (VLM)
 ----------------------
 
 Las licencias  VOLUMEN, enfocadas a empresas, son las más completas. En este caso, el precio por licencia suele tener descuento y la ventaja está en que se puede utilizar en varios ordenadores en los que, por cierto, se pueden también hacer cambios de hardware. A los usuarios normales no les aporta ventaja de ningún tipo,  son como las RETAIL para empresas.
-Los Cracks para activar la licencias de windows piratas utilizan estas licencias, Windows pregunta a un servidor KMS, significa Key Management Service, y es un servicio de publicación automática de licencias de Microsoft, capaz de servir licencias para sistemas operativos. El Crack emula el servidor y dice que la licencia que se ha introducido es valida, de esta forma windows queda activado. A partir de W8 los Cracks son más complicados ya que verifica que el KMS no tenga la misma IP. Esta práctica además de ser ilegal crea un fallo en la seguridad del equipo.
+Los Cracks para activar la licencias de windows piratas utilizan estas licencias, Windows pregunta a un servidor KMS, significa Key Management Service, y es un servicio de publicación automática de licencias de Microsoft, capaz de servir licencias para sistemas operativos. El Crack emula el servidor y dice que la licencia que se ha introducido es válida, de esta forma Windows queda activado. Las activaciones por KMS caducan y el equipo tiene que renovarlas periódicamente (cada 180 días), por eso estos Cracks dejan instalado un programa que se ejecuta en segundo plano. Esta práctica además de ser ilegal crea un fallo en la seguridad del equipo: se está ejecutando con privilegios de administrador un programa de origen desconocido.
 
 MSDN y licencias de educación
 -----------------------------
@@ -143,7 +153,9 @@ Licencia OEM
 Las siglas OEM hacen referencia a Original Equipment Manufacturer, que en castellano se podría traducir como fabricante de equipamiento original.
 
 Esta licencia va ligada a la placa base, de modo que solo podremos usar la licencia en un único equipo, pero con la ventaja de un reducido coste. Podemos cambiar otros componentes hardware (RAM, tarjeta gráfica) sin que afecte a la licencia.
-Estas claves actualmente pueden comprarse de forma muy barata (~20€) en comparación con las retail (~250€). Los fabricantes de equipos (OEM) como HP, Dell, etc. compran muchas de estas licencias directamente a Microsoft para venderlas preinstaladas en sus ordenadores.
+Los fabricantes de equipos (OEM) como HP, Dell, etc. compran muchas de estas licencias directamente a Microsoft para venderlas preinstaladas en sus ordenadores, por eso su coste es mucho menor que el de una retail (~250€).
+
+En Internet se venden claves de Windows muy baratas (~20€), pero no las vende Microsoft sino tiendas de terceros que las revenden, y muchas son claves OEM sacadas de equipos desechados o claves de volumen de empresas, de origen dudoso. Pueden dejar de funcionar en cualquier momento si Microsoft las bloquea.
 
 .. image:: imagenes/OEM.png
 
@@ -153,52 +165,77 @@ Software libre
 
 `What is Open Source explained in LEGO <https://www.youtube.com/watch?v=a8fHgx9mE5U>`_
 
+El software libre es el que respeta la libertad de los usuarios. El concepto lo definió Richard Stallman, que en 1985 creó la **Free Software Foundation (FSF)**, con las cuatro libertades del software libre:
+
 #. La libertad de **usar** el programa, con cualquier propósito (Uso).
 #. La libertad de **estudiar** cómo funciona el programa y modificarlo, adaptándolo a las propias necesidades (Estudio).
 #. La libertad de **distribuir** copias del programa, con lo cual se puede ayudar a otros usuarios (Distribución).
 #. La libertad de **mejorar** el programa y hacer públicas esas mejoras a los demás, de modo que toda la comunidad se beneficie (Mejora).
 
+Las libertades de estudiar y de mejorar el programa exigen tener acceso al **código fuente**.
+
+Libre no significa gratis: en inglés *free* significa tanto "libre" como "gratis", y la FSF lo aclara con la frase *"free as in freedom, not as in free beer"*. Se puede cobrar por distribuir software libre, por ejemplo vendiendo una copia de una distribución de GNU/Linux o el servicio de instalarla y mantenerla.
+
+En 1998 surge el movimiento **open source** (código abierto), con la **Open Source Initiative (OSI)**. En la práctica casi todas las licencias libres son también open source, la diferencia está en el enfoque: la FSF defiende el software libre como una cuestión ética de libertad de los usuarios, y la OSI como una forma más eficaz de desarrollar software.
+
+Copyleft
+--------
+
+El **copyleft** es una forma de utilizar el copyright para que un programa libre siga siendo libre: quien distribuya el programa, o una versión modificada de él, tiene que hacerlo con la misma licencia. Según este criterio las licencias libres se dividen en tres grupos:
+
+* **Copyleft fuerte**: todo programa que incluya el código tiene que distribuirse con la misma licencia. Por ejemplo, GPL y AGPL.
+* **Copyleft débil**: solo los ficheros con el código original y sus modificaciones mantienen la licencia, pero pueden combinarse con código con otra licencia, incluso privativo. Por ejemplo, MPL y LGPL.
+* **Permisivas (sin copyleft)**: permiten redistribuir el código, modificado o no, con cualquier licencia, incluso privativa, con la condición de mantener el aviso de autoría. Por ejemplo, BSD, MIT y Apache.
+
 Licencias GPL
 -------------
 
-Una de las más utilizadas es la Licencia Pública General de GNU (GNU GPL). El autor conserva los derechos de autor (copyright), y permite la redistribución y modificación bajo términos diseñados para asegurarse de que todas las versiones modificadas del software permanecen bajo los términos más restrictivos de la propia GNU GPL. Esto hace que sea imposible crear un producto con partes no licenciadas GPL: el conjunto tiene que ser GPL
+Una de las más utilizadas es la Licencia Pública General de GNU (GNU GPL), la licencia de copyleft fuerte por excelencia; con ella se distribuye, por ejemplo, el núcleo Linux. El autor conserva los derechos de autor (copyright), y permite la redistribución y modificación del software, pero únicamente bajo esa misma licencia: todas las versiones modificadas tienen que seguir siendo GPL.
 
-Es decir, la licencia GNU GPL posibilita la modificación y redistribución del software, pero únicamente bajo esa misma licencia. Y añade que si se reutiliza en un mismo programa código “A” licenciado bajo licencia GNU GPL y código “B” licenciado bajo otro tipo de licencia libre, el código final “C”, independientemente de la cantidad y calidad de cada uno de los códigos “A” y “B”, debe estar bajo la licencia GNU GPL.
+Si se reutiliza en un mismo programa código “A” licenciado bajo GNU GPL y código “B” licenciado bajo otra licencia libre, el programa final “C”, independientemente de la cantidad de cada uno de los códigos “A” y “B”, debe distribuirse bajo la licencia GNU GPL. El código “B” no pierde su licencia ni su aviso de autoría, pero el conjunto se distribuye como GPL.
 
-En la práctica esto hace que las licencias de software libre se dividan en dos grandes grupos, aquellas que pueden ser mezcladas con código licenciado bajo GNU GPL (y que inevitablemente desaparecerán en el proceso, al ser el código resultante licenciado bajo GNU GPL) y las que no lo permiten al incluir mayores u otros requisitos que no contemplan ni admiten la GNU GPL y que por lo tanto no pueden ser enlazadas ni mezcladas con código gobernado por la licencia GNU GPL.
+Esto solo es posible si la licencia de “B” es **compatible** con la GPL, es decir, si no impone condiciones que la GPL no admite. Las licencias permisivas como BSD o MIT son compatibles; otras licencias libres no lo son y su código no se puede mezclar en un mismo programa con código GPL. En el sitio web oficial de GNU hay una lista de licencias compatibles con la GNU GPL y otras que no.
 
-En el sitio web oficial de GNU hay una lista de licencias que cumplen las condiciones impuestas por la GNU GPL y otras que no.
+La obligación de la GPL afecta a lo que se **mezcla en un mismo programa**, no a lo que simplemente se distribuye junto: una distribución de GNU/Linux incluye programas GPL junto a otros con licencias distintas, cada uno con la suya.
+
+Además, las obligaciones de la GPL aparecen al **distribuir** el programa, no al usarlo: podemos modificar un programa GPL para nuestro propio uso sin tener que publicar nada. Si lo distribuimos, tenemos que ofrecer también su código fuente.
+
+La **LGPL** (Lesser GPL) es una variante de copyleft débil pensada para bibliotecas: permite que programas con cualquier licencia, incluso privativos, usen la biblioteca, pero las modificaciones de la propia biblioteca tienen que seguir siendo LGPL.
 
 Durante muchos años la GPL y sus derivadas fueron las licencias más empleadas en el software libre (en torno al 60%); actualmente las licencias permisivas como la MIT son las más utilizadas.
 
-`Software libre para una sociedad libre <https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiXtoa2hMz-AhULPewKHYOHD1gQFnoECCEQAQ&url=https%3A%2F%2Fwww.gnu.org%2Fphilosophy%2Ffsfs%2Ffree_software.es.pdf&usg=AOvVaw0cYwzPicFGB1Ufi-CQSiur>`_
+`Software libre para una sociedad libre <https://www.gnu.org/philosophy/fsfs/free_software.es.pdf>`_
 
 Licencias AGPL
 --------------
 
 La Licencia Pública General de Affero (en inglés Affero General Public License, también Affero GPL o AGPL) es una licencia copyleft derivada de la Licencia Pública General de GNU diseñada específicamente para asegurar la cooperación con la comunidad en el caso de software que funcione en servidores de red.
-La Affero GPL es íntegramente una GNU GPL con una cláusula nueva que añade la obligación de distribuir el software si éste se ejecuta para ofrecer servicios a través de una red de ordenadores.
+La Affero GPL es íntegramente una GNU GPL con una cláusula nueva: si el software modificado se ejecuta para ofrecer servicios a través de una red de ordenadores (por ejemplo una aplicación web), hay que ofrecer su código fuente a los usuarios de ese servicio, aunque el programa en sí no se les distribuya.
 La Free Software Foundation recomienda que el uso de la GNU AGPLv3 sea considerado para cualquier software que usualmente corra sobre una red.
 
 Licencias estilo BSD
 --------------------
 
-Llamadas así porque se utilizan en gran cantidad de software distribuido junto a los sistemas operativos BSD. El autor, bajo tales licencias, mantiene la protección de copyright únicamente para la renuncia de garantía y para requerir la adecuada atribución de la autoría en trabajos derivados, pero permite la libre redistribución y modificación, incluso si dichos trabajos tienen propietario. Son muy permisivas, tanto que son fácilmente absorbidas al ser mezcladas con la licencia GNU GPL con quienes son compatibles. Puede argumentarse que esta licencia asegura “verdadero” software libre, en el sentido que el usuario tiene libertad ilimitada con respecto al software, y que puede decidir incluso redistribuirlo como no libre. Otras opiniones están orientadas a destacar que este tipo de licencia no contribuye al desarrollo de más software libre (normalmente utilizando la siguiente analogía: “una licencia BSD es más libre que una GPL si y sólo si se opina también que un país que permita la esclavitud es más libre que otro que no la permite”).
+Llamadas así porque se utilizan en gran cantidad de software distribuido junto a los sistemas operativos BSD. El autor, bajo tales licencias, mantiene la protección de copyright únicamente para la renuncia de garantía y para requerir la adecuada atribución de la autoría en trabajos derivados, pero permite la libre redistribución y modificación, incluso si dichos trabajos tienen propietario. Son licencias permisivas, compatibles con la GNU GPL, por lo que su código se puede incluir en programas GPL. Sus defensores argumentan que dan más libertad a quien recibe el software, que puede decidir incluso redistribuirlo como no libre; sus detractores, que por eso mismo no garantizan que el software siga siendo libre. Por ejemplo, macOS incluye mucho código de FreeBSD, y la consola PlayStation usa un sistema operativo basado en FreeBSD.
+
+Muy parecidas son la licencia **MIT**, la licencia libre más utilizada hoy en día, y la licencia **Apache 2.0**, que además incluye una protección frente a patentes y es la que usan, por ejemplo, gran parte de Android y Kubernetes.
 
 Licencias estilo MPL y derivadas (Mozilla Public License)
 ----------------------------------------------------------
 
-Esta licencia es de Software Libre y tiene un gran valor porque fue el instrumento que empleó Netscape Communications Corp. para liberar su Netscape Communicator 4.0 y empezar ese proyecto tan importante para el mundo del Software Libre: Mozilla. Se utilizan en gran cantidad de productos de software libre de uso cotidiano en todo tipo de sistemas operativos. La MPL es Software Libre y promueve eficazmente la colaboración evitando el efecto “viral” de la GPL (si usas código licenciado GPL, tu desarrollo final tiene que estar licenciado GPL). Desde un punto de vista del desarrollador la GPL presenta un inconveniente en este punto, y lamentablemente mucha gente se cierra en banda ante el uso de dicho código. No obstante la MPL no es tan excesivamente permisiva como las licencias tipo BSD. Estas licencias son denominadas de copyleft débil. La NPL (luego la MPL) fue la primera licencia nueva después de muchos años, que se encargaba de algunos puntos que no fueron tomados en cuenta por las licencias BSD y GNU. En el espectro de las licencias de software libre se la puede considerar adyacente a la licencia estilo BSD, pero perfeccionada.
+Esta licencia es de Software Libre y tiene un gran valor porque fue el instrumento que empleó Netscape Communications Corp. para liberar su Netscape Communicator 4.0 y empezar ese proyecto tan importante para el mundo del Software Libre: Mozilla. Se utilizan en gran cantidad de productos de software libre de uso cotidiano en todo tipo de sistemas operativos. La MPL es una licencia de **copyleft débil**: los ficheros con código MPL, y sus modificaciones, tienen que seguir siendo MPL, pero pueden combinarse en un mismo programa con otros ficheros con cualquier licencia, incluso privativa. Así evita el efecto “viral” de la GPL (si usas código licenciado GPL, tu desarrollo final tiene que estar licenciado GPL), sin ser tan permisiva como las licencias tipo BSD. La NPL (luego la MPL) fue una de las primeras licencias libres nuevas desde la GPL y la BSD. Hoy la utilizan, por ejemplo, Firefox y LibreOffice.
 
-Copyleft
---------
+Doble licencia
+--------------
 
 El titular de los derechos de autor (copyright) de un software bajo licencia copyleft puede también realizar una versión modificada bajo su copyright original, y venderla bajo cualquier licencia que desee, además de distribuir la versión original como software libre. Esta técnica ha sido usada como un modelo de negocio por una serie de empresas que realizan software libre (por ejemplo MySQL); esta práctica no restringe ninguno de los derechos otorgados a los usuarios de la versión copyleft.
 
-En España, toda obra derivada está tan protegida como una original, siempre que la obra derivada parta de una autorización contractual con el autor. En el caso genérico de que el autor retire las licencias “copyleft”, no afectaría de ningún modo a los productos derivados anteriores a esa retirada, ya que no tiene efecto retroactivo. En términos legales, el autor no tiene derecho a retirar el permiso de una licencia en vigencia. Si así sucediera, el conflicto entre las partes se resolvería en un pleito convencional.
+En España, toda obra derivada está tan protegida como una original, siempre que la obra derivada parta de una autorización contractual con el autor. En el caso genérico de que el autor retire las licencias “copyleft”, no afectaría de ningún modo a los productos derivados anteriores a esa retirada, ya que no tiene efecto retroactivo. En términos legales, el autor no puede retirar el permiso de una licencia a quien ya la ha recibido; la GPLv3, por ejemplo, dice expresamente que es irrevocable. Si así sucediera, el conflicto entre las partes se resolvería en un pleito convencional.
  
 Diferentes tipos de Licencias de Software Libre
 -----------------------------------------------
+
+En las siguientes tablas se comparan las licencias de software libre más utilizadas: qué garantiza cada icono y qué licencias lo cumplen.
 
 .. image:: imagenes/CC1.png
 
@@ -207,7 +244,7 @@ Diferentes tipos de Licencias de Software Libre
 Tipos de licencias (documentos)
 ===============================
 
-Todo contenido (texto, ficheros, fotos, video,...) que está en Internet ha sido colocado por alguien, por lo tanto tiene dueño. Muchos de estos contenidos, objetos digitales, obras y creaciones están referenciados con su autoría e incluso la licencia de uso que tienen, suele pasar mucho en los vídeos, fotografías, imágenes, obras literarias, documentación, apuntes, manuales, obras literarias,....
+Todo contenido (texto, ficheros, fotos, video,...) que está en Internet ha sido colocado por alguien, por lo tanto tiene dueño. Muchos de estos contenidos, objetos digitales, obras y creaciones están referenciados con su autoría e incluso la licencia de uso que tienen, suele pasar mucho en los vídeos, fotografías, imágenes, obras literarias, documentación, apuntes, manuales,....
 
 También puedes encontrar que muchos contenidos e información de Internet no tengan ninguna referencia a su titularidad, pero el hecho de que no aparezca la autoría o que no se explicite el uso permisivo o restrictivo que poseen dichos contenidos, no significa que puedas copiarlos y utilizarlos libremente como te venga en gana.
 
@@ -215,10 +252,10 @@ Desde el momento de su creación toda obra tiene un reconocimiento legal de auto
 
 Así pues, todo contenido tiene unos derechos de autor y depende del propio autor el determinar el uso y distribución que se pueda hacer de su obra. En este sentido podríamos esquematizar los tipos de licencias de contenidos en Internet del siguiente modo:
 
-* **Copyright**: es un tipo de licencia general y básica muy extendida en el mundo editorial y audiovisual. Tiene un carácter más restrictivo y suele conllevar todos los derechos reservados.
-* **Creative Commons**: normalmente indicado como las letras CC. Las obras CC también tienen copyright de reconocimiento de autoría, aunque se caracterizan por que permite copiarlas y distribuirlas. El modo de distribución de las obras se explicita en cada uno de los tipos de licencias Creative Commons.
+* **Copyright**: no es propiamente una licencia, sino el derecho de autor sobre la obra, en el que se basan todas las licencias. Cuando una obra solo indica © se entiende que tiene **todos los derechos reservados**, que es lo habitual en el mundo editorial y audiovisual.
+* **Creative Commons**: normalmente indicado como las letras CC. Las obras CC también tienen copyright de reconocimiento de autoría, aunque se caracterizan por que permite copiarlas y distribuirlas. El modo de distribución de las obras se explicita en cada uno de los tipos de licencias Creative Commons. Están pensadas para contenidos (textos, imágenes, música, vídeo...), no para software: la propia Creative Commons recomienda usar licencias de software libre para los programas.
 
-Las licencias Creative Commons se basa en cuatro condicionantes:
+Las licencias Creative Commons se basan en cuatro condicionantes:
 
 .. image:: imagenes/CC3.png
 

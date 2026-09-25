@@ -32,11 +32,11 @@ Cuestionario de licencias
       - 9. ¿Podríamos distribuir legalmente el código de Fedora?
         (x) Sí
         ( ) No
-      - 10. De todas las licencias vistas, ¿cuál es la licencia más permisiva?
-        ( ) MIT
-        (x) BSD
+      - 10. ¿Cuál de estas licencias es permisiva (sin copyleft)?
+        ( ) GPL
+        (x) MIT
         ( ) MPL
-        ( ) AFL
+        ( ) AGPL
       - 11. ¿Podríamos hacer uso comercial de una obra CC by-nc?
         ( ) Sí
         (x) No
@@ -100,13 +100,19 @@ Cuestionario de licencias
         (x) Mozilla
         ( ) GNU
         ( ) Apache
+      - 28. Un programa freeware, que se puede descargar y usar gratis sin acceso a su código fuente, es
+        ( ) software libre
+        (x) software privativo
+        ( ) de dominio público
+      - 29. ¿Estamos obligados a publicar el código de un programa GPL que hemos modificado solo para nuestro propio uso?
+        ( ) Sí, cualquier modificación de un programa GPL tiene que publicarse
+        (x) No, las obligaciones de la GPL aparecen al distribuir el programa
 
    2. Ejercicio de investigación — busca en Internet la licencia bajo la que se distribuye cada programa y escríbela.
-      | Elige entre: Apache, MIT, GPL, GPLv2, GPLv3, MPL, BSD y Propietario.
+      | Elige entre: Apache, GPL, GPLv2, GPLv3, MPL y Propietario.
       filas: numeradas ancho=9em
-         Android Studio | [Apache|Licencia Apache]
-         Atom | [MIT]
-         Audacity | [GPLv2|GPL v2]
+         Android Studio | [Apache|Licencia Apache|Propietario|Propietaria|Privativo|Privativa]
+         Audacity | [GPLv3|GPL v3]
          Blender | [GPL]
          Cisco Packet Tracer | [Propietario|Propietaria|Privativo|Privativa]
          FileZilla | [GPLv2|GPL v2]
@@ -114,6 +120,7 @@ Cuestionario de licencias
          LibreOffice | [MPL]
          Microsoft Office | [Propietario|Propietaria|Privativo|Privativa]
          Mozilla Firefox | [MPL]
+         Notepad++ | [GPLv3|GPL v3]
 
    3. Creative Commons:
       - 1. ¿Qué indica la condición "Reconocimiento (BY / Attribution)"?
