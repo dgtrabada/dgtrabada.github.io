@@ -109,7 +109,7 @@ Caso práctico: MV Ubuntu Server 26.04
 
 * Descárgate el sistema operativo Ubuntu Server 26.04 LTS en formato (ISO) de su página oficial
 
-* Utiliza un disco de 200 GB y 2 GB de RAM
+* Utiliza un disco de 200 GB y 4 GB de RAM
 
 * Iniciamos la máquina y procedemos a la instalación, llama a esta máquina virtual **MV Ubuntu Server 26.04**
 
@@ -194,7 +194,7 @@ Windows Server es la plataforma para crear una infraestructura de aplicaciones c
 
 Si no dispones de una licencia de Windows Server 2022, puedes obtener, de forma totalmente gratuita, una versión de evaluación plenamente funcional durante un periodo de 180 días en la siguiente dirección https://www.microsoft.com/es-ES/evalcenter/evaluate-windows-server-2022
 
-* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
+* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation (experiencia de escritorio)
 
@@ -211,7 +211,7 @@ Si no dispones de una licencia de Windows Server 2022, puedes obtener, de forma 
 Caso práctico: Windows Server 2022 sin GUI
 ------------------------------------------
 
-* Creamos una máquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 2GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
+* Creamos una máquina virtual llamada **WS22tunombre**, con 100GB de disco duro reservado dinámicamente, 4GB de RAM, 2CPU, un adaptador en modo puente y una memoria de vídeo de 128MB
 
 * Para la instalación seleccionamos: Windows Server 2022 Standard Evaluation, **sin** "experiencia de escritorio" (la versión Server Core, sin la mayor parte del entorno gráfico)
 

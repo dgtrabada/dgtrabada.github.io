@@ -531,6 +531,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-cluster">El clúster</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desplegar-y-exponer-una-aplicacion">Desplegar y exponer una aplicación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publicar-con-un-nombre-el-ingress">Publicar con un nombre: el Ingress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cambiar-la-pagina-sin-entrar-en-ninguna-maquina">Cambiar la página sin entrar en ninguna máquina</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalabilidad-y-autorreparacion">Escalabilidad y autorreparación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-cuando-se-cae-una-maquina">Qué pasa cuando se cae una máquina</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actualizar-sin-cortar-el-servicio">Actualizar sin cortar el servicio</a></li>
@@ -613,8 +614,8 @@
 </section>
 <section id="caso-practico-un-cluster-kubernetes-con-k3s">
 <h2>Caso práctico: un clúster Kubernetes con k3s<a class="headerlink" href="#caso-practico-un-cluster-kubernetes-con-k3s" title="Link to this heading">#</a></h2>
-<p>Montamos ahora un clúster de verdad con <strong>k3s</strong>, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de <strong>kubeadm</strong>— pero cabe en una máquina virtual de 2 GB y se instala con una orden.</p>
-<p>Partimos de <strong>cuatro máquinas virtuales limpias</strong>, clones enlazados de <strong>MV Ubuntu Server</strong>, con la red de siempre:</p>
+<p>Montamos ahora un clúster de verdad con <strong>k3s</strong>, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de <strong>kubeadm</strong>— pero cabe en una máquina virtual modesta y se instala con una orden.</p>
+<p>Partimos de <strong>cuatro máquinas virtuales limpias</strong>, clones enlazados de <strong>MV Ubuntu Server</strong>, con <strong>4 GB de memoria cada una</strong> y la red de siempre. Con 2 GB el clúster arranca, pero se queda sin sitio en cuanto se le añade algo, así que dáselos ahora y te ahorras rehacerlo a mitad del tema:</p>
 <ul class="simple">
 <li><p><strong>compute-0-0</strong> (será el <strong>servidor</strong> del clúster y dará salida a Internet a los demás)</p>
 <ul>
@@ -893,25 +894,55 @@ root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span c
 </div>
 <p>Eso entra por el <strong>NodePort</strong>, no por el Ingress: es la misma aplicación, pero pedida por IP y puerto en lugar de por nombre. El nombre <code class="docutils literal notranslate"><span class="pre">web-tunombre.local</span></code> solo lo entienden los nodos, que son los que lo tienen en su <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.</p>
 </section>
+<section id="cambiar-la-pagina-sin-entrar-en-ninguna-maquina">
+<h3>Cambiar la página sin entrar en ninguna máquina<a class="headerlink" href="#cambiar-la-pagina-sin-entrar-en-ninguna-maquina" title="Link to this heading">#</a></h3>
+<p>Ya tienes la web delante en el navegador, así que la siguiente pregunta es la de siempre: <strong>¿dónde se toca esto para cambiarlo?</strong> En un servidor de toda la vida entrarías por ssh y editarías el <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. Aquí no, y el propio sistema te lo impide. Los volúmenes de ConfigMap se montan en <strong>sólo lectura</strong>, y menos mal: estarías cambiando <strong>una</strong> copia de cuatro, y el cambio se perdería en cuanto ese Pod muriera. La página no vive en ningún contenedor, vive en el <strong>ConfigMap</strong>, y ahí es donde se toca:</p>
+<p>El ConfigMap está dentro de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>, así que se edita <strong>ahí</strong>, en el fichero, y se vuelve a aplicar. Añádele a la página una línea con la <strong>hora a la que haces el cambio</strong>, que es la forma de saber qué versión estás viendo:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hola, soy tunombre<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Cambiado a <span class="p">&lt;</span><span class="nt">hora</span> <span class="na">dia</span> <span class="na">y</span> <span class="na">mes</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Escribe la hora, el día y el mes de verdad, por ejemplo <code class="docutils literal notranslate"><span class="pre">Cambiado</span> <span class="pre">a</span> <span class="pre">13:00</span> <span class="pre">3</span> <span class="pre">sept</span></code>. Es lo que te va a decir si lo que estás viendo en el navegador es tu cambio o todavía el de antes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml
+configmap/web-tunombre-html<span class="w"> </span>configured
+</pre></div>
+</div>
+<p>Y ahora recarga el navegador. <strong>No habrá cambiado todavía</strong>, y eso no es un fallo. El kubelet de cada nodo va refrescando cada poco los ficheros que vienen de un ConfigMap, así que el cambio tarda <strong>hasta un minuto</strong> en aparecer. Comparando la hora que escribiste con la hora en la que sale, se mide exactamente lo que ha tardado. Si recargas a los dos segundos y ves lo de antes, es que has ido más rápido que el clúster.</p>
+<p>Lo importante es lo que ha pasado mientras tanto: han cambiado <strong>las cuatro copias a la vez</strong>, sin reiniciar nada, sin entrar en ninguna máquina y sin que importe en qué nodo esté cada una. Has cambiado un objeto, no unos servidores.</p>
+</section>
 <section id="escalabilidad-y-autorreparacion">
 <h3>Escalabilidad y autorreparación<a class="headerlink" href="#escalabilidad-y-autorreparacion" title="Link to this heading">#</a></h3>
 <p>Todo lo que viene ahora se ve mucho mejor <strong>en vivo</strong>, así que abre una <strong>segunda terminal</strong> contra compute-0-0 y déjala con <strong>k9s</strong>, una consola que enseña el clúster y lo va refrescando solo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-sL<span class="w"> </span>https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.deb<span class="w"> </span>-o<span class="w"> </span>/tmp/k9s.deb
 root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>/tmp/k9s.deb
 
-root@compute-0-0:~#<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.kube
-root@compute-0-0:~#<span class="w"> </span>cp<span class="w"> </span>/etc/rancher/k3s/k3s.yaml<span class="w"> </span>~/.kube/config
-root@compute-0-0:~#<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.kube/config
+root@compute-0-0:~#<span class="w"> </span>k9s
+...<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>context<span class="w"> </span>...
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero <strong>k9s no</strong>: busca <code class="docutils literal notranslate"><span class="pre">~/.kube/config</span></code>, que en k3s <strong>no existe</strong>, porque las credenciales están en <code class="docutils literal notranslate"><span class="pre">/etc/rancher/k3s/k3s.yaml</span></code>. Se lo decimos con la variable <code class="docutils literal notranslate"><span class="pre">KUBECONFIG</span></code>, y lo dejamos puesto en el <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> para no tener que repetirlo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export KUBECONFIG=/etc/rancher/k3s/k3s.yaml&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+root@compute-0-0:~#<span class="w"> </span>bash
+root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$KUBECONFIG</span>
+/etc/rancher/k3s/k3s.yaml
 root@compute-0-0:~#<span class="w"> </span>k9s
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero <strong>k9s no</strong>: busca <code class="docutils literal notranslate"><span class="pre">~/.kube/config</span></code>, que en k3s <strong>no existe</strong> —las credenciales están en <code class="docutils literal notranslate"><span class="pre">/etc/rancher/k3s/k3s.yaml</span></code>—, y sin él arranca con un <em>Unable to connect</em>. Copiándolo a su sitio, la máquina queda como cualquier otro cliente de Kubernetes y vale también para <code class="docutils literal notranslate"><span class="pre">helm</span></code> o para cualquier herramienta que busque esa ruta. La alternativa, si no quieres duplicar el fichero, es <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">KUBECONFIG=/etc/rancher/k3s/k3s.yaml</span></code> en el <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>.</p>
-<p>Dentro, con cuatro teclas tienes bastante: <code class="docutils literal notranslate"><span class="pre">0</span></code> muestra todos los <em>namespaces</em>, <code class="docutils literal notranslate"><span class="pre">:pods</span></code> y <code class="docutils literal notranslate"><span class="pre">:nodes</span></code> cambian de vista, <code class="docutils literal notranslate"><span class="pre">l</span></code> saca los registros del Pod señalado, <code class="docutils literal notranslate"><span class="pre">d</span></code> su descripción, <code class="docutils literal notranslate"><span class="pre">Ctrl-D</span></code> lo borra —muy a mano para la prueba de autorreparación de aquí abajo— y <code class="docutils literal notranslate"><span class="pre">:q</span></code> sale.</p>
+<p>Con eso, la máquina queda como cualquier otro cliente de Kubernetes, y la variable vale igual para <code class="docutils literal notranslate"><span class="pre">helm</span></code> o para cualquier otra herramienta que necesite las credenciales.</p>
+<p>Dentro de k9s, con unas pocas teclas tienes bastante:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> — muestra todos los <em>namespaces</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:pods</span></code> y <code class="docutils literal notranslate"><span class="pre">:nodes</span></code> — cambian de vista.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">l</span></code> — saca los registros del Pod señalado.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> — su descripción.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl-D</span></code> — lo borra, muy a mano para la prueba de autorreparación de aquí abajo.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:q</span></code> — sale.</p></li>
+</ul>
 <p>Con esa terminal a la vista, en la primera pedir más copias es cambiar un número:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>web-tunombre<span class="w"> </span>--replicas<span class="o">=</span><span class="m">8</span>
 deployment.apps/web-tunombre<span class="w"> </span>scaled
 
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $7}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
 <span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-0
 <span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-1
 <span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-2
@@ -935,51 +966,64 @@ root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<sp
 root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
 </pre></div>
 </div>
-<p>Pausamos compute-0-2</p>
+<p>Pausamos compute-0-2. En <strong>menos de un minuto</strong> el clúster se da cuenta de que ese nodo ha dejado de dar señales, pero <strong>los Pods siguen exactamente donde estaban</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
-NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">   </span>VERSION
-compute-0-0<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>60m<span class="w">   </span>v1.36.4+k3s1
-compute-0-1<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>43m<span class="w">   </span>v1.36.4+k3s1
-compute-0-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>43m<span class="w">   </span>v1.36.4+k3s1
-compute-0-3<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>43m<span class="w">   </span>v1.36.4+k3s1
+NAME<span class="w">          </span>STATUS<span class="w">     </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
+compute-0-0<span class="w">   </span>Ready<span class="w">      </span>control-plane<span class="w">   </span>4d22h<span class="w">   </span>v1.36.4+k3s1
+compute-0-1<span class="w">   </span>Ready<span class="w">      </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
+compute-0-2<span class="w">   </span>NotReady<span class="w">   </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
+compute-0-3<span class="w">   </span>Ready<span class="w">      </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
 
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $7}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-0
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-1
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-2
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-3
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-0
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-1
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-2
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-3
 </pre></div>
 </div>
-<p>No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero <strong>no sabe si la máquina está apagada o es la red la que falla</strong>, y arrancar copias nuevas de algo que quizá sigue vivo puede ser peor. Así que espera cinco minutos.</p>
-<p>A los <strong>seis minutos</strong> toma la decisión:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
-NAME<span class="w">          </span>STATUS<span class="w">     </span>ROLES<span class="w">           </span>AGE<span class="w">   </span>VERSION
-compute-0-0<span class="w">   </span>Ready<span class="w">      </span>control-plane<span class="w">   </span>61m<span class="w">   </span>v1.36.4+k3s1
-compute-0-1<span class="w">   </span>Ready<span class="w">      </span>&lt;none&gt;<span class="w">          </span>45m<span class="w">   </span>v1.36.4+k3s1
-compute-0-2<span class="w">   </span>NotReady<span class="w">   </span>&lt;none&gt;<span class="w">          </span>45m<span class="w">   </span>v1.36.4+k3s1
-compute-0-3<span class="w">   </span>Ready<span class="w">      </span>&lt;none&gt;<span class="w">          </span>44m<span class="w">   </span>v1.36.4+k3s1
-
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $7}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-0
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-1
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-2
-<span class="w">    </span><span class="m">2</span><span class="w"> </span>compute-0-3
+<p>No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero <strong>no sabe si la máquina está apagada o es la red la que falla</strong>, y arrancar copias nuevas de algo que quizá sigue vivo puede ser peor. Así que espera cinco minutos antes de tocar nada.</p>
+<p>A los <strong>seis minutos</strong> toma la decisión, y a partir de aquí hay que mirar la salida entera, no un recuento:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
+...<span class="w"> </span>PENDIENTE:<span class="w"> </span>las<span class="w"> </span>diez<span class="w"> </span>lineas,<span class="w"> </span>con<span class="w"> </span>los<span class="w"> </span>Terminating<span class="w"> </span>en<span class="w"> </span>compute-0-2<span class="w"> </span>...
 </pre></div>
 </div>
-<p>Ha recreado las dos copias perdidas en las tres máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como <code class="docutils literal notranslate"><span class="pre">Terminating</span></code>. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.</p>
+<p>Aparecen <strong>diez</strong> Pods donde pediste ocho: ha recreado las dos copias perdidas en las máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como <code class="docutils literal notranslate"><span class="pre">Terminating</span></code>. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ese <code class="docutils literal notranslate"><span class="pre">Terminating</span></code> no sale en el recuento de antes, y no es un fallo del comando: <strong>no es un estado que exista en el objeto</strong>, lo calcula <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> al ver que el Pod tiene puesta la fecha de borrado. Por dentro sigue diciendo <code class="docutils literal notranslate"><span class="pre">Running</span></code>. Por eso, en esta prueba, la salida completa de <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">pods</span> <span class="pre">-o</span> <span class="pre">wide</span></code> enseña más que cualquier recuento.</p>
+</div>
 <p>Al <strong>volver a encender</strong> compute-0-2, el nodo pasa a <code class="docutils literal notranslate"><span class="pre">Ready</span></code> en menos de un minuto, los <code class="docutils literal notranslate"><span class="pre">Terminating</span></code> desaparecen... y las copias <strong>no vuelven</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>compute-0-2<span class="w">   </span>Ready<span class="w">   </span>&lt;none&gt;
-<span class="w">      </span><span class="m">3</span><span class="w"> </span>Running<span class="w"> </span>compute-0-0
-<span class="w">      </span><span class="m">3</span><span class="w"> </span>Running<span class="w"> </span>compute-0-1
-<span class="w">      </span><span class="m">2</span><span class="w"> </span>Running<span class="w"> </span>compute-0-3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
+compute-0-0<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>4d22h<span class="w">   </span>v1.36.4+k3s1
+compute-0-1<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
+compute-0-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
+compute-0-3<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>4d21h<span class="w">   </span>v1.36.4+k3s1
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>compute-0-0
+<span class="w">      </span><span class="m">3</span><span class="w"> </span>compute-0-1
+<span class="w">      </span><span class="m">3</span><span class="w"> </span>compute-0-3
 </pre></div>
 </div>
-<p>Kubernetes garantiza que haya <strong>ocho copias</strong>, no que estén repartidas a partes iguales: mover algo que ya funciona no aporta nada y sí arriesga. El reparto se recupera solo con el tiempo, según vayan muriendo y naciendo Pods, o a mano volviendo a escalar.</p>
-<p>Compáralo con el <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code> de la tarea 08: allí el playbook deja las máquinas como quieres <strong>en el momento en que lo lanzas</strong>, y si una se cae de madrugada sigue caída hasta que alguien lo vuelve a lanzar. Aquí nadie lanzó nada.</p>
+<p>Siguen siendo ocho copias, pero repartidas <strong>2 / 3 / 3</strong>: las dos que se perdieron con el nodo renacieron en compute-0-1 y compute-0-3, y ahí se han quedado. Fíjate en que <strong>compute-0-2 ni siquiera aparece</strong> en la lista: está <code class="docutils literal notranslate"><span class="pre">Ready</span></code>, dentro del clúster y listo para recibir trabajo, pero sin una sola copia.</p>
+<p>Kubernetes garantiza que haya <strong>ocho copias</strong>, no que estén repartidas a partes iguales: mover algo que ya funciona no aporta nada y sí arriesga. Nada va a reequilibrarlo solo; el reparto se recupera según vayan muriendo y naciendo Pods.</p>
+<p>Y eso se puede provocar. Mata una copia de uno de los nodos que tienen tres y mira dónde nace la siguiente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>&lt;una<span class="w"> </span>copia<span class="w"> </span>de<span class="w"> </span>compute-0-1&gt;
+</pre></div>
+</div>
+<p>El planificador elige <strong>por hueco</strong>, así que la nueva se va a compute-0-2, que está a cero. Repitiendo con una de compute-0-3 vuelves a tener las ocho repartidas. Y si quieres hacerlo de una vez, <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">rollout</span> <span class="pre">restart</span> <span class="pre">deployment</span> <span class="pre">web-tunombre</span></code> recrea las ocho de pocas en pocas y las vuelve a colocar, que es lo que harías en un sistema de verdad porque no corta el servicio.</p>
 </section>
 <section id="actualizar-sin-cortar-el-servicio">
 <h3>Actualizar sin cortar el servicio<a class="headerlink" href="#actualizar-sin-cortar-el-servicio" title="Link to this heading">#</a></h3>
-<p>Cambiar la versión de la aplicación es cambiar la imagen del Deployment. Kubernetes va sustituyendo las copias <strong>de pocas en pocas</strong>, y <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">status</span></code> cuenta el proceso:</p>
+<p>Cambiar la versión de la aplicación es cambiar la imagen del Deployment, y Kubernetes va sustituyendo las copias <strong>de pocas en pocas</strong>. La pregunta es si durante ese cambio <strong>se pierde alguna petición</strong>, y para poder contestarla hay que medir <strong>antes</strong>, con la aplicación quieta: trescientas peticiones seguidas, contando por código de respuesta.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">300</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://web-tunombre.local
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.2
+<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</pre></div>
+</div>
+<p>Sin tocar nada contestan las trescientas, como tenía que ser. Ese es el punto de partida: ahora actualizamos la imagen y, <strong>mientras se actualiza</strong>, repetimos exactamente la misma medición desde otra terminal para comparar. <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">status</span></code> cuenta el proceso:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/web-tunombre<span class="w"> </span><span class="nv">nginx</span><span class="o">=</span>nginx:1.29-alpine
 deployment.apps/web-tunombre<span class="w"> </span>image<span class="w"> </span>updated
 
@@ -1001,47 +1045,43 @@ root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollou
 deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </span>back
 </pre></div>
 </div>
-<p>La pregunta interesante es si durante ese cambio <strong>se pierde alguna petición</strong>. Se comprueba dejando corriendo un bucle en otra terminal mientras se actualiza:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">300</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://web-tunombre.local
-<span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.2
-<span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
-</pre></div>
-</div>
-<p>Con el Deployment tal como lo hemos escrito, el resultado <strong>no es perfecto</strong>:</p>
+<p>Y aquí está la diferencia. El mismo bucle de antes, lanzado en otra terminal mientras el cambio está en marcha, ya no da lo mismo: con el Deployment tal como lo hemos escrito, el resultado <strong>no es perfecto</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">000</span>
 <span class="m">297</span><span class="w"> </span><span class="m">200</span>
 <span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">502</span>
 </pre></div>
 </div>
-<p>Los <code class="docutils literal notranslate"><span class="pre">502</span></code> son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los <code class="docutils literal notranslate"><span class="pre">000</span></code> conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor <strong>está listo</strong> ni cuándo <strong>ha terminado de atender</strong> lo que tenía entre manos, y hay que decírselo con dos cosas:</p>
+<p>Los <code class="docutils literal notranslate"><span class="pre">502</span></code> son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los <code class="docutils literal notranslate"><span class="pre">000</span></code> conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor <strong>está listo</strong> ni cuándo <strong>ha terminado de atender</strong> lo que tenía entre manos, y hay que decírselo con tres cosas:</p>
 <ul class="simple">
 <li><p>una <strong>readinessProbe</strong>: hasta que la página no conteste, esa copia no recibe tráfico;</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">maxUnavailable:</span> <span class="pre">0</span></code>: no quites una copia vieja hasta tener una nueva lista;</p></li>
 <li><p>y un <strong>preStop</strong>, una pausa antes de apagar la copia vieja, para que le dé tiempo a salir de la lista de destinos.</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">strategy</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
-<span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<p>Las tres van en el <strong>Deployment de</strong> <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>, que ya tienes escrito: no es un objeto nuevo. <strong>Lo resaltado es lo que hay que añadir o cambiar</strong>; el resto está solo para situar el sitio y la sangría:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, en el Deployment</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="hll"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+</span><span class="hll"><span class="w">  </span><span class="nt">strategy</span><span class="p">:</span>
+</span><span class="hll"><span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span>
+</span><span class="hll"><span class="w">      </span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
+</span><span class="hll"><span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
 <span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:alpine</span>
-<span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
-<span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
-<span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">          </span><span class="nt">lifecycle</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">preStop</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">exec</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;sleep&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p p-Indicator">]</span>
-</pre></div>
+<span class="hll"><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+</span><span class="hll"><span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</span><span class="hll"><span class="w">          </span><span class="nt">lifecycle</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="nt">preStop</span><span class="p">:</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">exec</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;sleep&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p p-Indicator">]</span>
+</span></pre></div>
 </div>
-<p>Repitiendo la misma prueba, ahora sí:</p>
+<p>Y aprovecha para poner las <strong>ocho</strong> réplicas en el fichero: el <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">scale</span></code> de antes cambió el clúster pero no el YAML, así que si lo aplicas tal como está te bajaría otra vez al número viejo. Después, <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">web-tunombre.yml</span></code>, y repitiendo la misma prueba, ahora sí:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">300</span><span class="w"> </span><span class="m">200</span>
 </pre></div>
 </div>
@@ -1065,7 +1105,7 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </tbody>
 </table>
 </div>
-<p>«Actualizar sin cortar el servicio» no sale gratis por usar Kubernetes: sale de decirle al clúster cómo saber que una copia está viva.</p>
+<p>Actualizar sin cortar el servicio no sale gratis por usar Kubernetes: sale de decirle al clúster cómo sabe él que una copia ya está lista para recibir peticiones, y cuánto tiene que esperar antes de apagar una que todavía está atendiendo.</p>
 </section>
 <section id="una-imagen-propia-dockerfile-configmap-y-secret">
 <h3>Una imagen propia: Dockerfile, ConfigMap y Secret<a class="headerlink" href="#una-imagen-propia-dockerfile-configmap-y-secret" title="Link to this heading">#</a></h3>
@@ -1075,29 +1115,39 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </pre></div>
 </div>
 <p>La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en <code class="docutils literal notranslate"><span class="pre">/docker-entrypoint.d/</span></code>. Ese es el sitio donde sustituir las variables dentro del HTML, con <code class="docutils literal notranslate"><span class="pre">envsubst</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>cat<span class="w"> </span>imagen/index.html.template
-&lt;!DOCTYPE<span class="w"> </span>html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;<span class="si">${</span><span class="nv">TITULO</span><span class="si">}</span>&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-<span class="w">  </span>&lt;h1&gt;<span class="si">${</span><span class="nv">TITULO</span><span class="si">}</span>&lt;/h1&gt;
-<span class="w">  </span>&lt;p&gt;Imagen<span class="w"> </span>propia<span class="w"> </span>construida<span class="w"> </span>con<span class="w"> </span>Dockerfile&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-root@compute-0-0:~#<span class="w"> </span>cat<span class="w"> </span>imagen/20-titulo.sh
-<span class="c1">#!/bin/sh</span>
+<p>Son <strong>tres ficheros dentro del directorio</strong> <code class="docutils literal notranslate"><span class="pre">imagen/</span></code>, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.</p>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/index.html.template</span></code>:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>${TITULO}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>${TITULO}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Imagen propia construida con Dockerfile<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/20-titulo.sh</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 <span class="c1"># la imagen nginx ejecuta al arrancar todo lo que encuentre en /docker-entrypoint.d/</span>
 envsubst<span class="w"> </span><span class="s2">&quot;\$TITULO&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>/plantilla/index.html.template<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/nginx/html/index.html
-
-root@compute-0-0:~#<span class="w"> </span>cat<span class="w"> </span>imagen/Dockerfile
-FROM<span class="w"> </span>nginx:alpine
-<span class="c1"># envsubst viene en el paquete gettext</span>
-RUN<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--no-cache<span class="w"> </span>gettext
-ENV<span class="w"> </span><span class="nv">TITULO</span><span class="o">=</span><span class="s2">&quot;sin titulo&quot;</span><span class="w"> </span><span class="nv">CLAVE</span><span class="o">=</span><span class="s2">&quot;sin clave&quot;</span>
-COPY<span class="w"> </span>index.html.template<span class="w"> </span>/plantilla/index.html.template
-COPY<span class="w"> </span><span class="m">20</span>-titulo.sh<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
-RUN<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/Dockerfile</span></code>:</p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
+<span class="c"># envsubst viene en el paquete gettext</span>
+<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--no-cache<span class="w"> </span>gettext
+<span class="k">ENV</span><span class="w"> </span><span class="nv">TITULO</span><span class="o">=</span><span class="s2">&quot;sin titulo&quot;</span><span class="w"> </span><span class="nv">CLAVE</span><span class="o">=</span><span class="s2">&quot;sin clave&quot;</span>
+<span class="k">COPY</span><span class="w"> </span>index.html.template<span class="w"> </span>/plantilla/index.html.template
+<span class="k">COPY</span><span class="w"> </span><span class="m">20</span>-titulo.sh<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
+<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
+</pre></div>
+</div>
+<p>Antes de construir, comprueba que el script tiene <strong>tres líneas</strong> y el resto lo suyo, porque si se cuela ahí cualquier otra cosa nginx intentará ejecutarla al arrancar y el contenedor se morirá nada más nacer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>imagen/*
+<span class="w">  </span><span class="m">7</span><span class="w"> </span>imagen/Dockerfile
+<span class="w">  </span><span class="m">8</span><span class="w"> </span>imagen/index.html.template
+<span class="w">  </span><span class="m">3</span><span class="w"> </span>imagen/20-titulo.sh
 
 root@compute-0-0:~#<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>web-tunombre:1.0<span class="w"> </span>imagen/
 sha256:28ce5e9688896cf74c49b57685c71bd8af308f5dfa0d9608a4b5f49fed40cbe2
@@ -1126,7 +1176,7 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 <p>En la vida real esto se resuelve con un <strong>registro de imágenes</strong> (Docker Hub o uno propio): se sube una vez y cada nodo se la descarga. Copiar el tar a mano solo se aguanta con cuatro máquinas.</p>
-<p>El <strong>título</strong> no es un secreto y va en un <strong>ConfigMap</strong>; la <strong>clave</strong> sí, y va en un <strong>Secret</strong>. Los dos se inyectan como variables de entorno:</p>
+<p>El <strong>título</strong> no es un secreto y va en un <strong>ConfigMap</strong>; la <strong>clave</strong> sí, y va en un <strong>Secret</strong>. Los dos son objetos nuevos, así que van en un fichero nuevo, <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -1141,30 +1191,58 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
 <span class="nt">stringData</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">clave</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MiClaveSecreta&quot;</span>
-<span class="nn">---</span>
-<span class="c1"># ... dentro del contenedor del Deployment:</span>
-<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre:1.0</span>
-<span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TITULO</span>
-<span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
-<span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
-<span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">secretKeyRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-secret</span>
-<span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clave</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">IfNotPresent</span></code> es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.</p>
+<p>Tenerlos creados no hace nada por sí solo: hay que <strong>inyectarlos como variables de entorno</strong> en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>. Otra vez, lo resaltado es lo que cambia:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, dentro del Deployment</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="hll"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre:1.0</span>
+</span><span class="hll"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+</span><span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="hll"><span class="w">          </span><span class="nt">env</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TITULO</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
+</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-secret</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clave</span>
+</span></pre></div>
+</div>
+<p>La <code class="docutils literal notranslate"><span class="pre">image</span></code> deja de ser <code class="docutils literal notranslate"><span class="pre">nginx:alpine</span></code> y pasa a ser la nuestra. Y <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">IfNotPresent</span></code> es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.</p>
+<p>Y hay algo que <strong>se quita</strong>: el ConfigMap <code class="docutils literal notranslate"><span class="pre">web-tunombre-html</span></code> con la página y el volumen que lo montaba en <code class="docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code>. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además <strong>estorban</strong>: un volumen de ConfigMap se monta en sólo lectura, así que el <code class="docutils literal notranslate"><span class="pre">envsubst</span></code> del arranque no podría escribir ahí el <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. Borra del Deployment las dos partes:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml: esto se BORRA del Deployment</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+</span><span class="hll"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+</span><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/nginx/html</span>
+<span class="hll"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
+</span><span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+</span><span class="hll"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-html</span>
+</span></pre></div>
+</div>
+<p>Si te dejas el volumen puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.</p>
+<p>Y hay una diferencia con la página del ConfigMap de antes: aquellos ficheros se refrescaban solos porque iban montados como un volumen, pero <strong>una variable de entorno se lee al arrancar el contenedor y ya no cambia mientras vive</strong>. Si ahora cambias el título en el ConfigMap, la web seguirá igual hasta que los Pods se recreen.</p>
+<p>Y se aplican los dos ficheros, el nuevo y el de siempre:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
 configmap/web-tunombre-config<span class="w"> </span>created
 secret/web-tunombre-secret<span class="w"> </span>created
-deployment.apps/web-tunombre<span class="w"> </span>configured
 
-root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://web-tunombre.local
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml
+deployment.apps/web-tunombre<span class="w"> </span>configured
+</pre></div>
+</div>
+<p>Del segundo fichero solo cambia el Deployment; de lo demás que hay dentro, <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> dirá <code class="docutils literal notranslate"><span class="pre">unchanged</span></code>, porque no lo has tocado.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://web-tunombre.local
 &lt;!DOCTYPE<span class="w"> </span>html&gt;
 &lt;html&gt;
 &lt;head&gt;&lt;title&gt;Hola,<span class="w"> </span>soy<span class="w"> </span>tunombre&lt;/title&gt;&lt;/head&gt;
@@ -1201,18 +1279,12 @@ MiClaveSecreta
 <h3>Almacenamiento persistente<a class="headerlink" href="#almacenamiento-persistente" title="Link to this heading">#</a></h3>
 <p>Un Pod es desechable: cuando muere se lleva consigo todo lo que hubiera escrito. Para que los datos sobrevivan hay que sacarlos fuera, y lo que ya sabemos montar es un <strong>NFS</strong> (ver <a class="reference internal" href="09_GNULinux_NFS.html"><span class="doc">NFS</span></a>). En compute-0-0:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-kernel-server
+root@compute-0-0:~#<span class="w"> </span><span class="k">for</span><span class="w"> </span>n<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ssh<span class="w"> </span>-n<span class="w"> </span><span class="m">172</span>.16.0.1<span class="nv">$n</span><span class="w"> </span><span class="s2">&quot;apt install -y nfs-common&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 root@compute-0-0:~#<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/srv/tunombre<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">777</span><span class="w"> </span>/srv/tunombre
 root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;/srv/tunombre 172.16.0.0/16(rw,sync,no_subtree_check,no_root_squash)&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/exports
 root@compute-0-0:~#<span class="w"> </span>exportfs<span class="w"> </span>-ra<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>exportfs<span class="w"> </span>-v
 /srv/tunombre<span class="w">         </span><span class="m">172</span>.16.0.0/16<span class="o">(</span>sync,wdelay,hide,no_subtree_check,sec<span class="o">=</span>sys,rw,secure,no_root_squash,no_all_squash<span class="o">)</span>
 </pre></div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Advertencia</p>
-<p>Quien monta el NFS <strong>no es el contenedor, es el nodo</strong>, así que el cliente de NFS tiene que estar instalado <strong>en las cuatro máquinas</strong>; k3s no lo trae. Si falta, el Pod se queda en <code class="docutils literal notranslate"><span class="pre">ContainerCreating</span></code> con un <code class="docutils literal notranslate"><span class="pre">wrong</span> <span class="pre">fs</span> <span class="pre">type,</span> <span class="pre">bad</span> <span class="pre">option</span></code> que no dice nada:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-common
-</pre></div>
-</div>
 </div>
 <p>En Kubernetes el almacenamiento se describe en dos piezas: un <strong>PersistentVolume</strong> (el disco que hay) y un <strong>PersistentVolumeClaim</strong> (lo que la aplicación pide). <code class="docutils literal notranslate"><span class="pre">nfs-tunombre.yml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
@@ -1256,16 +1328,68 @@ NAME<span class="w">                                 </span>STATUS<span class="w
 persistentvolumeclaim/pvc-tunombre<span class="w">   </span>Bound<span class="w">    </span>pv-tunombre<span class="w">   </span>1Gi<span class="w">        </span>RWX
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Bound</span></code> quiere decir que la petición ha encontrado su volumen. Se monta en el Deployment como cualquier otro volumen:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">volumeMounts</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datos</span>
-<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/datos</span>
-<span class="nt">volumes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datos</span>
-<span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-tunombre</span>
+<p><code class="docutils literal notranslate"><span class="pre">Bound</span></code> quiere decir que la petición ha encontrado su volumen, y ahora se monta en el Deployment de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>. Como ese fichero se ha ido construyendo a trozos en tres apartados distintos, aquí va entero, para que lo compares con el tuyo. <strong>Lo resaltado es lo importante de este apartado</strong>: el <code class="docutils literal notranslate"><span class="pre">volumeMounts</span></code> dentro del contenedor y el <code class="docutils literal notranslate"><span class="pre">volumes</span></code> al mismo nivel que <code class="docutils literal notranslate"><span class="pre">containers</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">  </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
+<span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre:1.0</span>
+<span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TITULO</span>
+<span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
+<span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
+<span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">secretKeyRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-secret</span>
+<span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clave</span>
+<span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">lifecycle</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">preStop</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">exec</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;sleep&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p p-Indicator">]</span>
+<span class="hll"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datos</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/datos</span>
+</span><span class="hll"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
+</span><span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datos</span>
+</span><span class="hll"><span class="w">          </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
+</span><span class="hll"><span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pvc-tunombre</span>
+</span></pre></div>
+</div>
+<p>Y <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">web-tunombre.yml</span></code> para que se lleve a los Pods. Kubernetes los recrea él solo al ver el Deployment cambiado, pero conviene comprobar que han nacido <strong>todos</strong> con el volumen antes de seguir:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>POD:.metadata.name,NODO:.spec.nodeName,VOLUMENES:.spec.containers<span class="o">[</span><span class="m">0</span><span class="o">]</span>.volumeMounts<span class="o">[</span>*<span class="o">]</span>.name
 </pre></div>
 </div>
+<p>Los Pods buenos llevan <code class="docutils literal notranslate"><span class="pre">datos</span></code> en la última columna; los que salgan vacíos son de la versión anterior y tienen que desaparecer solos. Si se quedan, <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">rollout</span> <span class="pre">restart</span> <span class="pre">deployment/web-tunombre</span></code> los renueva todos de pocas en pocas, sin dejar el servicio sin copias.</p>
 <p>Y la prueba de que el dato sobrevive al Pod: escribimos desde una copia, la borramos y leemos desde la que nace en su lugar, que además puede caer en otra máquina:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>web-tunombre-7f7bdd879f-6dxcz<span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo &quot;escrito por $(hostname) el $(date)&quot; &gt; /datos/prueba.txt&#39;</span>
@@ -1322,7 +1446,7 @@ root@compute-0-1:~#<span class="w"> </span>/usr/local/bin/k3s-agent-uninstall.sh
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Esto pesa bastante más que el caso anterior. Con las máquinas de 2 GB entra, pero justo: al terminar quedan unos 500 MB libres en cada nodo y cualquier cosa que se añada empezará a dar <code class="docutils literal notranslate"><span class="pre">OOMKilled</span></code>. Si puedes darle <strong>4 GB a compute-0-0</strong>, mejor. Los valores que usamos más abajo están recortados a propósito para que quepa.</p>
+<p>Esto pesa bastante más que el caso anterior: aquí es donde hacen falta los <strong>4 GB</strong> de cada máquina. Aun así, los valores que usamos más abajo van recortados a propósito, porque los que traen los charts por defecto están pensados para servidores de verdad.</p>
 </div>
 <section id="helm-el-gestor-de-paquetes-de-kubernetes">
 <h3>Helm, el gestor de paquetes de Kubernetes<a class="headerlink" href="#helm-el-gestor-de-paquetes-de-kubernetes" title="Link to this heading">#</a></h3>
@@ -1348,8 +1472,9 @@ version.BuildInfo<span class="o">{</span>Version:<span class="s2">&quot;v3.22.0&
 Error:<span class="w"> </span>Kubernetes<span class="w"> </span>cluster<span class="w"> </span>unreachable:<span class="w"> </span>Get<span class="w"> </span><span class="s2">&quot;http://localhost:8080/version&quot;</span>:<span class="w"> </span>dial<span class="w"> </span>tcp<span class="w"> </span><span class="m">127</span>.0.0.1:8080:<span class="w"> </span>connect:<span class="w"> </span>connection<span class="w"> </span>refused
 </pre></div>
 </div>
-<p>Helm, igual que k9s, <strong>no es el binario de k3s</strong> y no sabe dónde están las credenciales: busca <code class="docutils literal notranslate"><span class="pre">~/.kube/config</span></code>, y al no encontrarlo prueba la dirección por defecto de Kubernetes, que en k3s no escucha nadie. Es el mismo paso que hicimos para k9s:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.kube<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cp<span class="w"> </span>/etc/rancher/k3s/k3s.yaml<span class="w"> </span>~/.kube/config<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.kube/config
+<p>Helm, igual que k9s, <strong>no es el binario de k3s</strong> y no sabe dónde están las credenciales: al no encontrar un kubeconfig prueba la dirección por defecto de Kubernetes, que en k3s no escucha nadie. Lo arregla la misma variable que pusimos para k9s, así que si la dejaste en el <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> no hay nada que hacer; si no, es una línea:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export KUBECONFIG=/etc/rancher/k3s/k3s.yaml&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+root@compute-0-0:~#<span class="w"> </span><span class="nb">source</span><span class="w"> </span>~/.bashrc
 
 root@compute-0-0:~#<span class="w"> </span>helm<span class="w"> </span>list
 NAME<span class="w">  </span>NAMESPACE<span class="w">       </span>REVISION<span class="w">        </span>UPDATED<span class="w"> </span>STATUS<span class="w">  </span>CHART<span class="w">   </span>APP<span class="w"> </span>VERSION
@@ -1531,7 +1656,8 @@ root@compute-0-0:~/09#<span class="w"> </span>helm<span class="w"> </span>list
 NAME<span class="w">          </span>NAMESPACE<span class="w">  </span>REVISION<span class="w">  </span>STATUS<span class="w">    </span>CHART<span class="w">               </span>APP<span class="w"> </span>VERSION
 web-tunombre<span class="w">  </span>default<span class="w">    </span><span class="m">1</span><span class="w">         </span>deployed<span class="w">  </span>web-tunombre-0.1.0<span class="w">  </span><span class="m">1</span>.0
 
-root@compute-0-0:~/09#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3, $7}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+root@compute-0-0:~/09#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>web-tunombre<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>ESTADO:.status.phase,NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-0
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-1
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-2
@@ -2002,7 +2128,8 @@ Warning<span class="w">  </span>FailedMount<span class="w">  </span>16s<span cla
 root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span><span class="m">172</span>.16.0.13<span class="w"> </span><span class="s2">&quot;k3s ctr images import /root/web-tunombre-1.0.tar&quot;</span>
 root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span><span class="m">172</span>.16.0.13<span class="w"> </span><span class="s2">&quot;apt install -y nfs-common&quot;</span>
 
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>web-tunombre<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $3, $7}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>web-tunombre<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>ESTADO:.status.phase,NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-0
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-1
 <span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-2
@@ -2089,6 +2216,7 @@ root@compute-0-0:~/09#<span class="w"> </span>helm<span class="w"> </span>uninst
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-cluster">El clúster</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desplegar-y-exponer-una-aplicacion">Desplegar y exponer una aplicación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#publicar-con-un-nombre-el-ingress">Publicar con un nombre: el Ingress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cambiar-la-pagina-sin-entrar-en-ninguna-maquina">Cambiar la página sin entrar en ninguna máquina</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#escalabilidad-y-autorreparacion">Escalabilidad y autorreparación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-pasa-cuando-se-cae-una-maquina">Qué pasa cuando se cae una máquina</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actualizar-sin-cortar-el-servicio">Actualizar sin cortar el servicio</a></li>

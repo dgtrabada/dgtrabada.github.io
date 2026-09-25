@@ -56,9 +56,9 @@ Funcionamiento Básico
 Caso práctico: un clúster Kubernetes con k3s
 --------------------------------------------
 
-Montamos ahora un clúster de verdad con **k3s**, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de **kubeadm**— pero cabe en una máquina virtual de 2 GB y se instala con una orden.
+Montamos ahora un clúster de verdad con **k3s**, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de **kubeadm**— pero cabe en una máquina virtual modesta y se instala con una orden.
 
-Partimos de **cuatro máquinas virtuales limpias**, clones enlazados de **MV Ubuntu Server**, con la red de siempre:
+Partimos de **cuatro máquinas virtuales limpias**, clones enlazados de **MV Ubuntu Server**, con **4 GB de memoria cada una** y la red de siempre. Con 2 GB el clúster arranca, pero se queda sin sitio en cuanto se le añade algo, así que dáselos ahora y te ahorras rehacerlo a mitad del tema:
 
 * **compute-0-0** (será el **servidor** del clúster y dará salida a Internet a los demás)
 
@@ -377,6 +377,30 @@ Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el **navegado
 
 Eso entra por el **NodePort**, no por el Ingress: es la misma aplicación, pero pedida por IP y puerto en lugar de por nombre. El nombre ``web-tunombre.local`` solo lo entienden los nodos, que son los que lo tienen en su ``/etc/hosts``.
 
+Cambiar la página sin entrar en ninguna máquina
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Ya tienes la web delante en el navegador, así que la siguiente pregunta es la de siempre: **¿dónde se toca esto para cambiarlo?** En un servidor de toda la vida entrarías por ssh y editarías el ``index.html``. Aquí no, y el propio sistema te lo impide. Los volúmenes de ConfigMap se montan en **sólo lectura**, y menos mal: estarías cambiando **una** copia de cuatro, y el cambio se perdería en cuanto ese Pod muriera. La página no vive en ningún contenedor, vive en el **ConfigMap**, y ahí es donde se toca:
+
+El ConfigMap está dentro de ``web-tunombre.yml``, así que se edita **ahí**, en el fichero, y se vuelve a aplicar. Añádele a la página una línea con la **hora a la que haces el cambio**, que es la forma de saber qué versión estás viendo:
+
+.. code-block:: html
+
+  <h1>Hola, soy tunombre</h1>
+  <p>Cambiado a <hora dia y mes></p>
+
+Escribe la hora, el día y el mes de verdad, por ejemplo ``Cambiado a 13:00 3 sept``. Es lo que te va a decir si lo que estás viendo en el navegador es tu cambio o todavía el de antes.
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl apply -f web-tunombre.yml
+  configmap/web-tunombre-html configured
+
+
+Y ahora recarga el navegador. **No habrá cambiado todavía**, y eso no es un fallo. El kubelet de cada nodo va refrescando cada poco los ficheros que vienen de un ConfigMap, así que el cambio tarda **hasta un minuto** en aparecer. Comparando la hora que escribiste con la hora en la que sale, se mide exactamente lo que ha tardado. Si recargas a los dos segundos y ves lo de antes, es que has ido más rápido que el clúster.
+
+Lo importante es lo que ha pasado mientras tanto: han cambiado **las cuatro copias a la vez**, sin reiniciar nada, sin entrar en ninguna máquina y sin que importe en qué nodo esté cada una. Has cambiado un objeto, no unos servidores.
+
 Escalabilidad y autorreparación
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -387,14 +411,29 @@ Todo lo que viene ahora se ve mucho mejor **en vivo**, así que abre una **segun
   root@compute-0-0:~# curl -sL https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.deb -o /tmp/k9s.deb
   root@compute-0-0:~# apt install -y /tmp/k9s.deb
 
-  root@compute-0-0:~# mkdir -p ~/.kube
-  root@compute-0-0:~# cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-  root@compute-0-0:~# chmod 600 ~/.kube/config
+  root@compute-0-0:~# k9s
+  ... Unable to connect to context ...
+
+``kubectl`` encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero **k9s no**: busca ``~/.kube/config``, que en k3s **no existe**, porque las credenciales están en ``/etc/rancher/k3s/k3s.yaml``. Se lo decimos con la variable ``KUBECONFIG``, y lo dejamos puesto en el ``~/.bashrc`` para no tener que repetirlo:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+  root@compute-0-0:~# bash
+  root@compute-0-0:~# echo $KUBECONFIG
+  /etc/rancher/k3s/k3s.yaml
   root@compute-0-0:~# k9s
 
-``kubectl`` encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero **k9s no**: busca ``~/.kube/config``, que en k3s **no existe** —las credenciales están en ``/etc/rancher/k3s/k3s.yaml``—, y sin él arranca con un *Unable to connect*. Copiándolo a su sitio, la máquina queda como cualquier otro cliente de Kubernetes y vale también para ``helm`` o para cualquier herramienta que busque esa ruta. La alternativa, si no quieres duplicar el fichero, es ``export KUBECONFIG=/etc/rancher/k3s/k3s.yaml`` en el ``~/.bashrc``.
+Con eso, la máquina queda como cualquier otro cliente de Kubernetes, y la variable vale igual para ``helm`` o para cualquier otra herramienta que necesite las credenciales.
 
-Dentro, con cuatro teclas tienes bastante: ``0`` muestra todos los *namespaces*, ``:pods`` y ``:nodes`` cambian de vista, ``l`` saca los registros del Pod señalado, ``d`` su descripción, ``Ctrl-D`` lo borra —muy a mano para la prueba de autorreparación de aquí abajo— y ``:q`` sale.
+Dentro de k9s, con unas pocas teclas tienes bastante:
+
+* ``0`` — muestra todos los *namespaces*.
+* ``:pods`` y ``:nodes`` — cambian de vista.
+* ``l`` — saca los registros del Pod señalado.
+* ``d`` — su descripción.
+* ``Ctrl-D`` — lo borra, muy a mano para la prueba de autorreparación de aquí abajo.
+* ``:q`` — sale.
 
 Con esa terminal a la vista, en la primera pedir más copias es cambiar un número:
 
@@ -403,7 +442,7 @@ Con esa terminal a la vista, en la primera pedir más copias es cambiar un núme
   root@compute-0-0:~# kubectl scale deployment web-tunombre --replicas=8
   deployment.apps/web-tunombre scaled
 
-  root@compute-0-0:~# kubectl get pods -o wide --no-headers | awk '{print $7}' | sort | uniq -c
+  root@compute-0-0:~# kubectl get pods -o custom-columns=NODO:.spec.nodeName --no-headers | sort | uniq -c
         2 compute-0-0
         2 compute-0-1
         2 compute-0-2
@@ -431,64 +470,79 @@ Esto es lo que de verdad distingue a Kubernetes de todo lo anterior, y conviene 
   root@compute-0-0:~# kubectl get nodes
   root@compute-0-0:~# kubectl get pods -o wide
 
-Pausamos compute-0-2
+Pausamos compute-0-2. En **menos de un minuto** el clúster se da cuenta de que ese nodo ha dejado de dar señales, pero **los Pods siguen exactamente donde estaban**:
 
 .. code-block:: bash
 
   root@compute-0-0:~# kubectl get nodes
-  NAME          STATUS   ROLES           AGE   VERSION
-  compute-0-0   Ready    control-plane   60m   v1.36.4+k3s1
-  compute-0-1   Ready    <none>          43m   v1.36.4+k3s1
-  compute-0-2   Ready    <none>          43m   v1.36.4+k3s1
-  compute-0-3   Ready    <none>          43m   v1.36.4+k3s1
+  NAME          STATUS     ROLES           AGE     VERSION
+  compute-0-0   Ready      control-plane   4d22h   v1.36.4+k3s1
+  compute-0-1   Ready      <none>          4d21h   v1.36.4+k3s1
+  compute-0-2   NotReady   <none>          4d21h   v1.36.4+k3s1
+  compute-0-3   Ready      <none>          4d21h   v1.36.4+k3s1
 
-  root@compute-0-0:~# kubectl get pods -o wide --no-headers | awk '{print $7}' | sort | uniq -c
-      2 compute-0-0
-      2 compute-0-1
-      2 compute-0-2
-      2 compute-0-3
+  root@compute-0-0:~# kubectl get pods -o custom-columns=NODO:.spec.nodeName --no-headers | sort | uniq -c
+        2 compute-0-0
+        2 compute-0-1
+        2 compute-0-2
+        2 compute-0-3
 
+No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero **no sabe si la máquina está apagada o es la red la que falla**, y arrancar copias nuevas de algo que quizá sigue vivo puede ser peor. Así que espera cinco minutos antes de tocar nada.
 
-No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero **no sabe si la máquina está apagada o es la red la que falla**, y arrancar copias nuevas de algo que quizá sigue vivo puede ser peor. Así que espera cinco minutos.
-
-A los **seis minutos** toma la decisión:
+A los **seis minutos** toma la decisión, y a partir de aquí hay que mirar la salida entera, no un recuento:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# kubectl get nodes
-  NAME          STATUS     ROLES           AGE   VERSION
-  compute-0-0   Ready      control-plane   61m   v1.36.4+k3s1
-  compute-0-1   Ready      <none>          45m   v1.36.4+k3s1
-  compute-0-2   NotReady   <none>          45m   v1.36.4+k3s1
-  compute-0-3   Ready      <none>          44m   v1.36.4+k3s1
+  root@compute-0-0:~# kubectl get pods -o wide
+  ... PENDIENTE: las diez lineas, con los Terminating en compute-0-2 ...
 
-  root@compute-0-0:~# kubectl get pods -o wide --no-headers | awk '{print $7}' | sort | uniq -c
-      2 compute-0-0
-      2 compute-0-1
-      2 compute-0-2
-      2 compute-0-3
+Aparecen **diez** Pods donde pediste ocho: ha recreado las dos copias perdidas en las máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como ``Terminating``. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.
 
+.. note::
 
-
-Ha recreado las dos copias perdidas en las tres máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como ``Terminating``. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.
+  Ese ``Terminating`` no sale en el recuento de antes, y no es un fallo del comando: **no es un estado que exista en el objeto**, lo calcula ``kubectl`` al ver que el Pod tiene puesta la fecha de borrado. Por dentro sigue diciendo ``Running``. Por eso, en esta prueba, la salida completa de ``kubectl get pods -o wide`` enseña más que cualquier recuento.
 
 Al **volver a encender** compute-0-2, el nodo pasa a ``Ready`` en menos de un minuto, los ``Terminating`` desaparecen... y las copias **no vuelven**:
 
 .. code-block:: bash
 
-  compute-0-2   Ready   <none>
-        3 Running compute-0-0
-        3 Running compute-0-1
-        2 Running compute-0-3
+  root@compute-0-0:~# kubectl get nodes
+  NAME          STATUS   ROLES           AGE     VERSION
+  compute-0-0   Ready    control-plane   4d22h   v1.36.4+k3s1
+  compute-0-1   Ready    <none>          4d21h   v1.36.4+k3s1
+  compute-0-2   Ready    <none>          4d21h   v1.36.4+k3s1
+  compute-0-3   Ready    <none>          4d21h   v1.36.4+k3s1
 
-Kubernetes garantiza que haya **ocho copias**, no que estén repartidas a partes iguales: mover algo que ya funciona no aporta nada y sí arriesga. El reparto se recupera solo con el tiempo, según vayan muriendo y naciendo Pods, o a mano volviendo a escalar.
+  root@compute-0-0:~# kubectl get pods -o custom-columns=NODO:.spec.nodeName --no-headers | sort | uniq -c
+        2 compute-0-0
+        3 compute-0-1
+        3 compute-0-3
 
-Compáralo con el ``ansible-playbook`` de la tarea 08: allí el playbook deja las máquinas como quieres **en el momento en que lo lanzas**, y si una se cae de madrugada sigue caída hasta que alguien lo vuelve a lanzar. Aquí nadie lanzó nada.
+Siguen siendo ocho copias, pero repartidas **2 / 3 / 3**: las dos que se perdieron con el nodo renacieron en compute-0-1 y compute-0-3, y ahí se han quedado. Fíjate en que **compute-0-2 ni siquiera aparece** en la lista: está ``Ready``, dentro del clúster y listo para recibir trabajo, pero sin una sola copia.
+
+Kubernetes garantiza que haya **ocho copias**, no que estén repartidas a partes iguales: mover algo que ya funciona no aporta nada y sí arriesga. Nada va a reequilibrarlo solo; el reparto se recupera según vayan muriendo y naciendo Pods.
+
+Y eso se puede provocar. Mata una copia de uno de los nodos que tienen tres y mira dónde nace la siguiente:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl delete pod <una copia de compute-0-1>
+
+El planificador elige **por hueco**, así que la nueva se va a compute-0-2, que está a cero. Repitiendo con una de compute-0-3 vuelves a tener las ocho repartidas. Y si quieres hacerlo de una vez, ``kubectl rollout restart deployment web-tunombre`` recrea las ocho de pocas en pocas y las vuelve a colocar, que es lo que harías en un sistema de verdad porque no corta el servicio.
 
 Actualizar sin cortar el servicio
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cambiar la versión de la aplicación es cambiar la imagen del Deployment. Kubernetes va sustituyendo las copias **de pocas en pocas**, y ``rollout status`` cuenta el proceso:
+Cambiar la versión de la aplicación es cambiar la imagen del Deployment, y Kubernetes va sustituyendo las copias **de pocas en pocas**. La pregunta es si durante ese cambio **se pierde alguna petición**, y para poder contestarla hay que medir **antes**, con la aplicación quieta: trescientas peticiones seguidas, contando por código de respuesta.
+
+.. code-block:: bash
+
+  root@compute-0-0:~# for i in $(seq 1 300); do
+    curl -s -o /dev/null -w "%{http_code}\n" --max-time 5 http://web-tunombre.local
+    sleep 0.2
+  done | sort | uniq -c
+
+Sin tocar nada contestan las trescientas, como tenía que ser. Ese es el punto de partida: ahora actualizamos la imagen y, **mientras se actualiza**, repetimos exactamente la misma medición desde otra terminal para comparar. ``rollout status`` cuenta el proceso:
 
 .. code-block:: bash
 
@@ -514,16 +568,7 @@ Y si la versión nueva no sirve, se vuelve atrás con un comando:
   root@compute-0-0:~# kubectl rollout undo deployment/web-tunombre
   deployment.apps/web-tunombre rolled back
 
-La pregunta interesante es si durante ese cambio **se pierde alguna petición**. Se comprueba dejando corriendo un bucle en otra terminal mientras se actualiza:
-
-.. code-block:: bash
-
-  root@compute-0-0:~# for i in $(seq 1 300); do
-    curl -s -o /dev/null -w "%{http_code}\n" --max-time 5 http://web-tunombre.local
-    sleep 0.2
-  done | sort | uniq -c
-
-Con el Deployment tal como lo hemos escrito, el resultado **no es perfecto**:
+Y aquí está la diferencia. El mismo bucle de antes, lanzado en otra terminal mientras el cambio está en marcha, ya no da lo mismo: con el Deployment tal como lo hemos escrito, el resultado **no es perfecto**:
 
 .. code-block:: bash
 
@@ -531,15 +576,20 @@ Con el Deployment tal como lo hemos escrito, el resultado **no es perfecto**:
     297 200
       2 502
 
-Los ``502`` son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los ``000`` conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor **está listo** ni cuándo **ha terminado de atender** lo que tenía entre manos, y hay que decírselo con dos cosas:
+Los ``502`` son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los ``000`` conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor **está listo** ni cuándo **ha terminado de atender** lo que tenía entre manos, y hay que decírselo con tres cosas:
 
 * una **readinessProbe**: hasta que la página no conteste, esa copia no recibe tráfico;
 * ``maxUnavailable: 0``: no quites una copia vieja hasta tener una nueva lista;
 * y un **preStop**, una pausa antes de apagar la copia vieja, para que le dé tiempo a salir de la lista de destinos.
 
-.. code-block:: yaml
+Las tres van en el **Deployment de** ``web-tunombre.yml``, que ya tienes escrito: no es un objeto nuevo. **Lo resaltado es lo que hay que añadir o cambiar**; el resto está solo para situar el sitio y la sangría:
 
+.. code-block:: yaml
+  :emphasize-lines: 3-7,13-21
+
+  # web-tunombre.yml, en el Deployment
   spec:
+    replicas: 8
     strategy:
       rollingUpdate:
         maxSurge: 25%
@@ -559,7 +609,7 @@ Los ``502`` son peticiones que Traefik mandó a una copia que ya se estaba apaga
                 exec:
                   command: ["sleep", "5"]
 
-Repitiendo la misma prueba, ahora sí:
+Y aprovecha para poner las **ocho** réplicas en el fichero: el ``kubectl scale`` de antes cambió el clúster pero no el YAML, así que si lo aplicas tal como está te bajaría otra vez al número viejo. Después, ``kubectl apply -f web-tunombre.yml``, y repitiendo la misma prueba, ahora sí:
 
 .. code-block:: bash
 
@@ -579,7 +629,7 @@ Merece la pena verlo por pasos, porque explica para qué sirve cada ajuste:
   * - y además con preStop
     - **300** ``200``
 
-«Actualizar sin cortar el servicio» no sale gratis por usar Kubernetes: sale de decirle al clúster cómo saber que una copia está viva.
+Actualizar sin cortar el servicio no sale gratis por usar Kubernetes: sale de decirle al clúster cómo sabe él que una copia ya está lista para recibir peticiones, y cuánto tiene que esperar antes de apagar una que todavía está atendiendo.
 
 Una imagen propia: Dockerfile, ConfigMap y Secret
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -594,9 +644,12 @@ Kubernetes no construye imágenes, así que instalamos Docker en compute-0-0 (co
 
 La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en ``/docker-entrypoint.d/``. Ese es el sitio donde sustituir las variables dentro del HTML, con ``envsubst``:
 
-.. code-block:: bash
+Son **tres ficheros dentro del directorio** ``imagen/``, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.
 
-  root@compute-0-0:~# cat imagen/index.html.template
+``imagen/index.html.template``:
+
+.. code-block:: html
+
   <!DOCTYPE html>
   <html>
   <head><title>${TITULO}</title></head>
@@ -606,12 +659,18 @@ La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en ``/docke
   </body>
   </html>
 
-  root@compute-0-0:~# cat imagen/20-titulo.sh
+``imagen/20-titulo.sh``:
+
+.. code-block:: bash
+
   #!/bin/sh
   # la imagen nginx ejecuta al arrancar todo lo que encuentre en /docker-entrypoint.d/
   envsubst "\$TITULO" < /plantilla/index.html.template > /usr/share/nginx/html/index.html
 
-  root@compute-0-0:~# cat imagen/Dockerfile
+``imagen/Dockerfile``:
+
+.. code-block:: docker
+
   FROM nginx:alpine
   # envsubst viene en el paquete gettext
   RUN apk add --no-cache gettext
@@ -619,6 +678,15 @@ La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en ``/docke
   COPY index.html.template /plantilla/index.html.template
   COPY 20-titulo.sh /docker-entrypoint.d/20-titulo.sh
   RUN chmod +x /docker-entrypoint.d/20-titulo.sh
+
+Antes de construir, comprueba que el script tiene **tres líneas** y el resto lo suyo, porque si se cuela ahí cualquier otra cosa nginx intentará ejecutarla al arrancar y el contenedor se morirá nada más nacer:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# wc -l imagen/*
+    7 imagen/Dockerfile
+    8 imagen/index.html.template
+    3 imagen/20-titulo.sh
 
   root@compute-0-0:~# docker build -t web-tunombre:1.0 imagen/
   sha256:28ce5e9688896cf74c49b57685c71bd8af308f5dfa0d9608a4b5f49fed40cbe2
@@ -649,7 +717,7 @@ La imagen está ahora en el Docker de compute-0-0, pero **k3s no usa Docker, usa
 
 En la vida real esto se resuelve con un **registro de imágenes** (Docker Hub o uno propio): se sube una vez y cada nodo se la descarga. Copiar el tar a mano solo se aguanta con cuatro máquinas.
 
-El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va en un **Secret**. Los dos se inyectan como variables de entorno:
+El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va en un **Secret**. Los dos son objetos nuevos, así que van en un fichero nuevo, ``config-tunombre.yml``:
 
 .. code-block:: yaml
 
@@ -667,30 +735,69 @@ El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va
   type: Opaque
   stringData:
     clave: "MiClaveSecreta"
-  ---
-  # ... dentro del contenedor del Deployment:
-          image: web-tunombre:1.0
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: TITULO
-              valueFrom:
-                configMapKeyRef:
-                  name: web-tunombre-config
-                  key: titulo
-            - name: CLAVE
-              valueFrom:
-                secretKeyRef:
-                  name: web-tunombre-secret
-                  key: clave
 
-``imagePullPolicy: IfNotPresent`` es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.
+Tenerlos creados no hace nada por sí solo: hay que **inyectarlos como variables de entorno** en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de ``web-tunombre.yml``. Otra vez, lo resaltado es lo que cambia:
+
+.. code-block:: yaml
+  :emphasize-lines: 5-6,9-19
+
+  # web-tunombre.yml, dentro del Deployment
+      spec:
+        containers:
+          - name: nginx
+            image: web-tunombre:1.0
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 80
+            env:
+              - name: TITULO
+                valueFrom:
+                  configMapKeyRef:
+                    name: web-tunombre-config
+                    key: titulo
+              - name: CLAVE
+                valueFrom:
+                  secretKeyRef:
+                    name: web-tunombre-secret
+                    key: clave
+
+La ``image`` deja de ser ``nginx:alpine`` y pasa a ser la nuestra. Y ``imagePullPolicy: IfNotPresent`` es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.
+
+Y hay algo que **se quita**: el ConfigMap ``web-tunombre-html`` con la página y el volumen que lo montaba en ``/usr/share/nginx/html``. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además **estorban**: un volumen de ConfigMap se monta en sólo lectura, así que el ``envsubst`` del arranque no podría escribir ahí el ``index.html``. Borra del Deployment las dos partes:
+
+.. code-block:: yaml
+  :emphasize-lines: 4-6,8-11
+
+  # web-tunombre.yml: esto se BORRA del Deployment
+      spec:
+        containers:
+          - name: nginx
+            volumeMounts:
+              - name: html
+                mountPath: /usr/share/nginx/html
+        volumes:
+          - name: html
+            configMap:
+              name: web-tunombre-html
+
+Si te dejas el volumen puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.
+
+Y hay una diferencia con la página del ConfigMap de antes: aquellos ficheros se refrescaban solos porque iban montados como un volumen, pero **una variable de entorno se lee al arrancar el contenedor y ya no cambia mientras vive**. Si ahora cambias el título en el ConfigMap, la web seguirá igual hasta que los Pods se recreen.
+
+Y se aplican los dos ficheros, el nuevo y el de siempre:
 
 .. code-block:: bash
 
   root@compute-0-0:~# kubectl apply -f config-tunombre.yml
   configmap/web-tunombre-config created
   secret/web-tunombre-secret created
+
+  root@compute-0-0:~# kubectl apply -f web-tunombre.yml
   deployment.apps/web-tunombre configured
+
+Del segundo fichero solo cambia el Deployment; de lo demás que hay dentro, ``kubectl`` dirá ``unchanged``, porque no lo has tocado.
+
+.. code-block:: bash
 
   root@compute-0-0:~# curl -s http://web-tunombre.local
   <!DOCTYPE html>
@@ -734,18 +841,11 @@ Un Pod es desechable: cuando muere se lleva consigo todo lo que hubiera escrito.
 .. code-block:: bash
 
   root@compute-0-0:~# apt install -y nfs-kernel-server
+  root@compute-0-0:~# for n in 1 2 3; do ssh -n 172.16.0.1$n "apt install -y nfs-common"; done
   root@compute-0-0:~# mkdir -p /srv/tunombre && chmod 777 /srv/tunombre
   root@compute-0-0:~# echo "/srv/tunombre 172.16.0.0/16(rw,sync,no_subtree_check,no_root_squash)" >> /etc/exports
   root@compute-0-0:~# exportfs -ra && exportfs -v
   /srv/tunombre 	172.16.0.0/16(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,no_all_squash)
-
-.. warning::
-
-  Quien monta el NFS **no es el contenedor, es el nodo**, así que el cliente de NFS tiene que estar instalado **en las cuatro máquinas**; k3s no lo trae. Si falta, el Pod se queda en ``ContainerCreating`` con un ``wrong fs type, bad option`` que no dice nada:
-
-  .. code-block:: bash
-
-    root@compute-0-1:~# apt install -y nfs-common
 
 En Kubernetes el almacenamiento se describe en dos piezas: un **PersistentVolume** (el disco que hay) y un **PersistentVolumeClaim** (lo que la aplicación pide). ``nfs-tunombre.yml``:
 
@@ -793,17 +893,74 @@ En Kubernetes el almacenamiento se describe en dos piezas: un **PersistentVolume
   NAME                                 STATUS   VOLUME        CAPACITY   ACCESS MODES
   persistentvolumeclaim/pvc-tunombre   Bound    pv-tunombre   1Gi        RWX
 
-``Bound`` quiere decir que la petición ha encontrado su volumen. Se monta en el Deployment como cualquier otro volumen:
+``Bound`` quiere decir que la petición ha encontrado su volumen, y ahora se monta en el Deployment de ``web-tunombre.yml``. Como ese fichero se ha ido construyendo a trozos en tres apartados distintos, aquí va entero, para que lo compares con el tuyo. **Lo resaltado es lo importante de este apartado**: el ``volumeMounts`` dentro del contenedor y el ``volumes`` al mismo nivel que ``containers``.
 
 .. code-block:: yaml
+  :emphasize-lines: 45-51
 
-          volumeMounts:
-            - name: datos
-              mountPath: /datos
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: web-tunombre
+  spec:
+    replicas: 8
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 0
+    selector:
+      matchLabels:
+        app: web-tunombre
+    template:
+      metadata:
+        labels:
+          app: web-tunombre
+      spec:
+        containers:
+          - name: nginx
+            image: web-tunombre:1.0
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 80
+            env:
+              - name: TITULO
+                valueFrom:
+                  configMapKeyRef:
+                    name: web-tunombre-config
+                    key: titulo
+              - name: CLAVE
+                valueFrom:
+                  secretKeyRef:
+                    name: web-tunombre-secret
+                    key: clave
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 80
+              periodSeconds: 2
+            lifecycle:
+              preStop:
+                exec:
+                  command: ["sleep", "5"]
+            volumeMounts:
+              - name: datos
+                mountPath: /datos
         volumes:
           - name: datos
             persistentVolumeClaim:
               claimName: pvc-tunombre
+
+Y ``kubectl apply -f web-tunombre.yml`` para que se lleve a los Pods. Kubernetes los recrea él solo al ver el Deployment cambiado, pero conviene comprobar que han nacido **todos** con el volumen antes de seguir:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl apply -f web-tunombre.yml
+  root@compute-0-0:~# kubectl rollout status deployment/web-tunombre
+
+  root@compute-0-0:~# kubectl get pods -o custom-columns=POD:.metadata.name,NODO:.spec.nodeName,VOLUMENES:.spec.containers[0].volumeMounts[*].name
+
+Los Pods buenos llevan ``datos`` en la última columna; los que salgan vacíos son de la versión anterior y tienen que desaparecer solos. Si se quedan, ``kubectl rollout restart deployment/web-tunombre`` los renueva todos de pocas en pocas, sin dejar el servicio sin copias.
+
 
 Y la prueba de que el dato sobrevive al Pod: escribimos desde una copia, la borramos y leemos desde la que nace en su lugar, que además puede caer en otra máquina:
 
@@ -874,7 +1031,7 @@ Vamos a montar tres piezas encima de lo que ya hay:
 
 .. note::
 
-  Esto pesa bastante más que el caso anterior. Con las máquinas de 2 GB entra, pero justo: al terminar quedan unos 500 MB libres en cada nodo y cualquier cosa que se añada empezará a dar ``OOMKilled``. Si puedes darle **4 GB a compute-0-0**, mejor. Los valores que usamos más abajo están recortados a propósito para que quepa.
+  Esto pesa bastante más que el caso anterior: aquí es donde hacen falta los **4 GB** de cada máquina. Aun así, los valores que usamos más abajo van recortados a propósito, porque los que traen los charts por defecto están pensados para servidores de verdad.
 
 Helm, el gestor de paquetes de Kubernetes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -905,11 +1062,12 @@ Es la misma idea que un paquete ``.deb``, sus ficheros de configuración y el pa
   root@compute-0-0:~# helm list
   Error: Kubernetes cluster unreachable: Get "http://localhost:8080/version": dial tcp 127.0.0.1:8080: connect: connection refused
 
-Helm, igual que k9s, **no es el binario de k3s** y no sabe dónde están las credenciales: busca ``~/.kube/config``, y al no encontrarlo prueba la dirección por defecto de Kubernetes, que en k3s no escucha nadie. Es el mismo paso que hicimos para k9s:
+Helm, igual que k9s, **no es el binario de k3s** y no sabe dónde están las credenciales: al no encontrar un kubeconfig prueba la dirección por defecto de Kubernetes, que en k3s no escucha nadie. Lo arregla la misma variable que pusimos para k9s, así que si la dejaste en el ``~/.bashrc`` no hay nada que hacer; si no, es una línea:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# mkdir -p ~/.kube && cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && chmod 600 ~/.kube/config
+  root@compute-0-0:~# echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+  root@compute-0-0:~# source ~/.bashrc
 
   root@compute-0-0:~# helm list
   NAME	NAMESPACE	REVISION	UPDATED	STATUS	CHART	APP VERSION
@@ -1112,7 +1270,8 @@ Como la aplicación del caso anterior sigue desplegada, la quitamos primero para
   NAME          NAMESPACE  REVISION  STATUS    CHART               APP VERSION
   web-tunombre  default    1         deployed  web-tunombre-0.1.0  1.0
 
-  root@compute-0-0:~/09# kubectl get pods -o wide --no-headers | awk '{print $3, $7}' | sort | uniq -c
+  root@compute-0-0:~/09# kubectl get pods -l app=web-tunombre \
+      -o custom-columns=ESTADO:.status.phase,NODO:.spec.nodeName --no-headers | sort | uniq -c
         1 Running compute-0-0
         1 Running compute-0-1
         1 Running compute-0-2
@@ -1635,7 +1794,8 @@ Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se a
   root@compute-0-0:~# ssh 172.16.0.13 "k3s ctr images import /root/web-tunombre-1.0.tar"
   root@compute-0-0:~# ssh 172.16.0.13 "apt install -y nfs-common"
 
-  root@compute-0-0:~# kubectl get pods -o wide --no-headers | grep web-tunombre | awk '{print $3, $7}' | sort | uniq -c
+  root@compute-0-0:~# kubectl get pods -l app=web-tunombre \
+      -o custom-columns=ESTADO:.status.phase,NODO:.spec.nodeName --no-headers | sort | uniq -c
         1 Running compute-0-0
         1 Running compute-0-1
         1 Running compute-0-2
