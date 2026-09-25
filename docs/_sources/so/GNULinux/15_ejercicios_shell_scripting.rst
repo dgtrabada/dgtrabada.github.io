@@ -45,33 +45,6 @@ mac.sh
         .. literalinclude:: scripts/mac.sh
            :language: shell
 
-listar_usuario_grupo.sh
-"""""""""""""""""""""""
-
-.. tabs::
-
-    .. tab:: listar_usuario_grupo.sh
-
-        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo
-
-        .. code-block:: bash
-          
-           alumno1 : smr1
-           alumno2 : smr1
-           alumno3 : asir1
-           alumno4 : asir2
-
-    .. tab:: Solución
-
-        .. literalinclude:: scripts/listar_usuario_grupo.sh
-           :language: shell
-
-    .. tab:: Solución (for)
-
-        .. literalinclude:: scripts/listar_usuario_grupo_for.sh
-           :language: shell
-
-
 lastlog_ip.sh
 """""""""""""
 
@@ -242,6 +215,28 @@ temperatura.sh
 
         .. literalinclude:: scripts/temperatura_array.sh
            :language: shell
+
+listar_usuario_grupo.sh
+"""""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: listar_usuario_grupo.sh
+
+        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo
+
+        .. code-block:: bash
+          
+           alumno1 : smr1
+           alumno2 : smr1
+           alumno3 : asir1
+           alumno4 : asir2
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/listar_usuario_grupo.sh
+           :language: shell
+
 
 meteo.sh
 """"""""

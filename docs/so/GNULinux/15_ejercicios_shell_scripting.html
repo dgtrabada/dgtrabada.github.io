@@ -536,13 +536,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disk-sh">disk.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mem-sh">mem.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-sh">mac.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listar-usuario-grupo-sh">listar_usuario_grupo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-ip-sh">lastlog_ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listar-usuario-grupo-sh">listar_usuario_grupo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-sh">meteo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerta-disco-sh">alerta_disco.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-sh">rnd.sh</a></li>
@@ -628,33 +628,10 @@ ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </spa
 </div>
 </div></div>
 </section>
-<section id="listar-usuario-grupo-sh">
-<h2>listar_usuario_grupo.sh<a class="headerlink" href="#listar-usuario-grupo-sh" title="Link to this heading">#</a></h2>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">listar_usuario_grupo.sh</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-3-3-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-2" name="3-2" role="tab" tabindex="-1">Solución (for)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>listar_usuario_grupo.sh</strong> que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alumno1<span class="w"> </span>:<span class="w"> </span>smr1
-alumno2<span class="w"> </span>:<span class="w"> </span>smr1
-alumno3<span class="w"> </span>:<span class="w"> </span>asir1
-alumno4<span class="w"> </span>:<span class="w"> </span>asir2
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-groups<span class="w"> </span><span class="k">$(</span>grep<span class="w"> </span>bash<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
-</pre></div>
-</div>
-</div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>bash<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>root<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
-<span class="k">do</span><span class="w"> </span>
-<span class="w">  </span>groups<span class="w"> </span><span class="nv">$i</span>
-<span class="k">done</span>
-</pre></div>
-</div>
-</div></div>
-</section>
 <section id="lastlog-ip-sh">
 <h2>lastlog_ip.sh<a class="headerlink" href="#lastlog-ip-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">lastlog_ip.sh</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-4-4-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-2" name="4-2" role="tab" tabindex="-1">Solución (for)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog_ip.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada ip.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">lastlog_ip.sh</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-3-3-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-2" name="3-2" role="tab" tabindex="-1">Solución (for)</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog_ip.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada ip.</p>
 <p>Si tu máquina tiene pocas conexiones descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log">last_w.log</a>, que contiene la salida de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code> de una máquina con muchas conexiones, y utiliza <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">last_w.log</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code>, tiene que quedar</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">16</span><span class="w"> </span><span class="m">10</span>.2.104.100
 <span class="m">11</span><span class="w"> </span><span class="m">10</span>.2.3.100
@@ -677,11 +654,11 @@ groups<span class="w"> </span><span class="k">$(</span>grep<span class="w"> </sp
 <span class="m">1</span><span class="w"> </span><span class="m">10</span>.2.107.100
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;\.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-4-4-2" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-2" name="4-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w">  </span>grep<span class="w"> </span><span class="s1">&#39;\.&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="k">)</span><span class="p">;</span><span class="w"> </span>
 <span class="k">do</span><span class="w"> </span>
@@ -694,7 +671,7 @@ last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><s
 <section id="lastlog-sh">
 <h2>lastlog.sh<a class="headerlink" href="#lastlog-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">lastlog.sh</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-5-5-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-2" name="5-2" role="tab" tabindex="-1">Solución (for)</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">lastlog.sh</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-4-4-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-2" name="4-2" role="tab" tabindex="-1">Solución (for)</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>lastlog.sh</strong> que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen.</p>
 <p>Si tu máquina tiene pocas conexiones descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log">last_w.log</a>, que contiene la salida de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code> de una máquina con muchas conexiones, y utiliza <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">last_w.log</span></code> en lugar de <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">-w</span></code>, tiene que quedar</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">24</span><span class="w"> </span>alumno1<span class="w"> </span>smr1
 <span class="m">20</span><span class="w"> </span>alumno2<span class="w"> </span>smr1
@@ -709,12 +686,12 @@ last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><s
 </pre></div>
 </div>
 <p>Los usuarios <code class="docutils literal notranslate"><span class="pre">alumno1</span></code> ... <code class="docutils literal notranslate"><span class="pre">alumno8</span></code> tienen que existir en tu máquina, si no <code class="docutils literal notranslate"><span class="pre">groups</span></code> no podrá decir a qué grupo pertenecen</p>
-</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nv">lista</span><span class="o">=</span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>-e<span class="w"> </span>reboot<span class="w"> </span>-e<span class="w"> </span>wtmp<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;^$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2,3<span class="k">)</span>
 paste<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>&lt;<span class="o">(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$lista</span><span class="s2">&quot;</span><span class="o">)</span><span class="w"> </span>&lt;<span class="o">(</span>groups<span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$lista</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f2<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c2-<span class="o">)</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-5-5-2" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-2" name="5-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-4-4-2" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-2" name="4-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>last<span class="w"> </span>-w<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span>reboot<span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w">  </span>wtmp<span class="k">)</span>
 <span class="k">do</span><span class="w"> </span>
@@ -727,8 +704,8 @@ paste<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w
 <section id="tabla-multiplicar-read-sh">
 <h2>tabla_multiplicar_read.sh<a class="headerlink" href="#tabla-multiplicar-read-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">tabla_multiplicar_read.sh</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar_read.sh</strong> que pide un número al usuario y muestre su tabla de multiplicar</p>
-</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">tabla_multiplicar_read.sh</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar_read.sh</strong> que pide un número al usuario y muestre su tabla de multiplicar</p>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Introduce un número para mostrar su tabla de multiplicar: &quot;</span>
 <span class="nb">read</span><span class="w"> </span>numero
@@ -745,13 +722,13 @@ paste<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w
 <section id="id2">
 <h2>tabla_multiplicar_read.sh<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-7-7-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-2" name="7-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntará por el número al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">tabla_multiplicar.sh</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-6-6-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-2" name="6-2" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>tabla_multiplicar.sh</strong>, ahora no preguntará por el número al usuario y haz muestre su tabla de multiplicar cuando se ejecute por ejemplo <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">&lt;N&gt;</span></code> siendo &lt;N&gt; un numero del 1 al 10.</p>
 <ul class="simple">
 <li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicat.sh</span> <span class="pre">--help</span></code> mostrara un mensaje de ayuda (consejo utiliza una función)</p></li>
 <li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicar.sh</span> <span class="pre">X</span> <span class="pre">Y</span> <span class="pre">Z</span> <span class="pre">...</span></code> , es decir con más de un argumento saldrá un mensaje <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">se</span> <span class="pre">puede</span> <span class="pre">dar</span> <span class="pre">más</span> <span class="pre">de</span> <span class="pre">un</span> <span class="pre">argumento</span></code></p></li>
 <li><p>En el caso de ejecutar <code class="docutils literal notranslate"><span class="pre">./tabla_multiplicar.sh</span></code> sin argumentos se ejecutara la opción de --help</p></li>
 </ul>
-</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 
@@ -782,7 +759,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="k">fi</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-7-7-2" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-2" name="7-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-6-6-2" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-2" name="6-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: ./tabla_multiplicar_array.sh [número]</span>
@@ -821,7 +798,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <section id="imag-sh">
 <h2>imag.sh<a class="headerlink" href="#imag-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">imag.sh</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>Crea una carpeta llamada imagenes, entra dentro y ejecuta los siguiente comandos:</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-7-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-7-7-0" name="7-0" role="tab" tabindex="0">imag.sh</button><button aria-controls="panel-7-7-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-7-7-1" name="7-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-7-7-0" class="sphinx-tabs-panel" id="panel-7-7-0" name="7-0" role="tabpanel" tabindex="0"><p>Crea una carpeta llamada imagenes, entra dentro y ejecuta los siguiente comandos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>jpeg<span class="w"> </span>jpg<span class="w"> </span>png<span class="w"> </span>gif<span class="w"> </span>tiff<span class="w"> </span>bmp<span class="w"> </span>svg
 <span class="k">do</span>
 <span class="w">  </span><span class="k">for</span><span class="o">((</span><span class="nv">j</span><span class="o">=</span><span class="m">0</span><span class="p">;</span>j&lt;<span class="m">10</span><span class="p">;</span>j++<span class="o">))</span>
@@ -832,7 +809,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 </pre></div>
 </div>
 <p>Crea un script llamado <strong>imag.sh</strong> que cambie todas extensiones de todos los archivos a png conservando el nombre</p>
-</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-7-7-1" class="sphinx-tabs-panel" hidden="true" id="panel-7-7-1" name="7-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>imag_*<span class="w"> </span>
@@ -846,8 +823,8 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <section id="temperatura-sh">
 <h2>temperatura.sh<a class="headerlink" href="#temperatura-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">temperatura.sh</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-9-9-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-2" name="9-2" role="tab" tabindex="-1">Solución (awk)</button><button aria-controls="panel-9-9-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-3" name="9-3" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>temperatura.sh</strong>, que lea las temperatura del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/temperatura.dat">temperatura.dat</a> y saque por pantalla la temperatura media</p>
-</div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-8-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-8-8-0" name="8-0" role="tab" tabindex="0">temperatura.sh</button><button aria-controls="panel-8-8-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-1" name="8-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-8-8-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-2" name="8-2" role="tab" tabindex="-1">Solución (awk)</button><button aria-controls="panel-8-8-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-8-8-3" name="8-3" role="tab" tabindex="-1">Solución (array)</button></div><div aria-labelledby="tab-8-8-0" class="sphinx-tabs-panel" id="panel-8-8-0" name="8-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>temperatura.sh</strong>, que lea las temperatura del archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/temperatura.dat">temperatura.dat</a> y saque por pantalla la temperatura media</p>
+</div><div aria-labelledby="tab-8-8-1" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-1" name="8-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>temperatura.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
 <span class="nv">T</span><span class="o">=</span><span class="m">0</span>.00
@@ -859,7 +836,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tenemos </span><span class="nv">$nlineas</span><span class="s2"> temperaturas, de media T = </span><span class="nv">$T_media</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-9-9-2" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-2" name="9-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-8-8-2" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-2" name="8-2" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 
 <span class="nv">media</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;{ suma += $1 } END { print suma/NR }&#39;</span><span class="w"> </span>temperatura.dat<span class="w"> </span><span class="k">)</span>
@@ -868,7 +845,7 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tenemos </span><span class="nv">$ntemperaturas</span><span class="s2"> temperaturas, de media T = </span><span class="nv">$media</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-9-9-3" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-3" name="9-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+</div><div aria-labelledby="tab-8-8-3" class="sphinx-tabs-panel" hidden="true" id="panel-8-8-3" name="8-3" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nlineas</span><span class="o">=</span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>temperatura.dat<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
 <span class="k">for</span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span>i&lt;<span class="o">=</span><span class="nv">$nlineas</span><span class="p">;</span>i++<span class="o">))</span>
@@ -885,6 +862,25 @@ mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{<
 
 <span class="nv">T_media</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;scale=2; </span><span class="nv">$suma</span><span class="s2">/</span><span class="nv">$nlineas</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l<span class="k">)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Tenemos </span><span class="nv">$nlineas</span><span class="s2"> temperaturas, de media T = </span><span class="nv">$T_media</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="listar-usuario-grupo-sh">
+<h2>listar_usuario_grupo.sh<a class="headerlink" href="#listar-usuario-grupo-sh" title="Link to this heading">#</a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-9-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-9-9-0" name="9-0" role="tab" tabindex="0">listar_usuario_grupo.sh</button><button aria-controls="panel-9-9-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-9-9-1" name="9-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-9-9-0" class="sphinx-tabs-panel" id="panel-9-9-0" name="9-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>listar_usuario_grupo.sh</strong> que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alumno1<span class="w"> </span>:<span class="w"> </span>smr1
+alumno2<span class="w"> </span>:<span class="w"> </span>smr1
+alumno3<span class="w"> </span>:<span class="w"> </span>asir1
+alumno4<span class="w"> </span>:<span class="w"> </span>asir2
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-9-9-1" class="sphinx-tabs-panel" hidden="true" id="panel-9-9-1" name="9-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>bash<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>root<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="k">do</span><span class="w"> </span>
+<span class="w">  </span>groups<span class="w"> </span><span class="nv">$i</span>
+<span class="k">done</span>
 </pre></div>
 </div>
 </div></div>
@@ -3657,13 +3653,13 @@ rm<span class="w"> </span>-fr<span class="w"> </span>usuarios.ldif
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disk-sh">disk.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mem-sh">mem.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-sh">mac.sh</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listar-usuario-grupo-sh">listar_usuario_grupo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-ip-sh">lastlog_ip.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lastlog-sh">lastlog.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-multiplicar-read-sh">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">tabla_multiplicar_read.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imag-sh">imag.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temperatura-sh">temperatura.sh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listar-usuario-grupo-sh">listar_usuario_grupo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#meteo-sh">meteo.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alerta-disco-sh">alerta_disco.sh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rnd-sh">rnd.sh</a></li>
