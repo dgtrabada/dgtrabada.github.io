@@ -96,24 +96,22 @@ lastlog.sh
 
     .. tab:: lastlog.sh
 
-        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario y el grupo al que pertenecen.
+        Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario.
 
         Si tu máquina tiene pocas conexiones descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que contiene la salida de ``last -w`` de una máquina con muchas conexiones, y utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
 
         .. code-block:: bash
           
-           24 alumno1 smr1
-           20 alumno2 smr1
-           18 alumno3 smr1
-           14 alumno4 asir1
-           11 alumno5 asir1
-           9 alumno6 asir1
-           7 alumno7 asir2
-           5 alumno8 asir2
-           3 profesor profesor
-           2 root root
-
-        Los usuarios ``alumno1`` ... ``alumno8`` tienen que existir en tu máquina, si no ``groups`` no podrá decir a qué grupo pertenecen
+           24 alumno1
+           20 alumno2
+           18 alumno3
+           14 alumno4
+           11 alumno5
+           9 alumno6
+           7 alumno7
+           5 alumno8
+           3 profesor
+           2 root
 
 
     .. tab:: Solución
