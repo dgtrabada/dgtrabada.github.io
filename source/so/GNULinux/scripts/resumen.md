@@ -90,7 +90,7 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 
 | Script | Líneas | Qué introduce |
 |---|---|---|
-| `listar_usuario_grupo.sh` | 6 | `for i in $(comando)` |
+| `listar_usuario_grupo.sh` | 2 | comando con varios argumentos; versión `for i in $(comando)` |
 | `if.sh` | 14 | condicional básico `[ ]` vs `test` |
 | `lastlog_ip.sh` | 8 | bucle + filtros |
 | `lastlog.sh` | 9 | ordenar la salida del bucle |

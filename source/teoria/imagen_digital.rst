@@ -71,27 +71,27 @@ La imagen está formada por una matriz de píxeles. Cuando modificamos una image
 
 Los principales formatos de mapas de bits o bitmap son los siguientes:
 
-* **BMP**: Formato de calidad. Los archivos tienen gran peso. Extensión: *.bmp
+* **BMP**: Formato de calidad. Los archivos tienen gran peso. Extensión: ``*.bmp``
 
-* **TIFF**: Se utiliza para imágenes de alta calidad que van a ser impresas. Extensión: *.tif
+* **TIFF**: Se utiliza para imágenes de alta calidad que van a ser impresas. Extensión: ``*.tif``
 
-* **XCF**: Formato nativo de GIMP. Permite almacenar las imágenes con capas y modificarlas posteriormente. Extensión: *.xcf
+* **XCF**: Formato nativo de GIMP. Permite almacenar las imágenes con capas y modificarlas posteriormente. Extensión: ``*.xcf``
 
-* **PICT**: Formato antiguo de la plataforma MAC, hoy en desuso. Permite ser comprimido sin perder calidad de imagen. Extensión: *.pic
+* **PICT**: Formato antiguo de la plataforma MAC, hoy en desuso. Permite ser comprimido sin perder calidad de imagen. Extensión: ``*.pic``
 
-* **JPG**: Es el formato más utilizado en las páginas de Internet para la reproducción de fotografías. Permite comprimir las imágenes pero produce pérdidas de calidad. Extensión: *.jpg
+* **JPG**: Es el formato más utilizado en las páginas de Internet para la reproducción de fotografías. Permite comprimir las imágenes pero produce pérdidas de calidad. Extensión: ``*.jpg``
 
-* **GIF**: Este formato también se utiliza en las páginas web de Internet, pudiendo comprimir las imágenes sin pérdidas. Utiliza el modo de color indexado para las imágenes que no tienen muchas tonalidades de color. Permite gráficos animados y transparencia. Extensión: *.gif
+* **GIF**: Este formato también se utiliza en las páginas web de Internet, pudiendo comprimir las imágenes sin pérdidas. Utiliza el modo de color indexado para las imágenes que no tienen muchas tonalidades de color. Permite gráficos animados y transparencia. Extensión: ``*.gif``
 
-* **PNG**: Tiene las ventajas de los formatos GIF y JPG. Comienza a ser muy utilizado en Internet por su gran capacidad de compresión sin pérdida y por tener la posibilidad de manejar transparencia. Extensión: *.png
+* **PNG**: Tiene las ventajas de los formatos GIF y JPG. Comienza a ser muy utilizado en Internet por su gran capacidad de compresión sin pérdida y por tener la posibilidad de manejar transparencia. Extensión: ``*.png``
 
-* **PSD**: Formato nativo de Photoshop que permite guardar todas las presentaciones, retoques y nuevas creaciones realizadas con este programa. Extensión: *.psd
+* **PSD**: Formato nativo de Photoshop que permite guardar todas las presentaciones, retoques y nuevas creaciones realizadas con este programa. Extensión: ``*.psd``
 
-* **WEBP**: Formato desarrollado por Google para la web, con compresión con y sin pérdida, transparencia y animación. Consigue archivos más pequeños que JPG y PNG. Extensión: *.webp
+* **WEBP**: Formato desarrollado por Google para la web, con compresión con y sin pérdida, transparencia y animación. Consigue archivos más pequeños que JPG y PNG. Extensión: ``*.webp``
 
-* **HEIC**: Formato utilizado por Apple en iOS y macOS, con mayor compresión que JPG a igual calidad. Extensión: *.heic
+* **HEIC**: Formato utilizado por Apple en iOS y macOS, con mayor compresión que JPG a igual calidad. Extensión: ``*.heic``
 
-* **AVIF**: Formato libre basado en el códec de vídeo AV1, con una compresión aún mayor que WEBP. Extensión: *.avif
+* **AVIF**: Formato libre basado en el códec de vídeo AV1, con una compresión aún mayor que WEBP. Extensión: ``*.avif``
 
 Vectorial
 ---------
@@ -99,15 +99,20 @@ Vectorial
 Se representan con trazos geométricos que están controlados por operaciones matemáticas que realiza el ordenador. Las líneas que componen la imagen están definidas por vectores (de ahí su nombre). La ventaja de este tipo de imagen es que pueden reducirse o ampliarse sin ningún tipo de pérdida de calidad. LibreOffice Draw es un editor de gráficos vectoriales.
 Los principales formatos de las imágenes vectoriales son los siguientes:
 
-* **SVG**: Vectores gráficos escalables. Formato muy reciente pero que puede ser usado fácilmente en GIMP. Extensión: *.svg
+* **SVG**: Vectores gráficos escalables. Formato muy reciente pero que puede ser usado fácilmente en GIMP. Extensión: ``*.svg``
 
-* **WMF**: Formato de archivo vectorial de la plataforma Windows. Es el formato que mejor se adapta a los distintos programas de dibujo. Extensión: *.wmf
+* **WMF**: Formato de archivo vectorial de la plataforma Windows. Es el formato que mejor se adapta a los distintos programas de dibujo. Extensión: ``*.wmf``
 
-* **SWF**: Imágenes vectoriales para animación web de Adobe Flash; hoy obsoleto, ya que Flash dejó de tener soporte en 2020. Extensión: *.swf
+* **SWF**: Imágenes vectoriales para animación web de Adobe Flash; hoy obsoleto, ya que Flash dejó de tener soporte en 2020. Extensión: ``*.swf``
 
-* **EPS**: Formato utilizado habitualmente para exportar imágenes de mapa de bits con trazados vectoriales. Extensión: *.eps
+* **EPS**: Formato utilizado habitualmente para exportar imágenes de mapa de bits con trazados vectoriales. Extensión: ``*.eps``
 
-* **PDF**: Es compatible entre las plataformas MAC, Linux y PC. Usado fundamentalmente para la confección de documentos que puedan descargarse de Internet. Extensión: *.pdf
+* **PDF**: Es compatible entre las plataformas MAC, Linux y PC. Usado fundamentalmente para la confección de documentos que puedan descargarse de Internet. Extensión: ``*.pdf``
 
 
 
+
+.. toctree::
+   :hidden:
+
+   cuestionario_imagen_digital.rst

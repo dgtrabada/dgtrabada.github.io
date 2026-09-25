@@ -66,6 +66,11 @@ listar_usuario_grupo.sh
         .. literalinclude:: scripts/listar_usuario_grupo.sh
            :language: shell
 
+    .. tab:: Solución (for)
+
+        .. literalinclude:: scripts/listar_usuario_grupo_for.sh
+           :language: shell
+
 
 lastlog_ip.sh
 """""""""""""
@@ -106,6 +111,11 @@ lastlog_ip.sh
         .. literalinclude:: scripts/lastlog_ip.sh
            :language: shell
 
+    .. tab:: Solución (for)
+
+        .. literalinclude:: scripts/lastlog_ip_for.sh
+           :language: shell
+
 lastlog.sh
 """"""""""
 
@@ -136,6 +146,11 @@ lastlog.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/lastlog.sh
+           :language: shell
+
+    .. tab:: Solución (for)
+
+        .. literalinclude:: scripts/lastlog_for.sh
            :language: shell
 
 tabla_multiplicar_read.sh
