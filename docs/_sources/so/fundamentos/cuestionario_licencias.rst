@@ -4,116 +4,114 @@ Cuestionario de licencias
 
 .. cuestionario::
 
-   1. Responde:
+   1. Licencias de Microsoft:
       - 1. Las licencias RETAIL
         (x) Las puedes poner en cualquier ordenador, pero solo una vez al mismo tiempo
         ( ) Se ligan a la Placa base
       - 2. Las licencias OEM
         ( ) Permiten su uso únicamente para actividades educativas y de formación
         (x) Significa Original Equipment Manufacturer
-      - 3. Las licencias RETAIL
-        ( ) Se ligan a la Placa base
-        (x) va ligada a una cuenta de Microsoft
+      - 3. ¿Se puede cambiar el hardware del equipo sin perder una licencia Retail?
+        (x) Sí
+        ( ) No
       - 4. ¿Se puede transferir la clave OEM entre tus propios PCs?
         ( ) Sí
         (x) No
-      - 5. ¿Podríamos vender legalmente una copia de Xubuntu?
-        (x) Sí
-        ( ) No
-      - 6. ¿Podríamos descargarnos legalmente el código de Windows?
-        ( ) Sí
-        (x) No
-      - 7. ¿Podríamos descargarnos legalmente el código de Debian?
-        (x) Sí
-        ( ) No
-      - 8. ¿Podríamos distribuir legalmente el código de Windows?
-        ( ) Sí
-        (x) No
-      - 9. ¿Podríamos distribuir legalmente el código de Fedora?
-        (x) Sí
-        ( ) No
-      - 10. ¿Cuál de estas licencias es permisiva (sin copyleft)?
-        ( ) GPL
-        (x) MIT
-        ( ) MPL
-        ( ) AGPL
-      - 11. ¿Podríamos hacer uso comercial de una obra CC by-nc?
-        ( ) Sí
-        (x) No
-      - 12. ¿Podríamos hacer uso comercial de una obra CC by-sa?
-        (x) Sí
-        ( ) No
-      - 13. ¿Podríamos distribuir una obra CC by-nc?
-        (x) Sí
-        ( ) No
-      - 14. ¿Podríamos distribuir una obra CC by-nd?
-        (x) Sí
-        ( ) No
-      - 15. ¿Podríamos hacer una obra derivada de una obra CC by-nd?
-        ( ) Sí
-        (x) No
-      - 16. ¿Qué significa EULA?
-        ( ) European User License Association
-        (x) End-User License Agreement (Acuerdo de Licencia con el Usuario Final)
-        ( ) Extended Use License Application
-      - 17. Las licencias VOLUMEN (VLM)
+      - 5. Con una licencia OEM, ¿qué componente NO podemos cambiar sin perder la licencia?
+        ( ) La memoria RAM
+        (x) La placa base
+        ( ) La tarjeta gráfica
+      - 6. Las licencias VOLUMEN (VLM)
         ( ) solo se pueden usar en un único equipo ligado a la placa base
         (x) están enfocadas a empresas y se pueden utilizar en varios ordenadores
-      - 18. ¿Qué significa KMS?
+      - 7. ¿Qué significa KMS?
         ( ) Kernel Module System, un módulo del núcleo de Windows
         ( ) Keyboard and Mouse Support
         (x) Key Management Service, un servicio de publicación automática de licencias de Microsoft
-      - 19. Las licencias MSDN y de educación de Microsoft permiten su uso
+      - 8. Las licencias MSDN y de educación de Microsoft permiten su uso
         (x) únicamente para desarrollo, evaluación o actividades educativas y de formación
         ( ) para cualquier actividad comercial de la empresa
-      - 20. ¿Cuál de las siguientes NO es una de las cuatro libertades del software libre?
+      - 9. ¿Qué significa EULA?
+        ( ) European User License Association
+        (x) End-User License Agreement (Acuerdo de Licencia con el Usuario Final)
+        ( ) Extended Use License Application
+      - 10. Una clave de Windows de unos 20 € comprada en una web de terceros
+        ( ) es igual que una licencia Retail comprada a Microsoft
+        (x) puede ser de origen dudoso y dejar de funcionar si Microsoft la bloquea
+
+   2. Software libre:
+      - 1. Un programa freeware, que se puede descargar y usar gratis sin acceso a su código fuente, es
+        ( ) software libre
+        (x) software privativo
+        ( ) de dominio público
+      - 2. Un programa que se puede probar gratis durante 30 días y después hay que pagar para seguir usándolo es
+        (x) shareware
+        ( ) freeware
+        ( ) software libre
+      - 3. ¿Cuál de las siguientes NO es una de las cuatro libertades del software libre?
         ( ) Usar el programa con cualquier propósito
         ( ) Estudiar cómo funciona y modificarlo
         (x) Garantía de funcionamiento del programa
         ( ) Distribuir copias del programa
-      - 21. Si en un programa mezclamos código GPL con código BSD, el resultado debe licenciarse como
+      - 4. ¿Podríamos vender legalmente una copia de Xubuntu?
+        (x) Sí
+        ( ) No
+      - 5. ¿Podríamos descargarnos legalmente el código de Windows?
+        ( ) Sí
+        (x) No
+      - 6. ¿Podríamos descargarnos legalmente el código de Debian?
+        (x) Sí
+        ( ) No
+      - 7. ¿Podríamos distribuir legalmente el código de Windows?
+        ( ) Sí
+        (x) No
+      - 8. ¿Podríamos distribuir legalmente el código de Fedora?
+        (x) Sí
+        ( ) No
+      - 9. ¿Cuál de estas licencias es permisiva (sin copyleft)?
+        ( ) GPL
+        (x) MIT
+        ( ) MPL
+        ( ) AGPL
+      - 10. Si en un programa mezclamos código GPL con código BSD, el resultado debe licenciarse como
         ( ) BSD
         ( ) La que elija el programador
         (x) GPL
         ( ) Propietario
-      - 22. ¿Qué licencia obliga a distribuir el código fuente si el software se ejecuta para ofrecer servicios a través de una red?
+      - 11. ¿Estamos obligados a publicar el código de un programa GPL que hemos modificado solo para nuestro propio uso?
+        ( ) Sí, cualquier modificación de un programa GPL tiene que publicarse
+        (x) No, las obligaciones de la GPL aparecen al distribuir el programa
+      - 12. ¿Qué licencia obliga a ofrecer el código fuente a los usuarios si el software se ejecuta para dar servicios a través de una red?
         ( ) GPL
         ( ) BSD
         ( ) MPL
         (x) AGPL
-      - 23. La licencia MPL (Mozilla Public License) se considera de
+      - 13. La licencia MPL (Mozilla Public License) se considera de
         ( ) copyleft fuerte
         (x) copyleft débil
         ( ) dominio público
-      - 24. Con una licencia OEM, ¿qué componente NO podemos cambiar sin perder la licencia?
-        ( ) La memoria RAM
-        (x) La placa base
-        ( ) La tarjeta gráfica
-      - 25. ¿Puede el titular del copyright de un software copyleft vender una versión modificada bajo otra licencia?
+      - 14. ¿Qué licencia permite que un programa privativo utilice una biblioteca libre?
+        ( ) GPL
+        (x) LGPL
+        ( ) AGPL
+      - 15. ¿Puede el titular del copyright de un software copyleft vender una versión modificada bajo otra licencia?
         (x) Sí, el titular de los derechos puede licenciar su obra como quiera (modelo de negocio de MySQL)
         ( ) No, una vez copyleft, todas sus versiones deben ser copyleft
-      - 26. Un contenido publicado en Internet sin referencia de autoría ni licencia
-        ( ) es de dominio público y se puede usar libremente
-        (x) tiene derechos de autor igualmente: no se puede usar libremente
-      - 27. ¿Qué proyecto de software libre nació cuando Netscape liberó su navegador con la licencia NPL/MPL?
+      - 16. ¿Qué proyecto de software libre nació cuando Netscape liberó su navegador con la licencia NPL/MPL?
         ( ) Linux
         (x) Mozilla
         ( ) GNU
         ( ) Apache
-      - 28. Un programa freeware, que se puede descargar y usar gratis sin acceso a su código fuente, es
-        ( ) software libre
-        (x) software privativo
-        ( ) de dominio público
-      - 29. ¿Estamos obligados a publicar el código de un programa GPL que hemos modificado solo para nuestro propio uso?
-        ( ) Sí, cualquier modificación de un programa GPL tiene que publicarse
-        (x) No, las obligaciones de la GPL aparecen al distribuir el programa
+      - 17. ¿Qué organización defiende el software libre como una cuestión ética de libertad de los usuarios?
+        (x) La Free Software Foundation (FSF)
+        ( ) La Open Source Initiative (OSI)
 
-   2. Ejercicio de investigación — busca en Internet la licencia bajo la que se distribuye cada programa y escríbela.
+   3. Ejercicio de investigación — busca en Internet la licencia bajo la que se distribuye cada programa y escríbela.
       | Elige entre: Apache, GPL, GPLv2, GPLv3, MPL y Propietario.
       filas: numeradas ancho=9em
          Android Studio | [Apache|Licencia Apache|Propietario|Propietaria|Privativo|Privativa]
          Audacity | [GPLv3|GPL v3]
-         Blender | [GPL]
+         Blender | [GPL|GPLv2|GPL v2|GPLv3|GPL v3]
          Cisco Packet Tracer | [Propietario|Propietaria|Privativo|Privativa]
          FileZilla | [GPLv2|GPL v2]
          Gimp | [GPLv3|GPL v3]
@@ -122,7 +120,7 @@ Cuestionario de licencias
          Mozilla Firefox | [MPL]
          Notepad++ | [GPLv3|GPL v3]
 
-   3. Creative Commons:
+   4. Creative Commons:
       - 1. ¿Qué indica la condición "Reconocimiento (BY / Attribution)"?
         ( ) La explotación de la obra queda limitada a usos no comerciales
         (x) En cualquier explotación de la obra autorizada por la licencia hará falta reconocer la autoría
@@ -169,3 +167,21 @@ Cuestionario de licencias
       - 11. ¿Podríamos crear una obra derivada de una obra CC by-nc y venderla?
         ( ) Sí, siempre que citemos al autor original
         (x) No, la condición No Comercial lo impide
+      - 12. ¿Podríamos hacer uso comercial de una obra CC by-nc?
+        ( ) Sí
+        (x) No
+      - 13. ¿Podríamos hacer uso comercial de una obra CC by-sa?
+        (x) Sí
+        ( ) No
+      - 14. ¿Podríamos distribuir una obra CC by-nc?
+        (x) Sí
+        ( ) No
+      - 15. ¿Podríamos distribuir una obra CC by-nd?
+        (x) Sí
+        ( ) No
+      - 16. ¿Podríamos hacer una obra derivada de una obra CC by-nd?
+        ( ) Sí
+        (x) No
+      - 17. Un contenido publicado en Internet sin referencia de autoría ni licencia
+        ( ) es de dominio público y se puede usar libremente
+        (x) tiene derechos de autor igualmente: no se puede usar libremente

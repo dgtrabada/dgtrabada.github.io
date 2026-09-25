@@ -562,7 +562,7 @@
 <h2>Codificación numérica<a class="headerlink" href="#codificacion-numerica" title="Link to this heading">#</a></h2>
 <section id="binario-puro">
 <h3>Binario Puro<a class="headerlink" href="#binario-puro" title="Link to this heading">#</a></h3>
-<p>Solo pueden representar nº positivos</p>
+<p>Solo pueden representar nº positivos. Con n bits el rango es 0 ≤ x ≤ 2 <sup>n</sup> - 1 ; con n=8 [ 0 ≤ x ≤ 255 ]</p>
 <p>23 <sub>10)</sub> = 00010111 <sub>BP,n=8)</sub></p>
 </section>
 <section id="signo-y-magnitud">
@@ -571,17 +571,28 @@
 <p>Ejemplo : n=8</p>
 <img alt="../_images/singno_magnitud.png" src="../_images/singno_magnitud.png" />
 <p>Rango -(2 <sup>n-1</sup>- 1) ≤ x ≤ (2 <sup>n-1</sup>-1) ; este caso con n=8 [ -127 ≤ x ≤ 127 ]</p>
-<p>El complemento a uno de un nº negativo cambiamos 0 por 1 y 1 por 0, dejando el signo (1 inicial)</p>
-<p>Complemento a dos es (C1+1). El complemento C1 y C2 solo cambian cuando el número es negativo.</p>
+<p>El problema del signo y magnitud es que tiene dos ceros, +0 = 00000000 y -0 = 10000000, y que para restar no basta con sumar los números, por eso se utilizan los complementos:</p>
+<ul class="simple">
+<li><p><strong>Complemento a uno (C1)</strong>: para un nº negativo se escribe el número en positivo y se cambian todos los bits, 0 por 1 y 1 por 0. Sigue teniendo dos ceros y su rango con n=8 es el mismo que en signo y magnitud [ -127 ≤ x ≤ 127 ]</p></li>
+<li><p><strong>Complemento a dos (C2)</strong>: es el C1 + 1. Tiene un solo cero, así que su rango es -(2 <sup>n-1</sup>) ≤ x ≤ (2 <sup>n-1</sup>-1) ; con n=8 [ -128 ≤ x ≤ 127 ]. Es el que utilizan los ordenadores, porque con él la resta se hace sumando: A - B = A + C2(B)</p></li>
+</ul>
+<p>Los números positivos se escriben igual en signo y magnitud, C1 y C2, solo cambian los negativos. En todos ellos el primer bit indica el signo: 0 positivo y 1 negativo.</p>
+<p>Ejemplo : -23 con n=8</p>
+<div class="line-block">
+<div class="line">+23 <sub>10)</sub> = 00010111</div>
+<div class="line">-23 <sub>10)</sub> = <strong>1</strong>0010111 <sub>SM)</sub> (ponemos a 1 el bit de signo)</div>
+<div class="line">-23 <sub>10)</sub> = 11101000 <sub>C1)</sub> (cambiamos todos los bits de +23)</div>
+<div class="line">-23 <sub>10)</sub> = 11101001 <sub>C2)</sub> (sumamos 1 al C1)</div>
+</div>
 </section>
 <section id="codificacion-en-coma-fija-y-en-coma-flotante">
 <h3>Codificación en coma fija y en coma flotante<a class="headerlink" href="#codificacion-en-coma-fija-y-en-coma-flotante" title="Link to this heading">#</a></h3>
-<p>La codificación en coma fija se utiliza para referirse a los números con una cantidad de cifras decimales constante. La representación de los números en coma flotante, es una representación exponencial, de forma que la posición de la coma no es fija y pueden, así, con mayor precisión, lo cual es muy interesante en trabajos de calculo científico. El estándar más extendido en coma flotante es el estándar IEEE 754.</p>
+<p>La codificación en coma fija se utiliza para referirse a los números con una cantidad de cifras decimales constante. La representación de los números en coma flotante es una representación exponencial, de forma que la posición de la coma no es fija, lo que permite representar números muy grandes y muy pequeños con la misma cantidad de bits, algo muy interesante en trabajos de cálculo científico. El estándar más extendido en coma flotante es el estándar IEEE 754.</p>
 </section>
 <section id="estandar-ieee-754">
 <h3>Estándar IEEE 754<a class="headerlink" href="#estandar-ieee-754" title="Link to this heading">#</a></h3>
 <p><em>(Institute of Electrical and Electronics Engineers)</em></p>
-<p>Precisión simple 32 bits</p>
+<p>Precisión simple 32 bits: 1 bit de signo, 8 bits de exponente y 23 bits de mantisa</p>
 <img alt="../_images/IEEE754.png" src="../_images/IEEE754.png" />
 <p>Ejemplo :</p>
 <ol class="arabic">
@@ -591,9 +602,11 @@
 <li><p>Colocamos la coma decimal a la derecha del bit más significativo</p>
 <p>10011,1001 = 1,00111001*2 <sup>4</sup></p>
 </li>
-<li><p>Escribir exponente en exceso a 2 <sup>n-1</sup> – 1</p>
-<p>4+( 2 <sup>8-1</sup> – 1) = 131 <sub>10)</sub> = 10000011 <sub>2)</sub></p>
+<li><p>Escribir exponente en exceso a 2 <sup>n-1</sup> – 1, con n=8 bits de exponente el exceso es 2 <sup>7</sup> – 1 = 127</p>
+<p>4+( 2 <sup>8-1</sup> – 1) = 4 + 127 = 131 <sub>10)</sub> = 10000011 <sub>2)</sub></p>
 </li>
+<li><p>La mantisa es lo que queda a la derecha de la coma: 00111001, completando con ceros hasta los 23 bits. El 1 de la izquierda de la coma no se guarda, porque siempre es 1 (<strong>bit implícito</strong>)</p></li>
+<li><p>El bit de signo es 0 porque el número es positivo, si fuera negativo sería 1</p></li>
 </ol>
 <p>Finalmente queda:</p>
 <div class="line-block">
@@ -606,27 +619,29 @@
 <h2>Codificación alfanumérica<a class="headerlink" href="#codificacion-alfanumerica" title="Link to this heading">#</a></h2>
 <section id="ascii">
 <h3>ASCII<a class="headerlink" href="#ascii" title="Link to this heading">#</a></h3>
-<p><em>“American Standard Code for Information Interchange”</em>, cada carácter se codificaba mediante 7 dígitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 33 al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos</p>
+<p><em>“American Standard Code for Information Interchange”</em>, cada carácter se codificaba mediante 7 dígitos binarios (128 caracteres diferentes). Fue creado para el juego de caracteres ingleses más corriente. Del 32 (el espacio) al 126 se conocen como caracteres imprimibles, representan letras, signos de puntuación y varios símbolos; por ejemplo la letra A es el 65 <sub>10)</sub> = 01000001 <sub>2)</sub>. Del 0 al 31 y el 127 son caracteres de control, que no se imprimen sino que dan órdenes, como el salto de línea (10) o el tabulador (9)</p>
 <img alt="../_images/ASCII.png" src="../_images/ASCII.png" />
 <a class="reference internal image-reference" href="../_images/acsii_art.png"><img alt="../_images/acsii_art.png" src="../_images/acsii_art.png" width="200" />
 </a>
 </section>
 <section id="ascii-extendido">
 <h3>ASCII Extendido<a class="headerlink" href="#ascii-extendido" title="Link to this heading">#</a></h3>
-<p>Debido a las limitaciones del ASCII se definen varios códigos de 8 bits para lenguas semejantes, entre ellos el ASCII Extendido, por lo tanto no dan una solución final al problema.</p>
+<p>Debido a las limitaciones del ASCII se definen varios códigos de 8 bits (256 caracteres) para lenguas semejantes, que mantienen los 128 primeros del ASCII y usan los otros 128 para las letras de cada idioma, como la ñ o las vocales con tilde. Por ejemplo la página de códigos 437 del MS-DOS, la ISO-8859-1 (Latin-1) o la Windows-1252. Cada uno asigna los mismos números a caracteres distintos, así que no dan una solución final al problema: si un texto se escribe con una codificación y se lee con otra, aparecen caracteres extraños, como el típico &quot;Ã±&quot; en lugar de &quot;ñ&quot;.</p>
 </section>
 <section id="unicode">
 <h3>UNICODE<a class="headerlink" href="#unicode" title="Link to this heading">#</a></h3>
-<p>Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asigna un código a cada uno de sus más de 150.000 símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, etc</p>
+<p>Como solución a estos problemas en 1991 se acordó utilizar el estándar Unicode, es una gran tabla, que asigna un código a cada uno de sus más de 150.000 símbolos, los cuales abarcan los alfabetos europeos, chinos, japoneses, coreanos, emojis, etc. El código se escribe en hexadecimal precedido de U+, por ejemplo la A es U+0041 y la ñ es U+00F1</p>
 </section>
 <section id="utf-8">
 <h3>UTF-8<a class="headerlink" href="#utf-8" title="Link to this heading">#</a></h3>
 <p>(8-bit unicode transformation format) es un formato de codificación de caracteres UNICODE, utilizando símbolos de longitud variable. UTF-8 divide los caracteres unicode en varios grupos, en función del n.º de bytes para codificarlos.</p>
 <p>1 byte → ASCII → 0xxxxxxx “El primer bit es 0”</p>
-<p>2 bytes → Caracteres latinos → 110xxxxx 10xxxxxx</p>
-<p>3 bytes → Chino, Japonés y Coreano → 1110xxxx 10xxxxxx 10xxxxxx</p>
-<p>4 bytes → Símbolos matemáticos, alfabetos clásicos → 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
-<p>Estos son algunos ejemplos, entre otros como la codificación BCD, EBCDIC, Biquinaria, IEEE 754 de 64bits, Fieldata, EBCDIC, etc ....</p>
+<p>2 bytes → Latín con tildes y ñ, griego, cirílico, árabe, hebreo → 110xxxxx 10xxxxxx</p>
+<p>3 bytes → Chino, Japonés, Coreano y la mayoría de símbolos → 1110xxxx 10xxxxxx 10xxxxxx</p>
+<p>4 bytes → Emojis 😀, alfabetos antiguos → 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</p>
+<p>Por ejemplo, la ñ es U+00F1 = 000 1111 0001 <sub>2)</sub>, que ocupa 2 bytes: 110<strong>00011</strong> 10<strong>110001</strong> = C3 B1 <sub>16)</sub></p>
+<p>Como los textos en ASCII son también UTF-8 válido, y un carácter en inglés ocupa un solo byte, UTF-8 es hoy la codificación de casi todas las páginas web y de GNU/Linux.</p>
+<p>Estos son algunos ejemplos, entre otros como la codificación BCD, EBCDIC, Biquinaria, IEEE 754 de 64 bits, Fieldata, etc ....</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>

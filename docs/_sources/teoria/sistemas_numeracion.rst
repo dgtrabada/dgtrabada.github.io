@@ -89,29 +89,20 @@ Ejemplo de **base decimal a base binaria** 61 :sub:`10) → 2)`
 
 .. image:: imagenes/decabin.png
    :align: center
-   :width: 300
+   :width: 360
 
 Ejemplo de **base decimal a base octal** 61 :sub:`10) → 8)`
 
-.. math::
-  
-   61 : 8 &= 7\ resto \textbf{5}
-
-   7 : 8 &= 0\ resto\ \textbf{7}
-
-   61_{10)} &= 75_{8)}
+.. image:: imagenes/decaoct.png
+   :align: center
+   :width: 155
   
   
 Ejemplo de **base decimal a base hexadecimal** 61 :sub:`10) → 16)`
 
-
-.. math::
-        
-    61 : 16 &= 3\  resto\ (13=\textbf{D}) 
-    
-    3 : 16 &= 0 \ resto\  \textbf{3} 
-    
-    61_{10)} &= 3D_{16)}
+.. image:: imagenes/decahex.png
+   :align: center
+   :width: 155
 
 
 
@@ -124,15 +115,23 @@ Base N a base M ≠ N ≠ 10
 
 **Ejemplo**: Como se escribiría 3D :sub:`16)` en base 8
 
+Primero pasamos a base 10:
+
 .. math::
     
-    3D_{16)} &= 3×16^1 + (D=13)×16^0 = 61_{10)} 
-    
-    61 : 8 &= 7\  resto\ \textbf{5} 
-    
-    7 : 8 &= 0 \ resto\  \textbf{7} 
-    
-    61_{10)} &= 75_{8)}
+    3D_{16)} = 3×16^1 + (D=13)×16^0 = 61_{10)} 
+
+y de base 10 pasamos a base 8:
+
+.. image:: imagenes/decaoct.png
+   :align: center
+   :width: 155
+
+finalmente queda:
+
+.. math::
+
+  3D_{16)} = 75_{8)}
 
 
 **Ejemplo**: Como se escribiría 21 :sub:`12)` en base 5
@@ -145,15 +144,9 @@ Primero pasamos a base 10:
 
 y de base 10 pasamos a base 5:
 
-.. math::
-
-  25 : 5 &= 5\ resto\ \textbf{0}
-  
-  5 : 5  &= 1\ resto\ \textbf{0}
-  
-  1 : 5 &= 0\ resto\ \textbf{1}
- 
-  25_{10)} &= 100_{5)}
+.. image:: imagenes/dec25abase5.png
+   :align: center
+   :width: 205
   
 finalmente queda:
 
@@ -168,19 +161,13 @@ Primero base 10
 
 .. math::
 
-   2A_{15)} = 2 \times 15^1+A \times 15^0 = 30 + A = 30 + 10 = 40_{10)} =
+   2A_{15)} = 2 \times 15^1+A \times 15^0 = 30 + A = 30 + 10 = 40_{10)}
 
 y de base 10 pasamos a base 3:
 
-.. math::
-   
-   40 : 3 &= 13\ resto\ \textbf{1}
-  
-   13 : 3 &= 4\ resto\ \textbf{1}
- 
-   4 : 3  &= 1\ resto\ \textbf{1}
-
-   1 : 3  &= 0\ resto\ \textbf{1}
+.. image:: imagenes/dec40abase3.png
+   :align: center
+   :width: 255
   
 Finalmente queda:
 

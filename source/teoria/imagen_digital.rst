@@ -2,6 +2,9 @@
 Imagen digital
 **************
 
+Características de la imagen digital
+====================================
+
 ¿Qué es la imagen digital?
 --------------------------
 
@@ -17,14 +20,14 @@ Las imágenes digitales se crean formando una retícula rectangular formada por 
 Profundidad de píxel
 --------------------
 
-El número de bits por píxel determinará la gama de colores de una imagen, por ejemplo:
+El número de bits por píxel determinará la gama de colores de una imagen: con n bits por píxel se pueden representar 2 :sup:`n` colores, por ejemplo:
 
 .. image:: imagenes/pimiento1.png
 
 Color real
 ----------
 
-Cada píxel solamente puede ser de un color, cuando decimos que una imagen es de 256 colores, queremos decir que cada píxel puede tomar uno de esos 256 colores.Si la profundidad es de 24 bits, tenemos la posibilidad de manejar millones de colores con la combinación de los tres primarios:
+Cada píxel solamente puede ser de un color, cuando decimos que una imagen es de 256 colores, queremos decir que cada píxel puede tomar uno de esos 256 colores. Si la profundidad es de 24 bits, tenemos la posibilidad de manejar millones de colores con la combinación de los tres primarios:
 
 rojo (red), verde (green) y azul (blue), es el llamado modo RGB.
 
@@ -34,35 +37,82 @@ Cada canal de color tiene 8 bits para controlar cada color (8+8+8 = 24) , por lo
 
 por eso se llama "millones de colores" y se conoce como color real. Con esta cantidad de colores es suficiente para que el ojo humano perciba las imágenes con calidad fotográfica.
 
+Muchas imágenes utilizan 32 bits por píxel: los 24 bits del color real más un cuarto canal de 8 bits, el **canal alfa**, que indica la transparencia de cada píxel, desde totalmente opaco hasta totalmente transparente.
+
 Modos de color
 --------------
 
 Llamamos modo de color al sistema de coordenadas que nos sirve para describir los colores de forma numérica.
 Los principales son:
 
-* **RGB** (rojo, verde y azul)
-* **HLS** (tono, luminosidad, saturación)
-* **CMYK** (cian, magenta, amarillo y negro).
+* **RGB** (rojo, verde y azul): es un modelo **aditivo**, cada color se obtiene sumando luz de los tres primarios, y si se suman los tres al máximo se obtiene el blanco. Es el que utilizan las pantallas.
+* **CMYK** (cian, magenta, amarillo y negro): es un modelo **sustractivo**, cada tinta absorbe parte de la luz, y si se mezclan todas se obtiene el negro. Es el que se utiliza para imprimir.
+* **HLS** (tono, luminosidad, saturación): describe los colores de una forma más cercana a como los percibimos, por eso se utiliza en los selectores de color de los programas de diseño.
+* **Escala de grises**: cada píxel solo guarda su luminosidad, normalmente con 8 bits, es decir, 256 tonos de gris desde el negro hasta el blanco.
+* **Color indexado**: la imagen guarda una paleta con un número limitado de colores (como máximo 256) y cada píxel solo guarda el número del color de la paleta que le corresponde. Ocupa mucho menos, pero no sirve para fotografías con muchos tonos.
 
 Resolución de una imagen
 ------------------------
 
-La calidad de una imagen está directamente relacionada con la resolución que tiene: a mayor resolución mayor calidad de imagen. Si una imagen tiene una resolución de 200 ppp, en cada pulgada cuadrada nos encontramos la cantidad de 200 x 200 píxeles, lo que nos da un resultado de 40.000 píxeles que contienen la información digital de esa imagen. Si esa misma imagen tiene una resolución de 72 ppp, la información digital está contenida en 5.184 píxeles, con lo que la calidad de la imagen será menor: menor resolución, menor información y menor detalle.
+La **resolución** de una imagen es el número de píxeles que la forman, expresado como ancho x alto. La calidad de una imagen está directamente relacionada con la resolución que tiene: a mayor resolución mayor calidad de imagen y mayor detalle.
 
 .. image:: imagenes/resolucion.png
 
-|  **SD** 	Standard Definition 	640 x 480
-|  **qHD** 	Quarter High Definition 	960 x 540
-|  **HD** 	High Definition 	1.280 x 720
-|  **FHD** 	Full HD 	1.920 x 1.080
-|  **QHD** 	Quad High Definition 	2.560 x 1.440
-|  **UHD** 4K 	Ultra High Definition 4K 	3.840 x 2.160
-|  **UHD** 8K 	Ultra High Definition 8K 	7.680 × 4.320
+Las resoluciones más habituales en pantallas y vídeo son:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Nombre
+     - Significado
+     - Resolución
+   * - **SD**
+     - Standard Definition
+     - 640 x 480
+   * - **qHD**
+     - Quarter High Definition
+     - 960 x 540
+   * - **HD**
+     - High Definition
+     - 1.280 x 720
+   * - **FHD**
+     - Full HD
+     - 1.920 x 1.080
+   * - **QHD**
+     - Quad High Definition
+     - 2.560 x 1.440
+   * - **UHD 4K**
+     - Ultra High Definition 4K
+     - 3.840 x 2.160
+   * - **UHD 8K**
+     - Ultra High Definition 8K
+     - 7.680 x 4.320
+
+Otra cosa distinta es la **densidad** de la imagen, que se mide en **ppp** (píxeles por pulgada, en inglés *ppi* o *dpi*; 1 pulgada = 2,54 cm) e indica cuántos píxeles caben en cada pulgada al imprimir la imagen o al mostrarla en una pantalla. Si una imagen tiene una densidad de 200 ppp, en cada pulgada cuadrada nos encontramos la cantidad de 200 x 200 píxeles, lo que nos da un resultado de 40.000 píxeles que contienen la información digital de esa imagen. Si la imagen tiene 72 ppp, la información digital está contenida en 72 x 72 = 5.184 píxeles, con lo que la calidad de la imagen será menor: menos información y menos detalle.
+
+Tamaño de una imagen
+--------------------
+
+Lo que ocupa una imagen sin comprimir se calcula multiplicando el número de píxeles por los bits de cada píxel:
+
+**Tamaño (Bytes) = ancho x alto x profundidad de píxel (bits) / 8**
+
+Por ejemplo, una imagen Full HD (1.920 x 1.080) en color real (24 bits):
+
+1.920 x 1.080 x 24 / 8 = 6.220.800 Bytes ≈ 6 MB
+
+Compresión de imágenes
+----------------------
+
+Como las imágenes sin comprimir ocupan mucho, casi todos los formatos las **comprimen**. Hay dos tipos de compresión:
+
+* **Sin pérdida**: al descomprimir se recupera exactamente la imagen original. Por ejemplo, PNG y GIF.
+* **Con pérdida**: se elimina información que el ojo apenas percibe, consiguiendo archivos mucho más pequeños, pero la imagen original ya no se puede recuperar, y cada vez que se vuelve a guardar pierde algo más de calidad. Por ejemplo, JPG.
 
 Formatos de imagen digital
 ==========================
 
-Las imágenes que pueden ser tratadas en el ordenador básicamente se clasifican en dos tipos: imágenes bitmap (mapa de bits) e imágenes vectoriales.
+Las imágenes que pueden ser tratadas en el ordenador básicamente se clasifican en dos tipos: imágenes bitmap (mapa de bits) e imágenes vectoriales. Al ampliar una imagen bitmap se acaban viendo los píxeles, como en la imagen de la R del apartado de resolución, mientras que una imagen vectorial se puede ampliar todo lo que queramos sin perder calidad.
 
 Bitmap
 ------
@@ -71,7 +121,7 @@ La imagen está formada por una matriz de píxeles. Cuando modificamos una image
 
 Los principales formatos de mapas de bits o bitmap son los siguientes:
 
-* **BMP**: Formato de calidad. Los archivos tienen gran peso. Extensión: ``*.bmp``
+* **BMP**: Formato de Windows que guarda la imagen normalmente sin comprimir, por lo que los archivos tienen gran peso. Extensión: ``*.bmp``
 
 * **TIFF**: Se utiliza para imágenes de alta calidad que van a ser impresas. Extensión: ``*.tif``
 
@@ -81,9 +131,9 @@ Los principales formatos de mapas de bits o bitmap son los siguientes:
 
 * **JPG**: Es el formato más utilizado en las páginas de Internet para la reproducción de fotografías. Permite comprimir las imágenes pero produce pérdidas de calidad. Extensión: ``*.jpg``
 
-* **GIF**: Este formato también se utiliza en las páginas web de Internet, pudiendo comprimir las imágenes sin pérdidas. Utiliza el modo de color indexado para las imágenes que no tienen muchas tonalidades de color. Permite gráficos animados y transparencia. Extensión: ``*.gif``
+* **GIF**: Este formato también se utiliza en las páginas web de Internet, pudiendo comprimir las imágenes sin pérdidas. Utiliza el modo de color indexado, con un máximo de 256 colores, por lo que sirve para dibujos, logotipos e iconos, pero no para fotografías. Permite gráficos animados y transparencia. Extensión: ``*.gif``
 
-* **PNG**: Tiene las ventajas de los formatos GIF y JPG. Comienza a ser muy utilizado en Internet por su gran capacidad de compresión sin pérdida y por tener la posibilidad de manejar transparencia. Extensión: ``*.png``
+* **PNG**: Es el formato estándar de compresión sin pérdida, muy utilizado en Internet para capturas de pantalla, logotipos y gráficos, y permite manejar transparencia gracias al canal alfa. Admite color real, así que no tiene la limitación de 256 colores del GIF. Extensión: ``*.png``
 
 * **PSD**: Formato nativo de Photoshop que permite guardar todas las presentaciones, retoques y nuevas creaciones realizadas con este programa. Extensión: ``*.psd``
 
@@ -96,20 +146,18 @@ Los principales formatos de mapas de bits o bitmap son los siguientes:
 Vectorial
 ---------
 
-Se representan con trazos geométricos que están controlados por operaciones matemáticas que realiza el ordenador. Las líneas que componen la imagen están definidas por vectores (de ahí su nombre). La ventaja de este tipo de imagen es que pueden reducirse o ampliarse sin ningún tipo de pérdida de calidad. LibreOffice Draw es un editor de gráficos vectoriales.
+Se representan con trazos geométricos que están controlados por operaciones matemáticas que realiza el ordenador. Las líneas que componen la imagen están definidas por vectores (de ahí su nombre). La ventaja de este tipo de imagen es que pueden reducirse o ampliarse sin ningún tipo de pérdida de calidad, por eso se utilizan para logotipos, iconos, planos y tipos de letra. Inkscape y LibreOffice Draw son editores de gráficos vectoriales.
 Los principales formatos de las imágenes vectoriales son los siguientes:
 
-* **SVG**: Vectores gráficos escalables. Formato muy reciente pero que puede ser usado fácilmente en GIMP. Extensión: ``*.svg``
+* **SVG**: Gráficos vectoriales escalables (*Scalable Vector Graphics*). Es el formato vectorial estándar de la web, lo entienden todos los navegadores, y es el formato nativo de Inkscape. Extensión: ``*.svg``
 
-* **WMF**: Formato de archivo vectorial de la plataforma Windows. Es el formato que mejor se adapta a los distintos programas de dibujo. Extensión: ``*.wmf``
+* **WMF**: Formato de archivo vectorial antiguo de la plataforma Windows, sustituido por EMF. Extensión: ``*.wmf``
 
 * **SWF**: Imágenes vectoriales para animación web de Adobe Flash; hoy obsoleto, ya que Flash dejó de tener soporte en 2020. Extensión: ``*.swf``
 
 * **EPS**: Formato utilizado habitualmente para exportar imágenes de mapa de bits con trazados vectoriales. Extensión: ``*.eps``
 
-* **PDF**: Es compatible entre las plataformas MAC, Linux y PC. Usado fundamentalmente para la confección de documentos que puedan descargarse de Internet. Extensión: ``*.pdf``
-
-
+* **PDF**: Es compatible entre las plataformas MAC, Linux y PC. Usado fundamentalmente para la confección de documentos que puedan descargarse de Internet. Puede contener a la vez gráficos vectoriales, texto e imágenes bitmap. Extensión: ``*.pdf``
 
 
 .. toctree::

@@ -23,20 +23,13 @@ Base decimal a base N
 1. **Parte entera**; dividiendo hasta coeficiente más pequeño que n
 2. **Parte fraccionaria**; multiplicando por n
 
-* **Ejemplo** de base **decimal** a base **binaria** con decimales :math: `10.625_{10) \rightarrow 2)}`
+* **Ejemplo** de base **decimal** a base **binaria** con decimales :math:`10.625_{10) \rightarrow 2)}`
 
   Parte entera
   
-  .. math::
-  
-     \left\uparrow
-     \begin{matrix} 
-     10 : 2 &= 5\  resto\  \mathbf{0}  \\ 
-     5 : 2 &= 2\ resto\ \mathbf{1} \\ 
-     2 : 2 &= 1\ resto\ \mathbf{0} \\
-     1 : 2 &= 0\ resto\ \mathbf{1} 
-     \end{matrix}
-     \right\uparrow
+  .. image:: imagenes/dec10abase2.png
+     :align: center
+     :width: 255
 
   Parte decimal
  
@@ -69,11 +62,9 @@ Base decimal a base N
 
   Parte entera
   
-  .. math::
-  
-     10 : 8 &= 1\ resto\ \mathbf{2}
-     
-     1 : 8 &= 0\ resto\ \mathbf{1}
+  .. image:: imagenes/dec10abase8.png
+     :align: center
+     :width: 155
   
   Parte decimal
   
