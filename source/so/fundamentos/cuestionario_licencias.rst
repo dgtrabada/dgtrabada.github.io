@@ -5,9 +5,9 @@ Cuestionario de licencias
 .. cuestionario::
 
    1. Licencias de Microsoft:
-      - 1. Las licencias RETAIL
+      - 1. Las licencias Retail
         (x) Las puedes poner en cualquier ordenador, pero solo una vez al mismo tiempo
-        ( ) Se ligan a la Placa base
+        ( ) Se ligan a la placa base
       - 2. Las licencias OEM
         ( ) Permiten su uso únicamente para actividades educativas y de formación
         (x) Significa Original Equipment Manufacturer
@@ -21,7 +21,7 @@ Cuestionario de licencias
         ( ) La memoria RAM
         (x) La placa base
         ( ) La tarjeta gráfica
-      - 6. Las licencias VOLUMEN (VLM)
+      - 6. Las licencias de Volumen (VLM)
         ( ) solo se pueden usar en un único equipo ligado a la placa base
         (x) están enfocadas a empresas y se pueden utilizar en varios ordenadores
       - 7. ¿Qué significa KMS?
@@ -77,7 +77,7 @@ Cuestionario de licencias
         ( ) BSD
         ( ) La que elija el programador
         (x) GPL
-        ( ) Propietario
+        ( ) Privativo
       - 11. ¿Estamos obligados a publicar el código de un programa GPL que hemos modificado solo para nuestro propio uso?
         ( ) Sí, cualquier modificación de un programa GPL tiene que publicarse
         (x) No, las obligaciones de la GPL aparecen al distribuir el programa
@@ -107,7 +107,7 @@ Cuestionario de licencias
         ( ) La Open Source Initiative (OSI)
 
    3. Ejercicio de investigación — busca en Internet la licencia bajo la que se distribuye cada programa y escríbela.
-      | Elige entre: Apache, GPL, GPLv2, GPLv3, MPL y Propietario.
+      | Elige entre: Apache, GPL, GPLv2, GPLv3, MPL y Privativo.
       filas: numeradas ancho=9em
          Android Studio | [Apache|Licencia Apache|Propietario|Propietaria|Privativo|Privativa]
          Audacity | [GPLv3|GPL v3]
@@ -129,7 +129,7 @@ Cuestionario de licencias
         ( ) Hay que reconocer la autoría de la obra
         ( ) Las obras derivadas deben mantener la misma licencia
         (x) La explotación de la obra queda limitada a usos no comerciales
-      - 3. ¿Qué indica la condición "Sin obras derivadas (ND / No Derivate Works)"?
+      - 3. ¿Qué indica la condición "Sin obra derivada (ND / No Derivative Works)"?
         (x) La autorización para explotar la obra no incluye la transformación para crear una obra derivada
         ( ) No se puede vender la obra
         ( ) La obra solo se puede usar con fines educativos
@@ -141,7 +141,7 @@ Cuestionario de licencias
         ( ) No Comercial (NC)
         ( ) Compartir Igual (SA)
         (x) Reconocimiento (BY)
-        ( ) Sin obras derivadas (ND)
+        ( ) Sin obra derivada (ND)
       - 6. ¿Cuál es la licencia Creative Commons más permisiva?
         (x) CC by
         ( ) CC by-sa
@@ -167,21 +167,18 @@ Cuestionario de licencias
       - 11. ¿Podríamos crear una obra derivada de una obra CC by-nc y venderla?
         ( ) Sí, siempre que citemos al autor original
         (x) No, la condición No Comercial lo impide
-      - 12. ¿Podríamos hacer uso comercial de una obra CC by-nc?
+      - 12. ¿Podríamos hacer uso comercial de una obra CC by-sa?
+        (x) Sí
+        ( ) No
+      - 13. ¿Podríamos distribuir una obra CC by-nc?
+        (x) Sí
+        ( ) No
+      - 14. ¿Podríamos distribuir una obra CC by-nd?
+        (x) Sí
+        ( ) No
+      - 15. ¿Podríamos hacer una obra derivada de una obra CC by-nd?
         ( ) Sí
         (x) No
-      - 13. ¿Podríamos hacer uso comercial de una obra CC by-sa?
-        (x) Sí
-        ( ) No
-      - 14. ¿Podríamos distribuir una obra CC by-nc?
-        (x) Sí
-        ( ) No
-      - 15. ¿Podríamos distribuir una obra CC by-nd?
-        (x) Sí
-        ( ) No
-      - 16. ¿Podríamos hacer una obra derivada de una obra CC by-nd?
-        ( ) Sí
-        (x) No
-      - 17. Un contenido publicado en Internet sin referencia de autoría ni licencia
+      - 16. Un contenido publicado en Internet sin referencia de autoría ni licencia
         ( ) es de dominio público y se puede usar libremente
         (x) tiene derechos de autor igualmente: no se puede usar libremente
