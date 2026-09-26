@@ -1,31 +1,35 @@
-*********************************
-Cuestionario gestión de procesos
-*********************************
+*********************************************
+Cuestionario gestión de procesos: ejercicios
+*********************************************
 
 .. raw:: html
 
    <style>
-   .qp-card { border: 1px solid rgba(128,128,128,.45); border-radius: 8px; padding: 1em 1.2em; margin: 1em 0; }
-   .qp-card p.qp-enunciado { font-weight: bold; margin-top: 0; }
-   .qp-card p.qp-sub { font-weight: bold; margin: 1em 0 .3em 0; }
-   .qp-card table { border-collapse: collapse; margin: .4em 0; }
-   .qp-card th, .qp-card td { border: 1px solid rgba(128,128,128,.5); padding: 3px 7px; text-align: center; }
-   .qp-card input { width: 2.6em; padding: 2px 2px; border: 1.5px solid rgba(128,128,128,.6);
+   .qp-plan { border: 1px solid rgba(128,128,128,.45); border-radius: 8px; padding: 1em 1.2em; margin: 1em 0; }
+   .qp-plan p.qp-enunciado { font-weight: bold; margin-top: 0; }
+   .qp-plan p.qp-sub { font-weight: bold; margin: 1em 0 .3em 0; }
+   .qp-plan table { border-collapse: collapse; margin: .4em 0; }
+   .qp-plan th, .qp-plan td { border: 1px solid rgba(128,128,128,.5); padding: 3px 7px; text-align: center; }
+   .qp-plan input { width: 2.6em; padding: 2px 2px; border: 1.5px solid rgba(128,128,128,.6);
                     border-radius: 4px; background: transparent; color: inherit;
                     font-family: monospace; text-align: center; }
-   .qp-card input.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
-   .qp-card input.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
-   .qp-card button { margin-top: .6em; margin-right: .6em; padding: 4px 14px; border-radius: 5px;
+   .qp-plan input.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+   .qp-plan input.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+   .qp-plan button { margin-top: .6em; margin-right: .6em; padding: 4px 14px; border-radius: 5px;
                      border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
-   .qp-card button:hover { background: rgba(128,128,128,.15); }
+   .qp-plan button:hover { background: rgba(128,128,128,.15); }
    .qp-nota { margin-left: .4em; font-weight: bold; }
    .qp-scroll { overflow-x: auto; }
    </style>
 
    <p>Leyenda: <b>T<sub>i</sub></b> tiempo de llegada, <b>T<sub>x</sub></b> tiempo de ejecución,
-      <b>T<sub>E</sub></b> tiempo de espera, <b>T<sub>R</sub></b> tiempo de respuesta.
+      <b>T<sub>E</sub></b> tiempo de espera, <b>T<sub>R</sub></b> tiempo de retorno (T<sub>R</sub> = T<sub>E</sub> + T<sub>x</sub>).
       En las tablas escribe <b>x</b> (ejecutándose), <b>-</b> (en espera) o
       <b>deja la casilla en blanco</b> (el proceso no ha llegado o ya ha terminado).</p>
+   <p>En <b>RR</b>, si un proceso llega justo en el instante en que otro agota su quantum,
+      el que llega se pone delante en la cola y el que sale del quantum detrás.
+      En las filas de la <b>cola de listos</b> escribe, en cada instante, los procesos que esperan
+      en la cola (P1, P2...) empezando por el primero; el que se está ejecutando no está en la cola.</p>
 
    <div id="qp-ejercicios"></div>
 
@@ -59,6 +63,8 @@ Cuestionario gestión de procesos
              tetr: [[0, 4], [4, 7], [1, 2], [2, 4]], total: [7, 17] },
            { nombre: 'RR (q=2)',
              grid: ['xx--xxBBBB', 'B-xx---xBB', 'BBB---xBBB', 'BBBBBB--xx'],
+             cola: [['B','P2','P1','P1','P3','P3','P2','P4','B','B'],
+                    ['B','B','B','P3','P2','P2','P4','B','B','B']],
              tetr: [[2, 6], [4, 7], [3, 4], [2, 4]], total: [11, 21] },
          ]
        },
@@ -73,6 +79,9 @@ Cuestionario gestión de procesos
              tetr: [[1, 3], [5, 8], [0, 3], [0, 1]], total: [6, 15] },
            { nombre: 'RR (q=2)',
              grid: ['BB--xxBBBB', 'B-xx---xBB', 'xx----xBBB', 'BBBBB---xB'],
+             cola: [['B','P2','P1','P1','P3','P3','P2','P4','B','B'],
+                    ['B','B','P3','P3','P2','P2','P4','B','B','B'],
+                    ['B','B','B','B','B','P4','B','B','B','B']],
              tetr: [[2, 4], [4, 7], [4, 7], [3, 4]], total: [13, 22] },
          ]
        },
@@ -87,6 +96,8 @@ Cuestionario gestión de procesos
              tetr: [[0, 3], [1, 5], [4, 6], [1, 2]], total: [6, 16] },
            { nombre: 'RR (q=2)',
              grid: ['xx--xBBBBB', 'BBxx---xxB', 'BBBB-xxBBB', 'BBBBBB---x'],
+             cola: [['B','B','P1','P1','P3','P2','P2','P4','P4','B'],
+                    ['B','B','B','B','P2','B','P4','B','B','B']],
              tetr: [[2, 5], [3, 7], [1, 3], [3, 4]], total: [9, 19] },
          ]
        },
@@ -101,6 +112,8 @@ Cuestionario gestión de procesos
              tetr: [[3, 5], [0, 4], [4, 7], [1, 2]], total: [8, 18] },
            { nombre: 'RR (q=2)',
              grid: ['B-xxBBBBBB', 'xx--xxBBBB', 'BBB---xx-x', 'BBBBB---xB'],
+             cola: [['B','P1','P2','P2','P3','P3','P4','P4','P3','B'],
+                    ['B','B','B','P3','B','P4','B','B','B','B']],
              tetr: [[1, 3], [2, 6], [4, 7], [3, 4]], total: [10, 20] },
          ]
        },
@@ -115,6 +128,8 @@ Cuestionario gestión de procesos
              tetr: [[0, 3], [0, 2], [5, 9], [1, 2]], total: [6, 16] },
            { nombre: 'RR (q=2)',
              grid: ['BB--xx---x', 'xxBBBBBBBB', 'B-xx---xxB', 'BBBB--xBBB'],
+             cola: [['B','P3','P1','P1','P4','P4','P3','P1','P1','B'],
+                    ['B','B','B','B','P3','P3','P1','B','B','B']],
              tetr: [[5, 8], [0, 2], [4, 8], [2, 3]], total: [11, 21] },
          ]
        },
@@ -123,7 +138,7 @@ Cuestionario gestión de procesos
      var cont = document.getElementById('qp-ejercicios');
      EJERCICIOS.forEach(function (ej, n) {
        var card = document.createElement('div');
-       card.className = 'qp-card';
+       card.className = 'qp-card qp-plan';
        var h = '<p class="qp-enunciado">' + (n + 1) + '. Tenemos los siguientes procesos:</p>';
        h += '<table><tr><th>Proceso</th><th>T<sub>i</sub></th><th>T<sub>x</sub></th></tr>';
        ej.procesos.forEach(function (p) {
@@ -167,17 +182,17 @@ Cuestionario gestión de procesos
               '<td><input maxlength="3" data-a="' + alg.total[1] + '"></td></tr>';
          h += '</table>';
        });
-       h += '<button onclick="qpCorregir(this)">Corregir</button>' +
-            '<button onclick="qpSolucion(this)">Solución</button>' +
-            '<button onclick="qpLimpiar(this)">Reintentar</button>' +
+       h += '<button onclick="qpgCorregir(this)">Corregir</button>' +
+            '<button onclick="qpgSolucion(this)">Solución</button>' +
+            '<button onclick="qpgLimpiar(this)">Reintentar</button>' +
             '<span class="qp-nota"></span>';
        card.innerHTML = h;
        cont.appendChild(card);
      });
    })();
 
-   function qpCorregir(btn) {
-     var card = btn.closest('.qp-card');
+   function qpgCorregir(btn) {
+     var card = btn.closest('.qp-plan');
      var inputs = card.querySelectorAll('input[data-a]');
      var aciertos = 0;
      inputs.forEach(function (inp) {
@@ -187,16 +202,16 @@ Cuestionario gestión de procesos
      });
      card.querySelector('.qp-nota').textContent = aciertos + ' / ' + inputs.length;
    }
-   function qpSolucion(btn) {
-     var card = btn.closest('.qp-card');
+   function qpgSolucion(btn) {
+     var card = btn.closest('.qp-plan');
      card.querySelectorAll('input[data-a]').forEach(function (inp) {
        inp.value = inp.dataset.a;
        inp.className = 'qp-ok';
      });
      card.querySelector('.qp-nota').textContent = 'Solución';
    }
-   function qpLimpiar(btn) {
-     var card = btn.closest('.qp-card');
+   function qpgLimpiar(btn) {
+     var card = btn.closest('.qp-plan');
      card.querySelectorAll('input[data-a]').forEach(function (inp) {
        inp.value = '';
        inp.className = '';

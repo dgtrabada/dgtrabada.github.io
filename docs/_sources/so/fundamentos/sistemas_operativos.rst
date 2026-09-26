@@ -2,7 +2,7 @@
 Sistemas operativos
 *******************
 
-«Sin su software, la computadora es básicamente un montón de metal inútil» (Andrew S. Tanenbaum).
+*"Sin su software, la computadora es básicamente un montón de metal inútil"* (Andrew S. Tanenbaum).
 
 El Sistema Operativo es el software principal o conjunto de programas de un sistema informático que gestiona los recursos de hardware y provee servicios a los programas de aplicación de software.
 

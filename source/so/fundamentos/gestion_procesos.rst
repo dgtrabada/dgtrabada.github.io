@@ -2,6 +2,8 @@
 Gestión de procesos
 *******************
 
+Procesos y estados
+==================
 
 Veamos el siguiente programa:
 
@@ -66,7 +68,7 @@ Si ahora cambiamos la sentencia **sleep(1)** por **sleep(100)** para que tarde u
 
  $ gcc primos.c && ./a.out &
  [1] 8310
- ./a.out &
+ $ ./a.out &
  [2] 8318
  $ ./a.out &
  [3] 8319
@@ -75,7 +77,9 @@ Si ahora cambiamos la sentencia **sleep(1)** por **sleep(100)** para que tarde u
  [2]-  Ejecutando              ./a.out &
  [3]+  Ejecutando              ./a.out &
 
-traemos al primer plano el proceso 2 y pulsando <ctrl>+z lo paramos:
+El número entre corchetes es el **número de trabajo** (*job*) de la terminal, y el que va detrás (8310, 8318, 8319) es el **PID** (*process identifier*), el número con el que el sistema operativo identifica a cada proceso. Con ``ps`` podemos ver los procesos con su PID, y con ``top`` o ``htop`` ver en tiempo real cuánta CPU y memoria consume cada uno.
+
+Traemos al primer plano el trabajo 2 y pulsando <ctrl>+z lo paramos:
 
 .. code-block:: bash
 
@@ -88,7 +92,9 @@ traemos al primer plano el proceso 2 y pulsando <ctrl>+z lo paramos:
  [2]+  Detenido                ./a.out
  [3]-  Ejecutando              ./a.out &
  
-traemos al primer plano el 1 proceso y lo matamos utilizando <ctrl>+c
+Un trabajo detenido se puede reanudar en primer plano con ``fg %2`` o en segundo plano con ``bg %2``.
+
+Traemos al primer plano el trabajo 1 y lo matamos utilizando <ctrl>+c
 
 .. code-block:: bash
 
@@ -99,7 +105,7 @@ traemos al primer plano el 1 proceso y lo matamos utilizando <ctrl>+c
  [2]+  Detenido                ./a.out
  [3]-  Ejecutando              ./a.out &
  
-Para matarlo no es necesario pasarlo al plano principal podemos hacerlo con kill %n
+Para matarlo no es necesario pasarlo al primer plano, podemos hacerlo con ``kill %n`` indicando el número de trabajo, o con ``kill PID`` indicando su PID desde cualquier terminal
 
 .. code-block:: bash
 
@@ -109,7 +115,7 @@ Para matarlo no es necesario pasarlo al plano principal podemos hacerlo con kill
  [3]-  Terminado               ./a.out
 
 
-Como podemos ver proceso es un programa que está en ejecución. Los procesos pueden estar en alguno de los siguientes estados:
+Como podemos ver, un **proceso** es un programa que está en ejecución. Los procesos pueden estar en alguno de los siguientes estados:
 
 * **Nuevo**: el proceso se está creando.
 * **Listo**: preparado para ejecutarse, esperando a que se le asigne la CPU.
@@ -118,20 +124,56 @@ Como podemos ver proceso es un programa que está en ejecución. Los procesos pu
 * **Terminado**: ha finalizado su ejecución.
 
 .. image:: imagenes/estado_procesos.png
-  :width: 400
+  :width: 600
 
-El sistema operativo mantiene para cada proceso un bloque de control o PCB (process control block), donde guarda para cada proceso la información necesaria para reactivarlo si es suspendido, cuando el sistema operativo entrega la CPU a un nuevo proceso, tiene que guardar el estado del proceso que estaba ejecutando y cargar el nuevo proceso, esto es un cambio de contexto, hay algunas CPUs que tienen varios juegos de registros, de manera que se hace simultáneamente cambiando el puntero al actual juego de registros. El problema es que si hay más procesos que conjunto de registros es posible que tengamos que apoyarnos en la memoria, es decir el cambio de contexto es una operación costosa.
+Las transiciones entre estados son:
 
-Una forma de disminuir el coste de los cambios de contexto es utilizando threads o hilos. Los hilos de un mismo proceso comparten el mismo espacio de direccionamiento, así como también los recursos abiertos y la información del proceso (PCB) gracias a esto consiguen que su creación y el cambio de contexto sea mucho más barato.
+* **Nuevo → Listo**: el sistema operativo admite el proceso y lo pone en la cola de procesos listos.
+* **Listo → En ejecución**: el planificador lo elige para que use la CPU.
+* **En ejecución → Listo**: se le acaba el tiempo de CPU asignado (el *quantum*) y vuelve a la cola de listos.
+* **En ejecución → Bloqueado**: tiene que esperar a que ocurra algo, por ejemplo a leer del disco o a que el usuario pulse una tecla.
+* **Bloqueado → Listo**: ocurre lo que esperaba y vuelve a la cola de listos. Nunca pasa directamente a ejecución.
+* **En ejecución → Terminado**: el proceso acaba.
+
+Bloque de control de procesos (PCB)
+-----------------------------------
+
+El sistema operativo mantiene para cada proceso un bloque de control o **PCB** (*process control block*), donde guarda la información necesaria para gestionarlo y para reactivarlo si es suspendido:
+
+* El identificador del proceso (**PID**) y el usuario al que pertenece.
+* Su **estado** (listo, en ejecución, bloqueado...) y su **prioridad**.
+* El **contador de programa**, es decir, la dirección de la siguiente instrucción que tiene que ejecutar, y el valor de los **registros** de la CPU.
+* La **memoria** que tiene asignada y los **archivos abiertos**.
+
+Cuando el sistema operativo entrega la CPU a otro proceso, tiene que guardar en el PCB el estado del proceso que estaba ejecutando y cargar el del nuevo proceso: esto es un **cambio de contexto**. Algunas CPUs tienen varios juegos de registros, de manera que el cambio se hace simplemente cambiando el puntero al juego de registros actual. El problema es que si hay más procesos que juegos de registros hay que apoyarse en la memoria, es decir, el cambio de contexto es una operación costosa.
+
+Hilos
+-----
+
+Una forma de disminuir el coste de los cambios de contexto es utilizando threads o hilos. Los hilos de un mismo proceso comparten el mismo espacio de direccionamiento, así como también los recursos abiertos y la información del proceso (PCB) gracias a esto consiguen que su creación y el cambio de contexto sea mucho más barato. Por ejemplo, un procesador de textos puede tener un hilo que atiende al teclado, otro que revisa la ortografía y otro que guarda automáticamente el documento.
 
 Planificación de procesos
 =========================
 
-Cuando el proceso termina hacemos un cambio de contexto, entonces el SO tiene que decidir que proceso listo va a empezar a pasar a ejecución, vamos a ver el siguiente ejemplo con 2 procesos que ocupan (4,6), en el caso de ejecutar primero el de 4 y luego el de 6 el tiempo de espera será de (0+4)=4, sin embargo si primero ejecutamos el de 6, tendremos un tiempo de espera medio de (0+6)=6
+Cada vez que la CPU queda libre, el sistema operativo tiene que decidir qué proceso de la cola de listos pasa a ejecutarse. De eso se encarga el **planificador**, y el orden que elija cambia mucho el tiempo que esperan los procesos.
+
+Para comparar los algoritmos utilizamos los siguientes tiempos:
+
+* **T**:sub:`I` (tiempo de llegada): instante en que el proceso llega a la cola de listos.
+* **T**:sub:`X` (tiempo de ejecución): tiempo de CPU que necesita el proceso.
+* **T**:sub:`E` (tiempo de espera): tiempo que el proceso pasa esperando en la cola de listos.
+* **T**:sub:`R` (tiempo de retorno): tiempo desde que el proceso llega hasta que termina, es decir, T :sub:`R` = T :sub:`E` + T :sub:`X`
+
+Por ejemplo, con 2 procesos que necesitan (4,6) unidades de CPU, si ejecutamos primero el de 4 y luego el de 6, el tiempo de espera total será (0+4) = 4, es decir, una media de 2; sin embargo, si primero ejecutamos el de 6, el tiempo de espera total será (0+6) = 6, una media de 3.
+
+Los algoritmos pueden ser:
+
+* **No apropiativos**: una vez que un proceso tiene la CPU, la conserva hasta que termina o se bloquea. Por ejemplo, FIFO y SJF.
+* **Apropiativos** (o expulsivos): el sistema operativo puede quitarle la CPU a un proceso para dársela a otro. Por ejemplo, RR.
 
 Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritmos:
 
-* **FIFO** (First in, first out) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bloqueado.
+* **FIFO** (First in, first out, también llamado FCFS, First Come, First Served) es decir el primero que llega es el primero en ser atendido, cada proceso se ejecuta hasta que termina o se queda bloqueado.
 
 * **SJF** (Shortest Job First, también llamado SJN, Shortest Job Next) toma como siguiente el proceso que va a terminar antes. Vamos a ver el siguiente ejemplo de tres procesos a<b<c, para este caso tendríamos un tiempo de espera de: (a+(a+b))=(2a+b), de hacerlo al revés tendríamos (2c+b) es decir la diferencia es de 2(a-c). 
   El problema de este algoritmo es el desconocimiento del tiempo que va a durar un proceso.
@@ -140,21 +182,21 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
   .. image:: imagenes/procesos_1.png 
   
-  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera TE = 2+(2+4) = 8 y el tiempo de ejecución es TR = 2+6+14 = 22
+  Si lo hacemos utilizando el proceso que va a terminar antes tendríamos un tiempo de espera T :sub:`E` = 0+2+(2+4) = 8 y un tiempo de retorno T :sub:`R` = 2+6+14 = 22
   
   .. image:: imagenes/procesos_2.png 
 
-  si lo hacemos al revés TE = 8+(8+4) = 20 y el tiempo de ejecución es  TR = 14+12+8 = 34
+  si lo hacemos al revés T :sub:`E` = 0+8+(8+4) = 20 y T :sub:`R` = 8+12+14 = 34
 
   .. image:: imagenes/procesos_3.png 
 
-* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza este quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO si es demasiado pequeño entonces tendremos un costo muy elevado en los cambios de contexto. **El que el proceso se esté ejecutando pasa al final de la cola, en el caso de que entre uno nuevo se pondría detrás.**
+* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza este quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO y si es demasiado pequeño tendremos un costo muy elevado en los cambios de contexto. **Cuando se acaba el quantum, el proceso que se estaba ejecutando pasa al final de la cola; si en ese mismo instante llega un proceso nuevo, el nuevo se pone delante y el que sale del quantum detrás.**
 
-Vemos el siguiente ejemplo:
+Vemos el siguiente ejemplo. Debajo de cada tabla aparece la cola de procesos listos en cada instante: **x** indica que el proceso se está ejecutando y **-** que está esperando en la cola:
 
 .. image:: imagenes/Ejemplo.png
 
-Casos especiales en **RR**
+Casos especiales en **RR**: cuando un proceso llega justo en el instante en que otro agota su quantum, el que llega se pone delante en la cola (P2 delante de P3 en el primer caso y P1 delante de P4 en el segundo):
 
 .. image:: imagenes/desambi.png
 
@@ -175,7 +217,18 @@ Edsger Wybe Dijkstra propuso el problema de la cena de los filósofos: cinco fil
 
 .. image:: imagenes/plato.png
 
+Para que se produzca un interbloqueo tienen que darse a la vez las cuatro **condiciones de Coffman**:
+
+#. **Exclusión mutua**: el recurso solo lo puede usar un proceso a la vez (un palillo solo lo puede tener un filósofo).
+#. **Retención y espera**: un proceso retiene un recurso mientras espera otro (el filósofo no suelta el palillo izquierdo mientras espera el derecho).
+#. **No expropiación**: no se le puede quitar el recurso a un proceso, tiene que liberarlo él (nadie le quita el palillo a un filósofo).
+#. **Espera circular**: cada proceso espera un recurso que tiene el siguiente, formando un círculo (cada filósofo espera el palillo del que tiene a su derecha).
+
+Para evitar el interbloqueo basta con que no se cumpla una de ellas. Por ejemplo, si uno de los filósofos coge primero el palillo de la derecha y después el de la izquierda, ya no se puede formar el círculo de espera.
+
 .. toctree::
    :hidden:
 
-   cuestionario_gestion_procesos.rst
+   cuestionario_gestion_procesos1.rst
+   cuestionario_gestion_procesos2.rst
+   cuestionario_gestion_procesos3.rst
