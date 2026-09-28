@@ -1117,47 +1117,91 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </section>
 <section id="una-imagen-propia-dockerfile-configmap-y-secret">
 <h3>Una imagen propia: Dockerfile, ConfigMap y Secret<a class="headerlink" href="#una-imagen-propia-dockerfile-configmap-y-secret" title="Link to this heading">#</a></h3>
-<p>Hasta aquí hemos usado la imagen oficial de nginx con la página metida en un ConfigMap. Ahora construimos <strong>nuestra propia imagen</strong>, que lee de <strong>variables de entorno</strong> el título de la página y una clave de acceso.</p>
+<p>Hasta aquí hemos usado la imagen oficial de nginx con la página metida en un ConfigMap. Ahora construimos <strong>nuestra propia imagen</strong>, que lee de <strong>variables de entorno</strong> el título de la página, y un usuario y una clave con los que protege una <strong>zona privada</strong>: si aciertas la contraseña ves una página que de otra forma no se ve.</p>
+<p>Eso obliga a decidir dónde vive cada dato, que es de lo que va el apartado:</p>
+<ul class="simple">
+<li><p>lo que no cambia nunca, <strong>dentro de la imagen</strong>: la plantilla de la página,</p></li>
+<li><p>lo que cambia según dónde despliegues y no es secreto, en un <strong>ConfigMap</strong>: el título y el nombre de usuario,</p></li>
+<li><p>y la contraseña, en un <strong>Secret</strong>.</p></li>
+</ul>
+<p>La misma imagen sirve entonces para clase, para pruebas y para producción; lo único que cambia es el ConfigMap.</p>
 <p>Kubernetes no construye imágenes, así que instalamos Docker en compute-0-0 (convive con k3s sin tocarle las reglas de red):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker.io
 </pre></div>
 </div>
 <p>La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en <code class="docutils literal notranslate"><span class="pre">/docker-entrypoint.d/</span></code>. Ese es el sitio donde sustituir las variables dentro del HTML, con <code class="docutils literal notranslate"><span class="pre">envsubst</span></code>:</p>
-<p>Son <strong>tres ficheros dentro del directorio</strong> <code class="docutils literal notranslate"><span class="pre">imagen/</span></code>, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.</p>
-<p><code class="docutils literal notranslate"><span class="pre">imagen/index.html.template</span></code>:</p>
+<p>Son <strong>cuatro ficheros y un directorio</strong>, todo dentro de <code class="docutils literal notranslate"><span class="pre">imagen/</span></code>, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>imagen/
+├──<span class="w"> </span>Dockerfile
+├──<span class="w"> </span>index.html.template
+├──<span class="w"> </span>default.conf
+├──<span class="w"> </span><span class="m">20</span>-titulo.sh
+└──<span class="w"> </span>privado/
+<span class="w">    </span>└──<span class="w"> </span>index.html
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/index.html.template</span></code>, la página pública, con el enlace a la zona privada:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>${TITULO}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>${TITULO}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Imagen propia construida con Dockerfile<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/privado/&quot;</span><span class="p">&gt;</span>Zona privada<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">imagen/20-titulo.sh</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/privado/index.html</span></code>, lo que se ve al acertar la clave:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Zona privada<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Has acertado la clave<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/default.conf</span></code>, la configuración de nginx: la raíz es pública y <code class="docutils literal notranslate"><span class="pre">/privado/</span></code> pide usuario y contraseña:</p>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">root</span><span class="w"> </span><span class="s">/usr/share/nginx/html</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">index</span><span class="w"> </span><span class="s">index.html</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/privado/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">auth_basic</span><span class="w"> </span><span class="s">&quot;Zona</span><span class="w"> </span><span class="s">privada&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">auth_basic_user_file</span><span class="w"> </span><span class="s">/etc/nginx/.htpasswd</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">imagen/20-titulo.sh</span></code>, que es donde las variables se convierten en algo que sirve: una escribe el título en la página y la otra crea el fichero de contraseñas de nginx:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 <span class="c1"># la imagen nginx ejecuta al arrancar todo lo que encuentre en /docker-entrypoint.d/</span>
 envsubst<span class="w"> </span><span class="s2">&quot;\$TITULO&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>/plantilla/index.html.template<span class="w"> </span>&gt;<span class="w"> </span>/usr/share/nginx/html/index.html
+htpasswd<span class="w"> </span>-bc<span class="w"> </span>/etc/nginx/.htpasswd<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USUARIO</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CLAVE</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">imagen/Dockerfile</span></code>:</p>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
-<span class="c"># envsubst viene en el paquete gettext</span>
-<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--no-cache<span class="w"> </span>gettext
-<span class="k">ENV</span><span class="w"> </span><span class="nv">TITULO</span><span class="o">=</span><span class="s2">&quot;sin titulo&quot;</span><span class="w"> </span><span class="nv">CLAVE</span><span class="o">=</span><span class="s2">&quot;sin clave&quot;</span>
+<span class="c"># envsubst viene en gettext; htpasswd, en apache2-utils</span>
+<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>--no-cache<span class="w"> </span>gettext<span class="w"> </span>apache2-utils
+<span class="k">ENV</span><span class="w"> </span><span class="nv">TITULO</span><span class="o">=</span><span class="s2">&quot;sin titulo&quot;</span><span class="w"> </span><span class="nv">USUARIO</span><span class="o">=</span><span class="s2">&quot;nadie&quot;</span><span class="w"> </span><span class="nv">CLAVE</span><span class="o">=</span><span class="s2">&quot;sin clave&quot;</span>
 <span class="k">COPY</span><span class="w"> </span>index.html.template<span class="w"> </span>/plantilla/index.html.template
+<span class="k">COPY</span><span class="w"> </span>privado<span class="w"> </span>/usr/share/nginx/html/privado
+<span class="k">COPY</span><span class="w"> </span>default.conf<span class="w"> </span>/etc/nginx/conf.d/default.conf
 <span class="k">COPY</span><span class="w"> </span><span class="m">20</span>-titulo.sh<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
 <span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
 </pre></div>
 </div>
-<p>Antes de construir, comprueba que el script tiene <strong>tres líneas</strong> y el resto lo suyo, porque si se cuela ahí cualquier otra cosa nginx intentará ejecutarla al arrancar y el contenedor se morirá nada más nacer:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span>imagen/*
-<span class="w">  </span><span class="m">7</span><span class="w"> </span>imagen/Dockerfile
-<span class="w">  </span><span class="m">8</span><span class="w"> </span>imagen/index.html.template
-<span class="w">  </span><span class="m">3</span><span class="w"> </span>imagen/20-titulo.sh
-
-root@compute-0-0:~#<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>web-tunombre:1.0<span class="w"> </span>imagen/
+<p>Los <code class="docutils literal notranslate"><span class="pre">ENV</span></code> del Dockerfile son solo valores por defecto, para que la imagen arranque aunque no le pases nada; los de verdad llegan del ConfigMap y del Secret.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La raíz <code class="docutils literal notranslate"><span class="pre">/</span></code> tiene que seguir siendo <strong>pública</strong>, porque es donde pega la <code class="docutils literal notranslate"><span class="pre">readinessProbe</span></code>. Si proteges el sitio entero, todas las sondas reciben un 401, ningún Pod llega a <code class="docutils literal notranslate"><span class="pre">READY</span></code> y el despliegue no termina nunca.</p>
+<p>Y al sustituir <code class="docutils literal notranslate"><span class="pre">default.conf</span></code> verás en los logs <code class="docutils literal notranslate"><span class="pre">10-listen-on-ipv6-by-default.sh:</span> <span class="pre">info:</span> <span class="pre">/etc/nginx/conf.d/default.conf</span> <span class="pre">differs</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">packaged</span> <span class="pre">version</span></code>. No es un error: ese script de la imagen oficial solo toca el fichero si es el que venía de fábrica.</p>
+</div>
+<p>Construimos la imagen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>web-tunombre:1.0<span class="w"> </span>imagen/
 sha256:28ce5e9688896cf74c49b57685c71bd8af308f5dfa0d9608a4b5f49fed40cbe2
 </pre></div>
 </div>
@@ -1184,13 +1228,14 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 <p>En la vida real esto se resuelve con un <strong>registro de imágenes</strong> (Docker Hub o uno propio): se sube una vez y cada nodo se la descarga. Copiar el tar a mano solo se aguanta con cuatro máquinas.</p>
-<p>El <strong>título</strong> no es un secreto y va en un <strong>ConfigMap</strong>; la <strong>clave</strong> sí, y va en un <strong>Secret</strong>. Los dos son objetos nuevos, así que van en un fichero nuevo, <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code>:</p>
+<p>El <strong>título</strong> y el <strong>usuario</strong> no son secretos y van en un <strong>ConfigMap</strong>; la <strong>clave</strong> sí, y va en un <strong>Secret</strong>. Los dos son objetos nuevos, así que van en un fichero nuevo, <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
 <span class="nt">data</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">titulo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hola,</span><span class="nv"> </span><span class="s">soy</span><span class="nv"> </span><span class="s">tunombre&quot;</span>
+<span class="w">  </span><span class="nt">usuario</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tunombre&quot;</span>
 <span class="nn">---</span>
 <span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
@@ -1201,8 +1246,26 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 <span class="w">  </span><span class="nt">clave</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MiClaveSecreta&quot;</span>
 </pre></div>
 </div>
-<p>Tenerlos creados no hace nada por sí solo: hay que <strong>inyectarlos como variables de entorno</strong> en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>. Otra vez, lo resaltado es lo que cambia:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, dentro del Deployment</span>
+<p>Tenerlos creados no hace nada por sí solo: hay que <strong>inyectarlos como variables de entorno</strong> en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>.</p>
+<p>Y de paso <strong>desaparece</strong> el ConfigMap <code class="docutils literal notranslate"><span class="pre">web-tunombre-html</span></code> con la página y el volumen que lo montaba en <code class="docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code>. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además <strong>estorban</strong>: un volumen de ConfigMap se monta en sólo lectura, así que el <code class="docutils literal notranslate"><span class="pre">envsubst</span></code> del arranque no podría escribir ahí el <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. Si te lo dejas puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.</p>
+<p>Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está el fichero <strong>entero</strong> tal como tiene que quedar: de los tres objetos del principio ya solo quedan <strong>dos</strong>, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">  </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
+<span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
@@ -1216,29 +1279,41 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 </span><span class="hll"><span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
 </span><span class="hll"><span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
+</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USUARIO</span>
+</span><span class="hll"><span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
+</span><span class="hll"><span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usuario</span>
 </span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
 </span><span class="hll"><span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                </span><span class="nt">secretKeyRef</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-secret</span>
 </span><span class="hll"><span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clave</span>
-</span></pre></div>
+</span><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">              </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">            </span><span class="nt">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">          </span><span class="nt">lifecycle</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">preStop</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">exec</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;sleep&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p p-Indicator">]</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30080</span>
+</pre></div>
 </div>
-<p>La <code class="docutils literal notranslate"><span class="pre">image</span></code> deja de ser <code class="docutils literal notranslate"><span class="pre">nginx:alpine</span></code> y pasa a ser la nuestra. Y <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">IfNotPresent</span></code> es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.</p>
-<p>Y hay algo que <strong>se quita</strong>: el ConfigMap <code class="docutils literal notranslate"><span class="pre">web-tunombre-html</span></code> con la página y el volumen que lo montaba en <code class="docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code>. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además <strong>estorban</strong>: un volumen de ConfigMap se monta en sólo lectura, así que el <code class="docutils literal notranslate"><span class="pre">envsubst</span></code> del arranque no podría escribir ahí el <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. Borra del Deployment las dos partes:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml: esto se BORRA del Deployment</span>
-<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-<span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-</span><span class="hll"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
-</span><span class="hll"><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
-</span><span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/nginx/html</span>
-<span class="hll"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
-</span><span class="hll"><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
-</span><span class="hll"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span>
-</span><span class="hll"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-html</span>
-</span></pre></div>
-</div>
-<p>Si te dejas el volumen puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.</p>
+<p>La <code class="docutils literal notranslate"><span class="pre">image</span></code> deja de ser <code class="docutils literal notranslate"><span class="pre">nginx:alpine</span></code> y pasa a ser la nuestra. Y <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">IfNotPresent</span></code> es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos. El <code class="docutils literal notranslate"><span class="pre">readinessProbe</span></code>, el <code class="docutils literal notranslate"><span class="pre">preStop</span></code> y las ocho réplicas vienen del apartado anterior, y el Service no se toca desde que lo escribimos.</p>
 <p>Y hay una diferencia con la página del ConfigMap de antes: aquellos ficheros se refrescaban solos porque iban montados como un volumen, pero <strong>una variable de entorno se lee al arrancar el contenedor y ya no cambia mientras vive</strong>. Si ahora cambias el título en el ConfigMap, la web seguirá igual hasta que los Pods se recreen.</p>
 <p>Y se aplican los dos ficheros, el nuevo y el de siempre:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
@@ -1247,9 +1322,74 @@ secret/web-tunombre-secret<span class="w"> </span>created
 
 root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml
 deployment.apps/web-tunombre<span class="w"> </span>configured
+service/web-tunombre<span class="w"> </span>unchanged
 </pre></div>
 </div>
-<p>Del segundo fichero solo cambia el Deployment; de lo demás que hay dentro, <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> dirá <code class="docutils literal notranslate"><span class="pre">unchanged</span></code>, porque no lo has tocado.</p>
+<p>Del segundo fichero solo cambia el Deployment; el Service sigue igual y <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> lo dice con <code class="docutils literal notranslate"><span class="pre">unchanged</span></code>. Y el ConfigMap viejo, el de la página, <strong>no se borra solo</strong> por haberlo quitado del fichero: <code class="docutils literal notranslate"><span class="pre">apply</span></code> crea y modifica, pero no elimina lo que ya no aparece. Se queda ahí hasta que tú lo tires:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>delete<span class="w"> </span>configmap<span class="w"> </span>web-tunombre-html
+configmap<span class="w"> </span><span class="s2">&quot;web-tunombre-html&quot;</span><span class="w"> </span>deleted
+</pre></div>
+</div>
+<p>Si te responde <code class="docutils literal notranslate"><span class="pre">Error</span> <span class="pre">from</span> <span class="pre">server</span> <span class="pre">(NotFound)</span></code> es que ya no estaba, y no pasa nada: <code class="docutils literal notranslate"><span class="pre">delete</span></code> protesta cuando le pides borrar algo que no existe. Con <code class="docutils literal notranslate"><span class="pre">--ignore-not-found</span></code> se calla.</p>
+<p>El <code class="docutils literal notranslate"><span class="pre">apply</span></code> solo dice que el cambio está guardado, <strong>no</strong> que los Pods nuevos hayan arrancado. Y aquí hay una trampa heredada del apartado anterior: con <code class="docutils literal notranslate"><span class="pre">maxUnavailable:</span> <span class="pre">0</span></code> el clúster no mata a los Pods viejos mientras los nuevos no estén listos, así que si la imagen nueva falla la web <strong>sigue respondiendo con la página de antes</strong> y no hay ningún error a la vista. Por eso, después de este <code class="docutils literal notranslate"><span class="pre">apply</span></code> y de todos los que vengan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+deployment<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>successfully<span class="w"> </span>rolled<span class="w"> </span>out
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
+</pre></div>
+</div>
+<p>Si el <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">status</span></code> se queda parado, los Pods nuevos no arrancan y la columna <code class="docutils literal notranslate"><span class="pre">STATUS</span></code> dice por dónde va el problema:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>STATUS</p></th>
+<th class="head"><p>Qué ha pasado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ErrImagePull</span></code> / <code class="docutils literal notranslate"><span class="pre">ImagePullBackOff</span></code></p></td>
+<td><p>En <strong>ese nodo</strong> no está la imagen. Mira la columna <code class="docutils literal notranslate"><span class="pre">NODE</span></code> y repite ahí el <code class="docutils literal notranslate"><span class="pre">k3s</span> <span class="pre">ctr</span> <span class="pre">images</span> <span class="pre">import</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CrashLoopBackOff</span></code></p></td>
+<td><p>El contenedor se muere nada más arrancar. El motivo está en los logs, pero <strong>del contenedor anterior</strong>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CreateContainerConfigError</span></code></p></td>
+<td><p>Le pides al contenedor una variable que sale de una clave que <strong>no existe</strong> en el ConfigMap o en el Secret. El mensaje lo dice con nombre y apellidos: <code class="docutils literal notranslate"><span class="pre">couldn't</span> <span class="pre">find</span> <span class="pre">key</span> <span class="pre">usuario</span> <span class="pre">in</span> <span class="pre">ConfigMap</span> <span class="pre">default/web-tunombre-config</span></code>. Pasa cuando aplicas el Deployment antes que el ConfigMap.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Running</span></code> y <code class="docutils literal notranslate"><span class="pre">0/1</span> <span class="pre">READY</span></code></p></td>
+<td><p>El contenedor vive pero no contesta a la readinessProbe.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Lo de <code class="docutils literal notranslate"><span class="pre">CrashLoopBackOff</span></code> merece su propio comando, porque es el más traicionero: <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">logs</span></code> a secas enseña el contenedor recién nacido, que todavía no ha dicho nada. El error está en el que acaba de morir, y ese se ve con <code class="docutils literal notranslate"><span class="pre">--previous</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>web-tunombre-5c95dc87d6-5w94p<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A4<span class="w"> </span><span class="s2">&quot;Last State&quot;</span>
+<span class="w">    </span>Last<span class="w"> </span>State:<span class="w">     </span>Terminated
+<span class="w">      </span>Reason:<span class="w">       </span>Error
+<span class="w">      </span>Exit<span class="w"> </span>Code:<span class="w">    </span><span class="m">127</span>
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>web-tunombre-5c95dc87d6-5w94p<span class="w"> </span>--previous
+/docker-entrypoint.sh:<span class="w"> </span>Launching<span class="w"> </span>/docker-entrypoint.d/20-titulo.sh
+/docker-entrypoint.d/20-titulo.sh:<span class="w"> </span>line<span class="w"> </span><span class="m">5</span>:<span class="w"> </span>root@compute-0-0:~#:<span class="w"> </span>not<span class="w"> </span>found
+/docker-entrypoint.d/20-titulo.sh:<span class="w"> </span>line<span class="w"> </span><span class="m">6</span>:<span class="w"> </span>FROM:<span class="w"> </span>not<span class="w"> </span>found
+/docker-entrypoint.d/20-titulo.sh:<span class="w"> </span>line<span class="w"> </span><span class="m">9</span>:<span class="w"> </span>ENV:<span class="w"> </span>not<span class="w"> </span>found
+</pre></div>
+</div>
+<p>Ese <code class="docutils literal notranslate"><span class="pre">Exit</span> <span class="pre">Code:</span> <span class="pre">127</span></code> es <em>orden no encontrada</em>, y los logs dicen exactamente lo que ha pasado: al copiar de esta página, dentro de <code class="docutils literal notranslate"><span class="pre">20-titulo.sh</span></code> se ha colado el Dockerfile. nginx ejecuta al arrancar todo lo que hay en <code class="docutils literal notranslate"><span class="pre">/docker-entrypoint.d/</span></code>, el script devuelve 127 y el contenedor se muere ahí mismo. Comprueba con <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">imagen/20-titulo.sh</span></code> que dentro están <strong>esas tres líneas y nada más</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Cuando arregles algo y vuelvas a construir, <strong>no reutilices el tag</strong> <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. Los nodos ya tienen una imagen con ese nombre y los Pods que estén <code class="docutils literal notranslate"><span class="pre">Running</span></code> se quedan con la vieja: el <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> y el <code class="docutils literal notranslate"><span class="pre">import</span></code> no cambian nada y la web sigue igual, sin ningún error que lo explique.</p>
+<p>Construye con un tag nuevo y cambia la <code class="docutils literal notranslate"><span class="pre">image:</span></code> del Deployment, que además así se ve el <code class="docutils literal notranslate"><span class="pre">rollout</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>web-tunombre:1.1<span class="w"> </span>imagen/
+root@compute-0-0:~#<span class="w"> </span>docker<span class="w"> </span>save<span class="w"> </span>web-tunombre:1.1<span class="w"> </span>-o<span class="w"> </span>web-tunombre-1.1.tar
+root@compute-0-0:~#<span class="w"> </span>k3s<span class="w"> </span>ctr<span class="w"> </span>images<span class="w"> </span>import<span class="w"> </span>web-tunombre-1.1.tar
+root@compute-0-0:~#<span class="w"> </span><span class="k">for</span><span class="w"> </span>n<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>scp<span class="w"> </span>web-tunombre-1.1.tar<span class="w"> </span><span class="m">172</span>.16.0.1<span class="nv">$n</span>:/root/
+<span class="w">  </span>ssh<span class="w"> </span><span class="m">172</span>.16.0.1<span class="nv">$n</span><span class="w"> </span><span class="s2">&quot;k3s ctr images import /root/web-tunombre-1.1.tar&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Si te empeñas en repetir tag, la imagen hay que reimportarla igualmente en los cuatro nodos y además forzar el relevo de los Pods con <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">rollout</span> <span class="pre">restart</span> <span class="pre">deployment/web-tunombre</span></code>.</p>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://web-tunombre.local
 &lt;!DOCTYPE<span class="w"> </span>html&gt;
 &lt;html&gt;
@@ -1257,17 +1397,58 @@ deployment.apps/web-tunombre<span class="w"> </span>configured
 &lt;body&gt;
 <span class="w">  </span>&lt;h1&gt;Hola,<span class="w"> </span>soy<span class="w"> </span>tunombre&lt;/h1&gt;
 <span class="w">  </span>&lt;p&gt;Imagen<span class="w"> </span>propia<span class="w"> </span>construida<span class="w"> </span>con<span class="w"> </span>Dockerfile&lt;/p&gt;
+<span class="w">  </span>&lt;p&gt;&lt;a<span class="w"> </span><span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/privado/&quot;</span>&gt;Zona<span class="w"> </span>privada&lt;/a&gt;&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </pre></div>
 </div>
-<p>La diferencia entre los dos se ve en <code class="docutils literal notranslate"><span class="pre">describe</span></code>, que enseña de dónde sale cada variable pero <strong>no</strong> el valor del Secret:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>web-tunombre-6d9474f456-9qxwz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A3<span class="w"> </span>Environment
-<span class="w">  </span>Environment:
-<span class="w">    </span>TITULO:<span class="w">  </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;titulo&#39;</span><span class="w"> </span>of<span class="w"> </span>config<span class="w"> </span>map<span class="w"> </span><span class="s1">&#39;web-tunombre-config&#39;</span>&gt;<span class="w">  </span>Optional:<span class="w"> </span><span class="nb">false</span>
-<span class="w">    </span>CLAVE:<span class="w">   </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;clave&#39;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>secret<span class="w"> </span><span class="s1">&#39;web-tunombre-secret&#39;</span>&gt;<span class="w">       </span>Optional:<span class="w"> </span><span class="nb">false</span>
+<p>El título ha salido del ConfigMap. Y la zona privada, del Secret: sin contraseña no se entra, con una equivocada tampoco, y con la buena sí.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">401</span>
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:loquesea<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">401</span>
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
+&lt;!DOCTYPE<span class="w"> </span>html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Zona<span class="w"> </span>privada&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+<span class="w">  </span>&lt;h1&gt;Has<span class="w"> </span>acertado<span class="w"> </span>la<span class="w"> </span>clave&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre></div>
 </div>
+<p>Lo que hace que el navegador saque la ventanita de usuario y contraseña es una cabecera que manda nginx con el 401:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-sI<span class="w"> </span>http://web-tunombre.local/privado/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;HTTP/\|WWW-Auth&quot;</span>
+HTTP/1.1<span class="w"> </span><span class="m">401</span><span class="w"> </span>Unauthorized
+WWW-Authenticate:<span class="w"> </span>Basic<span class="w"> </span><span class="nv">realm</span><span class="o">=</span><span class="s2">&quot;Zona privada&quot;</span>
+</pre></div>
+</div>
+<p>Así que desde el navegador del anfitrión, en <code class="docutils literal notranslate"><span class="pre">http://&lt;ip-del-anfitrión&gt;:30080/privado/</span></code>, sale el cuadro de diálogo pidiendo el usuario y la contraseña que están en el ConfigMap y en el Secret.</p>
+<p>La diferencia entre los dos se ve en <code class="docutils literal notranslate"><span class="pre">describe</span></code>, que enseña de dónde sale cada variable pero <strong>no</strong> el valor del Secret:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>web-tunombre-6d9474f456-9qxwz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A4<span class="w"> </span>Environment
+<span class="w">  </span>Environment:
+<span class="w">    </span>TITULO:<span class="w">   </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;titulo&#39;</span><span class="w"> </span>of<span class="w"> </span>config<span class="w"> </span>map<span class="w"> </span><span class="s1">&#39;web-tunombre-config&#39;</span>&gt;<span class="w">   </span>Optional:<span class="w"> </span><span class="nb">false</span>
+<span class="w">    </span>USUARIO:<span class="w">  </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;usuario&#39;</span><span class="w"> </span>of<span class="w"> </span>config<span class="w"> </span>map<span class="w"> </span><span class="s1">&#39;web-tunombre-config&#39;</span>&gt;<span class="w">  </span>Optional:<span class="w"> </span><span class="nb">false</span>
+<span class="w">    </span>CLAVE:<span class="w">    </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;clave&#39;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>secret<span class="w"> </span><span class="s1">&#39;web-tunombre-secret&#39;</span>&gt;<span class="w">        </span>Optional:<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña en <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code> y aplícalo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
+secret/web-tunombre-secret<span class="w"> </span>configured
+
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">200</span>
+</pre></div>
+</div>
+<p>Sigue entrando con la contraseña <strong>vieja</strong>, aunque el Secret ya tenga la nueva, porque los Pods que están vivos leyeron la suya al arrancar. Hasta que no se recrean no se enteran:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/web-tunombre
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">401</span>
+</pre></div>
+</div>
+<p>No hace falta reconstruir la imagen ni tocar <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>: eso es justo lo que se gana separando la configuración de la imagen.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Un Secret <strong>no está cifrado</strong>, solo codificado en base64, y dentro del contenedor la clave está a la vista. Sirve para que no aparezca en los listados ni en el fichero YAML del repositorio, no para guardar algo de verdad importante:</p>
@@ -1276,8 +1457,9 @@ deployment.apps/web-tunombre<span class="w"> </span>configured
 root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">TWlDbGF2ZVNlY3JldGE</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
 MiClaveSecreta
 
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>web-tunombre-6d9474f456-9qxwz<span class="w"> </span>--<span class="w"> </span>printenv<span class="w"> </span>TITULO<span class="w"> </span>CLAVE
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>web-tunombre-6d9474f456-9qxwz<span class="w"> </span>--<span class="w"> </span>printenv<span class="w"> </span>TITULO<span class="w"> </span>USUARIO<span class="w"> </span>CLAVE
 Hola,<span class="w"> </span>soy<span class="w"> </span>tunombre
+tunombre
 MiClaveSecreta
 </pre></div>
 </div>
@@ -1367,6 +1549,11 @@ persistentvolumeclaim/pvc-tunombre<span class="w">   </span>Bound<span class="w"
 <span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
 <span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
 <span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USUARIO</span>
+<span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-config</span>
+<span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usuario</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
 <span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
 <span class="w">                </span><span class="nt">secretKeyRef</span><span class="p">:</span>
@@ -1418,11 +1605,41 @@ escrito<span class="w"> </span>por<span class="w"> </span>web-tunombre-7f7bdd879
 </section>
 <section id="mantenimiento-del-cluster">
 <h3>Mantenimiento del clúster<a class="headerlink" href="#mantenimiento-del-cluster" title="Link to this heading">#</a></h3>
-<p><strong>Añadir un nodo</strong> al clúster que ya está funcionando es repetir en la máquina nueva el mismo comando de los agentes. Compáralo con lo que costaba añadir un nodo al clúster de Slurm de la tarea 04:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-3:~#<span class="w"> </span>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">K3S_URL</span><span class="o">=</span>https://172.16.0.10:6443<span class="w"> </span><span class="nv">K3S_TOKEN</span><span class="o">=</span>&lt;token&gt;<span class="w"> </span>sh<span class="w"> </span>-
+<p><strong>Añadir un nodo</strong> al clúster que ya está funcionando es repetir en la máquina nueva el mismo comando de los agentes. La máquina nueva sería una quinta, <strong>compute-0-4</strong>, otro clon enlazado de <strong>MV Ubuntu Server</strong> con 4 GB de memoria y la tarjeta en &quot;Red interna&quot; : 172.16.0.14/16. Para llamarla por su nombre, como a las demás, la añadimos al <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> de compute-0-0 (si no la tienes ya). Como con los otros agentes, lo lanzamos desde compute-0-0 por ssh para que el token viaje ya escrito. Compáralo con lo que costaba añadir un nodo al clúster de Slurm de la tarea 04:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;172.16.0.14 compute-0-4&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/hosts
+
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>-n<span class="w"> </span>compute-0-4<span class="w"> </span><span class="s2">&quot;curl -fL https://get.k3s.io | \</span>
+<span class="s2">    K3S_URL=https://172.16.0.10:6443 \</span>
+<span class="s2">    K3S_TOKEN=&#39;</span><span class="k">$(</span>cat<span class="w"> </span>/var/lib/rancher/k3s/server/node-token<span class="k">)</span><span class="s2">&#39; sh -&quot;</span>
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
+compute-0-0<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-1<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-3<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-4<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>40s<span class="w">     </span>v1.36.4+k3s1
 </pre></div>
 </div>
+<p>El nodo ya está en el clúster, pero si miras dónde están los Pods verás que en compute-0-4 <strong>no hay ninguno</strong> de <code class="docutils literal notranslate"><span class="pre">web-tunombre</span></code>. El planificador solo decide dónde va un Pod <strong>cuando se crea</strong>, y los que ya estaban funcionando se quedan en sus nodos: Kubernetes no los mueve para repartir la carga.</p>
+<p>Para que la aplicación use el nodo nuevo hay que recrear los Pods, pero antes hay que preparar el nodo con lo que ya sabemos que necesita: la <strong>imagen propia</strong>, que cada nodo guarda en su containerd, y el <strong>cliente de NFS</strong>, sin el que los Pods se quedarían en <code class="docutils literal notranslate"><span class="pre">ContainerCreating</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>web-tunombre-1.0.tar<span class="w"> </span>compute-0-4:/root/
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-4<span class="w"> </span><span class="s2">&quot;k3s ctr images import /root/web-tunombre-1.0.tar&quot;</span>
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-4<span class="w"> </span><span class="s2">&quot;k3s ctr images ls | grep web-tunombre&quot;</span>
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-4<span class="w"> </span><span class="s2">&quot;apt install -y nfs-common&quot;</span>
+</pre></div>
+</div>
+<p>Ahora sí, <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">restart</span></code> crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-4:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/web-tunombre
+deployment.apps/web-tunombre<span class="w"> </span>restarted
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+deployment<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>successfully<span class="w"> </span>rolled<span class="w"> </span>out
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
+</pre></div>
+</div>
+<p>Las réplicas quedan repartidas entre los cinco nodos. Por defecto el planificador <strong>tiende</strong> a repartirlas, pero no lo garantiza: si hay que asegurarlo, el Deployment admite <code class="docutils literal notranslate"><span class="pre">topologySpreadConstraints</span></code>, que impiden que un nodo tenga más réplicas que otro.</p>
 <p><strong>Sacar un nodo</strong> para mantenimiento, sin que se caiga nada: <code class="docutils literal notranslate"><span class="pre">drain</span></code> mueve sus Pods al resto y <code class="docutils literal notranslate"><span class="pre">cordon</span></code> impide que le manden más trabajo.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>drain<span class="w"> </span>compute-0-2<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
 root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>uncordon<span class="w"> </span>compute-0-2<span class="w">      </span><span class="c1"># al volver</span>
@@ -1452,10 +1669,6 @@ root@compute-0-1:~#<span class="w"> </span>/usr/local/bin/k3s-agent-uninstall.sh
 <li><p><strong>Prometheus y Grafana</strong>, para ver el clúster con gráficas y con histórico.</p></li>
 <li><p><strong>MinIO</strong>, un almacén de objetos compatible con S3, y una copia de seguridad automática del NFS contra él.</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Esto pesa bastante más que el caso anterior: aquí es donde hacen falta los <strong>4 GB</strong> de cada máquina. Aun así, los valores que usamos más abajo van recortados a propósito, porque los que traen los charts por defecto están pensados para servidores de verdad.</p>
-</div>
 <section id="helm-el-gestor-de-paquetes-de-kubernetes">
 <h3>Helm, el gestor de paquetes de Kubernetes<a class="headerlink" href="#helm-el-gestor-de-paquetes-de-kubernetes" title="Link to this heading">#</a></h3>
 <p>Instalar una aplicación en Kubernetes escribiendo los YAML a mano funciona con tres objetos, como los nuestros. Con treinta, no. <strong>Helm</strong> empaqueta todos los objetos de una aplicación en un <strong>chart</strong>, con los valores configurables sacados a un fichero aparte, y lo instala de una vez. Tres palabras que hay que tener claras:</p>
@@ -1542,6 +1755,7 @@ web-tunombre-chart/values.yaml
 <span class="w">  </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
 
 <span class="nt">titulo</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Hola,</span><span class="nv"> </span><span class="s">soy</span><span class="nv"> </span><span class="s">tunombre&quot;</span>
+<span class="nt">usuario</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;tunombre&quot;</span>
 <span class="nt">clave</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MiClaveSecreta&quot;</span>
 
 <span class="nt">service</span><span class="p">:</span>
@@ -1562,6 +1776,7 @@ web-tunombre-chart/values.yaml
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
 <span class="nt">data</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">titulo</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.titulo | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">  </span><span class="nt">usuario</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.usuario | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
 
 <span class="c1"># templates/secret.yaml</span>
 <span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
@@ -1600,6 +1815,11 @@ web-tunombre-chart/values.yaml
 <span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
 <span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
 <span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">titulo</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USUARIO</span>
+<span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
+<span class="w">                  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usuario</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAVE</span>
 <span class="w">              </span><span class="nt">valueFrom</span><span class="p">:</span>
 <span class="w">                </span><span class="nt">secretKeyRef</span><span class="p">:</span>
@@ -1640,16 +1860,17 @@ metadata:
 <span class="w">  </span>name:<span class="w"> </span>prueba-config
 data:
 <span class="w">  </span>titulo:<span class="w"> </span><span class="s2">&quot;Hola, soy tunombre&quot;</span>
+<span class="w">  </span>usuario:<span class="w"> </span><span class="s2">&quot;tunombre&quot;</span>
 </pre></div>
 </div>
 <p>Fíjate en que al llamar a la <em>release</em> <code class="docutils literal notranslate"><span class="pre">prueba</span></code>, <strong>todos</strong> los objetos han pasado a llamarse <code class="docutils literal notranslate"><span class="pre">prueba-...</span></code>. Eso es lo que permite instalar el mismo chart dos veces en el mismo clúster sin que choquen.</p>
 <p>Como la aplicación del caso anterior sigue desplegada, la quitamos primero para no chocar con el mismo NodePort y el mismo Ingress. El PersistentVolume y su PVC <strong>no se tocan</strong>: los queremos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~/09#<span class="w"> </span>kubectl<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml<span class="w"> </span>-f<span class="w"> </span>ingress-tunombre.yml<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
-configmap<span class="w"> </span><span class="s2">&quot;web-tunombre-html&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 deployment.apps<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 service<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 ingress.networking.k8s.io<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 configmap<span class="w"> </span><span class="s2">&quot;web-tunombre-config&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
+secret<span class="w"> </span><span class="s2">&quot;web-tunombre-secret&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 secret<span class="w"> </span><span class="s2">&quot;web-tunombre-secret&quot;</span><span class="w"> </span>deleted<span class="w"> </span>from<span class="w"> </span>default<span class="w"> </span>namespace
 
 root@compute-0-0:~/09#<span class="w"> </span>helm<span class="w"> </span>install<span class="w"> </span>web-tunombre<span class="w"> </span>./web-tunombre-chart
@@ -1809,7 +2030,7 @@ persistentvolumeclaim/minio<span class="w">   </span>Bound<span class="w">    </
 <p>Fíjate en lo que ha aparecido sin haberlo escrito: un Deployment, <strong>dos</strong> Services (uno para la API en el 9000 y otro para la consola web en el 9001), un Ingress, un Secret con las credenciales y un <strong>PersistentVolumeClaim</strong>. El PVC lo ha resuelto <code class="docutils literal notranslate"><span class="pre">local-path</span></code>, el almacenamiento por defecto de k3s del que hablamos al final del caso anterior, así que <strong>los datos viven en el disco del nodo donde haya caído el Pod</strong>.</p>
 <p>El nombre nuevo hay que añadirlo al <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> de todos los nodos. Ojo con el bucle: compute-0-0 no puede entrar por ssh en sí mismo, así que el primero se hace en local:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~/09#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;172.16.0.10 minio-tunombre.local grafana-tunombre.local&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/hosts
-root@compute-0-0:~/09#<span class="w"> </span><span class="k">for</span><span class="w"> </span>n<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+root@compute-0-0:~/09#<span class="w"> </span><span class="k">for</span><span class="w"> </span>n<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span>ssh<span class="w"> </span>-n<span class="w"> </span><span class="m">172</span>.16.0.1<span class="nv">$n</span><span class="w"> </span><span class="s2">&quot;echo &#39;172.16.0.10 minio-tunombre.local grafana-tunombre.local&#39; &gt;&gt; /etc/hosts&quot;</span>
 <span class="w">  </span><span class="k">done</span>
 
@@ -2098,9 +2319,12 @@ root@compute-0-0:~/09#<span class="w"> </span>kubectl<span class="w"> </span>-n<
 </section>
 <section id="un-nodo-nuevo-en-un-cluster-que-ya-tiene-cosas">
 <h3>Un nodo nuevo en un clúster que ya tiene cosas<a class="headerlink" href="#un-nodo-nuevo-en-un-cluster-que-ya-tiene-cosas" title="Link to this heading">#</a></h3>
-<p>Merece la pena añadir un nodo <strong>ahora</strong>, con el clúster lleno, y ver qué se apaña solo y qué no. El nodo se une con el mismo comando de siempre:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-3:~#<span class="w"> </span>curl<span class="w"> </span>-fL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">K3S_URL</span><span class="o">=</span>https://172.16.0.10:6443<span class="w"> </span><span class="nv">K3S_TOKEN</span><span class="o">=</span>&lt;token&gt;<span class="w"> </span>sh<span class="w"> </span>-
+<p>Merece la pena añadir un nodo <strong>ahora</strong>, con el clúster lleno, y ver qué se apaña solo y qué no. Creamos una sexta máquina, <strong>compute-0-5</strong>, clon enlazado de <strong>MV Ubuntu Server</strong> con 4 GB de memoria y la tarjeta en &quot;Red interna&quot; : 172.16.0.15/16. Para poder llamarla por su nombre desde compute-0-0, como a las demás, la añadimos a su <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> (si no la tienes ya), y la unimos con el mismo comando de siempre, lanzado desde compute-0-0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;172.16.0.15 compute-0-5&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/hosts
+
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>-n<span class="w"> </span>compute-0-5<span class="w"> </span><span class="s2">&quot;curl -fL https://get.k3s.io | \</span>
+<span class="s2">    K3S_URL=https://172.16.0.10:6443 \</span>
+<span class="s2">    K3S_TOKEN=&#39;</span><span class="k">$(</span>cat<span class="w"> </span>/var/lib/rancher/k3s/server/node-token<span class="k">)</span><span class="s2">&#39; sh -&quot;</span>
 <span class="o">[</span>INFO<span class="o">]</span><span class="w">  </span>systemd:<span class="w"> </span>Enabling<span class="w"> </span>k3s-agent<span class="w"> </span>unit
 <span class="o">[</span>INFO<span class="o">]</span><span class="w">  </span>systemd:<span class="w"> </span>Starting<span class="w"> </span>k3s-agent
 
@@ -2109,41 +2333,43 @@ NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span 
 compute-0-0<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>6d22h<span class="w">   </span>v1.36.4+k3s1
 compute-0-1<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>6d22h<span class="w">   </span>v1.36.4+k3s1
 compute-0-2<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>6d22h<span class="w">   </span>v1.36.4+k3s1
-compute-0-3<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>54s<span class="w">     </span>v1.36.4+k3s1
+compute-0-3<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>6d22h<span class="w">   </span>v1.36.4+k3s1
+compute-0-4<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>6d21h<span class="w">   </span>v1.36.4+k3s1
+compute-0-5<span class="w">   </span>Ready<span class="w">    </span>&lt;none&gt;<span class="w">          </span>54s<span class="w">     </span>v1.36.4+k3s1
 </pre></div>
 </div>
 <p><strong>Lo que se arregla solo</strong>, sin que nadie lo pida:</p>
 <ul class="simple">
 <li><p>el <strong>DaemonSet</strong> de node-exporter le pone su copia y Prometheus empieza a recogerlo;</p></li>
-<li><p>el <strong>svclb</strong> de Traefik hace lo mismo, y los tres Ingress pasan a anunciar cuatro direcciones;</p></li>
-<li><p>el <strong>planificador</strong> empieza a mandarle Pods.</p></li>
+<li><p>el <strong>svclb</strong> de Traefik hace lo mismo, y los tres Ingress pasan a anunciar seis direcciones.</p></li>
 </ul>
-<p><strong>Lo que no</strong>, y son justo las dos cosas que ya sabemos del caso anterior:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>compute-0-3
-web-tunombre-54f95d7999-7xwhr<span class="w">   </span><span class="m">0</span>/1<span class="w">   </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">   </span>2m<span class="w">   </span>compute-0-3
-
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>web-tunombre-54f95d7999-7xwhr<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A3<span class="w"> </span>Events:
-Warning<span class="w">  </span>FailedMount<span class="w">  </span>16s<span class="w"> </span><span class="o">(</span>x7<span class="w"> </span>over<span class="w"> </span>47s<span class="o">)</span><span class="w">  </span>kubelet
-<span class="w">  </span>MountVolume.SetUp<span class="w"> </span>failed<span class="w"> </span><span class="k">for</span><span class="w"> </span>volume<span class="w"> </span><span class="s2">&quot;pv-tunombre&quot;</span><span class="w"> </span>:<span class="w"> </span>mount<span class="w"> </span>failed:<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>status<span class="w"> </span><span class="m">32</span>
-<span class="w">  </span>Mounting<span class="w"> </span>arguments:<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </span><span class="m">172</span>.16.0.10:/srv/tunombre<span class="w"> </span>...
+<p>Se ve pidiendo los Pods de ese nodo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>--field-selector<span class="w"> </span>spec.nodeName<span class="o">=</span>compute-0-5
 </pre></div>
 </div>
+<p><strong>Lo que no</strong> se arregla solo es nuestra aplicación: en compute-0-5 no hay <strong>ningún</strong> Pod de <code class="docutils literal notranslate"><span class="pre">web-tunombre</span></code>. El planificador solo decide dónde va un Pod <strong>cuando se crea</strong>, y los que ya estaban funcionando en los otros cinco nodos se quedan donde están. Kubernetes no los mueve para repartir la carga.</p>
+<p>Para que la aplicación use el nodo nuevo hay que <strong>recrear los Pods</strong>, pero antes hay que preparar el nodo, porque le faltan justo las dos cosas que ya sabemos del caso anterior:</p>
 <ul class="simple">
-<li><p>La <strong>imagen propia</strong> no está en su containerd, porque cada nodo tiene su propio almacén: hay que llevársela con <code class="docutils literal notranslate"><span class="pre">scp</span></code> y <code class="docutils literal notranslate"><span class="pre">k3s</span> <span class="pre">ctr</span> <span class="pre">images</span> <span class="pre">import</span></code>, como hicimos con los demás.</p></li>
-<li><p>El <strong>cliente de NFS</strong> tampoco está: sin <code class="docutils literal notranslate"><span class="pre">nfs-common</span></code> el Pod se queda en <code class="docutils literal notranslate"><span class="pre">ContainerCreating</span></code> con ese <code class="docutils literal notranslate"><span class="pre">exit</span> <span class="pre">status</span> <span class="pre">32</span></code>, que es el mismo aviso de la sección de almacenamiento persistente.</p></li>
+<li><p>La <strong>imagen propia</strong> no está en su containerd, porque cada nodo tiene su propio almacén: hay que llevársela con <code class="docutils literal notranslate"><span class="pre">scp</span></code> e importarla con <code class="docutils literal notranslate"><span class="pre">k3s</span> <span class="pre">ctr</span> <span class="pre">images</span> <span class="pre">import</span></code>, como hicimos con los demás.</p></li>
+<li><p>El <strong>cliente de NFS</strong> tampoco está: sin <code class="docutils literal notranslate"><span class="pre">nfs-common</span></code> el Pod se quedaría en <code class="docutils literal notranslate"><span class="pre">ContainerCreating</span></code> con el <code class="docutils literal notranslate"><span class="pre">exit</span> <span class="pre">status</span> <span class="pre">32</span></code> de la sección de almacenamiento persistente.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>web-tunombre-1.0.tar<span class="w"> </span><span class="m">172</span>.16.0.13:/root/
-root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span><span class="m">172</span>.16.0.13<span class="w"> </span><span class="s2">&quot;k3s ctr images import /root/web-tunombre-1.0.tar&quot;</span>
-root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span><span class="m">172</span>.16.0.13<span class="w"> </span><span class="s2">&quot;apt install -y nfs-common&quot;</span>
-
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>web-tunombre<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>ESTADO:.status.phase,NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
-<span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-0
-<span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-1
-<span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-2
-<span class="w">      </span><span class="m">1</span><span class="w"> </span>Running<span class="w"> </span>compute-0-3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>scp<span class="w"> </span>web-tunombre-1.0.tar<span class="w"> </span>compute-0-5:/root/
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-5<span class="w"> </span><span class="s2">&quot;k3s ctr images import /root/web-tunombre-1.0.tar&quot;</span>
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-5<span class="w"> </span><span class="s2">&quot;k3s ctr images ls | grep web-tunombre&quot;</span>
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-5<span class="w"> </span><span class="s2">&quot;apt install -y nfs-common&quot;</span>
 </pre></div>
 </div>
+<p>Ahora sí, recreamos los Pods. <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">restart</span></code> crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-5:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/web-tunombre
+deployment.apps/web-tunombre<span class="w"> </span>restarted
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+deployment<span class="w"> </span><span class="s2">&quot;web-tunombre&quot;</span><span class="w"> </span>successfully<span class="w"> </span>rolled<span class="w"> </span>out
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
+</pre></div>
+</div>
+<p>Por defecto el planificador <strong>tiende</strong> a repartir las réplicas entre los nodos, pero no lo garantiza: a compute-0-5 le puede tocar una, dos o, alguna vez, ninguna. Si hay que asegurar el reparto, el Deployment admite <code class="docutils literal notranslate"><span class="pre">topologySpreadConstraints</span></code>, que impiden que un nodo tenga más réplicas que otro.</p>
 <p>Esa es la diferencia entre lo que <strong>Kubernetes</strong> mantiene —los Pods, los servicios, la monitorización— y lo que sigue siendo <strong>administración de sistemas</strong> de toda la vida: los paquetes y las imágenes de cada máquina. Un nodo recién añadido está en el clúster desde el primer minuto, pero no sirve para todo hasta que alguien lo prepara. En un sistema de verdad eso se resuelve con un registro de imágenes y con el Ansible de la tarea 08.</p>
 </section>
 <section id="deshacer-lo-instalado">

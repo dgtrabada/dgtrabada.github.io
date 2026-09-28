@@ -634,7 +634,15 @@ Actualizar sin cortar el servicio no sale gratis por usar Kubernetes: sale de de
 Una imagen propia: Dockerfile, ConfigMap y Secret
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Hasta aquí hemos usado la imagen oficial de nginx con la página metida en un ConfigMap. Ahora construimos **nuestra propia imagen**, que lee de **variables de entorno** el título de la página y una clave de acceso.
+Hasta aquí hemos usado la imagen oficial de nginx con la página metida en un ConfigMap. Ahora construimos **nuestra propia imagen**, que lee de **variables de entorno** el título de la página, y un usuario y una clave con los que protege una **zona privada**: si aciertas la contraseña ves una página que de otra forma no se ve.
+
+Eso obliga a decidir dónde vive cada dato, que es de lo que va el apartado:
+
+* lo que no cambia nunca, **dentro de la imagen**: la plantilla de la página,
+* lo que cambia según dónde despliegues y no es secreto, en un **ConfigMap**: el título y el nombre de usuario,
+* y la contraseña, en un **Secret**.
+
+La misma imagen sirve entonces para clase, para pruebas y para producción; lo único que cambia es el ConfigMap.
 
 Kubernetes no construye imágenes, así que instalamos Docker en compute-0-0 (convive con k3s sin tocarle las reglas de red):
 
@@ -644,9 +652,19 @@ Kubernetes no construye imágenes, así que instalamos Docker en compute-0-0 (co
 
 La imagen oficial de nginx ejecuta al arrancar todo lo que encuentre en ``/docker-entrypoint.d/``. Ese es el sitio donde sustituir las variables dentro del HTML, con ``envsubst``:
 
-Son **tres ficheros dentro del directorio** ``imagen/``, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.
+Son **cuatro ficheros y un directorio**, todo dentro de ``imagen/``, y cada uno tiene que quedar con exactamente lo que se ve aquí: ni una línea más.
 
-``imagen/index.html.template``:
+.. code-block:: bash
+
+  imagen/
+  ├── Dockerfile
+  ├── index.html.template
+  ├── default.conf
+  ├── 20-titulo.sh
+  └── privado/
+      └── index.html
+
+``imagen/index.html.template``, la página pública, con el enlace a la zona privada:
 
 .. code-block:: html
 
@@ -656,37 +674,71 @@ Son **tres ficheros dentro del directorio** ``imagen/``, y cada uno tiene que qu
   <body>
     <h1>${TITULO}</h1>
     <p>Imagen propia construida con Dockerfile</p>
+    <p><a href="/privado/">Zona privada</a></p>
   </body>
   </html>
 
-``imagen/20-titulo.sh``:
+``imagen/privado/index.html``, lo que se ve al acertar la clave:
+
+.. code-block:: html
+
+  <!DOCTYPE html>
+  <html>
+  <head><title>Zona privada</title></head>
+  <body>
+    <h1>Has acertado la clave</h1>
+  </body>
+  </html>
+
+``imagen/default.conf``, la configuración de nginx: la raíz es pública y ``/privado/`` pide usuario y contraseña:
+
+.. code-block:: nginx
+
+  server {
+      listen 80;
+      root /usr/share/nginx/html;
+      index index.html;
+
+      location /privado/ {
+          auth_basic "Zona privada";
+          auth_basic_user_file /etc/nginx/.htpasswd;
+      }
+  }
+
+``imagen/20-titulo.sh``, que es donde las variables se convierten en algo que sirve: una escribe el título en la página y la otra crea el fichero de contraseñas de nginx:
 
 .. code-block:: bash
 
   #!/bin/sh
   # la imagen nginx ejecuta al arrancar todo lo que encuentre en /docker-entrypoint.d/
   envsubst "\$TITULO" < /plantilla/index.html.template > /usr/share/nginx/html/index.html
+  htpasswd -bc /etc/nginx/.htpasswd "$USUARIO" "$CLAVE"
 
 ``imagen/Dockerfile``:
 
 .. code-block:: docker
 
   FROM nginx:alpine
-  # envsubst viene en el paquete gettext
-  RUN apk add --no-cache gettext
-  ENV TITULO="sin titulo" CLAVE="sin clave"
+  # envsubst viene en gettext; htpasswd, en apache2-utils
+  RUN apk add --no-cache gettext apache2-utils
+  ENV TITULO="sin titulo" USUARIO="nadie" CLAVE="sin clave"
   COPY index.html.template /plantilla/index.html.template
+  COPY privado /usr/share/nginx/html/privado
+  COPY default.conf /etc/nginx/conf.d/default.conf
   COPY 20-titulo.sh /docker-entrypoint.d/20-titulo.sh
   RUN chmod +x /docker-entrypoint.d/20-titulo.sh
 
-Antes de construir, comprueba que el script tiene **tres líneas** y el resto lo suyo, porque si se cuela ahí cualquier otra cosa nginx intentará ejecutarla al arrancar y el contenedor se morirá nada más nacer:
+Los ``ENV`` del Dockerfile son solo valores por defecto, para que la imagen arranque aunque no le pases nada; los de verdad llegan del ConfigMap y del Secret.
+
+.. note::
+
+  La raíz ``/`` tiene que seguir siendo **pública**, porque es donde pega la ``readinessProbe``. Si proteges el sitio entero, todas las sondas reciben un 401, ningún Pod llega a ``READY`` y el despliegue no termina nunca.
+
+  Y al sustituir ``default.conf`` verás en los logs ``10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version``. No es un error: ese script de la imagen oficial solo toca el fichero si es el que venía de fábrica.
+
+Construimos la imagen:
 
 .. code-block:: bash
-
-  root@compute-0-0:~# wc -l imagen/*
-    7 imagen/Dockerfile
-    8 imagen/index.html.template
-    3 imagen/20-titulo.sh
 
   root@compute-0-0:~# docker build -t web-tunombre:1.0 imagen/
   sha256:28ce5e9688896cf74c49b57685c71bd8af308f5dfa0d9608a4b5f49fed40cbe2
@@ -717,7 +769,7 @@ La imagen está ahora en el Docker de compute-0-0, pero **k3s no usa Docker, usa
 
 En la vida real esto se resuelve con un **registro de imágenes** (Docker Hub o uno propio): se sube una vez y cada nodo se la descarga. Copiar el tar a mano solo se aguanta con cuatro máquinas.
 
-El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va en un **Secret**. Los dos son objetos nuevos, así que van en un fichero nuevo, ``config-tunombre.yml``:
+El **título** y el **usuario** no son secretos y van en un **ConfigMap**; la **clave** sí, y va en un **Secret**. Los dos son objetos nuevos, así que van en un fichero nuevo, ``config-tunombre.yml``:
 
 .. code-block:: yaml
 
@@ -727,6 +779,7 @@ El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va
     name: web-tunombre-config
   data:
     titulo: "Hola, soy tunombre"
+    usuario: "tunombre"
   ---
   apiVersion: v1
   kind: Secret
@@ -736,12 +789,32 @@ El **título** no es un secreto y va en un **ConfigMap**; la **clave** sí, y va
   stringData:
     clave: "MiClaveSecreta"
 
-Tenerlos creados no hace nada por sí solo: hay que **inyectarlos como variables de entorno** en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de ``web-tunombre.yml``. Otra vez, lo resaltado es lo que cambia:
+Tenerlos creados no hace nada por sí solo: hay que **inyectarlos como variables de entorno** en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de ``web-tunombre.yml``.
+
+Y de paso **desaparece** el ConfigMap ``web-tunombre-html`` con la página y el volumen que lo montaba en ``/usr/share/nginx/html``. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además **estorban**: un volumen de ConfigMap se monta en sólo lectura, así que el ``envsubst`` del arranque no podría escribir ahí el ``index.html``. Si te lo dejas puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.
+
+Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está el fichero **entero** tal como tiene que quedar: de los tres objetos del principio ya solo quedan **dos**, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:
 
 .. code-block:: yaml
-  :emphasize-lines: 5-6,9-19
+  :emphasize-lines: 21-22,25-40
 
-  # web-tunombre.yml, dentro del Deployment
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: web-tunombre
+  spec:
+    replicas: 8
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 0
+    selector:
+      matchLabels:
+        app: web-tunombre
+    template:
+      metadata:
+        labels:
+          app: web-tunombre
       spec:
         containers:
           - name: nginx
@@ -755,32 +828,40 @@ Tenerlos creados no hace nada por sí solo: hay que **inyectarlos como variables
                   configMapKeyRef:
                     name: web-tunombre-config
                     key: titulo
+              - name: USUARIO
+                valueFrom:
+                  configMapKeyRef:
+                    name: web-tunombre-config
+                    key: usuario
               - name: CLAVE
                 valueFrom:
                   secretKeyRef:
                     name: web-tunombre-secret
                     key: clave
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 80
+              periodSeconds: 2
+            lifecycle:
+              preStop:
+                exec:
+                  command: ["sleep", "5"]
+  ---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: web-tunombre
+  spec:
+    type: NodePort
+    selector:
+      app: web-tunombre
+    ports:
+      - port: 80
+        targetPort: 80
+        nodePort: 30080
 
-La ``image`` deja de ser ``nginx:alpine`` y pasa a ser la nuestra. Y ``imagePullPolicy: IfNotPresent`` es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos.
-
-Y hay algo que **se quita**: el ConfigMap ``web-tunombre-html`` con la página y el volumen que lo montaba en ``/usr/share/nginx/html``. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además **estorban**: un volumen de ConfigMap se monta en sólo lectura, así que el ``envsubst`` del arranque no podría escribir ahí el ``index.html``. Borra del Deployment las dos partes:
-
-.. code-block:: yaml
-  :emphasize-lines: 4-6,8-11
-
-  # web-tunombre.yml: esto se BORRA del Deployment
-      spec:
-        containers:
-          - name: nginx
-            volumeMounts:
-              - name: html
-                mountPath: /usr/share/nginx/html
-        volumes:
-          - name: html
-            configMap:
-              name: web-tunombre-html
-
-Si te dejas el volumen puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.
+La ``image`` deja de ser ``nginx:alpine`` y pasa a ser la nuestra. Y ``imagePullPolicy: IfNotPresent`` es importante: sin él, el clúster intentaría descargar de Docker Hub una imagen que solo existe en nuestros nodos. El ``readinessProbe``, el ``preStop`` y las ocho réplicas vienen del apartado anterior, y el Service no se toca desde que lo escribimos.
 
 Y hay una diferencia con la página del ConfigMap de antes: aquellos ficheros se refrescaban solos porque iban montados como un volumen, pero **una variable de entorno se lee al arrancar el contenedor y ya no cambia mientras vive**. Si ahora cambias el título en el ConfigMap, la web seguirá igual hasta que los Pods se recreen.
 
@@ -794,8 +875,76 @@ Y se aplican los dos ficheros, el nuevo y el de siempre:
 
   root@compute-0-0:~# kubectl apply -f web-tunombre.yml
   deployment.apps/web-tunombre configured
+  service/web-tunombre unchanged
 
-Del segundo fichero solo cambia el Deployment; de lo demás que hay dentro, ``kubectl`` dirá ``unchanged``, porque no lo has tocado.
+Del segundo fichero solo cambia el Deployment; el Service sigue igual y ``kubectl`` lo dice con ``unchanged``. Y el ConfigMap viejo, el de la página, **no se borra solo** por haberlo quitado del fichero: ``apply`` crea y modifica, pero no elimina lo que ya no aparece. Se queda ahí hasta que tú lo tires:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl delete configmap web-tunombre-html
+  configmap "web-tunombre-html" deleted
+
+Si te responde ``Error from server (NotFound)`` es que ya no estaba, y no pasa nada: ``delete`` protesta cuando le pides borrar algo que no existe. Con ``--ignore-not-found`` se calla.
+
+El ``apply`` solo dice que el cambio está guardado, **no** que los Pods nuevos hayan arrancado. Y aquí hay una trampa heredada del apartado anterior: con ``maxUnavailable: 0`` el clúster no mata a los Pods viejos mientras los nuevos no estén listos, así que si la imagen nueva falla la web **sigue respondiendo con la página de antes** y no hay ningún error a la vista. Por eso, después de este ``apply`` y de todos los que vengan:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl rollout status deployment/web-tunombre
+  deployment "web-tunombre" successfully rolled out
+
+  root@compute-0-0:~# kubectl get pods -o wide
+
+Si el ``rollout status`` se queda parado, los Pods nuevos no arrancan y la columna ``STATUS`` dice por dónde va el problema:
+
+.. list-table::
+  :header-rows: 1
+
+  * - STATUS
+    - Qué ha pasado
+  * - ``ErrImagePull`` / ``ImagePullBackOff``
+    - En **ese nodo** no está la imagen. Mira la columna ``NODE`` y repite ahí el ``k3s ctr images import``.
+  * - ``CrashLoopBackOff``
+    - El contenedor se muere nada más arrancar. El motivo está en los logs, pero **del contenedor anterior**.
+  * - ``CreateContainerConfigError``
+    - Le pides al contenedor una variable que sale de una clave que **no existe** en el ConfigMap o en el Secret. El mensaje lo dice con nombre y apellidos: ``couldn't find key usuario in ConfigMap default/web-tunombre-config``. Pasa cuando aplicas el Deployment antes que el ConfigMap.
+  * - ``Running`` y ``0/1 READY``
+    - El contenedor vive pero no contesta a la readinessProbe.
+
+Lo de ``CrashLoopBackOff`` merece su propio comando, porque es el más traicionero: ``kubectl logs`` a secas enseña el contenedor recién nacido, que todavía no ha dicho nada. El error está en el que acaba de morir, y ese se ve con ``--previous``:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl describe pod web-tunombre-5c95dc87d6-5w94p | grep -A4 "Last State"
+      Last State:     Terminated
+        Reason:       Error
+        Exit Code:    127
+
+  root@compute-0-0:~# kubectl logs web-tunombre-5c95dc87d6-5w94p --previous
+  /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-titulo.sh
+  /docker-entrypoint.d/20-titulo.sh: line 5: root@compute-0-0:~#: not found
+  /docker-entrypoint.d/20-titulo.sh: line 6: FROM: not found
+  /docker-entrypoint.d/20-titulo.sh: line 9: ENV: not found
+
+Ese ``Exit Code: 127`` es *orden no encontrada*, y los logs dicen exactamente lo que ha pasado: al copiar de esta página, dentro de ``20-titulo.sh`` se ha colado el Dockerfile. nginx ejecuta al arrancar todo lo que hay en ``/docker-entrypoint.d/``, el script devuelve 127 y el contenedor se muere ahí mismo. Comprueba con ``cat imagen/20-titulo.sh`` que dentro están **esas tres líneas y nada más**.
+
+.. warning::
+
+  Cuando arregles algo y vuelvas a construir, **no reutilices el tag** ``1.0``. Los nodos ya tienen una imagen con ese nombre y los Pods que estén ``Running`` se quedan con la vieja: el ``docker build`` y el ``import`` no cambian nada y la web sigue igual, sin ningún error que lo explique.
+
+  Construye con un tag nuevo y cambia la ``image:`` del Deployment, que además así se ve el ``rollout``:
+
+  .. code-block:: bash
+
+    root@compute-0-0:~# docker build -t web-tunombre:1.1 imagen/
+    root@compute-0-0:~# docker save web-tunombre:1.1 -o web-tunombre-1.1.tar
+    root@compute-0-0:~# k3s ctr images import web-tunombre-1.1.tar
+    root@compute-0-0:~# for n in 1 2 3; do
+      scp web-tunombre-1.1.tar 172.16.0.1$n:/root/
+      ssh 172.16.0.1$n "k3s ctr images import /root/web-tunombre-1.1.tar"
+    done
+
+  Si te empeñas en repetir tag, la imagen hay que reimportarla igualmente en los cuatro nodos y además forzar el relevo de los Pods con ``kubectl rollout restart deployment/web-tunombre``.
 
 .. code-block:: bash
 
@@ -806,17 +955,68 @@ Del segundo fichero solo cambia el Deployment; de lo demás que hay dentro, ``ku
   <body>
     <h1>Hola, soy tunombre</h1>
     <p>Imagen propia construida con Dockerfile</p>
+    <p><a href="/privado/">Zona privada</a></p>
   </body>
   </html>
+
+El título ha salido del ConfigMap. Y la zona privada, del Secret: sin contraseña no se entra, con una equivocada tampoco, y con la buena sí.
+
+.. code-block:: bash
+
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" http://web-tunombre.local/privado/
+  401
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:loquesea http://web-tunombre.local/privado/
+  401
+  root@compute-0-0:~# curl -s -u tunombre:MiClaveSecreta http://web-tunombre.local/privado/
+  <!DOCTYPE html>
+  <html>
+  <head><title>Zona privada</title></head>
+  <body>
+    <h1>Has acertado la clave</h1>
+  </body>
+  </html>
+
+Lo que hace que el navegador saque la ventanita de usuario y contraseña es una cabecera que manda nginx con el 401:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# curl -sI http://web-tunombre.local/privado/ | grep -i "HTTP/\|WWW-Auth"
+  HTTP/1.1 401 Unauthorized
+  WWW-Authenticate: Basic realm="Zona privada"
+
+Así que desde el navegador del anfitrión, en ``http://<ip-del-anfitrión>:30080/privado/``, sale el cuadro de diálogo pidiendo el usuario y la contraseña que están en el ConfigMap y en el Secret.
 
 La diferencia entre los dos se ve en ``describe``, que enseña de dónde sale cada variable pero **no** el valor del Secret:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# kubectl describe pod web-tunombre-6d9474f456-9qxwz | grep -A3 Environment
+  root@compute-0-0:~# kubectl describe pod web-tunombre-6d9474f456-9qxwz | grep -A4 Environment
     Environment:
-      TITULO:  <set to the key 'titulo' of config map 'web-tunombre-config'>  Optional: false
-      CLAVE:   <set to the key 'clave' in secret 'web-tunombre-secret'>       Optional: false
+      TITULO:   <set to the key 'titulo' of config map 'web-tunombre-config'>   Optional: false
+      USUARIO:  <set to the key 'usuario' of config map 'web-tunombre-config'>  Optional: false
+      CLAVE:    <set to the key 'clave' in secret 'web-tunombre-secret'>        Optional: false
+
+Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña en ``config-tunombre.yml`` y aplícalo:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl apply -f config-tunombre.yml
+  secret/web-tunombre-secret configured
+
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:MiClaveSecreta http://web-tunombre.local/privado/
+  200
+
+Sigue entrando con la contraseña **vieja**, aunque el Secret ya tenga la nueva, porque los Pods que están vivos leyeron la suya al arrancar. Hasta que no se recrean no se enteran:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl rollout restart deployment/web-tunombre
+  root@compute-0-0:~# kubectl rollout status deployment/web-tunombre
+
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:MiClaveSecreta http://web-tunombre.local/privado/
+  401
+
+No hace falta reconstruir la imagen ni tocar ``web-tunombre.yml``: eso es justo lo que se gana separando la configuración de la imagen.
 
 .. warning::
 
@@ -829,8 +1029,9 @@ La diferencia entre los dos se ve en ``describe``, que enseña de dónde sale ca
     root@compute-0-0:~# echo TWlDbGF2ZVNlY3JldGE= | base64 -d
     MiClaveSecreta
 
-    root@compute-0-0:~# kubectl exec web-tunombre-6d9474f456-9qxwz -- printenv TITULO CLAVE
+    root@compute-0-0:~# kubectl exec web-tunombre-6d9474f456-9qxwz -- printenv TITULO USUARIO CLAVE
     Hola, soy tunombre
+    tunombre
     MiClaveSecreta
 
 Almacenamiento persistente
@@ -896,7 +1097,7 @@ En Kubernetes el almacenamiento se describe en dos piezas: un **PersistentVolume
 ``Bound`` quiere decir que la petición ha encontrado su volumen, y ahora se monta en el Deployment de ``web-tunombre.yml``. Como ese fichero se ha ido construyendo a trozos en tres apartados distintos, aquí va entero, para que lo compares con el tuyo. **Lo resaltado es lo importante de este apartado**: el ``volumeMounts`` dentro del contenedor y el ``volumes`` al mismo nivel que ``containers``.
 
 .. code-block:: yaml
-  :emphasize-lines: 45-51
+  :emphasize-lines: 50-56
 
   apiVersion: apps/v1
   kind: Deployment
@@ -928,6 +1129,11 @@ En Kubernetes el almacenamiento se describe en dos piezas: un **PersistentVolume
                   configMapKeyRef:
                     name: web-tunombre-config
                     key: titulo
+              - name: USUARIO
+                valueFrom:
+                  configMapKeyRef:
+                    name: web-tunombre-config
+                    key: usuario
               - name: CLAVE
                 valueFrom:
                   secretKeyRef:
@@ -985,12 +1191,48 @@ El fichero lo escribió un Pod que ya no existe y lo lee otro que ha nacido desp
 Mantenimiento del clúster
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Añadir un nodo** al clúster que ya está funcionando es repetir en la máquina nueva el mismo comando de los agentes. Compáralo con lo que costaba añadir un nodo al clúster de Slurm de la tarea 04:
+**Añadir un nodo** al clúster que ya está funcionando es repetir en la máquina nueva el mismo comando de los agentes. La máquina nueva sería una quinta, **compute-0-4**, otro clon enlazado de **MV Ubuntu Server** con 4 GB de memoria y la tarjeta en "Red interna" : 172.16.0.14/16. Para llamarla por su nombre, como a las demás, la añadimos al ``/etc/hosts`` de compute-0-0 (si no la tienes ya). Como con los otros agentes, lo lanzamos desde compute-0-0 por ssh para que el token viaje ya escrito. Compáralo con lo que costaba añadir un nodo al clúster de Slurm de la tarea 04:
 
 .. code-block:: bash
 
-  root@compute-0-3:~# curl -sfL https://get.k3s.io | \
-    K3S_URL=https://172.16.0.10:6443 K3S_TOKEN=<token> sh -
+  root@compute-0-0:~# echo "172.16.0.14 compute-0-4" >> /etc/hosts
+
+  root@compute-0-0:~# ssh -n compute-0-4 "curl -fL https://get.k3s.io | \
+      K3S_URL=https://172.16.0.10:6443 \
+      K3S_TOKEN='$(cat /var/lib/rancher/k3s/server/node-token)' sh -"
+
+  root@compute-0-0:~# kubectl get nodes
+  NAME          STATUS   ROLES           AGE     VERSION
+  compute-0-0   Ready    control-plane   2d4h    v1.36.4+k3s1
+  compute-0-1   Ready    <none>          2d4h    v1.36.4+k3s1
+  compute-0-2   Ready    <none>          2d4h    v1.36.4+k3s1
+  compute-0-3   Ready    <none>          2d4h    v1.36.4+k3s1
+  compute-0-4   Ready    <none>          40s     v1.36.4+k3s1
+
+El nodo ya está en el clúster, pero si miras dónde están los Pods verás que en compute-0-4 **no hay ninguno** de ``web-tunombre``. El planificador solo decide dónde va un Pod **cuando se crea**, y los que ya estaban funcionando se quedan en sus nodos: Kubernetes no los mueve para repartir la carga.
+
+Para que la aplicación use el nodo nuevo hay que recrear los Pods, pero antes hay que preparar el nodo con lo que ya sabemos que necesita: la **imagen propia**, que cada nodo guarda en su containerd, y el **cliente de NFS**, sin el que los Pods se quedarían en ``ContainerCreating``:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# scp web-tunombre-1.0.tar compute-0-4:/root/
+  root@compute-0-0:~# ssh compute-0-4 "k3s ctr images import /root/web-tunombre-1.0.tar"
+  root@compute-0-0:~# ssh compute-0-4 "k3s ctr images ls | grep web-tunombre"
+  root@compute-0-0:~# ssh compute-0-4 "apt install -y nfs-common"
+
+Ahora sí, ``rollout restart`` crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-4:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl rollout restart deployment/web-tunombre
+  deployment.apps/web-tunombre restarted
+
+  root@compute-0-0:~# kubectl rollout status deployment/web-tunombre
+  deployment "web-tunombre" successfully rolled out
+
+  root@compute-0-0:~# kubectl get pods -o wide
+
+Las réplicas quedan repartidas entre los cinco nodos. Por defecto el planificador **tiende** a repartirlas, pero no lo garantiza: si hay que asegurarlo, el Deployment admite ``topologySpreadConstraints``, que impiden que un nodo tenga más réplicas que otro.
 
 **Sacar un nodo** para mantenimiento, sin que se caiga nada: ``drain`` mueve sus Pods al resto y ``cordon`` impide que le manden más trabajo.
 
@@ -1028,10 +1270,6 @@ Vamos a montar tres piezas encima de lo que ya hay:
 * **Helm**, el gestor de paquetes de Kubernetes: lo que ``apt`` es a Ubuntu.
 * **Prometheus y Grafana**, para ver el clúster con gráficas y con histórico.
 * **MinIO**, un almacén de objetos compatible con S3, y una copia de seguridad automática del NFS contra él.
-
-.. note::
-
-  Esto pesa bastante más que el caso anterior: aquí es donde hacen falta los **4 GB** de cada máquina. Aun así, los valores que usamos más abajo van recortados a propósito, porque los que traen los charts por defecto están pensados para servidores de verdad.
 
 Helm, el gestor de paquetes de Kubernetes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1138,6 +1376,7 @@ Lo que nos interesa son tres sitios: ``Chart.yaml`` (el nombre y la versión del
     pullPolicy: IfNotPresent
 
   titulo: "Hola, soy tunombre"
+  usuario: "tunombre"
   clave: "MiClaveSecreta"
 
   service:
@@ -1160,6 +1399,7 @@ En ``templates/`` van cinco ficheros —``configmap.yaml``, ``secret.yaml``, ``d
     name: {{ .Release.Name }}-config
   data:
     titulo: {{ .Values.titulo | quote }}
+    usuario: {{ .Values.usuario | quote }}
 
   # templates/secret.yaml
   apiVersion: v1
@@ -1200,6 +1440,11 @@ Y el Deployment, que es el de siempre con los valores sacados fuera:
                   configMapKeyRef:
                     name: {{ .Release.Name }}-config
                     key: titulo
+              - name: USUARIO
+                valueFrom:
+                  configMapKeyRef:
+                    name: {{ .Release.Name }}-config
+                    key: usuario
               - name: CLAVE
                 valueFrom:
                   secretKeyRef:
@@ -1243,6 +1488,7 @@ Dos comprobaciones antes de tocar el clúster. ``helm lint`` revisa el paquete y
     name: prueba-config
   data:
     titulo: "Hola, soy tunombre"
+    usuario: "tunombre"
 
 Fíjate en que al llamar a la *release* ``prueba``, **todos** los objetos han pasado a llamarse ``prueba-...``. Eso es lo que permite instalar el mismo chart dos veces en el mismo clúster sin que choquen.
 
@@ -1251,11 +1497,11 @@ Como la aplicación del caso anterior sigue desplegada, la quitamos primero para
 .. code-block:: bash
 
   root@compute-0-0:~/09# kubectl delete -f web-tunombre.yml -f ingress-tunombre.yml -f config-tunombre.yml
-  configmap "web-tunombre-html" deleted from default namespace
   deployment.apps "web-tunombre" deleted from default namespace
   service "web-tunombre" deleted from default namespace
   ingress.networking.k8s.io "web-tunombre" deleted from default namespace
   configmap "web-tunombre-config" deleted from default namespace
+  secret "web-tunombre-secret" deleted from default namespace
   secret "web-tunombre-secret" deleted from default namespace
 
   root@compute-0-0:~/09# helm install web-tunombre ./web-tunombre-chart
@@ -1422,7 +1668,7 @@ El nombre nuevo hay que añadirlo al ``/etc/hosts`` de todos los nodos. Ojo con 
 .. code-block:: bash
 
   root@compute-0-0:~/09# echo "172.16.0.10 minio-tunombre.local grafana-tunombre.local" >> /etc/hosts
-  root@compute-0-0:~/09# for n in 1 2 3; do
+  root@compute-0-0:~/09# for n in 1 2 3 4; do
       ssh -n 172.16.0.1$n "echo '172.16.0.10 minio-tunombre.local grafana-tunombre.local' >> /etc/hosts"
     done
 
@@ -1751,12 +1997,15 @@ Y la prueba que de verdad importa, la que en la tarea de cron no se podía hacer
 Un nodo nuevo en un clúster que ya tiene cosas
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se apaña solo y qué no. El nodo se une con el mismo comando de siempre:
+Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se apaña solo y qué no. Creamos una sexta máquina, **compute-0-5**, clon enlazado de **MV Ubuntu Server** con 4 GB de memoria y la tarjeta en "Red interna" : 172.16.0.15/16. Para poder llamarla por su nombre desde compute-0-0, como a las demás, la añadimos a su ``/etc/hosts`` (si no la tienes ya), y la unimos con el mismo comando de siempre, lanzado desde compute-0-0:
 
 .. code-block:: bash
 
-  root@compute-0-3:~# curl -fL https://get.k3s.io | \
-    K3S_URL=https://172.16.0.10:6443 K3S_TOKEN=<token> sh -
+  root@compute-0-0:~# echo "172.16.0.15 compute-0-5" >> /etc/hosts
+
+  root@compute-0-0:~# ssh -n compute-0-5 "curl -fL https://get.k3s.io | \
+      K3S_URL=https://172.16.0.10:6443 \
+      K3S_TOKEN='$(cat /var/lib/rancher/k3s/server/node-token)' sh -"
   [INFO]  systemd: Enabling k3s-agent unit
   [INFO]  systemd: Starting k3s-agent
 
@@ -1765,41 +2014,48 @@ Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se a
   compute-0-0   Ready    control-plane   6d22h   v1.36.4+k3s1
   compute-0-1   Ready    <none>          6d22h   v1.36.4+k3s1
   compute-0-2   Ready    <none>          6d22h   v1.36.4+k3s1
-  compute-0-3   Ready    <none>          54s     v1.36.4+k3s1
+  compute-0-3   Ready    <none>          6d22h   v1.36.4+k3s1
+  compute-0-4   Ready    <none>          6d21h   v1.36.4+k3s1
+  compute-0-5   Ready    <none>          54s     v1.36.4+k3s1
 
 **Lo que se arregla solo**, sin que nadie lo pida:
 
 * el **DaemonSet** de node-exporter le pone su copia y Prometheus empieza a recogerlo;
-* el **svclb** de Traefik hace lo mismo, y los tres Ingress pasan a anunciar cuatro direcciones;
-* el **planificador** empieza a mandarle Pods.
+* el **svclb** de Traefik hace lo mismo, y los tres Ingress pasan a anunciar seis direcciones.
 
-**Lo que no**, y son justo las dos cosas que ya sabemos del caso anterior:
-
-.. code-block:: bash
-
-  root@compute-0-0:~# kubectl get pods -o wide | grep compute-0-3
-  web-tunombre-54f95d7999-7xwhr   0/1   ContainerCreating   0   2m   compute-0-3
-
-  root@compute-0-0:~# kubectl describe pod web-tunombre-54f95d7999-7xwhr | grep -A3 Events:
-  Warning  FailedMount  16s (x7 over 47s)  kubelet
-    MountVolume.SetUp failed for volume "pv-tunombre" : mount failed: exit status 32
-    Mounting arguments: -t nfs 172.16.0.10:/srv/tunombre ...
-
-* La **imagen propia** no está en su containerd, porque cada nodo tiene su propio almacén: hay que llevársela con ``scp`` y ``k3s ctr images import``, como hicimos con los demás.
-* El **cliente de NFS** tampoco está: sin ``nfs-common`` el Pod se queda en ``ContainerCreating`` con ese ``exit status 32``, que es el mismo aviso de la sección de almacenamiento persistente.
+Se ve pidiendo los Pods de ese nodo:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# scp web-tunombre-1.0.tar 172.16.0.13:/root/
-  root@compute-0-0:~# ssh 172.16.0.13 "k3s ctr images import /root/web-tunombre-1.0.tar"
-  root@compute-0-0:~# ssh 172.16.0.13 "apt install -y nfs-common"
+  root@compute-0-0:~# kubectl get pods -A -o wide --field-selector spec.nodeName=compute-0-5
 
-  root@compute-0-0:~# kubectl get pods -l app=web-tunombre \
-      -o custom-columns=ESTADO:.status.phase,NODO:.spec.nodeName --no-headers | sort | uniq -c
-        1 Running compute-0-0
-        1 Running compute-0-1
-        1 Running compute-0-2
-        1 Running compute-0-3
+**Lo que no** se arregla solo es nuestra aplicación: en compute-0-5 no hay **ningún** Pod de ``web-tunombre``. El planificador solo decide dónde va un Pod **cuando se crea**, y los que ya estaban funcionando en los otros cinco nodos se quedan donde están. Kubernetes no los mueve para repartir la carga.
+
+Para que la aplicación use el nodo nuevo hay que **recrear los Pods**, pero antes hay que preparar el nodo, porque le faltan justo las dos cosas que ya sabemos del caso anterior:
+
+* La **imagen propia** no está en su containerd, porque cada nodo tiene su propio almacén: hay que llevársela con ``scp`` e importarla con ``k3s ctr images import``, como hicimos con los demás.
+* El **cliente de NFS** tampoco está: sin ``nfs-common`` el Pod se quedaría en ``ContainerCreating`` con el ``exit status 32`` de la sección de almacenamiento persistente.
+
+.. code-block:: bash
+
+  root@compute-0-0:~# scp web-tunombre-1.0.tar compute-0-5:/root/
+  root@compute-0-0:~# ssh compute-0-5 "k3s ctr images import /root/web-tunombre-1.0.tar"
+  root@compute-0-0:~# ssh compute-0-5 "k3s ctr images ls | grep web-tunombre"
+  root@compute-0-0:~# ssh compute-0-5 "apt install -y nfs-common"
+
+Ahora sí, recreamos los Pods. ``rollout restart`` crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-5:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl rollout restart deployment/web-tunombre
+  deployment.apps/web-tunombre restarted
+
+  root@compute-0-0:~# kubectl rollout status deployment/web-tunombre
+  deployment "web-tunombre" successfully rolled out
+
+  root@compute-0-0:~# kubectl get pods -o wide
+
+Por defecto el planificador **tiende** a repartir las réplicas entre los nodos, pero no lo garantiza: a compute-0-5 le puede tocar una, dos o, alguna vez, ninguna. Si hay que asegurar el reparto, el Deployment admite ``topologySpreadConstraints``, que impiden que un nodo tenga más réplicas que otro.
 
 Esa es la diferencia entre lo que **Kubernetes** mantiene —los Pods, los servicios, la monitorización— y lo que sigue siendo **administración de sistemas** de toda la vida: los paquetes y las imágenes de cada máquina. Un nodo recién añadido está en el clúster desde el primer minuto, pero no sirve para todo hasta que alguien lo prepara. En un sistema de verdad eso se resuelve con un registro de imágenes y con el Ansible de la tarea 08.
 
