@@ -33,14 +33,9 @@ Base decimal a base N
 
   Parte decimal
  
-  .. math::
-  
-     \left\downarrow
-     \begin{matrix} 
-     0.625 \times 2 = \mathbf{1}.25  \\
-     0.250 \times 2 = \mathbf{0}.50  \\
-     0.500 \times 2 = \mathbf{1}.00  
-     \end{matrix}\right\downarrow 
+  .. image:: imagenes/dec0625abase2.png
+     :align: center
+     :width: 255
      
   Finalmente queda:
   
@@ -50,13 +45,23 @@ Base decimal a base N
 
 * **Ejemplo** de base **decimal** a base **hexadecimal** con decimales 10.625 :sub:`10)→ 16)` =
 
+  Parte entera
+  
+  .. image:: imagenes/dec10abase16.png
+     :align: center
+     :width: 175
+  
   Parte decimal
   
-  .. math:: 
-     
-     0.625 \times 16 &= 10 = A
+  .. image:: imagenes/dec0625abase16.png
+     :align: center
+     :width: 255
   
-     10.625_{10)} &= A.A_{16)}
+  Finalmente queda:
+  
+  .. math::
+  
+     10.625_{10)} = A.A_{16)}
 
 * **Ejemplo** de base **decimal** a base **octal** con decimales 10.625 :sub:`10)→ 8)` =
 
@@ -68,11 +73,15 @@ Base decimal a base N
   
   Parte decimal
   
+  .. image:: imagenes/dec0625abase8.png
+     :align: center
+     :width: 255
+  
+  Finalmente queda:
+  
   .. math::
-    
-     0.625 \times 8 &= \mathbf{5}.00
-     
-     10.625_{10)} &= 12.5_{8)}
+  
+     10.625_{10)} = 12.5_{8)}
   
 * **Ejemplo con agrupaciones**, entre base 2,8 y 16 podemos utilizar también el método de las agrupaciones
   
