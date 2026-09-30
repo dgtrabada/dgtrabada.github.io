@@ -651,6 +651,92 @@ Hola<span class="w"> </span>dani
 <section id="bucles-y-condicionales">
 <h2>Bucles y condicionales<a class="headerlink" href="#bucles-y-condicionales" title="Link to this heading">#</a></h2>
 <ul>
+<li><p>Sintaxis básica de <strong>for</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>variable<span class="w"> </span><span class="k">in</span><span class="w"> </span>elemento1<span class="w"> </span>elemento2<span class="w"> </span>elemento3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar para cada elemento de la lista</span>
+<span class="k">done</span>
+
+<span class="k">for</span><span class="w"> </span><span class="o">((</span>inicio<span class="p">;</span><span class="w"> </span>condición<span class="p">;</span><span class="w"> </span>incremento<span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar mientras la condición sea verdadera</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+<li><p>Estructura básica de <strong>if</strong>, <strong>elif</strong>, <strong>else</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición1<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si condición1 es verdadera</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición2<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si condición2 es verdadera y condición1 es falsa</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="c1"># Código a ejecutar si ninguna de las condiciones anteriores es verdadera</span>
+<span class="k">fi</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sintaxis básica de <strong>case</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="nv">$variable</span><span class="w"> </span><span class="k">in</span>
+<span class="w">   </span>patrón1<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón1</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span>patrón2<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón2</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span>*<span class="o">)</span>
+<span class="w">     </span><span class="c1"># Código a ejecutar si no coincide con ninguno de los patrones anteriores</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+<p>Los patrones usan los mismos comodines que los nombres de archivo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hola<span class="o">)</span><span class="w">       </span><span class="c1"># coincide exactamente con hola</span>
+a<span class="p">|</span>b<span class="o">)</span><span class="w">        </span><span class="c1"># | separa alternativas: coincide con a o con b</span>
+*<span class="o">)</span><span class="w">          </span><span class="c1"># * cualquier cadena, se usa al final como opción por defecto</span>
+?<span class="o">)</span><span class="w">          </span><span class="c1"># ? un único carácter cualquiera</span>
+<span class="o">[</span><span class="m">1</span>-9<span class="o">])</span><span class="w">      </span><span class="c1"># [ ] un carácter del rango: 1, 2, ... 9</span>
+<span class="o">[</span>sS<span class="o">]</span>*<span class="o">)</span><span class="w">      </span><span class="c1"># empieza por s o S: si, Si, sí, S ...</span>
+*.txt<span class="o">)</span><span class="w">      </span><span class="c1"># termina en .txt</span>
+<span class="s2">&quot;&quot;</span><span class="p">|</span>--help<span class="o">)</span><span class="w">  </span><span class="c1"># cadena vacía (sin argumento) o --help</span>
+</pre></div>
+</div>
+<p>Los patrones se comprueban en orden y solo se ejecuta el primero que coincide, por eso <code class="docutils literal notranslate"><span class="pre">*)</span></code> va el último.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="k">in</span>
+<span class="w">   </span><span class="s2">&quot;&quot;</span><span class="p">|</span>--help<span class="o">)</span>
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: </span><span class="nv">$0</span><span class="s2"> &lt;número del 1 al 10&gt;&quot;</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span><span class="o">[</span><span class="m">1</span>-9<span class="o">]</span><span class="p">|</span><span class="m">10</span><span class="o">)</span>
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> es un número del 1 al 10&quot;</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="w">   </span>*<span class="o">)</span>
+<span class="w">     </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2"> no es un número del 1 al 10&quot;</span>
+<span class="w">     </span><span class="p">;;</span>
+<span class="k">esac</span>
+</pre></div>
+</div>
+</li>
+<li><p>Juntar expresiones <strong>and</strong> y <strong>or</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+<span class="k">do</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>j<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales y j = a&#39;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales o j = a&#39;</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="k">done</span>
+a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>y<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+b<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+b<span class="w"> </span>b<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+c<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+c<span class="w"> </span>c<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
+</pre></div>
+</div>
+</li>
 <li><p>Bucles</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span><span class="k">for</span>.sh
 <span class="c1">#!/bin/bash</span>
@@ -797,56 +883,6 @@ c
 <span class="w">  </span>sleep<span class="w"> </span>1s
 <span class="w">  </span>date
 <span class="k">done</span>
-</pre></div>
-</div>
-</li>
-<li><p>Juntar expresiones <strong>and</strong> y <strong>or</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
-<span class="k">do</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span>j<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c
-<span class="w">  </span><span class="k">do</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
-<span class="w">    </span><span class="k">then</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales y j = a&#39;</span>
-<span class="w">    </span><span class="k">fi</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="w"> </span><span class="o">]</span>
-<span class="w">    </span><span class="k">then</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="nv">$j</span><span class="w"> </span><span class="s1">&#39;,i j son iguales o j = a&#39;</span>
-<span class="w">    </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">done</span>
-<span class="k">done</span>
-a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>y<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-a<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-b<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-b<span class="w"> </span>b<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-c<span class="w"> </span>a<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-c<span class="w"> </span>c<span class="w"> </span>,i<span class="w"> </span>j<span class="w"> </span>son<span class="w"> </span>iguales<span class="w"> </span>o<span class="w"> </span><span class="nv">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>a
-</pre></div>
-</div>
-</li>
-<li><p>Estructura básica de <strong>if</strong>, <strong>elif</strong>, <strong>else</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición1<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">   </span><span class="c1"># Código a ejecutar si condición1 es verdadera</span>
-<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condición2<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">   </span><span class="c1"># Código a ejecutar si condición2 es verdadera y condición1 es falsa</span>
-<span class="k">else</span>
-<span class="w">   </span><span class="c1"># Código a ejecutar si ninguna de las condiciones anteriores es verdadera</span>
-<span class="k">fi</span>
-</pre></div>
-</div>
-</li>
-<li><p>Sintaxis básica de <strong>case</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="nv">$variable</span><span class="w"> </span><span class="k">in</span>
-<span class="w">   </span>patrón1<span class="o">)</span>
-<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón1</span>
-<span class="w">     </span><span class="p">;;</span>
-<span class="w">   </span>patrón2<span class="o">)</span>
-<span class="w">     </span><span class="c1"># Código a ejecutar si $variable coincide con patrón2</span>
-<span class="w">     </span><span class="p">;;</span>
-<span class="w">   </span>*<span class="o">)</span>
-<span class="w">     </span><span class="c1"># Código a ejecutar si no coincide con ninguno de los patrones anteriores</span>
-<span class="w">     </span><span class="p">;;</span>
-<span class="k">esac</span>
 </pre></div>
 </div>
 </li>

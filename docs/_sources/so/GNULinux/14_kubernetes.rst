@@ -1331,21 +1331,22 @@ Antes de instalar paquetes de otros, empaquetamos el nuestro: así se ve qué ha
   root@compute-0-0:~/09# helm create web-tunombre-chart
   Creating web-tunombre-chart
 
-  root@compute-0-0:~/09# find web-tunombre-chart -maxdepth 2 | sort
-  web-tunombre-chart
-  web-tunombre-chart/.helmignore
-  web-tunombre-chart/Chart.yaml
-  web-tunombre-chart/charts
-  web-tunombre-chart/templates
-  web-tunombre-chart/templates/NOTES.txt
-  web-tunombre-chart/templates/_helpers.tpl
-  web-tunombre-chart/templates/deployment.yaml
-  web-tunombre-chart/templates/hpa.yaml
-  web-tunombre-chart/templates/httproute.yaml
-  web-tunombre-chart/templates/ingress.yaml
-  web-tunombre-chart/templates/service.yaml
-  web-tunombre-chart/templates/serviceaccount.yaml
-  web-tunombre-chart/values.yaml
+  root@compute-0-0:~/09# tree web-tunombre-chart/
+  web-tunombre-chart/
+  ├── charts
+  ├── Chart.yaml
+  ├── templates
+  │   ├── deployment.yaml
+  │   ├── _helpers.tpl
+  │   ├── hpa.yaml
+  │   ├── httproute.yaml
+  │   ├── ingress.yaml
+  │   ├── NOTES.txt
+  │   ├── serviceaccount.yaml
+  │   ├── service.yaml
+  │   └── tests
+  │       └── test-connection.yaml
+  └── values.yaml
 
 Lo que nos interesa son tres sitios: ``Chart.yaml`` (el nombre y la versión del paquete), ``values.yaml`` (los valores) y ``templates/`` (los YAML, con huecos). Las plantillas de ejemplo que trae son mucho más complicadas de lo que necesitamos, así que las borramos y ponemos las nuestras, que son **exactamente los ficheros del caso anterior** con los valores sustituidos por huecos:
 
@@ -1353,7 +1354,7 @@ Lo que nos interesa son tres sitios: ``Chart.yaml`` (el nombre y la versión del
 
   root@compute-0-0:~/09# rm -rf web-tunombre-chart/templates/* web-tunombre-chart/charts
 
-``Chart.yaml``:
+``web-tunombre-chart/Chart.yaml``:
 
 .. code-block:: yaml
 
@@ -1364,7 +1365,7 @@ Lo que nos interesa son tres sitios: ``Chart.yaml`` (el nombre y la versión del
   version: 0.1.0
   appVersion: "1.0"
 
-``values.yaml``, que es el fichero que de verdad se toca después:
+``web-tunombre-chart/values.yaml``:
 
 .. code-block:: yaml
 
@@ -1390,9 +1391,10 @@ Lo que nos interesa son tres sitios: ``Chart.yaml`` (el nombre y la versión del
 
 En ``templates/`` van cinco ficheros —``configmap.yaml``, ``secret.yaml``, ``deployment.yaml``, ``service.yaml`` e ``ingress.yaml``—, los mismos objetos del caso anterior. Los dos pequeños enseñan la idea entera:
 
+``web-tunombre-chart/templates/configmap.yaml``:
+
 .. code-block:: yaml
 
-  # templates/configmap.yaml
   apiVersion: v1
   kind: ConfigMap
   metadata:
@@ -1401,7 +1403,10 @@ En ``templates/`` van cinco ficheros —``configmap.yaml``, ``secret.yaml``, ``d
     titulo: {{ .Values.titulo | quote }}
     usuario: {{ .Values.usuario | quote }}
 
-  # templates/secret.yaml
+``web-tunombre-chart/templates/secret.yaml``:
+
+.. code-block:: yaml
+
   apiVersion: v1
   kind: Secret
   metadata:
@@ -1411,6 +1416,8 @@ En ``templates/`` van cinco ficheros —``configmap.yaml``, ``secret.yaml``, ``d
     clave: {{ .Values.clave | quote }}
 
 Y el Deployment, que es el de siempre con los valores sacados fuera:
+
+``web-tunombre-chart/templates/deployment.yaml``:
 
 .. code-block:: yaml
 
@@ -1457,6 +1464,46 @@ Y el Deployment, que es el de siempre con los valores sacados fuera:
           - name: datos
             persistentVolumeClaim:
               claimName: {{ .Values.nfs.claimName }}
+
+El Service y el Ingress, igual:
+
+``web-tunombre-chart/templates/service.yaml``:
+
+.. code-block:: yaml
+
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: {{ .Release.Name }}
+  spec:
+    type: NodePort
+    selector:
+      app: {{ .Release.Name }}
+    ports:
+      - port: 80
+        targetPort: 80
+        nodePort: {{ .Values.service.nodePort }}
+
+``web-tunombre-chart/templates/ingress.yaml``:
+
+.. code-block:: yaml
+
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: {{ .Release.Name }}
+  spec:
+    rules:
+      - host: {{ .Values.ingress.host }}
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: {{ .Release.Name }}
+                  port:
+                    number: 80
 
 ``{{ .Values.algo }}`` es un valor del ``values.yaml`` y ``{{ .Release.Name }}`` el nombre que le damos al instalar. El ``| quote`` pone las comillas por nosotros. Eso es lo que convierte un YAML escrito para un nombre concreto en algo **reutilizable**.
 

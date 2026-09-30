@@ -106,6 +106,100 @@ Entrada de datos
 Bucles y condicionales
 **********************
 
+* Sintaxis básica de **for**
+
+  .. code-block:: bash
+
+   for variable in elemento1 elemento2 elemento3; do
+      # Código a ejecutar para cada elemento de la lista
+   done
+
+   for ((inicio; condición; incremento)); do
+      # Código a ejecutar mientras la condición sea verdadera
+   done
+
+* Estructura básica de **if**, **elif**, **else**
+
+  .. code-block:: bash
+
+   if [ condición1 ]; then
+      # Código a ejecutar si condición1 es verdadera
+   elif [ condición2 ]; then
+      # Código a ejecutar si condición2 es verdadera y condición1 es falsa
+   else
+      # Código a ejecutar si ninguna de las condiciones anteriores es verdadera
+   fi
+
+* Sintaxis básica de **case**
+
+  .. code-block:: bash
+
+   case $variable in
+      patrón1)
+        # Código a ejecutar si $variable coincide con patrón1
+        ;;
+      patrón2)
+        # Código a ejecutar si $variable coincide con patrón2
+        ;;
+      *)
+        # Código a ejecutar si no coincide con ninguno de los patrones anteriores
+        ;; 
+   esac
+
+  Los patrones usan los mismos comodines que los nombres de archivo:
+
+  .. code-block:: bash
+
+   hola)       # coincide exactamente con hola
+   a|b)        # | separa alternativas: coincide con a o con b
+   *)          # * cualquier cadena, se usa al final como opción por defecto
+   ?)          # ? un único carácter cualquiera
+   [1-9])      # [ ] un carácter del rango: 1, 2, ... 9
+   [sS]*)      # empieza por s o S: si, Si, sí, S ...
+   *.txt)      # termina en .txt
+   ""|--help)  # cadena vacía (sin argumento) o --help
+
+  Los patrones se comprueban en orden y solo se ejecuta el primero que coincide, por eso ``*)`` va el último.
+
+  .. code-block:: bash
+
+   case $1 in
+      ""|--help)
+        echo "Uso: $0 <número del 1 al 10>"
+        ;;
+      [1-9]|10)
+        echo "$1 es un número del 1 al 10"
+        ;;
+      *)
+        echo "$1 no es un número del 1 al 10"
+        ;;
+   esac
+
+* Juntar expresiones **and** y **or**
+
+  .. code-block:: bash
+
+   for i in a b c
+   do
+     for j in a b c
+     do
+       if [ $i == $j ] && [ $j == "a" ]    
+       then
+         echo $i $j ',i j son iguales y j = a'
+       fi
+       if [ $i == $j ] || [ $j == "a" ]    
+       then
+         echo $i $j ',i j son iguales o j = a'
+       fi
+     done
+   done
+   a a ,i j son iguales y j = a
+   a a ,i j son iguales o j = a
+   b a ,i j son iguales o j = a
+   b b ,i j son iguales o j = a
+   c a ,i j son iguales o j = a
+   c c ,i j son iguales o j = a
+
 * Bucles 
 
   .. code-block:: bash
@@ -265,59 +359,6 @@ Bucles y condicionales
      sleep 1s
      date
    done
-
-* Juntar expresiones **and** y **or**
-
-  .. code-block:: bash
-
-   for i in a b c
-   do
-     for j in a b c
-     do
-       if [ $i == $j ] && [ $j == "a" ]    
-       then
-         echo $i $j ',i j son iguales y j = a'
-       fi
-       if [ $i == $j ] || [ $j == "a" ]    
-       then
-         echo $i $j ',i j son iguales o j = a'
-       fi
-     done
-   done
-   a a ,i j son iguales y j = a
-   a a ,i j son iguales o j = a
-   b a ,i j son iguales o j = a
-   b b ,i j son iguales o j = a
-   c a ,i j son iguales o j = a
-   c c ,i j son iguales o j = a
-
-* Estructura básica de **if**, **elif**, **else**
-
-  .. code-block:: bash
-
-   if [ condición1 ]; then
-      # Código a ejecutar si condición1 es verdadera
-   elif [ condición2 ]; then
-      # Código a ejecutar si condición2 es verdadera y condición1 es falsa
-   else
-      # Código a ejecutar si ninguna de las condiciones anteriores es verdadera
-   fi
-
-* Sintaxis básica de **case**
-
-  .. code-block:: bash
-
-   case $variable in
-      patrón1)
-        # Código a ejecutar si $variable coincide con patrón1
-        ;;
-      patrón2)
-        # Código a ejecutar si $variable coincide con patrón2
-        ;;
-      *)
-        # Código a ejecutar si no coincide con ninguno de los patrones anteriores
-        ;; 
-   esac
 
 Propiedades de archivos y carpetas
 **********************************

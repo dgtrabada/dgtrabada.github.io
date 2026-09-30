@@ -31,6 +31,7 @@ mem.sh
 
         .. literalinclude:: scripts/mem.sh
            :language: shell
+
 mac.sh
 """"""
 
@@ -54,7 +55,13 @@ lastlog_ip.sh
 
         Crea un script llamado **lastlog_ip.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada ip.
 
-        Si tu máquina tiene pocas conexiones descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que contiene la salida de ``last -w`` de una máquina con muchas conexiones, y utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
+        Para que todos trabajemos con los mismos datos, descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que simula la salida de este comando en una máquina con muchas conexiones:
+
+        .. code-block:: bash
+
+           last -w > last_w.log
+
+        Utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
 
         .. code-block:: bash
           
@@ -98,7 +105,13 @@ lastlog.sh
 
         Crea un script llamado **lastlog.sh** que muestre un listado ordenado con el nº de veces que se ha logueado cada usuario.
 
-        Si tu máquina tiene pocas conexiones descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que contiene la salida de ``last -w`` de una máquina con muchas conexiones, y utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
+        Para que todos trabajemos con los mismos datos, descarga el archivo `last_w.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/last_w.log>`_, que simula la salida de este comando en una máquina con muchas conexiones:
+
+        .. code-block:: bash
+
+           last -w > last_w.log
+
+        Utiliza ``cat last_w.log`` en lugar de ``last -w``, tiene que quedar
 
         .. code-block:: bash
           
@@ -139,8 +152,8 @@ tabla_multiplicar_read.sh
            :language: shell
 
 
-tabla_multiplicar_read.sh
-"""""""""""""""""""""""""
+tabla_multiplicar.sh
+""""""""""""""""""""
 
 .. tabs::
 
@@ -156,6 +169,11 @@ tabla_multiplicar_read.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/tabla_multiplicar.sh
+           :language: shell
+
+    .. tab:: Solución (case)
+
+        .. literalinclude:: scripts/tabla_multiplicar_case.sh
            :language: shell
 
     .. tab:: Solución (array)
@@ -221,18 +239,42 @@ listar_usuario_grupo.sh
 
     .. tab:: listar_usuario_grupo.sh
 
-        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema y al grupo que pertenecen, por ejemplo
+        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema (los que tienen ``/bin/bash`` salvo root), el grupo principal al que pertenecen y el espacio que ocupa su carpeta personal en ``/home``.
+
+        Para que todos trabajemos con los mismos datos, descarga los archivos `etc_passwd.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_passwd.log>`_, `etc_group.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_group.log>`_ y `du_home.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/du_home.log>`_, que simulan la salida de estos comandos en una máquina con usuarios de varios grupos:
 
         .. code-block:: bash
-          
-           alumno1 : smr1
-           alumno2 : smr1
-           alumno3 : asir1
-           alumno4 : asir2
+
+           cat /etc/passwd > etc_passwd.log
+           cat /etc/group > etc_group.log
+           sudo du -sh /home/* > du_home.log
+
+        Utiliza estos archivos en lugar de ``/etc/passwd``, ``/etc/group`` y ``du -sh /home/*``, tiene que quedar
+
+        .. code-block:: bash
+
+           profesor : profesores : 22G
+           alumno1 : smr1 : 3,2G
+           alumno2 : smr1 : 512M
+           alumno3 : smr2 : 1,8G
+           alumno4 : smr2 : 7,5G
+           alumno5 : asir1 : 96K
+           alumno6 : asir1 : 2,4G
+           alumno7 : asir2 : 14G
+           alumno8 : asir2 : 850M
+
+        Pista: el grupo principal es el 4º campo de ``/etc/passwd`` (GID) y hay que buscar ese GID en el 3º campo de ``/etc/group``.
 
     .. tab:: Solución
 
         .. literalinclude:: scripts/listar_usuario_grupo.sh
+           :language: shell
+
+    .. tab:: Solución (groups)
+
+        En la propia máquina, sin archivos auxiliares, se puede obtener el usuario y sus grupos con ``groups``:
+
+        .. literalinclude:: scripts/listar_usuario_grupo_groups.sh
            :language: shell
 
 

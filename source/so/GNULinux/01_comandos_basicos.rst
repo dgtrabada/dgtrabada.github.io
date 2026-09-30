@@ -192,6 +192,8 @@ Editor vi
   * :%s/cadena1/cadena2/g -> sustituir una cadena
   * G -> ir al final del archivo
   * :set number -> ver los números de línea (:set nu ; :set nonu)
+  * ctrl + V, bajar N líneas, shift + I, #, <esc> -> comentar N líneas (añade # al principio de cada línea)
+  * ctrl + V, bajar N líneas, x -> descomentar N líneas (borra el # del principio)
 
   Para establecer la configuración por defecto usamos el archivo .vimrc, por ejemplo:
   

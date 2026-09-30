@@ -1716,28 +1716,29 @@ traefik-crd<span class="w">   </span>kube-system<span class="w">   </span><span 
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~/09#<span class="w"> </span>helm<span class="w"> </span>create<span class="w"> </span>web-tunombre-chart
 Creating<span class="w"> </span>web-tunombre-chart
 
-root@compute-0-0:~/09#<span class="w"> </span>find<span class="w"> </span>web-tunombre-chart<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
-web-tunombre-chart
-web-tunombre-chart/.helmignore
-web-tunombre-chart/Chart.yaml
-web-tunombre-chart/charts
-web-tunombre-chart/templates
-web-tunombre-chart/templates/NOTES.txt
-web-tunombre-chart/templates/_helpers.tpl
-web-tunombre-chart/templates/deployment.yaml
-web-tunombre-chart/templates/hpa.yaml
-web-tunombre-chart/templates/httproute.yaml
-web-tunombre-chart/templates/ingress.yaml
-web-tunombre-chart/templates/service.yaml
-web-tunombre-chart/templates/serviceaccount.yaml
-web-tunombre-chart/values.yaml
+root@compute-0-0:~/09#<span class="w"> </span>tree<span class="w"> </span>web-tunombre-chart/
+web-tunombre-chart/
+├──<span class="w"> </span>charts
+├──<span class="w"> </span>Chart.yaml
+├──<span class="w"> </span>templates
+│<span class="w">   </span>├──<span class="w"> </span>deployment.yaml
+│<span class="w">   </span>├──<span class="w"> </span>_helpers.tpl
+│<span class="w">   </span>├──<span class="w"> </span>hpa.yaml
+│<span class="w">   </span>├──<span class="w"> </span>httproute.yaml
+│<span class="w">   </span>├──<span class="w"> </span>ingress.yaml
+│<span class="w">   </span>├──<span class="w"> </span>NOTES.txt
+│<span class="w">   </span>├──<span class="w"> </span>serviceaccount.yaml
+│<span class="w">   </span>├──<span class="w"> </span>service.yaml
+│<span class="w">   </span>└──<span class="w"> </span>tests
+│<span class="w">       </span>└──<span class="w"> </span>test-connection.yaml
+└──<span class="w"> </span>values.yaml
 </pre></div>
 </div>
 <p>Lo que nos interesa son tres sitios: <code class="docutils literal notranslate"><span class="pre">Chart.yaml</span></code> (el nombre y la versión del paquete), <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> (los valores) y <code class="docutils literal notranslate"><span class="pre">templates/</span></code> (los YAML, con huecos). Las plantillas de ejemplo que trae son mucho más complicadas de lo que necesitamos, así que las borramos y ponemos las nuestras, que son <strong>exactamente los ficheros del caso anterior</strong> con los valores sustituidos por huecos:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~/09#<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>web-tunombre-chart/templates/*<span class="w"> </span>web-tunombre-chart/charts
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Chart.yaml</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/Chart.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2</span>
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">La aplicacion web del caso practico anterior, empaquetada como chart</span>
@@ -1746,7 +1747,7 @@ web-tunombre-chart/values.yaml
 <span class="nt">appVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">values.yaml</span></code>, que es el fichero que de verdad se toca después:</p>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/values.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
 
 <span class="nt">image</span><span class="p">:</span>
@@ -1769,17 +1770,18 @@ web-tunombre-chart/values.yaml
 </pre></div>
 </div>
 <p>En <code class="docutils literal notranslate"><span class="pre">templates/</span></code> van cinco ficheros —<code class="docutils literal notranslate"><span class="pre">configmap.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">secret.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">deployment.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">service.yaml</span></code> e <code class="docutils literal notranslate"><span class="pre">ingress.yaml</span></code>—, los mismos objetos del caso anterior. Los dos pequeños enseñan la idea entera:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># templates/configmap.yaml</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/templates/configmap.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
 <span class="nt">data</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">titulo</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.titulo | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
 <span class="w">  </span><span class="nt">usuario</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.usuario | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-
-<span class="c1"># templates/secret.yaml</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/templates/secret.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-secret</span>
@@ -1789,6 +1791,7 @@ web-tunombre-chart/values.yaml
 </pre></div>
 </div>
 <p>Y el Deployment, que es el de siempre con los valores sacados fuera:</p>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/templates/deployment.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -1832,6 +1835,41 @@ web-tunombre-chart/values.yaml
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datos</span>
 <span class="w">          </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span>
 <span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.nfs.claimName</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+<p>El Service y el Ingress, igual:</p>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/templates/service.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.service.nodePort</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">web-tunombre-chart/templates/ingress.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.host</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">      </span><span class="nt">http</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">            </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Release.Name</span><span class="w"> </span><span class="p p-Indicator">}}</span>
+<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">.Values.algo</span> <span class="pre">}}</span></code> es un valor del <code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> y <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">.Release.Name</span> <span class="pre">}}</span></code> el nombre que le damos al instalar. El <code class="docutils literal notranslate"><span class="pre">|</span> <span class="pre">quote</span></code> pone las comillas por nosotros. Eso es lo que convierte un YAML escrito para un nombre concreto en algo <strong>reutilizable</strong>.</p>

@@ -90,7 +90,8 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 
 | Script | Líneas | Qué introduce |
 |---|---|---|
-| `listar_usuario_grupo.sh` | 5 | `for i in $(comando)` |
+| `listar_usuario_grupo.sh` | 14 | `for i in $(comando)`, `grep`, `cut` sobre `etc_passwd.log`, `etc_group.log`, `du_home.log` |
+| `listar_usuario_grupo_groups.sh` | 5 | `for i in $(comando)`, `groups` |
 | `if.sh` | 14 | condicional básico `[ ]` vs `test` |
 | `lastlog_ip.sh` | 8 | bucle + filtros |
 | `lastlog.sh` | 9 | ordenar la salida del bucle |
@@ -118,6 +119,7 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 | `tabla_multiplicar.sh` | 29 | `$#`, `$1`, `show_help()`, `--help` |
 | `contar_monedas_array.sh` | 30 | fichero → array |
 | `tabla_multiplicar_array.sh` | 33 | argumentos + arrays |
+| `tabla_multiplicar_case.sh` | 35 | `$#`, `case`, patrones `[1-9]\|10` |
 | `contar_monedas.sh` | 40 | `test -f`, valores por defecto |
 | `monedas.sh` | 42 | `${1:-1000}` |
 | `notas.sh` | 54 | `cut` multinivel, colores ANSI |

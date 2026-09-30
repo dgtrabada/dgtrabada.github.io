@@ -1,14 +1,13 @@
 #!/bin/bash
 
 mostrar_ayuda() {
-
     echo "Uso: ./tabla_multiplicar.sh [número]
-    Este script muestra la tabla de multiplicar del número que se le pase como argumento.
-    Opciones:
-      --help   Muestra este mensaje de ayuda.
+Este script muestra la tabla de multiplicar del número que se le pase como argumento.
+Opciones:
+  --help   Muestra este mensaje de ayuda.
 
-    Ejemplos:
-    ./tabla_multiplicar.sh 4   Muestra la tabla de multiplicar del 4."
+Ejemplos:
+  ./tabla_multiplicar.sh 4   Muestra la tabla de multiplicar del 4."
 }
 
 
