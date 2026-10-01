@@ -1115,33 +1115,86 @@ awk<span class="w"> </span><span class="s1">&#39;{</span>
 <section id="alerta-disco-sh">
 <h2>alerta_disco.sh<a class="headerlink" href="#alerta-disco-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">alerta_disco.sh</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>alerta_disco.sh</strong> que recorra las particiones montadas y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo <code class="docutils literal notranslate"><span class="pre">alertas.log</span></code> y también por pantalla. El umbral se recibe como argumento, por defecto será 80.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./alerta_disco.sh<span class="w"> </span><span class="m">50</span>
-<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30<span class="w"> </span>/<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
-
-cat<span class="w"> </span>alertas.log
-<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30<span class="w"> </span>/<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-11-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-11-11-0" name="11-0" role="tab" tabindex="0">alerta_disco.sh</button><button aria-controls="panel-11-11-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-1" name="11-1" role="tab" tabindex="-1">Solución</button><button aria-controls="panel-11-11-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-11-11-2" name="11-2" role="tab" tabindex="-1">Solución (pregunta)</button></div><div aria-labelledby="tab-11-11-0" class="sphinx-tabs-panel" id="panel-11-11-0" name="11-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>alerta_disco.sh</strong> que cada cierto tiempo recorra las particiones montadas y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo <code class="docutils literal notranslate"><span class="pre">alertas.log</span></code> y también por pantalla. Se ejecutará como <code class="docutils literal notranslate"><span class="pre">./alerta_disco.sh</span> <span class="pre">[umbral]</span> <span class="pre">[tiempo]</span></code>:</p>
+<ul class="simple">
+<li><p>Con dos argumentos, el primero es el umbral en % y el segundo el tiempo de espera en segundos entre una revisión y la siguiente.</p></li>
+<li><p>Con un argumento, cambia el umbral y el tiempo será 1 s.</p></li>
+<li><p>Sin argumentos, el umbral será 80 % y el tiempo 1 s.</p></li>
+<li><p>Con <code class="docutils literal notranslate"><span class="pre">./alerta_disco.sh</span> <span class="pre">--help</span></code> mostrará un mensaje de ayuda (consejo: utiliza una función).</p></li>
+<li><p>Si encuentra un archivo llamado <code class="docutils literal notranslate"><span class="pre">stop</span></code> en la carpeta, se para y lo borra.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./alerta_disco.sh<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">10</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:00<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:10<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:20<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:25<span class="w"> </span>alerta_disco.sh<span class="w"> </span>parado
 </pre></div>
 </div>
-<p>Consejos:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">|</span> <span class="pre">tail</span> <span class="pre">-n</span> <span class="pre">+2</span></code> quita la línea de cabecera, y como en <strong>meteo.sh</strong> puedes leer las columnas con <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">read</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tr</span> <span class="pre">-d</span> <span class="pre">'%'</span></code> elimina el símbolo % para poder comparar con <code class="docutils literal notranslate"><span class="pre">-ge</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tee</span> <span class="pre">-a</span></code> escribe a la vez por pantalla y al final de un archivo.</p></li>
-</ul>
+<p>En otra terminal, en la misma carpeta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>stop
+cat<span class="w"> </span>alertas.log
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:00<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:10<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<span class="m">2026</span>-07-07<span class="w"> </span><span class="m">10</span>:30:20<span class="w"> </span>/dev/sda2<span class="w"> </span>está<span class="w"> </span>al<span class="w"> </span><span class="m">57</span>%<span class="w"> </span><span class="o">(</span>umbral<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+</pre></div>
+</div>
+<p>Una vez hecho, ¿cómo lo ejecutarías para que siga funcionando al cerrar la terminal?</p>
 </div><div aria-labelledby="tab-11-11-1" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-1" name="11-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nv">umbral</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">80</span><span class="si">}</span><span class="w"> </span><span class="c1"># umbral en %, por defecto 80</span>
-<span class="nv">log</span><span class="o">=</span><span class="s2">&quot;alertas.log&quot;</span>
+mostrar_ayuda<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Uso: ./alerta_disco.sh [umbral] [tiempo]</span>
+<span class="s2">Revisa cada [tiempo] segundos la ocupación de las particiones montadas y</span>
+<span class="s2">escribe una alerta por pantalla y en alertas.log si alguna llega al [umbral] %.</span>
+<span class="s2">  Sin argumentos:   umbral 80 % y tiempo 1 s.</span>
+<span class="s2">  Un argumento:     cambia el umbral, el tiempo es 1 s.</span>
+<span class="s2">  Dos argumentos:   cambia el umbral y el tiempo.</span>
+<span class="s2">Para pararlo crea un archivo llamado stop en la misma carpeta: touch stop</span>
+<span class="s2">Opciones:</span>
+<span class="s2">  --help   Muestra este mensaje de ayuda.</span>
 
-df<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>particion<span class="w"> </span>bloques<span class="w"> </span>usado<span class="w"> </span>disponible<span class="w"> </span>pcent<span class="w"> </span>montaje
+<span class="s2">Ejemplos:</span>
+<span class="s2">  ./alerta_disco.sh 50 10   Alerta si alguna partición llega al 50 %, revisando cada 10 s.&quot;</span>
+<span class="o">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;--help&quot;</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">  </span>mostrar_ayuda
+<span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nv">umbral</span><span class="o">=</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">80</span><span class="si">}</span><span class="w"> </span><span class="c1"># umbral en %, por defecto 80</span>
+<span class="nv">tiempo</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">1</span><span class="si">}</span><span class="w">  </span><span class="c1"># tiempo de espera en segundos, por defecto 1</span>
+
+<span class="k">while</span><span class="w"> </span>!<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>stop
 <span class="k">do</span>
-<span class="w">  </span><span class="nv">ocupado</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$pcent</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;%&#39;</span><span class="k">)</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$ocupado</span><span class="w"> </span>-ge<span class="w"> </span><span class="nv">$umbral</span><span class="w"> </span><span class="o">]</span>
-<span class="w">  </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%F %H:%M&#39;</span><span class="k">)</span><span class="s2"> </span><span class="nv">$montaje</span><span class="s2"> está al </span><span class="nv">$ocupado</span><span class="s2">% (umbral </span><span class="nv">$umbral</span><span class="s2">%)&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span><span class="nv">$log</span>
-<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span>particion<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>df<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>dev<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>tmpfs<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="w">  </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">ocupado</span><span class="o">=</span><span class="k">$(</span>df<span class="w"> </span><span class="nv">$particion</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f5<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;%&#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$ocupado</span><span class="w"> </span>-ge<span class="w"> </span><span class="nv">$umbral</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">then</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%F %H:%M:%S&#39;</span><span class="k">)</span><span class="s2"> </span><span class="nv">$particion</span><span class="s2"> está al </span><span class="nv">$ocupado</span><span class="s2">% (umbral </span><span class="nv">$umbral</span><span class="s2">%)&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>alertas.log
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">  </span><span class="k">done</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="nv">$tiempo</span>
 <span class="k">done</span>
+
+rm<span class="w"> </span>stop
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%F %H:%M:%S&#39;</span><span class="k">)</span><span class="s2"> alerta_disco.sh parado&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-11-2" class="sphinx-tabs-panel" hidden="true" id="panel-11-11-2" name="11-2" role="tabpanel" tabindex="0"><p>Con <code class="docutils literal notranslate"><span class="pre">nohup</span></code> el script sigue funcionando aunque cerremos la terminal, y con <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> se ejecuta en segundo plano:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nohup<span class="w"> </span>./alerta_disco.sh<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="w"> </span><span class="m">4321</span>
+nohup:<span class="w"> </span>se<span class="w"> </span>ignora<span class="w"> </span>la<span class="w"> </span>entrada<span class="w"> </span>y<span class="w"> </span>se<span class="w"> </span>añade<span class="w"> </span>la<span class="w"> </span>salida<span class="w"> </span>a<span class="w"> </span><span class="s1">&#39;nohup.out&#39;</span>
+</pre></div>
+</div>
+<p>Lo que sale por pantalla se guarda en <code class="docutils literal notranslate"><span class="pre">nohup.out</span></code> y las alertas, como siempre, en <code class="docutils literal notranslate"><span class="pre">alertas.log</span></code>. Si no queremos el <code class="docutils literal notranslate"><span class="pre">nohup.out</span></code>, redirigimos la salida:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nohup<span class="w"> </span>./alerta_disco.sh<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">60</span><span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Para comprobar que sigue funcionando y para pararlo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>alerta_disco
+touch<span class="w"> </span>stop
 </pre></div>
 </div>
 </div></div>

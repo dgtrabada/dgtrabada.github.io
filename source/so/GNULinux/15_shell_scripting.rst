@@ -110,11 +110,13 @@ Bucles y condicionales
 
   .. code-block:: bash
 
-   for variable in elemento1 elemento2 elemento3; do
+   for variable in elemento1 elemento2 elemento3
+   do
       # Código a ejecutar para cada elemento de la lista
    done
 
-   for ((inicio; condición; incremento)); do
+   for ((inicio; condición; incremento))
+   do
       # Código a ejecutar mientras la condición sea verdadera
    done
 
@@ -122,7 +124,8 @@ Bucles y condicionales
 
   .. code-block:: bash
 
-   if [ condición1 ]; then
+   if [ condición1 ]
+   then
       # Código a ejecutar si condición1 es verdadera
    elif [ condición2 ]; then
       # Código a ejecutar si condición2 es verdadera y condición1 es falsa

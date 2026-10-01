@@ -338,26 +338,61 @@ alerta_disco.sh
 
     .. tab:: alerta_disco.sh
 
-        Crea un script llamado **alerta_disco.sh** que recorra las particiones montadas y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo ``alertas.log`` y también por pantalla. El umbral se recibe como argumento, por defecto será 80.
+        Crea un script llamado **alerta_disco.sh** que cada cierto tiempo recorra las particiones montadas y, por cada una que supere un umbral de ocupación, escriba una alerta con la fecha en el archivo ``alertas.log`` y también por pantalla. Se ejecutará como ``./alerta_disco.sh [umbral] [tiempo]``:
+
+        * Con dos argumentos, el primero es el umbral en % y el segundo el tiempo de espera en segundos entre una revisión y la siguiente.
+        * Con un argumento, cambia el umbral y el tiempo será 1 s.
+        * Sin argumentos, el umbral será 80 % y el tiempo 1 s.
+        * Con ``./alerta_disco.sh --help`` mostrará un mensaje de ayuda (consejo: utiliza una función).
+        * Si encuentra un archivo llamado ``stop`` en la carpeta, se para y lo borra.
 
         .. code-block:: bash
 
-           ./alerta_disco.sh 50
-           2026-07-07 10:30 / está al 57% (umbral 50%)
+           ./alerta_disco.sh 50 10
+           2026-07-07 10:30:00 /dev/sda2 está al 57% (umbral 50%)
+           2026-07-07 10:30:10 /dev/sda2 está al 57% (umbral 50%)
+           2026-07-07 10:30:20 /dev/sda2 está al 57% (umbral 50%)
+           2026-07-07 10:30:25 alerta_disco.sh parado
 
+        En otra terminal, en la misma carpeta:
+
+        .. code-block:: bash
+
+           touch stop
            cat alertas.log
-           2026-07-07 10:30 / está al 57% (umbral 50%)
+           2026-07-07 10:30:00 /dev/sda2 está al 57% (umbral 50%)
+           2026-07-07 10:30:10 /dev/sda2 está al 57% (umbral 50%)
+           2026-07-07 10:30:20 /dev/sda2 está al 57% (umbral 50%)
 
-        Consejos:
-
-        * ``df | tail -n +2`` quita la línea de cabecera, y como en **meteo.sh** puedes leer las columnas con ``while read``.
-        * ``tr -d '%'`` elimina el símbolo % para poder comparar con ``-ge``.
-        * ``tee -a`` escribe a la vez por pantalla y al final de un archivo.
+        Una vez hecho, ¿cómo lo ejecutarías para que siga funcionando al cerrar la terminal?
 
     .. tab:: Solución
 
         .. literalinclude:: scripts/alerta_disco.sh
            :language: shell
+
+    .. tab:: Solución (pregunta)
+
+        Con ``nohup`` el script sigue funcionando aunque cerremos la terminal, y con ``&`` se ejecuta en segundo plano:
+
+        .. code-block:: bash
+
+           nohup ./alerta_disco.sh 50 60 &
+           [1] 4321
+           nohup: se ignora la entrada y se añade la salida a 'nohup.out'
+
+        Lo que sale por pantalla se guarda en ``nohup.out`` y las alertas, como siempre, en ``alertas.log``. Si no queremos el ``nohup.out``, redirigimos la salida:
+
+        .. code-block:: bash
+
+           nohup ./alerta_disco.sh 50 60 > /dev/null &
+
+        Para comprobar que sigue funcionando y para pararlo:
+
+        .. code-block:: bash
+
+           ps aux | grep alerta_disco
+           touch stop
 
 rnd.sh
 """"""

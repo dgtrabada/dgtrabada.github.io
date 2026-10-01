@@ -112,7 +112,7 @@ y el concepto principal que introduce cada uno. Incluye cuatro no clasificados a
 
 | Script | Líneas | Qué introduce |
 |---|---|---|
-| `alerta_disco.sh` | 13 | umbral con argumento, `date`, `tee -a`, `while read` sobre `df` |
+| `alerta_disco.sh` | 43 | `${1:-80}`, `--help`, `while ! test -e stop`, `sleep`, `for` sobre `df \| grep dev \| grep -v tmpfs`, `tee -a` |
 | `dados.sh` | 23 | simulación con contadores |
 | `menu.sh` | 25 | menú interactivo con `select` + `case`, `PS3` |
 | `adivina.sh` | 26 | `while` interactivo |
