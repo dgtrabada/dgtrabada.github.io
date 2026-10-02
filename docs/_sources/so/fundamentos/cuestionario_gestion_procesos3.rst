@@ -22,6 +22,8 @@ Cada vez que pulses **Ejercicio nuevo** se genera un ejercicio distinto, con pro
    .qp-plan button:hover { background: rgba(128,128,128,.15); }
    .qp-nota { margin-left: .4em; font-weight: bold; }
    .qp-scroll { overflow-x: auto; }
+   .qp-entrada { display: flex; flex-wrap: wrap; gap: 1.5em; align-items: flex-start; }
+   .qp-plan td.qp-celda { width: 1.6em; font-family: monospace; font-weight: bold; }
    button.qp-nuevo { margin: .4em 0; padding: 6px 16px; border-radius: 5px; font-weight: bold;
                      border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
    button.qp-nuevo:hover { background: rgba(128,128,128,.15); }
@@ -117,11 +119,23 @@ Cada vez que pulses **Ejercicio nuevo** se genera un ejercicio distinto, con pro
        var card = document.createElement('div');
        card.className = 'qp-card qp-plan';
        var h = '<p class="qp-enunciado">' + (n + 1) + '. Tenemos los siguientes procesos:</p>';
-       h += '<table><tr><th>Proceso</th><th>T<sub>i</sub></th><th>T<sub>x</sub></th></tr>';
+       h += '<div class="qp-entrada"><table><tr><th>Proceso</th><th>T<sub>i</sub></th><th>T<sub>x</sub></th></tr>';
        ej.procesos.forEach(function (p) {
          h += '<tr><td><b>' + p[0] + '</b></td><td>' + p[1] + '</td><td>' + p[2] + '</td></tr>';
        });
        h += '</table>';
+       // cómo entran: cada proceso desde su llegada durante su tiempo de ejecución
+       var ancho = Math.max.apply(null, ej.procesos.map(function (p) { return p[1] + p[2]; }).concat([10]));
+       h += '<div class="qp-scroll"><table><tr><th>Procesos</th>';
+       for (var t = 0; t < ancho; t++) h += '<th>' + t + '</th>';
+       h += '</tr>';
+       ej.procesos.forEach(function (p) {
+         h += '<tr><td><b>' + p[0] + '</b></td>';
+         for (var t = 0; t < ancho; t++)
+           h += '<td class="qp-celda">' + (t >= p[1] && t < p[1] + p[2] ? 'x' : '') + '</td>';
+         h += '</tr>';
+       });
+       h += '</table></div></div>';
        ej.algoritmos.forEach(function (alg) {
          h += '<p class="qp-sub">Algoritmo ' + alg.nombre + '</p>';
          h += '<div class="qp-scroll"><table><tr><th>Procesos</th>';
