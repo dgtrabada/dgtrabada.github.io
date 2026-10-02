@@ -15,6 +15,9 @@ if [[ $# -eq 0 ]]
 then
     # Sin argumentos: mostrar ayuda
     mostrar_ayuda
+elif [[ $# -gt 1 ]]
+  then
+    echo "No se puede dar más de un argumento"
 elif [[ $1 == "--help" ]]
   then
     mostrar_ayuda
