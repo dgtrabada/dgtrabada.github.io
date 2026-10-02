@@ -162,7 +162,6 @@ tabla_multiplicar.sh
         Crea un script llamado **tabla_multiplicar.sh**, ahora no preguntará por el número al usuario y haz que muestre su tabla de multiplicar cuando se ejecute por ejemplo ``./tabla_multiplicar.sh <N>`` siendo <N> un numero del 1 al 10.
 
         * En el caso de ejecutar ``./tabla_multiplicar.sh --help`` mostrara un mensaje de ayuda (consejo utiliza una función)
-        * En el caso de ejecutar ``./tabla_multiplicar.sh X Y Z ...`` , es decir con más de un argumento saldrá un mensaje ``No se puede dar más de un argumento``
         * En el caso de ejecutar ``./tabla_multiplicar.sh`` sin argumentos se ejecutara la opción de --help
 
 
