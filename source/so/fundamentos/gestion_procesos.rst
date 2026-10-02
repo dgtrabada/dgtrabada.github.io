@@ -203,9 +203,9 @@ Casos especiales en **RR**: cuando un proceso llega justo en el instante en que 
 Plantilla para ejercicios
 =========================
 
-* `Plantilla.odt <https://github.com/dgtrabada/dgtrabada.github.io/blob/3f72b8e18b914188c5dbbe3591006a6524d76b72/source/so/fundamentos/imagenes/Plantilla.odt>`_
+* `Plantilla.odt <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/source/so/fundamentos/imagenes/Plantilla.odt>`_
 
-* `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/blob/3f72b8e18b914188c5dbbe3591006a6524d76b72/source/so/fundamentos/imagenes/Plantilla.pdf>`_
+* `Plantilla.pdf <https://github.com/dgtrabada/dgtrabada.github.io/raw/master/source/so/fundamentos/imagenes/Plantilla.pdf>`_
 
 
 Bloqueos
