@@ -75,87 +75,87 @@ Para orientarnos, en las siguientes pestañas están, paso a paso, las 12 refere
 
     .. tab:: 1
 
-        **Paso 1:** se pide la página 1; hay marcos libres y entra en el marco 1.
-
         .. image:: imagenes/fifo_paso1.png
            :alt: FIFO paso 1: la página 1 entra en el marco 1
 
-    .. tab:: 2
+        **Paso 1:** se pide la página 1; hay marcos libres y entra en el marco 1.
 
-        **Paso 2:** se pide la página 2 y entra en el marco 2.
+    .. tab:: 2
 
         .. image:: imagenes/fifo_paso2.png
            :alt: FIFO paso 2: la página 2 entra en el marco 2
 
-    .. tab:: 3
+        **Paso 2:** se pide la página 2 y entra en el marco 2.
 
-        **Paso 3:** se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.
+    .. tab:: 3
 
         .. image:: imagenes/fifo_paso3.png
            :alt: FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena
 
-    .. tab:: 4
+        **Paso 3:** se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.
 
-        **Paso 4:** se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.
+    .. tab:: 4
 
         .. image:: imagenes/fifo_paso4.png
            :alt: FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1
 
-    .. tab:: 5
+        **Paso 4:** se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.
 
-        **Paso 5:** se pide la página 1, que acaba de salir: fallo. Sale la página 2, la que lleva más tiempo en memoria, y la 1 ocupa el marco 2.
+    .. tab:: 5
 
         .. image:: imagenes/fifo_paso5.png
            :alt: FIFO paso 5: sale la página 2 al disco y la página 1 ocupa el marco 2
 
-    .. tab:: 6
+        **Paso 5:** se pide la página 1, que acaba de salir: fallo. Sale la página 2, la que lleva más tiempo en memoria, y la 1 ocupa el marco 2.
 
-        **Paso 6:** se pide la página 2: fallo. Sale la página 3 y la 2 ocupa el marco 3.
+    .. tab:: 6
 
         .. image:: imagenes/fifo_paso6.png
            :alt: FIFO paso 6: sale la página 3 al disco y la página 2 ocupa el marco 3
 
-    .. tab:: 7
+        **Paso 6:** se pide la página 2: fallo. Sale la página 3 y la 2 ocupa el marco 3.
 
-        **Paso 7:** se pide la página 5: fallo. Sale la página 4 y la 5 ocupa el marco 1.
+    .. tab:: 7
 
         .. image:: imagenes/fifo_paso7.png
            :alt: FIFO paso 7: sale la página 4 al disco y la página 5 ocupa el marco 1
 
-    .. tab:: 8
+        **Paso 7:** se pide la página 5: fallo. Sale la página 4 y la 5 ocupa el marco 1.
 
-        **Paso 8:** se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
+    .. tab:: 8
 
         .. image:: imagenes/fifo_paso8.png
            :alt: FIFO paso 8: acierto de la página 1, no cambia nada
 
-    .. tab:: 9
+        **Paso 8:** se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
 
-        **Paso 9:** se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.
+    .. tab:: 9
 
         .. image:: imagenes/fifo_paso9.png
            :alt: FIFO paso 9: acierto de la página 2, no cambia nada
 
-    .. tab:: 10
+        **Paso 9:** se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.
 
-        **Paso 10:** se pide la página 3: fallo. Sale la página 1, que es la que lleva más tiempo en memoria (entró en el paso 5), aunque se acabe de usar en el paso 8: a FIFO solo le importa cuándo entró. La 3 ocupa el marco 2.
+    .. tab:: 10
 
         .. image:: imagenes/fifo_paso10.png
            :alt: FIFO paso 10: sale la página 1 al disco y la página 3 ocupa el marco 2
 
-    .. tab:: 11
+        **Paso 10:** se pide la página 3: fallo. Sale la página 1, que es la que lleva más tiempo en memoria (entró en el paso 5), aunque se acabe de usar en el paso 8: a FIFO solo le importa cuándo entró. La 3 ocupa el marco 2.
 
-        **Paso 11:** se pide la página 4: fallo. Sale la página 2 (entró en el paso 6) y la 4 ocupa el marco 3.
+    .. tab:: 11
 
         .. image:: imagenes/fifo_paso11.png
            :alt: FIFO paso 11: sale la página 2 al disco y la página 4 ocupa el marco 3
 
-    .. tab:: 12
+        **Paso 11:** se pide la página 4: fallo. Sale la página 2 (entró en el paso 6) y la 4 ocupa el marco 3.
 
-        **Paso 12:** se pide la página 5: ya está en el marco 1 (acierto). En total, FIFO ha tenido **9 fallos**.
+    .. tab:: 12
 
         .. image:: imagenes/fifo_paso12.png
            :alt: FIFO paso 12: acierto de la página 5, no cambia nada
+
+        **Paso 12:** se pide la página 5: ya está en el marco 1 (acierto). En total, FIFO ha tenido **9 fallos**.
 
 Veamos un ejemplo con la cadena de referencias **1,2,3,4,1,2,5,1,2,3,4,5** y **3 marcos**, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila "Marco" muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:
 
@@ -203,7 +203,7 @@ Las peticiones que van llegando se ponen en una cola, y el SO tiene que elegir c
 
 Veamos el siguiente ejemplo
 
-**En una cola ordenada se han almacenado las siguientes peticiones de pistas: 20,130,180,105,145,32,50,2,150,120,4**
+**En la cola se han almacenado, por orden de llegada, las siguientes peticiones de pistas: 20,130,180,105,145,32,50,2,150,120,4**
 
 **La cabeza de lectura/escritura está inicialmente en la pista 80 y el disco tiene las pistas de 0 a 199. En SCAN y C-SCAN la cabeza empieza bajando.**
 
@@ -219,7 +219,7 @@ En las gráficas, el eje horizontal es la pista en la que está la cabeza y el v
   .. image:: imagenes/fifo.png
      :alt: Gráfica del recorrido de la cabeza con FIFO
 
-* **SSTF (shortest service time first)** Primero la más cercana.
+* **SSTF (Shortest Seek Time First)** Primero la de menor tiempo de búsqueda, es decir, la más cercana.
 
   Consiste en atender la petición que requiere el menor movimiento de la cabeza de lectura/escritura desde su posición actual. Como la cabeza se mueve en las dos direcciones, hay situaciones en las que puede haber empate; en dicho caso se atenderá cualquiera de las dos. Total: **278** pistas.
 
@@ -241,11 +241,13 @@ En las gráficas, el eje horizontal es la pista en la que está la cabeza y el v
   .. image:: imagenes/scan.png
      :alt: Gráfica del recorrido de la cabeza con SCAN
 
-  El problema de SCAN es que los tiempos de espera no son uniformes: las pistas centrales se visitan dos veces por vuelta, mientras que una petición que llega justo detrás de la cabeza en un extremo tiene que esperar a que la cabeza vaya hasta el otro extremo y vuelva.
+  El problema de SCAN es que los tiempos de espera no son uniformes. Las pistas del centro se visitan a intervalos regulares (la cabeza pasa por ellas a la ida y a la vuelta), mientras que las de los extremos se visitan dos veces seguidas (al llegar y al volver) y después tienen que esperar a que la cabeza vaya hasta el otro extremo y regrese. Una petición que llega justo detrás de la cabeza cerca de un extremo es la que más espera.
 
 * **Planificación C-SCAN** Restringe el rastreo en un único sentido.
 
-  De esta forma evita el problema anterior de SCAN. Siguiendo con la analogía del ascensor, equivale a que el ascensor solo hiciera paradas al bajar: cuando llega abajo, sube hasta arriba del todo sin realizar paradas y desde allí vuelve a bajar realizando las nuevas paradas. El salto de vuelta también se cuenta en el total. Total: **373** pistas.
+  De esta forma evita el problema anterior de SCAN. Siguiendo con la analogía del ascensor, equivale a que el ascensor solo hiciera paradas al bajar: cuando llega abajo, sube hasta arriba del todo sin realizar paradas y desde allí vuelve a bajar realizando las nuevas paradas. Total: **373** pistas.
+
+  En estos apuntes el salto de vuelta (de la pista 0 a la 199) se cuenta en el total, porque la cabeza tiene que recorrer esas pistas. Algunos libros no lo cuentan, así que, si consultas otras fuentes, puede salirte un total distinto.
 
   .. image:: imagenes/cscan_datos.png
      :alt: Tabla de C-SCAN, 373 pistas recorridas
@@ -254,6 +256,16 @@ En las gráficas, el eje horizontal es la pista en la que está la cabeza y el v
      :alt: Gráfica del recorrido de la cabeza con C-SCAN
 
 En la práctica se suelen usar las variantes **LOOK** y **C-LOOK**, que funcionan igual que SCAN y C-SCAN pero no llegan hasta el extremo del disco: cambian de sentido (o saltan) en cuanto no quedan peticiones en esa dirección. En el ejemplo, LOOK recorrería 256 pistas y C-LOOK 331.
+
+Resumen del ejemplo (pistas recorridas por la cabeza):
+
+====== ====== ====== ====== ====== ======
+FIFO   SSTF   SCAN   C-SCAN LOOK   C-LOOK
+====== ====== ====== ====== ====== ======
+808    278    260    373    256    331
+====== ====== ====== ====== ====== ======
+
+SSTF y SCAN/LOOK son los que menos recorren. C-SCAN y C-LOOK recorren más por el salto de vuelta, pero a cambio reparten mejor los tiempos de espera entre todas las pistas.
 
 .. toctree::
    :hidden:
