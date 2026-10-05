@@ -48,7 +48,7 @@
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="Gestión de memoria" href="gestion_memoria.html" />
+    <link rel="next" title="Gestión de memoria y planificación del disco" href="gestion_memoria.html" />
     <link rel="prev" title="Cuestionario gestión de procesos: ejercicios" href="cuestionario_gestion_procesos2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -191,7 +191,7 @@
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gestion_memoria.html">Gestión de memoria y planificación del disco</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
 </ul>
 </details></li>
@@ -567,6 +567,8 @@ button.qp-nuevo:hover { background: rgba(128,128,128,.15); }
    <b>deja la casilla en blanco</b> (el proceso no ha llegado o ya ha terminado).</p>
 <p>En <b>RR</b>, si un proceso llega justo en el instante en que otro agota su quantum,
    el que llega se pone delante en la cola y el que sale del quantum detrás.
+   El quantum lo marca el reloj: con q=2 la CPU cambia de proceso en los instantes 2, 4, 6, 8...,
+   aunque el proceso que se está ejecutando haya entrado a mitad de quantum.
    En <b>SJF</b>, si dos procesos necesitan el mismo tiempo, va primero el que llegó antes.
    En las filas de la <b>cola de listos</b> escribe, en cada instante, los procesos que esperan
    en la cola (P1, P2...) empezando por el primero; el que se está ejecutando no está en la cola.</p>
@@ -575,15 +577,15 @@ button.qp-nuevo:hover { background: rgba(128,128,128,.15); }
 <div id="qp-ejercicios"></div>
 
 <script>
-// simulación de FIFO, SJF y RR (q=2) en 10 instantes
+// simulación de FIFO, SJF y RR (q=2) en 10 instantes; el quantum lo marca el reloj (t múltiplo de q)
 function qpgSimula(procs, alg, q) {
-  var n = procs.length, rest = {}, lleg = {}, fin = {}, cola = [], run = null, usado = 0;
+  var n = procs.length, rest = {}, lleg = {}, fin = {}, cola = [], run = null;
   var grid = {}, colas = [], orden = procs.map(function (p) { return p[0]; });
   procs.forEach(function (p) { rest[p[0]] = p[2]; lleg[p[0]] = p[1]; grid[p[0]] = ''; });
   for (var t = 0; t < 10; t++) {
     var nuevos = orden.filter(function (p) { return lleg[p] === t; });
     var expulsado = null;
-    if (run !== null && alg === 'RR' && usado === q && rest[run] > 0) { expulsado = run; run = null; }
+    if (run !== null && alg === 'RR' && t % q === 0 && rest[run] > 0) { expulsado = run; run = null; }
     cola = cola.concat(nuevos);              // el que llega va delante...
     if (expulsado !== null) cola.push(expulsado);  // ...y el que agota el quantum detrás
     if (run === null && cola.length) {
@@ -594,14 +596,13 @@ function qpgSimula(procs, alg, q) {
               (rest[cola[k]] === rest[cola[mejor]] && lleg[cola[k]] < lleg[cola[mejor]])) mejor = k;
         run = cola.splice(mejor, 1)[0];
       } else run = cola.shift();
-      usado = 0;
     }
     orden.forEach(function (p) {
       grid[p] += p === run ? 'x' : (lleg[p] <= t && !(p in fin) ? '-' : 'B');
     });
     colas.push(cola.slice());
     if (run !== null) {
-      rest[run]--; usado++;
+      rest[run]--;
       if (rest[run] === 0) { fin[run] = t + 1; run = null; }
     }
   }
@@ -774,7 +775,7 @@ function qpgLimpiar(btn) {
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title">Gestión de memoria</p>
+        <p class="prev-next-title">Gestión de memoria y planificación del disco</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

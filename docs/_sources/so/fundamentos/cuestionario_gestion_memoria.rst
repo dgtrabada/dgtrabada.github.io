@@ -34,52 +34,52 @@ Cuestionario gestión de memoria
            | 1 | [80000] | [10000] |
            | [0] | [D0000] | [50000] |
 
-   2. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,32,50,2,120**. Inicialmente la cabeza de lectura/escritura está en la **pista 49**.
-      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...
+   2. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,32,50,2,120**. Inicialmente la cabeza de lectura/escritura está en la **pista 49** y el disco tiene las **pistas de 0 a 199**.
+      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.
       - 1. ¿Cómo atendería las peticiones con FIFO?
         [20,32,50,2,120] Total de pistas recorridas: [225]
       - 2. ¿Cómo atendería las peticiones con SSTF?
         [50,32,20,2,120] Total de pistas recorridas: [167]
-      - 3. ¿Cómo atendería las peticiones con SCAN? "primero sube"
-        [50,120,32,20,2] Total de pistas recorridas: [189]
-      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube y va leyendo"
-        [50,120,2,20,32] Total de pistas recorridas: [219]
+      - 3. ¿Cómo atendería las peticiones con SCAN? "primero sube hasta el final"
+        [50,120,32,20,2|50,120,199,32,20,2] Total de pistas recorridas: [347]
+      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube, llega al final, salta al principio y va leyendo subiendo"
+        [50,120,2,20,32|50,120,199,0,2,20,32] Total de pistas recorridas: [381]
 
-   3. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,8,5,18,13**. Inicialmente la cabeza de lectura/escritura está en la **pista 17**.
-      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...
+   3. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,8,5,18,13**. Inicialmente la cabeza de lectura/escritura está en la **pista 17** y el disco tiene las **pistas de 0 a 199**.
+      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.
       - 1. ¿Cómo atendería las peticiones con FIFO?
         [20,8,5,18,13] Total de pistas recorridas: [36]
       - 2. ¿Cómo atendería las peticiones con SSTF?
         [18,20,13,8,5] Total de pistas recorridas: [18]
-      - 3. ¿Cómo atendería las peticiones con SCAN? "primero baja"
-        [13,8,5,18,20] Total de pistas recorridas: [27]
-      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja y va leyendo"
-        [13,8,5,20,18] Total de pistas recorridas: [29]
+      - 3. ¿Cómo atendería las peticiones con SCAN? "primero baja hasta el principio"
+        [13,8,5,18,20|13,8,5,0,18,20] Total de pistas recorridas: [37]
+      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja, llega al principio, salta al final y va leyendo bajando"
+        [13,8,5,20,18|13,8,5,0,199,20,18] Total de pistas recorridas: [397]
       - 5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?
         [SSTF]
 
-   4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **10,70,45,90,25**. Inicialmente la cabeza de lectura/escritura está en la **pista 40**.
-      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...
+   4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **10,70,45,90,25**. Inicialmente la cabeza de lectura/escritura está en la **pista 40** y el disco tiene las **pistas de 0 a 199**.
+      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.
       - 1. ¿Cómo atendería las peticiones con FIFO?
         [10,70,45,90,25] Total de pistas recorridas: [225]
       - 2. ¿Cómo atendería las peticiones con SSTF?
         [45,25,10,70,90] Total de pistas recorridas: [120]
-      - 3. ¿Cómo atendería las peticiones con SCAN? "primero sube"
-        [45,70,90,25,10] Total de pistas recorridas: [130]
-      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube y va leyendo"
-        [45,70,90,10,25] Total de pistas recorridas: [145]
+      - 3. ¿Cómo atendería las peticiones con SCAN? "primero sube hasta el final"
+        [45,70,90,25,10|45,70,90,199,25,10] Total de pistas recorridas: [348]
+      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube, llega al final, salta al principio y va leyendo subiendo"
+        [45,70,90,10,25|45,70,90,199,0,10,25] Total de pistas recorridas: [383]
       - 5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?
         [SSTF]
 
-   5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,35,8,28,4**. Inicialmente la cabeza de lectura/escritura está en la **pista 18**.
-      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...
+   5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: **20,35,8,28,4**. Inicialmente la cabeza de lectura/escritura está en la **pista 18** y el disco tiene las **pistas de 0 a 199**.
+      | Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.
       - 1. ¿Cómo atendería las peticiones con FIFO?
         [20,35,8,28,4] Total de pistas recorridas: [88]
       - 2. ¿Cómo atendería las peticiones con SSTF?
         [20,28,35,8,4] Total de pistas recorridas: [48]
-      - 3. ¿Cómo atendería las peticiones con SCAN? "primero baja"
-        [8,4,20,28,35] Total de pistas recorridas: [45]
-      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja y va leyendo"
-        [8,4,35,28,20] Total de pistas recorridas: [60]
+      - 3. ¿Cómo atendería las peticiones con SCAN? "primero baja hasta el principio"
+        [8,4,20,28,35|8,4,0,20,28,35] Total de pistas recorridas: [53]
+      - 4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja, llega al principio, salta al final y va leyendo bajando"
+        [8,4,35,28,20|8,4,0,199,35,28,20] Total de pistas recorridas: [396]
       - 5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?
-        [SCAN]
+        [SSTF]

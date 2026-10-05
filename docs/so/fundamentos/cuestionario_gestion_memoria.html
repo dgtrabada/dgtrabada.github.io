@@ -49,7 +49,7 @@
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="Sistema de archivos" href="sistema_archivos.html" />
-    <link rel="prev" title="Gestión de memoria" href="gestion_memoria.html" />
+    <link rel="prev" title="Gestión de memoria y planificación del disco" href="gestion_memoria.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   <meta name="docsearch:version" content="" />
@@ -191,7 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="gestion_memoria.html">Gestión de memoria</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="gestion_memoria.html">Gestión de memoria y planificación del disco</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Cuestionario gestión de memoria</a></li>
 </ul>
 </details></li>
@@ -629,8 +629,8 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">2. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,32,50,2,120</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 49</b>.<br>
-        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...</p>
+     <p class="qp-enunciado">2. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,32,50,2,120</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 49</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
      <p><input type="text" data-a="20,32,50,2,120"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="225"></p>
@@ -640,12 +640,12 @@
      <p><input type="text" data-a="50,32,20,2,120"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="167"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero sube"</p>
-     <p><input type="text" data-a="50,120,32,20,2"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="189"></p>
+       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero sube hasta el final"</p>
+     <p><input type="text" data-a="50,120,32,20,2|50,120,199,32,20,2"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="347"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube y va leyendo"</p>
-     <p><input type="text" data-a="50,120,2,20,32"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="219"></p>
+       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube, llega al final, salta al principio y va leyendo subiendo"</p>
+     <p><input type="text" data-a="50,120,2,20,32|50,120,199,0,2,20,32"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="381"></p>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
@@ -654,8 +654,8 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">3. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,8,5,18,13</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 17</b>.<br>
-        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...</p>
+     <p class="qp-enunciado">3. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,8,5,18,13</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 17</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
      <p><input type="text" data-a="20,8,5,18,13"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="36"></p>
@@ -665,12 +665,12 @@
      <p><input type="text" data-a="18,20,13,8,5"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="18"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero baja"</p>
-     <p><input type="text" data-a="13,8,5,18,20"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="27"></p>
+       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero baja hasta el principio"</p>
+     <p><input type="text" data-a="13,8,5,18,20|13,8,5,0,18,20"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="37"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja y va leyendo"</p>
-     <p><input type="text" data-a="13,8,5,20,18"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="29"></p>
+       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja, llega al principio, salta al final y va leyendo bajando"</p>
+     <p><input type="text" data-a="13,8,5,20,18|13,8,5,0,199,20,18"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="397"></p>
      </div>
      <div class="qp-bloq">
        <p class="qp-q">5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?</p>
@@ -683,8 +683,8 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>10,70,45,90,25</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 40</b>.<br>
-        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...</p>
+     <p class="qp-enunciado">4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>10,70,45,90,25</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 40</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
      <p><input type="text" data-a="10,70,45,90,25"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="225"></p>
@@ -694,12 +694,12 @@
      <p><input type="text" data-a="45,25,10,70,90"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="120"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero sube"</p>
-     <p><input type="text" data-a="45,70,90,25,10"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="130"></p>
+       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero sube hasta el final"</p>
+     <p><input type="text" data-a="45,70,90,25,10|45,70,90,199,25,10"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="348"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube y va leyendo"</p>
-     <p><input type="text" data-a="45,70,90,10,25"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="145"></p>
+       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero sube, llega al final, salta al principio y va leyendo subiendo"</p>
+     <p><input type="text" data-a="45,70,90,10,25|45,70,90,199,0,10,25"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="383"></p>
      </div>
      <div class="qp-bloq">
        <p class="qp-q">5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?</p>
@@ -712,8 +712,8 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,35,8,28,4</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 18</b>.<br>
-        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,...</p>
+     <p class="qp-enunciado">5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,35,8,28,4</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 18</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+        Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
      <p><input type="text" data-a="20,35,8,28,4"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="88"></p>
@@ -723,16 +723,16 @@
      <p><input type="text" data-a="20,28,35,8,4"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="48"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero baja"</p>
-     <p><input type="text" data-a="8,4,20,28,35"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="45"></p>
+       <p class="qp-q">3. ¿Cómo atendería las peticiones con SCAN? "primero baja hasta el principio"</p>
+     <p><input type="text" data-a="8,4,20,28,35|8,4,0,20,28,35"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="53"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja y va leyendo"</p>
-     <p><input type="text" data-a="8,4,35,28,20"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="60"></p>
+       <p class="qp-q">4. ¿Cómo atendería las peticiones con C-SCAN? "primero baja, llega al principio, salta al final y va leyendo bajando"</p>
+     <p><input type="text" data-a="8,4,35,28,20|8,4,0,199,35,28,20"> Total de pistas recorridas: <input type="text" class="qp-corto" data-a="396"></p>
      </div>
      <div class="qp-bloq">
        <p class="qp-q">5. ¿Cuál sería el algoritmo más rápido en atender las peticiones (FIFO, SSTF, SCAN o C-SCAN)?</p>
-     <p><input type="text" class="qp-corto" data-a="SCAN"></p>
+     <p><input type="text" class="qp-corto" data-a="SSTF"></p>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
@@ -830,7 +830,7 @@
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title">Gestión de memoria</p>
+        <p class="prev-next-title">Gestión de memoria y planificación del disco</p>
       </div>
     </a>
     <a class="right-next"

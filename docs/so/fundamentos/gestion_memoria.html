@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Gestión de memoria &#8212; dgtrabada</title>
+    <title>Gestión de memoria y planificación del disco &#8212; dgtrabada</title>
   
   
   
@@ -191,7 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Gestión de memoria</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Gestión de memoria y planificación del disco</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
 </ul>
 </details></li>
@@ -523,7 +523,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Gestión de memoria</h1>
+    <h1>Gestión de memoria y planificación del disco</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -535,6 +535,11 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jerarquia-de-memoria">Jerarquía de memoria</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-memoria-principal">La memoria principal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memoria-virtual">Memoria virtual</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paginacion">Paginación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reemplazo-de-paginas">Reemplazo de páginas</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planificacion-del-disco">Planificación del disco</a></li>
 </ul>
             </nav>
@@ -547,70 +552,432 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="gestion-de-memoria">
-<h1>Gestión de memoria<a class="headerlink" href="#gestion-de-memoria" title="Link to this heading">#</a></h1>
+  <section id="gestion-de-memoria-y-planificacion-del-disco">
+<h1>Gestión de memoria y planificación del disco<a class="headerlink" href="#gestion-de-memoria-y-planificacion-del-disco" title="Link to this heading">#</a></h1>
 <section id="jerarquia-de-memoria">
 <h2>Jerarquía de memoria<a class="headerlink" href="#jerarquia-de-memoria" title="Link to this heading">#</a></h2>
 <p>La jerarquía de memoria es la organización piramidal de la memoria en niveles, el objetivo es acercar el rendimiento de una memoria de gran velocidad al coste de una memoria de baja velocidad.</p>
-<a class="reference internal image-reference" href="../../_images/jerarquia-memoria.png"><img alt="../../_images/jerarquia-memoria.png" height="200" src="../../_images/jerarquia-memoria.png" />
+<a class="reference internal image-reference" href="../../_images/jerarquia-memoria.png"><img alt="Pirámide de la jerarquía de memoria" height="200" src="../../_images/jerarquia-memoria.png" />
 </a>
 </section>
 <section id="la-memoria-principal">
 <h2>La memoria principal<a class="headerlink" href="#la-memoria-principal" title="Link to this heading">#</a></h2>
 <p>La memoria principal es la memoria RAM; entre la CPU y ella se sitúa la memoria caché, un nivel más rápido y pequeño de la jerarquía.</p>
-<p>En un principio se adoptaron dos formas de hacer las particiones fijas o dinámicas, las fijas se creaban cuando arrancaba el ordenador, en el caso de que quisiéramos correr un proceso más grande que el tamaño de las particiones tendríamos que reiniciar el ordenador, y como podemos ver en la siguiente figura las particiones fijas favorecen la fragmentación interna, la cual es debida a los procesos de tamaño más pequeño que las particiones.</p>
-<p>Imaginemos una memoria de 64K con 4 particiones de 16K = 2⁴2¹⁰=(HEX)=4000</p>
-<a class="reference internal image-reference" href="../../_images/memoria_ppal.png"><img alt="../../_images/memoria_ppal.png" height="200" src="../../_images/memoria_ppal.png" />
+<p>Para tener varios procesos a la vez en memoria (multiprogramación), la memoria principal se divide en particiones. En un principio se adoptaron dos formas de hacerlo: particiones fijas o dinámicas.</p>
+<p>Las particiones fijas se creaban al arrancar el ordenador. Si queríamos correr un proceso más grande que el tamaño de las particiones, teníamos que reiniciar el ordenador. Además, como se ve en la siguiente figura, las particiones fijas favorecen la fragmentación interna: el espacio que queda sin usar dentro de una partición cuando el proceso es más pequeño que ella.</p>
+<p>Imaginemos una memoria de 64 KB con 4 particiones de 16 KB = 2⁴·2¹⁰ = 2¹⁴ bytes = 0x4000.</p>
+<a class="reference internal image-reference" href="../../_images/memoria_ppal.png"><img alt="Memoria de 64 KB con cuatro particiones fijas de 16 KB y 32 KB de fragmentación interna" height="200" src="../../_images/memoria_ppal.png" />
 </a>
-<p>Con las particiones dinámicas se consiguió evitar la fragmentación interna, sin embargo aparece la fragmentación externa, haciendo necesaria la compactación de la memoria.</p>
-<a class="reference internal image-reference" href="../../_images/memoria_frag.png"><img alt="../../_images/memoria_frag.png" height="200" src="../../_images/memoria_frag.png" />
+<p>Con las particiones dinámicas se consiguió evitar la fragmentación interna, sin embargo aparece la fragmentación externa: huecos libres entre procesos que, por separado, son demasiado pequeños para alojar uno nuevo. Esto hace necesaria la compactación de la memoria.</p>
+<a class="reference internal image-reference" href="../../_images/memoria_frag.png"><img alt="Fragmentación externa con particiones dinámicas" height="200" src="../../_images/memoria_frag.png" />
 </a>
-<p>En 1961, Fotheringham desarrolla una nueva técnica de gestión llamada memoria virtual, la idea es que el proceso que queremos correr es mayor que la memoria disponible para ese proceso, lo que sucede entonces es que el SO guarda aquellas partes del programa de uso corriente en la memoria principal, el resto le deja en el disco.</p>
-<p>Es lógico pensar que no todas las partes del programa van a ser utilizadas al mismo tiempo, de hecho es muy probable que se utilicen instrucciones cercanas a las que se están utilizando, fenómeno llamado localidad.</p>
-<a class="reference internal image-reference" href="../../_images/memoria_virtual.png"><img alt="../../_images/memoria_virtual.png" height="400" src="../../_images/memoria_virtual.png" />
+</section>
+<section id="memoria-virtual">
+<h2>Memoria virtual<a class="headerlink" href="#memoria-virtual" title="Link to this heading">#</a></h2>
+<p>En 1961, Fotheringham describió una nueva técnica de gestión llamada memoria virtual, desarrollada para el ordenador Atlas. La idea es que el proceso que queremos correr puede ser mayor que la memoria disponible para ese proceso: el SO guarda en la memoria principal las partes del programa de uso corriente y el resto lo deja en el disco.</p>
+<p>Es lógico pensar que no todas las partes del programa van a ser utilizadas al mismo tiempo. Los programas cumplen el principio de localidad:</p>
+<ul class="simple">
+<li><p><strong>Localidad temporal:</strong> si se usa una dirección, es probable que se vuelva a usar pronto (por ejemplo, las instrucciones de un bucle).</p></li>
+<li><p><strong>Localidad espacial:</strong> si se usa una dirección, es probable que se usen pronto las cercanas (por ejemplo, la instrucción siguiente o el siguiente elemento de un array).</p></li>
+</ul>
+<section id="paginacion">
+<h3>Paginación<a class="headerlink" href="#paginacion" title="Link to this heading">#</a></h3>
+<p>La forma más habitual de implementar la memoria virtual es la paginación:</p>
+<ul class="simple">
+<li><p>El espacio de direcciones de cada proceso (<strong>direcciones lógicas o virtuales</strong>) se divide en bloques del mismo tamaño llamados <strong>páginas</strong>.</p></li>
+<li><p>La memoria principal (<strong>direcciones físicas</strong>) se divide en bloques de ese mismo tamaño llamados <strong>marcos</strong>.</p></li>
+<li><p>Cada página puede estar cargada en cualquier marco libre o guardada en el disco.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/memoria_virtual.png"><img alt="Páginas de la memoria virtual asignadas a marcos de la memoria principal y al disco" height="400" src="../../_images/memoria_virtual.png" />
 </a>
-<p>La transformación del número de página virtual al número de página física se realiza mediante la tabla de páginas.</p>
-<p>Uno de los sistemas más comunes de memoria virtual es la denominada demanda de página. Los procesos se inician sin ninguna página en memoria; cuando se intenta ejecutar la primera instrucción se produce un fallo de página (por no encontrarse la página en memoria principal), que provoca que el sistema operativo traiga la página de la memoria virtual a la memoria principal después de un cierto tiempo el proceso tiene la mayoría de las páginas que necesita, y la ejecución se realizará con un número relativamente pequeño de fallos de página.
-Cuando se produce un fallo de página, la página se carga desde el disco duro a la memoria. La página que entra en memoria, se escribe directamente encima de la que hay en memoria. Aquí es donde debe actuar el algoritmo, FIFO: primero en entrar, primero en salir; LRU (Least Recently Used): la que hace más tiempo que no se usa, etc ...</p>
+<p>La transformación del número de página virtual al número de marco físico se realiza mediante la <strong>tabla de páginas</strong>, que tiene cada proceso. Cada entrada indica, entre otras cosas, si la página está en memoria principal (<strong>bit de presencia</strong>), en qué marco está y si se ha modificado desde que se cargó (<strong>bit de modificado</strong>). Esta traducción la hace por hardware la <strong>MMU</strong> (<em>Memory Management Unit</em>) en cada acceso a memoria; para no tener que consultar la tabla cada vez, guarda las traducciones más recientes en una pequeña caché llamada <strong>TLB</strong> (<em>Translation Lookaside Buffer</em>).</p>
+<p>Uno de los sistemas más comunes de memoria virtual es la denominada <strong>paginación por demanda</strong>. Los procesos se inician sin ninguna página en memoria; cuando se intenta ejecutar la primera instrucción se produce un <strong>fallo de página</strong> (por no encontrarse la página en memoria principal), que provoca que el sistema operativo traiga la página del disco a la memoria principal. Después de un cierto tiempo, gracias a la localidad, el proceso tiene la mayoría de las páginas que necesita y la ejecución se realiza con un número relativamente pequeño de fallos de página.</p>
+</section>
+<section id="reemplazo-de-paginas">
+<h3>Reemplazo de páginas<a class="headerlink" href="#reemplazo-de-paginas" title="Link to this heading">#</a></h3>
+<p>Cuando se produce un fallo de página, la página se carga desde el disco en un marco libre. Si no queda ningún marco libre, hay que elegir una página víctima y sacarla de memoria; si esa página se ha modificado (bit de modificado a 1), antes hay que escribirla en el disco. La víctima la elige el algoritmo de reemplazo:</p>
+<ul class="simple">
+<li><p><strong>FIFO</strong> (<em>First In, First Out</em>): sale la página que lleva más tiempo en memoria.</p></li>
+<li><p><strong>LRU</strong> (<em>Least Recently Used</em>): sale la página que hace más tiempo que no se usa.</p></li>
+<li><p><strong>Óptimo</strong>: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás.</p></li>
+</ul>
+<p>Veamos un ejemplo con la cadena de referencias <strong>1,2,3,4,1,2,5,1,2,3,4,5</strong> y <strong>3 marcos</strong>, inicialmente vacíos (F indica fallo de página):</p>
+<ul>
+<li><p><strong>FIFO: 9 fallos</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Referencia</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Marco 1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marco 2</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>Marco 3</p></td>
+<td></td>
+<td></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fallo</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+<td></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><strong>LRU: 10 fallos</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Referencia</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Marco 1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marco 2</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>Marco 3</p></td>
+<td></td>
+<td></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fallo</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+<td></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><strong>Óptimo: 7 fallos</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Referencia</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Marco 1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marco 2</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>Marco 3</p></td>
+<td></td>
+<td></td>
+<td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fallo</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+<td></td>
+<td><p>F</p></td>
+<td></td>
+<td></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+<p>Lo normal es que con más marcos haya menos fallos, pero con FIFO no siempre ocurre. Si repetimos el ejemplo con <strong>4 marcos</strong>, FIFO da <strong>10 fallos</strong>, uno más que con 3. Este fenómeno se conoce como <strong>anomalía de Belady</strong>; LRU y Óptimo no la sufren.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Referencia</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Marco 1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marco 2</p></td>
+<td></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>Marco 3</p></td>
+<td></td>
+<td></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Marco 4</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>Fallo</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td></td>
+<td></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+<td><p>F</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Si los procesos tienen menos marcos de los que necesitan para su conjunto de páginas de uso habitual, se producen fallos de página continuamente y el sistema pasa más tiempo trayendo páginas del disco que ejecutando procesos. Esta situación se llama <strong>hiperpaginación</strong> (<em>thrashing</em>).</p>
+</section>
 </section>
 <section id="planificacion-del-disco">
 <h2>Planificación del disco<a class="headerlink" href="#planificacion-del-disco" title="Link to this heading">#</a></h2>
-<p>El tiempo de lectura/escritura de un sector del disco depende del tiempo de búsqueda, retardo rotacional y tiempo de transferencia. De todos ellos, el único que se puede optimizar desde el programa gestor del disco es el primero ya que los otros dos dependen de las características propias del disco y bus de transmisión.</p>
-<a class="reference internal image-reference" href="../../_images/disco.png"><img alt="../../_images/disco.png" height="400" src="../../_images/disco.png" />
+<p>El tiempo de lectura/escritura de un sector del disco depende del tiempo de búsqueda (mover la cabeza hasta la pista), el retardo rotacional y el tiempo de transferencia. De todos ellos, el único que se puede optimizar desde el programa gestor del disco es el primero, ya que los otros dos dependen de las características propias del disco y del bus de transmisión.</p>
+<a class="reference internal image-reference" href="../../_images/disco.png"><img alt="Estructura de un disco: pistas, sectores, cilindros y cabezas" height="400" src="../../_images/disco.png" />
 </a>
-<p>Cuando un proceso requiere una operación de E/S del disco, envía la correspondiente llamada al SO (como todos los procesos) especificando las siguientes informaciones;</p>
+<p>Cuando un proceso requiere una operación de E/S del disco, envía la correspondiente llamada al SO (como todos los procesos) especificando la siguiente información:</p>
 <ul class="simple">
 <li><p>Tipo de operación (si se trata de una entrada o de una salida)</p></li>
-<li><p>Dirección en el disco: Unidad, cilindro, superficie, bloque</p></li>
+<li><p>Dirección en el disco: unidad, cilindro, superficie, bloque</p></li>
 <li><p>Dirección en memoria</p></li>
 <li><p>Cantidad de información que se va a transferir</p></li>
 </ul>
-<p>Así, será preciso poner en una cola todas las peticiones que vayan llegando, así habrá que elegir una de las que están pendientes de ser servidas.</p>
+<p>Las peticiones que van llegando se ponen en una cola, y el SO tiene que elegir cuál de las pendientes atiende a continuación.</p>
 <p>Veamos el siguiente ejemplo</p>
-<p><strong>En una cola ordenada en la que se han almacenado las siguientes peticiones de pistas: 20,130,180,105,145,32,50,2,150,120,4</strong></p>
-<p><strong>Inicialmente la posición inicial de la cabeza de lectura/escritura está en la pista 80.</strong></p>
+<p><strong>En una cola ordenada se han almacenado las siguientes peticiones de pistas: 20,130,180,105,145,32,50,2,150,120,4</strong></p>
+<p><strong>La cabeza de lectura/escritura está inicialmente en la pista 80 y el disco tiene las pistas de 0 a 199. En SCAN y C-SCAN la cabeza empieza bajando.</strong></p>
+<p>En las gráficas, el eje horizontal es la pista en la que está la cabeza y el vertical el total de pistas recorridas hasta ese momento; el círculo blanco es la posición inicial.</p>
 <ul>
 <li><p><strong>FIFO (First in, first out)</strong></p>
-<p>Las solicitudes de acceso se almacenan en una cola, de manera que la primera petición que llega es la primera que se sirve.</p>
-<img alt="../../_images/fifo_datos.png" src="../../_images/fifo_datos.png" />
-<img alt="../../_images/fifo.png" src="../../_images/fifo.png" />
+<p>Las solicitudes de acceso se almacenan en una cola, de manera que la primera petición que llega es la primera que se sirve. Total: <strong>808</strong> pistas.</p>
+<img alt="Tabla de FIFO, 808 pistas recorridas" src="../../_images/fifo_datos.png" />
+<img alt="Gráfica del recorrido de la cabeza con FIFO" src="../../_images/fifo.png" />
 </li>
 <li><p><strong>SSTF (shortest service time first)</strong> Primero la más cercana.</p>
-<p>Consiste en atender la petición que requiere el menor movimiento de la cabeza de lectura/escritura desde su posición actual. Como la cabeza se mueve en las dos direcciones, hay situaciones en las que puede haber empate, en dicho caso se atenderá cualquiera de las dos</p>
-<img alt="../../_images/sstf_datos.png" src="../../_images/sstf_datos.png" />
-<img alt="../../_images/sstf.png" src="../../_images/sstf.png" />
+<p>Consiste en atender la petición que requiere el menor movimiento de la cabeza de lectura/escritura desde su posición actual. Como la cabeza se mueve en las dos direcciones, hay situaciones en las que puede haber empate; en dicho caso se atenderá cualquiera de las dos. Total: <strong>278</strong> pistas.</p>
+<p>Su inconveniente es la <strong>inanición</strong> (<em>starvation</em>): si no dejan de llegar peticiones cerca de la cabeza, una petición lejana puede quedarse sin atender indefinidamente.</p>
+<img alt="Tabla de SSTF, 278 pistas recorridas" src="../../_images/sstf_datos.png" />
+<img alt="Gráfica del recorrido de la cabeza con SSTF" src="../../_images/sstf.png" />
 </li>
-<li><p><strong>Planificación SCAN (rastreo)</strong> Evita el posible bloqueo de SSTF.</p>
-<p>La estrategia es ir recorriendo todas las pistas en una dirección. Cuando ya no hay más pistas en esa dirección, empieza a atender en el sentido contrario. También se le conoce como el algoritmo del ascensor, por su analogía, llega hasta arriba, parando donde haga falta, y después baja atendiendo las nuevas paradas.</p>
-<img alt="../../_images/scan_datos.png" src="../../_images/scan_datos.png" />
-<img alt="../../_images/scan.png" src="../../_images/scan.png" />
+<li><p><strong>Planificación SCAN (rastreo)</strong> Evita la inanición de SSTF.</p>
+<p>La estrategia es ir recorriendo todas las pistas en una dirección, atendiendo las peticiones que encuentra, hasta llegar al extremo del disco; allí cambia de sentido y atiende las peticiones en el sentido contrario. También se le conoce como el algoritmo del ascensor, por su analogía: llega hasta arriba, parando donde haga falta, y después baja atendiendo las nuevas paradas. Total: <strong>260</strong> pistas.</p>
+<img alt="Tabla de SCAN, 260 pistas recorridas" src="../../_images/scan_datos.png" />
+<img alt="Gráfica del recorrido de la cabeza con SCAN" src="../../_images/scan.png" />
+<p>El problema de SCAN es que los tiempos de espera no son uniformes: las pistas centrales se visitan dos veces por vuelta, mientras que una petición que llega justo detrás de la cabeza en un extremo tiene que esperar a que la cabeza vaya hasta el otro extremo y vuelva.</p>
 </li>
 <li><p><strong>Planificación C-SCAN</strong> Restringe el rastreo en un único sentido.</p>
-<p>De esta forma evita el problema anterior de SCAN. Siguiendo con la analogía del ascensor, equivale a que el ascensor solo hiciera paradas cuando suba, de forma que cuando esté arriba baje hasta abajo sin realizar paradas, y desde abajo, vuelva a subir realizando las nuevas paradas.</p>
-<img alt="../../_images/cscan_datos.png" src="../../_images/cscan_datos.png" />
-<img alt="../../_images/cscan.png" src="../../_images/cscan.png" />
+<p>De esta forma evita el problema anterior de SCAN. Siguiendo con la analogía del ascensor, equivale a que el ascensor solo hiciera paradas al bajar: cuando llega abajo, sube hasta arriba del todo sin realizar paradas y desde allí vuelve a bajar realizando las nuevas paradas. El salto de vuelta también se cuenta en el total. Total: <strong>373</strong> pistas.</p>
+<img alt="Tabla de C-SCAN, 373 pistas recorridas" src="../../_images/cscan_datos.png" />
+<img alt="Gráfica del recorrido de la cabeza con C-SCAN" src="../../_images/cscan.png" />
 </li>
 </ul>
+<p>En la práctica se suelen usar las variantes <strong>LOOK</strong> y <strong>C-LOOK</strong>, que funcionan igual que SCAN y C-SCAN pero no llegan hasta el extremo del disco: cambian de sentido (o saltan) en cuanto no quedan peticiones en esa dirección. En el ejemplo, LOOK recorrería 256 pistas y C-LOOK 331.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -665,6 +1032,11 @@ Cuando se produce un fallo de página, la página se carga desde el disco duro a
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jerarquia-de-memoria">Jerarquía de memoria</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-memoria-principal">La memoria principal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memoria-virtual">Memoria virtual</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paginacion">Paginación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reemplazo-de-paginas">Reemplazo de páginas</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#planificacion-del-disco">Planificación del disco</a></li>
 </ul>
   </nav></div>

@@ -35,6 +35,8 @@ Cada vez que pulses **Ejercicio nuevo** se genera un ejercicio distinto, con pro
       <b>deja la casilla en blanco</b> (el proceso no ha llegado o ya ha terminado).</p>
    <p>En <b>RR</b>, si un proceso llega justo en el instante en que otro agota su quantum,
       el que llega se pone delante en la cola y el que sale del quantum detrás.
+      El quantum lo marca el reloj: con q=2 la CPU cambia de proceso en los instantes 2, 4, 6, 8...,
+      aunque el proceso que se está ejecutando haya entrado a mitad de quantum.
       En <b>SJF</b>, si dos procesos necesitan el mismo tiempo, va primero el que llegó antes.
       En las filas de la <b>cola de listos</b> escribe, en cada instante, los procesos que esperan
       en la cola (P1, P2...) empezando por el primero; el que se está ejecutando no está en la cola.</p>
@@ -43,15 +45,15 @@ Cada vez que pulses **Ejercicio nuevo** se genera un ejercicio distinto, con pro
    <div id="qp-ejercicios"></div>
 
    <script>
-   // simulación de FIFO, SJF y RR (q=2) en 10 instantes
+   // simulación de FIFO, SJF y RR (q=2) en 10 instantes; el quantum lo marca el reloj (t múltiplo de q)
    function qpgSimula(procs, alg, q) {
-     var n = procs.length, rest = {}, lleg = {}, fin = {}, cola = [], run = null, usado = 0;
+     var n = procs.length, rest = {}, lleg = {}, fin = {}, cola = [], run = null;
      var grid = {}, colas = [], orden = procs.map(function (p) { return p[0]; });
      procs.forEach(function (p) { rest[p[0]] = p[2]; lleg[p[0]] = p[1]; grid[p[0]] = ''; });
      for (var t = 0; t < 10; t++) {
        var nuevos = orden.filter(function (p) { return lleg[p] === t; });
        var expulsado = null;
-       if (run !== null && alg === 'RR' && usado === q && rest[run] > 0) { expulsado = run; run = null; }
+       if (run !== null && alg === 'RR' && t % q === 0 && rest[run] > 0) { expulsado = run; run = null; }
        cola = cola.concat(nuevos);              // el que llega va delante...
        if (expulsado !== null) cola.push(expulsado);  // ...y el que agota el quantum detrás
        if (run === null && cola.length) {
@@ -62,14 +64,13 @@ Cada vez que pulses **Ejercicio nuevo** se genera un ejercicio distinto, con pro
                  (rest[cola[k]] === rest[cola[mejor]] && lleg[cola[k]] < lleg[cola[mejor]])) mejor = k;
            run = cola.splice(mejor, 1)[0];
          } else run = cola.shift();
-         usado = 0;
        }
        orden.forEach(function (p) {
          grid[p] += p === run ? 'x' : (lleg[p] <= t && !(p in fin) ? '-' : 'B');
        });
        colas.push(cola.slice());
        if (run !== null) {
-         rest[run]--; usado++;
+         rest[run]--;
          if (rest[run] === 0) { fin[run] = t + 1; run = null; }
        }
      }

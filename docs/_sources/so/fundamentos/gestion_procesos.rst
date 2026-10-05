@@ -190,7 +190,7 @@ Para elegir un proceso de la cola de procesos listos tenemos diferentes algoritm
 
   .. image:: imagenes/procesos_3.png 
 
-* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza este quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO y si es demasiado pequeño tendremos un costo muy elevado en los cambios de contexto. **Cuando se acaba el quantum, el proceso que se estaba ejecutando pasa al final de la cola; si en ese mismo instante llega un proceso nuevo, el nuevo se pone delante y el que sale del quantum detrás.**
+* **RR** (Round-Robin) Utiliza el algoritmo FIFO con la variante de que un proceso no puede estar utilizando la CPU por más de un quantum, cuando finaliza este quantum el SO provoca una interrupción haciendo que entre el siguiente proceso, si el quantum es muy grande recuperamos el FIFO y si es demasiado pequeño tendremos un costo muy elevado en los cambios de contexto. **Cuando se acaba el quantum, el proceso que se estaba ejecutando pasa al final de la cola; si en ese mismo instante llega un proceso nuevo, el nuevo se pone delante y el que sale del quantum detrás.** El quantum lo marca el reloj: con q=2 la CPU cambia de proceso en los instantes 2, 4, 6, 8..., aunque el proceso que se está ejecutando haya entrado a mitad de quantum (por ejemplo, porque el anterior terminó antes de agotar el suyo).
 
 Vemos el siguiente ejemplo. Debajo de cada tabla aparece la cola de procesos listos en cada instante: **x** indica que el proceso se está ejecutando y **-** que está esperando en la cola:
 

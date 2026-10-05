@@ -30,6 +30,8 @@ Cuestionario gestión de procesos: ejercicios
       <b>deja la casilla en blanco</b> (el proceso no ha llegado o ya ha terminado).</p>
    <p>En <b>RR</b>, si un proceso llega justo en el instante en que otro agota su quantum,
       el que llega se pone delante en la cola y el que sale del quantum detrás.
+      El quantum lo marca el reloj: con q=2 la CPU cambia de proceso en los instantes 2, 4, 6, 8...,
+      aunque el proceso que se está ejecutando haya entrado a mitad de quantum.
       En las filas de la <b>cola de listos</b> escribe, en cada instante, los procesos que esperan
       en la cola (P1, P2...) empezando por el primero; el que se está ejecutando no está en la cola.</p>
 
@@ -97,10 +99,10 @@ Cuestionario gestión de procesos: ejercicios
              grid: ['xxxBBBBBBB', 'BB-xxxxBBB', 'BBBB----xx', 'BBBBBB-xBB'],
              tetr: [[0, 3], [1, 5], [4, 6], [1, 2]], total: [6, 16] },
            { nombre: 'RR (q=2)',
-             grid: ['xx--xBBBBB', 'BBxx---xxB', 'BBBB-xxBBB', 'BBBBBB---x'],
-             cola: [['B','B','P1','P1','P3','P2','P2','P4','P4','B'],
-                    ['B','B','B','B','P2','B','P4','B','B','B']],
-             tetr: [[2, 5], [3, 7], [1, 3], [3, 4]], total: [9, 19] },
+             grid: ['xx--xBBBBB', 'BBxx--xxBB', 'BBBB-x---x', 'BBBBBB--xB'],
+             cola: [['B','B','P1','P1','P3','P2','P4','P4','P3','B'],
+                    ['B','B','B','B','P2','B','P3','P3','B','B']],
+             tetr: [[2, 5], [2, 6], [4, 6], [2, 3]], total: [10, 20] },
          ]
        },
        {
@@ -129,10 +131,10 @@ Cuestionario gestión de procesos: ejercicios
              grid: ['BBxxxBBBBB', 'xxBBBBBBBB', 'B-----xxxx', 'BBBB-xBBBB'],
              tetr: [[0, 3], [0, 2], [5, 9], [1, 2]], total: [6, 16] },
            { nombre: 'RR (q=2)',
-             grid: ['BB--xx---x', 'xxBBBBBBBB', 'B-xx---xxB', 'BBBB--xBBB'],
-             cola: [['B','P3','P1','P1','P4','P4','P3','P1','P1','B'],
+             grid: ['BB--xx--xB', 'xxBBBBBBBB', 'B-xx---x-x', 'BBBB--xBBB'],
+             cola: [['B','P3','P1','P1','P4','P4','P3','P1','P3','B'],
                     ['B','B','B','B','P3','P3','P1','B','B','B']],
-             tetr: [[5, 8], [0, 2], [4, 8], [2, 3]], total: [11, 21] },
+             tetr: [[4, 7], [0, 2], [5, 9], [2, 3]], total: [11, 21] },
          ]
        },
      ];
