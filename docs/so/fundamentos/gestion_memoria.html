@@ -32,6 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -44,6 +45,7 @@
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../../_static/tabs.js?v=3030b3cb"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'so/fundamentos/gestion_memoria';</script>
     <link rel="icon" href="../../_static/ico.png"/>
     <link rel="index" title="Índice" href="../../genindex.html" />
@@ -601,21 +603,33 @@
 <li><p><strong>LRU</strong> (<em>Least Recently Used</em>): sale la página que hace más tiempo que no se usa.</p></li>
 <li><p><strong>Óptimo</strong>: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás. Si hay empate (por ejemplo, varias páginas que no se vuelven a usar), sale la que lleva más tiempo en memoria.</p></li>
 </ul>
-<p>Para orientarnos, las siguientes figuras muestran los 4 primeros pasos del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo <strong>3 marcos</strong>, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.</p>
-<ul>
-<li><p><strong>Paso 1:</strong> se pide la página 1; hay marcos libres y entra en el marco 1.</p>
+<p>Para orientarnos, en las siguientes pestañas están, paso a paso, las 12 referencias del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo <strong>3 marcos</strong>, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">1</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">2</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">3</button><button aria-controls="panel-0-0-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-3" name="0-3" role="tab" tabindex="-1">4</button><button aria-controls="panel-0-0-4" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-4" name="0-4" role="tab" tabindex="-1">5</button><button aria-controls="panel-0-0-5" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-5" name="0-5" role="tab" tabindex="-1">6</button><button aria-controls="panel-0-0-6" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-6" name="0-6" role="tab" tabindex="-1">7</button><button aria-controls="panel-0-0-7" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-7" name="0-7" role="tab" tabindex="-1">8</button><button aria-controls="panel-0-0-8" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-8" name="0-8" role="tab" tabindex="-1">9</button><button aria-controls="panel-0-0-9" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-9" name="0-9" role="tab" tabindex="-1">10</button><button aria-controls="panel-0-0-10" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-10" name="0-10" role="tab" tabindex="-1">11</button><button aria-controls="panel-0-0-11" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-11" name="0-11" role="tab" tabindex="-1">12</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p><strong>Paso 1:</strong> se pide la página 1; hay marcos libres y entra en el marco 1.</p>
 <img alt="FIFO paso 1: la página 1 entra en el marco 1" src="../../_images/fifo_paso1.png" />
-</li>
-<li><p><strong>Paso 2:</strong> se pide la página 2 y entra en el marco 2.</p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p><strong>Paso 2:</strong> se pide la página 2 y entra en el marco 2.</p>
 <img alt="FIFO paso 2: la página 2 entra en el marco 2" src="../../_images/fifo_paso2.png" />
-</li>
-<li><p><strong>Paso 3:</strong> se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.</p>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><p><strong>Paso 3:</strong> se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.</p>
 <img alt="FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena" src="../../_images/fifo_paso3.png" />
-</li>
-<li><p><strong>Paso 4:</strong> se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.</p>
+</div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><p><strong>Paso 4:</strong> se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.</p>
 <img alt="FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1" src="../../_images/fifo_paso4.png" />
-</li>
-</ul>
+</div><div aria-labelledby="tab-0-0-4" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-4" name="0-4" role="tabpanel" tabindex="0"><p><strong>Paso 5:</strong> se pide la página 1, que acaba de salir: fallo. Sale la página 2, la que lleva más tiempo en memoria, y la 1 ocupa el marco 2.</p>
+<img alt="FIFO paso 5: sale la página 2 al disco y la página 1 ocupa el marco 2" src="../../_images/fifo_paso5.png" />
+</div><div aria-labelledby="tab-0-0-5" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-5" name="0-5" role="tabpanel" tabindex="0"><p><strong>Paso 6:</strong> se pide la página 2: fallo. Sale la página 3 y la 2 ocupa el marco 3.</p>
+<img alt="FIFO paso 6: sale la página 3 al disco y la página 2 ocupa el marco 3" src="../../_images/fifo_paso6.png" />
+</div><div aria-labelledby="tab-0-0-6" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-6" name="0-6" role="tabpanel" tabindex="0"><p><strong>Paso 7:</strong> se pide la página 5: fallo. Sale la página 4 y la 5 ocupa el marco 1.</p>
+<img alt="FIFO paso 7: sale la página 4 al disco y la página 5 ocupa el marco 1" src="../../_images/fifo_paso7.png" />
+</div><div aria-labelledby="tab-0-0-7" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-7" name="0-7" role="tabpanel" tabindex="0"><p><strong>Paso 8:</strong> se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.</p>
+<img alt="FIFO paso 8: acierto de la página 1, no cambia nada" src="../../_images/fifo_paso8.png" />
+</div><div aria-labelledby="tab-0-0-8" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-8" name="0-8" role="tabpanel" tabindex="0"><p><strong>Paso 9:</strong> se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.</p>
+<img alt="FIFO paso 9: acierto de la página 2, no cambia nada" src="../../_images/fifo_paso9.png" />
+</div><div aria-labelledby="tab-0-0-9" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-9" name="0-9" role="tabpanel" tabindex="0"><p><strong>Paso 10:</strong> se pide la página 3: fallo. Sale la página 1, que es la que lleva más tiempo en memoria (entró en el paso 5), aunque se acabe de usar en el paso 8: a FIFO solo le importa cuándo entró. La 3 ocupa el marco 2.</p>
+<img alt="FIFO paso 10: sale la página 1 al disco y la página 3 ocupa el marco 2" src="../../_images/fifo_paso10.png" />
+</div><div aria-labelledby="tab-0-0-10" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-10" name="0-10" role="tabpanel" tabindex="0"><p><strong>Paso 11:</strong> se pide la página 4: fallo. Sale la página 2 (entró en el paso 6) y la 4 ocupa el marco 3.</p>
+<img alt="FIFO paso 11: sale la página 2 al disco y la página 4 ocupa el marco 3" src="../../_images/fifo_paso11.png" />
+</div><div aria-labelledby="tab-0-0-11" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-11" name="0-11" role="tabpanel" tabindex="0"><p><strong>Paso 12:</strong> se pide la página 5: ya está en el marco 1 (acierto). En total, FIFO ha tenido <strong>9 fallos</strong>.</p>
+<img alt="FIFO paso 12: acierto de la página 5, no cambia nada" src="../../_images/fifo_paso12.png" />
+</div></div>
 <p>Veamos un ejemplo con la cadena de referencias <strong>1,2,3,4,1,2,5,1,2,3,4,5</strong> y <strong>3 marcos</strong>, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila &quot;Marco&quot; muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:</p>
 <ul>
 <li><p><strong>FIFO: 9 fallos</strong></p>

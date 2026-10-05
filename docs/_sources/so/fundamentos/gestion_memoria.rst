@@ -69,27 +69,93 @@ Cuando se produce un fallo de página, la página se carga desde el disco en un 
 * **LRU** (*Least Recently Used*): sale la página que hace más tiempo que no se usa.
 * **Óptimo**: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás. Si hay empate (por ejemplo, varias páginas que no se vuelven a usar), sale la que lleva más tiempo en memoria.
 
-Para orientarnos, las siguientes figuras muestran los 4 primeros pasos del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo **3 marcos**, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.
+Para orientarnos, en las siguientes pestañas están, paso a paso, las 12 referencias del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo **3 marcos**, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.
 
-* **Paso 1:** se pide la página 1; hay marcos libres y entra en el marco 1.
+.. tabs::
 
-  .. image:: imagenes/fifo_paso1.png
-     :alt: FIFO paso 1: la página 1 entra en el marco 1
+    .. tab:: 1
 
-* **Paso 2:** se pide la página 2 y entra en el marco 2.
+        **Paso 1:** se pide la página 1; hay marcos libres y entra en el marco 1.
 
-  .. image:: imagenes/fifo_paso2.png
-     :alt: FIFO paso 2: la página 2 entra en el marco 2
+        .. image:: imagenes/fifo_paso1.png
+           :alt: FIFO paso 1: la página 1 entra en el marco 1
 
-* **Paso 3:** se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.
+    .. tab:: 2
 
-  .. image:: imagenes/fifo_paso3.png
-     :alt: FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena
+        **Paso 2:** se pide la página 2 y entra en el marco 2.
 
-* **Paso 4:** se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.
+        .. image:: imagenes/fifo_paso2.png
+           :alt: FIFO paso 2: la página 2 entra en el marco 2
 
-  .. image:: imagenes/fifo_paso4.png
-     :alt: FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1
+    .. tab:: 3
+
+        **Paso 3:** se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.
+
+        .. image:: imagenes/fifo_paso3.png
+           :alt: FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena
+
+    .. tab:: 4
+
+        **Paso 4:** se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.
+
+        .. image:: imagenes/fifo_paso4.png
+           :alt: FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1
+
+    .. tab:: 5
+
+        **Paso 5:** se pide la página 1, que acaba de salir: fallo. Sale la página 2, la que lleva más tiempo en memoria, y la 1 ocupa el marco 2.
+
+        .. image:: imagenes/fifo_paso5.png
+           :alt: FIFO paso 5: sale la página 2 al disco y la página 1 ocupa el marco 2
+
+    .. tab:: 6
+
+        **Paso 6:** se pide la página 2: fallo. Sale la página 3 y la 2 ocupa el marco 3.
+
+        .. image:: imagenes/fifo_paso6.png
+           :alt: FIFO paso 6: sale la página 3 al disco y la página 2 ocupa el marco 3
+
+    .. tab:: 7
+
+        **Paso 7:** se pide la página 5: fallo. Sale la página 4 y la 5 ocupa el marco 1.
+
+        .. image:: imagenes/fifo_paso7.png
+           :alt: FIFO paso 7: sale la página 4 al disco y la página 5 ocupa el marco 1
+
+    .. tab:: 8
+
+        **Paso 8:** se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
+
+        .. image:: imagenes/fifo_paso8.png
+           :alt: FIFO paso 8: acierto de la página 1, no cambia nada
+
+    .. tab:: 9
+
+        **Paso 9:** se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.
+
+        .. image:: imagenes/fifo_paso9.png
+           :alt: FIFO paso 9: acierto de la página 2, no cambia nada
+
+    .. tab:: 10
+
+        **Paso 10:** se pide la página 3: fallo. Sale la página 1, que es la que lleva más tiempo en memoria (entró en el paso 5), aunque se acabe de usar en el paso 8: a FIFO solo le importa cuándo entró. La 3 ocupa el marco 2.
+
+        .. image:: imagenes/fifo_paso10.png
+           :alt: FIFO paso 10: sale la página 1 al disco y la página 3 ocupa el marco 2
+
+    .. tab:: 11
+
+        **Paso 11:** se pide la página 4: fallo. Sale la página 2 (entró en el paso 6) y la 4 ocupa el marco 3.
+
+        .. image:: imagenes/fifo_paso11.png
+           :alt: FIFO paso 11: sale la página 2 al disco y la página 4 ocupa el marco 3
+
+    .. tab:: 12
+
+        **Paso 12:** se pide la página 5: ya está en el marco 1 (acierto). En total, FIFO ha tenido **9 fallos**.
+
+        .. image:: imagenes/fifo_paso12.png
+           :alt: FIFO paso 12: acierto de la página 5, no cambia nada
 
 Veamos un ejemplo con la cadena de referencias **1,2,3,4,1,2,5,1,2,3,4,5** y **3 marcos**, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila "Marco" muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:
 
