@@ -599,340 +599,37 @@
 <ul class="simple">
 <li><p><strong>FIFO</strong> (<em>First In, First Out</em>): sale la página que lleva más tiempo en memoria.</p></li>
 <li><p><strong>LRU</strong> (<em>Least Recently Used</em>): sale la página que hace más tiempo que no se usa.</p></li>
-<li><p><strong>Óptimo</strong>: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás.</p></li>
+<li><p><strong>Óptimo</strong>: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás. Si hay empate (por ejemplo, varias páginas que no se vuelven a usar), sale la que lleva más tiempo en memoria.</p></li>
 </ul>
-<p>Veamos un ejemplo con la cadena de referencias <strong>1,2,3,4,1,2,5,1,2,3,4,5</strong> y <strong>3 marcos</strong>, inicialmente vacíos (F indica fallo de página):</p>
+<p>Para orientarnos, las siguientes figuras muestran los 4 primeros pasos del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo <strong>3 marcos</strong>, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.</p>
+<ul>
+<li><p><strong>Paso 1:</strong> se pide la página 1; hay marcos libres y entra en el marco 1.</p>
+<img alt="FIFO paso 1: la página 1 entra en el marco 1" src="../../_images/fifo_paso1.png" />
+</li>
+<li><p><strong>Paso 2:</strong> se pide la página 2 y entra en el marco 2.</p>
+<img alt="FIFO paso 2: la página 2 entra en el marco 2" src="../../_images/fifo_paso2.png" />
+</li>
+<li><p><strong>Paso 3:</strong> se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.</p>
+<img alt="FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena" src="../../_images/fifo_paso3.png" />
+</li>
+<li><p><strong>Paso 4:</strong> se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.</p>
+<img alt="FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1" src="../../_images/fifo_paso4.png" />
+</li>
+</ul>
+<p>Veamos un ejemplo con la cadena de referencias <strong>1,2,3,4,1,2,5,1,2,3,4,5</strong> y <strong>3 marcos</strong>, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila &quot;Marco&quot; muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:</p>
 <ul>
 <li><p><strong>FIFO: 9 fallos</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Referencia</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>5</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Marco 1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-</tr>
-<tr class="row-odd"><td><p>Marco 2</p></td>
-<td></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-</tr>
-<tr class="row-even"><td><p>Marco 3</p></td>
-<td></td>
-<td></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-</tr>
-<tr class="row-odd"><td><p>Fallo</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-<td></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
+<img alt="Reemplazo de páginas con FIFO y 3 marcos, 9 fallos" src="../../_images/reemplazo_fifo_3.png" />
 </li>
 <li><p><strong>LRU: 10 fallos</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Referencia</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>5</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Marco 1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-</tr>
-<tr class="row-odd"><td><p>Marco 2</p></td>
-<td></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-</tr>
-<tr class="row-even"><td><p>Marco 3</p></td>
-<td></td>
-<td></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>5</p></td>
-</tr>
-<tr class="row-odd"><td><p>Fallo</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-<td></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<img alt="Reemplazo de páginas con LRU y 3 marcos, 10 fallos" src="../../_images/reemplazo_lru_3.png" />
 </li>
 <li><p><strong>Óptimo: 7 fallos</strong></p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Referencia</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>5</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Marco 1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>3</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-</tr>
-<tr class="row-odd"><td><p>Marco 2</p></td>
-<td></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-</tr>
-<tr class="row-even"><td><p>Marco 3</p></td>
-<td></td>
-<td></td>
-<td><p>3</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-</tr>
-<tr class="row-odd"><td><p>Fallo</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-<td></td>
-<td><p>F</p></td>
-<td></td>
-<td></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
+<img alt="Reemplazo de páginas con el algoritmo óptimo y 3 marcos, 7 fallos" src="../../_images/reemplazo_opt_3.png" />
 </li>
 </ul>
 <p>Lo normal es que con más marcos haya menos fallos, pero con FIFO no siempre ocurre. Si repetimos el ejemplo con <strong>4 marcos</strong>, FIFO da <strong>10 fallos</strong>, uno más que con 3. Este fenómeno se conoce como <strong>anomalía de Belady</strong>; LRU y Óptimo no la sufren.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Referencia</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>5</p></th>
-<th class="head"><p>1</p></th>
-<th class="head"><p>2</p></th>
-<th class="head"><p>3</p></th>
-<th class="head"><p>4</p></th>
-<th class="head"><p>5</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Marco 1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>5</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-</tr>
-<tr class="row-odd"><td><p>Marco 2</p></td>
-<td></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>5</p></td>
-</tr>
-<tr class="row-even"><td><p>Marco 3</p></td>
-<td></td>
-<td></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-<td><p>2</p></td>
-</tr>
-<tr class="row-odd"><td><p>Marco 4</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>4</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-<td><p>3</p></td>
-</tr>
-<tr class="row-even"><td><p>Fallo</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td></td>
-<td></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-<td><p>F</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<img alt="Reemplazo de páginas con FIFO y 4 marcos, 10 fallos" src="../../_images/reemplazo_fifo_4.png" />
 <p>Si los procesos tienen menos marcos de los que necesitan para su conjunto de páginas de uso habitual, se producen fallos de página continuamente y el sistema pasa más tiempo trayendo páginas del disco que ejecutando procesos. Esta situación se llama <strong>hiperpaginación</strong> (<em>thrashing</em>).</p>
 </section>
 </section>

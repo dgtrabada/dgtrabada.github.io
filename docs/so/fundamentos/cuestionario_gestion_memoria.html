@@ -622,14 +622,249 @@
        <tr><td><input type="text" class="qp-corto" data-a="0"></td><td><input type="text" class="qp-corto" data-a="D0000"></td><td><input type="text" class="qp-corto" data-a="50000"></td></tr>
      </table>
      </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué algoritmo de reemplazo puede dar más fallos al aumentar el número de marcos (anomalía de Belady)?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_4" value="0">FIFO</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="1">LRU</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="2">Óptimo</label>
+       </div>
+     </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
      <button onclick="qpLimpiar(this)">Reintentar</button>
      <span class="qp-nota"></span>
    </div>
 
+
+   <script>
+   // baraja las opciones de cada pregunta al cargar la página
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.qp-opts:not([data-qp-mezclada])').forEach(function (opts) {
+       opts.dataset.qpMezclada = '1';
+       var ops = Array.from(opts.children);
+       for (var i = ops.length - 1; i > 0; i--) {
+         var j = Math.floor(Math.random() * (i + 1));
+         var t = ops[i]; ops[i] = ops[j]; ops[j] = t;
+       }
+       ops.forEach(function (l) { opts.appendChild(l); });
+     });
+   });
+   function qpNorm(s) {
+     return s.trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '.').replace(/\^/g, '**');
+   }
+   function qpAcierta(inp) {
+     var valor = qpNorm(inp.value);
+     var sinCeros = valor.replace(/^0+(?=.)/, '');
+     return inp.dataset.a.split('|').some(function (alt) {
+       alt = qpNorm(alt);
+       return valor === alt || (alt.length < 9 && sinCeros === alt);
+     });
+   }
+   function qpCorregir(btn) {
+     var card = btn.closest('.qp-card');
+     var aciertos = 0, total = 0;
+     card.querySelectorAll('.qp-item').forEach(function (it) {
+       total++;
+       it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+       var sel = it.querySelector('input:checked');
+       if (sel) {
+         var ok = sel.value === it.dataset.a;
+         sel.closest('.qp-opt').className = 'qp-opt ' + (ok ? 'qp-ok' : 'qp-mal');
+         if (ok) aciertos++;
+       }
+     });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       total++;
+       var ok = qpAcierta(inp);
+       inp.classList.remove('qp-ok', 'qp-mal');
+       inp.classList.add(ok ? 'qp-ok' : 'qp-mal');
+       if (ok) aciertos++;
+     });
+     card.querySelector('.qp-nota').textContent = aciertos + ' / ' + total;
+   }
+   function qpSolucion(btn) {
+     var card = btn.closest('.qp-card');
+     card.querySelectorAll('.qp-item').forEach(function (it) {
+       it.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+       var correcto = it.querySelector('input[value="' + it.dataset.a + '"]');
+       correcto.checked = true;
+       correcto.closest('.qp-opt').className = 'qp-opt qp-ok';
+     });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       inp.value = inp.dataset.a.split('|')[0];
+       inp.classList.remove('qp-mal'); inp.classList.add('qp-ok');
+     });
+     card.querySelector('.qp-nota').textContent = 'Solución';
+   }
+   function qpLimpiar(btn) {
+     var card = btn.closest('.qp-card');
+     card.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
+     card.querySelectorAll('.qp-opt').forEach(function (l) { l.className = 'qp-opt'; });
+     card.querySelectorAll('input[type=text][data-a]').forEach(function (inp) {
+       inp.value = ''; inp.classList.remove('qp-ok', 'qp-mal');
+     });
+     card.querySelector('.qp-nota').textContent = '';
+   }
+   </script>
+<style>
+.qm-plan { border: 1px solid rgba(128,128,128,.45); border-radius: 8px; padding: 1em 1.2em; margin: 1em 0; }
+.qm-plan p.qm-enunciado { font-weight: bold; margin-top: 0; }
+.qm-plan p.qm-sub { font-weight: bold; margin: 1em 0 .3em 0; }
+.qm-plan table { border-collapse: collapse; margin: .4em 0; }
+.qm-plan th, .qm-plan td { border: 1px solid rgba(128,128,128,.5); padding: 3px 5px; text-align: center; }
+.qm-plan th { white-space: nowrap; }
+.qm-plan input { width: 2em; padding: 2px 2px; border: 1.5px solid rgba(128,128,128,.6);
+                 border-radius: 4px; background: transparent; color: inherit;
+                 font-family: monospace; text-align: center; }
+.qm-plan input.qm-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+.qm-plan input.qm-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+.qm-plan button { margin-top: .6em; margin-right: .6em; padding: 4px 14px; border-radius: 5px;
+                  border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
+.qm-plan button:hover { background: rgba(128,128,128,.15); }
+.qm-nota { margin-left: .4em; font-weight: bold; }
+.qm-scroll { overflow-x: auto; }
+</style>
+
+<p>En las tablas escribe en cada marco el número de la página que hay en él (o <b>deja la casilla en blanco</b> si
+   el marco está libre) y en la fila <b>Fallo</b> escribe <b>F</b> si hay fallo de página o déjala en blanco si no.
+   Los fallos de los marcos vacíos del principio también cuentan. Una página nueva ocupa el primer marco libre
+   o, si no hay ninguno, el marco de la página que sale. En <b>Óptimo</b>, si hay empate, sale la que lleva más
+   tiempo en memoria.</p>
+
+<div id="qm-ejercicios"></div>
+
+<script>
+(function () {
+  // simulación de FIFO, LRU y Óptimo; devuelve el contenido de los marcos y los fallos en cada instante
+  function simula(ref, n, alg) {
+    var marcos = [], carga = {}, uso = {}, cols = [], fallos = 0;
+    for (var k = 0; k < n; k++) marcos.push(null);
+    ref.forEach(function (p, t) {
+      var fallo = marcos.indexOf(p) < 0, sale = null;
+      if (fallo) {
+        fallos++;
+        var i = marcos.indexOf(null);
+        if (i < 0) {
+          var peor = null, clave = null;
+          marcos.forEach(function (q) {
+            var c;
+            if (alg === 'FIFO') c = [-carga[q], 0];
+            else if (alg === 'LRU') c = [-uso[q], 0];
+            else { var f = ref.indexOf(q, t + 1); c = [f < 0 ? 999 : f, -carga[q]]; }
+            if (clave === null || c[0] > clave[0] || (c[0] === clave[0] && c[1] > clave[1])) { peor = q; clave = c; }
+          });
+          sale = peor; i = marcos.indexOf(peor);
+        }
+        marcos[i] = p; carga[p] = t;
+      }
+      uso[p] = t;
+      cols.push({ marcos: marcos.slice(), fallo: fallo, sale: sale });
+    });
+    return { cols: cols, fallos: fallos };
+  }
+
+  var NOMBRE = { FIFO: 'FIFO', LRU: 'LRU', OPT: 'Óptimo' };
+  var EJERCICIOS = [
+    { ref: [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3], marcos: [3, 4] },
+    { ref: [2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2], marcos: [3], victima: 4 },
+  ];
+  var cont = document.getElementById('qm-ejercicios');
+  EJERCICIOS.forEach(function (ej, num) {
+    var card = document.createElement('div');
+    card.className = 'qp-card qm-plan';
+    var h = '<p class="qm-enunciado">' + (num + 2) + '. Un proceso pide las siguientes páginas: ' +
+            ej.ref.join(',') + '. Los marcos están inicialmente vacíos. Rellena las tablas con ' +
+            ej.marcos.join(' y con ') + ' marcos.</p>';
+    ej.marcos.forEach(function (n) {
+      ['FIFO', 'LRU', 'OPT'].forEach(function (alg) {
+        var r = simula(ej.ref, n, alg);
+        h += '<p class="qm-sub">' + NOMBRE[alg] + ' con ' + n + ' marcos</p><div class="qm-scroll"><table>';
+        h += '<tr><th>Referencia</th>';
+        ej.ref.forEach(function (p) { h += '<th>' + p + '</th>'; });
+        h += '</tr>';
+        for (var k = 0; k < n; k++) {
+          h += '<tr><th>Marco ' + (k + 1) + '</th>';
+          r.cols.forEach(function (c) {
+            var a = c.marcos[k] === null ? '' : c.marcos[k];
+            h += '<td><input maxlength="2" data-a="' + a + '"></td>';
+          });
+          h += '</tr>';
+        }
+        h += '<tr><th>Fallo</th>';
+        r.cols.forEach(function (c) { h += '<td><input maxlength="1" data-a="' + (c.fallo ? 'F' : '') + '"></td>'; });
+        h += '</tr></table></div>';
+        h += 'Número de fallos: <input maxlength="2" data-a="' + r.fallos + '">';
+        if (ej.victima !== undefined) {
+          var c = r.cols[ej.victima];
+          h += ' &nbsp; Al pedir la página ' + ej.ref[ej.victima] + ' (' + (ej.victima + 1) +
+               '.ª referencia), ¿qué página sale? <input maxlength="2" data-a="' + c.sale + '">';
+        }
+      });
+    });
+    h += '<br><button onclick="qmCorregir(this)">Corregir</button>' +
+         '<button onclick="qmSolucion(this)">Solución</button>' +
+         '<button onclick="qmLimpiar(this)">Reintentar</button>' +
+         '<span class="qm-nota"></span>';
+    card.innerHTML = h;
+    cont.appendChild(card);
+  });
+})();
+
+function qmCorregir(btn) {
+  var card = btn.closest('.qm-plan'), inputs = card.querySelectorAll('input[data-a]'), aciertos = 0;
+  inputs.forEach(function (inp) {
+    var ok = inp.value.trim().toUpperCase() === inp.dataset.a.toUpperCase();
+    inp.className = ok ? 'qm-ok' : 'qm-mal';
+    if (ok) aciertos++;
+  });
+  card.querySelector('.qm-nota').textContent = aciertos + ' / ' + inputs.length;
+}
+function qmSolucion(btn) {
+  var card = btn.closest('.qm-plan');
+  card.querySelectorAll('input[data-a]').forEach(function (inp) { inp.value = inp.dataset.a; inp.className = 'qm-ok'; });
+  card.querySelector('.qm-nota').textContent = 'Solución';
+}
+function qmLimpiar(btn) {
+  var card = btn.closest('.qm-plan');
+  card.querySelectorAll('input[data-a]').forEach(function (inp) { inp.value = ''; inp.className = ''; });
+  card.querySelector('.qm-nota').textContent = '';
+}
+</script>
+   <style>
+   .qp-card { border: 1px solid rgba(128,128,128,.45); border-radius: 8px; padding: 1em 1.2em; margin: 1em 0; }
+   .qp-card p.qp-enunciado { font-weight: bold; margin-top: 0; }
+   .qp-item { margin: 0 0 1em 0; }
+   .qp-item .qp-q, .qp-bloq .qp-q { margin: 0 0 .3em 0; }
+   .qp-bloq { margin: 0 0 1em 0; }
+   .qp-opts { display: flex; flex-direction: column; align-items: flex-start; gap: .1em; }
+   .qp-opt { border: 1.5px solid transparent; border-radius: 5px; padding: 1px 10px; cursor: pointer; }
+   .qp-opt input { margin-right: .4em; }
+   .qp-opt.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+   .qp-opt.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+   .qp-card table { border-collapse: collapse; margin: .4em 0; }
+   .qp-card table.qp-tabla th, .qp-card table.qp-tabla td { border: 1px solid rgba(128,128,128,.5); padding: 3px 8px; text-align: center; }
+   .qp-card table.qp-filas td { border: none; padding: 2px 6px; }
+   .qp-card table.qp-num { counter-reset: fila; }
+   .qp-card table.qp-num tr td:first-child::before { counter-increment: fila; content: counter(fila) ". "; }
+   .qp-card input[type=text] { width: var(--qpw, 11em); max-width: 100%; padding: 2px 6px; border: 1.5px solid rgba(128,128,128,.6);
+                    border-radius: 4px; background: transparent; color: inherit; font-family: monospace; }
+   .qp-card input.qp-corto { width: 5em; text-align: center; }
+   .qp-card input.qp-l { width: 24em; }
+   .qp-card input.qp-ok  { border-color: #2e7d32; background: rgba(46,125,50,.12); }
+   .qp-card input.qp-mal { border-color: #c62828; background: rgba(198,40,40,.12); }
+   .qp-card button { margin-top: .6em; margin-right: .6em; padding: 4px 14px; border-radius: 5px;
+                     border: 1px solid rgba(128,128,128,.6); background: transparent; color: inherit; cursor: pointer; }
+   .qp-card button:hover { background: rgba(128,128,128,.15); }
+   .qp-nota { margin-left: .4em; font-weight: bold; }
+   .qp-card pre.qp-pre { margin: .4em 0; padding: 5px 10px; border: 1px solid rgba(128,128,128,.35);
+                    border-radius: 5px; font-family: monospace; font-size: .95em; line-height: 1.3;
+                    overflow-x: auto; background: rgba(128,128,128,.08); }
+   .qp-img { max-width: 100%; height: auto; background: white; border-radius: 4px; padding: 4px; }
+   </style>
+
    <div class="qp-card">
-     <p class="qp-enunciado">2. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,32,50,2,120</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 49</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+     <p class="qp-enunciado">4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,32,50,2,120</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 49</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
         Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
@@ -654,7 +889,7 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">3. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,8,5,18,13</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 17</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+     <p class="qp-enunciado">5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,8,5,18,13</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 17</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
         Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
@@ -683,7 +918,7 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">4. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>10,70,45,90,25</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 40</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+     <p class="qp-enunciado">6. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>10,70,45,90,25</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 40</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
         Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
@@ -712,7 +947,7 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">5. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,35,8,28,4</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 18</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
+     <p class="qp-enunciado">7. En una cola ordenada se han almacenado las siguientes peticiones de pistas: <b>20,35,8,28,4</b>. Inicialmente la cabeza de lectura/escritura está en la <b>pista 18</b> y el disco tiene las <b>pistas de 0 a 199</b>.<br>
         Responde con las pistas separadas por coma y sin espacios, por ejemplo: 20,32,... En SCAN y C-SCAN la cabeza llega hasta el extremo del disco, y el salto de vuelta de C-SCAN cuenta en el total.</p>
      <div class="qp-bloq">
        <p class="qp-q">1. ¿Cómo atendería las peticiones con FIFO?</p>
