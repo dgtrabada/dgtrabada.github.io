@@ -100,6 +100,8 @@ Veamos un ejemplo con la cadena de referencias **1,2,3,4,1,2,5,1,2,3,4,5** y **3
 
 * **LRU: 10 fallos**
 
+  En LRU un acierto también cuenta como uso: en negrita (sin recuadro, porque el marco no cambia) está la página que se usa en cada acierto. Por eso en la 10.ª referencia sale la 5: el 1 y el 2 se acaban de usar en la 8.ª y la 9.ª, y la 5 no se usa desde la 7.ª.
+
   .. image:: imagenes/reemplazo_lru_3.png
      :alt: Reemplazo de páginas con LRU y 3 marcos, 10 fallos
 
