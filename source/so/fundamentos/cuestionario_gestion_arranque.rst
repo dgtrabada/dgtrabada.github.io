@@ -22,6 +22,24 @@ Cuestionario gestión del arranque
         (x) EasyBCD
         ( ) Grub2Win
         ( ) rEFInd
+      - 6. Si instalamos Linux con GRUB y después otro Windows, ¿añade el gestor de arranque de Windows una entrada para Linux?
+        ( ) Sí, detecta Linux automáticamente
+        (x) No, el gestor de Windows no detecta Linux
+      - 7. En un equipo UEFI, ¿dónde se guarda el gestor de arranque?
+        ( ) En los primeros 512 bytes del disco (MBR)
+        (x) En la partición del sistema EFI (ESP), formateada en FAT32
+        ( ) En la partición /home
+      - 8. ¿Qué tabla de particiones usan los equipos UEFI actuales?
+        ( ) MBR
+        (x) GPT
+      - 9. ¿Cuántas particiones primarias como máximo admite un disco MBR?
+        ( ) 2
+        (x) 4
+        ( ) 128
+      - 10. ¿Qué es lo primero que se ejecuta al encender el ordenador?
+        (x) El firmware (BIOS o UEFI) de la placa base
+        ( ) El gestor de arranque
+        ( ) El núcleo del sistema operativo
 
    2. Comandos:
       - 1. ¿Qué comando regenera la configuración de GRUB después de instalar otro sistema operativo?
@@ -34,6 +52,8 @@ Cuestionario gestión del arranque
         = /etc/default/grub
       - 5. ¿Qué comando de Windows muestra y edita las entradas del arranque?
         = bcdedit
+      - 6. En un equipo UEFI, ¿qué comando copia los archivos de arranque de Windows a la partición ESP para repararlo?
+        = bcdboot C:\Windows | bcdboot c:\windows | bcdboot
 
    3. Problemas del arranque dual:
       - 1. Instalamos una distribución de Linux junto a Windows, pero el equipo no la deja arrancar por no estar firmada digitalmente. ¿Qué medida de seguridad es la responsable?

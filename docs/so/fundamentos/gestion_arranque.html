@@ -533,10 +533,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-arranca-un-ordenador">Cómo arranca un ordenador</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestor-de-arranque-de-windows">Gestor de arranque de Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestores-de-arranque-de-linux">Gestores de arranque de Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problemas-tipicos-del-arranque-dual">Problemas típicos del arranque dual</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lilo-y-otras-alternativas">LILO y otras alternativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-alternativas">Otras alternativas</a></li>
 </ul>
             </nav>
         </div>
@@ -553,12 +554,54 @@
 <p>Un gestor de arranque, como su nombre indica, es un programa que se carga al inicio del ordenador, antes del sistema operativo, y que nos permite elegir el sistema operativo que queremos cargar.</p>
 <p>Estos programas pueden leer automáticamente las particiones del ordenador para detectar y configurar los sistemas instalados, permiten crear nuestras propias entradas (útil en el caso de Linux, por ejemplo, para cargar el sistema con parámetros o un kernel específico) y pueden contar con medidas de seguridad adicionales, como, por ejemplo, protección mediante contraseña.</p>
 <p>Los principales sistemas operativos cuentan con sus propios gestores de arranque. Y además, nosotros mismos podemos instalar otras alternativas manualmente para hacer uso del arranque dual, o dual boot, en nuestro ordenador.</p>
+<section id="como-arranca-un-ordenador">
+<h2>Cómo arranca un ordenador<a class="headerlink" href="#como-arranca-un-ordenador" title="Link to this heading">#</a></h2>
+<p>Cuando encendemos el ordenador, el sistema operativo todavía no está cargado en memoria. El arranque sigue estos pasos:</p>
+<ol class="arabic simple">
+<li><p><strong>Firmware (BIOS o UEFI)</strong>: es el programa que viene grabado en la placa base y es lo primero que se ejecuta.</p></li>
+<li><p><strong>POST</strong> (<em>Power-On Self-Test</em>): el firmware comprueba que el hardware básico (memoria, procesador, teclado, discos...) funciona.</p></li>
+<li><p><strong>Búsqueda del gestor de arranque</strong>: el firmware busca, según el orden de arranque configurado, un disco o USB desde el que arrancar y carga su gestor de arranque.</p></li>
+<li><p><strong>Gestor de arranque</strong>: muestra el menú (si hay varios sistemas) y carga el núcleo (<em>kernel</em>) del sistema operativo elegido.</p></li>
+<li><p><strong>Sistema operativo</strong>: el núcleo toma el control e inicia el resto del sistema.</p></li>
+</ol>
+<p>Dónde se guarda el gestor de arranque depende del tipo de firmware y de la tabla de particiones del disco:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>BIOS + MBR</strong> (equipos antiguos)</p></th>
+<th class="head"><p><strong>UEFI + GPT</strong> (lo habitual hoy)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Dónde está el gestor
+de arranque</p></td>
+<td><p>En los primeros 512 bytes del
+disco (el MBR, <em>Master Boot
+Record</em>)</p></td>
+<td><p>Es un archivo <code class="docutils literal notranslate"><span class="pre">.efi</span></code> dentro de la
+<strong>partición del sistema EFI (ESP)</strong>,
+formateada en FAT32</p></td>
+</tr>
+<tr class="row-odd"><td><p>Particiones</p></td>
+<td><p>Máximo 4 primarias</p></td>
+<td><p>Hasta 128</p></td>
+</tr>
+<tr class="row-even"><td><p>Tamaño máximo del disco</p></td>
+<td><p>2 TB</p></td>
+<td><p>Prácticamente ilimitado</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>En los equipos UEFI cada sistema operativo deja su gestor de arranque en la partición ESP (en Linux se monta en <code class="docutils literal notranslate"><span class="pre">/boot/efi</span></code>), y el propio firmware sabe cuáles hay instalados.</p>
+<p>Además, al encender el equipo podemos pulsar una tecla (<strong>F12</strong>, <strong>F8</strong>, <strong>F11</strong> o <strong>Esc</strong>, según el fabricante) para abrir el <strong>menú de arranque del firmware</strong> y elegir desde qué disco o USB queremos arrancar, por ejemplo para instalar un sistema operativo desde un USB.</p>
+</section>
 <section id="gestor-de-arranque-de-windows">
 <h2>Gestor de arranque de Windows<a class="headerlink" href="#gestor-de-arranque-de-windows" title="Link to this heading">#</a></h2>
 <p>Cuando instalamos Windows, durante el proceso de instalación se crean una serie de particiones con ficheros críticos del sistema operativo. Una de estas particiones creadas contiene las opciones de recuperación del sistema y toda la información del arranque. También se encuentra en ella el gestor de arranque de Windows.</p>
-<p>Si solo tenemos un sistema operativo instalado en el ordenador, este gestor de arranque no nos aparecerá. Sin embargo, en el momento que el propio asistente detecta otro sistema cualquiera, ya sea Windows o Linux, añadirá una entrada al gestor, y este nos aparecerá cuando vayamos a arrancar el PC.</p>
-<p>Este gestor de arranque se instala automáticamente junto al sistema operativo, por lo que generalmente no tenemos que hacer nada. La mejor forma de dejarlo a punto es instalar los sistemas operativos, de más viejo (en caso de instalar Windows 7 en una partición) al más nuevo, dejando Linux en el medio e instalando Windows 10 en último lugar.</p>
-<p>Además, desde la Configuración Avanzada &gt; Inicio y recuperación podremos configurar el comportamiento de este gestor de arranque, como el tiempo de espera o el sistema operativo predeterminado.</p>
+<p>Si solo tenemos un sistema operativo instalado en el ordenador, este gestor de arranque no nos aparecerá. Si instalamos otro Windows, el asistente lo detecta y añade una entrada al gestor, que nos aparecerá cuando vayamos a arrancar el PC. En cambio, <strong>el gestor de Windows no detecta Linux</strong>: para arrancar Linux usaremos GRUB o tendremos que añadir la entrada a mano (por ejemplo, con EasyBCD).</p>
+<p>Este gestor de arranque se instala automáticamente junto al sistema operativo, por lo que generalmente no tenemos que hacer nada. En un arranque dual con Linux conviene <strong>instalar primero Windows y Linux al final</strong>: si instalamos Windows después, sobrescribe el arranque y el menú de GRUB desaparece (veremos cómo recuperarlo más adelante).</p>
+<p>Además, desde Panel de control &gt; Sistema &gt; Configuración avanzada del sistema &gt; Inicio y recuperación podremos configurar el comportamiento de este gestor de arranque, como el tiempo de espera o el sistema operativo predeterminado.</p>
 <img alt="../../_images/gestor_arranque_windows.png" src="../../_images/gestor_arranque_windows.png" />
 <p>Y si queremos una forma más rápida y sencilla de editar el BCD de Windows, el programa EasyBCD nos permite configurar el gestor de arranque de Windows, añadir o quitar sistemas operativos y mejorarlo para poder usarlo más cómodamente.</p>
 <img alt="../../_images/easyBCD.png" src="../../_images/easyBCD.png" />
@@ -568,17 +611,21 @@ bcdedit<span class="w"> </span>/timeout<span class="w"> </span><span class="m">5
 bcdedit<span class="w"> </span>/default<span class="w"> </span><span class="o">{</span>ID<span class="o">}</span><span class="w">  </span><span class="c1"># sistema operativo por defecto</span>
 </pre></div>
 </div>
-<p>Si el arranque de Windows se estropea (por ejemplo, al borrar la partición de Linux), podemos repararlo arrancando desde un USB de instalación de Windows, en Reparar el equipo &gt; Símbolo del sistema:</p>
+<p>Si el arranque de Windows se estropea (por ejemplo, al borrar la partición de Linux), podemos repararlo arrancando desde un USB de instalación de Windows, en Reparar el equipo &gt; Símbolo del sistema. En un equipo con BIOS y disco MBR:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bootrec<span class="w"> </span>/fixmbr<span class="w">       </span><span class="c1"># repara el MBR</span>
 bootrec<span class="w"> </span>/fixboot<span class="w">      </span><span class="c1"># repara el sector de arranque</span>
 bootrec<span class="w"> </span>/rebuildbcd<span class="w">   </span><span class="c1"># busca los Windows instalados y regenera el BCD</span>
 </pre></div>
 </div>
+<p>En los equipos UEFI actuales no hay MBR, así que <code class="docutils literal notranslate"><span class="pre">bootrec</span> <span class="pre">/fixmbr</span></code> no sirve. Lo que hacemos es volver a copiar los archivos de arranque de Windows en la partición ESP:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bcdboot<span class="w"> </span>C:<span class="se">\W</span>indows<span class="w">   </span><span class="c1"># copia los archivos de arranque de Windows a la partición ESP y crea el BCD</span>
+</pre></div>
+</div>
 </section>
 <section id="gestores-de-arranque-de-linux">
 <h2>Gestores de arranque de Linux<a class="headerlink" href="#gestores-de-arranque-de-linux" title="Link to this heading">#</a></h2>
-<p>Linux, igual que Windows, tiene también su propio gestor de arranque. Según la distribución que elijamos, se instalará en el punto de montaje /boot un gestor que será el encargado de permitirnos arrancar nuestro sistema operativo.</p>
-<p>Los dos gestores de arranque más utilizados en las distros son GRUB y LILO. Mientras que el gestor de arranque de Windows no termina de llevarse del todo bien con las particiones Linux, y mucho menos si montamos un hackintosh, con estas alternativas vamos a poder tener un gestor de arranque mucho más compatible, completo y personalizable.</p>
+<p>Linux, igual que Windows, tiene también su propio gestor de arranque. Sus archivos (configuración, núcleos, etc.) se guardan en el punto de montaje /boot; en los equipos UEFI, además, el archivo <code class="docutils literal notranslate"><span class="pre">.efi</span></code> del gestor va en la partición ESP, montada en /boot/efi.</p>
+<p>Hoy el gestor de arranque más utilizado en las distribuciones es <strong>GRUB</strong> (<em>GRand Unified Bootloader</em>). Mientras que el gestor de arranque de Windows no detecta las particiones Linux, GRUB detecta tanto Linux como Windows y es mucho más completo y personalizable.</p>
 <img alt="../../_images/grub.png" src="../../_images/grub.png" />
 <p>La forma ideal de instalar este gestor de arranque es instalar todos los demás sistemas operativos que vayamos a utilizar, y el Linux que queramos que controle todo lo demás el último. De esta manera, cuando se instale y configure GRUB, se detectarán todos los sistemas instalados y se añadirán a la lista.</p>
 <p>De todas formas, si en cualquier momento instalamos un nuevo sistema operativo (da igual que sea Windows o Linux), y queremos volver a generar el gestor de arranque, tan solo debemos ir a la distro Linux y ejecutar el siguiente comando para regenerar la configuración con los nuevos sistemas:</p>
@@ -599,13 +646,12 @@ bootrec<span class="w"> </span>/rebuildbcd<span class="w">   </span><span class=
 <h2>Problemas típicos del arranque dual<a class="headerlink" href="#problemas-tipicos-del-arranque-dual" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Secure Boot</strong>: es una medida de seguridad del firmware que solo permite arrancar gestores firmados digitalmente. Las distribuciones grandes (Ubuntu, Fedora...) están firmadas y arrancan sin problema, pero con otras puede ser necesario desactivarlo en la configuración del equipo.</p></li>
-<li><p><strong>Inicio rápido de Windows</strong>: cuando está activado, Windows no se apaga del todo (hiberna parte del sistema) y deja sus particiones bloqueadas, por lo que desde Linux no podremos montarlas. Se desactiva en Panel de control &gt; Opciones de energía.</p></li>
+<li><p><strong>Inicio rápido de Windows</strong>: cuando está activado, Windows no se apaga del todo (hiberna parte del sistema) y deja sus particiones bloqueadas, por lo que desde Linux no podremos montarlas. Se desactiva en Panel de control &gt; Opciones de energía &gt; Elegir el comportamiento de los botones de inicio/apagado.</p></li>
 </ul>
 </section>
-<section id="lilo-y-otras-alternativas">
-<h2>LILO y otras alternativas<a class="headerlink" href="#lilo-y-otras-alternativas" title="Link to this heading">#</a></h2>
-<p>LILO (Linux Loader) fue durante muchos años el segundo gestor de arranque más utilizado en Linux, por detrás de GRUB. Permitía configurar hasta 16 sistemas operativos, y su configuración se hacía manualmente en el fichero /etc/lilo.conf. Su desarrollo terminó en 2015, así que hoy solo lo encontraremos en sistemas antiguos.</p>
-<p>Actualmente existen otras alternativas a GRUB, como <strong>systemd-boot</strong> (utilizado por ejemplo por Pop!_OS) o <strong>rEFInd</strong>, con una interfaz gráfica muy personalizable.</p>
+<section id="otras-alternativas">
+<h2>Otras alternativas<a class="headerlink" href="#otras-alternativas" title="Link to this heading">#</a></h2>
+<p>Además de GRUB existen otros gestores de arranque, como <strong>systemd-boot</strong> (utilizado por ejemplo por Pop!_OS), más sencillo y pensado para equipos UEFI, o <strong>rEFInd</strong>, con una interfaz gráfica muy personalizable.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -658,10 +704,11 @@ bootrec<span class="w"> </span>/rebuildbcd<span class="w">   </span><span class=
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#como-arranca-un-ordenador">Cómo arranca un ordenador</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestor-de-arranque-de-windows">Gestor de arranque de Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestores-de-arranque-de-linux">Gestores de arranque de Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problemas-tipicos-del-arranque-dual">Problemas típicos del arranque dual</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lilo-y-otras-alternativas">LILO y otras alternativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-alternativas">Otras alternativas</a></li>
 </ul>
   </nav></div>
 

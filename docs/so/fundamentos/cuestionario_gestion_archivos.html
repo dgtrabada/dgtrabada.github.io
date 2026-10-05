@@ -597,33 +597,49 @@
      <p><input type="text" class="qp-corto" data-a="2|dos"></p>
      </div>
      <div class="qp-bloq">
-       <p class="qp-q">2. Escribe los bloques que ocupan cada archivo, sepáralos con comas y sin espacios, por ejemplo 1,2,20,EOF</p>
-       <input type="text" data-a="1,13,15,16,7,EOF"><br>
-       <input type="text" data-a="10,9,4,EOF">
+       <p class="qp-q">2. Escribe los bloques que ocupa cada archivo (uno en cada casilla, en el orden que quieras), sepáralos con comas y sin espacios, por ejemplo 1,2,20,EOF</p>
+       <input type="text" data-a="1,13,15,16,7,EOF|10,9,4,EOF"><br>
+       <input type="text" data-a="10,9,4,EOF|1,13,15,16,7,EOF">
      </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Dónde se guarda el número del primer bloque de cada archivo?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_0" value="0">En el directorio, junto al nombre del archivo</label>
+         <label class="qp-opt"><input type="radio" name="q0_0" value="1">En la última entrada de la tabla FAT</label>
+         <label class="qp-opt"><input type="radio" name="q0_0" value="2">En el bloque que contiene EOF</label>
+       </div>
+     </div>
+     <button onclick="qpCorregir(this)">Corregir</button>
+     <button onclick="qpSolucion(this)">Solución</button>
+     <button onclick="qpLimpiar(this)">Reintentar</button>
+     <span class="qp-nota"></span>
+   </div>
+
+   <div class="qp-card">
+     <p class="qp-enunciado">2. Sistemas de archivos y fragmentación:</p>
      <div class="qp-bloq">
-       <p class="qp-q">3. ¿Qué sistema de archivos utiliza Windows 10?</p>
+       <p class="qp-q">1. ¿Qué sistema de archivos utiliza Windows?</p>
      <p><input type="text" class="qp-corto" data-a="NTFS"></p>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">¿Soporta usuarios?</p>
+       <p class="qp-q">2. ¿NTFS permite permisos por usuario?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_0" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_0" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_1" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_1" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">4. ¿Qué sistema de archivos utiliza Ubuntu?</p>
+       <p class="qp-q">3. ¿Qué sistema de archivos utiliza Ubuntu?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_1" value="0">EXT</label>
-         <label class="qp-opt"><input type="radio" name="q0_1" value="1">NTFS</label>
+         <label class="qp-opt"><input type="radio" name="q0_2" value="0">EXT</label>
+         <label class="qp-opt"><input type="radio" name="q0_2" value="1">NTFS</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">¿Soporta usuarios?</p>
+       <p class="qp-q">4. ¿EXT permite permisos por usuario?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_2" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_2" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_3" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_3" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
@@ -631,8 +647,8 @@
      <img class="qp-img" alt="frag ext quiz"
           src="data:image/png;base64,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">
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_3" value="0">Fragmentación externa</label>
-         <label class="qp-opt"><input type="radio" name="q0_3" value="1">Fragmentación interna</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="0">Fragmentación externa</label>
+         <label class="qp-opt"><input type="radio" name="q0_4" value="1">Fragmentación interna</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
@@ -640,8 +656,8 @@
      <img class="qp-img" alt="frag int quiz"
           src="data:image/png;base64,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">
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_4" value="0">Fragmentación externa</label>
-         <label class="qp-opt"><input type="radio" name="q0_4" value="1">Fragmentación interna</label>
+         <label class="qp-opt"><input type="radio" name="q0_5" value="0">Fragmentación externa</label>
+         <label class="qp-opt"><input type="radio" name="q0_5" value="1">Fragmentación interna</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>
@@ -651,48 +667,64 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">2. Responde:</p>
+     <p class="qp-enunciado">3. Responde:</p>
      <div class="qp-item" data-a="0">
        <p class="qp-q">1. En la asignación mediante lista ligada, para leer el bloque i de un archivo, ¿hay que recorrer todos los bloques anteriores?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_5" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_5" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">2. ¿Qué fragmentación aparece al almacenar los archivos de forma contigua?</p>
-       <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_6" value="0">Interna</label>
-         <label class="qp-opt"><input type="radio" name="q0_6" value="1">Externa</label>
-       </div>
-     </div>
-     <div class="qp-item" data-a="0">
-       <p class="qp-q">3. ¿Qué fragmentación aparece al dividir la partición en bloques?</p>
        <div class="qp-opts">
          <label class="qp-opt"><input type="radio" name="q0_7" value="0">Interna</label>
          <label class="qp-opt"><input type="radio" name="q0_7" value="1">Externa</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
+       <p class="qp-q">3. ¿Qué fragmentación aparece al dividir la partición en bloques?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_8" value="0">Interna</label>
+         <label class="qp-opt"><input type="radio" name="q0_8" value="1">Externa</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
        <p class="qp-q">4. Cuanto menor sea el tamaño del bloque, ¿mejor será el aprovechamiento de la partición?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_8" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_8" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">5. ¿Qué inconveniente tienen los bloques muy pequeños?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_9" value="0">Se desperdicia mucha capacidad del disco duro</label>
-         <label class="qp-opt"><input type="radio" name="q0_9" value="1">Los archivos se expanden en múltiples bloques y la velocidad de lectura es menor</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="0">Se desperdicia mucha capacidad del disco duro</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="1">Los archivos se expanden en múltiples bloques y la velocidad de lectura es menor</label>
        </div>
      </div>
-     <div class="qp-item" data-a="1">
-       <p class="qp-q">6. ¿En cuántas zonas se divide NTFS?</p>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">6. ¿Qué contiene la MFT (Master File Table) de NTFS?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_10" value="0">2</label>
-         <label class="qp-opt"><input type="radio" name="q0_10" value="1">4</label>
-         <label class="qp-opt"><input type="radio" name="q0_10" value="2">8</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="0">Una entrada por cada archivo o directorio, con su tamaño, fechas, permisos y nombre</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="1">Los datos de los archivos del usuario</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="2">El código básico para iniciar el sistema operativo</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. Si se va la luz a mitad de una escritura, ¿qué ventaja tiene un sistema de archivos con journaling?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_12" value="0">Al arrancar solo hay que revisar el diario para dejar el sistema de archivos en un estado consistente</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="1">No se pierde nunca ningún dato, aunque no se haya terminado de escribir</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="2">Hay que comprobar todo el disco, pero lo hace más rápido</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="2">
+       <p class="qp-q">8. ¿Cuál de estos sistemas de archivos no tiene journaling?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_13" value="0">NTFS</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="1">EXT4</label>
+         <label class="qp-opt"><input type="radio" name="q0_13" value="2">FAT32</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>
@@ -702,35 +734,43 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">3. Tipos de sistemas de archivos:</p>
+     <p class="qp-enunciado">4. Tipos de sistemas de archivos:</p>
      <div class="qp-item" data-a="1">
        <p class="qp-q">1. ¿Cuál es el tamaño máximo de un archivo en FAT32?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_11" value="0">2 GB</label>
-         <label class="qp-opt"><input type="radio" name="q0_11" value="1">4 GB</label>
-         <label class="qp-opt"><input type="radio" name="q0_11" value="2">~ TB</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="0">2 GB</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="1">4 GB</label>
+         <label class="qp-opt"><input type="radio" name="q0_14" value="2">~ TB</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">2. ¿Puedes guardar una película de 6 GB en un pendrive con FAT32?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_12" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_12" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_15" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
-       <p class="qp-q">3. ¿FAT32 soporta usuarios?</p>
+       <p class="qp-q">3. ¿Qué sistema de archivos usarías en el pendrive para poder guardar esa película y usarlo en Windows, macOS y GNU/Linux?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_13" value="0">Sí</label>
-         <label class="qp-opt"><input type="radio" name="q0_13" value="1">No</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="0">FAT32</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="1">exFAT</label>
+         <label class="qp-opt"><input type="radio" name="q0_16" value="2">EXT4</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">4. ¿FAT32 permite permisos por usuario?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_17" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q0_17" value="1">No</label>
        </div>
      </div>
      <div class="qp-item" data-a="2">
-       <p class="qp-q">4. ¿Cuál es el sistema de archivos habitual de GNU/Linux?</p>
+       <p class="qp-q">5. ¿Cuál es el sistema de archivos habitual de GNU/Linux?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_14" value="0">NTFS</label>
-         <label class="qp-opt"><input type="radio" name="q0_14" value="1">FAT16</label>
-         <label class="qp-opt"><input type="radio" name="q0_14" value="2">EXT4</label>
+         <label class="qp-opt"><input type="radio" name="q0_18" value="0">NTFS</label>
+         <label class="qp-opt"><input type="radio" name="q0_18" value="1">FAT16</label>
+         <label class="qp-opt"><input type="radio" name="q0_18" value="2">EXT4</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>
@@ -740,45 +780,45 @@
    </div>
 
    <div class="qp-card">
-     <p class="qp-enunciado">4. Extensiones:</p>
+     <p class="qp-enunciado">5. Extensiones:</p>
      <div class="qp-item" data-a="1">
        <p class="qp-q">1. ¿Qué extensión de un documento de Word permite ejecutar macros?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_15" value="0">DOCX</label>
-         <label class="qp-opt"><input type="radio" name="q0_15" value="1">DOCM</label>
-         <label class="qp-opt"><input type="radio" name="q0_15" value="2">TXT</label>
+         <label class="qp-opt"><input type="radio" name="q0_19" value="0">DOCX</label>
+         <label class="qp-opt"><input type="radio" name="q0_19" value="1">DOCM</label>
+         <label class="qp-opt"><input type="radio" name="q0_19" value="2">TXT</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">2. ¿Qué formato de imagen tiene compresión sin pérdida y soporta transparencias?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_16" value="0">JPG</label>
-         <label class="qp-opt"><input type="radio" name="q0_16" value="1">PNG</label>
-         <label class="qp-opt"><input type="radio" name="q0_16" value="2">BMP</label>
+         <label class="qp-opt"><input type="radio" name="q0_20" value="0">JPG</label>
+         <label class="qp-opt"><input type="radio" name="q0_20" value="1">PNG</label>
+         <label class="qp-opt"><input type="radio" name="q0_20" value="2">BMP</label>
        </div>
      </div>
      <div class="qp-item" data-a="2">
        <p class="qp-q">3. ¿Qué formato de audio es de alta fidelidad y sin pérdidas?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_17" value="0">MP3</label>
-         <label class="qp-opt"><input type="radio" name="q0_17" value="1">OGG</label>
-         <label class="qp-opt"><input type="radio" name="q0_17" value="2">FLAC</label>
+         <label class="qp-opt"><input type="radio" name="q0_21" value="0">MP3</label>
+         <label class="qp-opt"><input type="radio" name="q0_21" value="1">OGG</label>
+         <label class="qp-opt"><input type="radio" name="q0_21" value="2">FLAC</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
        <p class="qp-q">4. ¿Qué extensión corresponde a un archivo comprimido muy frecuente en Linux?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_18" value="0">GZ</label>
-         <label class="qp-opt"><input type="radio" name="q0_18" value="1">AVI</label>
-         <label class="qp-opt"><input type="radio" name="q0_18" value="2">PSD</label>
+         <label class="qp-opt"><input type="radio" name="q0_22" value="0">GZ</label>
+         <label class="qp-opt"><input type="radio" name="q0_22" value="1">AVI</label>
+         <label class="qp-opt"><input type="radio" name="q0_22" value="2">PSD</label>
        </div>
      </div>
      <div class="qp-item" data-a="0">
-       <p class="qp-q">5. ¿Qué formato protege el estilo y evita modificaciones?</p>
+       <p class="qp-q">5. ¿Qué formato mantiene el aspecto del documento en cualquier equipo y se usa para compartir documentos ya terminados?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_19" value="0">PDF</label>
-         <label class="qp-opt"><input type="radio" name="q0_19" value="1">RTF</label>
-         <label class="qp-opt"><input type="radio" name="q0_19" value="2">CSV</label>
+         <label class="qp-opt"><input type="radio" name="q0_23" value="0">PDF</label>
+         <label class="qp-opt"><input type="radio" name="q0_23" value="1">RTF</label>
+         <label class="qp-opt"><input type="radio" name="q0_23" value="2">CSV</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>

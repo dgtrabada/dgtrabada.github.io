@@ -25,18 +25,24 @@ Cuestionario gestión de archivos
          | 16 | 7 |
       - 1. ¿Cuántos archivos ves?
         [2|dos]
-      - 2. Escribe los bloques que ocupan cada archivo, sepáralos con comas y sin espacios, por ejemplo 1,2,20,EOF
-        = 1,13,15,16,7,EOF
-        = 10,9,4,EOF
-      - 3. ¿Qué sistema de archivos utiliza Windows 10?
+      - 2. Escribe los bloques que ocupa cada archivo (uno en cada casilla, en el orden que quieras), sepáralos con comas y sin espacios, por ejemplo 1,2,20,EOF
+        = 1,13,15,16,7,EOF | 10,9,4,EOF
+        = 10,9,4,EOF | 1,13,15,16,7,EOF
+      - 3. ¿Dónde se guarda el número del primer bloque de cada archivo?
+        (x) En el directorio, junto al nombre del archivo
+        ( ) En la última entrada de la tabla FAT
+        ( ) En el bloque que contiene EOF
+
+   2. Sistemas de archivos y fragmentación:
+      - 1. ¿Qué sistema de archivos utiliza Windows?
         [NTFS]
-      - ¿Soporta usuarios?
+      - 2. ¿NTFS permite permisos por usuario?
         (x) Sí
         ( ) No
-      - 4. ¿Qué sistema de archivos utiliza Ubuntu?
+      - 3. ¿Qué sistema de archivos utiliza Ubuntu?
         (x) EXT
         ( ) NTFS
-      - ¿Soporta usuarios?
+      - 4. ¿EXT permite permisos por usuario?
         (x) Sí
         ( ) No
       - 5. En esta imagen encontramos:
@@ -48,7 +54,7 @@ Cuestionario gestión de archivos
         ( ) Fragmentación externa
         (x) Fragmentación interna
 
-   2. Responde:
+   3. Responde:
       - 1. En la asignación mediante lista ligada, para leer el bloque i de un archivo, ¿hay que recorrer todos los bloques anteriores?
         (x) Sí
         ( ) No
@@ -64,12 +70,20 @@ Cuestionario gestión de archivos
       - 5. ¿Qué inconveniente tienen los bloques muy pequeños?
         ( ) Se desperdicia mucha capacidad del disco duro
         (x) Los archivos se expanden en múltiples bloques y la velocidad de lectura es menor
-      - 6. ¿En cuántas zonas se divide NTFS?
-        ( ) 2
-        (x) 4
-        ( ) 8
+      - 6. ¿Qué contiene la MFT (Master File Table) de NTFS?
+        (x) Una entrada por cada archivo o directorio, con su tamaño, fechas, permisos y nombre
+        ( ) Los datos de los archivos del usuario
+        ( ) El código básico para iniciar el sistema operativo
+      - 7. Si se va la luz a mitad de una escritura, ¿qué ventaja tiene un sistema de archivos con journaling?
+        (x) Al arrancar solo hay que revisar el diario para dejar el sistema de archivos en un estado consistente
+        ( ) No se pierde nunca ningún dato, aunque no se haya terminado de escribir
+        ( ) Hay que comprobar todo el disco, pero lo hace más rápido
+      - 8. ¿Cuál de estos sistemas de archivos no tiene journaling?
+        ( ) NTFS
+        ( ) EXT4
+        (x) FAT32
 
-   3. Tipos de sistemas de archivos:
+   4. Tipos de sistemas de archivos:
       - 1. ¿Cuál es el tamaño máximo de un archivo en FAT32?
         ( ) 2 GB
         (x) 4 GB
@@ -77,15 +91,19 @@ Cuestionario gestión de archivos
       - 2. ¿Puedes guardar una película de 6 GB en un pendrive con FAT32?
         ( ) Sí
         (x) No
-      - 3. ¿FAT32 soporta usuarios?
+      - 3. ¿Qué sistema de archivos usarías en el pendrive para poder guardar esa película y usarlo en Windows, macOS y GNU/Linux?
+        ( ) FAT32
+        (x) exFAT
+        ( ) EXT4
+      - 4. ¿FAT32 permite permisos por usuario?
         ( ) Sí
         (x) No
-      - 4. ¿Cuál es el sistema de archivos habitual de GNU/Linux?
+      - 5. ¿Cuál es el sistema de archivos habitual de GNU/Linux?
         ( ) NTFS
         ( ) FAT16
         (x) EXT4
 
-   4. Extensiones:
+   5. Extensiones:
       - 1. ¿Qué extensión de un documento de Word permite ejecutar macros?
         ( ) DOCX
         (x) DOCM
@@ -102,7 +120,7 @@ Cuestionario gestión de archivos
         (x) GZ
         ( ) AVI
         ( ) PSD
-      - 5. ¿Qué formato protege el estilo y evita modificaciones?
+      - 5. ¿Qué formato mantiene el aspecto del documento en cualquier equipo y se usa para compartir documentos ya terminados?
         (x) PDF
         ( ) RTF
         ( ) CSV

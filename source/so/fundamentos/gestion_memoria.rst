@@ -21,7 +21,7 @@ Para tener varios procesos a la vez en memoria (multiprogramación), la memoria 
 
 Las particiones fijas se creaban al arrancar el ordenador. Si queríamos correr un proceso más grande que el tamaño de las particiones, teníamos que reiniciar el ordenador. Además, como se ve en la siguiente figura, las particiones fijas favorecen la fragmentación interna: el espacio que queda sin usar dentro de una partición cuando el proceso es más pequeño que ella.
 
-Imaginemos una memoria de 64 KB con 4 particiones de 16 KB = 2⁴·2¹⁰ = 2¹⁴ bytes = 0x4000.
+Imaginemos una memoria de 64 KB con 4 particiones de 16 KB = 2\ :sup:`4`\ ·2\ :sup:`10` = 2\ :sup:`14` bytes = 0x4000.
 
 .. image:: imagenes/memoria_ppal.png
   :height: 200

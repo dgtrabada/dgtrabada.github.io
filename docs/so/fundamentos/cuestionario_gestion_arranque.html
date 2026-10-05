@@ -609,6 +609,44 @@
          <label class="qp-opt"><input type="radio" name="q0_4" value="2">rEFInd</label>
        </div>
      </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">6. Si instalamos Linux con GRUB y después otro Windows, ¿añade el gestor de arranque de Windows una entrada para Linux?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_5" value="0">Sí, detecta Linux automáticamente</label>
+         <label class="qp-opt"><input type="radio" name="q0_5" value="1">No, el gestor de Windows no detecta Linux</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">7. En un equipo UEFI, ¿dónde se guarda el gestor de arranque?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_6" value="0">En los primeros 512 bytes del disco (MBR)</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="1">En la partición del sistema EFI (ESP), formateada en FAT32</label>
+         <label class="qp-opt"><input type="radio" name="q0_6" value="2">En la partición /home</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">8. ¿Qué tabla de particiones usan los equipos UEFI actuales?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_7" value="0">MBR</label>
+         <label class="qp-opt"><input type="radio" name="q0_7" value="1">GPT</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">9. ¿Cuántas particiones primarias como máximo admite un disco MBR?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_8" value="0">2</label>
+         <label class="qp-opt"><input type="radio" name="q0_8" value="1">4</label>
+         <label class="qp-opt"><input type="radio" name="q0_8" value="2">128</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">10. ¿Qué es lo primero que se ejecuta al encender el ordenador?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q0_9" value="0">El firmware (BIOS o UEFI) de la placa base</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="1">El gestor de arranque</label>
+         <label class="qp-opt"><input type="radio" name="q0_9" value="2">El núcleo del sistema operativo</label>
+       </div>
+     </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
      <button onclick="qpLimpiar(this)">Reintentar</button>
@@ -637,6 +675,10 @@
        <p class="qp-q">5. ¿Qué comando de Windows muestra y edita las entradas del arranque?</p>
        <input type="text" data-a="bcdedit">
      </div>
+     <div class="qp-bloq">
+       <p class="qp-q">6. En un equipo UEFI, ¿qué comando copia los archivos de arranque de Windows a la partición ESP para repararlo?</p>
+       <input type="text" data-a="bcdboot C:\Windows|bcdboot c:\windows|bcdboot">
+     </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
      <button onclick="qpLimpiar(this)">Reintentar</button>
@@ -648,25 +690,25 @@
      <div class="qp-item" data-a="0">
        <p class="qp-q">1. Instalamos una distribución de Linux junto a Windows, pero el equipo no la deja arrancar por no estar firmada digitalmente. ¿Qué medida de seguridad es la responsable?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_5" value="0">Secure Boot</label>
-         <label class="qp-opt"><input type="radio" name="q0_5" value="1">El inicio rápido de Windows</label>
-         <label class="qp-opt"><input type="radio" name="q0_5" value="2">La contraseña de GRUB</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="0">Secure Boot</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="1">El inicio rápido de Windows</label>
+         <label class="qp-opt"><input type="radio" name="q0_10" value="2">La contraseña de GRUB</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">2. Desde Linux no podemos montar las particiones de Windows aunque el equipo estaba apagado. ¿Qué debemos desactivar?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_6" value="0">Secure Boot</label>
-         <label class="qp-opt"><input type="radio" name="q0_6" value="1">El inicio rápido de Windows</label>
-         <label class="qp-opt"><input type="radio" name="q0_6" value="2">El gestor de arranque</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="0">Secure Boot</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="1">El inicio rápido de Windows</label>
+         <label class="qp-opt"><input type="radio" name="q0_11" value="2">El gestor de arranque</label>
        </div>
      </div>
      <div class="qp-item" data-a="1">
        <p class="qp-q">3. Reinstalamos Windows y desaparece el menú de GRUB. ¿Cómo lo recuperamos?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q0_7" value="0">No se puede recuperar, hay que reinstalar Linux</label>
-         <label class="qp-opt"><input type="radio" name="q0_7" value="1">Arrancando con un live USB de Linux y usando grub-install o Boot-Repair</label>
-         <label class="qp-opt"><input type="radio" name="q0_7" value="2">Con el comando bootrec /fixmbr</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="0">No se puede recuperar, hay que reinstalar Linux</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="1">Arrancando con un live USB de Linux y usando grub-install o Boot-Repair</label>
+         <label class="qp-opt"><input type="radio" name="q0_12" value="2">Con el comando bootrec /fixmbr</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>

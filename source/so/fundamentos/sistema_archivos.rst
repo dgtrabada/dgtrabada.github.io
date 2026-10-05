@@ -5,7 +5,7 @@ Sistema de archivos
 La memoria secundaria
 =====================
 
-Una de las primeras formas de organizar la información en la memoria secundaria fue mediante la asignación en forma de lista ligada
+Una de las primeras formas de organizar la información en la memoria secundaria fue mediante la asignación en forma de lista ligada.
 
 .. image:: imagenes/memoria_secundaria.png
   :width: 200
@@ -13,14 +13,14 @@ Una de las primeras formas de organizar la información en la memoria secundaria
 .. image:: imagenes/memoria_lista.png
   :width: 400
 
-En cada bloque contiene la dirección del siguiente bloque o si es el ultimo da dirección con el valor EOF. Uno de los problemas que nos encontramos es que si queremos leer el bloque i, tendremos que pasar por todos los anteriores (esto puede ser muy ineficiente)
+Cada bloque contiene la dirección del siguiente bloque o, si es el último, el valor EOF (*End Of File*, fin de archivo). Uno de los problemas que nos encontramos es que, si queremos leer el bloque i, tendremos que pasar por todos los anteriores, lo que puede ser muy ineficiente.
 
-Una forma más eficiente de organizarlo es almacenar los archivos de una forma contigua sin embargo cuando un archivo aumente de tamaño tendremos que cambiarlo de sitio creándose de esta forma la fragmentación externa:
+Una forma más eficiente de organizarlo es almacenar los archivos de forma contigua; sin embargo, cuando un archivo aumente de tamaño tendremos que cambiarlo de sitio, y de esta forma aparece la fragmentación externa:
 
 .. image:: imagenes/frag_ext.png
 
 
-Podemos evitar mover todo el archivo creando bloques, esto creará fragmentación interna, cuanto menor sea el tamaño del bloque mejor será el aprovechamiento de la partición
+Podemos evitar mover todo el archivo dividiendo la partición en bloques. Esto crea fragmentación interna: cuanto menor sea el tamaño del bloque, mejor será el aprovechamiento de la partición.
 
 
 .. image:: imagenes/frag_int.png
@@ -29,17 +29,17 @@ Podemos evitar mover todo el archivo creando bloques, esto creará fragmentació
 FAT (File Allocation Table)
 ===========================
 
-El sistema FAT Se genera una entrada por cada bloque del disco
+En el sistema FAT se genera una entrada por cada bloque del disco. Cada entrada indica cuál es el siguiente bloque del archivo, o EOF si es el último. El directorio guarda, junto al nombre de cada archivo, el número de su primer bloque; a partir de ahí se sigue la cadena en la tabla.
 
 .. image:: imagenes/FAT.png
   :width: 200
 
-En esta tabla podemos ver 2 archivos:
+En esta tabla podemos ver 2 archivos (el directorio indica que A empieza en el bloque 5 y B en el 3):
 
 | A : [5] -> [4] -> [2]
 | B : [3] -> [7]
 
-En un disco duro de 160 GB con bloques de 16KB tendríamos 160×2³⁰ / 16×2¹⁰ = 10×2²⁰ bloques en FAT32, si cada entrada ocupa 32bit (4B) es decir que la tabla tendría 40 MB
+En un disco duro de 160 GB con bloques de 16 KB tendríamos (160×2\ :sup:`30`\ ) / (16×2\ :sup:`10`\ ) = 10×2\ :sup:`20` bloques. En FAT32 cada entrada ocupa 32 bits (4 B), así que la tabla ocuparía 10×2\ :sup:`20` × 4 B = 40 MB.
 
 El Sistema I-NODOS (ls -i) (ext)
 ================================
@@ -53,17 +53,17 @@ Con bloques de 1KB y direcciones de 32 bits podemos apuntar a:
 
 .. image:: imagenes/inodos1.png
 
-(1*2¹⁰*2³bit) / (2⁵bit) = 2⁸ = 256 direcciones 
+(1×2\ :sup:`10`\ ×2\ :sup:`3`\ bit) / (2\ :sup:`5`\ bit) = 2\ :sup:`8` = 256 direcciones 
   
 .. image:: imagenes/inodos2.png
 
-(256)² = 2¹⁶
+(256)\ :sup:`2` = 2\ :sup:`16`
 
 .. image:: imagenes/inodos3.png
 
-(256)³ = 2²⁴
+(256)\ :sup:`3` = 2\ :sup:`24`
 
-tendríamos en total : 10 + 2⁸ + 2¹⁶ + 2²⁴ ≈ 2²⁴ = 16 GB
+tendríamos en total: 10 + 2\ :sup:`8` + 2\ :sup:`16` + 2\ :sup:`24` ≈ 2\ :sup:`24` bloques, y como cada bloque es de 1 KB, el tamaño máximo de un archivo sería 2\ :sup:`24` × 2\ :sup:`10` B = 2\ :sup:`34` B = 16 GB.
 
 NTFS 
 ====
@@ -78,14 +78,15 @@ Journaling (sistemas transaccionales)
 
 Los sistemas de archivos transaccionales o con journaling (NTFS, EXT3, EXT4...) mantienen un diario (journal) donde anotan los cambios que van a realizar antes de escribirlos definitivamente en el disco. Si el equipo se apaga de golpe a mitad de una escritura, al arrancar solo hay que revisar el diario para dejar el sistema de archivos en un estado consistente, en lugar de comprobar todo el disco (como hacía chkdsk/scandisk con FAT).
 
-Por eso, para el disco del sistema siempre elegiremos un sistema de archivos con journaling; FAT32, que no lo tiene, queda para pendrives y tarjetas de memoria, donde prima la compatibilidad.
+Por eso, para el disco del sistema siempre elegiremos un sistema de archivos con journaling. FAT32 y exFAT, que no lo tienen, quedan para pendrives y tarjetas de memoria, donde prima la compatibilidad. Como FAT32 no admite archivos de más de 4 GB, en los pendrives y tarjetas actuales se usa sobre todo exFAT.
 
 Tamaño Bloque
 =============
 
-Tamaños grandes, nos dan mucha fragmentación interna, lo que hace que se desperdicie capacidad de disco duro
-Tamaños pequeños hace que los archivos se expandan en múltiples bloques lo que hace que provoca velocidad de lectura menores.
-Tanenbaum et al. (2006) en  Computer Science Department, obtiene:
+* **Bloques grandes:** mucha fragmentación interna, lo que hace que se desperdicie capacidad del disco duro.
+* **Bloques pequeños:** los archivos se reparten en muchos bloques y la velocidad de lectura es menor, porque hay que buscar y leer cada bloque por separado.
+
+La siguiente gráfica, basada en el ejemplo del libro *Modern Operating Systems* de Tanenbaum, muestra los dos efectos para archivos de 4 KB (con una búsqueda media de 5 ms, una rotación de 8,33 ms y 1 MB por pista). Con bloques pequeños se aprovecha todo el espacio, pero la lectura es muy lenta; con bloques grandes la lectura es rápida, pero casi todo el espacio se desperdicia:
 
 .. image:: imagenes/bloque.png
 
@@ -106,12 +107,16 @@ Existen muchos tipos de sistemas de archivos. En la siguiente tabla vemos alguno
 +----------+--------------+---------------+-------------+----------+
 |  EXT3    |     2 TB     |    32TB       | GNU/Linux   |    SI    |
 +----------+--------------+---------------+-------------+----------+
+|**exFAT** |  **16 EB**   |   128 PB      |**Windows,** |  **NO**  |
+|          |              |               |**macOS,**   |          |
+|          |              |               |**GNU/Linux**|          |
++----------+--------------+---------------+-------------+----------+
 |**EXT4**  |   **~ TB**   |    ~ EB       |**GNU/Linux**|  **SI**  |
 +----------+--------------+---------------+-------------+----------+
 
 
 
-En el sistema de archivos hay dos tipos fundamentales de objetos: los directorios y los archivos, Los archivos son los objetos encargados de contener los datos, mientras que los directorios o carpetas son los objetos cuya misión principal es permitir una mayor organización de los archivos dentro del disco.
+En el sistema de archivos hay dos tipos fundamentales de objetos: los directorios y los archivos. Los archivos son los objetos encargados de contener los datos, mientras que los directorios o carpetas son los objetos cuya misión principal es permitir una mayor organización de los archivos dentro del disco.
 
 Los archivos suelen estar formados por el nombre y la extensión, la extensión indica qué tipo de archivo es, fíjate en los siguientes ejemplos:
 
@@ -122,7 +127,7 @@ Los archivos suelen estar formados por el nombre y la extensión, la extensión 
   * DOCX: formato por defecto de los documentos de Word. Este formato no permite ejecutar macros.
   * DOCM: igual que el DOCX, pero con macros habilitadas.
   * ODT: documento de texto en formato OpenDocument, ideal para usar con suites alternativas como LibreOffice.
-  * PDF: formato de Adobe Acrobat. Protege el estilo y evita modificaciones.
+  * PDF: formato creado por Adobe y hoy estándar abierto (ISO). Mantiene el aspecto del documento en cualquier equipo; se usa para compartir documentos ya terminados.
   * RTF: formato de texto enriquecido, perfecto para compartir entre distintos sistemas operativos.
   * CSV: formato abierto para representar cualquier tipo de datos en forma de tabla.
   * XLS: documentos de Excel. Este formato está obsoleto, ya que pertenece a las versiones antiguas de Office.
@@ -144,14 +149,14 @@ Los archivos suelen estar formados por el nombre y la extensión, la extensión 
   * WMA: formato de audio desarrollado por Microsoft con compresión y posible DRM.
   * WAV: formato de audio digital con o sin compresión.
   * FLAC: formato de audio digital de alta fidelidad y sin pérdidas.
-  * MIDI: protocolo para transferencia de datos, con información de sonido, de 8 bits.
+  * MIDI: no contiene sonido grabado, sino instrucciones para instrumentos musicales (qué nota tocar, cuándo y con qué intensidad).
   * OGG: codec de audio libre, muy popular como alternativa al MP3.
   * M3U: lista de reproducción.
   
 * Extensiones de video
 
   * AVI: contenedor de audio y vídeo que puede contener varios flujos de datos de audio y de vídeo.
-  * DIVX: formato utilizado para almacenar archivos de vídeo de alta definición y calidad.
+  * DIVX: códec de vídeo con compresión, muy popular para películas en los años 2000.
   * MOV: formato utilizado por QuickTime.
   * MP4: formato capaz de almacenar contenido multimedia como audio, vídeo y subtítulos.
   * MPG: formato con compresión de baja pérdida de calidad.
@@ -167,27 +172,26 @@ Los archivos suelen estar formados por el nombre y la extensión, la extensión 
   * ICO: archivo de icono.
   * SVG: imagen de gráficos vectoriales.
   * WEBP: formato de imagen con compresión desarrollado por Google para web.
-  * GIF: imágenes animadas.
+  * GIF: imágenes sencillas o animadas, limitadas a 256 colores.
   * PSD: proyecto de Adobe Photoshop.
   * HEIC: formato de imagen utilizado por Apple en macOS y iOS.
-  * NEF/CRW: formato de imagen RAW, en bruto, utilizado por cámaras Nikon y Canon.
+  * NEF/CR2/CR3: formato de imagen RAW, en bruto, utilizado por cámaras Nikon (NEF) y Canon (CR2 y CR3).
   * AI: proyecto de Adobe Illustrator.
-  * ID: proyecto de InDesign de Adobe.
+  * INDD: proyecto de InDesign de Adobe.
 
 * Extensiones de archivos comprimidos
 
-  * ZIP: formato desarrollado por WinZIP.
+  * ZIP: formato creado por Phil Katz (PKWARE) en 1989; lo usan programas como WinZip o 7-Zip y lo abre directamente Windows.
   * RAR: formato de compresión desarrollado por WinRAR más eficiente que el ZIP.
   * RAR5: versión renovada de RAR con mejoras de seguridad y recuperación de datos.
   * 7Z: formato libre desarrollado por el creador de 7-Zip.
-  * ACE: archivo comprimido con WinACE.
   * R00, R01, etc: archivo WinRAR dividido en partes.
   * GZ: archivo comprimido en GZIP, muy frecuente en Linux.
   * tar.bz2: otro formato de archivo comprimido de Linux.
 
-Junto con el nombre del archivo, el sistema operativo almacena también unos atributos que califican al archivo. Entre otros pueden ser la hora y fecha de creación o su última modificación, su propietario, si es oculto, si pertenece al sistema, el tamaño, si está cifrado, si es solo para lectura, escritura o ejecución, si es un enlace simbólico, etc
+Junto con el nombre del archivo, el sistema operativo almacena también unos atributos que califican al archivo. Entre otros pueden ser la hora y fecha de creación o su última modificación, su propietario, si es oculto, si pertenece al sistema, el tamaño, si está cifrado, si es solo para lectura, escritura o ejecución, si es un enlace simbólico, etc.
 
-Los directorios son una división lógica de almacenamiento de archivos u otros subdirectorios, al igual que los archivos tienen atributos que cambiarán según el sistema operativo que utilicemos, los cuales las veremos más adelante. Las operaciones más comunes sobre los directorios son:
+Los directorios son una división lógica de almacenamiento de archivos u otros subdirectorios, al igual que los archivos, tienen atributos que cambiarán según el sistema operativo que utilicemos y que veremos más adelante. Las operaciones más comunes sobre los directorios son:
 
 * Crear
 * Copiar
