@@ -7,7 +7,7 @@ Sistemas Operativos
    
    ../teoria/medida_representacion_informacion.rst
    fundamentos/index
-   maquinas_virtuales.rst
+   virtualizacion/index
    particiones/
    ../hardware/raid.rst
    GNULinux/index

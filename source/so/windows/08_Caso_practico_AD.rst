@@ -4,8 +4,8 @@ Casos prácticos : Active Directory con adaptador puente
 
 Crea los siguientes clones enlazados con los adaptadores en modo puente:
 
-* Clon enlazado 1 de `Windows Server 2022 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022>`_ llamado **SRV-tunombre** con IP 10.4.X.Y/8, DHCP si es portátil
-* Clon enlazado 2 de `Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_ llamado **WC5-tunombre** 10.5.X.Y/8, DHCP si es portátil
+* Clon enlazado 1 de :ref:`Windows Server 2022 <Caso práctico: Windows Server 2022>` llamado **SRV-tunombre** con IP 10.4.X.Y/8, DHCP si es portátil
+* Clon enlazado 2 de :ref:`Windows 11 <Caso práctico: Windows 11>` llamado **WC5-tunombre** 10.5.X.Y/8, DHCP si es portátil
 
 El servidor debe tener **IP fija**: va a ser el controlador de dominio y el DNS de la red, y los clientes lo tienen que localizar siempre en la misma dirección.
 

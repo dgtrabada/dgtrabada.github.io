@@ -1,0 +1,872 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introducción a VirtualBox &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/virtualizacion/virtualbox_introduccion';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Ejercicio de particiones" href="virtualbox_particiones.html" />
+    <link rel="prev" title="VirtualBox" href="virtualbox.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricidad.html">Transición, la electricidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_licencias.html">Cuestionario de licencias</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos1.html">Cuestionario gestión de procesos: teoría</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos2.html">Cuestionario gestión de procesos: ejercicios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria y planificación del disco</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_archivos.html">Cuestionario gestión de archivos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión del arranque</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_arranque.html">Cuestionario gestión del arranque</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">La virtualización</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="virtualbox.html">VirtualBox</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Introducción a VirtualBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="virtualbox_particiones.html">Ejercicio de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_gestion_particiones.html">Cuestionario gestión de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/03_cuestionario_permisos_usuarios_grupos.html">Cuestionario permisos, usuarios y grupos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_apache.html">Apache</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/06_cuestionario_automatizacion_tareas.html">Cuestionario automatización de tareas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/07_cuestionario_comandos_avanzados.html">Cuestionario comandos avanzados</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/12_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_almacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsulados.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnóstico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/casos_practicos.html">Casos prácticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimiento.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un módulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/virtualizacion/virtualbox_introduccion.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introducción a VirtualBox</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-nat">Ejercicio 1: NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-disco-duro">Ejercicio 2: Disco duro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-modo-puente">Ejercicio 3: Modo puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-ssh">Ejercicio 4: SSH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-ssh-desde-el-anfitrion">Ejercicio 5: SSH desde el anfitrión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-6-red-nat">Ejercicio 6: Red NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-7-red-nat-con-reenvio-de-puertos">Ejercicio 7: Red NAT con reenvío de puertos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-8-red-interna">Ejercicio 8: Red interna</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="introduccion-a-virtualbox">
+<h1>Introducción a VirtualBox<a class="headerlink" href="#introduccion-a-virtualbox" title="Link to this heading">#</a></h1>
+<p>En estos ejercicios vamos a crear una máquina virtual, clonarla y conectar las dos máquinas con los distintos modos de red de VirtualBox: NAT, adaptador puente, Red NAT y red interna.</p>
+<p>Usaremos <strong>DRBL Live</strong>, una distribución que arranca desde la ISO sin necesidad de instalarla, así que podemos centrarnos en VirtualBox y no en el sistema operativo.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<ul class="simple">
+<li><p>DRBL Live no guarda nada en el disco: cada vez que reinicies la máquina virtual tendrás que volver a configurar la IP, la contraseña del usuario <strong>user</strong> y el teclado.</p></li>
+<li><p>Si haces los ejercicios con un portátil y pones el adaptador en modo puente, deja la IP por DHCP.</p></li>
+</ul>
+</div>
+<section id="ejercicio-1-nat">
+<h2>Ejercicio 1: NAT<a class="headerlink" href="#ejercicio-1-nat" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Descárgate la ISO de DRBL Live de <a class="reference external" href="https://drbl.org/download/">https://drbl.org/download/</a>, la última versión estable para arquitectura de 64 bits.</p></li>
+<li><p>Crea una máquina virtual llamada <strong>DRBL</strong>, de tipo Linux y versión Other Linux (64-bit), con:</p>
+<ul class="simple">
+<li><p>Memoria: 1024 MB</p></li>
+<li><p>Disco duro VDI reservado dinámicamente de 100 GB</p></li>
+<li><p>Memoria de vídeo: 128 MB</p></li>
+<li><p>Red: NAT</p></li>
+<li><p>Almacenamiento/Controlador: IDE/disco (Vacío)/Seleccionar archivo de disco, y carga la ISO que te has bajado</p></li>
+</ul>
+</li>
+<li><p>Inicia desde la opción <strong>DRBL Live (Default settings)</strong>. Si tienes problemas, prueba con:</p>
+<ul class="simple">
+<li><p>Other modes of DRBL Live</p></li>
+<li><p>DRBL Live (Safe graphic settings, vga=normal)</p></li>
+</ul>
+</li>
+<li><p>Policy for handling keymaps: <strong>2</strong></p></li>
+<li><p>[0] (pulsa Enter)</p></li>
+<li><p>Sube un pantallazo en el que se vea:</p>
+<ul>
+<li><p>El test <strong>CPU N-Queens</strong>, que encontrarás en Applications/System/System Profiler and Benchmark</p></li>
+<li><p>La salida de los siguientes comandos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>a
+ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.8.8.8
+<span class="nb">echo</span><span class="w"> </span>tunombre
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>Ayuda: para poner el teclado en español, <code class="docutils literal notranslate"><span class="pre">setxkbmap</span> <span class="pre">-layout</span> <span class="pre">es</span></code></p>
+<p>Ejemplo de pantallazo:</p>
+<img alt="../../_images/ej1_drbl_nqueens.png" src="../../_images/ej1_drbl_nqueens.png" />
+</section>
+<section id="ejercicio-2-disco-duro">
+<h2>Ejercicio 2: Disco duro<a class="headerlink" href="#ejercicio-2-disco-duro" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Crea una clonación enlazada de la MV <strong>DRBL</strong> llamada <strong>DRBL_clonada</strong>. En <strong>Política de dirección MAC</strong> elige <strong>Generar nuevas direcciones MAC para todos los adaptadores de red</strong>: si las dos máquinas tienen la misma MAC, tendrás problemas de red cuando estén encendidas a la vez (ver <a class="reference internal" href="virtualbox.html"><span class="doc">VirtualBox</span></a>)</p>
+<img alt="../../_images/ej2_clon_enlazado.png" src="../../_images/ej2_clon_enlazado.png" />
+</li>
+<li><p>Añade al clon enlazado un nuevo disco duro de 10 GB llamado <strong>tunombre.vdi</strong> (Configuración/Almacenamiento/Controlador SATA/Añadir disco duro)</p></li>
+<li><p>Sube un pantallazo en el que se vea la salida de <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">fdisk</span> <span class="pre">-l</span></code> en las dos máquinas virtuales (en el clon aparece el disco nuevo de 10 GB) y la configuración de almacenamiento del clon con el disco <strong>tunombre.vdi</strong>, como se muestra a continuación:</p></li>
+</ul>
+<img alt="../../_images/ej2_fdisk_disco.png" src="../../_images/ej2_fdisk_disco.png" />
+</section>
+<section id="ejercicio-3-modo-puente">
+<h2>Ejercicio 3: Modo puente<a class="headerlink" href="#ejercicio-3-modo-puente" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Mira la IP de tu equipo con <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> o <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>, según el anfitrión sea Windows o GNU/Linux. <strong>X</strong> e <strong>Y</strong> son los dos últimos números de esa IP; por ejemplo, en mi caso la IP es 10.2.<strong>4</strong>.<strong>100</strong>, así que X = 4 e Y = 100:</p>
+<img alt="../../_images/ej3_ip_anfitrion.png" src="../../_images/ej3_ip_anfitrion.png" />
+</li>
+<li><p>Pon el adaptador de las dos máquinas virtuales en <strong>modo puente</strong></p></li>
+<li><p>Configura la red de las máquinas virtuales con estos datos (en mi caso, 10.4.4.100 para DRBL y 10.3.4.100 para DRBL_clonada):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>DRBL</p></th>
+<th class="head"><p>DRBL_clonada</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IP</p></td>
+<td><p>10.4.X.Y</p></td>
+<td><p>10.3.X.Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Netmask</p></td>
+<td><p>255.0.0.0</p></td>
+<td><p>255.0.0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Gateway</p></td>
+<td><p>10.0.0.2</p></td>
+<td><p>10.0.0.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>DNS</p></td>
+<td><p>8.8.8.8</p></td>
+<td><p>8.8.8.8</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Para poner la IP fija en DRBL, abre <strong>Wicd Network Manager</strong>, pulsa en <strong>Properties</strong> de la red cableada y marca <strong>Use Static IPs</strong>. El DNS va en <strong>DNS server 1</strong> (en la captura está puesto, por error, en <em>DNS domain</em>):</p>
+<img alt="../../_images/ej3_ip_estatica.png" src="../../_images/ej3_ip_estatica.png" />
+</li>
+<li><p>Haz un ping desde la MV DRBL_clonada (10.3.X.Y) a la MV DRBL (10.4.X.Y) y sube un pantallazo en el que se vean el ping y las tres IP (anfitrión y las dos máquinas virtuales)</p></li>
+</ul>
+<img alt="../../_images/ej3_ping_puente.png" src="../../_images/ej3_ping_puente.png" />
+</section>
+<section id="ejercicio-4-ssh">
+<h2>Ejercicio 4: SSH<a class="headerlink" href="#ejercicio-4-ssh" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Comprueba que el servidor de ssh está instalado en la máquina virtual DRBL (10.4.X.Y). En DRBL Live ya viene instalado; en otra distribución lo instalarías con:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>openssh-server
+</pre></div>
+</div>
+</li>
+<li><p>Reinicia el demonio de ssh:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ssh
+</pre></div>
+</div>
+</li>
+<li><p>Asigna una contraseña al usuario <strong>user</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>passwd<span class="w"> </span>user
+</pre></div>
+</div>
+</li>
+<li><p>Conéctate desde DRBL_clonada (10.3.X.Y). Como en las dos máquinas el usuario es <strong>user</strong>, no hace falta ponerlo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span><span class="m">10</span>.4.X.Y
+</pre></div>
+</div>
+</li>
+<li><p>Haz un <code class="docutils literal notranslate"><span class="pre">ls</span></code> en la 10.4.X.Y</p></li>
+<li><p>Desde la terminal de la 10.3.X.Y que está conectada por ssh a la 10.4.X.Y, crea una carpeta llamada <strong>tunombre</strong> (<code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">tunombre</span></code>)</p></li>
+<li><p>Haz un <code class="docutils literal notranslate"><span class="pre">ls</span></code> desde la 10.4.X.Y para comprobar que se ha creado</p></li>
+<li><p>Sube un pantallazo como el siguiente, en el que aparezcan las IP y la carpeta creada con tu nombre:</p></li>
+</ul>
+<img alt="../../_images/ej4_ssh.png" src="../../_images/ej4_ssh.png" />
+</section>
+<section id="ejercicio-5-ssh-desde-el-anfitrion">
+<h2>Ejercicio 5: SSH desde el anfitrión<a class="headerlink" href="#ejercicio-5-ssh-desde-el-anfitrion" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Conéctate por ssh a la 10.4.X.Y desde el anfitrión, con una terminal de PowerShell si es Windows o con una terminal normal si es GNU/Linux:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">user</span><span class="nv">@10</span><span class="p">.</span><span class="n">4</span><span class="p">.</span><span class="n">X</span><span class="p">.</span><span class="n">Y</span>
+</pre></div>
+</div>
+</li>
+<li><p>Crea una carpeta llamada <strong>tuapellido</strong></p></li>
+<li><p>Sube un pantallazo como el siguiente:</p></li>
+</ul>
+<img alt="../../_images/ej5_ssh_powershell.png" src="../../_images/ej5_ssh_powershell.png" />
+</section>
+<section id="ejercicio-6-red-nat">
+<h2>Ejercicio 6: Red NAT<a class="headerlink" href="#ejercicio-6-red-nat" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Crea, o comprueba que está creada, la red <strong>NatNetwork</strong> en Archivo/Herramientas/Administrador de red</p>
+<img alt="../../_images/ej6_administrador_red.png" src="../../_images/ej6_administrador_red.png" />
+</li>
+<li><p>En la pestaña <strong>Redes NAT</strong>, pulsa en Crear y <strong>desmarca Habilitar DHCP</strong>, porque vamos a poner las IP a mano:</p>
+<img alt="../../_images/ej6_crear_red_nat.png" src="../../_images/ej6_crear_red_nat.png" />
+</li>
+<li><p>Cambia las dos máquinas virtuales a esta red: en la configuración de cada máquina virtual, Red/Conectado a: Red NAT</p>
+<img alt="../../_images/ej6_mv_red_nat.png" src="../../_images/ej6_mv_red_nat.png" />
+</li>
+<li><p>Configura las IP de las dos máquinas, con gateway <strong>10.0.2.1</strong>:</p>
+<ul class="simple">
+<li><p>DRBL_clonada: <strong>10.0.2.2/24</strong></p></li>
+<li><p>DRBL: <strong>10.0.2.3/24</strong></p></li>
+</ul>
+<img alt="../../_images/ej6_ip_estatica.png" src="../../_images/ej6_ip_estatica.png" />
+</li>
+<li><p>Ejecuta en DRBL_clonada el comando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;tunombre</span>$<span class="s2"> &quot;</span>
+</pre></div>
+</div>
+<p>y en DRBL:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;tuapellido</span>$<span class="s2"> &quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sube un pantallazo donde se vea que se hacen ping entre las dos (<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">...</span></code>) y que tienen internet (<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code>)</p></li>
+</ul>
+<img alt="../../_images/ej6_ping_red_nat.png" src="../../_images/ej6_ping_red_nat.png" />
+</section>
+<section id="ejercicio-7-red-nat-con-reenvio-de-puertos">
+<h2>Ejercicio 7: Red NAT con reenvío de puertos<a class="headerlink" href="#ejercicio-7-red-nat-con-reenvio-de-puertos" title="Link to this heading">#</a></h2>
+<p>Con la Red NAT, las máquinas virtuales salen a internet, pero desde el anfitrión no podemos llegar a ellas. Para eso está el <strong>reenvío de puertos</strong>: lo que llegue a un puerto del anfitrión se redirige a un puerto de una máquina virtual.</p>
+<ul>
+<li><p>Seguimos con la red <strong>NatNetwork</strong> del ejercicio anterior. Cambia la IP de DRBL_clonada por <strong>10.0.2.4/24</strong></p>
+<img alt="../../_images/ej7_red_nat.png" src="../../_images/ej7_red_nat.png" />
+</li>
+<li><p>En la pestaña <strong>Reenvío de puertos</strong> de NatNetwork, configura la siguiente regla, del puerto 2222 del anfitrión al puerto 22 (ssh) de DRBL_clonada:</p>
+<img alt="../../_images/ej7_reenvio_puertos.png" src="../../_images/ej7_reenvio_puertos.png" />
+</li>
+<li><p>Configura el servidor de ssh de DRBL_clonada como en el ejercicio 4 y conéctate desde el anfitrión usando el puerto 2222:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">-p2222</span> <span class="n">user</span><span class="nv">@127</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">0</span><span class="p">.</span><span class="n">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sube un pantallazo como el siguiente, cambiando tunombre por tu nombre:</p></li>
+</ul>
+<img alt="../../_images/ej7_ssh_puerto_2222.png" src="../../_images/ej7_ssh_puerto_2222.png" />
+</section>
+<section id="ejercicio-8-red-interna">
+<h2>Ejercicio 8: Red interna<a class="headerlink" href="#ejercicio-8-red-interna" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Cambia las dos máquinas virtuales de la Red NAT a una <strong>Red interna</strong> llamada <strong>intnet</strong>, sin cambiar la configuración de IP</p></li>
+<li><p>Comprueba que las máquinas se hacen ping entre ellas, porque están en la misma red, pero que ya no tienen internet (<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code>). Aunque siguen teniendo configurada la puerta de enlace 10.0.2.1, en una red interna no hay ningún router de VirtualBox que la tenga, así que no hay salida al exterior. Esta es la principal diferencia con la Red NAT.</p></li>
+</ul>
+<img alt="../../_images/ej8_red_interna.png" src="../../_images/ej8_red_interna.png" />
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="virtualbox.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">VirtualBox</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="virtualbox_particiones.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Ejercicio de particiones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-nat">Ejercicio 1: NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-disco-duro">Ejercicio 2: Disco duro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-modo-puente">Ejercicio 3: Modo puente</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-ssh">Ejercicio 4: SSH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-ssh-desde-el-anfitrion">Ejercicio 5: SSH desde el anfitrión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-6-red-nat">Ejercicio 6: Red NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-7-red-nat-con-reenvio-de-puertos">Ejercicio 7: Red NAT con reenvío de puertos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-8-red-interna">Ejercicio 8: Red interna</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

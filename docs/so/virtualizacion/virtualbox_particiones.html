@@ -1,0 +1,795 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ejercicio de particiones &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/virtualizacion/virtualbox_particiones';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Docker" href="docker.html" />
+    <link rel="prev" title="Introducción a VirtualBox" href="virtualbox_introduccion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricidad.html">Transición, la electricidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_licencias.html">Cuestionario de licencias</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos1.html">Cuestionario gestión de procesos: teoría</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos2.html">Cuestionario gestión de procesos: ejercicios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria y planificación del disco</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_archivos.html">Cuestionario gestión de archivos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión del arranque</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_arranque.html">Cuestionario gestión del arranque</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">La virtualización</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="virtualbox.html">VirtualBox</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="virtualbox_introduccion.html">Introducción a VirtualBox</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Ejercicio de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_gestion_particiones.html">Cuestionario gestión de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/03_cuestionario_permisos_usuarios_grupos.html">Cuestionario permisos, usuarios y grupos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/05_apache.html">Apache</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/06_cuestionario_automatizacion_tareas.html">Cuestionario automatización de tareas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/07_cuestionario_comandos_avanzados.html">Cuestionario comandos avanzados</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/12_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_almacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsulados.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnóstico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/casos_practicos.html">Casos prácticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimiento.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un módulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/virtualizacion/virtualbox_particiones.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ejercicio de particiones</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-01">Ejercicio 01</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-02">Ejercicio 02</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-03">Ejercicio 03</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tabla-msdos">a) Tabla msdos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-tabla-gpt">b) Tabla GPT</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ejercicio-de-particiones">
+<h1>Ejercicio de particiones<a class="headerlink" href="#ejercicio-de-particiones" title="Link to this heading">#</a></h1>
+<p>En este ejercicio vamos a crear una máquina virtual con DRBL Live, como en la <a class="reference internal" href="virtualbox_introduccion.html#introduccion-a-virtualbox"><span class="std std-ref">Introducción a VirtualBox</span></a>, y usarla para hacer tablas de particiones con <strong>GParted</strong>.</p>
+<p>ayuda: <a class="reference internal" href="../particiones.html#particiones"><span class="std std-ref">Particiones</span></a></p>
+<section id="ejercicio-01">
+<h2>Ejercicio 01<a class="headerlink" href="#ejercicio-01" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Crea una nueva máquina virtual en Máquina -&gt; Nueva, con las siguientes opciones:</p>
+<ul class="simple">
+<li><p>Nombre: <strong>Particiones</strong></p></li>
+<li><p>Tipo: Linux, versión Other Linux (64-bit)</p></li>
+<li><p>Memoria: 2048 MB</p></li>
+<li><p>Disco duro virtual nuevo: VDI reservado dinámicamente con un tamaño de <strong>1 GiB</strong></p></li>
+</ul>
+</li>
+<li><p>Una vez creada la máquina virtual, ve a Configuración y cambia las siguientes preferencias:</p>
+<ul class="simple">
+<li><p>Pantalla -&gt; Memoria de vídeo: 128 MB</p></li>
+<li><p>Almacenamiento: dentro del controlador IDE aparecerá un disco (Vacío); carga la ISO de DRBL Live (por ejemplo, <code class="docutils literal notranslate"><span class="pre">drbl-live-xfce-2.5.1-16-amd64.iso</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Arranca DRBL Live y abre <strong>GParted</strong> (desde el menú Applications o con <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">gparted</span></code> en una terminal)</p></li>
+<li><p>El disco es nuevo y no tiene tabla de particiones: créala en Dispositivo -&gt; Crear tabla de particiones -&gt; <strong>msdos</strong>. Solo con msdos existen las particiones extendidas y lógicas</p></li>
+<li><p>Crea la siguiente tabla de particiones:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Tamaño</p></th>
+<th class="head"><p>Formato</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Primaria</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>ext4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Primaria</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>ext4</p></td>
+</tr>
+<tr class="row-even"><td><p>Primaria</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>ntfs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extendida</p></td>
+<td><p>~80 % (800 MiB)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>ext4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>fat32</p></td>
+</tr>
+<tr class="row-even"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>fat32</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>ntfs</p></td>
+</tr>
+<tr class="row-even"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>linux-swap</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>reiser4</p></td>
+</tr>
+<tr class="row-even"><td><p>Lógica</p></td>
+<td><p>~7 % (70 MiB)</p></td>
+<td><p>fat16</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Los porcentajes son del disco duro (1 GiB = 1024 MiB). El disco tiene que verse algo parecido a lo que vemos en el siguiente esquema:</p>
+<img alt="../../_images/particiones_ej1_gparted.png" src="../../_images/particiones_ej1_gparted.png" />
+<p>reiser4 es un sistema de archivos abandonado (nunca llegó a entrar en el núcleo Linux); lo usamos solo para ver que GParted permite formatear con muchos sistemas de archivos distintos.</p>
+</li>
+<li><p>Cuando termines, cambia la etiqueta de la primera partición por tu nombre y sube un pantallazo de la ventana de GParted en el que se vean todas las particiones con su sistema de archivos, su etiqueta y su tamaño</p></li>
+</ul>
+</section>
+<section id="ejercicio-02">
+<h2>Ejercicio 02<a class="headerlink" href="#ejercicio-02" title="Link to this heading">#</a></h2>
+<p>Antes de hacer el ejercicio 03, responde en el texto de la entrega a estas preguntas. Puedes buscar la información en los apuntes (<a class="reference internal" href="../particiones.html#organizacion-para-gnu-linux"><span class="std std-ref">Organización para GNU/Linux</span></a>) o en Internet:</p>
+<ul class="simple">
+<li><p>¿Cuánto espacio necesitas para la partición del sistema operativo Ubuntu 26.04? ¿Con qué sistema de archivos la formatearemos?</p></li>
+<li><p>¿Cuánto espacio necesitas para la partición del sistema operativo Windows 11? ¿Con qué sistema de archivos la formatearemos?</p></li>
+<li><p>Queremos hacer una partición de 200 GB para los datos de los usuarios de GNU/Linux (<code class="docutils literal notranslate"><span class="pre">/home</span></code>). ¿Con qué sistema de archivos la formatearemos?</p></li>
+<li><p>El equipo tiene 4 GB de RAM. ¿Qué tamaño le darías a la partición de intercambio (swap) y con qué sistema de archivos la formatearemos?</p></li>
+<li><p>¿Cuántas particiones primarias puede tener como máximo una tabla msdos? ¿Qué hacemos si necesitamos más?</p></li>
+<li><p>¿Qué tipo de tabla de particiones necesita Windows 11 y por qué? ¿Qué es la partición <strong>ESP</strong> y con qué sistema de archivos se formatea?</p></li>
+</ul>
+</section>
+<section id="ejercicio-03">
+<h2>Ejercicio 03<a class="headerlink" href="#ejercicio-03" title="Link to this heading">#</a></h2>
+<p>Queremos instalar en un ordenador con un disco duro de 1 TB y 4 GB de RAM dos sistemas operativos, Windows 11 y Ubuntu 26.04. Cada sistema tendrá su propia partición de datos para los usuarios: <strong>D:</strong> en Windows y <code class="docutils literal notranslate"><span class="pre">/home</span></code> en Ubuntu.</p>
+<ul class="simple">
+<li><p>Apaga la máquina virtual <strong>Particiones</strong> y añádele un segundo disco duro VDI reservado dinámicamente de <strong>1 TB</strong>. Como es dinámico, no ocupa 1 TB de verdad en tu equipo: solo crece con lo que se escribe en él</p></li>
+<li><p>Arranca de nuevo DRBL Live, abre GParted y selecciona el disco de 1 TB (arriba a la derecha, normalmente <code class="docutils literal notranslate"><span class="pre">/dev/sdb</span></code>)</p></li>
+<li><p>Usa los tamaños que has respondido en el ejercicio 02 y, en la <strong>etiqueta</strong> de cada partición, pon su punto de montaje: en Windows la letra de unidad (C:, D:), en Ubuntu <code class="docutils literal notranslate"><span class="pre">/</span></code> y <code class="docutils literal notranslate"><span class="pre">/home</span></code>, y <code class="docutils literal notranslate"><span class="pre">swap</span></code> en la de intercambio</p></li>
+</ul>
+<section id="a-tabla-msdos">
+<h3>a) Tabla msdos<a class="headerlink" href="#a-tabla-msdos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Crea una tabla de particiones <strong>msdos</strong> y haz en ella las particiones de los dos sistemas: C:, D:, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/home</span></code> y swap</p></li>
+<li><p>Como son 5 particiones y msdos solo admite 4 primarias, tendrás que usar una <strong>partición extendida</strong> con particiones lógicas dentro</p></li>
+<li><p>Marca como <strong>arrancable</strong> (<code class="docutils literal notranslate"><span class="pre">boot</span></code>) la partición de Windows (C:)</p></li>
+<li><p>Sube un pantallazo de la ventana de GParted en el que se vean todas las particiones con su sistema de archivos, su etiqueta y su tamaño, el espacio que has utilizado y la partición de arranque (columna Flags)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Este primer reparto sirve para practicar las particiones primarias, extendidas y lógicas, pero <strong>en un equipo real no podríamos instalar así Windows 11</strong>: Windows 11 necesita un equipo con UEFI y, con UEFI, Windows solo arranca desde un disco con tabla <strong>GPT</strong>. Lo hacemos en el siguiente apartado.</p>
+</div>
+</section>
+<section id="b-tabla-gpt">
+<h3>b) Tabla GPT<a class="headerlink" href="#b-tabla-gpt" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>En el mismo disco de 1 TB, crea una tabla de particiones nueva de tipo <strong>gpt</strong> (se borrarán las particiones del apartado anterior)</p></li>
+<li><p>Haz el mismo reparto, pero añadiendo al principio del disco la <strong>partición ESP</strong>, de unos 300 MiB, formateada en <strong>fat32</strong>, con la etiqueta <code class="docutils literal notranslate"><span class="pre">EFI</span></code> y los indicadores <code class="docutils literal notranslate"><span class="pre">boot</span></code> y <code class="docutils literal notranslate"><span class="pre">esp</span></code></p></li>
+<li><p>Con GPT todas las particiones son primarias: ya no hace falta la partición extendida</p></li>
+<li><p>Sube un pantallazo como el del apartado anterior</p></li>
+<li><p>Responde en el texto de la entrega: ¿qué diferencias ves entre las dos tablas de particiones?</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="virtualbox_introduccion.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Introducción a VirtualBox</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="docker.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Docker</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-01">Ejercicio 01</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-02">Ejercicio 02</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-03">Ejercicio 03</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tabla-msdos">a) Tabla msdos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-tabla-gpt">b) Tabla GPT</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

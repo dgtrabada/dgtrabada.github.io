@@ -4,11 +4,11 @@ Casos prácticos : Active Directory sin GUI
 
 Crea los siguientes clones enlazados:
 
-* Clon enlazado 1 de "`Windows Server 2022 sin GUI <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-server-2022-sin-gui>`_" llamado **WS22tunombre** con IP 10.4.X.Y/8 o DHCP si es portátil y un nuevo adaptador de red para el servidor, conectado a una red interna con la dirección 172.16.0.10/16
+* Clon enlazado 1 de ":ref:`Windows Server 2022 sin GUI <Caso práctico: Windows Server 2022 sin GUI>`" llamado **WS22tunombre** con IP 10.4.X.Y/8 o DHCP si es portátil y un nuevo adaptador de red para el servidor, conectado a una red interna con la dirección 172.16.0.10/16
 
-* Clon enlazado 2 de "`Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC05tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 2 de ":ref:`Windows 11 <Caso práctico: Windows 11>`" llamado **WC05tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.15/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
-* Clon enlazado 3 de "`Windows 11 <https://dgtrabada.github.io/so/maquinas_virtuales.html#caso-practico-windows-11>`_" llamado **WC06tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
+* Clon enlazado 3 de ":ref:`Windows 11 <Caso práctico: Windows 11>`" llamado **WC06tunombre** con un adaptador a la red interna, le asignamos la dirección 172.16.0.16/16 con puerta de enlace 172.16.0.10 y DNS 172.16.0.10
 
 Puedes ver la configuración en el siguiente `vídeo <https://mediateca.educa.madrid.org/video/68dserxf2iosogqv>`_
 
