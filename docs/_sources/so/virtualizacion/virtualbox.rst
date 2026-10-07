@@ -60,13 +60,8 @@ Solo-anfitrión      Sí         Sí               Sí                          
 
 
 
-Ejercicios de introducción
---------------------------
-
-Para practicar la creación de máquinas virtuales, la clonación, los modos de red y las particiones:
-
 .. toctree::
-   :maxdepth: 1
+   :hidden:
 
    virtualbox_introduccion.rst
    virtualbox_particiones.rst
