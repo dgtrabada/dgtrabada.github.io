@@ -44,6 +44,10 @@ Cuestionario gestión de particiones
         (x) df -h
         ( ) cat /etc/fstab
         ( ) du
+      - 4. ¿Cómo se llama la primera partición del primer disco NVMe?
+        (x) /dev/nvme0n1p1
+        ( ) /dev/nvme1
+        ( ) /dev/sda1
 
    3. Fíjate en el siguiente pantallazo de GParted:
       imagen: imagenes/quiz_gparted_home.png 600
@@ -83,8 +87,8 @@ Cuestionario gestión de particiones
 
    8. Ejecutamos los siguientes comandos:
       imagen: imagenes/quiz_fdisk_df.png 500
-      - 1. ¿Cuántas particiones están desmontadas?
-        [4|cuatro]
+      - 1. ¿Cuántas particiones con sistema de archivos (que se puedan montar) no están montadas?
+        [2|dos]
       - 2. ¿Cuántos discos duros reconoce el sistema?
         [2|dos]
       - 3. Queremos desmontar la primera partición del disco sdf, ¿qué comando ejecutaríamos? (escríbelo con sudo)
@@ -153,3 +157,9 @@ Cuestionario gestión de particiones
         ( ) No se monta
       - 8. ¿Qué comando monta todo lo que está pendiente en el fstab (útil para probarlo sin reiniciar)?
         = mount -a | sudo mount -a
+      - 9. Hoy en el fstab se suele poner UUID=... en lugar de /dev/sdb1. ¿Por qué?
+        (x) Porque el nombre /dev/sdb1 puede cambiar si se conecta o se quita otro disco, y el UUID no
+        ( ) Porque así el disco se monta más rápido
+        ( ) Porque /dev/sdb1 solo vale para discos SATA
+      - 10. ¿Qué comando muestra el UUID de cada partición?
+        = blkid | sudo blkid | lsblk -f

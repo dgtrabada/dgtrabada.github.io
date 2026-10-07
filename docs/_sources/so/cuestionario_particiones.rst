@@ -5,9 +5,11 @@ Cuestionario particiones
 Particiones (I)
 ===============
 
+En los apartados (I) y (II), las preguntas se refieren a discos con tabla de particiones **msdos (MBR)**. Las de GPT están en el apartado (III).
+
 .. cuestionario::
 
-   1. **Ejercicio 01**: con GParted crea la siguiente tabla de particiones primarias.
+   1. **Ejercicio 01**: con GParted crea una tabla de particiones msdos y en ella las siguientes particiones primarias.
       imagen: imagenes/quiz_part_4primarias.png 569
       texto: Intenta hacer otra partición que sea primaria, lógica y extendida. Completa las siguientes frases:
       - 1. Si en un disco duro con 4 particiones primarias creamos una partición primaria más obtenemos que...
@@ -58,10 +60,10 @@ Particiones (I)
         ( ) FAT32
       - 2. ¿Cuál es el tamaño máximo de archivo (en GB) para la partición FAT32?
         [4|4GB|4 GB]
-      - 3. ¿Puede tener diferentes usuarios la partición FAT32?
+      - 3. ¿Guarda FAT32 permisos para distintos usuarios?
         ( ) Sí
         (x) No
-      - 4. ¿Puede tener diferentes usuarios la partición NTFS?
+      - 4. ¿Guarda NTFS permisos para distintos usuarios?
         (x) Sí
         ( ) No
       - 5. ¿Cuál es el formato del sistema de archivos que utiliza Linux en la actualidad?
@@ -71,7 +73,7 @@ Particiones (I)
       - 6. ¿Para qué sirve la partición swap?
         (x) Es el área de intercambio
         ( ) Para la instalación, luego se borra
-      - 7. ¿Cuántas particiones primarias puedes hacer como máximo?
+      - 7. ¿Cuántas particiones primarias puedes hacer como máximo en una tabla msdos?
         [4|cuatro]
       - 8. ¿Cuántas particiones extendidas puedes hacer como máximo?
         [1|una]
@@ -79,7 +81,7 @@ Particiones (I)
         [2|dos]
       - 10. Si tienes dos particiones primarias, ¿cuántas particiones extendidas puedes hacer?
         [1|una]
-      - 11. Si tienes dos particiones primarias, ¿cuántas particiones lógicas puedes hacer?
+      - 11. Si tienes dos particiones primarias, ¿cuántas particiones lógicas puedes hacer sin crear antes una extendida?
         [0|cero|ninguna]
       - 12. Si tienes tres particiones primarias, ¿cuántas particiones extendidas puedes hacer?
         [1|una]
@@ -87,8 +89,10 @@ Particiones (I)
         [0|cero|ninguna]
       - 14. ¿Cuántas particiones primarias puedes hacer dentro de la extendida?
         [0|cero|ninguna]
-      - 15. ¿Cuántas particiones lógicas puedes hacer dentro de la extendida?
-        [23|veintitrés|veintitres]
+      - 15. ¿De dónde venía el límite clásico de 23 particiones lógicas?
+        (x) De las letras de unidad de MS-DOS (de D: a Z:)
+        ( ) Del tamaño del EBR
+        ( ) Del número de entradas de la tabla del MBR
       - 16. ¿Cuántas particiones extendidas puedes hacer dentro de una primaria?
         [0|cero|ninguna]
 
@@ -133,7 +137,7 @@ Particiones (II)
       - 3. ¿Cuántas particiones extendidas hay?
         [0|cero|ninguna]
       - 4. ¿Cuántos MiB de la 4ª partición están utilizados?
-        [467.57]
+        [467.57|467.57mib]
 
    6. Fíjate en el siguiente esquema de particiones:
       imagen: imagenes/quiz_part_esquema5.png 607
@@ -146,3 +150,48 @@ Particiones (II)
         [2|dos]
       - 2. ¿Cuántos discos duros hay?
         [4|cuatro]
+
+Particiones (III)
+=================
+
+.. cuestionario::
+
+   1. MBR y GPT:
+      - 1. ¿Hasta qué tamaño de disco puede manejar una tabla MBR? (en TiB)
+        [2|2tib|2tb]
+      - 2. ¿Cuántas particiones admite por defecto una tabla GPT?
+        [128|cientoveintiocho]
+      - 3. ¿Qué tabla de particiones necesita Windows 11?
+        (x) GPT, porque Windows 11 exige UEFI
+        ( ) msdos (MBR)
+        ( ) Cualquiera de las dos
+      - 4. ¿Dónde guarda GPT la copia de seguridad de su cabecera y de su tabla?
+        (x) Al final del disco
+        ( ) En el MBR de protección
+        ( ) En la partición ESP
+      - 5. ¿Con qué sistema de archivos se formatea la partición ESP?
+        (x) FAT32
+        ( ) NTFS
+        ( ) ext4
+      - 6. ¿Cómo se llama la partición de 16 MiB, sin sistema de archivos, que crea Windows en un disco GPT?
+        [msr]
+
+   2. Particiones lógicas y nombres:
+      - 1. ¿Qué es el EBR?
+        (x) Un registro delante de cada partición lógica que indica dónde está esa partición y dónde está el siguiente EBR
+        ( ) La copia de seguridad del MBR
+        ( ) La partición donde se guardan los cargadores de arranque
+      - 2. En GNU/Linux, ¿en qué número empiezan las particiones lógicas?
+        [5|cinco]
+      - 3. ¿Cómo se llama en GNU/Linux la segunda partición del primer disco NVMe?
+        [/dev/nvme0n1p2|nvme0n1p2]
+
+   3. Velocidad:
+      - 1. En un disco duro mecánico, ¿qué particiones tienen mayor velocidad de transferencia?
+        (x) Las del principio del disco (pistas exteriores)
+        ( ) Las del final del disco (pistas interiores)
+        ( ) Todas son igual de rápidas
+      - 2. ¿Y en un SSD?
+        ( ) Las del principio del disco
+        ( ) Las del final del disco
+        (x) Todas son igual de rápidas
