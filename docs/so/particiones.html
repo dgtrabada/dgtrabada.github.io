@@ -569,8 +569,7 @@ archivos</p></th>
 (máx.)</p></th>
 <th class="head"><p>SO
 Utilizado</p></th>
-<th class="head"><p>Soporta
-Usuarios</p></th>
+<th class="head"><p>Permisos</p></th>
 </tr>
 </thead>
 <tbody>
@@ -586,56 +585,69 @@ Usuarios</p></th>
 <td><p><strong>Windows</strong></p></td>
 <td><p><strong>NO</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><strong>NTFS</strong></p></td>
+<tr class="row-even"><td><p><strong>exFAT</strong></p></td>
+<td><p><strong>16 EB</strong></p></td>
+<td><p>128 PB</p></td>
+<td><p><strong>Windows,</strong>
+<strong>macOS,</strong>
+<strong>GNU/Linux</strong></p></td>
+<td><p><strong>NO</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>NTFS</strong></p></td>
 <td><p><strong>~ TB</strong></p></td>
 <td><p>~ EB</p></td>
 <td><p><strong>Windows</strong></p></td>
-<td><p><strong>SI</strong></p></td>
+<td><p><strong>SÍ</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p>EXT3</p></td>
+<tr class="row-even"><td><p>EXT3</p></td>
 <td><p>2 TB</p></td>
-<td><p>32TB</p></td>
+<td><p>16TB</p></td>
 <td><p>GNU/Linux</p></td>
-<td><p>SI</p></td>
+<td><p>SÍ</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>EXT4</strong></p></td>
+<tr class="row-odd"><td><p><strong>EXT4</strong></p></td>
 <td><p><strong>~ TB</strong></p></td>
 <td><p>~ EB</p></td>
 <td><p><strong>GNU/Linux</strong></p></td>
-<td><p><strong>SI</strong></p></td>
+<td><p><strong>SÍ</strong></p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>La columna <strong>Permisos</strong> indica si el sistema de archivos guarda propietarios y permisos para cada archivo, necesarios en un sistema con varios usuarios. Aunque FAT32 admite particiones de hasta 2 TB, Windows solo deja formatear en FAT32 particiones de hasta 32 GB; para pendrives y discos externos más grandes propone exFAT. Los tamaños de EXT3 son con bloques de 4 KiB.</p>
 <p>Hay dos alternativas para definir la tabla de particiones:</p>
 <ul class="simple">
 <li><p>La tabla de particiones en el <strong>MBR</strong>, también llamada tabla de particiones DOS. Usada en los IBM PC y compatibles con sistemas BIOS.</p></li>
-<li><p><strong>GUID Partition Table (GPT)</strong>, propuesta por la especificación EFI, puede usarse en equipos con BIOS y con UEFI.</p></li>
+<li><p><strong>GUID Partition Table (GPT)</strong>, propuesta por la especificación EFI. GNU/Linux puede arrancar desde un disco GPT tanto con BIOS como con UEFI, pero <strong>Windows solo arranca desde GPT con UEFI</strong> (y desde MBR con BIOS). Windows 11 exige UEFI, así que en la práctica necesita GPT.</p></li>
 </ul>
 <section id="tabla-de-particiones-en-el-mbr">
 <h2>Tabla de particiones en el MBR<a class="headerlink" href="#tabla-de-particiones-en-el-mbr" title="Link to this heading">#</a></h2>
 <p>El <strong>MBR &quot;Master Boot Record&quot;</strong> es el primer sector (&quot;sector cero&quot;) de un dispositivo de almacenamiento de datos, es decir, sus primeros 512 bytes:</p>
 <ul class="simple">
-<li><p>Los primeros <strong>446 bytes</strong> contienen el código de arranque.</p></li>
+<li><p>Los primeros <strong>446 bytes</strong> contienen el código de arranque. En la imagen aparecen como 440 bytes porque los 6 últimos se usan para la firma del disco (<em>Disk ID</em>, 4 bytes) y 2 bytes a cero.</p></li>
 <li><p>Los <strong>64 bytes</strong> siguientes contienen la tabla de particiones: 4 entradas de 16 bytes, una por partición.</p></li>
 <li><p>Los <strong>2 bytes</strong> finales contienen la firma de arranque <code class="docutils literal notranslate"><span class="pre">0x55AA</span></code>, que indica que el sector es válido.</p></li>
 </ul>
 <p>Como cada entrada de la tabla direcciona los sectores con números de 32 bits y los sectores son de 512 bytes, el MBR solo puede manejar discos de hasta <strong>2 TiB</strong> (2<sup>32</sup> × 512 bytes). Esta es su principal limitación hoy en día.</p>
-<img alt="../_images/MBR.png" src="../_images/MBR.png" />
+<img alt="../_images/mbr.svg" src="../_images/mbr.svg" />
+<p>En la imagen, el sector 0 (en rojo) es el MBR. Abajo se ve su contenido: los 440 bytes de código de arranque, la firma del disco (<em>Disk ID</em>), las 4 entradas de la tabla de particiones y la firma <code class="docutils literal notranslate"><span class="pre">55</span> <span class="pre">AA</span></code> del final.</p>
+<p>En un <strong>disco duro mecánico</strong>, el sector 0 está en la pista más exterior y los sectores se numeran de fuera hacia dentro: por eso, en la imagen, la partición 1 es el anillo exterior. Las pistas exteriores son más largas y tienen más sectores que las interiores (en la imagen, 24 sectores en la pista exterior y 12 en la interior), y como el disco gira siempre a la misma velocidad, en cada vuelta se leen más datos fuera que dentro: al principio del disco la velocidad de transferencia puede ser casi el doble que al final. Por eso conviene poner al principio del disco las particiones que más se usan, como la del sistema operativo o la swap. En un <strong>SSD</strong> no hay pistas ni giro, así que todas las particiones son igual de rápidas.</p>
 <p>Al tener la tabla solo 4 entradas, existen 3 tipos diferentes de particiones:</p>
 <ul class="simple">
-<li><p><strong>Partición primaria</strong>: Son las divisiones crudas o primarias del disco, solo puede haber 4 de éstas o 3 primarias y una extendida.</p></li>
+<li><p><strong>Partición primaria</strong>: Son las divisiones crudas o primarias del disco, solo puede haber 4 de estas o 3 primarias y una extendida.</p></li>
 <li><p><strong>Partición extendida</strong>: También conocida como partición secundaria, actúa como una partición primaria y sirve para contener múltiples unidades lógicas en su interior. Fue ideada para romper la limitación de 4 particiones primarias en un solo disco físico. Solo puede existir una partición de este tipo por disco, y solo sirve para contener particiones lógicas. Por lo tanto, es el único tipo de partición que no soporta un sistema de archivos directamente.</p></li>
-<li><p><strong>Partición lógica</strong>: Ocupa una porción de la partición extendida o la totalidad de la misma, la cual se ha formateado con un tipo específico de sistema de archivos (FAT32, NTFS, ext4,...) y se le ha asignado una unidad, así el sistema operativo reconoce las particiones lógicas o su sistema de archivos. Puede haber un máximo de 23 particiones lógicas en una partición extendida.</p></li>
+<li><p><strong>Partición lógica</strong>: Ocupa una porción de la partición extendida o la totalidad de la misma, la cual se ha formateado con un tipo específico de sistema de archivos (FAT32, NTFS, ext4,...). Delante de cada partición lógica hay un pequeño registro, el <strong>EBR</strong> (<em>Extended Boot Record</em>), que indica dónde está esa partición y dónde está el EBR de la siguiente: las particiones lógicas forman una <strong>cadena</strong>, por eso no están limitadas a 4. En teoría no hay un número máximo; el límite clásico de 23 venía de las letras de unidad de MS-DOS (de D: a Z:), y en GNU/Linux los discos <code class="docutils literal notranslate"><span class="pre">sd</span></code> admiten hasta la partición 15.</p></li>
 </ul>
+<img alt="../_images/ebr_cadena.svg" src="../_images/ebr_cadena.svg" />
+<p>En GParted, un disco MBR con 3 particiones primarias y una extendida con 7 lógicas, numeradas de la sda5 a la sda11:</p>
 <img alt="../_images/particiones1.png" src="../_images/particiones1.png" />
-<p>Ejemplos de particionados:</p>
+<p>Ejemplos de particionados (con un equipo de 4 GB de RAM):</p>
 <ul class="simple">
 <li><p>Sistema GNU/Linux en un disco de 500 GB.</p>
 <ul>
-<li><p>1ª Partición primaria de 80 GB con formato ext4 y punto de montaje / (en esta partición estarán los archivos del SO)</p></li>
+<li><p>1ª Partición primaria de 50 GB con formato ext4 y punto de montaje / (en esta partición estarán los archivos del SO)</p></li>
 <li><p>2ª Partición primaria igual que la memoria RAM (4 GB) que tenga el equipo con formato swap (se usa para la memoria virtual)</p></li>
-<li><p>3ª Partición primaria de 415 GB con formato ext4 y punto de montaje /home (contiene la configuración y datos de los usuarios)</p></li>
+<li><p>3ª Partición primaria de 446 GB con formato ext4 y punto de montaje /home (contiene la configuración y datos de los usuarios)</p></li>
 </ul>
 </li>
 <li><p>Sistema Windows en un disco de 500 GB</p>
@@ -650,30 +662,37 @@ Usuarios</p></th>
 <li><p>2ª Partición primaria de 220 GB con formato ntfs</p></li>
 <li><p>3ª Partición extendida</p>
 <ul>
-<li><p>1ª Partición lógica de 76 GB con formato ext4 y punto de montaje /</p></li>
+<li><p>1ª Partición lógica de 50 GB con formato ext4 y punto de montaje /</p></li>
 <li><p>2ª Partición lógica igual que la memoria RAM (4 GB) que tenga el equipo con formato swap</p></li>
-<li><p>3ª Partición lógica de 220 GB con formato ext4 y punto de montaje /home</p></li>
+<li><p>3ª Partición lógica de 246 GB con formato ext4 y punto de montaje /home</p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Los ejemplos con Windows sirven para equipos con BIOS. Windows 11 necesita UEFI y GPT: haríamos el mismo reparto en una tabla GPT, sin partición extendida y añadiendo al principio la partición ESP (ver el apartado siguiente).</p>
+</div>
 </section>
 <section id="guid-partition-table-gpt">
 <h2>GUID Partition Table (GPT)<a class="headerlink" href="#guid-partition-table-gpt" title="Link to this heading">#</a></h2>
-<p>Es parte del estándar Extensible Firmware Interface (EFI) propuesto por Intel para reemplazar la vieja BIOS del PC, heredada del IBM PC original. GPT surge para superar las limitaciones del MBR: permite discos de más de 2 TiB y no está limitada a 4 particiones primarias.</p>
+<p>Es parte del estándar Extensible Firmware Interface (EFI) propuesto por Intel para reemplazar la vieja BIOS del PC, heredada del IBM PC original. Hoy se llama <strong>UEFI</strong> (<em>Unified EFI</em>) y lo mantiene el UEFI Forum, formado por los principales fabricantes. GPT surge para superar las limitaciones del MBR: permite discos de más de 2 TiB y no está limitada a 4 particiones primarias.</p>
 <img alt="../_images/guid.png" src="../_images/guid.png" />
 <p>Sus características principales son:</p>
 <ul class="simple">
-<li><p>Cada bloque lógico (LBA) tiene un tamaño de 512 bytes. Las direcciones LBA negativas indican una posición a partir del final del volumen, siendo −1 el último bloque direccionable.</p></li>
+<li><p>Cada bloque lógico (LBA) tiene normalmente un tamaño de 512 bytes (4096 bytes en los discos con sectores de 4 KiB, llamados 4Kn). Las direcciones LBA negativas indican una posición a partir del final del volumen, siendo −1 el último bloque direccionable.</p></li>
+<li><p>Usa direcciones de 64 bits, así que puede manejar discos de hasta 2<sup>64</sup> sectores (unos 8 ZiB con sectores de 512 bytes): en la práctica, sin límite.</p></li>
 <li><p>La tabla reserva por defecto espacio para <strong>128 particiones</strong>, todas &quot;primarias&quot;: con GPT ya no existen las particiones extendidas ni las lógicas.</p></li>
 <li><p>Guarda una <strong>copia de seguridad</strong> de la cabecera y de la tabla de particiones al final del disco, y usa códigos CRC para detectar errores: es mucho más robusta que la tabla del MBR.</p></li>
 <li><p>En el sector cero (LBA 0) mantiene un <strong>MBR de protección</strong>, para que las herramientas antiguas que no entienden GPT no crean que el disco está vacío.</p></li>
-<li><p>Los sistemas UEFI arrancan desde una partición especial, la <strong>ESP (EFI System Partition)</strong>, con formato FAT32, donde se guardan los cargadores de arranque.</p></li>
+<li><p>Los sistemas UEFI arrancan desde una partición especial, la <strong>ESP (EFI System Partition)</strong>, con formato FAT32, donde se guardan los cargadores de arranque. Suele ocupar entre 100 y 550 MiB.</p></li>
+<li><p>Windows crea además, al instalarse en un disco GPT, una pequeña partición <strong>MSR</strong> (<em>Microsoft Reserved</em>) de 16 MiB, sin sistema de archivos, que reserva para su uso interno.</p></li>
 </ul>
 <img alt="../_images/particiones2.png" src="../_images/particiones2.png" />
+<p>En la imagen, un disco GPT con 6 particiones primarias (de la sda1 a la sda6): con una tabla MBR no podríamos tener más de 4 primarias, y tendríamos que usar una extendida.</p>
 <p>Independientemente de cómo se cree la tabla de particiones, dejaremos una partición para el sistema operativo, otra para los datos y, en el caso de instalar un GNU/Linux, otra para la swap. Para el SO reservaremos ~80 GB en Windows y ~50 GB en GNU/Linux.</p>
-<p><strong>swap</strong>: espacio de swap (o de intercambio). El swapping es el proceso por el que una página de memoria se copia en un espacio del disco configurado previamente para ello, para liberar esa memoria RAM.</p>
+<p><strong>swap</strong>: espacio de swap (o de intercambio). El swapping es el proceso por el que una página de memoria se copia en un espacio del disco configurado previamente para ello, para liberar esa memoria RAM. Ese espacio puede ser una partición o un archivo: Ubuntu, por ejemplo, usa por defecto un <strong>archivo de swap</strong> (<code class="docutils literal notranslate"><span class="pre">/swap.img</span></code>) en lugar de una partición. Windows también usa un archivo, <code class="docutils literal notranslate"><span class="pre">pagefile.sys</span></code>.</p>
 </section>
 <section id="organizacion-para-gnu-linux">
 <h2>Organización para GNU/Linux<a class="headerlink" href="#organizacion-para-gnu-linux" title="Link to this heading">#</a></h2>
@@ -682,19 +701,21 @@ Usuarios</p></th>
 <li><p><strong>/dev/</strong> nombre del directorio donde residirán todos los archivos de dispositivo.</p></li>
 <li><p><strong>xx</strong> las dos primeras letras indican el tipo de dispositivo en el que residirá la partición.</p>
 <ul>
-<li><p><strong>hd</strong> para discos IDE/PATA</p></li>
-<li><p><strong>sd</strong> discos SATA y SCSI (también los pendrives y discos USB)</p></li>
+<li><p><strong>sd</strong> discos SATA y SCSI (también los pendrives y discos USB). Hoy también los discos IDE/PATA aparecen como sd</p></li>
+<li><p><strong>hd</strong> discos IDE/PATA en sistemas antiguos</p></li>
+<li><p><strong>vd</strong> discos virtuales <em>virtio</em>, los que usan las máquinas virtuales de KVM/QEMU</p></li>
 </ul>
 </li>
 <li><p><strong>y</strong> letra que indica el número de disco duro (a,b,c...)</p></li>
 <li><p><strong>N</strong> número de partición. En discos con tabla MBR los números 1 a 4 se reservan para las particiones primarias y la extendida; las <strong>particiones lógicas se numeran a partir del 5</strong>, aunque haya menos de 4 primarias.</p></li>
 </ul>
-<p>Los discos <strong>NVMe</strong> actuales (los SSD conectados por PCIe) usan otra nomenclatura: <strong>/dev/nvme0n1p1</strong> es la primera partición (p1) del primer disco NVMe (nvme0n1).</p>
-<p>Ejemplos :</p>
+<p>Los discos <strong>NVMe</strong> actuales (los SSD conectados por PCIe) usan otra nomenclatura: <strong>/dev/nvme0n1p1</strong> es la primera partición (p1) del primer disco NVMe (nvme0n1). Las tarjetas SD y la memoria eMMC siguen una parecida: <strong>/dev/mmcblk0p1</strong>.</p>
+<p>Ejemplos:</p>
 <ul class="simple">
-<li><p>/dev/hda1 primera partición del primer disco duro IDE/PATA</p></li>
-<li><p>/dev/sdb2 segunda partición del segundo disco duro SCSI y SATA</p></li>
+<li><p>/dev/hda1 primera partición del primer disco duro IDE/PATA (en un sistema antiguo)</p></li>
+<li><p>/dev/sdb2 segunda partición del segundo disco duro SCSI o SATA</p></li>
 <li><p>/dev/sda5 primera partición lógica del primer disco duro SATA</p></li>
+<li><p>/dev/vda1 primera partición del primer disco virtio de una máquina virtual</p></li>
 <li><p>/dev/nvme0n1p2 segunda partición del primer disco NVMe</p></li>
 </ul>
 <div class="toctree-wrapper compound">

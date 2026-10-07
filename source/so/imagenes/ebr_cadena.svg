@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" height="330" font-family="DejaVu Sans, Arial, sans-serif" font-size="14">
+  <rect width="900" height="330" fill="#ffffff"/>
+
+  <!-- Disco: MBR y primarias -->
+  <rect x="20" y="130" width="60" height="60" fill="#f7cfcf" stroke="#333"/>
+  <text x="50" y="165" text-anchor="middle" font-weight="bold">MBR</text>
+
+  <rect x="80" y="130" width="140" height="60" fill="#e6f4ea" stroke="#333"/>
+  <text x="150" y="157" text-anchor="middle">Primaria 1</text>
+  <text x="150" y="176" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">sda1</text>
+
+  <rect x="220" y="130" width="140" height="60" fill="#e6f4ea" stroke="#333"/>
+  <text x="290" y="157" text-anchor="middle">Primaria 2</text>
+  <text x="290" y="176" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">sda2</text>
+
+  <!-- Partición extendida -->
+  <rect x="360" y="110" width="525" height="90" fill="#fafafa" stroke="#333" stroke-dasharray="6,4"/>
+  <text x="700" y="102" text-anchor="middle" font-weight="bold">Partición extendida (sda3)</text>
+
+  <!-- EBR y lógicas -->
+  <rect x="368" y="130" width="40" height="60" fill="#fbe9a8" stroke="#333"/>
+  <text x="388" y="165" text-anchor="middle" font-size="13" font-weight="bold">EBR</text>
+  <rect x="408" y="130" width="132" height="60" fill="#d9eaf7" stroke="#333"/>
+  <text x="474" y="157" text-anchor="middle">Lógica 1</text>
+  <text x="474" y="176" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">sda5</text>
+
+  <rect x="548" y="130" width="40" height="60" fill="#fbe9a8" stroke="#333"/>
+  <text x="568" y="165" text-anchor="middle" font-size="13" font-weight="bold">EBR</text>
+  <rect x="588" y="130" width="132" height="60" fill="#d9eaf7" stroke="#333"/>
+  <text x="654" y="157" text-anchor="middle">Lógica 2</text>
+  <text x="654" y="176" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">sda6</text>
+
+  <rect x="728" y="130" width="40" height="60" fill="#fbe9a8" stroke="#333"/>
+  <text x="748" y="165" text-anchor="middle" font-size="13" font-weight="bold">EBR</text>
+  <rect x="768" y="130" width="112" height="60" fill="#d9eaf7" stroke="#333"/>
+  <text x="824" y="157" text-anchor="middle">Lógica 3</text>
+  <text x="824" y="176" text-anchor="middle" font-family="DejaVu Sans Mono, monospace">sda7</text>
+
+  <!-- Del MBR al primer EBR -->
+  <path d="M50,128 C50,62 388,62 388,119" fill="none" stroke="#333" stroke-width="1.6"/>
+  <polygon points="382,117 394,117 388,129" fill="#333"/>
+  <text x="211" y="52" text-anchor="middle">la tabla del MBR indica dónde empieza la extendida</text>
+
+  <!-- Cadena de EBR -->
+  <path d="M388,192 C388,250 560,250 560,202" fill="none" stroke="#333" stroke-width="1.6"/>
+  <polygon points="554,204 566,204 560,192" fill="#333"/>
+  <text x="474" y="262" text-anchor="middle">siguiente EBR</text>
+  <path d="M576,192 C576,250 740,250 740,202" fill="none" stroke="#333" stroke-width="1.6"/>
+  <polygon points="734,204 746,204 740,192" fill="#333"/>
+  <text x="658" y="262" text-anchor="middle">siguiente EBR</text>
+  <text x="762" y="226">siguiente: ninguno</text>
+  <text x="762" y="243">(fin de la cadena)</text>
+
+  <!-- Leyenda -->
+  <text x="20" y="295">El MBR tiene 4 entradas: sda1, sda2 y la extendida (sda3); la cuarta queda libre.</text>
+  <text x="20" y="317">Cada EBR describe la partición lógica que tiene detrás y dónde está el siguiente EBR.</text>
+</svg>
