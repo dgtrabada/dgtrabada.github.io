@@ -1172,6 +1172,33 @@
        <p class="qp-q">6. ¿Cómo se llama la partición de 16 MiB, sin sistema de archivos, que crea Windows en un disco GPT?</p>
      <p><input type="text" class="qp-corto" data-a="msr"></p>
      </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">7. ¿Qué contiene la partición ESP?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q2_3" value="0">Los cargadores de arranque de los sistemas operativos</label>
+         <label class="qp-opt"><input type="radio" name="q2_3" value="1">Los archivos del sistema operativo Windows</label>
+         <label class="qp-opt"><input type="radio" name="q2_3" value="2">La copia de seguridad de la tabla GPT</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="0">
+       <p class="qp-q">8. En un equipo con arranque dual Windows y Ubuntu en el mismo disco, ¿cuántas particiones ESP hay?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q2_4" value="0">Una, la comparten los dos sistemas</label>
+         <label class="qp-opt"><input type="radio" name="q2_4" value="1">Dos, una para cada sistema</label>
+         <label class="qp-opt"><input type="radio" name="q2_4" value="2">Ninguna</label>
+       </div>
+     </div>
+     <div class="qp-item" data-a="1">
+       <p class="qp-q">9. Un equipo que arranca con BIOS y tabla MBR, ¿tiene partición ESP?</p>
+       <div class="qp-opts">
+         <label class="qp-opt"><input type="radio" name="q2_5" value="0">Sí</label>
+         <label class="qp-opt"><input type="radio" name="q2_5" value="1">No, el código de arranque está en el propio MBR</label>
+       </div>
+     </div>
+     <div class="qp-bloq">
+       <p class="qp-q">10. En un disco GPT con Windows y GNU/Linux (ESP, MSR, C:, D:, /, swap y /home), ¿cuántas particiones extendidas hacen falta?</p>
+     <p><input type="text" class="qp-corto" data-a="0|cero|ninguna"></p>
+     </div>
      <button onclick="qpCorregir(this)">Corregir</button>
      <button onclick="qpSolucion(this)">Solución</button>
      <button onclick="qpLimpiar(this)">Reintentar</button>
@@ -1183,9 +1210,9 @@
      <div class="qp-item" data-a="0">
        <p class="qp-q">1. ¿Qué es el EBR?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q2_3" value="0">Un registro delante de cada partición lógica que indica dónde está esa partición y dónde está el siguiente EBR</label>
-         <label class="qp-opt"><input type="radio" name="q2_3" value="1">La copia de seguridad del MBR</label>
-         <label class="qp-opt"><input type="radio" name="q2_3" value="2">La partición donde se guardan los cargadores de arranque</label>
+         <label class="qp-opt"><input type="radio" name="q2_6" value="0">Un registro delante de cada partición lógica que indica dónde está esa partición y dónde está el siguiente EBR</label>
+         <label class="qp-opt"><input type="radio" name="q2_6" value="1">La copia de seguridad del MBR</label>
+         <label class="qp-opt"><input type="radio" name="q2_6" value="2">La partición donde se guardan los cargadores de arranque</label>
        </div>
      </div>
      <div class="qp-bloq">
@@ -1207,17 +1234,17 @@
      <div class="qp-item" data-a="0">
        <p class="qp-q">1. En un disco duro mecánico, ¿qué particiones tienen mayor velocidad de transferencia?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q2_4" value="0">Las del principio del disco (pistas exteriores)</label>
-         <label class="qp-opt"><input type="radio" name="q2_4" value="1">Las del final del disco (pistas interiores)</label>
-         <label class="qp-opt"><input type="radio" name="q2_4" value="2">Todas son igual de rápidas</label>
+         <label class="qp-opt"><input type="radio" name="q2_7" value="0">Las del principio del disco (pistas exteriores)</label>
+         <label class="qp-opt"><input type="radio" name="q2_7" value="1">Las del final del disco (pistas interiores)</label>
+         <label class="qp-opt"><input type="radio" name="q2_7" value="2">Todas son igual de rápidas</label>
        </div>
      </div>
      <div class="qp-item" data-a="2">
        <p class="qp-q">2. ¿Y en un SSD?</p>
        <div class="qp-opts">
-         <label class="qp-opt"><input type="radio" name="q2_5" value="0">Las del principio del disco</label>
-         <label class="qp-opt"><input type="radio" name="q2_5" value="1">Las del final del disco</label>
-         <label class="qp-opt"><input type="radio" name="q2_5" value="2">Todas son igual de rápidas</label>
+         <label class="qp-opt"><input type="radio" name="q2_8" value="0">Las del principio del disco</label>
+         <label class="qp-opt"><input type="radio" name="q2_8" value="1">Las del final del disco</label>
+         <label class="qp-opt"><input type="radio" name="q2_8" value="2">Todas son igual de rápidas</label>
        </div>
      </div>
      <button onclick="qpCorregir(this)">Corregir</button>

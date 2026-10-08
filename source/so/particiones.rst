@@ -55,19 +55,21 @@ Ejemplos de particionados (con un equipo de 4 GB de RAM):
   * 1ª Partición primaria de 80 GB con formato ntfs (en esta partición estarán los archivos del SO)
   * 2ª Partición primaria de 420 GB con formato ntfs (contiene la configuración y datos de los usuarios)
 
-* Sistema GNU/Linux y Windows en un disco de 600 GB.
+* Sistema GNU/Linux y Windows en un disco de 600 GB. Con Windows 11 el equipo arranca con UEFI y el disco tiene que usar una tabla **GPT** (se explica a continuación), así que todas las particiones son primarias y no hace falta la extendida:
 
-  * 1ª Partición primaria de 80 GB con formato ntfs
-  * 2ª Partición primaria de 220 GB con formato ntfs
-  * 3ª Partición extendida
+  * 1ª Partición de 300 MiB con formato fat32: la partición **ESP**, donde se guardan los cargadores de arranque de Windows y de GNU/Linux
+  * 2ª Partición de 16 MiB sin formato: la partición **MSR**, que crea Windows al instalarse
+  * 3ª Partición de 80 GB con formato ntfs (C:, en esta partición estarán los archivos de Windows)
+  * 4ª Partición de 220 GB con formato ntfs (D:, datos de los usuarios de Windows)
+  * 5ª Partición de 50 GB con formato ext4 y punto de montaje /
+  * 6ª Partición igual que la memoria RAM (4 GB) que tenga el equipo con formato swap
+  * 7ª Partición con el resto del disco (unos 245 GB) con formato ext4 y punto de montaje /home
 
-    * 1ª Partición lógica de 50 GB con formato ext4 y punto de montaje /
-    * 2ª Partición lógica igual que la memoria RAM (4 GB) que tenga el equipo con formato swap
-    * 3ª Partición lógica de 246 GB con formato ext4 y punto de montaje /home
+  Con una tabla MBR no podríamos tener estas 7 particiones como primarias: tendríamos que meter las de GNU/Linux en una partición extendida, como particiones lógicas.
 
 .. note::
 
-   Los ejemplos con Windows sirven para equipos con BIOS. Windows 11 necesita UEFI y GPT: haríamos el mismo reparto en una tabla GPT, sin partición extendida y añadiendo al principio la partición ESP (ver el apartado siguiente).
+   El ejemplo de Windows en un disco de 500 GB con MBR sirve para equipos con BIOS. Con Windows 11 haríamos ese mismo reparto en una tabla GPT, añadiendo al principio las particiones ESP y MSR, como en el último ejemplo.
 
 GUID Partition Table (GPT)
 ==========================
@@ -85,6 +87,20 @@ Sus características principales son:
 * En el sector cero (LBA 0) mantiene un **MBR de protección**, para que las herramientas antiguas que no entienden GPT no crean que el disco está vacío.
 * Los sistemas UEFI arrancan desde una partición especial, la **ESP (EFI System Partition)**, con formato FAT32, donde se guardan los cargadores de arranque. Suele ocupar entre 100 y 550 MiB.
 * Windows crea además, al instalarse en un disco GPT, una pequeña partición **MSR** (*Microsoft Reserved*) de 16 MiB, sin sistema de archivos, que reserva para su uso interno.
+
+Resumen de las dos particiones:
+
+=================  ===========================================  ==========================
+\                  ESP                                          MSR
+=================  ===========================================  ==========================
+Para qué sirve     Arrancar el equipo (cargadores ``.efi``)     Reservada por Windows
+Formato            FAT32                                        Ninguno
+Tamaño             100–550 MiB                                  16 MiB
+Quién la crea      El primer sistema que se instala             El instalador de Windows
+¿Se comparte?      Sí, entre todos los sistemas del disco       No, solo es de Windows
+=================  ===========================================  ==========================
+
+En un arranque dual, Windows y GNU/Linux guardan sus cargadores en la misma ESP, cada uno en su carpeta (por ejemplo ``\EFI\Microsoft\Boot\bootmgfw.efi`` y ``\EFI\ubuntu\grubx64.efi``). Un equipo que arranca con BIOS y MBR no tiene ESP: el código de arranque está en el propio MBR.
 
 .. image:: imagenes/particiones2.png
 

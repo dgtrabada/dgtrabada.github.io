@@ -175,6 +175,19 @@ Particiones (III)
         ( ) ext4
       - 6. ¿Cómo se llama la partición de 16 MiB, sin sistema de archivos, que crea Windows en un disco GPT?
         [msr]
+      - 7. ¿Qué contiene la partición ESP?
+        (x) Los cargadores de arranque de los sistemas operativos
+        ( ) Los archivos del sistema operativo Windows
+        ( ) La copia de seguridad de la tabla GPT
+      - 8. En un equipo con arranque dual Windows y Ubuntu en el mismo disco, ¿cuántas particiones ESP hay?
+        (x) Una, la comparten los dos sistemas
+        ( ) Dos, una para cada sistema
+        ( ) Ninguna
+      - 9. Un equipo que arranca con BIOS y tabla MBR, ¿tiene partición ESP?
+        ( ) Sí
+        (x) No, el código de arranque está en el propio MBR
+      - 10. En un disco GPT con Windows y GNU/Linux (ESP, MSR, C:, D:, /, swap y /home), ¿cuántas particiones extendidas hacen falta?
+        [0|cero|ninguna]
 
    2. Particiones lógicas y nombres:
       - 1. ¿Qué es el EBR?

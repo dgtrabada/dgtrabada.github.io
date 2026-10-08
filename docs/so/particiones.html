@@ -642,37 +642,36 @@ Utilizado</p></th>
 <p>En GParted, un disco MBR con 3 particiones primarias y una extendida con 7 lógicas, numeradas de la sda5 a la sda11:</p>
 <img alt="../_images/particiones1.png" src="../_images/particiones1.png" />
 <p>Ejemplos de particionados (con un equipo de 4 GB de RAM):</p>
-<ul class="simple">
-<li><p>Sistema GNU/Linux en un disco de 500 GB.</p>
 <ul>
+<li><p>Sistema GNU/Linux en un disco de 500 GB.</p>
+<ul class="simple">
 <li><p>1ª Partición primaria de 50 GB con formato ext4 y punto de montaje / (en esta partición estarán los archivos del SO)</p></li>
 <li><p>2ª Partición primaria igual que la memoria RAM (4 GB) que tenga el equipo con formato swap (se usa para la memoria virtual)</p></li>
 <li><p>3ª Partición primaria de 446 GB con formato ext4 y punto de montaje /home (contiene la configuración y datos de los usuarios)</p></li>
 </ul>
 </li>
 <li><p>Sistema Windows en un disco de 500 GB</p>
-<ul>
+<ul class="simple">
 <li><p>1ª Partición primaria de 80 GB con formato ntfs (en esta partición estarán los archivos del SO)</p></li>
 <li><p>2ª Partición primaria de 420 GB con formato ntfs (contiene la configuración y datos de los usuarios)</p></li>
 </ul>
 </li>
-<li><p>Sistema GNU/Linux y Windows en un disco de 600 GB.</p>
-<ul>
-<li><p>1ª Partición primaria de 80 GB con formato ntfs</p></li>
-<li><p>2ª Partición primaria de 220 GB con formato ntfs</p></li>
-<li><p>3ª Partición extendida</p>
-<ul>
-<li><p>1ª Partición lógica de 50 GB con formato ext4 y punto de montaje /</p></li>
-<li><p>2ª Partición lógica igual que la memoria RAM (4 GB) que tenga el equipo con formato swap</p></li>
-<li><p>3ª Partición lógica de 246 GB con formato ext4 y punto de montaje /home</p></li>
+<li><p>Sistema GNU/Linux y Windows en un disco de 600 GB. Con Windows 11 el equipo arranca con UEFI y el disco tiene que usar una tabla <strong>GPT</strong> (se explica a continuación), así que todas las particiones son primarias y no hace falta la extendida:</p>
+<ul class="simple">
+<li><p>1ª Partición de 300 MiB con formato fat32: la partición <strong>ESP</strong>, donde se guardan los cargadores de arranque de Windows y de GNU/Linux</p></li>
+<li><p>2ª Partición de 16 MiB sin formato: la partición <strong>MSR</strong>, que crea Windows al instalarse</p></li>
+<li><p>3ª Partición de 80 GB con formato ntfs (C:, en esta partición estarán los archivos de Windows)</p></li>
+<li><p>4ª Partición de 220 GB con formato ntfs (D:, datos de los usuarios de Windows)</p></li>
+<li><p>5ª Partición de 50 GB con formato ext4 y punto de montaje /</p></li>
+<li><p>6ª Partición igual que la memoria RAM (4 GB) que tenga el equipo con formato swap</p></li>
+<li><p>7ª Partición con el resto del disco (unos 245 GB) con formato ext4 y punto de montaje /home</p></li>
 </ul>
-</li>
-</ul>
+<p>Con una tabla MBR no podríamos tener estas 7 particiones como primarias: tendríamos que meter las de GNU/Linux en una partición extendida, como particiones lógicas.</p>
 </li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>Los ejemplos con Windows sirven para equipos con BIOS. Windows 11 necesita UEFI y GPT: haríamos el mismo reparto en una tabla GPT, sin partición extendida y añadiendo al principio la partición ESP (ver el apartado siguiente).</p>
+<p>El ejemplo de Windows en un disco de 500 GB con MBR sirve para equipos con BIOS. Con Windows 11 haríamos ese mismo reparto en una tabla GPT, añadiendo al principio las particiones ESP y MSR, como en el último ejemplo.</p>
 </div>
 </section>
 <section id="guid-partition-table-gpt">
@@ -689,6 +688,39 @@ Utilizado</p></th>
 <li><p>Los sistemas UEFI arrancan desde una partición especial, la <strong>ESP (EFI System Partition)</strong>, con formato FAT32, donde se guardan los cargadores de arranque. Suele ocupar entre 100 y 550 MiB.</p></li>
 <li><p>Windows crea además, al instalarse en un disco GPT, una pequeña partición <strong>MSR</strong> (<em>Microsoft Reserved</em>) de 16 MiB, sin sistema de archivos, que reserva para su uso interno.</p></li>
 </ul>
+<p>Resumen de las dos particiones:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>ESP</p></th>
+<th class="head"><p>MSR</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Para qué sirve</p></td>
+<td><p>Arrancar el equipo (cargadores <code class="docutils literal notranslate"><span class="pre">.efi</span></code>)</p></td>
+<td><p>Reservada por Windows</p></td>
+</tr>
+<tr class="row-odd"><td><p>Formato</p></td>
+<td><p>FAT32</p></td>
+<td><p>Ninguno</p></td>
+</tr>
+<tr class="row-even"><td><p>Tamaño</p></td>
+<td><p>100–550 MiB</p></td>
+<td><p>16 MiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quién la crea</p></td>
+<td><p>El primer sistema que se instala</p></td>
+<td><p>El instalador de Windows</p></td>
+</tr>
+<tr class="row-even"><td><p>¿Se comparte?</p></td>
+<td><p>Sí, entre todos los sistemas del disco</p></td>
+<td><p>No, solo es de Windows</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>En un arranque dual, Windows y GNU/Linux guardan sus cargadores en la misma ESP, cada uno en su carpeta (por ejemplo <code class="docutils literal notranslate"><span class="pre">\EFI\Microsoft\Boot\bootmgfw.efi</span></code> y <code class="docutils literal notranslate"><span class="pre">\EFI\ubuntu\grubx64.efi</span></code>). Un equipo que arranca con BIOS y MBR no tiene ESP: el código de arranque está en el propio MBR.</p>
 <img alt="../_images/particiones2.png" src="../_images/particiones2.png" />
 <p>En la imagen, un disco GPT con 6 particiones primarias (de la sda1 a la sda6): con una tabla MBR no podríamos tener más de 4 primarias, y tendríamos que usar una extendida.</p>
 <p>Independientemente de cómo se cree la tabla de particiones, dejaremos una partición para el sistema operativo, otra para los datos y, en el caso de instalar un GNU/Linux, otra para la swap. Para el SO reservaremos ~80 GB en Windows y ~50 GB en GNU/Linux.</p>
