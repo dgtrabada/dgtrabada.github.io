@@ -667,7 +667,11 @@ analizar_web.sh
 
         Crea un script llamado **analizar_web.sh** que analice el registro de accesos de un servidor Apache (``access.log``). Si no recibe ningún archivo usará ``/var/log/apache2/access.log``, y si el archivo no existe mostrará un error.
 
-        Para generar tu propio log, arranca Apache (tema **Apache**) y visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista (para provocar errores 404).
+        Para que todos trabajemos con los mismos datos, descarga el archivo `access.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/access.log>`_, que simula el registro de un servidor Apache con 40 peticiones de varios equipos (incluido uno que busca páginas como ``/wp-login.php`` o ``/admin``). En tu servidor lo obtendrías con:
+
+        .. code-block:: bash
+
+           sudo cp /var/log/apache2/access.log access.log
 
         El script debe mostrar:
 
@@ -678,16 +682,44 @@ analizar_web.sh
         * Las páginas que dan 404.
         * El número de peticiones por hora.
 
+        Utiliza este archivo en lugar de ``/var/log/apache2/access.log``, tiene que quedar
+
         .. code-block:: bash
 
            ./analizar_web.sh access.log
-           === Análisis de access.log (7 peticiones) ===
+           === Análisis de access.log (40 peticiones) ===
 
            --- Top 5 IPs ---
-                 4 10.0.0.1
-                 2 10.0.0.2
-                 1 10.0.0.3
-           ...
+                12 192.168.1.10
+                 9 192.168.1.25
+                 7 10.0.0.7
+                 5 192.168.1.33
+                 4 10.0.0.12
+
+           --- Top 5 URLs ---
+                11 /
+                 8 /index.html
+                 7 /css/estilo.css
+                 5 /img/logo.png
+                 3 /contacto.html
+
+           --- Códigos de respuesta ---
+                35 200
+                 4 404
+                 1 301
+
+           --- Páginas no encontradas (404) ---
+                 2 /favicon.ico
+                 1 /wp-login.php
+                 1 /admin
+
+           --- Peticiones por hora ---
+                 6 09:00
+                14 10:00
+                12 11:00
+                 8 12:00
+
+        Cuando funcione, pruébalo también con el log de tu propio Apache (tema **Apache**): visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista para provocar errores 404.
 
         Es la culminación de la cadena ``sort | uniq -c | sort -rn`` que empezó en **rep.sh**: en el formato común de Apache el campo 1 es la IP, el 7 la URL y el 9 el código de respuesta (``cut -d' '``), y para las 404 y la hora conviene usar ``awk``.
 

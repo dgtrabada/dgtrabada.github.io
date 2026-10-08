@@ -1804,7 +1804,10 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 <h2>analizar_web.sh<a class="headerlink" href="#analizar-web-sh" title="Link to this heading">#</a></h2>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-19-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-19-19-0" name="19-0" role="tab" tabindex="0">analizar_web.sh</button><button aria-controls="panel-19-19-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-19-19-1" name="19-1" role="tab" tabindex="-1">Solución</button></div><div aria-labelledby="tab-19-19-0" class="sphinx-tabs-panel" id="panel-19-19-0" name="19-0" role="tabpanel" tabindex="0"><p>Crea un script llamado <strong>analizar_web.sh</strong> que analice el registro de accesos de un servidor Apache (<code class="docutils literal notranslate"><span class="pre">access.log</span></code>). Si no recibe ningún archivo usará <code class="docutils literal notranslate"><span class="pre">/var/log/apache2/access.log</span></code>, y si el archivo no existe mostrará un error.</p>
-<p>Para generar tu propio log, arranca Apache (tema <strong>Apache</strong>) y visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista (para provocar errores 404).</p>
+<p>Para que todos trabajemos con los mismos datos, descarga el archivo <a class="reference external" href="https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/access.log">access.log</a>, que simula el registro de un servidor Apache con 40 peticiones de varios equipos (incluido uno que busca páginas como <code class="docutils literal notranslate"><span class="pre">/wp-login.php</span></code> o <code class="docutils literal notranslate"><span class="pre">/admin</span></code>). En tu servidor lo obtendrías con:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>cp<span class="w"> </span>/var/log/apache2/access.log<span class="w"> </span>access.log
+</pre></div>
+</div>
 <p>El script debe mostrar:</p>
 <ul class="simple">
 <li><p>El número total de peticiones.</p></li>
@@ -1814,16 +1817,42 @@ De<span class="w"> </span><span class="m">15</span>:00-10:59<span class="w"> </s
 <li><p>Las páginas que dan 404.</p></li>
 <li><p>El número de peticiones por hora.</p></li>
 </ul>
+<p>Utiliza este archivo en lugar de <code class="docutils literal notranslate"><span class="pre">/var/log/apache2/access.log</span></code>, tiene que quedar</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./analizar_web.sh<span class="w"> </span>access.log
-<span class="o">===</span><span class="w"> </span>Análisis<span class="w"> </span>de<span class="w"> </span>access.log<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="w"> </span>peticiones<span class="o">)</span><span class="w"> </span><span class="o">===</span>
+<span class="o">===</span><span class="w"> </span>Análisis<span class="w"> </span>de<span class="w"> </span>access.log<span class="w"> </span><span class="o">(</span><span class="m">40</span><span class="w"> </span>peticiones<span class="o">)</span><span class="w"> </span><span class="o">===</span>
 
 ---<span class="w"> </span>Top<span class="w"> </span><span class="m">5</span><span class="w"> </span>IPs<span class="w"> </span>---
-<span class="w">      </span><span class="m">4</span><span class="w"> </span><span class="m">10</span>.0.0.1
-<span class="w">      </span><span class="m">2</span><span class="w"> </span><span class="m">10</span>.0.0.2
-<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">10</span>.0.0.3
-...
+<span class="w">     </span><span class="m">12</span><span class="w"> </span><span class="m">192</span>.168.1.10
+<span class="w">      </span><span class="m">9</span><span class="w"> </span><span class="m">192</span>.168.1.25
+<span class="w">      </span><span class="m">7</span><span class="w"> </span><span class="m">10</span>.0.0.7
+<span class="w">      </span><span class="m">5</span><span class="w"> </span><span class="m">192</span>.168.1.33
+<span class="w">      </span><span class="m">4</span><span class="w"> </span><span class="m">10</span>.0.0.12
+
+---<span class="w"> </span>Top<span class="w"> </span><span class="m">5</span><span class="w"> </span>URLs<span class="w"> </span>---
+<span class="w">     </span><span class="m">11</span><span class="w"> </span>/
+<span class="w">      </span><span class="m">8</span><span class="w"> </span>/index.html
+<span class="w">      </span><span class="m">7</span><span class="w"> </span>/css/estilo.css
+<span class="w">      </span><span class="m">5</span><span class="w"> </span>/img/logo.png
+<span class="w">      </span><span class="m">3</span><span class="w"> </span>/contacto.html
+
+---<span class="w"> </span>Códigos<span class="w"> </span>de<span class="w"> </span>respuesta<span class="w"> </span>---
+<span class="w">     </span><span class="m">35</span><span class="w"> </span><span class="m">200</span>
+<span class="w">      </span><span class="m">4</span><span class="w"> </span><span class="m">404</span>
+<span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="m">301</span>
+
+---<span class="w"> </span>Páginas<span class="w"> </span>no<span class="w"> </span>encontradas<span class="w"> </span><span class="o">(</span><span class="m">404</span><span class="o">)</span><span class="w"> </span>---
+<span class="w">      </span><span class="m">2</span><span class="w"> </span>/favicon.ico
+<span class="w">      </span><span class="m">1</span><span class="w"> </span>/wp-login.php
+<span class="w">      </span><span class="m">1</span><span class="w"> </span>/admin
+
+---<span class="w"> </span>Peticiones<span class="w"> </span>por<span class="w"> </span>hora<span class="w"> </span>---
+<span class="w">      </span><span class="m">6</span><span class="w"> </span><span class="m">09</span>:00
+<span class="w">     </span><span class="m">14</span><span class="w"> </span><span class="m">10</span>:00
+<span class="w">     </span><span class="m">12</span><span class="w"> </span><span class="m">11</span>:00
+<span class="w">      </span><span class="m">8</span><span class="w"> </span><span class="m">12</span>:00
 </pre></div>
 </div>
+<p>Cuando funcione, pruébalo también con el log de tu propio Apache (tema <strong>Apache</strong>): visita varias veces tu servidor desde el navegador, incluyendo alguna página que no exista para provocar errores 404.</p>
 <p>Es la culminación de la cadena <code class="docutils literal notranslate"><span class="pre">sort</span> <span class="pre">|</span> <span class="pre">uniq</span> <span class="pre">-c</span> <span class="pre">|</span> <span class="pre">sort</span> <span class="pre">-rn</span></code> que empezó en <strong>rep.sh</strong>: en el formato común de Apache el campo 1 es la IP, el 7 la URL y el 9 el código de respuesta (<code class="docutils literal notranslate"><span class="pre">cut</span> <span class="pre">-d'</span> <span class="pre">'</span></code>), y para las 404 y la hora conviene usar <code class="docutils literal notranslate"><span class="pre">awk</span></code>.</p>
 </div><div aria-labelledby="tab-19-19-1" class="sphinx-tabs-panel" hidden="true" id="panel-19-19-1" name="19-1" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
