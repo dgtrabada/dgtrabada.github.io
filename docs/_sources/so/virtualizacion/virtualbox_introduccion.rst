@@ -1,6 +1,6 @@
-****************************
-Introducción a VirtualBox
-****************************
+*********************************
+Ejercicios de clonación y redes
+*********************************
 
 En estos ejercicios vamos a crear una máquina virtual, clonarla y conectar las dos máquinas con los distintos modos de red de VirtualBox: NAT, adaptador puente, Red NAT y red interna.
 

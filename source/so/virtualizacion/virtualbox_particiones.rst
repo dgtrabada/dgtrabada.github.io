@@ -2,7 +2,7 @@
 Ejercicios de particiones
 *************************
 
-En este ejercicio vamos a crear una máquina virtual con DRBL Live, como en la :ref:`Introducción a VirtualBox`, y usarla para hacer tablas de particiones con **GParted**.
+En este ejercicio vamos a crear una máquina virtual con DRBL Live, como en los :ref:`Ejercicios de clonación y redes`, y usarla para hacer tablas de particiones con **GParted**.
 
 ayuda: :ref:`Particiones`
 
