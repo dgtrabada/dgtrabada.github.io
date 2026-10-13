@@ -1,6 +1,6 @@
-********************************************
-Gestión de memoria y planificación del disco
-********************************************
+******************
+Gestión de memoria
+******************
 
 
 Jerarquía de memoria
@@ -69,114 +69,173 @@ Cuando se produce un fallo de página, la página se carga desde el disco en un 
 * **LRU** (*Least Recently Used*): sale la página que hace más tiempo que no se usa.
 * **Óptimo**: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás. Si hay empate (por ejemplo, varias páginas que no se vuelven a usar), sale la que lleva más tiempo en memoria.
 
-Para orientarnos, en las siguientes pestañas están, paso a paso, las 12 referencias del ejemplo de abajo con FIFO: un proceso con 5 páginas y una memoria principal con solo **3 marcos**, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.
+Para orientarnos, en el siguiente visor (mueve la barra o usa los botones) están, paso a paso, las 15 referencias del ejemplo de abajo con FIFO: un proceso con 6 páginas y una memoria principal con solo **3 marcos**, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.
 
-.. tabs::
+.. container:: pasos-fifo
 
-    .. tab:: 1
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso1.png
-           :alt: FIFO paso 1: la página 1 entra en el marco 1
+      .. image:: imagenes/fifo_paso1.png
+         :alt: FIFO paso 1: marcos 1, libre, libre
 
-        **Paso 1:** se pide la página 1; hay marcos libres y entra en el marco 1.
+      **Paso 1:** se pide la página 1; hay un marco libre y entra en el marco 1.
 
-    .. tab:: 2
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso2.png
-           :alt: FIFO paso 2: la página 2 entra en el marco 2
+      .. image:: imagenes/fifo_paso2.png
+         :alt: FIFO paso 2: marcos 1, 2, libre
 
-        **Paso 2:** se pide la página 2 y entra en el marco 2.
+      **Paso 2:** se pide la página 2; hay un marco libre y entra en el marco 2.
 
-    .. tab:: 3
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso3.png
-           :alt: FIFO paso 3: la página 3 entra en el marco 3 y la memoria queda llena
+      .. image:: imagenes/fifo_paso3.png
+         :alt: FIFO paso 3: marcos 1, 2, 3
 
-        **Paso 3:** se pide la página 3 y entra en el marco 3; ya no quedan marcos libres.
+      **Paso 3:** se pide la página 3; hay un marco libre y entra en el marco 3; ya no quedan marcos libres.
 
-    .. tab:: 4
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso4.png
-           :alt: FIFO paso 4: sale la página 1 al disco y la página 4 ocupa el marco 1
+      .. image:: imagenes/fifo_paso4.png
+         :alt: FIFO paso 4: marcos 4, 2, 3
 
-        **Paso 4:** se pide la página 4 y no hay sitio: sale la página 1, la que lleva más tiempo en memoria, y la 4 ocupa el marco 1. Es el primer reemplazo.
+      **Paso 4:** se pide la página 4: fallo. Sale la página 1, la que lleva más tiempo en memoria (entró en el paso 1), y la 4 ocupa el marco 1.
 
-    .. tab:: 5
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso5.png
-           :alt: FIFO paso 5: sale la página 2 al disco y la página 1 ocupa el marco 2
+      .. image:: imagenes/fifo_paso5.png
+         :alt: FIFO paso 5: marcos 4, 2, 3
 
-        **Paso 5:** se pide la página 1, que acaba de salir: fallo. Sale la página 2, la que lleva más tiempo en memoria, y la 1 ocupa el marco 2.
+      **Paso 5:** se pide la página 2: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
 
-    .. tab:: 6
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso6.png
-           :alt: FIFO paso 6: sale la página 3 al disco y la página 2 ocupa el marco 3
+      .. image:: imagenes/fifo_paso6.png
+         :alt: FIFO paso 6: marcos 4, 1, 3
 
-        **Paso 6:** se pide la página 2: fallo. Sale la página 3 y la 2 ocupa el marco 3.
+      **Paso 6:** se pide la página 1: fallo. Sale la página 2, la que lleva más tiempo en memoria (entró en el paso 2), y la 1 ocupa el marco 2.
 
-    .. tab:: 7
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso7.png
-           :alt: FIFO paso 7: sale la página 4 al disco y la página 5 ocupa el marco 1
+      .. image:: imagenes/fifo_paso7.png
+         :alt: FIFO paso 7: marcos 4, 1, 2
 
-        **Paso 7:** se pide la página 5: fallo. Sale la página 4 y la 5 ocupa el marco 1.
+      **Paso 7:** se pide la página 2: fallo. Sale la página 3, la que lleva más tiempo en memoria (entró en el paso 3), y la 2 ocupa el marco 3.
 
-    .. tab:: 8
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso8.png
-           :alt: FIFO paso 8: acierto de la página 1, no cambia nada
+      .. image:: imagenes/fifo_paso8.png
+         :alt: FIFO paso 8: marcos 5, 1, 2
 
-        **Paso 8:** se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
+      **Paso 8:** se pide la página 5: fallo. Sale la página 4, la que lleva más tiempo en memoria (entró en el paso 4), y la 5 ocupa el marco 1.
 
-    .. tab:: 9
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso9.png
-           :alt: FIFO paso 9: acierto de la página 2, no cambia nada
+      .. image:: imagenes/fifo_paso9.png
+         :alt: FIFO paso 9: marcos 5, 1, 2
 
-        **Paso 9:** se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.
+      **Paso 9:** se pide la página 1: ya está en el marco 2 (acierto). Con FIFO no cambia nada.
 
-    .. tab:: 10
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso10.png
-           :alt: FIFO paso 10: sale la página 1 al disco y la página 3 ocupa el marco 2
+      .. image:: imagenes/fifo_paso10.png
+         :alt: FIFO paso 10: marcos 5, 1, 2
 
-        **Paso 10:** se pide la página 3: fallo. Sale la página 1, que es la que lleva más tiempo en memoria (entró en el paso 5), aunque se acabe de usar en el paso 8: a FIFO solo le importa cuándo entró. La 3 ocupa el marco 2.
+      **Paso 10:** se pide la página 2: ya está en el marco 3 (acierto). Con FIFO no cambia nada.
 
-    .. tab:: 11
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso11.png
-           :alt: FIFO paso 11: sale la página 2 al disco y la página 4 ocupa el marco 3
+      .. image:: imagenes/fifo_paso11.png
+         :alt: FIFO paso 11: marcos 5, 1, 2
 
-        **Paso 11:** se pide la página 4: fallo. Sale la página 2 (entró en el paso 6) y la 4 ocupa el marco 3.
+      **Paso 11:** se pide la página 5: ya está en el marco 1 (acierto). Con FIFO no cambia nada.
 
-    .. tab:: 12
+   .. container:: paso
 
-        .. image:: imagenes/fifo_paso12.png
-           :alt: FIFO paso 12: acierto de la página 5, no cambia nada
+      .. image:: imagenes/fifo_paso12.png
+         :alt: FIFO paso 12: marcos 5, 6, 2
 
-        **Paso 12:** se pide la página 5: ya está en el marco 1 (acierto). En total, FIFO ha tenido **9 fallos**.
+      **Paso 12:** se pide la página 6: fallo. Sale la página 1, la que lleva más tiempo en memoria (entró en el paso 6), y la 6 ocupa el marco 2.
 
-Veamos un ejemplo con la cadena de referencias **1,2,3,4,1,2,5,1,2,3,4,5** y **3 marcos**, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila "Marco" muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:
+   .. container:: paso
+
+      .. image:: imagenes/fifo_paso13.png
+         :alt: FIFO paso 13: marcos 5, 6, 4
+
+      **Paso 13:** se pide la página 4: fallo. Sale la página 2, la que lleva más tiempo en memoria (entró en el paso 7), y la 4 ocupa el marco 3.
+
+   .. container:: paso
+
+      .. image:: imagenes/fifo_paso14.png
+         :alt: FIFO paso 14: marcos 5, 6, 4
+
+      **Paso 14:** se pide la página 5: ya está en el marco 1 (acierto). Con FIFO no cambia nada.
+
+   .. container:: paso
+
+      .. image:: imagenes/fifo_paso15.png
+         :alt: FIFO paso 15: marcos 5, 6, 4
+
+      **Paso 15:** se pide la página 4: ya está en el marco 3 (acierto). Con FIFO no cambia nada. En total, FIFO ha tenido **9 fallos**.
+
+.. raw:: html
+
+   <style>
+   .pasos-control { display: flex; align-items: center; gap: .6em; flex-wrap: wrap; margin: .6em 0; }
+   .pasos-control input[type=range] { flex: 1; min-width: 12em; }
+   .pasos-control button { padding: 3px 12px; border-radius: 5px; border: 1px solid rgba(128,128,128,.6);
+                           background: transparent; color: inherit; cursor: pointer; }
+   .pasos-control button:hover { background: rgba(128,128,128,.15); }
+   .pasos-control span { font-weight: bold; min-width: 7em; }
+   </style>
+   <script>
+   // convierte cada bloque .pasos-fifo en un visor con barra deslizante (sin JavaScript se ven todos los pasos)
+   document.addEventListener('DOMContentLoaded', function () {
+     document.querySelectorAll('.pasos-fifo').forEach(function (cont) {
+       var pasos = cont.querySelectorAll(':scope > .paso'), n = pasos.length;
+       var ctrl = document.createElement('div');
+       ctrl.className = 'pasos-control';
+       ctrl.innerHTML = '<button type="button">&#9664; Anterior</button>' +
+         '<input type="range" min="1" max="' + n + '" value="1">' +
+         '<button type="button">Siguiente &#9654;</button><span></span>';
+       cont.insertBefore(ctrl, cont.firstChild);
+       var barra = ctrl.querySelector('input'), botones = ctrl.querySelectorAll('button'), etiqueta = ctrl.querySelector('span');
+       function muestra(i) {
+         i = Math.max(1, Math.min(n, i));
+         barra.value = i;
+         pasos.forEach(function (p, k) { p.style.display = k === i - 1 ? '' : 'none'; });
+         etiqueta.textContent = 'Paso ' + i + ' de ' + n;
+       }
+       barra.addEventListener('input', function () { muestra(+barra.value); });
+       botones[0].addEventListener('click', function () { muestra(+barra.value - 1); });
+       botones[1].addEventListener('click', function () { muestra(+barra.value + 1); });
+       muestra(1);
+     });
+   });
+   </script>
+
+Veamos el ejemplo completo con la cadena de referencias **1,2,3,4,2,1,2,5,1,2,5,6,4,5,4** y **3 marcos**, inicialmente vacíos. La primera fila es la página que pide el proceso, cada fila "Marco" muestra qué página hay en cada hueco de la memoria física, el recuadro grueso indica la página que acaba de entrar por un fallo y la F roja marca los fallos de página:
 
 * **FIFO: 9 fallos**
 
   .. image:: imagenes/reemplazo_fifo_3.png
      :alt: Reemplazo de páginas con FIFO y 3 marcos, 9 fallos
 
-* **LRU: 10 fallos**
+* **LRU: 8 fallos**
 
-  En LRU un acierto también cuenta como uso: en negrita (sin recuadro, porque el marco no cambia) está la página que se usa en cada acierto. Por eso en la 10.ª referencia sale la 5: el 1 y el 2 se acaban de usar en la 8.ª y la 9.ª, y la 5 no se usa desde la 7.ª.
+  En LRU un acierto también cuenta como uso: en negrita (sin recuadro, porque el marco no cambia) está la página que se usa en cada acierto. La diferencia con FIFO empieza en la 6.ª referencia (se pide el 1). En los marcos están el 4, el 2 y el 3. FIFO saca el 2, que es el que lleva más tiempo en memoria, y en la referencia siguiente se vuelve a pedir el 2, así que tiene otro fallo. LRU saca el 3, porque el 2 se acaba de usar en la 5.ª referencia (un acierto), y en la siguiente referencia el 2 sigue en memoria.
 
   .. image:: imagenes/reemplazo_lru_3.png
-     :alt: Reemplazo de páginas con LRU y 3 marcos, 10 fallos
+     :alt: Reemplazo de páginas con LRU y 3 marcos, 8 fallos
 
 * **Óptimo: 7 fallos**
 
   .. image:: imagenes/reemplazo_opt_3.png
      :alt: Reemplazo de páginas con el algoritmo óptimo y 3 marcos, 7 fallos
 
-Lo normal es que con más marcos haya menos fallos, pero con FIFO no siempre ocurre. Si repetimos el ejemplo con **4 marcos**, FIFO da **10 fallos**, uno más que con 3. Este fenómeno se conoce como **anomalía de Belady**; LRU y Óptimo no la sufren.
+LRU suele dar menos fallos que FIFO porque los programas reales cumplen el principio de localidad (una página que se ha usado hace poco probablemente se vuelva a usar pronto) y LRU mantiene en memoria las páginas usadas recientemente. Aun así, no está garantizado: con algunas cadenas sin localidad, como las cíclicas, LRU puede dar más fallos que FIFO. Lo único que está garantizado es que **Óptimo** da el menor número de fallos posible.
+
+Lo normal es que con más marcos haya menos fallos, y así ocurre con LRU (7 fallos con 4 marcos) y con Óptimo (6 fallos). Pero con FIFO no siempre: si repetimos el ejemplo con **4 marcos**, FIFO da **10 fallos**, uno más que con 3. Este fenómeno se conoce como **anomalía de Belady**; LRU y Óptimo nunca la sufren.
 
 .. image:: imagenes/reemplazo_fifo_4.png
    :alt: Reemplazo de páginas con FIFO y 4 marcos, 10 fallos
