@@ -206,6 +206,81 @@ imag.sh
         .. literalinclude:: scripts/imag.sh
            :language: shell
 
+do_rnd.sh y suma_rnd.sh
+"""""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: do_rnd.sh y suma_rnd.sh
+
+        Crea dos scripts:
+
+        * **do_rnd.sh**, que guarde en un archivo llamado **R.dat** N números aleatorios, uno por línea. N se pasa como argumento, por ejemplo ``./do_rnd.sh 10``; si no se pasa ningún argumento, guardará 4 números.
+
+        * **suma_rnd.sh**, que lea el archivo **R.dat** y saque por pantalla cuántos números tiene y su suma:
+
+          .. code-block:: bash
+
+             $ ./do_rnd.sh 5
+             $ cat R.dat
+             31587
+             18338
+             10555
+             8616
+             26898
+             $ ./suma_rnd.sh
+             El archivo R.dat tiene 5 números, la suma es 95994
+
+    .. tab:: Solución do_rnd.sh
+
+        .. literalinclude:: scripts/do_rnd.sh
+           :language: shell
+
+    .. tab:: Solución suma_rnd.sh
+
+        .. literalinclude:: scripts/suma_rnd.sh
+           :language: shell
+
+    .. tab:: Max_min
+
+        Amplía **suma_rnd.sh** para que, además de la suma, saque por pantalla el valor máximo y el mínimo:
+
+        .. code-block:: bash
+
+           $ ./suma_rnd.sh
+           El archivo R.dat tiene 5 números, la suma es 95994
+           El valor máximo es 31587 y el mínimo es 8616
+
+    .. tab:: Solución máximo y mínimo
+
+        .. literalinclude:: scripts/suma_rnd_max_min.sh
+           :language: shell
+
+    .. tab:: allrnd.sh
+
+        Une los dos scripts en uno solo llamado **allrnd.sh**, que funcione con las siguientes opciones:
+
+        * ``./allrnd.sh -help``: muestra un mensaje de ayuda (también si se ejecuta sin argumentos).
+        * ``./allrnd.sh -generar -n <N> -archivo <archivo>``: guarda N números aleatorios en <archivo>. Las dos opciones son optativas y pueden ir en cualquier orden: si no se pone ``-n`` se guardan 4 números, y si no se pone ``-archivo`` se guardan en **R.dat**. Por ejemplo, ``./allrnd.sh -generar`` guarda 4 números en **R.dat** y ``./allrnd.sh -generar -n 10`` guarda 10 números en **R.dat**.
+        * ``./allrnd.sh -analizar -archivo <archivo>``: muestra cuántos números tiene <archivo>, su suma, el valor máximo y el mínimo. Si no se pone ``-archivo``, analiza **R.dat**. Si el archivo no existe, avisa.
+
+        Por ejemplo:
+
+        .. code-block:: bash
+
+           $ ./allrnd.sh -generar -n 3 -archivo datos.dat
+           Se han guardado 3 números aleatorios en datos.dat
+           $ ./allrnd.sh -analizar -archivo datos.dat
+           El archivo datos.dat tiene 3 números, la suma es 59511
+           El valor máximo es 29239 y el mínimo es 2093
+           $ ./allrnd.sh -analizar -archivo noexiste.dat
+           El archivo noexiste.dat no existe
+
+    .. tab:: Solución allrnd.sh
+
+        .. literalinclude:: scripts/allrnd.sh
+           :language: shell
+
 temperatura.sh
 """"""""""""""
 
@@ -230,52 +305,6 @@ temperatura.sh
 
         .. literalinclude:: scripts/temperatura_array.sh
            :language: shell
-
-listar_usuario_grupo.sh
-"""""""""""""""""""""""
-
-.. tabs::
-
-    .. tab:: listar_usuario_grupo.sh
-
-        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema (los que tienen ``/bin/bash`` salvo root), el grupo principal al que pertenecen y el espacio que ocupa su carpeta personal en ``/home``.
-
-        Para que todos trabajemos con los mismos datos, descarga los archivos `etc_passwd.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_passwd.log>`_, `etc_group.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_group.log>`_ y `du_home.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/du_home.log>`_, que simulan la salida de estos comandos en una máquina con usuarios de varios grupos:
-
-        .. code-block:: bash
-
-           cat /etc/passwd > etc_passwd.log
-           cat /etc/group > etc_group.log
-           sudo du -sh /home/* > du_home.log
-
-        Utiliza estos archivos en lugar de ``/etc/passwd``, ``/etc/group`` y ``du -sh /home/*``, tiene que quedar
-
-        .. code-block:: bash
-
-           profesor : profesores : 22G
-           alumno1 : smr1 : 3,2G
-           alumno2 : smr1 : 512M
-           alumno3 : smr2 : 1,8G
-           alumno4 : smr2 : 7,5G
-           alumno5 : asir1 : 96K
-           alumno6 : asir1 : 2,4G
-           alumno7 : asir2 : 14G
-           alumno8 : asir2 : 850M
-
-        Pista: el grupo principal es el 4º campo de ``/etc/passwd`` (GID) y hay que buscar ese GID en el 3º campo de ``/etc/group``.
-
-    .. tab:: Solución
-
-        .. literalinclude:: scripts/listar_usuario_grupo.sh
-           :language: shell
-
-    .. tab:: Solución (groups)
-
-        En la propia máquina, sin archivos auxiliares, se puede obtener el usuario y sus grupos con ``groups``:
-
-        .. literalinclude:: scripts/listar_usuario_grupo_groups.sh
-           :language: shell
-
 
 meteo.sh
 """"""""
@@ -329,6 +358,52 @@ meteo.sh
 
         .. literalinclude:: scripts/meteo_array.sh
            :language: shell
+
+listar_usuario_grupo.sh
+"""""""""""""""""""""""
+
+.. tabs::
+
+    .. tab:: listar_usuario_grupo.sh
+
+        Crea un script llamado **listar_usuario_grupo.sh** que saque por pantalla el nombre de los usuarios que hay creados en el sistema (los que tienen ``/bin/bash`` salvo root), el grupo principal al que pertenecen y el espacio que ocupa su carpeta personal en ``/home``.
+
+        Para que todos trabajemos con los mismos datos, descarga los archivos `etc_passwd.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_passwd.log>`_, `etc_group.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/etc_group.log>`_ y `du_home.log <https://raw.githubusercontent.com/dgtrabada/dgtrabada.github.io/refs/heads/master/source/so/GNULinux/scripts/du_home.log>`_, que simulan la salida de estos comandos en una máquina con usuarios de varios grupos:
+
+        .. code-block:: bash
+
+           cat /etc/passwd > etc_passwd.log
+           cat /etc/group > etc_group.log
+           sudo du -sh /home/* > du_home.log
+
+        Utiliza estos archivos en lugar de ``/etc/passwd``, ``/etc/group`` y ``du -sh /home/*``, tiene que quedar
+
+        .. code-block:: bash
+
+           profesor : profesores : 22G
+           alumno1 : smr1 : 3,2G
+           alumno2 : smr1 : 512M
+           alumno3 : smr2 : 1,8G
+           alumno4 : smr2 : 7,5G
+           alumno5 : asir1 : 96K
+           alumno6 : asir1 : 2,4G
+           alumno7 : asir2 : 14G
+           alumno8 : asir2 : 850M
+
+        Pista: el grupo principal es el 4º campo de ``/etc/passwd`` (GID) y hay que buscar ese GID en el 3º campo de ``/etc/group``.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/listar_usuario_grupo.sh
+           :language: shell
+
+    .. tab:: Solución (groups)
+
+        En la propia máquina, sin archivos auxiliares, se puede obtener el usuario y sus grupos con ``groups``:
+
+        .. literalinclude:: scripts/listar_usuario_grupo_groups.sh
+           :language: shell
+
 
 alerta_disco.sh
 """""""""""""""
