@@ -100,4 +100,9 @@ Circuitos capaces de retener información, mantienen su último estado hasta que
 * **Contadores** : Presenta en binario el número de impulsos que han aparecido en la entrada             
 
   .. image:: imagenes/puertas/Contadores.png
-    :width: 400 
+    :width: 400
+
+.. toctree::
+   :hidden:
+
+   cuestionario_puertas_logicas.rst
