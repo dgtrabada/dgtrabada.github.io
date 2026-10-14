@@ -71,7 +71,7 @@ Cuando se produce un fallo de página, la página se carga desde el disco en un 
 
 Para orientarnos, en el siguiente visor (mueve la barra o usa los botones) están, paso a paso, las 15 referencias del ejemplo de abajo con FIFO: un proceso con 6 páginas y una memoria principal con solo **3 marcos**, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.
 
-.. container:: pasos-fifo
+.. container:: visor-pasos
 
    .. container:: paso
 
@@ -189,9 +189,9 @@ Para orientarnos, en el siguiente visor (mueve la barra o usa los botones) está
    .pasos-control span { font-weight: bold; min-width: 7em; }
    </style>
    <script>
-   // convierte cada bloque .pasos-fifo en un visor con barra deslizante (sin JavaScript se ven todos los pasos)
+   // convierte cada bloque .visor-pasos en un visor con barra deslizante (sin JavaScript se ven todos los pasos)
    document.addEventListener('DOMContentLoaded', function () {
-     document.querySelectorAll('.pasos-fifo').forEach(function (cont) {
+     document.querySelectorAll('.visor-pasos').forEach(function (cont) {
        var pasos = cont.querySelectorAll(':scope > .paso'), n = pasos.length;
        var ctrl = document.createElement('div');
        ctrl.className = 'pasos-control';

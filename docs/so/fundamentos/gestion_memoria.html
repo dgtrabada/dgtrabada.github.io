@@ -610,7 +610,7 @@
 <li><p><strong>Óptimo</strong>: sale la página que más tarde se va a volver a usar. Da el menor número de fallos posible, pero no se puede implementar porque exige conocer el futuro; sirve como referencia para comparar los demás. Si hay empate (por ejemplo, varias páginas que no se vuelven a usar), sale la que lleva más tiempo en memoria.</p></li>
 </ul>
 <p>Para orientarnos, en el siguiente visor (mueve la barra o usa los botones) están, paso a paso, las 15 referencias del ejemplo de abajo con FIFO: un proceso con 6 páginas y una memoria principal con solo <strong>3 marcos</strong>, inicialmente libres. En la tabla de páginas, las páginas con bit de presencia 1 indican en qué marco están; las que tienen 0 están en el disco. El recuadro grueso marca la página que entra (y la que sale al disco) y en amarillo están las filas de la tabla que cambian.</p>
-<div class="pasos-fifo docutils container">
+<div class="visor-pasos docutils container">
 <div class="paso docutils container">
 <img alt="FIFO paso 1: marcos 1, libre, libre" src="../../_images/fifo_paso1.png" />
 <p><strong>Paso 1:</strong> se pide la página 1; hay un marco libre y entra en el marco 1.</p>
@@ -681,9 +681,9 @@
 .pasos-control span { font-weight: bold; min-width: 7em; }
 </style>
 <script>
-// convierte cada bloque .pasos-fifo en un visor con barra deslizante (sin JavaScript se ven todos los pasos)
+// convierte cada bloque .visor-pasos en un visor con barra deslizante (sin JavaScript se ven todos los pasos)
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.pasos-fifo').forEach(function (cont) {
+  document.querySelectorAll('.visor-pasos').forEach(function (cont) {
     var pasos = cont.querySelectorAll(':scope > .paso'), n = pasos.length;
     var ctrl = document.createElement('div');
     ctrl.className = 'pasos-control';
