@@ -178,6 +178,44 @@ Bucles y condicionales
         ;;
    esac
 
+* Menús con **select**
+
+  ``select`` muestra una lista numerada de opciones, pregunta cuál queremos y guarda la opción escogida en una variable. El mensaje con el que pregunta se guarda en la variable ``PS3``. Igual que un bucle, se repite hasta que se ejecuta ``break``, así que se suele combinar con ``case``:
+
+  .. code-block:: bash
+
+   PS3="Elige un color: "
+   select color in rojo verde azul salir
+   do
+     case $color in
+       rojo|verde|azul)
+         echo "Has elegido el $color"
+         ;;
+       salir)
+         break
+         ;;
+       *)
+         echo "Opción no válida"
+         ;;
+     esac
+   done
+
+  Al ejecutarlo:
+
+  .. code-block:: bash
+
+   1) rojo
+   2) verde
+   3) azul
+   4) salir
+   Elige un color: 2
+   Has elegido el verde
+   Elige un color: 7
+   Opción no válida
+   Elige un color: 4
+
+  Si se escribe un número que no está en la lista, la variable queda vacía y se ejecuta la opción ``*)``. Si se pulsa Intro sin escribir nada, ``select`` vuelve a mostrar el menú.
+
 * Juntar expresiones **and** y **or**
 
   .. code-block:: bash

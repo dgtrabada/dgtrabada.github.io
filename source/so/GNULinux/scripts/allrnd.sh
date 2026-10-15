@@ -58,21 +58,28 @@ case $1 in
   -generar)
     N=4
     archivo="R.dat"
-    case $2 in             # primera pareja opción valor: $2 $3
-      -n)       N=$3 ;;
-      -archivo) archivo=$3 ;;
-    esac
-    case $4 in             # segunda pareja opción valor: $4 $5
-      -n)       N=$5 ;;
-      -archivo) archivo=$5 ;;
-    esac
+    if [[ $2 == "-n" ]]            # primera pareja opción valor: $2 $3
+    then
+      N=$3
+    elif [[ $2 == "-archivo" ]]
+    then
+      archivo=$3
+    fi
+    if [[ $4 == "-n" ]]            # segunda pareja opción valor: $4 $5
+    then
+      N=$5
+    elif [[ $4 == "-archivo" ]]
+    then
+      archivo=$5
+    fi
     generar $N $archivo
     ;;
   -analizar)
     archivo="R.dat"
-    case $2 in
-      -archivo) archivo=$3 ;;
-    esac
+    if [[ $2 == "-archivo" ]]
+    then
+      archivo=$3
+    fi
     analizar $archivo
     ;;
   *)

@@ -206,6 +206,32 @@ imag.sh
         .. literalinclude:: scripts/imag.sh
            :language: shell
 
+menu.sh
+"""""""
+
+.. tabs::
+
+    .. tab:: menu.sh
+
+        Crea un script llamado **menu.sh** que muestre un menú numerado con las opciones **Disco**, **Memoria**, **Usuarios conectados** y **Salir**, ejecute el comando correspondiente y vuelva a preguntar hasta que se escoja Salir. Si se escoge un número que no existe mostrará ``Opción no válida``.
+
+        .. code-block:: bash
+
+           ./menu.sh
+           1) Disco                 3) Usuarios conectados
+           2) Memoria               4) Salir
+           Escoge una opción:
+
+        Consejos:
+
+        * El bucle ``select opcion in ...`` genera el menú numerado él solo y guarda en ``$opcion`` la opción escogida, combínalo con ``case``.
+        * La variable ``PS3`` es el mensaje que muestra ``select`` para preguntar.
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/menu.sh
+           :language: shell
+
 do_rnd.sh y suma_rnd.sh
 """""""""""""""""""""""
 
@@ -514,32 +540,6 @@ adivina.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/adivina.sh
-           :language: shell
-
-menu.sh
-"""""""
-
-.. tabs::
-
-    .. tab:: menu.sh
-
-        Crea un script llamado **menu.sh** que muestre un menú numerado con las opciones **Disco**, **Memoria**, **Usuarios conectados** y **Salir**, ejecute el comando correspondiente y vuelva a preguntar hasta que se escoja Salir. Si se escoge un número que no existe mostrará ``Opción no válida``.
-
-        .. code-block:: bash
-
-           ./menu.sh
-           1) Disco                 3) Usuarios conectados
-           2) Memoria               4) Salir
-           Escoge una opción:
-
-        Consejos:
-
-        * El bucle ``select opcion in ...`` genera el menú numerado él solo y guarda en ``$opcion`` la opción escogida, combínalo con ``case``.
-        * La variable ``PS3`` es el mensaje que muestra ``select`` para preguntar.
-
-    .. tab:: Solución
-
-        .. literalinclude:: scripts/menu.sh
            :language: shell
 
 contar_monedas.sh
