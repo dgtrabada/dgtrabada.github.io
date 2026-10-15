@@ -731,13 +731,19 @@ a<span class="p">|</span>b<span class="o">)</span><span class="w">        </span
 </div>
 </li>
 <li><p>Menús con <strong>select</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">select</span></code> muestra una lista numerada de opciones, pregunta cuál queremos y guarda la opción escogida en una variable. El mensaje con el que pregunta se guarda en la variable <code class="docutils literal notranslate"><span class="pre">PS3</span></code>. Igual que un bucle, se repite hasta que se ejecuta <code class="docutils literal notranslate"><span class="pre">break</span></code>, así que se suele combinar con <code class="docutils literal notranslate"><span class="pre">case</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">select</span></code> muestra una lista numerada de opciones, pregunta cuál queremos y guarda la opción escogida en una variable. El mensaje con el que pregunta se guarda en la variable <code class="docutils literal notranslate"><span class="pre">PS3</span></code>: es una variable especial de bash, como <code class="docutils literal notranslate"><span class="pre">PATH</span></code> o <code class="docutils literal notranslate"><span class="pre">HOME</span></code>, así que tiene que llamarse exactamente así (si guardamos el mensaje en otra variable, por ejemplo <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code> no la usa). Si no definimos <code class="docutils literal notranslate"><span class="pre">PS3</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code> pregunta con el mensaje por defecto, <code class="docutils literal notranslate"><span class="pre">#?</span></code>. Igual que un bucle, se repite hasta que se ejecuta <code class="docutils literal notranslate"><span class="pre">break</span></code>, así que se suele combinar con <code class="docutils literal notranslate"><span class="pre">case</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PS3</span><span class="o">=</span><span class="s2">&quot;Elige un color: &quot;</span>
 <span class="k">select</span><span class="w"> </span>color<span class="w"> </span><span class="k">in</span><span class="w"> </span>rojo<span class="w"> </span>verde<span class="w"> </span>azul<span class="w"> </span>salir
 <span class="k">do</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$color</span><span class="w"> </span><span class="k">in</span>
-<span class="w">    </span>rojo<span class="p">|</span>verde<span class="p">|</span>azul<span class="o">)</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Has elegido el </span><span class="nv">$color</span><span class="s2">&quot;</span>
+<span class="w">    </span>rojo<span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Has elegido el rojo&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span>verde<span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Has elegido el verde&quot;</span>
+<span class="w">      </span><span class="p">;;</span>
+<span class="w">    </span>azul<span class="o">)</span>
+<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Has elegido el azul&quot;</span>
 <span class="w">      </span><span class="p">;;</span>
 <span class="w">    </span>salir<span class="o">)</span>
 <span class="w">      </span><span class="k">break</span>

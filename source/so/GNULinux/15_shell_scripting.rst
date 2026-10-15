@@ -180,7 +180,7 @@ Bucles y condicionales
 
 * Menús con **select**
 
-  ``select`` muestra una lista numerada de opciones, pregunta cuál queremos y guarda la opción escogida en una variable. El mensaje con el que pregunta se guarda en la variable ``PS3``. Igual que un bucle, se repite hasta que se ejecuta ``break``, así que se suele combinar con ``case``:
+  ``select`` muestra una lista numerada de opciones, pregunta cuál queremos y guarda la opción escogida en una variable. El mensaje con el que pregunta se guarda en la variable ``PS3``: es una variable especial de bash, como ``PATH`` o ``HOME``, así que tiene que llamarse exactamente así (si guardamos el mensaje en otra variable, por ejemplo ``X``, ``select`` no la usa). Si no definimos ``PS3``, ``select`` pregunta con el mensaje por defecto, ``#?``. Igual que un bucle, se repite hasta que se ejecuta ``break``, así que se suele combinar con ``case``:
 
   .. code-block:: bash
 
@@ -188,8 +188,14 @@ Bucles y condicionales
    select color in rojo verde azul salir
    do
      case $color in
-       rojo|verde|azul)
-         echo "Has elegido el $color"
+       rojo)
+         echo "Has elegido el rojo"
+         ;;
+       verde)
+         echo "Has elegido el verde"
+         ;;
+       azul)
+         echo "Has elegido el azul"
          ;;
        salir)
          break
