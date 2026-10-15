@@ -407,6 +407,39 @@ Bucles y condicionales
      date
    done
 
+* Salir de un bucle con **break** o del script con **exit**
+
+  ``break`` sale del bucle en el que está (``for``, ``while``, ``until`` o ``select``) y el script sigue por la línea que hay después del ``done``. ``exit`` termina el script entero en ese momento, aunque esté dentro de un bucle:
+
+  .. code-block:: bash
+
+   $ cat break.sh
+   #!/bin/bash
+   for i in 1 2 3 4 5
+   do
+     if [ $i -eq 3 ]
+     then
+       break
+     fi
+     echo $i
+   done
+   echo "Fin del bucle"
+
+   $ ./break.sh
+   1
+   2
+   Fin del bucle
+
+  Si cambiamos ``break`` por ``exit``, el script termina al llegar al 3 y no se muestra ``Fin del bucle``:
+
+  .. code-block:: bash
+
+   $ ./exit.sh
+   1
+   2
+
+  Con bucles anidados, ``break 2`` sale de los dos bucles a la vez. Y aunque ``break`` esté escrito dentro de un ``case`` (como en el menú con ``select``), sale del bucle, porque el ``case`` no es un bucle: cada opción del ``case`` termina con ``;;``.
+
 Propiedades de archivos y carpetas
 **********************************
 

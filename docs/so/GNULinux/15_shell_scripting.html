@@ -942,6 +942,34 @@ c
 </pre></div>
 </div>
 </li>
+<li><p>Salir de un bucle con <strong>break</strong> o del script con <strong>exit</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">break</span></code> sale del bucle en el que está (<code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, <code class="docutils literal notranslate"><span class="pre">until</span></code> o <code class="docutils literal notranslate"><span class="pre">select</span></code>) y el script sigue por la línea que hay después del <code class="docutils literal notranslate"><span class="pre">done</span></code>. <code class="docutils literal notranslate"><span class="pre">exit</span></code> termina el script entero en ese momento, aunque esté dentro de un bucle:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span><span class="k">break</span>.sh
+<span class="c1">#!/bin/bash</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+<span class="k">do</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]</span>
+<span class="w">  </span><span class="k">then</span>
+<span class="w">    </span><span class="k">break</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span>
+<span class="k">done</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Fin del bucle&quot;</span>
+
+$<span class="w"> </span>./break.sh
+<span class="m">1</span>
+<span class="m">2</span>
+Fin<span class="w"> </span>del<span class="w"> </span>bucle
+</pre></div>
+</div>
+<p>Si cambiamos <code class="docutils literal notranslate"><span class="pre">break</span></code> por <code class="docutils literal notranslate"><span class="pre">exit</span></code>, el script termina al llegar al 3 y no se muestra <code class="docutils literal notranslate"><span class="pre">Fin</span> <span class="pre">del</span> <span class="pre">bucle</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./exit.sh
+<span class="m">1</span>
+<span class="m">2</span>
+</pre></div>
+</div>
+<p>Con bucles anidados, <code class="docutils literal notranslate"><span class="pre">break</span> <span class="pre">2</span></code> sale de los dos bucles a la vez. Y aunque <code class="docutils literal notranslate"><span class="pre">break</span></code> esté escrito dentro de un <code class="docutils literal notranslate"><span class="pre">case</span></code> (como en el menú con <code class="docutils literal notranslate"><span class="pre">select</span></code>), sale del bucle, porque el <code class="docutils literal notranslate"><span class="pre">case</span></code> no es un bucle: cada opción del <code class="docutils literal notranslate"><span class="pre">case</span></code> termina con <code class="docutils literal notranslate"><span class="pre">;;</span></code>.</p>
+</li>
 </ul>
 </section>
 <section id="propiedades-de-archivos-y-carpetas">
