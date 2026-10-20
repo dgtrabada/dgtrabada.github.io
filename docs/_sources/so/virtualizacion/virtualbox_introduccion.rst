@@ -14,6 +14,8 @@ Usaremos **DRBL Live**, una distribución que arranca desde la ISO sin necesidad
 Ejercicio 1: NAT
 ================
 
+Vídeo: `Ejercicio 1 Virtualbox NAT <https://mediateca.educa.madrid.org/video/83v7pkhtcslgzw5i>`__
+
 * Descárgate la ISO de DRBL Live de https://drbl.org/download/, la última versión estable para arquitectura de 64 bits.
 
 * Crea una máquina virtual llamada **DRBL**, de tipo Linux y versión Other Linux (64-bit), con:
@@ -53,6 +55,8 @@ Ejemplo de pantallazo:
 Ejercicio 2: Disco duro
 =======================
 
+Vídeo: `Ejercicio 2 Virtualbox Disco duro <https://mediateca.educa.madrid.org/video/bwhbozr7ah6pd6bx>`__
+
 * Crea una clonación enlazada de la MV **DRBL** llamada **DRBL_clonada**. En **Política de dirección MAC** elige **Generar nuevas direcciones MAC para todos los adaptadores de red**: si las dos máquinas tienen la misma MAC, tendrás problemas de red cuando estén encendidas a la vez (ver :doc:`virtualbox`)
 
   .. image:: imagenes/ej2_clon_enlazado.png
@@ -65,6 +69,8 @@ Ejercicio 2: Disco duro
 
 Ejercicio 3: Modo puente
 ========================
+
+Vídeo: `Ejercicio 3 Virtualbox Modo puente <https://mediateca.educa.madrid.org/video/v29uw3ss8rvrpazw>`__
 
 * Mira la IP de tu equipo con ``ipconfig`` o ``ip a``, según el anfitrión sea Windows o GNU/Linux. **X** e **Y** son los dos últimos números de esa IP; por ejemplo, en mi caso la IP es 10.2.\ **4**.\ **100**, así que X = 4 e Y = 100:
 
@@ -93,6 +99,8 @@ Ejercicio 3: Modo puente
 
 Ejercicio 4: SSH
 ================
+
+Vídeo: `Ejercicio 4 y 5 Virtualbox SSH <https://mediateca.educa.madrid.org/video/5dvuuu3l3zgor5jt>`__
 
 * Comprueba que el servidor de ssh está instalado en la máquina virtual DRBL (10.4.X.Y). En DRBL Live ya viene instalado; en otra distribución lo instalarías con:
 
@@ -131,6 +139,8 @@ Ejercicio 4: SSH
 Ejercicio 5: SSH desde el anfitrión
 ===================================
 
+Vídeo (el mismo que el del ejercicio anterior): `Ejercicio 4 y 5 Virtualbox SSH <https://mediateca.educa.madrid.org/video/5dvuuu3l3zgor5jt>`__
+
 * Conéctate por ssh a la 10.4.X.Y desde el anfitrión, con una terminal de PowerShell si es Windows o con una terminal normal si es GNU/Linux:
 
   .. code-block:: powershell
@@ -145,6 +155,8 @@ Ejercicio 5: SSH desde el anfitrión
 
 Ejercicio 6: Red NAT
 ====================
+
+Vídeo: `Ejercicio 6 y 7 Virtualbox Red NAT <https://mediateca.educa.madrid.org/video/amomshvzq7iz1llo>`__
 
 * Crea, o comprueba que está creada, la red **NatNetwork** en Archivo/Herramientas/Administrador de red
 
@@ -184,6 +196,8 @@ Ejercicio 6: Red NAT
 Ejercicio 7: Red NAT con reenvío de puertos
 ===========================================
 
+Vídeo (el mismo que el del ejercicio anterior): `Ejercicio 6 y 7 Virtualbox Red NAT <https://mediateca.educa.madrid.org/video/amomshvzq7iz1llo>`__
+
 Con la Red NAT, las máquinas virtuales salen a internet, pero desde el anfitrión no podemos llegar a ellas. Para eso está el **reenvío de puertos**: lo que llegue a un puerto del anfitrión se redirige a un puerto de una máquina virtual.
 
 * Seguimos con la red **NatNetwork** del ejercicio anterior. Cambia la IP de DRBL_clonada por **10.0.2.4/24**
@@ -206,6 +220,8 @@ Con la Red NAT, las máquinas virtuales salen a internet, pero desde el anfitri�
 
 Ejercicio 8: Red interna
 ========================
+
+Vídeo: `Ejercicio 8 Virtualbox Red interna <https://mediateca.educa.madrid.org/video/jd3dp5uj2b7txfwk>`__
 
 * Cambia las dos máquinas virtuales de la Red NAT a una **Red interna** llamada **intnet**, sin cambiar la configuración de IP
 

@@ -191,7 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria y planificación del disco</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
 </ul>
 </details></li>
@@ -334,8 +334,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_puertas_logicas.html">Cuestionario puertas lógicas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_arquitectura.html">Cuestionario arquitectura Von Neumann</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
@@ -573,6 +579,7 @@
 </div>
 <section id="ejercicio-1-nat">
 <h2>Ejercicio 1: NAT<a class="headerlink" href="#ejercicio-1-nat" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/83v7pkhtcslgzw5i">Ejercicio 1 Virtualbox NAT</a></p>
 <ul>
 <li><p>Descárgate la ISO de DRBL Live de <a class="reference external" href="https://drbl.org/download/">https://drbl.org/download/</a>, la última versión estable para arquitectura de 64 bits.</p></li>
 <li><p>Crea una máquina virtual llamada <strong>DRBL</strong>, de tipo Linux y versión Other Linux (64-bit), con:</p>
@@ -611,6 +618,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-2-disco-duro">
 <h2>Ejercicio 2: Disco duro<a class="headerlink" href="#ejercicio-2-disco-duro" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/bwhbozr7ah6pd6bx">Ejercicio 2 Virtualbox Disco duro</a></p>
 <ul>
 <li><p>Crea una clonación enlazada de la MV <strong>DRBL</strong> llamada <strong>DRBL_clonada</strong>. En <strong>Política de dirección MAC</strong> elige <strong>Generar nuevas direcciones MAC para todos los adaptadores de red</strong>: si las dos máquinas tienen la misma MAC, tendrás problemas de red cuando estén encendidas a la vez (ver <a class="reference internal" href="virtualbox.html"><span class="doc">VirtualBox</span></a>)</p>
 <img alt="../../_images/ej2_clon_enlazado.png" src="../../_images/ej2_clon_enlazado.png" />
@@ -622,6 +630,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-3-modo-puente">
 <h2>Ejercicio 3: Modo puente<a class="headerlink" href="#ejercicio-3-modo-puente" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/v29uw3ss8rvrpazw">Ejercicio 3 Virtualbox Modo puente</a></p>
 <ul>
 <li><p>Mira la IP de tu equipo con <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> o <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>, según el anfitrión sea Windows o GNU/Linux. <strong>X</strong> e <strong>Y</strong> son los dos últimos números de esa IP; por ejemplo, en mi caso la IP es 10.2.<strong>4</strong>.<strong>100</strong>, así que X = 4 e Y = 100:</p>
 <img alt="../../_images/ej3_ip_anfitrion.png" src="../../_images/ej3_ip_anfitrion.png" />
@@ -665,6 +674,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-4-ssh">
 <h2>Ejercicio 4: SSH<a class="headerlink" href="#ejercicio-4-ssh" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/5dvuuu3l3zgor5jt">Ejercicio 4 y 5 Virtualbox SSH</a></p>
 <ul>
 <li><p>Comprueba que el servidor de ssh está instalado en la máquina virtual DRBL (10.4.X.Y). En DRBL Live ya viene instalado; en otra distribución lo instalarías con:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>openssh-server
@@ -695,6 +705,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-5-ssh-desde-el-anfitrion">
 <h2>Ejercicio 5: SSH desde el anfitrión<a class="headerlink" href="#ejercicio-5-ssh-desde-el-anfitrion" title="Link to this heading">#</a></h2>
+<p>Vídeo (el mismo que el del ejercicio anterior): <a class="reference external" href="https://mediateca.educa.madrid.org/video/5dvuuu3l3zgor5jt">Ejercicio 4 y 5 Virtualbox SSH</a></p>
 <ul>
 <li><p>Conéctate por ssh a la 10.4.X.Y desde el anfitrión, con una terminal de PowerShell si es Windows o con una terminal normal si es GNU/Linux:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">user</span><span class="nv">@10</span><span class="p">.</span><span class="n">4</span><span class="p">.</span><span class="n">X</span><span class="p">.</span><span class="n">Y</span>
@@ -708,6 +719,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-6-red-nat">
 <h2>Ejercicio 6: Red NAT<a class="headerlink" href="#ejercicio-6-red-nat" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/amomshvzq7iz1llo">Ejercicio 6 y 7 Virtualbox Red NAT</a></p>
 <ul>
 <li><p>Crea, o comprueba que está creada, la red <strong>NatNetwork</strong> en Archivo/Herramientas/Administrador de red</p>
 <img alt="../../_images/ej6_administrador_red.png" src="../../_images/ej6_administrador_red.png" />
@@ -740,6 +752,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-7-red-nat-con-reenvio-de-puertos">
 <h2>Ejercicio 7: Red NAT con reenvío de puertos<a class="headerlink" href="#ejercicio-7-red-nat-con-reenvio-de-puertos" title="Link to this heading">#</a></h2>
+<p>Vídeo (el mismo que el del ejercicio anterior): <a class="reference external" href="https://mediateca.educa.madrid.org/video/amomshvzq7iz1llo">Ejercicio 6 y 7 Virtualbox Red NAT</a></p>
 <p>Con la Red NAT, las máquinas virtuales salen a internet, pero desde el anfitrión no podemos llegar a ellas. Para eso está el <strong>reenvío de puertos</strong>: lo que llegue a un puerto del anfitrión se redirige a un puerto de una máquina virtual.</p>
 <ul>
 <li><p>Seguimos con la red <strong>NatNetwork</strong> del ejercicio anterior. Cambia la IP de DRBL_clonada por <strong>10.0.2.4/24</strong></p>
@@ -759,6 +772,7 @@ ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.
 </section>
 <section id="ejercicio-8-red-interna">
 <h2>Ejercicio 8: Red interna<a class="headerlink" href="#ejercicio-8-red-interna" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/jd3dp5uj2b7txfwk">Ejercicio 8 Virtualbox Red interna</a></p>
 <ul class="simple">
 <li><p>Cambia las dos máquinas virtuales de la Red NAT a una <strong>Red interna</strong> llamada <strong>intnet</strong>, sin cambiar la configuración de IP</p></li>
 <li><p>Comprueba que las máquinas se hacen ping entre ellas, porque están en la misma red, pero que ya no tienen internet (<code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code>). Aunque siguen teniendo configurada la puerta de enlace 10.0.2.1, en una red interna no hay ningún router de VirtualBox que la tenga, así que no hay salida al exterior. Esta es la principal diferencia con la Red NAT.</p></li>
