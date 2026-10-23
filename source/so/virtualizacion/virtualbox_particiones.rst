@@ -9,6 +9,8 @@ ayuda: :ref:`Particiones`
 Ejercicio 01
 ============
 
+Vídeo: `Ejercicio 01 Particiones <https://mediateca.educa.madrid.org/video/5gf5cuwrgjyqv76g>`__
+
 * Crea una nueva máquina virtual en Máquina -> Nueva, con las siguientes opciones:
 
   * Nombre: **Particiones**
@@ -77,8 +79,6 @@ Queremos instalar en un ordenador con un disco duro de 1 TB y 4 GB de RAM dos si
 
 * Arranca de nuevo DRBL Live, abre GParted y selecciona el disco de 1 TB (arriba a la derecha, normalmente ``/dev/sdb``)
 
-* Usa los tamaños que has respondido en el ejercicio 02 y, en la **etiqueta** de cada partición, pon su punto de montaje: en Windows la letra de unidad (C:, D:), en Ubuntu ``/`` y ``/home``, y ``swap`` en la de intercambio
-
 a) Tabla msdos
 --------------
 
@@ -88,7 +88,14 @@ a) Tabla msdos
 
 * Marca como **arrancable** (``boot``) la partición de Windows (C:)
 
-* Sube un pantallazo de la ventana de GParted en el que se vean todas las particiones con su sistema de archivos, su etiqueta y su tamaño, el espacio que has utilizado y la partición de arranque (columna Flags)
+* Abre una terminal junto a la ventana de GParted, pon tu nombre en el prompt y muestra las particiones del disco de 1 TB (si tu disco no es ``/dev/sdb``, cámbialo):
+
+  .. code-block:: bash
+
+     export PS1="tunombre$ "
+     sudo lsblk -o NAME,SIZE,FSTYPE,LABEL /dev/sdb
+
+* Sube un pantallazo en el que se vean la terminal y la ventana de GParted con todas las particiones con su sistema de archivos, su etiqueta y su tamaño, el espacio que has utilizado y la partición de arranque (columna Flags)
 
 .. note::
 
@@ -103,6 +110,6 @@ b) Tabla GPT
 
 * Con GPT todas las particiones son primarias: ya no hace falta la partición extendida
 
-* Sube un pantallazo como el del apartado anterior
+* Sube un pantallazo como el del apartado anterior, con la terminal en la que se vea tu nombre y la salida de ``lsblk`` (vuelve a ejecutarlo, porque las particiones han cambiado)
 
 * Responde en el texto de la entrega: ¿qué diferencias ves entre las dos tablas de particiones?

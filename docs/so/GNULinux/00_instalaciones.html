@@ -1,0 +1,1032 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instalación de distribuciones &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/GNULinux/00_instalaciones';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Comandos básicos GNU/Linux" href="01_comandos_basicos.html" />
+    <link rel="prev" title="Historia GNU/Linux" href="00_historia.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricidad.html">Transición, la electricidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_licencias.html">Cuestionario de licencias</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos1.html">Cuestionario gestión de procesos: teoría</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos2.html">Cuestionario gestión de procesos: ejercicios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_archivos.html">Cuestionario gestión de archivos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión del arranque</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_arranque.html">Cuestionario gestión del arranque</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../virtualizacion/index.html">La virtualización</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../virtualizacion/virtualbox.html">VirtualBox</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../virtualizacion/virtualbox_introduccion.html">Ejercicios de clonación y redes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../virtualizacion/virtualbox_particiones.html">Ejercicios de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtualizacion/docker.html">Docker</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">GNU/Linux</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Instalación de distribuciones</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="01_cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01_cuestionario_gestion_particiones.html">Cuestionario gestión de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="03_usuarios.html">Usuarios y grupos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="03_cuestionario_permisos_usuarios_grupos.html">Cuestionario permisos, usuarios y grupos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="04_ssh.html">SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_samba.html">Samba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_apache.html">Apache</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_automatizacion_tareas.html">Automatización de tareas y servicios</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_automatizacion_tareas.html">Cuestionario automatización de tareas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="07_comandos_avanzados.html">Comandos avanzados</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="07_cuestionario_comandos_avanzados.html">Cuestionario comandos avanzados</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_ansible.html">Ansible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_rockylinux.html">Rocky Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../windows/index.html">Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../windows/01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/02_configuracion.html">Configuración Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03_usuarios_grupos.html">Usuarios y grupos Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/04_arranque.html">Arranque de Windows</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../windows/06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../windows/06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/12_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_almacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsulados.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_puertas_logicas.html">Cuestionario puertas lógicas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_arquitectura.html">Cuestionario arquitectura Von Neumann</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnóstico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/casos_practicos.html">Casos prácticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimiento.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un módulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/GNULinux/00_instalaciones.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Instalación de distribuciones</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu">Ubuntu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fedora">Fedora</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opensuse">openSUSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-mint">Linux Mint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mx-linux">MX Linux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distrowatch">Distrowatch</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="instalacion-de-distribuciones">
+<h1>Instalación de distribuciones<a class="headerlink" href="#instalacion-de-distribuciones" title="Link to this heading">#</a></h1>
+<p>En estos ejercicios vamos a instalar en máquinas virtuales varias distribuciones de GNU/Linux. En cada una veremos cómo se hace la instalación y las particiones, cómo se instalan programas (con el entorno gráfico y con la línea de comandos) y cómo se gestionan los usuarios y los permisos desde el entorno gráfico.</p>
+<section id="ubuntu">
+<h2>Ubuntu<a class="headerlink" href="#ubuntu" title="Link to this heading">#</a></h2>
+<img alt="../../_images/ubuntu_01.png" src="../../_images/ubuntu_01.png" />
+<p><a class="reference external" href="https://ubuntu.com/">https://ubuntu.com/</a></p>
+<p class="rubric">Ejercicio 01</p>
+<ul class="simple">
+<li><p>Responde a las siguientes preguntas:</p>
+<ol class="arabic simple">
+<li><p>Para instalar Ubuntu es necesario disponer de un ordenador con una serie de características mínimas. ¿Cuáles son?</p></li>
+<li><p>¿Hay alguna distribución basada en Ubuntu que esté preparada para equipos con pocos recursos? ¿Cuál o cuáles son?</p></li>
+<li><p>¿En qué otra distribución está basada Ubuntu?</p></li>
+</ol>
+</li>
+</ul>
+<p class="rubric">Ejercicio 02. Instalación</p>
+<ul>
+<li><p>Descárgate el sistema operativo Ubuntu 24.04 LTS en formato ISO de su página oficial</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Ubuntu 24.04</strong> con 4096 MB de RAM y un disco duro de 60 GB reservado dinámicamente</p></li>
+<li><p>Inicia la máquina y procede a la instalación. En el tipo de instalación elige <strong>Instalación manual</strong> y haz las siguientes particiones:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tamaño</p></th>
+<th class="head"><p>Formato</p></th>
+<th class="head"><p>Punto de montaje</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>40 GB</p></td>
+<td><p>ext4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>El resto</p></td>
+<td><p>ext4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/home</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Si la máquina virtual tiene activado EFI, el instalador te pedirá además una partición EFI (ESP) de unos 300 MB al principio del disco.</p>
+</li>
+<li><p>Fíjate en que no hemos hecho partición de intercambio (swap). Cuando termines la instalación, inicia Ubuntu, abre una terminal y ejecuta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
+</pre></div>
+</div>
+<p>¿Dónde está el área de intercambio? ¿Es una partición?</p>
+</li>
+<li><p>Sube un pantallazo donde se vean la RAM, las particiones del disco duro, la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code> y la IP que has puesto (10.4.X.Y). Para ello abre GParted, el Monitor del sistema y la configuración de red (desde Configuración o directamente desde <img alt="ubuntu_red" src="../../_images/ubuntu_02.png" />, en la parte derecha de la barra superior del escritorio). Comprueba que tienes internet ejecutando los comandos <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code></p>
+<p>Ejemplo de pantallazo:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_03.png"><img alt="../../_images/ubuntu_03.png" src="../../_images/ubuntu_03.png" width="600" />
+</a>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p>Crea una clonación enlazada de <strong>MV Ubuntu 24.04</strong> y continúa los ejercicios con el clon enlazado.</p>
+</div>
+<p class="rubric">Ejercicio 03. Programas</p>
+<p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
+<p>Desde el <strong>App Center</strong> (en versiones anteriores, <em>Ubuntu Software</em>) es posible buscar, instalar, desinstalar y actualizar las aplicaciones de los repositorios de Ubuntu. Estos repositorios son sitios web donde se almacenan los paquetes que, una vez descargados, instalan el software en el ordenador. Inicialmente Ubuntu tiene una serie de repositorios oficiales, mantenidos por el equipo de Ubuntu.</p>
+<p>Crea una carpeta en el escritorio con tu nombre. Busca en el App Center un programa llamado <strong>VLC</strong>, instálalo, ábrelo y sube un pantallazo en el que se vean el programa y la carpeta con tu nombre.</p>
+<p><strong>Instalar programas usando la línea de comandos</strong></p>
+<p>Para instalar paquetes desde la terminal en Ubuntu usaremos <strong>APT</strong> (<em>Advanced Packaging Tool</em>), un conjunto de herramientas para la gestión de paquetes que facilita la actualización, instalación y eliminación de programas.</p>
+<ul>
+<li><p>Lo primero es actualizar la lista de paquetes de los repositorios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</pre></div>
+</div>
+</li>
+<li><p>Después aplica las actualizaciones de los paquetes que tengan versiones nuevas:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade
+</pre></div>
+</div>
+</li>
+<li><p>Para instalar un programa se indica el paquete principal y APT busca sus dependencias y pide confirmación. Se pueden instalar varios paquetes a la vez separando sus nombres con espacios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tree
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Los repositorios que usa APT están en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> y en el directorio <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>.</p>
+<p>Cuando termines, ejecuta desde la terminal el comando <code class="docutils literal notranslate"><span class="pre">tree</span></code> sobre tu Escritorio y sube un pantallazo.</p>
+<p class="rubric">Ejercicio 04. Usuarios con entorno gráfico</p>
+<p>Para añadir usuarios con el entorno gráfico ve a Configuración / Usuarios, pulsa <a class="reference internal" href="../../_images/ubuntu_08.png"><img alt="ubuntu_usuarios" src="../../_images/ubuntu_08.png" width="120" /></a> y crea los usuarios:</p>
+<ul class="simple">
+<li><p><strong>grafico_tu_nombre_01</strong></p></li>
+<li><p><strong>grafico_tu_nombre_02</strong></p></li>
+<li><p><strong>grafico_tu_nombre_03</strong></p></li>
+</ul>
+<p>Si el ejercicio se hace entre dos personas, usa el nombre de las dos.</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_09.jpg"><img alt="../../_images/ubuntu_09.jpg" src="../../_images/ubuntu_09.jpg" width="650" />
+</a>
+<p>Cuando termines, sube un pantallazo de los usuarios que aparecen en la configuración del sistema, como se ve a continuación:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_10.png"><img alt="../../_images/ubuntu_10.png" src="../../_images/ubuntu_10.png" width="370" />
+</a>
+<p class="rubric">Ejercicio 05. Permisos con entorno gráfico</p>
+<p>Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón). Crea una carpeta con tu nombre en el escritorio y dale a <strong>Otros</strong> el acceso <strong>Crear y eliminar archivos</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_11.png"><img alt="../../_images/ubuntu_11.png" src="../../_images/ubuntu_11.png" width="220" />
+</a>
+<p>Crea otra carpeta con tu apellido y pon para <strong>Otros</strong> el acceso <strong>Ninguno</strong>.</p>
+<p>Entra con el usuario grafico_tu_nombre_01, abre el administrador de archivos, ve a <code class="docutils literal notranslate"><span class="pre">/home/alumno/Escritorio</span></code> y responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>Intenta entrar en la carpeta con tu apellido. ¿Qué sucede?</p></li>
+<li><p>Intenta crear una carpeta dentro de la carpeta con tu apellido. ¿Qué sucede?</p></li>
+<li><p>Intenta entrar en la carpeta con tu nombre. ¿Qué sucede?</p></li>
+<li><p>Intenta crear una carpeta dentro de la carpeta con tu nombre. ¿Qué sucede?</p></li>
+</ul>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, puedes borrar la máquina virtual enlazada, pero deja la original.</p>
+</section>
+<section id="fedora">
+<h2>Fedora<a class="headerlink" href="#fedora" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../../_images/fedora_01.png"><img alt="../../_images/fedora_01.png" src="../../_images/fedora_01.png" width="67" />
+</a>
+<p><a class="reference external" href="https://getfedora.org/es/">https://getfedora.org/es/</a></p>
+<p class="rubric">Ejercicio 01</p>
+<ul>
+<li><p>Desde la página de Fedora descárgate <strong>Fedora Workstation</strong> para la arquitectura x86_64</p></li>
+<li><p>Inicia la máquina y procede a la instalación desde <em>Start Fedora-Workstation-Live</em></p></li>
+<li><p>Install to Hard Drive</p></li>
+<li><p>Selecciona el destino de la instalación, deja la configuración de almacenamiento <strong>personalizada</strong> y haz las siguientes particiones:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_02.jpg"><img alt="../../_images/fedora_02.jpg" src="../../_images/fedora_02.jpg" width="470" />
+</a>
+</li>
+<li><p>Comienza la instalación; cuando termine, quita la ISO del disco virtual y reinicia la máquina</p></li>
+<li><p>Inicia la configuración, desactivando u omitiendo todos los pasos:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_03.jpg"><img alt="../../_images/fedora_03.jpg" src="../../_images/fedora_03.jpg" width="420" />
+</a>
+</li>
+<li><p>Pon la contraseña <strong>alumno</strong></p></li>
+<li><p>Crea una carpeta en el escritorio con tu nombre y utiliza el navegador de archivos para verla</p></li>
+<li><p>Añade a favoritos el Monitor del sistema</p></li>
+<li><p>Cambia la IP por 10.4.X.Y</p></li>
+<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un ping a 8.8.8.8:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_04.jpg"><img alt="../../_images/fedora_04.jpg" src="../../_images/fedora_04.jpg" width="690" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 02</p>
+<p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
+<p>Desde <em>Software</em>, la aplicación de GNOME para gestionar los programas con el entorno gráfico, instala el programa <strong>Scratch</strong>. Abre un proyecto de ejemplo, ejecútalo y sube un pantallazo.</p>
+<p><strong>Instalar programas usando la línea de comandos</strong></p>
+<p>En Fedora los paquetes se gestionan con <strong>dnf</strong> (antes se usaba <strong>yum</strong>), un gestor de paquetes para sistemas basados en RPM que instala, actualiza y elimina programas y calcula automáticamente sus dependencias. Responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>¿Cómo instalarías con la línea de comandos el programa gedit?</p></li>
+<li><p>¿Cómo actualizarías el sistema con la línea de comandos?</p></li>
+</ul>
+<p class="rubric">Ejercicio 03. Usuarios con entorno gráfico</p>
+<p>Para añadir usuarios con el entorno gráfico ve a Configuración / Usuarios y crea los usuarios <strong>grafico_tu_nombre_01</strong>, <strong>grafico_tu_nombre_02</strong> y <strong>grafico_tu_nombre_03</strong>. Si el ejercicio se hace entre dos personas, usa el nombre de las dos.</p>
+<a class="reference internal image-reference" href="../../_images/fedora_05.jpg"><img alt="../../_images/fedora_05.jpg" src="../../_images/fedora_05.jpg" width="550" />
+</a>
+<p>Cuando termines, sube un pantallazo de los usuarios que aparecen en la configuración del sistema:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_06.jpg"><img alt="../../_images/fedora_06.jpg" src="../../_images/fedora_06.jpg" width="380" />
+</a>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
+</section>
+<section id="opensuse">
+<h2>openSUSE<a class="headerlink" href="#opensuse" title="Link to this heading">#</a></h2>
+<img alt="../../_images/opensuse_01.png" src="../../_images/opensuse_01.png" />
+<p><a class="reference external" href="https://www.opensuse.org/">https://www.opensuse.org/</a></p>
+<p><a class="reference external" href="https://mediateca.educa.madrid.org/video/tacs4pwtd47zyrc7">Vídeo de instalación</a></p>
+<p class="rubric">Ejercicio 01</p>
+<ul>
+<li><p>Descárgate openSUSE Leap (x86_64)</p></li>
+<li><p>Inicia la ISO y procede a la instalación desde el menú que aparece en el arranque</p></li>
+<li><p>Acepta la licencia, pon el teclado en español y configura la IP</p></li>
+<li><p>Selecciona el escritorio <strong>KDE Plasma</strong></p></li>
+<li><p>Deja la propuesta de particionamiento que hace openSUSE; en mi caso sería:</p>
+<img alt="../../_images/opensuse_02.jpg" src="../../_images/opensuse_02.jpg" />
+</li>
+<li><p>Mirando tus particiones, responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>¿Dónde va a montar <code class="docutils literal notranslate"><span class="pre">/</span></code>? ¿Qué espacio ocupa?</p></li>
+<li><p>¿Va a dejar una partición diferente para los datos de los usuarios?</p></li>
+<li><p>¿Qué sistema de archivos utiliza para <code class="docutils literal notranslate"><span class="pre">/</span></code>?</p></li>
+<li><p>Busca en internet qué características tiene ese sistema de archivos</p></li>
+</ul>
+</li>
+</ul>
+<p class="rubric">Ejercicio 02</p>
+<ul>
+<li><p>Una vez hayas respondido a las preguntas, continúa con la instalación</p></li>
+<li><p>Crea el usuario local <strong>alumno</strong> con contraseña <strong>alumno</strong> y deshabilita el inicio de sesión automático</p></li>
+<li><p>Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
+<li><p>Crea un acceso directo del Monitor del sistema en el escritorio</p></li>
+<li><p>Añade un acceso directo de Firefox en el panel</p></li>
+<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un ping a 8.8.8.8:</p>
+<a class="reference internal image-reference" href="../../_images/opensuse_03.jpg"><img alt="../../_images/opensuse_03.jpg" src="../../_images/opensuse_03.jpg" width="460" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 03</p>
+<ul>
+<li><p>Responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>¿Qué es Myrlyn?</p></li>
+<li><p>¿Para qué sirve?</p></li>
+<li><p>Busca la forma de abrirlo. ¿Cómo lo has abierto?</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/opensuse_04.png"><img alt="../../_images/opensuse_04.png" src="../../_images/opensuse_04.png" width="500" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 04</p>
+<p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
+<p>Desde Myrlyn busca el programa <strong>kicad</strong> e instálalo. Abre el programa, abre un proyecto desde una plantilla, selecciona el <em>Arduino UNO</em> y sube un pantallazo en el que aparezca la carpeta con tu nombre, por ejemplo:</p>
+<a class="reference internal image-reference" href="../../_images/opensuse_05.jpg"><img alt="../../_images/opensuse_05.jpg" src="../../_images/opensuse_05.jpg" width="590" />
+</a>
+<p><strong>Instalar programas usando la línea de comandos</strong></p>
+<p>Para instalar programas desde la línea de comandos utilizaremos <strong>zypper</strong>. Igual que en Ubuntu, lo primero es actualizar:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>zypper<span class="w"> </span>update
+</pre></div>
+</div>
+<p>Y para instalar un programa se indica el paquete principal y zypper busca sus dependencias:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>zypper<span class="w"> </span>install<span class="w"> </span>tree
+</pre></div>
+</div>
+<p>Actualiza el sistema e instala el programa <strong>blender</strong> con la línea de comandos. Cuando termines, sube un pantallazo en el que se vean el programa, la carpeta con tu nombre y un poco de la instalación:</p>
+<a class="reference internal image-reference" href="../../_images/opensuse_06.jpg"><img alt="../../_images/opensuse_06.jpg" src="../../_images/opensuse_06.jpg" width="590" />
+</a>
+<p><strong>Instalar programas usando Discover</strong></p>
+<p>Discover es una tienda de aplicaciones que da acceso a varias categorías de aplicaciones, complementos de aplicaciones y complementos de Plasma: desde aplicaciones de accesibilidad y accesorios hasta herramientas para desarrolladores y aplicaciones educativas. También muestra las aplicaciones instaladas y es configurable. Ábrelo, busca una aplicación e instálala; por último, ábrela y sube un pantallazo.</p>
+<p class="rubric">Ejercicio 05. Usuarios con entorno gráfico</p>
+<ul>
+<li><p>Abre el gestor de usuarios de openSUSE y crea los siguientes usuarios:</p>
+<ul class="simple">
+<li><p><strong>grafico_tu_nombre_a1</strong></p></li>
+<li><p><strong>grafico_tu_nombre_a2</strong></p></li>
+<li><p><strong>grafico_tu_nombre_b1</strong></p></li>
+<li><p><strong>grafico_tu_nombre_b2</strong></p></li>
+</ul>
+</li>
+<li><p>Instala y configura <strong>Cockpit</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>zypper<span class="w"> </span><span class="k">in</span><span class="w"> </span>cockpit
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>cockpit.socket
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-service<span class="o">=</span>cockpit
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
+</pre></div>
+</div>
+</li>
+<li><p>Abre en el navegador <a class="reference external" href="https://localhost:9090">https://localhost:9090</a></p></li>
+<li><p>Crea un grupo llamado <strong>grupoA</strong> y otro llamado <strong>grupoB</strong>, y mete los usuarios en los grupos</p></li>
+<li><p>Sube un pantallazo como el siguiente:</p>
+<a class="reference internal image-reference" href="../../_images/opensuse_07.png"><img alt="../../_images/opensuse_07.png" src="../../_images/opensuse_07.png" width="700" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 06. Permisos con entorno gráfico</p>
+<p>Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón). Entra con el usuario grafico_tu_nombre_a2, crea una carpeta con ese nombre en el escritorio y dale los siguientes permisos:</p>
+<a class="reference internal image-reference" href="../../_images/opensuse_08.jpg"><img alt="../../_images/opensuse_08.jpg" src="../../_images/opensuse_08.jpg" width="420" />
+</a>
+<p>Responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>Entra con el usuario grafico_tu_nombre_a1 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?</p></li>
+<li><p>Entra con el usuario grafico_tu_nombre_b1 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?</p></li>
+<li><p>¿Por qué sucede esto? ¿Está todo bien?</p></li>
+<li><p>Si quisieras que el usuario grafico_tu_nombre_a1 pudiese modificar el contenido de la carpeta, ¿qué tendrías que hacer?</p></li>
+</ul>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
+</section>
+<section id="linux-mint">
+<h2>Linux Mint<a class="headerlink" href="#linux-mint" title="Link to this heading">#</a></h2>
+<img alt="../../_images/mint_01.png" src="../../_images/mint_01.png" />
+<p><a class="reference external" href="https://linuxmint.com/">https://linuxmint.com/</a></p>
+<p class="rubric">Ejercicio 01</p>
+<ul>
+<li><p>Descárgate la versión de 64 bits; elige entre los escritorios Cinnamon y MATE</p></li>
+<li><p>Inicia la ISO (<em>Start Linux Mint</em>) y, desde el escritorio, <em>Install Linux Mint</em></p></li>
+<li><p>Configura el idioma y haz las particiones a mano: en <strong>Más opciones</strong>, deja ~80 GB para <code class="docutils literal notranslate"><span class="pre">/</span></code>, 2 GB para el área de intercambio (swap) y el resto para <code class="docutils literal notranslate"><span class="pre">/home</span></code></p>
+<img alt="../../_images/mint_02.jpg" src="../../_images/mint_02.jpg" />
+</li>
+<li><p>Una vez instalado, cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
+<li><p>Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y <strong>Añadir al escritorio</strong></p></li>
+<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un análisis de <code class="docutils literal notranslate"><span class="pre">/</span></code>:</p>
+<a class="reference internal image-reference" href="../../_images/mint_03.jpg"><img alt="../../_images/mint_03.jpg" src="../../_images/mint_03.jpg" width="490" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 02</p>
+<p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
+<p>Ve a Inicio / Administración / Gestor de software, instala <strong>Stellarium</strong>, ábrelo y sube un pantallazo. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.</p>
+<p><strong>Instalar miniaplicaciones</strong></p>
+<p>En Inicio / Preferencias / Miniaplicaciones, ve a la pestaña <strong>Descargar</strong> y selecciona:</p>
+<ul class="simple">
+<li><p>Indicador de temperatura de la CPU</p></li>
+<li><p>Monitor del sistema</p></li>
+<li><p>Monitor de sensores</p></li>
+</ul>
+<p>En Inicio / Preferencias / Miniaplicaciones del escritorio, instala al menos 4 miniaplicaciones.</p>
+<p>Sube un pantallazo en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:</p>
+<a class="reference internal image-reference" href="../../_images/mint_04.jpg"><img alt="../../_images/mint_04.jpg" src="../../_images/mint_04.jpg" width="400" />
+</a>
+<p class="rubric">Ejercicio 03. Usuarios con entorno gráfico</p>
+<ul>
+<li><p>Abre el gestor de usuarios, que está en Inicio / Administración / Usuarios y grupos</p></li>
+<li><p>Crea un grupo llamado <strong>grupoa</strong> y otro llamado <strong>grupob</strong></p></li>
+<li><p>Dentro del grupoa crea los usuarios <strong>grafico_tu_nombre_a1</strong> y <strong>grafico_tu_nombre_a2</strong></p></li>
+<li><p>Dentro del grupob crea los usuarios <strong>grafico_tu_nombre_b1</strong> y <strong>grafico_tu_nombre_b2</strong></p></li>
+<li><p>Sube un pantallazo como el siguiente:</p>
+<a class="reference internal image-reference" href="../../_images/mint_05.jpg"><img alt="../../_images/mint_05.jpg" src="../../_images/mint_05.jpg" width="370" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 04. Permisos con entorno gráfico</p>
+<p>Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón). Entra con el usuario grafico_tu_nombre_a1, crea una carpeta llamada <strong>Hola</strong> en el escritorio y dale los siguientes permisos:</p>
+<a class="reference internal image-reference" href="../../_images/mint_06.jpg"><img alt="../../_images/mint_06.jpg" src="../../_images/mint_06.jpg" width="480" />
+</a>
+<p>Responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>Entra con el usuario grafico_tu_nombre_a2 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?</p></li>
+<li><p>Entra con el usuario grafico_tu_nombre_b1 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?</p></li>
+</ul>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
+</section>
+<section id="mx-linux">
+<h2>MX Linux<a class="headerlink" href="#mx-linux" title="Link to this heading">#</a></h2>
+<img alt="../../_images/mx_01.png" src="../../_images/mx_01.png" />
+<p><a class="reference external" href="https://mxlinux.org/">https://mxlinux.org/</a></p>
+<p>Descárgate MX Linux con el escritorio Xfce para 64 bits.</p>
+<p class="rubric">Ejercicio 01</p>
+<ul>
+<li><p>Crea una máquina virtual con 2048 MB de memoria base y 150 GB de disco duro</p></li>
+<li><p>Inicia la máquina y procede a la instalación con el instalador que encontrarás en el escritorio (<em>Installer</em>):</p>
+<a class="reference internal image-reference" href="../../_images/mx_02.jpg"><img alt="../../_images/mx_02.jpg" src="../../_images/mx_02.jpg" width="600" />
+</a>
+</li>
+<li><p>Marca <strong>Customize the disk layout</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/mx_03.jpg"><img alt="../../_images/mx_03.jpg" src="../../_images/mx_03.jpg" width="600" />
+</a>
+</li>
+<li><p>Crea un usuario llamado <strong>alumno</strong> con contraseña <strong>alumno</strong></p></li>
+<li><p>No crees la cuenta de root</p></li>
+<li><p>Una vez instalado, cambia el fondo del escritorio y crea una carpeta con tu_nombre</p></li>
+<li><p>Crea un acceso directo de la Información rápida del sistema: en Inicio / MX Herramientas / Información rápida del sistema, botón derecho del ratón y <strong>Añadir al escritorio</strong></p></li>
+<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un informe rápido del sistema:</p>
+<a class="reference internal image-reference" href="../../_images/mx_04.jpg"><img alt="../../_images/mx_04.jpg" src="../../_images/mx_04.jpg" width="600" />
+</a>
+</li>
+</ul>
+<p class="rubric">Ejercicio 02</p>
+<p><strong>Instalar programas</strong></p>
+<p>Para instalar programas con el entorno gráfico ve a Inicio / MX Herramientas / MX Instalar paquetes; en Paquetes populares, instala <strong>GIMP</strong>. Con la línea de comandos se utiliza APT, igual que en Ubuntu: instala <strong>Kdenlive</strong>.</p>
+<p>Sube un pantallazo en el que se vean los dos programas instalados y la carpeta con tu nombre en el escritorio:</p>
+<a class="reference internal image-reference" href="../../_images/mx_05.jpg"><img alt="../../_images/mx_05.jpg" src="../../_images/mx_05.jpg" width="600" />
+</a>
+<p class="rubric">Ejercicio 03</p>
+<p>Abre <strong>Conky Manager</strong>, selecciona uno y sube un pantallazo como este:</p>
+<a class="reference internal image-reference" href="../../_images/mx_06.jpg"><img alt="../../_images/mx_06.jpg" src="../../_images/mx_06.jpg" width="320" />
+</a>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
+</section>
+<section id="distrowatch">
+<h2>Distrowatch<a class="headerlink" href="#distrowatch" title="Link to this heading">#</a></h2>
+<p class="rubric">Ejercicio 01</p>
+<p>Ve a la página <a class="reference external" href="https://distrowatch.com/">https://distrowatch.com/</a> y selecciona una distribución de GNU/Linux que no hayamos instalado. Instálala en una máquina virtual y, cuando termine la instalación, iníciala y haz un pantallazo de las particiones que has hecho.</p>
+<p class="rubric">Ejercicio 02</p>
+<p>Instala un programa y responde a la pregunta: ¿cómo lo has hecho? Sube un pantallazo.</p>
+<p class="rubric">Ejercicio 03</p>
+<p>Crea dos usuarios llamados <strong>tunombre_01</strong> y <strong>tunombre_02</strong>, haz un pantallazo y súbelo.</p>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00_historia.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Historia GNU/Linux</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01_comandos_basicos.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Comandos básicos GNU/Linux</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ubuntu">Ubuntu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fedora">Fedora</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opensuse">openSUSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-mint">Linux Mint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mx-linux">MX Linux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distrowatch">Distrowatch</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

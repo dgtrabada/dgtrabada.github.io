@@ -6,6 +6,7 @@ GNU/Linux
    :maxdepth: 1
    
    00_historia.rst
+   00_instalaciones.rst
    01_comandos_basicos.rst
    02_permisos.rst
    03_usuarios.rst

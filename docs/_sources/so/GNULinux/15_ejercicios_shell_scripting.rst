@@ -180,6 +180,70 @@ tabla_multiplicar.sh
         .. literalinclude:: scripts/tabla_multiplicar_array.sh
            :language: shell
 
+gauss.sh
+""""""""
+
+.. tabs::
+
+    .. tab:: gauss.sh
+
+        Cuenta la historia que, cuando Carl Friedrich Gauss era niño, su maestro mandó a la clase sumar todos los números del 1 al 100 para tenerlos un buen rato ocupados. Gauss dio la respuesta en un momento: se dio cuenta de que 1 + 100, 2 + 99, 3 + 98... siempre suman 101, y que hay 50 parejas, así que la suma es 50 · 101 = 5050. En general, la suma de los números del 1 al N es:
+
+        .. code-block:: none
+
+           1 + 2 + 3 + ... + N = N·(N+1)/2
+
+        Crea un script llamado **gauss.sh** que reciba un número N como argumento, sume con un bucle los números del 1 al N y compruebe que el resultado coincide con la fórmula de Gauss. Si se ejecuta sin argumentos, mostrará cómo se usa:
+
+        .. code-block:: bash
+
+           $ ./gauss.sh 100
+           Sumando con un bucle del 1 al 100: 5050
+           Con la fórmula de Gauss N*(N+1)/2: 5050
+           Coinciden
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/gauss.sh
+           :language: shell
+
+suma_par_impar.sh
+"""""""""""""""""
+
+.. tabs::
+
+    .. tab:: suma_par_impar.sh
+
+        Crea un script llamado **suma_par_impar.sh** que reciba un número N como argumento. Tiene que cumplir los siguientes requisitos:
+
+        * Con la opción ``--help`` (y también si se ejecuta sin argumentos) muestra un mensaje de ayuda. Usa una función.
+
+        * N tiene que estar entre 1 y 20. Si no lo está, muestra el siguiente error y termina:
+
+          .. code-block:: bash
+
+             $ ./suma_par_impar.sh 25
+             Error: N tiene que estar entre 1 y 20
+
+        * Muestra los números del 1 al N, indicando si cada uno es par o impar.
+
+        * Al final muestra la suma de los pares y la de los impares:
+
+          .. code-block:: bash
+
+             $ ./suma_par_impar.sh 5
+             1 impar
+             2 par
+             3 impar
+             4 par
+             5 impar
+             Suma de pares: 6, suma de impares: 9
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/suma_par_impar.sh
+           :language: shell
+
 imag.sh
 """""""
 
@@ -204,6 +268,43 @@ imag.sh
     .. tab:: Solución
 
         .. literalinclude:: scripts/imag.sh
+           :language: shell
+
+extensiones.sh
+""""""""""""""
+
+.. tabs::
+
+    .. tab:: extensiones.sh
+
+        Crea un script llamado **extensiones.sh** que genere y analice archivos dentro de una carpeta llamada ``archivos``. Los archivos están vacíos: lo único que importa es su extensión. Tiene que cumplir los siguientes requisitos:
+
+        * Con la opción ``--help`` o sin argumentos muestra la ayuda (usa una función):
+
+          .. code-block:: bash
+
+             Uso:
+               ./extensiones.sh -generar <N1> <N2> <N3> <N4>   genera N1 txt, N2 pdf, N3 png y N4 jpg
+               ./extensiones.sh -analisis                      muestra cuántos archivos hay de cada extensión
+
+        * En ``-generar`` hay que dar los cuatro números N1, N2, N3 y N4. Si falta alguno, muestra la ayuda y termina.
+
+        * Opción ``-generar <N1> <N2> <N3> <N4>``: borra los archivos antiguos y crea en la carpeta ``archivos`` N1 archivos ``txt``, N2 archivos ``pdf``, N3 archivos ``png`` y N4 archivos ``jpg``, con nombre ``a_`` seguido de un número aleatorio y la extensión, por ejemplo ``a_11032.pdf``.
+
+        * Opción ``-analisis``: muestra cuántos archivos hay de cada extensión, ordenados de mayor a menor:
+
+          .. code-block:: bash
+
+             $ ./extensiones.sh -generar 2 6 1 4
+             $ ./extensiones.sh -analisis
+                   6 pdf
+                   4 jpg
+                   2 txt
+                   1 png
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/extensiones.sh
            :language: shell
 
 menu.sh

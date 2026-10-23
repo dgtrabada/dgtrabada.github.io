@@ -191,7 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria y planificación del disco</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
 </ul>
 </details></li>
@@ -224,6 +224,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_instalaciones.html">Instalación de distribuciones</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
@@ -334,8 +335,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_puertas_logicas.html">Cuestionario puertas lógicas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_arquitectura.html">Cuestionario arquitectura Von Neumann</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
@@ -565,6 +572,7 @@
 <p>ayuda: <a class="reference internal" href="../particiones.html#particiones"><span class="std std-ref">Particiones</span></a></p>
 <section id="ejercicio-01">
 <h2>Ejercicio 01<a class="headerlink" href="#ejercicio-01" title="Link to this heading">#</a></h2>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/5gf5cuwrgjyqv76g">Ejercicio 01 Particiones</a></p>
 <ul>
 <li><p>Crea una nueva máquina virtual en Máquina -&gt; Nueva, con las siguientes opciones:</p>
 <ul class="simple">
@@ -663,15 +671,20 @@
 <ul class="simple">
 <li><p>Apaga la máquina virtual <strong>Particiones</strong> y añádele un segundo disco duro VDI reservado dinámicamente de <strong>1 TB</strong>. Como es dinámico, no ocupa 1 TB de verdad en tu equipo: solo crece con lo que se escribe en él</p></li>
 <li><p>Arranca de nuevo DRBL Live, abre GParted y selecciona el disco de 1 TB (arriba a la derecha, normalmente <code class="docutils literal notranslate"><span class="pre">/dev/sdb</span></code>)</p></li>
-<li><p>Usa los tamaños que has respondido en el ejercicio 02 y, en la <strong>etiqueta</strong> de cada partición, pon su punto de montaje: en Windows la letra de unidad (C:, D:), en Ubuntu <code class="docutils literal notranslate"><span class="pre">/</span></code> y <code class="docutils literal notranslate"><span class="pre">/home</span></code>, y <code class="docutils literal notranslate"><span class="pre">swap</span></code> en la de intercambio</p></li>
 </ul>
 <section id="a-tabla-msdos">
 <h3>a) Tabla msdos<a class="headerlink" href="#a-tabla-msdos" title="Link to this heading">#</a></h3>
-<ul class="simple">
+<ul>
 <li><p>Crea una tabla de particiones <strong>msdos</strong> y haz en ella las particiones de los dos sistemas: C:, D:, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">/home</span></code> y swap</p></li>
 <li><p>Como son 5 particiones y msdos solo admite 4 primarias, tendrás que usar una <strong>partición extendida</strong> con particiones lógicas dentro</p></li>
 <li><p>Marca como <strong>arrancable</strong> (<code class="docutils literal notranslate"><span class="pre">boot</span></code>) la partición de Windows (C:)</p></li>
-<li><p>Sube un pantallazo de la ventana de GParted en el que se vean todas las particiones con su sistema de archivos, su etiqueta y su tamaño, el espacio que has utilizado y la partición de arranque (columna Flags)</p></li>
+<li><p>Abre una terminal junto a la ventana de GParted, pon tu nombre en el prompt y muestra las particiones del disco de 1 TB (si tu disco no es <code class="docutils literal notranslate"><span class="pre">/dev/sdb</span></code>, cámbialo):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;tunombre</span>$<span class="s2"> &quot;</span>
+sudo<span class="w"> </span>lsblk<span class="w"> </span>-o<span class="w"> </span>NAME,SIZE,FSTYPE,LABEL<span class="w"> </span>/dev/sdb
+</pre></div>
+</div>
+</li>
+<li><p>Sube un pantallazo en el que se vean la terminal y la ventana de GParted con todas las particiones con su sistema de archivos, su etiqueta y su tamaño, el espacio que has utilizado y la partición de arranque (columna Flags)</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -684,7 +697,7 @@
 <li><p>En el mismo disco de 1 TB, crea una tabla de particiones nueva de tipo <strong>gpt</strong> (se borrarán las particiones del apartado anterior)</p></li>
 <li><p>Haz el mismo reparto, pero añadiendo al principio del disco la <strong>partición ESP</strong>, de unos 300 MiB, formateada en <strong>fat32</strong>, con la etiqueta <code class="docutils literal notranslate"><span class="pre">EFI</span></code> y los indicadores <code class="docutils literal notranslate"><span class="pre">boot</span></code> y <code class="docutils literal notranslate"><span class="pre">esp</span></code></p></li>
 <li><p>Con GPT todas las particiones son primarias: ya no hace falta la partición extendida</p></li>
-<li><p>Sube un pantallazo como el del apartado anterior</p></li>
+<li><p>Sube un pantallazo como el del apartado anterior, con la terminal en la que se vea tu nombre y la salida de <code class="docutils literal notranslate"><span class="pre">lsblk</span></code> (vuelve a ejecutarlo, porque las particiones han cambiado)</p></li>
 <li><p>Responde en el texto de la entrega: ¿qué diferencias ves entre las dos tablas de particiones?</p></li>
 </ul>
 </section>
