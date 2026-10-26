@@ -572,21 +572,38 @@
 <h2>Ubuntu<a class="headerlink" href="#ubuntu" title="Link to this heading">#</a></h2>
 <img alt="../../_images/ubuntu_01.png" src="../../_images/ubuntu_01.png" />
 <p><a class="reference external" href="https://ubuntu.com/">https://ubuntu.com/</a></p>
+<p>Ubuntu saca una versión <strong>LTS</strong> (<em>Long Term Support</em>) cada dos años, en abril de los años pares: 20.04, 22.04, 24.04, 26.04… (el número es <em>año.mes</em>). Las LTS tienen 5 años de actualizaciones gratuitas, ampliables a 10 con Ubuntu Pro (gratis para uso personal, hasta 5 equipos). Entre medias salen cada 6 meses versiones intermedias (26.10, 27.04…), que solo tienen 9 meses de soporte.</p>
+<p>Unos meses después de cada LTS sale la primera <em>point release</em>, por ejemplo la <strong>26.04.1</strong>: es la misma versión, pero con la ISO regenerada con las actualizaciones acumuladas, así que al instalar hay menos que descargar. A quien tiene la LTS anterior no se le ofrece actualizar hasta que sale la .1, y en producción se suele esperar a ella. Las siguientes (.2, .3…) salen más o menos cada 6 meses y, desde la .2, traen además un núcleo y una pila gráfica más nuevos (HWE).</p>
 <p class="rubric">Ejercicio 01</p>
 <ul class="simple">
 <li><p>Responde a las siguientes preguntas:</p>
 <ol class="arabic simple">
 <li><p>Para instalar Ubuntu es necesario disponer de un ordenador con una serie de características mínimas. ¿Cuáles son?</p></li>
-<li><p>¿Hay alguna distribución basada en Ubuntu que esté preparada para equipos con pocos recursos? ¿Cuál o cuáles son?</p></li>
+<li><p>¿Qué distribuciones basadas en Ubuntu están preparadas para equipos con pocos recursos? ¿Qué requisitos mínimos tienen <strong>Xubuntu</strong> y <strong>Lubuntu</strong> y qué escritorio usa cada una?</p></li>
 <li><p>¿En qué otra distribución está basada Ubuntu?</p></li>
 </ol>
 </li>
 </ul>
 <p class="rubric">Ejercicio 02. Instalación</p>
 <ul>
-<li><p>Descárgate el sistema operativo Ubuntu 24.04 LTS en formato ISO de su página oficial</p></li>
-<li><p>Crea una máquina virtual llamada <strong>MV Ubuntu 24.04</strong> con 4096 MB de RAM y un disco duro de 60 GB reservado dinámicamente</p></li>
-<li><p>Inicia la máquina y procede a la instalación. En el tipo de instalación elige <strong>Instalación manual</strong> y haz las siguientes particiones:</p>
+<li><p>Descárgate el sistema operativo Ubuntu 26.04 LTS en formato ISO de su página oficial</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Ubuntu 26.04</strong> con 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo <code class="docutils literal notranslate"><span class="pre">.vdi</span></code> solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión</p></li>
+<li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), para que todos tengamos la misma instalación</p></li>
+<li><p>Inicia la máquina con la ISO. En el menú de arranque (GRUB) elige <strong>Try or Install Ubuntu</strong> (si no tocas nada, se elige sola al acabar la cuenta atrás):</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_grub.png"><img alt="../../_images/ubuntu_grub.png" src="../../_images/ubuntu_grub.png" width="450" />
+</a>
+<p>Ubuntu arranca en <strong>modo live</strong> (<em>en vivo</em>), es decir, se ejecuta directamente desde la ISO cargándose en la memoria RAM, sin instalar nada ni tocar el disco duro. Sirve para probar la distribución y comprobar que el hardware funciona antes de instalarla, o para rescatar un equipo que no arranca. Todo lo que hagas en modo live se pierde al apagar.</p>
+</li>
+<li><p>Después de elegir el idioma, la accesibilidad y el teclado, el instalador pregunta qué quieres hacer con Ubuntu: elige <strong>Instalar Ubuntu</strong> (si eliges <em>Probar Ubuntu</em>, puedes instalarlo después con el icono de instalación del escritorio)</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_probar_instalar.png"><img alt="../../_images/ubuntu_probar_instalar.png" src="../../_images/ubuntu_probar_instalar.png" width="600" />
+</a>
+</li>
+<li><p>Elige <strong>Instalación interactiva</strong>, la <strong>Selección predeterminada</strong> de aplicaciones (lo esencial) y marca <strong>Instalar software de terceros</strong> (controladores de gráficos y wifi y formatos multimedia adicionales)</p></li>
+<li><p>En <strong>¿Cómo quieres instalar Ubuntu?</strong> elige <strong>Instalación manual</strong>, para hacer nosotros las particiones (con <em>Borrar disco e instalar Ubuntu</em> el instalador las hace él solo):</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_instalacion_manual.png"><img alt="../../_images/ubuntu_instalacion_manual.png" src="../../_images/ubuntu_instalacion_manual.png" width="600" />
+</a>
+</li>
+<li><p>Haz las siguientes particiones:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Tamaño</p></th>
@@ -595,7 +612,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>40 GB</p></td>
+<tr class="row-even"><td><p>60 GB</p></td>
 <td><p>ext4</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
 </tr>
@@ -606,39 +623,85 @@
 </tbody>
 </table>
 </div>
-<p>Si la máquina virtual tiene activado EFI, el instalador te pedirá además una partición EFI (ESP) de unos 300 MB al principio del disco.</p>
+<p>Debería quedarte algo así:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_particiones.png"><img alt="../../_images/ubuntu_particiones.png" src="../../_images/ubuntu_particiones.png" width="600" />
+</a>
+<p>Fíjate en estos detalles:</p>
+<ul class="simple">
+<li><p>La partición <strong>sda2</strong>, de 1 MB, sin tipo ni punto de montaje, <strong>no la hemos creado nosotros</strong>: la añade el instalador automáticamente al elegir el disco en <em>Dispositivo donde instalar el cargador de arranque</em>. Es una partición <em>bios_grub</em>, sin sistema de archivos, donde GRUB guarda parte de su código para poder arrancar en una máquina sin EFI.</p></li>
+<li><p>Aunque sda2 está físicamente al principio del disco, se llama sda2 porque los números se asignan por orden de creación, y el instalador la ha creado después de sda1.</p></li>
+<li><p>El disco aparece con 429,50 GB, aunque en VirtualBox pusimos 400 GB. VirtualBox cuenta en GiB (1 GiB = 1024³ bytes) y el instalador en GB (1 GB = 1000³ bytes): 400 GiB son 429,5 GB.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si hubiéramos elegido <em>Borrar disco e instalar Ubuntu</em>, el instalador nos preguntaría además si queremos <strong>cifrar el disco</strong> (con LUKS). Cifrar significa que todo lo que se guarda en el disco se escribe codificado, y para poder leerlo hay que meter una contraseña cada vez que arranca el equipo (o guardar la clave en el chip TPM de la placa base). Así, si alguien roba el ordenador o saca el disco, no puede leer los datos. Es muy recomendable en un portátil, pero en una máquina virtual de prácticas solo añade una contraseña más al arrancar, y si se olvida se pierde todo lo que hay en el disco.</p>
+</div>
 </li>
-<li><p>Fíjate en que no hemos hecho partición de intercambio (swap). Cuando termines la instalación, inicia Ubuntu, abre una terminal y ejecuta:</p>
+<li><p>Crea la cuenta con estos datos y deja marcado <strong>Solicitar mi contraseña para acceder</strong>:</p>
+<ul class="simple">
+<li><p>Su nombre y nombre de usuario: <strong>tunombre</strong></p></li>
+<li><p>Nombre del equipo: <strong>Ubuntu26</strong></p></li>
+<li><p>Contraseña: <strong>alumno</strong></p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/ubuntu_cuenta.png"><img alt="../../_images/ubuntu_cuenta.png" src="../../_images/ubuntu_cuenta.png" width="600" />
+</a>
+</li>
+<li><p>Durante la instalación no se configura la red. Cuando termines, inicia Ubuntu y configúrala como siempre: pon la IP <strong>10.4.X.Y/8</strong> (máscara 255.0.0.0), puerta de enlace <strong>10.0.0.2</strong> y DNS <strong>8.8.8.8</strong>. Si haces los ejercicios con un portátil, deja la IP por <strong>DHCP</strong>.</p></li>
+<li><p>Fíjate en que no hemos hecho partición de intercambio (swap). Antes era obligatorio reservar una partición para la swap, pero desde hace años Ubuntu crea en su lugar un <strong>archivo de intercambio</strong> (<code class="docutils literal notranslate"><span class="pre">/swap.img</span></code>) dentro de <code class="docutils literal notranslate"><span class="pre">/</span></code>. Un archivo es más cómodo que una partición: se puede agrandar, encoger o quitar sin tocar las particiones del disco. Abre una terminal y ejecuta:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
 </pre></div>
 </div>
 <p>¿Dónde está el área de intercambio? ¿Es una partición?</p>
 </li>
-<li><p>Sube un pantallazo donde se vean la RAM, las particiones del disco duro, la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code> y la IP que has puesto (10.4.X.Y). Para ello abre GParted, el Monitor del sistema y la configuración de red (desde Configuración o directamente desde <img alt="ubuntu_red" src="../../_images/ubuntu_02.png" />, en la parte derecha de la barra superior del escritorio). Comprueba que tienes internet ejecutando los comandos <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code></p>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vean la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>, la IP que has puesto (10.4.X.Y), las particiones del disco duro y la memoria. Para ello abre una terminal, la configuración de red (desde Configuración o directamente desde <img alt="ubuntu_red" src="../../_images/ubuntu_02.png" />, en la parte derecha de la barra superior del escritorio), <strong>Discos</strong> y <strong>Recursos</strong> (el monitor del sistema). Si no te cabe todo en uno, sube los que necesites (<strong>pantallazo</strong><sup>1a</sup>, <strong>pantallazo</strong><sup>1b</sup>…).</p>
 <p>Ejemplo de pantallazo:</p>
 <a class="reference internal image-reference" href="../../_images/ubuntu_03.png"><img alt="../../_images/ubuntu_03.png" src="../../_images/ubuntu_03.png" width="600" />
 </a>
 </li>
+<li><p>Comprueba que tienes internet. En una terminal ejecuta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>a
+ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.8.8.8
+</pre></div>
+</div>
+<p>y sube el <strong>pantallazo</strong><sup>2</sup>, donde se vean la IP de la tarjeta de red y la respuesta del ping</p>
+</li>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
-<p>Crea una clonación enlazada de <strong>MV Ubuntu 24.04</strong> y continúa los ejercicios con el clon enlazado.</p>
+<p>Antes de seguir, apaga la máquina y exporta <strong>MV Ubuntu 26.04</strong> a un archivo <strong>OVA</strong> (Archivo / Exportar servicio virtualizado) y guárdalo en un <strong>USB externo</strong>, no en el ordenador de clase, para no llenar su disco duro. Así tendrás la máquina recién instalada y podrás importarla cuando la necesites.</p>
+<p>Después crea una clonación enlazada de <strong>MV Ubuntu 26.04</strong> y continúa los ejercicios con el clon enlazado.</p>
 </div>
 <p class="rubric">Ejercicio 03. Programas</p>
+<p><strong>Cambiar el fondo de escritorio</strong></p>
+<p>Inicia sesión con el usuario <strong>tunombre</strong> (en el clon enlazado) y cambia el fondo de escritorio. Se puede hacer de dos formas:</p>
+<ul class="simple">
+<li><p>Con el botón derecho del ratón sobre el escritorio, eligiendo <strong>Cambiar fondo…</strong></p></li>
+<li><p>Desde <strong>Configuración / Apariencia</strong>, en el apartado del fondo, donde puedes elegir una de las imágenes que trae Ubuntu o añadir una tuya</p></li>
+</ul>
+<p>El fondo es una preferencia de cada usuario: si entras con otro usuario, verás que mantiene el fondo por defecto. El fondo nuevo se tiene que ver en los <strong>pantallazos</strong><sup>3</sup> y <sup>4</sup>.</p>
 <p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
 <p>Desde el <strong>App Center</strong> (en versiones anteriores, <em>Ubuntu Software</em>) es posible buscar, instalar, desinstalar y actualizar las aplicaciones de los repositorios de Ubuntu. Estos repositorios son sitios web donde se almacenan los paquetes que, una vez descargados, instalan el software en el ordenador. Inicialmente Ubuntu tiene una serie de repositorios oficiales, mantenidos por el equipo de Ubuntu.</p>
-<p>Crea una carpeta en el escritorio con tu nombre. Busca en el App Center un programa llamado <strong>VLC</strong>, instálalo, ábrelo y sube un pantallazo en el que se vean el programa y la carpeta con tu nombre.</p>
+<p>Crea una carpeta en el escritorio con tu nombre. Busca en el App Center un programa llamado <strong>VLC</strong>, instálalo, ábrelo y sube el <strong>pantallazo</strong><sup>3</sup>, en el que se vean el programa y la carpeta con tu nombre.</p>
 <p><strong>Instalar programas usando la línea de comandos</strong></p>
-<p>Para instalar paquetes desde la terminal en Ubuntu usaremos <strong>APT</strong> (<em>Advanced Packaging Tool</em>), un conjunto de herramientas para la gestión de paquetes que facilita la actualización, instalación y eliminación de programas.</p>
+<p>Para instalar paquetes desde la terminal en Ubuntu usaremos <strong>APT</strong> (<em>Advanced Packaging Tool</em>), un conjunto de herramientas para la gestión de paquetes que facilita la actualización, instalación y eliminación de programas. La orden que usaremos es <code class="docutils literal notranslate"><span class="pre">apt</span></code>; también existe <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>, la orden antigua, que hace lo mismo y se sigue usando en los scripts porque su salida no cambia entre versiones.</p>
 <ul>
-<li><p>Lo primero es actualizar la lista de paquetes de los repositorios:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+<li><p>Lo primero es actualizar la <strong>lista de paquetes</strong> de los repositorios. <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span></code> no instala ni actualiza ningún programa: solo descarga de los repositorios la lista de paquetes disponibles y sus versiones, para que el sistema sepa qué hay de nuevo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </pre></div>
 </div>
 </li>
-<li><p>Después aplica las actualizaciones de los paquetes que tengan versiones nuevas:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade
+<li><p>Para ver qué paquetes tienen versiones nuevas:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>list<span class="w"> </span>--upgradable
 </pre></div>
+</div>
+</li>
+<li><p>Después aplica las actualizaciones. <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code> sí <strong>instala las versiones nuevas</strong> de los programas que ya tienes, comparando lo que hay instalado con la lista que ha descargado <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span></code> (por eso siempre se ejecuta primero <code class="docutils literal notranslate"><span class="pre">update</span></code> y después <code class="docutils literal notranslate"><span class="pre">upgrade</span></code>). Solo actualiza los paquetes dentro de la misma versión de Ubuntu y nunca desinstala nada:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si aparece el error <code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">not</span> <span class="pre">get</span> <span class="pre">lock</span> <span class="pre">/var/lib/dpkg/lock-frontend</span></code>, es que Ubuntu está instalando actualizaciones automáticas en segundo plano: espera unos minutos y vuelve a intentarlo.</p>
 </div>
 </li>
 <li><p>Para instalar un programa se indica el paquete principal y APT busca sus dependencias y pide confirmación. Se pueden instalar varios paquetes a la vez separando sus nombres con espacios:</p>
@@ -647,78 +710,206 @@
 </div>
 </li>
 </ul>
-<p>Los repositorios que usa APT están en el archivo <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code> y en el directorio <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code>.</p>
-<p>Cuando termines, ejecuta desde la terminal el comando <code class="docutils literal notranslate"><span class="pre">tree</span></code> sobre tu Escritorio y sube un pantallazo.</p>
+<p>Los repositorios que usa APT están en el directorio <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/</span></code> (en Ubuntu, en el archivo <code class="docutils literal notranslate"><span class="pre">ubuntu.sources</span></code>). En versiones antiguas se usaba el archivo <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list</span></code>.</p>
+<p>Cuando termines, ejecuta desde la terminal el comando <code class="docutils literal notranslate"><span class="pre">tree</span></code> sobre tu Escritorio y sube el <strong>pantallazo</strong><sup>4</sup>.</p>
 <p class="rubric">Ejercicio 04. Usuarios con entorno gráfico</p>
-<p>Para añadir usuarios con el entorno gráfico ve a Configuración / Usuarios, pulsa <a class="reference internal" href="../../_images/ubuntu_08.png"><img alt="ubuntu_usuarios" src="../../_images/ubuntu_08.png" width="120" /></a> y crea los usuarios:</p>
+<p>Para añadir usuarios con el entorno gráfico ve a <strong>Configuración / Sistema / Usuarios</strong>, desbloquea con tu contraseña si te lo pide (crear usuarios necesita permisos de administrador), pulsa <strong>Añadir usuario</strong> y crea los usuarios:</p>
 <ul class="simple">
 <li><p><strong>grafico_tu_nombre_01</strong></p></li>
 <li><p><strong>grafico_tu_nombre_02</strong></p></li>
 <li><p><strong>grafico_tu_nombre_03</strong></p></li>
+<li><p><strong>grafico_tu_nombre_04</strong></p></li>
 </ul>
 <p>Si el ejercicio se hace entre dos personas, usa el nombre de las dos.</p>
-<a class="reference internal image-reference" href="../../_images/ubuntu_09.jpg"><img alt="../../_images/ubuntu_09.jpg" src="../../_images/ubuntu_09.jpg" width="650" />
-</a>
-<p>Cuando termines, sube un pantallazo de los usuarios que aparecen en la configuración del sistema, como se ve a continuación:</p>
-<a class="reference internal image-reference" href="../../_images/ubuntu_10.png"><img alt="../../_images/ubuntu_10.png" src="../../_images/ubuntu_10.png" width="370" />
-</a>
-<p class="rubric">Ejercicio 05. Permisos con entorno gráfico</p>
-<p>Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón). Crea una carpeta con tu nombre en el escritorio y dale a <strong>Otros</strong> el acceso <strong>Crear y eliminar archivos</strong>:</p>
-<a class="reference internal image-reference" href="../../_images/ubuntu_11.png"><img alt="../../_images/ubuntu_11.png" src="../../_images/ubuntu_11.png" width="220" />
-</a>
-<p>Crea otra carpeta con tu apellido y pon para <strong>Otros</strong> el acceso <strong>Ninguno</strong>.</p>
-<p>Entra con el usuario grafico_tu_nombre_01, abre el administrador de archivos, ve a <code class="docutils literal notranslate"><span class="pre">/home/alumno/Escritorio</span></code> y responde a las siguientes preguntas:</p>
+<p>Al crearlos:</p>
 <ul class="simple">
-<li><p>Intenta entrar en la carpeta con tu apellido. ¿Qué sucede?</p></li>
-<li><p>Intenta crear una carpeta dentro de la carpeta con tu apellido. ¿Qué sucede?</p></li>
-<li><p>Intenta entrar en la carpeta con tu nombre. ¿Qué sucede?</p></li>
-<li><p>Intenta crear una carpeta dentro de la carpeta con tu nombre. ¿Qué sucede?</p></li>
+<li><p><strong>Solo grafico_tu_nombre_02 será administrador</strong>: actívale la opción <em>Administrador</em> y a los demás déjala desactivada. Un usuario administrador puede usar <code class="docutils literal notranslate"><span class="pre">sudo</span></code> y cambiar todo el sistema, así que solo se le da a quien de verdad lo necesita. Al resto se le dejan los permisos mínimos para trabajar.</p></li>
+<li><p>En la contraseña, elige que <strong>el usuario la establezca en su primer inicio de sesión</strong>: así no tienes que inventarte una contraseña y decírsela, sino que la primera vez que entre cada usuario el sistema le pedirá que ponga la suya.</p></li>
 </ul>
-<p>Cuando termines los ejercicios y los haya corregido el profesor, puedes borrar la máquina virtual enlazada, pero deja la original.</p>
+<p>Cuando termines, sube el <strong>pantallazo</strong><sup>5</sup>, con los cuatro usuarios que aparecen en la configuración del sistema, como se ve a continuación (hazlo antes de seguir, porque luego borraremos dos de ellos):</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_usuarios.png"><img alt="../../_images/ubuntu_usuarios.png" src="../../_images/ubuntu_usuarios.png" width="600" />
+</a>
+<p>Ahora vamos a ver para qué sirve cada tipo de cuenta. A cada usuario le toca un papel:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Usuario</p></th>
+<th class="head"><p>Para qué lo usamos</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>grafico_tu_nombre_01</p></td>
+<td><p>Usuario estándar (sin permisos de administrador)</p></td>
+</tr>
+<tr class="row-odd"><td><p>grafico_tu_nombre_02</p></td>
+<td><p>Administrador</p></td>
+</tr>
+<tr class="row-even"><td><p>grafico_tu_nombre_03</p></td>
+<td><p>Lo borraremos conservando sus archivos</p></td>
+</tr>
+<tr class="row-odd"><td><p>grafico_tu_nombre_04</p></td>
+<td><p>Lo borraremos eliminando sus archivos</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Usuario estándar</strong></p>
+<ul>
+<li><p>Cierra la sesión y entra con <strong>grafico_tu_nombre_01</strong>. Como es la primera vez, el sistema te pedirá que le pongas una contraseña. Tiene que tener <strong>al menos 8 caracteres</strong> (a diferencia del instalador, aquí no deja poner una contraseña débil como <em>alumno</em>): usa, por ejemplo, <strong>&#64;lumn001</strong></p></li>
+<li><p>Ve a Configuración / Sistema / Usuarios e intenta crear un usuario nuevo. ¿Puedes?</p></li>
+<li><p>Abre una terminal y ejecuta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>cowsay
+</pre></div>
+</div>
+<p>¿Qué mensaje aparece? ¿Por qué?</p>
+</li>
+<li><p>Sube el <strong>pantallazo</strong><sup>6</sup>, donde se vean el intento de crear un usuario y el mensaje de <code class="docutils literal notranslate"><span class="pre">sudo</span></code></p></li>
+</ul>
+<p><strong>Usuario administrador</strong></p>
+<ul>
+<li><p>Cierra la sesión y entra con <strong>grafico_tu_nombre_02</strong> (ponle la contraseña <strong>&#64;lumn002</strong>) y repite lo mismo: intenta crear un usuario y ejecuta <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">cowsay</span></code>. ¿Qué cambia?</p></li>
+<li><p>Ejecuta en la terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>groups<span class="w"> </span>grafico_tu_nombre_01
+groups<span class="w"> </span>grafico_tu_nombre_02
+</pre></div>
+</div>
+<p>¿Qué grupo tiene grafico_tu_nombre_02 que no tiene grafico_tu_nombre_01? Hacer administrador a un usuario, en realidad, es meterlo en ese grupo.</p>
+</li>
+<li><p>Sube el <strong>pantallazo</strong><sup>7</sup>, donde se vean la instalación con <code class="docutils literal notranslate"><span class="pre">sudo</span></code> y la salida de los dos <code class="docutils literal notranslate"><span class="pre">groups</span></code></p></li>
+</ul>
+<p><strong>Borrar usuarios</strong></p>
+<ul class="simple">
+<li><p>Vuelve a entrar con <strong>tunombre</strong>. En Configuración / Sistema / Usuarios, entra en <strong>grafico_tu_nombre_03</strong>, pulsa <strong>Eliminar usuario</strong> y elige <strong>conservar sus archivos</strong></p></li>
+<li><p>Haz lo mismo con <strong>grafico_tu_nombre_04</strong>, pero esta vez elige <strong>eliminar sus archivos</strong></p></li>
+<li><p>Abre el administrador de archivos y ve a <code class="docutils literal notranslate"><span class="pre">/home</span></code>. ¿Qué carpetas de usuario quedan? ¿Qué diferencia hay entre conservar y eliminar los archivos? ¿Cuándo te interesaría conservarlos?</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>8</sup>, donde se vea el contenido de <code class="docutils literal notranslate"><span class="pre">/home</span></code> en el administrador de archivos</p></li>
+</ul>
+<p class="rubric">Ejercicio 05. Permisos con entorno gráfico</p>
+<p>Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón / <strong>Propiedades</strong> / <strong>Permisos</strong>). Para cada carpeta se indica qué puede hacer su <strong>propietario</strong>, su <strong>grupo</strong> y los <strong>otros usuarios</strong> (el resto).</p>
+<p><strong>La carpeta personal</strong></p>
+<ul>
+<li><p>Entra con <strong>grafico_tu_nombre_01</strong>, abre el administrador de archivos e intenta entrar en <code class="docutils literal notranslate"><span class="pre">/home/tunombre</span></code>. ¿Qué sucede?</p></li>
+<li><p>Vuelve a entrar con <strong>tunombre</strong> y mira los permisos de tu <strong>Carpeta personal</strong> (<code class="docutils literal notranslate"><span class="pre">/home/tunombre</span></code>). ¿Qué acceso tienen los <strong>Otros usuarios</strong>? ¿Por qué crees que Ubuntu cierra por defecto la carpeta personal al resto de usuarios?</p></li>
+<li><p>Para poder hacer el resto del ejercicio, tunombre tiene que abrir su carpeta a los demás. En las propiedades de tu Carpeta personal (<code class="docutils literal notranslate"><span class="pre">/home/tunombre</span></code>), en <strong>Otros usuarios</strong>, cambia el acceso a <strong>Acceder a archivos</strong>. Así el resto de usuarios podrá entrar en ella y ver lo que hay, pero no crear ni borrar nada:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_permisos_otros.png"><img alt="../../_images/ubuntu_permisos_otros.png" src="../../_images/ubuntu_permisos_otros.png" width="350" />
+</a>
+</li>
+<li><p>Crea en el escritorio una carpeta llamada <strong>compartida</strong> y dale a <strong>Otros usuarios</strong> el acceso <strong>Crear y eliminar archivos</strong>. En la carpeta <strong>tunombre</strong> que creaste en el escritorio en el ejercicio 03, pon para <strong>Otros usuarios</strong> el acceso <strong>Ninguno</strong></p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_permisos_compartida.png"><img alt="../../_images/ubuntu_permisos_compartida.png" src="../../_images/ubuntu_permisos_compartida.png" width="600" />
+</a>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Imagina que grafico_tu_nombre_01 es otra persona que usa el mismo ordenador: <strong>no conoce la contraseña de tunombre</strong>, así que no puede entrar con su cuenta ni cambiar los permisos de sus carpetas (solo el propietario o un administrador puede cambiarlos). Solo podrá hacer lo que tunombre le haya permitido.</p>
+</div>
+<ul>
+<li><p>Entra con <strong>grafico_tu_nombre_01</strong>, abre el administrador de archivos, ve a <code class="docutils literal notranslate"><span class="pre">/home/tunombre/Escritorio</span></code> y responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>Intenta entrar en la carpeta <strong>tunombre</strong>. ¿Qué sucede?</p></li>
+<li><p>Intenta crear una carpeta dentro de la carpeta <strong>tunombre</strong>. ¿Qué sucede?</p></li>
+<li><p>Intenta entrar en la carpeta <strong>compartida</strong>. ¿Qué sucede?</p></li>
+<li><p>Intenta crear una carpeta dentro de la carpeta <strong>compartida</strong>. ¿Qué sucede?</p></li>
+</ul>
+</li>
+<li><p>Haz las pruebas anteriores con el entorno gráfico y después compruébalo con la línea de comandos. Con <strong>grafico_tu_nombre_01</strong>, abre una terminal e intenta crear una carpeta dentro de cada una:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>/home/tunombre/Escritorio/tunombre/hola
+mkdir<span class="w"> </span>/home/tunombre/Escritorio/compartida/hola
+ls<span class="w"> </span>/home/tunombre/Escritorio/compartida/
+</pre></div>
+</div>
+<p>Sube el <strong>pantallazo</strong><sup>9</sup>, donde se vean las órdenes y lo que responde el sistema, por ejemplo:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntu_permisos_terminal.png"><img alt="../../_images/ubuntu_permisos_terminal.png" src="../../_images/ubuntu_permisos_terminal.png" width="600" />
+</a>
+</li>
+</ul>
+<p>Cuando termines los ejercicios y los haya corregido el profesor, borra las dos máquinas virtuales, la original y la clonada, para no llenar el disco duro del ordenador de clase (la copia la tienes en el OVA del USB).</p>
 </section>
 <section id="fedora">
 <h2>Fedora<a class="headerlink" href="#fedora" title="Link to this heading">#</a></h2>
 <a class="reference internal image-reference" href="../../_images/fedora_01.png"><img alt="../../_images/fedora_01.png" src="../../_images/fedora_01.png" width="67" />
 </a>
-<p><a class="reference external" href="https://getfedora.org/es/">https://getfedora.org/es/</a></p>
+<p><a class="reference external" href="https://fedoraproject.org/">https://fedoraproject.org/</a></p>
+<p>Fedora viene de <strong>Red Hat Linux</strong>. En 2003, Red Hat dejó de sacar su distribución gratuita y la dividió en dos: <strong>Red Hat Enterprise Linux (RHEL)</strong>, de pago y con soporte para empresas, y <strong>Fedora</strong> (al principio <em>Fedora Core</em>), gratuita, hecha por la comunidad y patrocinada por Red Hat (que desde 2019 es de IBM).</p>
+<p>Fedora funciona como el «laboratorio» de RHEL: las novedades aparecen primero en Fedora, después pasan a <strong>CentOS Stream</strong> y por último llegan a RHEL. Por eso Fedora trae siempre software muy reciente. Sale una versión nueva cada 6 meses (en abril y en octubre) y cada una tiene unos 13 meses de soporte: a diferencia de Ubuntu, no hay versiones LTS. Para instalar programas usa paquetes <strong>RPM</strong> y el gestor <strong>dnf</strong>, en lugar de los paquetes <code class="docutils literal notranslate"><span class="pre">.deb</span></code> y APT de Ubuntu.</p>
+<p>Fedora tiene varias ediciones. La de escritorio es <strong>Fedora Workstation</strong>, con el escritorio GNOME, y es la que vamos a instalar. Desde Fedora 42 también hay una edición oficial con KDE Plasma (<em>Fedora KDE Plasma Desktop</em>).</p>
 <p class="rubric">Ejercicio 01</p>
 <ul>
-<li><p>Desde la página de Fedora descárgate <strong>Fedora Workstation</strong> para la arquitectura x86_64</p></li>
-<li><p>Inicia la máquina y procede a la instalación desde <em>Start Fedora-Workstation-Live</em></p></li>
-<li><p>Install to Hard Drive</p></li>
-<li><p>Selecciona el destino de la instalación, deja la configuración de almacenamiento <strong>personalizada</strong> y haz las siguientes particiones:</p>
-<a class="reference internal image-reference" href="../../_images/fedora_02.jpg"><img alt="../../_images/fedora_02.jpg" src="../../_images/fedora_02.jpg" width="470" />
+<li><p>Desde <a class="reference external" href="https://fedoraproject.org/workstation/download/">https://fedoraproject.org/workstation/download/</a> descárgate <strong>Fedora Workstation 44</strong> para la arquitectura x86_64</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Fedora 44</strong> con las mismas características que la de Ubuntu: 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente</p></li>
+<li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu</p></li>
+<li><p>Inicia la máquina con la ISO y arranca en <strong>modo live</strong>, como en Ubuntu</p></li>
+<li><p>El modo live arranca en inglés y con el teclado estadounidense, así que lo primero es <strong>poner el teclado en español</strong> (si no, no te saldrán bien la ñ, los acentos ni algunos símbolos):</p>
+<ul class="simple">
+<li><p>Abre <strong>Settings</strong> (<em>Configuración</em>) y ve a <strong>Keyboard</strong> (<em>Teclado</em>)</p></li>
+<li><p>En <strong>Input Sources</strong> (<em>Fuentes de entrada</em>) pulsa <strong>+ Add Input Source</strong>, elige <strong>Spanish</strong> y después <strong>Spanish</strong> otra vez</p></li>
+<li><p>Quita <strong>English (US)</strong> con el menú de tres puntos que tiene a la derecha, para que solo quede el español</p></li>
+</ul>
+</li>
+<li><p>Desde el escritorio live, abre el instalador</p></li>
+<li><p>El instalador tiene cuatro pasos: <strong>Bienvenido/a</strong> (el idioma), <strong>Método de instalación</strong>, <strong>Configuración de almacenamiento</strong> y <strong>Revisar e instalar</strong></p></li>
+<li><p>En el método de instalación deja <strong>Utilizar todo el disco</strong>: esta vez no haremos las particiones a mano, sino que dejaremos que el instalador decida, para compararlo después con lo que hicimos en Ubuntu</p></li>
+<li><p>En <strong>Revisar e instalar</strong> verás las particiones que va a crear el instalador. Fíjate bien, porque luego te preguntaremos por ellas:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_revisar.png"><img alt="../../_images/fedora_revisar.png" src="../../_images/fedora_revisar.png" width="600" />
 </a>
 </li>
-<li><p>Comienza la instalación; cuando termine, quita la ISO del disco virtual y reinicia la máquina</p></li>
-<li><p>Inicia la configuración, desactivando u omitiendo todos los pasos:</p>
-<a class="reference internal image-reference" href="../../_images/fedora_03.jpg"><img alt="../../_images/fedora_03.jpg" src="../../_images/fedora_03.jpg" width="420" />
+<li><p>Pulsa <strong>Borrar los datos e instalar</strong>; cuando termine, quita la ISO del disco virtual y reinicia la máquina</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Cuando termine la instalación, <strong>reinicia la máquina</strong>. Hasta entonces sigues en el <strong>modo live</strong>: Fedora se está ejecutando desde la ISO y en la memoria RAM, así que todo lo que hagas ahí (crear carpetas, configurar la red, instalar programas…) <strong>se pierde al apagar</strong>. Los ejercicios se hacen en el sistema instalado en el disco, después de reiniciar.</p>
+<p>Antes de reiniciar, <strong>quita la ISO de la unidad de CD virtual</strong> (en el menú de la máquina virtual, Dispositivos / Unidades ópticas, quitando el disco de la unidad). Si no la quitas, la máquina volverá a arrancar desde la ISO y te encontrarás otra vez en el modo live en lugar de en el Fedora que acabas de instalar.</p>
+</div>
+</li>
+<li><p>Al arrancar por primera vez, Fedora te pide que termines la configuración. Desactiva u omite todos los pasos hasta llegar a <strong>Acerca de usted</strong>, donde se crea la cuenta: pon <strong>tunombre</strong> como nombre completo y como nombre de usuario</p>
+<a class="reference internal image-reference" href="../../_images/fedora_cuenta.png"><img alt="../../_images/fedora_cuenta.png" src="../../_images/fedora_cuenta.png" width="600" />
 </a>
 </li>
 <li><p>Pon la contraseña <strong>alumno</strong></p></li>
-<li><p>Crea una carpeta en el escritorio con tu nombre y utiliza el navegador de archivos para verla</p></li>
+<li><p>Cambia el <strong>fondo de escritorio</strong>, como hiciste en Ubuntu: con el botón derecho del ratón sobre el escritorio (<strong>Cambiar fondo…</strong>) o desde <strong>Configuración / Apariencia</strong></p></li>
+<li><p>Crea una carpeta en el escritorio con tu nombre. Verás que <strong>no aparece en el escritorio</strong>: el GNOME de Fedora no muestra iconos en el escritorio (Ubuntu sí, porque trae activada una extensión que lo hace). La carpeta existe, pero solo la puedes ver con el navegador de archivos, en <strong>Archivos / Escritorio</strong> (<code class="docutils literal notranslate"><span class="pre">/home/tunombre/Escritorio</span></code>)</p></li>
+<li><p>Para que aparezcan los iconos en el escritorio, instala una <strong>extensión de GNOME</strong>. Las extensiones son pequeños complementos que añaden funciones al escritorio, y son la razón por la que Ubuntu y Fedora se ven distintas aunque las dos usen GNOME:</p>
+<ul>
+<li><p>Abre <strong>Software</strong> e instala <strong>Gestor de extensiones</strong> (<em>Extension Manager</em>). Viene de Flathub, así que, si te lo pide, activa los repositorios de terceros</p>
+<a class="reference internal image-reference" href="../../_images/fedora_software_extensiones.png"><img alt="../../_images/fedora_software_extensiones.png" src="../../_images/fedora_software_extensiones.png" width="600" />
+</a>
+</li>
+<li><p>En el Gestor de extensiones, ve a la pestaña <strong>Explorar</strong>, busca <strong>Desktop Icons NG (DING)</strong> e instálala</p></li>
+<li><p>Comprueba que ahora sí aparece en el escritorio la carpeta con tu nombre (si no aparece, cierra la sesión y vuelve a entrar)</p></li>
+</ul>
+</li>
 <li><p>Añade a favoritos el Monitor del sistema</p></li>
-<li><p>Cambia la IP por 10.4.X.Y</p></li>
-<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un ping a 8.8.8.8:</p>
-<a class="reference internal image-reference" href="../../_images/fedora_04.jpg"><img alt="../../_images/fedora_04.jpg" src="../../_images/fedora_04.jpg" width="690" />
+<li><p>Configura la red como en Ubuntu: IP <strong>10.4.X.Y/8</strong> (máscara 255.0.0.0), puerta de enlace <strong>10.0.0.2</strong> y DNS <strong>8.8.8.8</strong>. Si haces los ejercicios con un portátil, deja la IP por <strong>DHCP</strong></p></li>
+<li><p>Abre una terminal y ejecuta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsblk<span class="w"> </span>-f
+swapon<span class="w"> </span>--show
+</pre></div>
+</div>
+<p>Responde a las siguientes preguntas, comparando con la instalación de Ubuntu:</p>
+<ul class="simple">
+<li><p>¿Qué particiones ha creado el instalador? ¿De qué tamaño son?</p></li>
+<li><p>¿Qué sistema de archivos usa para <code class="docutils literal notranslate"><span class="pre">/</span></code>? ¿Y para <code class="docutils literal notranslate"><span class="pre">/home</span></code>? ¿Están <code class="docutils literal notranslate"><span class="pre">/</span></code> y <code class="docutils literal notranslate"><span class="pre">/home</span></code> en particiones distintas, como en Ubuntu?</p></li>
+<li><p>¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es <strong>zram</strong></p></li>
+</ul>
+</li>
+<li><p>Comprueba que tienes internet con <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code></p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vean el fondo nuevo, la carpeta con tu nombre en el escritorio, el Gestor de extensiones con <em>Desktop Icons NG (DING)</em> instalada, el Monitor del sistema, la IP que has puesto (10.4.X.Y) y la terminal con <code class="docutils literal notranslate"><span class="pre">lsblk</span> <span class="pre">-f</span></code>, <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>, <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y el <code class="docutils literal notranslate"><span class="pre">ping</span></code>. Si no te cabe todo en uno, sube los que necesites (<strong>pantallazo</strong><sup>1a</sup>, <strong>pantallazo</strong><sup>1b</sup>…). Por ejemplo:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_04.png"><img alt="../../_images/fedora_04.png" src="../../_images/fedora_04.png" width="600" />
 </a>
 </li>
 </ul>
 <p class="rubric">Ejercicio 02</p>
 <p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
-<p>Desde <em>Software</em>, la aplicación de GNOME para gestionar los programas con el entorno gráfico, instala el programa <strong>Scratch</strong>. Abre un proyecto de ejemplo, ejecútalo y sube un pantallazo.</p>
+<p>Desde <em>Software</em>, la aplicación de GNOME para gestionar los programas con el entorno gráfico, instala el programa <strong>Scratch</strong>. Abre un proyecto de ejemplo, ejecútalo y sube el <strong>pantallazo</strong><sup>2</sup>.</p>
 <p><strong>Instalar programas usando la línea de comandos</strong></p>
 <p>En Fedora los paquetes se gestionan con <strong>dnf</strong> (antes se usaba <strong>yum</strong>), un gestor de paquetes para sistemas basados en RPM que instala, actualiza y elimina programas y calcula automáticamente sus dependencias. Responde a las siguientes preguntas:</p>
 <ul class="simple">
 <li><p>¿Cómo instalarías con la línea de comandos el programa gedit?</p></li>
 <li><p>¿Cómo actualizarías el sistema con la línea de comandos?</p></li>
 </ul>
+<p>Instala <strong>gedit</strong> con la línea de comandos y sube el <strong>pantallazo</strong><sup>3</sup>, donde se vean la orden que has usado y el final de la instalación.</p>
 <p class="rubric">Ejercicio 03. Usuarios con entorno gráfico</p>
-<p>Para añadir usuarios con el entorno gráfico ve a Configuración / Usuarios y crea los usuarios <strong>grafico_tu_nombre_01</strong>, <strong>grafico_tu_nombre_02</strong> y <strong>grafico_tu_nombre_03</strong>. Si el ejercicio se hace entre dos personas, usa el nombre de las dos.</p>
-<a class="reference internal image-reference" href="../../_images/fedora_05.jpg"><img alt="../../_images/fedora_05.jpg" src="../../_images/fedora_05.jpg" width="550" />
-</a>
-<p>Cuando termines, sube un pantallazo de los usuarios que aparecen en la configuración del sistema:</p>
-<a class="reference internal image-reference" href="../../_images/fedora_06.jpg"><img alt="../../_images/fedora_06.jpg" src="../../_images/fedora_06.jpg" width="380" />
+<p>Para añadir usuarios con el entorno gráfico ve a <strong>Configuración / Sistema / Usuarios</strong>, pulsa <strong>Desbloquear…</strong> (crear usuarios necesita permisos de administrador), después <strong>Añadir usuario</strong> y crea los usuarios <strong>grafico_tu_nombre_01</strong>, <strong>grafico_tu_nombre_02</strong>, <strong>grafico_tu_nombre_03</strong> y <strong>grafico_tu_nombre_04</strong>. Si el ejercicio se hace entre dos personas, usa el nombre de las dos.</p>
+<p>Cuando termines, sube el <strong>pantallazo</strong><sup>4</sup>, con los usuarios que aparecen en la configuración del sistema:</p>
+<a class="reference internal image-reference" href="../../_images/fedora_usuarios.png"><img alt="../../_images/fedora_usuarios.png" src="../../_images/fedora_usuarios.png" width="600" />
 </a>
 <p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
 </section>

@@ -116,14 +116,12 @@ Caso práctico: Windows 11
 
 * Creamos una nueva máquina virtual llamada **Windows11**
 
-* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, dos procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB. Omite la instalación desatendida y habilita EFI, Secure Boot y el TPM
+* Creamos una máquina virtual con 100GB de disco duro reservado dinámicamente, 4GB de RAM, 4 procesadores, un adaptador en modo puente y una memoria de vídeo de 128MB. Omite la instalación desatendida y habilita EFI, Secure Boot y el TPM
 
 * Para la instalación desconecta el cable de red virtual:
   
   Configuración/Red/Adaptador1/Avanzadas/[  ]Cable conectado
   
-* En el caso de que aparezca el aviso de **"startup.nsh"** en VirtualBox, presionamos shift+F10 y cambiamos el idioma a English, vamos a continuar y pasamos al menú de instalación.
-
 * Selecciona "No tengo clave de producto" y selecciona Windows 11 Education  
 
 * Selecciona la instalación personalizada : instalar solo Windows (avanzado)
@@ -148,6 +146,10 @@ Caso práctico: Windows 11
 * **No** permitimos que Microsoft y las aplicaciones usen tu ubicación, ni permitimos que encuentren nuestro dispositivo, es decir que en las siguientes preguntas, le diremos que "**No**" o "**Solo los obligatorios**": le daremos los mínimos permisos a Microsoft sobre nuestros datos y máquinas.
 
 * De igual manera rechazamos la ayuda del asistente digital y no usamos el reconocimiento de voz en línea
+
+.. important::
+
+   Cuando termines la instalación, apaga la máquina y expórtala a un archivo **OVA** (Archivo / Exportar servicio virtualizado). Cuando el profesor te la haya corregido, guarda el OVA en un **USB externo** y borra de VirtualBox la máquina virtual (con todos sus archivos) y el OVA del ordenador, para no llenar el disco duro de los ordenadores de clase. Si más adelante necesitas la máquina, la importas desde el USB.
 
 .. rubric:: Notas
   
