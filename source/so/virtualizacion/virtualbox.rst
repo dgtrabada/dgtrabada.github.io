@@ -112,6 +112,8 @@ Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.or
 Caso práctico: Windows 11
 -------------------------
 
+Vídeo: `Instalación de Windows 11 en VirtualBox <https://mediateca.educa.madrid.org/video/6dt2sxke3wyubdno>`__
+
 * Descárgate la ISO de Windows 11 de la página de `Microsoft <https://www.microsoft.com/es-es/software-download/windows11>`_
 
 * Creamos una nueva máquina virtual llamada **Windows11**
