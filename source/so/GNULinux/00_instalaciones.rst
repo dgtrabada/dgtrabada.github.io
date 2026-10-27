@@ -556,11 +556,11 @@ Mint ha desarrollado su propio escritorio, **Cinnamon**, que es el principal, y 
   ¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: :ref:`El área de intercambio (swap) <area-de-intercambio>`)
 
 * Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
-* Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y **Añadir al escritorio**
+* Abre el Analizador de uso de disco, que está en Inicio / Administración / Analizador de uso de disco, y analiza ``/``
 * Sube el **pantallazo**\ :sup:`1`, en el que se vean la carpeta que has creado, un análisis de ``/`` y la salida de ``swapon --show``:
 
-  .. image:: imagenes/instalaciones/mint_03.jpg
-     :width: 490
+  .. image:: imagenes/instalaciones/mint_disco.png
+     :width: 600
 
 .. rubric:: Ejercicio 02
 
@@ -568,43 +568,42 @@ Mint ha desarrollado su propio escritorio, **Cinnamon**, que es el principal, y 
 
 Ve a Inicio / Administración / Gestor de software, instala **Stellarium**, ábrelo y sube el **pantallazo**\ :sup:`2`. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.
 
+.. image:: imagenes/instalaciones/mint_stellarium.png
+   :width: 600
+
 **Instalar miniaplicaciones**
-
-En Inicio / Preferencias / Miniaplicaciones, ve a la pestaña **Descargar** y selecciona:
-
-* Indicador de temperatura de la CPU
-* Monitor del sistema
-* Monitor de sensores
 
 En Inicio / Preferencias / Miniaplicaciones del escritorio, instala al menos 4 miniaplicaciones.
 
-Sube el **pantallazo**\ :sup:`3`, en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:
+Si alguna miniaplicación muestra un **error** (por ejemplo, en la temperatura), actualiza el sistema, reinicia y vuelve a comprobarlo:
 
-.. image:: imagenes/instalaciones/mint_04.jpg
-   :width: 400
+.. code-block:: bash
+
+   sudo apt update
+   sudo apt upgrade
+
+Sube el **pantallazo**\ :sup:`3`, en el que se vean las miniaplicaciones del escritorio y la carpeta con tu nombre, por ejemplo:
+
+.. image:: imagenes/instalaciones/mint_miniaplicaciones.png
+   :width: 600
 
 .. rubric:: Ejercicio 03. Usuarios con entorno gráfico
 
 * Abre el gestor de usuarios, que está en Inicio / Administración / Usuarios y grupos
 * Crea un grupo llamado **grupoa** y otro llamado **grupob**
-* Dentro del grupoa crea los usuarios **grafico_tu_nombre_a1** y **grafico_tu_nombre_a2**
-* Dentro del grupob crea los usuarios **grafico_tu_nombre_b1** y **grafico_tu_nombre_b2**
+* Dentro del grupoa crea los usuarios **grafico_tu_nombre_01** y **grafico_tu_nombre_02**
+* Dentro del grupob crea los usuarios **grafico_tu_nombre_03** y **grafico_tu_nombre_04**
+* Comprueba en una terminal qué usuarios tiene cada grupo:
+
+  .. code-block:: bash
+
+     getent group grupoa
+     getent group grupob
+
 * Sube el **pantallazo**\ :sup:`4`, como el siguiente:
 
-  .. image:: imagenes/instalaciones/mint_05.jpg
-     :width: 370
-
-.. rubric:: Ejercicio 04. Permisos con entorno gráfico
-
-Podemos ver los permisos de un archivo o una carpeta en sus propiedades (botón derecho del ratón). Entra con el usuario grafico_tu_nombre_a1, crea una carpeta llamada **Hola** en el escritorio y dale los siguientes permisos:
-
-.. image:: imagenes/instalaciones/mint_06.jpg
-   :width: 480
-
-Responde a las siguientes preguntas:
-
-* Entra con el usuario grafico_tu_nombre_a2 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?
-* Entra con el usuario grafico_tu_nombre_b1 en la carpeta que has creado e intenta hacer una carpeta nueva. ¿Puedes entrar? ¿Puedes crear una carpeta?
+  .. image:: imagenes/instalaciones/mint_usuarios.png
+     :width: 450
 
 Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.
 
@@ -730,3 +729,13 @@ Instala un programa, con el entorno gráfico o con la línea de comandos, e indi
 Crea dos usuarios llamados **tunombre_01** y **tunombre_02** y sube el **pantallazo**\ :sup:`3`, donde se vean los dos usuarios.
 
 Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.
+
+Cuestionario de instalaciones
+=============================
+
+Para repasar lo que has visto en las instalaciones, haz el :doc:`00_cuestionario_instalaciones`.
+
+.. toctree::
+   :hidden:
+
+   00_cuestionario_instalaciones.rst
