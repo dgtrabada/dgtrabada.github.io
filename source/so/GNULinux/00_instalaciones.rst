@@ -26,7 +26,7 @@ Unos meses después de cada LTS sale la primera *point release*, por ejemplo la 
 .. rubric:: Ejercicio 02. Instalación
 
 * Descárgate el sistema operativo Ubuntu 26.04 LTS en formato ISO de su página oficial
-* Crea una máquina virtual llamada **MV Ubuntu 26.04** con 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo ``.vdi`` solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión
+* Crea una máquina virtual llamada **MV Ubuntu 26.04** con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo ``.vdi`` solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión
 * Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), para que todos tengamos la misma instalación
 * Inicia la máquina con la ISO. En el menú de arranque (GRUB) elige **Try or Install Ubuntu** (si no tocas nada, se elige sola al acabar la cuenta atrás):
 
@@ -64,7 +64,7 @@ Unos meses después de cada LTS sale la primera *point release*, por ejemplo la 
 
   * La partición **sda2**, de 1 MB, sin tipo ni punto de montaje, **no la hemos creado nosotros**: la añade el instalador automáticamente al elegir el disco en *Dispositivo donde instalar el cargador de arranque*. Es una partición *bios_grub*, sin sistema de archivos, donde GRUB guarda parte de su código para poder arrancar en una máquina sin EFI.
   * Aunque sda2 está físicamente al principio del disco, se llama sda2 porque los números se asignan por orden de creación, y el instalador la ha creado después de sda1.
-  * El disco aparece con 429,50 GB, aunque en VirtualBox pusimos 400 GB. VirtualBox cuenta en GiB (1 GiB = 1024³ bytes) y el instalador en GB (1 GB = 1000³ bytes): 400 GiB son 429,5 GB.
+  * El disco aparece con 429,50 GB, aunque en VirtualBox pusimos 400 GB. VirtualBox cuenta en GiB (1 GiB = 2³⁰ bytes) y el instalador en GB (1 GB = 10⁹ bytes): 400 GiB son 429,5 GB.
 
   .. note::
 
@@ -87,7 +87,7 @@ Unos meses después de cada LTS sale la primera *point release*, por ejemplo la 
 
      swapon --show
 
-  ¿Dónde está el área de intercambio? ¿Es una partición?
+  ¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: :ref:`El área de intercambio (swap)`)
 
 * Sube el **pantallazo**\ :sup:`1`, donde se vean la salida de ``swapon --show``, la IP que has puesto (10.4.X.Y), las particiones del disco duro y la memoria. Para ello abre una terminal, la configuración de red (desde Configuración o directamente desde |ubuntu_red|, en la parte derecha de la barra superior del escritorio), **Discos** y **Recursos** (el monitor del sistema). Si no te cabe todo en uno, sube los que necesites (**pantallazo**\ :sup:`1a`, **pantallazo**\ :sup:`1b`…).
 
@@ -295,7 +295,7 @@ Fedora tiene varias ediciones. La de escritorio es **Fedora Workstation**, con e
 .. rubric:: Ejercicio 01
 
 * Desde https://fedoraproject.org/workstation/download/ descárgate **Fedora Workstation 44** para la arquitectura x86_64
-* Crea una máquina virtual llamada **MV Fedora 44** con las mismas características que la de Ubuntu: 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente
+* Crea una máquina virtual llamada **MV Fedora 44** con las mismas características que la de Ubuntu: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente
 * Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu
 * Inicia la máquina con la ISO y arranca en **modo live**, como en Ubuntu
 * El modo live arranca en inglés y con el teclado estadounidense, así que lo primero es **poner el teclado en español** (si no, no te saldrán bien la ñ, los acentos ni algunos símbolos):
@@ -350,7 +350,7 @@ Fedora tiene varias ediciones. La de escritorio es **Fedora Workstation**, con e
 
   * ¿Qué particiones ha creado el instalador? ¿De qué tamaño son?
   * ¿Qué sistema de archivos usa para ``/``? ¿Y para ``/home``? ¿Están ``/`` y ``/home`` en particiones distintas, como en Ubuntu?
-  * ¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es **zram**
+  * ¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es **zram** (ayuda: :ref:`El área de intercambio (swap)`)
 
 * Comprueba que tienes internet con ``ip a`` y ``ping -c2 8.8.8.8``
 
@@ -392,11 +392,22 @@ openSUSE
 
 https://www.opensuse.org/
 
+openSUSE viene de **SUSE**, una empresa fundada en 1992 en Núremberg (Alemania), que sacó una de las primeras distribuciones de GNU/Linux. En 2003 la compró Novell, y en 2005 se creó el proyecto **openSUSE**: la versión gratuita y hecha por la comunidad, patrocinada por SUSE, que sigue vendiendo su versión para empresas, **SUSE Linux Enterprise (SLE)**. Su mascota es un camaleón verde, *Geeko*.
+
+openSUSE tiene dos versiones:
+
+* **Leap**: estable, con versiones regulares, construida sobre la misma base que SUSE Linux Enterprise. Es la que vamos a instalar. La Leap 16 cambió mucho respecto a las anteriores: estrena el instalador **Agama** y sustituye casi todo **YaST**, la herramienta clásica de administración de openSUSE, por **Cockpit** (administración desde el navegador) y **Myrlyn** (gestión de paquetes).
+* **Tumbleweed**: de actualización continua (*rolling release*), es decir, no tiene versiones, sino que se va actualizando siempre a lo último.
+
+Igual que Fedora, usa paquetes **RPM**, pero los gestiona con **zypper** en lugar de dnf.
+
 `Vídeo de instalación <https://mediateca.educa.madrid.org/video/tacs4pwtd47zyrc7>`__
 
 .. rubric:: Ejercicio 01
 
-* Descárgate openSUSE Leap (x86_64)
+* Desde https://get.opensuse.org/leap/ descárgate **openSUSE Leap 16.0** para la arquitectura x86_64
+* Crea una máquina virtual llamada **MV openSUSE 16.0** con las mismas características que la de Ubuntu: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente
+* Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu
 * Inicia la ISO y procede a la instalación desde el menú que aparece en el arranque
 * Acepta la licencia, pon el teclado en español y configura la IP
 * Selecciona el escritorio **KDE Plasma**
@@ -418,7 +429,7 @@ https://www.opensuse.org/
 * Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
 * Crea un acceso directo del Monitor del sistema en el escritorio
 * Añade un acceso directo de Firefox en el panel
-* Sube un pantallazo en el que se vean la carpeta que has creado y un ping a 8.8.8.8:
+* Sube el **pantallazo**\ :sup:`1`, en el que se vean la carpeta que has creado y un ping a 8.8.8.8:
 
   .. image:: imagenes/instalaciones/opensuse_03.jpg
      :width: 460
@@ -438,7 +449,7 @@ https://www.opensuse.org/
 
 **Instalar programas utilizando el entorno gráfico**
 
-Desde Myrlyn busca el programa **kicad** e instálalo. Abre el programa, abre un proyecto desde una plantilla, selecciona el *Arduino UNO* y sube un pantallazo en el que aparezca la carpeta con tu nombre, por ejemplo:
+Desde Myrlyn busca el programa **kicad** e instálalo. Abre el programa, abre un proyecto desde una plantilla, selecciona el *Arduino UNO* y sube el **pantallazo**\ :sup:`2`, en el que aparezca la carpeta con tu nombre, por ejemplo:
 
 .. image:: imagenes/instalaciones/opensuse_05.jpg
    :width: 590
@@ -457,14 +468,14 @@ Y para instalar un programa se indica el paquete principal y zypper busca sus de
 
    sudo zypper install tree
 
-Actualiza el sistema e instala el programa **blender** con la línea de comandos. Cuando termines, sube un pantallazo en el que se vean el programa, la carpeta con tu nombre y un poco de la instalación:
+Actualiza el sistema e instala el programa **blender** con la línea de comandos. Cuando termines, sube el **pantallazo**\ :sup:`3`, en el que se vean el programa, la carpeta con tu nombre y un poco de la instalación:
 
 .. image:: imagenes/instalaciones/opensuse_06.jpg
    :width: 590
 
 **Instalar programas usando Discover**
 
-Discover es una tienda de aplicaciones que da acceso a varias categorías de aplicaciones, complementos de aplicaciones y complementos de Plasma: desde aplicaciones de accesibilidad y accesorios hasta herramientas para desarrolladores y aplicaciones educativas. También muestra las aplicaciones instaladas y es configurable. Ábrelo, busca una aplicación e instálala; por último, ábrela y sube un pantallazo.
+Discover es una tienda de aplicaciones que da acceso a varias categorías de aplicaciones, complementos de aplicaciones y complementos de Plasma: desde aplicaciones de accesibilidad y accesorios hasta herramientas para desarrolladores y aplicaciones educativas. También muestra las aplicaciones instaladas y es configurable. Ábrelo, busca una aplicación e instálala; por último, ábrela y sube el **pantallazo**\ :sup:`4`.
 
 .. rubric:: Ejercicio 05. Usuarios con entorno gráfico
 
@@ -486,7 +497,7 @@ Discover es una tienda de aplicaciones que da acceso a varias categorías de apl
 
 * Abre en el navegador https://localhost:9090
 * Crea un grupo llamado **grupoA** y otro llamado **grupoB**, y mete los usuarios en los grupos
-* Sube un pantallazo como el siguiente:
+* Sube el **pantallazo**\ :sup:`5`, como el siguiente:
 
   .. image:: imagenes/instalaciones/opensuse_07.png
      :width: 700
@@ -514,17 +525,39 @@ Linux Mint
 
 https://linuxmint.com/
 
+Linux Mint nació en 2006 en Irlanda como una distribución **basada en Ubuntu**, con la idea de ser más sencilla y más parecida a Windows para quien viene de él: un menú de inicio, una barra de tareas abajo y los programas habituales ya instalados. Cada versión de Mint se construye sobre una versión LTS de Ubuntu, así que comparte con ella los repositorios y APT, y tiene soporte hasta 2029 o más. También existe **LMDE** (*Linux Mint Debian Edition*), una variante basada directamente en Debian, por si algún día Ubuntu dejara de servirles de base.
+
+Mint ha desarrollado su propio escritorio, **Cinnamon**, que es el principal, y también ofrece **MATE** (la continuación del antiguo GNOME 2) y **Xfce** (el más ligero, para equipos con pocos recursos).
+
 .. rubric:: Ejercicio 01
 
-* Descárgate la versión de 64 bits; elige entre los escritorios Cinnamon y MATE
-* Inicia la ISO (*Start Linux Mint*) y, desde el escritorio, *Install Linux Mint*
-* Configura el idioma y haz las particiones a mano: en **Más opciones**, deja ~80 GB para ``/``, 2 GB para el área de intercambio (swap) y el resto para ``/home``
+* Desde https://linuxmint.com/download.php descárgate Linux Mint de 64 bits con el escritorio que prefieras: **Cinnamon**, **MATE** o **Xfce**
+* Crea una máquina virtual llamada **MV Linux Mint** con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB y un disco duro de 400 GB reservado dinámicamente. Esta vez, deja el adaptador de red en modo **NAT**: la máquina recibe la IP automáticamente por DHCP (la 10.0.2.15) y tiene internet sin tener que configurar nada
+* Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu
+* Inicia la ISO y, en el menú de arranque, elige la primera opción, **Start Linux Mint**, que arranca el modo live (la opción *OEM install* es para los fabricantes que venden ordenadores con Mint ya instalado, no la uses). Desde el escritorio live, abre *Install Linux Mint*
+* Configura el idioma y haz las particiones a mano: en **Más opciones**, deja ~80 GB para ``/``, 2 GB para el **área de intercambio** (swap) y el resto para ``/home``
 
-  .. image:: imagenes/instalaciones/mint_02.jpg
+  .. image:: imagenes/instalaciones/mint_particiones.png
+     :width: 600
 
-* Una vez instalado, cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
+  Al continuar, el instalador puede mostrar algún aviso (por ejemplo, que no encuentra una *partición del sistema EFI*). Nuestra máquina virtual arranca sin EFI, así que no hace falta: pulsa **Continuar** y sigue con la instalación.
+
+* Crea la cuenta: nombre y nombre de usuario **tunombre**, nombre del equipo **Mint22** y contraseña **alumno**
+
+  .. image:: imagenes/instalaciones/mint_cuenta.png
+     :width: 600
+
+* Una vez instalado, abre una terminal y ejecuta:
+
+  .. code-block:: bash
+
+     swapon --show
+
+  ¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: :ref:`El área de intercambio (swap)`)
+
+* Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
 * Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y **Añadir al escritorio**
-* Sube un pantallazo en el que se vean la carpeta que has creado y un análisis de ``/``:
+* Sube el **pantallazo**\ :sup:`1`, en el que se vean la carpeta que has creado, un análisis de ``/`` y la salida de ``swapon --show``:
 
   .. image:: imagenes/instalaciones/mint_03.jpg
      :width: 490
@@ -533,7 +566,7 @@ https://linuxmint.com/
 
 **Instalar programas utilizando el entorno gráfico**
 
-Ve a Inicio / Administración / Gestor de software, instala **Stellarium**, ábrelo y sube un pantallazo. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.
+Ve a Inicio / Administración / Gestor de software, instala **Stellarium**, ábrelo y sube el **pantallazo**\ :sup:`2`. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.
 
 **Instalar miniaplicaciones**
 
@@ -545,7 +578,7 @@ En Inicio / Preferencias / Miniaplicaciones, ve a la pestaña **Descargar** y se
 
 En Inicio / Preferencias / Miniaplicaciones del escritorio, instala al menos 4 miniaplicaciones.
 
-Sube un pantallazo en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:
+Sube el **pantallazo**\ :sup:`3`, en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:
 
 .. image:: imagenes/instalaciones/mint_04.jpg
    :width: 400
@@ -556,7 +589,7 @@ Sube un pantallazo en el que se vean las miniaplicaciones en el panel y en el es
 * Crea un grupo llamado **grupoa** y otro llamado **grupob**
 * Dentro del grupoa crea los usuarios **grafico_tu_nombre_a1** y **grafico_tu_nombre_a2**
 * Dentro del grupob crea los usuarios **grafico_tu_nombre_b1** y **grafico_tu_nombre_b2**
-* Sube un pantallazo como el siguiente:
+* Sube el **pantallazo**\ :sup:`4`, como el siguiente:
 
   .. image:: imagenes/instalaciones/mint_05.jpg
      :width: 370
@@ -582,47 +615,80 @@ MX Linux
 
 https://mxlinux.org/
 
-Descárgate MX Linux con el escritorio Xfce para 64 bits.
+MX Linux nació en 2014 de la colaboración entre dos distribuciones: **antiX**, una distribución muy ligera, y la comunidad de **MEPIS**, una distribución que se había dejado de desarrollar. Está basada en **Debian estable** (la versión actual, MX-25, se basa en Debian 13 *Trixie*), es ligera y rápida incluso en equipos antiguos, y trae sus propias herramientas de configuración, las **MX Herramientas**. Desde hace años es una de las distribuciones más visitadas en DistroWatch. Tiene ediciones con los escritorios Xfce (la principal), KDE Plasma y Fluxbox.
+
+Una de sus particularidades es el sistema de inicio (*init*), el primer programa que arranca el núcleo y que se encarga de poner en marcha todos los demás servicios del sistema. Casi todas las distribuciones actuales usan **systemd**, pero MX se hizo conocida por seguir usando el clásico **SysVinit**. Desde MX-25 usa systemd por defecto, aunque sigue habiendo imágenes con SysVinit para quien lo prefiera.
 
 .. rubric:: Ejercicio 01
 
-* Crea una máquina virtual con 2048 MB de memoria base y 150 GB de disco duro
-* Inicia la máquina y procede a la instalación con el instalador que encontrarás en el escritorio (*Installer*):
+* Desde https://mxlinux.org/download-links/ descárgate **MX-25** con el escritorio **Xfce** para 64 bits
+* Crea una máquina virtual llamada **MV MX Linux** con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB y un disco duro de 400 GB reservado dinámicamente. Deja el adaptador de red en modo **NAT**, como en Linux Mint
+* Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en el resto de distribuciones
+* Inicia la máquina con la ISO y arranca en **modo live**. En el escritorio verás el icono del instalador, **Installer**
+* Al abrir el instalador, lo primero es **poner el teclado en español**: pulsa **Change Keyboard Settings**, añade **es Spanish** con el botón **+** y súbelo para que quede el primero de la lista
 
-  .. image:: imagenes/instalaciones/mx_02.jpg
+  .. image:: imagenes/instalaciones/mx_teclado.png
      :width: 600
 
-* Marca **Customize the disk layout**:
+* En **Select type of installation** marca **Customize the disk layout**, para hacer las particiones a mano
 
-  .. image:: imagenes/instalaciones/mx_03.jpg
+  .. image:: imagenes/instalaciones/mx_tipo_instalacion.png
      :width: 600
 
-* Crea un usuario llamado **alumno** con contraseña **alumno**
-* No crees la cuenta de root
+* Haz las siguientes particiones. En la columna **Use For** se indica para qué se usa cada una: fíjate en que la de 2 GB tiene que ser **swap**
+
+  ===========  ===========  ===================
+  Tamaño       Formato      Use For
+  ===========  ===========  ===================
+  80 GB        ext4         ``/``
+  2 GB         swap         swap
+  El resto     ext4         ``/home``
+  ===========  ===========  ===================
+
+  .. image:: imagenes/instalaciones/mx_particiones.png
+     :width: 600
+
+* Durante la instalación, el instalador de MX te ofrece además crear un **archivo de intercambio** (*swap file*) o usar **zram**: son las otras dos formas de swap que hemos visto en Ubuntu y en Fedora. Como ya tienes una partición swap, **no marques ninguna de las dos**
+
+  .. image:: imagenes/instalaciones/mx_swap.png
+     :width: 600
+
+* En el nombre del equipo pon **mx** y en el dominio **tunombre.dom**
+
+  .. image:: imagenes/instalaciones/mx_equipo.png
+     :width: 600
+
+* En la localización elige **España - español de España** y la zona horaria **Europe / Madrid**
+* Crea el usuario **tunombre** con la contraseña **alumno** y **no** actives la cuenta de root (*Root (administrator) Account*): en MX las tareas de administración se hacen con ``sudo`` desde el usuario normal
+
+  .. image:: imagenes/instalaciones/mx_usuario.png
+     :width: 600
+
+* Cuando termine la instalación, quita la ISO de la unidad de CD virtual y reinicia la máquina
 * Una vez instalado, cambia el fondo del escritorio y crea una carpeta con tu_nombre
 * Crea un acceso directo de la Información rápida del sistema: en Inicio / MX Herramientas / Información rápida del sistema, botón derecho del ratón y **Añadir al escritorio**
-* Sube un pantallazo en el que se vean la carpeta que has creado y un informe rápido del sistema:
+* Sube el **pantallazo**\ :sup:`1`, en el que se vean la carpeta que has creado y un informe rápido del sistema:
 
-  .. image:: imagenes/instalaciones/mx_04.jpg
+  .. image:: imagenes/instalaciones/mx_info.png
      :width: 600
 
 .. rubric:: Ejercicio 02
 
 **Instalar programas**
 
-Para instalar programas con el entorno gráfico ve a Inicio / MX Herramientas / MX Instalar paquetes; en Paquetes populares, instala **GIMP**. Con la línea de comandos se utiliza APT, igual que en Ubuntu: instala **Kdenlive**.
+Para instalar programas con el entorno gráfico ve a Inicio / MX Herramientas / **MX Instalador de paquetes** y, en la pestaña **Aplicaciones Populares**, instala **Kdenlive**. Con la línea de comandos se utiliza APT, igual que en Ubuntu: instala **GIMP**.
 
-Sube un pantallazo en el que se vean los dos programas instalados y la carpeta con tu nombre en el escritorio:
+Sube el **pantallazo**\ :sup:`2`, en el que se vean los dos programas instalados y la carpeta con tu nombre en el escritorio:
 
-.. image:: imagenes/instalaciones/mx_05.jpg
+.. image:: imagenes/instalaciones/mx_programas.png
    :width: 600
 
 .. rubric:: Ejercicio 03
 
-Abre **Conky Manager**, selecciona uno y sube un pantallazo como este:
+**Conky** es un programa que muestra en el escritorio información del sistema: la hora, el uso de la CPU, la memoria, la red, el disco… Actívalo con **Conky Toggle** y configúralo con **MX Conky** (los dos están en Inicio / MX Herramientas), donde puedes elegir el aspecto entre varios modelos. Sube el **pantallazo**\ :sup:`3`, como este:
 
-.. image:: imagenes/instalaciones/mx_06.jpg
-   :width: 320
+.. image:: imagenes/instalaciones/mx_conky.png
+   :width: 600
 
 Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.
 

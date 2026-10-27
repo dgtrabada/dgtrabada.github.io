@@ -90,25 +90,45 @@ Sus características principales son:
 
 Resumen de las dos particiones:
 
-=================  ===========================================  ==========================
-\                  ESP                                          MSR
-=================  ===========================================  ==========================
-Para qué sirve     Arrancar el equipo (cargadores ``.efi``)     Reservada por Windows
-Formato            FAT32                                        Ninguno
-Tamaño             100–550 MiB                                  16 MiB
-Quién la crea      El primer sistema que se instala             El instalador de Windows
-¿Se comparte?      Sí, entre todos los sistemas del disco       No, solo es de Windows
-=================  ===========================================  ==========================
+===.. list-table::
+   :header-rows: 1
+   :widths: 12 55 33
 
-En un arranque dual, Windows y GNU/Linux guardan sus cargadores en la misma ESP, cada uno en su carpeta (por ejemplo ``\EFI\Microsoft\Boot\bootmgfw.efi`` y ``\EFI\ubuntu\grubx64.efi``). Un equipo que arranca con BIOS y MBR no tiene ESP: el código de arranque está en el propio MBR.
+   * - Tipo
+     - Cómo es
+     - Quién lo usa por defecto
+   * - **Partición**
+     - Una partición del disco con formato swap. Para cambiar su tamaño hay que tocar las particiones del disco
+     - Instalaciones manuales clásicas (en los ejercicios, Linux Mint y MX Linux)
+   * - **Archivo**
+     - Un archivo dentro de una partición normal. Se puede agrandar, encoger o quitar sin tocar las particiones
+     - Ubuntu (``/swap.img``) y Windows (``pagefile.sys``)
+   * - **zram**
+     - Un «disco» comprimido dentro de la propia RAM (``/dev/zram0``). No usa el disco, así que es muy rápida, y como los datos se comprimen, en la misma RAM cabe más información
+     - Fedora
 
-.. image:: imagenes/particiones2.png
+Las tres formas se pueden combinar: por ejemplo, zram para el uso normal y un archivo o una partición en el disco por si la memoria se queda corta. El instalador de MX Linux, por ejemplo, deja elegir las tres.
 
-En la imagen, un disco GPT con 6 particiones primarias (de la sda1 a la sda6): con una tabla MBR no podríamos tener más de 4 primarias, y tendríamos que usar una extendida.
+Para ver qué swap está usando el sistema se utiliza ``swapon --show``. La columna ``TYPE`` indica si es una partición (``partition``) o un archivo (``file``); la zram aparece como una partición del dispositivo ``/dev/zram0``:
 
-Independientemente de cómo se cree la tabla de particiones, dejaremos una partición para el sistema operativo, otra para los datos y, en el caso de instalar un GNU/Linux, otra para la swap. Para el SO reservaremos ~80 GB en Windows y ~50 GB en GNU/Linux.
+.. code-block:: bash
 
-**swap**: espacio de swap (o de intercambio). El swapping es el proceso por el que una página de memoria se copia en un espacio del disco configurado previamente para ello, para liberar esa memoria RAM. Ese espacio puede ser una partición o un archivo: Ubuntu, por ejemplo, usa por defecto un **archivo de swap** (``/swap.img``) en lugar de una partición. Windows también usa un archivo, ``pagefile.sys``.
+   $ swapon --show
+   NAME      TYPE SIZE USED PRIO
+   /swap.img file   4G   0B   -2
+
+**¿Cuánta swap hay que poner?** La regla clásica de «el doble de la RAM» viene de cuando los ordenadores tenían muy poca memoria y ya no vale. Hoy se recomienda más o menos esto:
+
+=========================  ====================================
+RAM                        Swap recomendada
+=========================  ====================================
+Hasta 2 GB                 El doble de la RAM
+De 2 a 8 GB                Igual que la RAM
+De 8 a 64 GB               Al menos 4 GB (o la mitad de la RAM)
+Si se usa la hibernación   Al menos igual que la RAM
+=========================  ====================================
+
+La **hibernación** guarda todo el contenido de la RAM en la swap y apaga el equipo; al encenderlo, se recupera tal cual estaba. Por eso, si se quiere hibernar, la swap tiene que ser al menos tan grande como la RAM (Ubuntu la trae desactivada por defecto).
 
 Organización para GNU/Linux
 ===========================

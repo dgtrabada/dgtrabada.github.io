@@ -587,7 +587,7 @@
 <p class="rubric">Ejercicio 02. Instalación</p>
 <ul>
 <li><p>Descárgate el sistema operativo Ubuntu 26.04 LTS en formato ISO de su página oficial</p></li>
-<li><p>Crea una máquina virtual llamada <strong>MV Ubuntu 26.04</strong> con 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo <code class="docutils literal notranslate"><span class="pre">.vdi</span></code> solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Ubuntu 26.04</strong> con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo <code class="docutils literal notranslate"><span class="pre">.vdi</span></code> solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión</p></li>
 <li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), para que todos tengamos la misma instalación</p></li>
 <li><p>Inicia la máquina con la ISO. En el menú de arranque (GRUB) elige <strong>Try or Install Ubuntu</strong> (si no tocas nada, se elige sola al acabar la cuenta atrás):</p>
 <a class="reference internal image-reference" href="../../_images/ubuntu_grub.png"><img alt="../../_images/ubuntu_grub.png" src="../../_images/ubuntu_grub.png" width="450" />
@@ -630,7 +630,7 @@
 <ul class="simple">
 <li><p>La partición <strong>sda2</strong>, de 1 MB, sin tipo ni punto de montaje, <strong>no la hemos creado nosotros</strong>: la añade el instalador automáticamente al elegir el disco en <em>Dispositivo donde instalar el cargador de arranque</em>. Es una partición <em>bios_grub</em>, sin sistema de archivos, donde GRUB guarda parte de su código para poder arrancar en una máquina sin EFI.</p></li>
 <li><p>Aunque sda2 está físicamente al principio del disco, se llama sda2 porque los números se asignan por orden de creación, y el instalador la ha creado después de sda1.</p></li>
-<li><p>El disco aparece con 429,50 GB, aunque en VirtualBox pusimos 400 GB. VirtualBox cuenta en GiB (1 GiB = 1024³ bytes) y el instalador en GB (1 GB = 1000³ bytes): 400 GiB son 429,5 GB.</p></li>
+<li><p>El disco aparece con 429,50 GB, aunque en VirtualBox pusimos 400 GB. VirtualBox cuenta en GiB (1 GiB = 2³⁰ bytes) y el instalador en GB (1 GB = 10⁹ bytes): 400 GiB son 429,5 GB.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -651,7 +651,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
 </pre></div>
 </div>
-<p>¿Dónde está el área de intercambio? ¿Es una partición?</p>
+<p>¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
 </li>
 <li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vean la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>, la IP que has puesto (10.4.X.Y), las particiones del disco duro y la memoria. Para ello abre una terminal, la configuración de red (desde Configuración o directamente desde <img alt="ubuntu_red" src="../../_images/ubuntu_02.png" />, en la parte derecha de la barra superior del escritorio), <strong>Discos</strong> y <strong>Recursos</strong> (el monitor del sistema). Si no te cabe todo en uno, sube los que necesites (<strong>pantallazo</strong><sup>1a</sup>, <strong>pantallazo</strong><sup>1b</sup>…).</p>
 <p>Ejemplo de pantallazo:</p>
@@ -835,7 +835,7 @@ ls<span class="w"> </span>/home/tunombre/Escritorio/compartida/
 <p class="rubric">Ejercicio 01</p>
 <ul>
 <li><p>Desde <a class="reference external" href="https://fedoraproject.org/workstation/download/">https://fedoraproject.org/workstation/download/</a> descárgate <strong>Fedora Workstation 44</strong> para la arquitectura x86_64</p></li>
-<li><p>Crea una máquina virtual llamada <strong>MV Fedora 44</strong> con las mismas características que la de Ubuntu: 6144 MB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Fedora 44</strong> con las mismas características que la de Ubuntu: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente</p></li>
 <li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu</p></li>
 <li><p>Inicia la máquina con la ISO y arranca en <strong>modo live</strong>, como en Ubuntu</p></li>
 <li><p>El modo live arranca en inglés y con el teclado estadounidense, así que lo primero es <strong>poner el teclado en español</strong> (si no, no te saldrán bien la ñ, los acentos ni algunos símbolos):</p>
@@ -887,7 +887,7 @@ swapon<span class="w"> </span>--show
 <ul class="simple">
 <li><p>¿Qué particiones ha creado el instalador? ¿De qué tamaño son?</p></li>
 <li><p>¿Qué sistema de archivos usa para <code class="docutils literal notranslate"><span class="pre">/</span></code>? ¿Y para <code class="docutils literal notranslate"><span class="pre">/home</span></code>? ¿Están <code class="docutils literal notranslate"><span class="pre">/</span></code> y <code class="docutils literal notranslate"><span class="pre">/home</span></code> en particiones distintas, como en Ubuntu?</p></li>
-<li><p>¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es <strong>zram</strong></p></li>
+<li><p>¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es <strong>zram</strong> (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p></li>
 </ul>
 </li>
 <li><p>Comprueba que tienes internet con <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code></p></li>
@@ -917,10 +917,19 @@ swapon<span class="w"> </span>--show
 <h2>openSUSE<a class="headerlink" href="#opensuse" title="Link to this heading">#</a></h2>
 <img alt="../../_images/opensuse_01.png" src="../../_images/opensuse_01.png" />
 <p><a class="reference external" href="https://www.opensuse.org/">https://www.opensuse.org/</a></p>
+<p>openSUSE viene de <strong>SUSE</strong>, una empresa fundada en 1992 en Núremberg (Alemania), que sacó una de las primeras distribuciones de GNU/Linux. En 2003 la compró Novell, y en 2005 se creó el proyecto <strong>openSUSE</strong>: la versión gratuita y hecha por la comunidad, patrocinada por SUSE, que sigue vendiendo su versión para empresas, <strong>SUSE Linux Enterprise (SLE)</strong>. Su mascota es un camaleón verde, <em>Geeko</em>.</p>
+<p>openSUSE tiene dos versiones:</p>
+<ul class="simple">
+<li><p><strong>Leap</strong>: estable, con versiones regulares, construida sobre la misma base que SUSE Linux Enterprise. Es la que vamos a instalar. La Leap 16 cambió mucho respecto a las anteriores: estrena el instalador <strong>Agama</strong> y sustituye casi todo <strong>YaST</strong>, la herramienta clásica de administración de openSUSE, por <strong>Cockpit</strong> (administración desde el navegador) y <strong>Myrlyn</strong> (gestión de paquetes).</p></li>
+<li><p><strong>Tumbleweed</strong>: de actualización continua (<em>rolling release</em>), es decir, no tiene versiones, sino que se va actualizando siempre a lo último.</p></li>
+</ul>
+<p>Igual que Fedora, usa paquetes <strong>RPM</strong>, pero los gestiona con <strong>zypper</strong> en lugar de dnf.</p>
 <p><a class="reference external" href="https://mediateca.educa.madrid.org/video/tacs4pwtd47zyrc7">Vídeo de instalación</a></p>
 <p class="rubric">Ejercicio 01</p>
 <ul>
-<li><p>Descárgate openSUSE Leap (x86_64)</p></li>
+<li><p>Desde <a class="reference external" href="https://get.opensuse.org/leap/">https://get.opensuse.org/leap/</a> descárgate <strong>openSUSE Leap 16.0</strong> para la arquitectura x86_64</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV openSUSE 16.0</strong> con las mismas características que la de Ubuntu: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente</p></li>
+<li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu</p></li>
 <li><p>Inicia la ISO y procede a la instalación desde el menú que aparece en el arranque</p></li>
 <li><p>Acepta la licencia, pon el teclado en español y configura la IP</p></li>
 <li><p>Selecciona el escritorio <strong>KDE Plasma</strong></p></li>
@@ -943,7 +952,7 @@ swapon<span class="w"> </span>--show
 <li><p>Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
 <li><p>Crea un acceso directo del Monitor del sistema en el escritorio</p></li>
 <li><p>Añade un acceso directo de Firefox en el panel</p></li>
-<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un ping a 8.8.8.8:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, en el que se vean la carpeta que has creado y un ping a 8.8.8.8:</p>
 <a class="reference internal image-reference" href="../../_images/opensuse_03.jpg"><img alt="../../_images/opensuse_03.jpg" src="../../_images/opensuse_03.jpg" width="460" />
 </a>
 </li>
@@ -962,7 +971,7 @@ swapon<span class="w"> </span>--show
 </ul>
 <p class="rubric">Ejercicio 04</p>
 <p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
-<p>Desde Myrlyn busca el programa <strong>kicad</strong> e instálalo. Abre el programa, abre un proyecto desde una plantilla, selecciona el <em>Arduino UNO</em> y sube un pantallazo en el que aparezca la carpeta con tu nombre, por ejemplo:</p>
+<p>Desde Myrlyn busca el programa <strong>kicad</strong> e instálalo. Abre el programa, abre un proyecto desde una plantilla, selecciona el <em>Arduino UNO</em> y sube el <strong>pantallazo</strong><sup>2</sup>, en el que aparezca la carpeta con tu nombre, por ejemplo:</p>
 <a class="reference internal image-reference" href="../../_images/opensuse_05.jpg"><img alt="../../_images/opensuse_05.jpg" src="../../_images/opensuse_05.jpg" width="590" />
 </a>
 <p><strong>Instalar programas usando la línea de comandos</strong></p>
@@ -974,11 +983,11 @@ swapon<span class="w"> </span>--show
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>zypper<span class="w"> </span>install<span class="w"> </span>tree
 </pre></div>
 </div>
-<p>Actualiza el sistema e instala el programa <strong>blender</strong> con la línea de comandos. Cuando termines, sube un pantallazo en el que se vean el programa, la carpeta con tu nombre y un poco de la instalación:</p>
+<p>Actualiza el sistema e instala el programa <strong>blender</strong> con la línea de comandos. Cuando termines, sube el <strong>pantallazo</strong><sup>3</sup>, en el que se vean el programa, la carpeta con tu nombre y un poco de la instalación:</p>
 <a class="reference internal image-reference" href="../../_images/opensuse_06.jpg"><img alt="../../_images/opensuse_06.jpg" src="../../_images/opensuse_06.jpg" width="590" />
 </a>
 <p><strong>Instalar programas usando Discover</strong></p>
-<p>Discover es una tienda de aplicaciones que da acceso a varias categorías de aplicaciones, complementos de aplicaciones y complementos de Plasma: desde aplicaciones de accesibilidad y accesorios hasta herramientas para desarrolladores y aplicaciones educativas. También muestra las aplicaciones instaladas y es configurable. Ábrelo, busca una aplicación e instálala; por último, ábrela y sube un pantallazo.</p>
+<p>Discover es una tienda de aplicaciones que da acceso a varias categorías de aplicaciones, complementos de aplicaciones y complementos de Plasma: desde aplicaciones de accesibilidad y accesorios hasta herramientas para desarrolladores y aplicaciones educativas. También muestra las aplicaciones instaladas y es configurable. Ábrelo, busca una aplicación e instálala; por último, ábrela y sube el <strong>pantallazo</strong><sup>4</sup>.</p>
 <p class="rubric">Ejercicio 05. Usuarios con entorno gráfico</p>
 <ul>
 <li><p>Abre el gestor de usuarios de openSUSE y crea los siguientes usuarios:</p>
@@ -999,7 +1008,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 </li>
 <li><p>Abre en el navegador <a class="reference external" href="https://localhost:9090">https://localhost:9090</a></p></li>
 <li><p>Crea un grupo llamado <strong>grupoA</strong> y otro llamado <strong>grupoB</strong>, y mete los usuarios en los grupos</p></li>
-<li><p>Sube un pantallazo como el siguiente:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>5</sup>, como el siguiente:</p>
 <a class="reference internal image-reference" href="../../_images/opensuse_07.png"><img alt="../../_images/opensuse_07.png" src="../../_images/opensuse_07.png" width="700" />
 </a>
 </li>
@@ -1021,23 +1030,39 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <h2>Linux Mint<a class="headerlink" href="#linux-mint" title="Link to this heading">#</a></h2>
 <img alt="../../_images/mint_01.png" src="../../_images/mint_01.png" />
 <p><a class="reference external" href="https://linuxmint.com/">https://linuxmint.com/</a></p>
+<p>Linux Mint nació en 2006 en Irlanda como una distribución <strong>basada en Ubuntu</strong>, con la idea de ser más sencilla y más parecida a Windows para quien viene de él: un menú de inicio, una barra de tareas abajo y los programas habituales ya instalados. Cada versión de Mint se construye sobre una versión LTS de Ubuntu, así que comparte con ella los repositorios y APT, y tiene soporte hasta 2029 o más. También existe <strong>LMDE</strong> (<em>Linux Mint Debian Edition</em>), una variante basada directamente en Debian, por si algún día Ubuntu dejara de servirles de base.</p>
+<p>Mint ha desarrollado su propio escritorio, <strong>Cinnamon</strong>, que es el principal, y también ofrece <strong>MATE</strong> (la continuación del antiguo GNOME 2) y <strong>Xfce</strong> (el más ligero, para equipos con pocos recursos).</p>
 <p class="rubric">Ejercicio 01</p>
 <ul>
-<li><p>Descárgate la versión de 64 bits; elige entre los escritorios Cinnamon y MATE</p></li>
-<li><p>Inicia la ISO (<em>Start Linux Mint</em>) y, desde el escritorio, <em>Install Linux Mint</em></p></li>
-<li><p>Configura el idioma y haz las particiones a mano: en <strong>Más opciones</strong>, deja ~80 GB para <code class="docutils literal notranslate"><span class="pre">/</span></code>, 2 GB para el área de intercambio (swap) y el resto para <code class="docutils literal notranslate"><span class="pre">/home</span></code></p>
-<img alt="../../_images/mint_02.jpg" src="../../_images/mint_02.jpg" />
+<li><p>Desde <a class="reference external" href="https://linuxmint.com/download.php">https://linuxmint.com/download.php</a> descárgate Linux Mint de 64 bits con el escritorio que prefieras: <strong>Cinnamon</strong>, <strong>MATE</strong> o <strong>Xfce</strong></p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV Linux Mint</strong> con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB y un disco duro de 400 GB reservado dinámicamente. Esta vez, deja el adaptador de red en modo <strong>NAT</strong>: la máquina recibe la IP automáticamente por DHCP (la 10.0.2.15) y tiene internet sin tener que configurar nada</p></li>
+<li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en Ubuntu</p></li>
+<li><p>Inicia la ISO y, en el menú de arranque, elige la primera opción, <strong>Start Linux Mint</strong>, que arranca el modo live (la opción <em>OEM install</em> es para los fabricantes que venden ordenadores con Mint ya instalado, no la uses). Desde el escritorio live, abre <em>Install Linux Mint</em></p></li>
+<li><p>Configura el idioma y haz las particiones a mano: en <strong>Más opciones</strong>, deja ~80 GB para <code class="docutils literal notranslate"><span class="pre">/</span></code>, 2 GB para el <strong>área de intercambio</strong> (swap) y el resto para <code class="docutils literal notranslate"><span class="pre">/home</span></code></p>
+<a class="reference internal image-reference" href="../../_images/mint_particiones.png"><img alt="../../_images/mint_particiones.png" src="../../_images/mint_particiones.png" width="600" />
+</a>
+<p>Al continuar, el instalador puede mostrar algún aviso (por ejemplo, que no encuentra una <em>partición del sistema EFI</em>). Nuestra máquina virtual arranca sin EFI, así que no hace falta: pulsa <strong>Continuar</strong> y sigue con la instalación.</p>
 </li>
-<li><p>Una vez instalado, cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
+<li><p>Crea la cuenta: nombre y nombre de usuario <strong>tunombre</strong>, nombre del equipo <strong>Mint22</strong> y contraseña <strong>alumno</strong></p>
+<a class="reference internal image-reference" href="../../_images/mint_cuenta.png"><img alt="../../_images/mint_cuenta.png" src="../../_images/mint_cuenta.png" width="600" />
+</a>
+</li>
+<li><p>Una vez instalado, abre una terminal y ejecuta:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
+</pre></div>
+</div>
+<p>¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
+</li>
+<li><p>Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
 <li><p>Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y <strong>Añadir al escritorio</strong></p></li>
-<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un análisis de <code class="docutils literal notranslate"><span class="pre">/</span></code>:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, en el que se vean la carpeta que has creado, un análisis de <code class="docutils literal notranslate"><span class="pre">/</span></code> y la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>:</p>
 <a class="reference internal image-reference" href="../../_images/mint_03.jpg"><img alt="../../_images/mint_03.jpg" src="../../_images/mint_03.jpg" width="490" />
 </a>
 </li>
 </ul>
 <p class="rubric">Ejercicio 02</p>
 <p><strong>Instalar programas utilizando el entorno gráfico</strong></p>
-<p>Ve a Inicio / Administración / Gestor de software, instala <strong>Stellarium</strong>, ábrelo y sube un pantallazo. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.</p>
+<p>Ve a Inicio / Administración / Gestor de software, instala <strong>Stellarium</strong>, ábrelo y sube el <strong>pantallazo</strong><sup>2</sup>. Sin entorno gráfico se puede instalar con APT, como vimos en Ubuntu.</p>
 <p><strong>Instalar miniaplicaciones</strong></p>
 <p>En Inicio / Preferencias / Miniaplicaciones, ve a la pestaña <strong>Descargar</strong> y selecciona:</p>
 <ul class="simple">
@@ -1046,7 +1071,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <li><p>Monitor de sensores</p></li>
 </ul>
 <p>En Inicio / Preferencias / Miniaplicaciones del escritorio, instala al menos 4 miniaplicaciones.</p>
-<p>Sube un pantallazo en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:</p>
+<p>Sube el <strong>pantallazo</strong><sup>3</sup>, en el que se vean las miniaplicaciones en el panel y en el escritorio, y la carpeta con tu nombre, por ejemplo:</p>
 <a class="reference internal image-reference" href="../../_images/mint_04.jpg"><img alt="../../_images/mint_04.jpg" src="../../_images/mint_04.jpg" width="400" />
 </a>
 <p class="rubric">Ejercicio 03. Usuarios con entorno gráfico</p>
@@ -1055,7 +1080,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <li><p>Crea un grupo llamado <strong>grupoa</strong> y otro llamado <strong>grupob</strong></p></li>
 <li><p>Dentro del grupoa crea los usuarios <strong>grafico_tu_nombre_a1</strong> y <strong>grafico_tu_nombre_a2</strong></p></li>
 <li><p>Dentro del grupob crea los usuarios <strong>grafico_tu_nombre_b1</strong> y <strong>grafico_tu_nombre_b2</strong></p></li>
-<li><p>Sube un pantallazo como el siguiente:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>4</sup>, como el siguiente:</p>
 <a class="reference internal image-reference" href="../../_images/mint_05.jpg"><img alt="../../_images/mint_05.jpg" src="../../_images/mint_05.jpg" width="370" />
 </a>
 </li>
@@ -1075,36 +1100,79 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <h2>MX Linux<a class="headerlink" href="#mx-linux" title="Link to this heading">#</a></h2>
 <img alt="../../_images/mx_01.png" src="../../_images/mx_01.png" />
 <p><a class="reference external" href="https://mxlinux.org/">https://mxlinux.org/</a></p>
-<p>Descárgate MX Linux con el escritorio Xfce para 64 bits.</p>
+<p>MX Linux nació en 2014 de la colaboración entre dos distribuciones: <strong>antiX</strong>, una distribución muy ligera, y la comunidad de <strong>MEPIS</strong>, una distribución que se había dejado de desarrollar. Está basada en <strong>Debian estable</strong> (la versión actual, MX-25, se basa en Debian 13 <em>Trixie</em>), es ligera y rápida incluso en equipos antiguos, y trae sus propias herramientas de configuración, las <strong>MX Herramientas</strong>. Desde hace años es una de las distribuciones más visitadas en DistroWatch. Tiene ediciones con los escritorios Xfce (la principal), KDE Plasma y Fluxbox.</p>
+<p>Una de sus particularidades es el sistema de inicio (<em>init</em>), el primer programa que arranca el núcleo y que se encarga de poner en marcha todos los demás servicios del sistema. Casi todas las distribuciones actuales usan <strong>systemd</strong>, pero MX se hizo conocida por seguir usando el clásico <strong>SysVinit</strong>. Desde MX-25 usa systemd por defecto, aunque sigue habiendo imágenes con SysVinit para quien lo prefiera.</p>
 <p class="rubric">Ejercicio 01</p>
 <ul>
-<li><p>Crea una máquina virtual con 2048 MB de memoria base y 150 GB de disco duro</p></li>
-<li><p>Inicia la máquina y procede a la instalación con el instalador que encontrarás en el escritorio (<em>Installer</em>):</p>
-<a class="reference internal image-reference" href="../../_images/mx_02.jpg"><img alt="../../_images/mx_02.jpg" src="../../_images/mx_02.jpg" width="600" />
+<li><p>Desde <a class="reference external" href="https://mxlinux.org/download-links/">https://mxlinux.org/download-links/</a> descárgate <strong>MX-25</strong> con el escritorio <strong>Xfce</strong> para 64 bits</p></li>
+<li><p>Crea una máquina virtual llamada <strong>MV MX Linux</strong> con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB y un disco duro de 400 GB reservado dinámicamente. Deja el adaptador de red en modo <strong>NAT</strong>, como en Linux Mint</p></li>
+<li><p>Deja <strong>desactivado EFI</strong> (Configuración / Sistema / Placa base / [  ] Habilitar EFI), igual que en el resto de distribuciones</p></li>
+<li><p>Inicia la máquina con la ISO y arranca en <strong>modo live</strong>. En el escritorio verás el icono del instalador, <strong>Installer</strong></p></li>
+<li><p>Al abrir el instalador, lo primero es <strong>poner el teclado en español</strong>: pulsa <strong>Change Keyboard Settings</strong>, añade <strong>es Spanish</strong> con el botón <strong>+</strong> y súbelo para que quede el primero de la lista</p>
+<a class="reference internal image-reference" href="../../_images/mx_teclado.png"><img alt="../../_images/mx_teclado.png" src="../../_images/mx_teclado.png" width="600" />
 </a>
 </li>
-<li><p>Marca <strong>Customize the disk layout</strong>:</p>
-<a class="reference internal image-reference" href="../../_images/mx_03.jpg"><img alt="../../_images/mx_03.jpg" src="../../_images/mx_03.jpg" width="600" />
+<li><p>En <strong>Select type of installation</strong> marca <strong>Customize the disk layout</strong>, para hacer las particiones a mano</p>
+<a class="reference internal image-reference" href="../../_images/mx_tipo_instalacion.png"><img alt="../../_images/mx_tipo_instalacion.png" src="../../_images/mx_tipo_instalacion.png" width="600" />
 </a>
 </li>
-<li><p>Crea un usuario llamado <strong>alumno</strong> con contraseña <strong>alumno</strong></p></li>
-<li><p>No crees la cuenta de root</p></li>
+<li><p>Haz las siguientes particiones. En la columna <strong>Use For</strong> se indica para qué se usa cada una: fíjate en que la de 2 GB tiene que ser <strong>swap</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tamaño</p></th>
+<th class="head"><p>Formato</p></th>
+<th class="head"><p>Use For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>80 GB</p></td>
+<td><p>ext4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>2 GB</p></td>
+<td><p>swap</p></td>
+<td><p>swap</p></td>
+</tr>
+<tr class="row-even"><td><p>El resto</p></td>
+<td><p>ext4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/home</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<a class="reference internal image-reference" href="../../_images/mx_particiones.png"><img alt="../../_images/mx_particiones.png" src="../../_images/mx_particiones.png" width="600" />
+</a>
+</li>
+<li><p>Durante la instalación, el instalador de MX te ofrece además crear un <strong>archivo de intercambio</strong> (<em>swap file</em>) o usar <strong>zram</strong>: son las otras dos formas de swap que hemos visto en Ubuntu y en Fedora. Como ya tienes una partición swap, <strong>no marques ninguna de las dos</strong></p>
+<a class="reference internal image-reference" href="../../_images/mx_swap.png"><img alt="../../_images/mx_swap.png" src="../../_images/mx_swap.png" width="600" />
+</a>
+</li>
+<li><p>En el nombre del equipo pon <strong>mx</strong> y en el dominio <strong>tunombre.dom</strong></p>
+<a class="reference internal image-reference" href="../../_images/mx_equipo.png"><img alt="../../_images/mx_equipo.png" src="../../_images/mx_equipo.png" width="600" />
+</a>
+</li>
+<li><p>En la localización elige <strong>España - español de España</strong> y la zona horaria <strong>Europe / Madrid</strong></p></li>
+<li><p>Crea el usuario <strong>tunombre</strong> con la contraseña <strong>alumno</strong> y <strong>no</strong> actives la cuenta de root (<em>Root (administrator) Account</em>): en MX las tareas de administración se hacen con <code class="docutils literal notranslate"><span class="pre">sudo</span></code> desde el usuario normal</p>
+<a class="reference internal image-reference" href="../../_images/mx_usuario.png"><img alt="../../_images/mx_usuario.png" src="../../_images/mx_usuario.png" width="600" />
+</a>
+</li>
+<li><p>Cuando termine la instalación, quita la ISO de la unidad de CD virtual y reinicia la máquina</p></li>
 <li><p>Una vez instalado, cambia el fondo del escritorio y crea una carpeta con tu_nombre</p></li>
 <li><p>Crea un acceso directo de la Información rápida del sistema: en Inicio / MX Herramientas / Información rápida del sistema, botón derecho del ratón y <strong>Añadir al escritorio</strong></p></li>
-<li><p>Sube un pantallazo en el que se vean la carpeta que has creado y un informe rápido del sistema:</p>
-<a class="reference internal image-reference" href="../../_images/mx_04.jpg"><img alt="../../_images/mx_04.jpg" src="../../_images/mx_04.jpg" width="600" />
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, en el que se vean la carpeta que has creado y un informe rápido del sistema:</p>
+<a class="reference internal image-reference" href="../../_images/mx_info.png"><img alt="../../_images/mx_info.png" src="../../_images/mx_info.png" width="600" />
 </a>
 </li>
 </ul>
 <p class="rubric">Ejercicio 02</p>
 <p><strong>Instalar programas</strong></p>
-<p>Para instalar programas con el entorno gráfico ve a Inicio / MX Herramientas / MX Instalar paquetes; en Paquetes populares, instala <strong>GIMP</strong>. Con la línea de comandos se utiliza APT, igual que en Ubuntu: instala <strong>Kdenlive</strong>.</p>
-<p>Sube un pantallazo en el que se vean los dos programas instalados y la carpeta con tu nombre en el escritorio:</p>
-<a class="reference internal image-reference" href="../../_images/mx_05.jpg"><img alt="../../_images/mx_05.jpg" src="../../_images/mx_05.jpg" width="600" />
+<p>Para instalar programas con el entorno gráfico ve a Inicio / MX Herramientas / <strong>MX Instalador de paquetes</strong> y, en la pestaña <strong>Aplicaciones Populares</strong>, instala <strong>Kdenlive</strong>. Con la línea de comandos se utiliza APT, igual que en Ubuntu: instala <strong>GIMP</strong>.</p>
+<p>Sube el <strong>pantallazo</strong><sup>2</sup>, en el que se vean los dos programas instalados y la carpeta con tu nombre en el escritorio:</p>
+<a class="reference internal image-reference" href="../../_images/mx_programas.png"><img alt="../../_images/mx_programas.png" src="../../_images/mx_programas.png" width="600" />
 </a>
 <p class="rubric">Ejercicio 03</p>
-<p>Abre <strong>Conky Manager</strong>, selecciona uno y sube un pantallazo como este:</p>
-<a class="reference internal image-reference" href="../../_images/mx_06.jpg"><img alt="../../_images/mx_06.jpg" src="../../_images/mx_06.jpg" width="320" />
+<p><strong>Conky</strong> es un programa que muestra en el escritorio información del sistema: la hora, el uso de la CPU, la memoria, la red, el disco… Actívalo con <strong>Conky Toggle</strong> y configúralo con <strong>MX Conky</strong> (los dos están en Inicio / MX Herramientas), donde puedes elegir el aspecto entre varios modelos. Sube el <strong>pantallazo</strong><sup>3</sup>, como este:</p>
+<a class="reference internal image-reference" href="../../_images/mx_conky.png"><img alt="../../_images/mx_conky.png" src="../../_images/mx_conky.png" width="600" />
 </a>
 <p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
 </section>
