@@ -4,7 +4,7 @@ Ejercicios de configuración
 
 Estos ejercicios se hacen sobre la máquina virtual de Windows 11. En cada pantallazo tiene que aparecer **tunombre**.
 
-Ejercicio 1: información del sistema
+Ejercicio 1: Información del sistema
 ====================================
 
 **Información del sistema**
@@ -50,7 +50,7 @@ WinDirStat (https://windirstat.net/) analiza qué es lo que más ocupa en las un
 * **1.8** ¿Existe una versión para Linux y macOS?
 * **1.9** ¿Cuál es el archivo más grande que ha encontrado?
 
-Ejercicio 2: escritorio y explorador
+Ejercicio 2: Escritorio y explorador
 ====================================
 
 **Acceso directo en el escritorio**
@@ -85,7 +85,7 @@ Consulta el apartado :ref:`Explorador de Windows` y responde:
 * Abre la papelera y restáurala. **2.10** ¿Cuánto espacio disponible tiene la papelera?
 * Vuelve a seleccionar la carpeta A01 en el escritorio y pulsa **Mayús + Supr**. **2.11** ¿Puedes volver a restaurarla?
 
-Ejercicio 3: equipo, usuarios y red
+Ejercicio 3: Equipo, usuarios y red
 ===================================
 
 **Cambiar el nombre del equipo**
@@ -158,7 +158,7 @@ Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Conf
 
   Es decir, **10.4.X.Y**, siendo **X** e **Y** los números correspondientes a tu IP.
 
-Ejercicio 4: discos y copias de seguridad
+Ejercicio 4: Discos y copias de seguridad
 =========================================
 
 **Disco duro nuevo**
@@ -216,7 +216,7 @@ Con la herramienta DISM puedes exportar a una carpeta los controladores instalad
 
    DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía.
 
-Ejercicio 5: recuperación y registro
+Ejercicio 5: Recuperación y registro
 ====================================
 
 **Punto de restauración**

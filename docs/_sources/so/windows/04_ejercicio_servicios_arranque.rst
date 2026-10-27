@@ -4,7 +4,7 @@ Ejercicio de servicios y arranque
 
 Este ejercicio se hace sobre la máquina virtual de Windows 11. Antes de empezar, consulta :ref:`Arranque de Windows`.
 
-**Primera parte: consulta de servicios**
+**Primera parte: Consulta de servicios**
 
 Abre la consola de servicios (Inicio / Ejecutar / ``services.msc``) y responde:
 
@@ -14,7 +14,7 @@ Abre la consola de servicios (Inicio / Ejecutar / ``services.msc``) y responde:
 
 Sube el **pantallazo**\ :sup:`1`, donde se vean la lista de servicios y el estado de alguno de ellos.
 
-**Segunda parte: servicios desde la línea de comandos**
+**Segunda parte: Servicios desde la línea de comandos**
 
 Abre PowerShell como administrador y ejecuta:
 
@@ -28,13 +28,13 @@ Responde:
 * **2.1** ¿Qué información muestra el comando ``Get-Service``?
 * **2.2** ¿Qué estado indica ``Get-Service Spooler``?
 
-**Tercera parte: modificación de un servicio**
+**Tercera parte: Modificación de un servicio**
 
 Busca el servicio **Cola de impresión** (*Print Spooler*) y detenlo desde PowerShell como administrador con ``Stop-Service``.
 
 Sube el **pantallazo**\ :sup:`2`, donde se vea que el servicio está detenido.
 
-**Cuarta parte: programas de inicio**
+**Cuarta parte: Programas de inicio**
 
 Abre el Administrador de tareas (**Ctrl+Mayús+Esc**), ve a la pestaña **Aplicaciones de arranque** y responde:
 
@@ -43,7 +43,7 @@ Abre el Administrador de tareas (**Ctrl+Mayús+Esc**), ve a la pestaña **Aplica
 
 Deshabilita uno que no sea crítico y sube el **pantallazo**\ :sup:`3`, donde se vean la lista de programas de inicio y el cambio realizado.
 
-**Quinta parte: arranque del sistema**
+**Quinta parte: Arranque del sistema**
 
 * Crea un clon enlazado de la máquina virtual de Windows 11 y haz el resto del ejercicio en el clon.
 * Con ``msconfig`` (consulta :ref:`msconfig`), haz que el siguiente arranque sea en **Arranque a prueba de errores** con la opción **Shell alterno**.

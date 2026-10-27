@@ -4,7 +4,7 @@ Ejercicio de usuarios y grupos
 
 Este ejercicio se hace sobre la máquina virtual de Windows 11. Antes de empezar, consulta :ref:`Usuarios y grupos Windows` y :ref:`Permisos NTFS`.
 
-**Primera parte: grupos y usuarios**
+**Primera parte: Grupos y usuarios**
 
 Utiliza ``lusrmgr.msc`` para:
 
@@ -15,7 +15,7 @@ Utiliza ``lusrmgr.msc`` para:
 
 Sube el **pantallazo**\ :sup:`1`, con las propiedades del grupo GB, donde se vean los usuarios que pertenecen a él.
 
-**Segunda parte: permisos de carpetas**
+**Segunda parte: Permisos de carpetas**
 
 Inicia sesión al menos una vez con tunombre_A01, tunombre_A02, tunombre_B01 y tunombre_B02. Así se crean sus carpetas en ``C:\Usuarios``:
 
@@ -32,7 +32,7 @@ Inicia sesión como tunombre_A02 y responde:
 * **2.3** ¿Puede entrar en ``C:\Users\tunombre_A01\Contacts``?
 * **2.4** ¿Puede entrar en ``C:\Users\tunombre_A01\Desktop\tunombre``?
 
-**Tercera parte: carpetas compartidas**
+**Tercera parte: Carpetas compartidas**
 
 * Pon la red de la máquina virtual en **adaptador puente** (Configuración / Red / Conectado a: Adaptador puente).
 * Abre el Símbolo del sistema, ejecuta ``ipconfig`` y apunta la IP.
