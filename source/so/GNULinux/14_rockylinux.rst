@@ -3,7 +3,7 @@ Rocky Linux
 ***********
 
 Caso práctico: Instalación de Rocky Linux
-*********************************
+*****************************************
 
 * Descargate la iso de `Rocky Linux <https://rockylinux.org/>`_ Minimal para la arquitectura X86_64
 * Utiliza un disco de 200 GB y 2G de RAM
@@ -26,7 +26,7 @@ Caso práctico: Instalación de Rocky Linux
    En el caso de que necesites reconfigurar la red utiliza el comando **nmtui**
 
 Caso práctico: Cluster con red interna
-**************************
+**************************************
 
 * Crea dos clones enlazados de "MV Rocky Linux" llámalos "**compute-0-0**" y "**compute-0-1**"
 
@@ -54,7 +54,7 @@ Caso práctico: Cluster con red interna
 * Instala el servidor LDAP en compute-0-0
 
 Servidor Rocky Linux
-===================
+====================
 
 Vamos a instalar el servidor  ldap en compute-0-0:
 
@@ -410,7 +410,7 @@ probamos:
  ldapsearch -x -ZZ
 
 Cliente Rocky Linux
-==================
+===================
 
 .. code-block:: bash
 
@@ -463,3 +463,8 @@ Fíjate que en /etc/openldap/ldap.conf ha introducido las siguientes lineas
 Bibliografía:
 
 * `golinuxcloud <https://www.golinuxcloud.com/configure-openldap-with-tls-certificates/#Create_private_key_for_CA_certificate>_`
+
+.. toctree::
+   :hidden:
+
+   14_ejercicios_rockylinux.rst
