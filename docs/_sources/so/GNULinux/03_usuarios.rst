@@ -302,3 +302,4 @@ La segunda: ``quotacheck`` **se niega a trabajar si las cuotas ya están activas
    :hidden:
 
    03_cuestionario_permisos_usuarios_grupos.rst
+   03_ejercicios_ubuntu_server.rst

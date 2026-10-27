@@ -294,8 +294,3 @@ Cuestionario de configuración
 =============================
 
 Para repasar, haz el :doc:`02c_cuestionario_configuracion`.
-
-.. toctree::
-   :hidden:
-
-   02c_cuestionario_configuracion.rst

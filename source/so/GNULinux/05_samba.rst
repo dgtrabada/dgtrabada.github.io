@@ -99,3 +99,8 @@ Creamos la carpeta, se la asignamos al usuario y reiniciamos:
  sudo systemctl restart smbd
 
 Al acceder a ``smb://IP/privado/`` (o ``\\IP\privado`` desde Windows) nos pedirá el usuario y la contraseña **de Samba**.
+
+.. toctree::
+   :hidden:
+
+   05_ejercicio_samba.rst

@@ -89,3 +89,8 @@ Algunas opciones típicas de ``/etc/ssh/sshd_config`` para asegurar un servidor 
 * ``PasswordAuthentication no`` solo se permite la autenticación con clave pública; los ataques de fuerza bruta dejan de tener sentido.
 * ``Port 2222`` cambiar el puerto por defecto no aporta seguridad real, pero reduce el ruido de los escaneos automáticos.
 * ``AllowUsers user1 user2`` lista de usuarios que pueden conectarse.
+
+.. toctree::
+   :hidden:
+
+   04_ejercicios_ssh.rst

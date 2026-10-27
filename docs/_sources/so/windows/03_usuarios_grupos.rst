@@ -82,3 +82,8 @@ Se accede mediante la ficha Perfil de la pantalla de Propiedades del usuario:
 * Un script de inicio de sesión es un archivo con extensión .bat que contiene una secuencia de comandos que se ejecuta automáticamente cuando el usuario inicia una sesión.
 
 * Una ruta de acceso local es una ruta a un directorio local privado del usuario. Es el directorio predeterminado en Símbolo de Sistema.
+
+.. toctree::
+   :hidden:
+
+   03_ejercicios_usuarios_grupos.rst

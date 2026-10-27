@@ -102,3 +102,8 @@ Como el nombre tunombre.com no existe en ningún DNS, para probar el sitio por s
 Visitando ``http://tunombre.com`` obtendremos:
 
 .. image:: imagenes/apache2_1.png
+
+.. toctree::
+   :hidden:
+
+   05_ejercicio_apache.rst

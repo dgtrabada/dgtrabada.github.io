@@ -10,10 +10,9 @@ GNU/Linux
    01_comandos_basicos.rst
    02_permisos.rst
    03_usuarios.rst
-   03_ejercicios_ubuntu_server.rst
    04_ssh.rst
-   05_samba.rst  
-   05_apache.rst  
+   05_samba.rst
+   05_apache.rst
    06_automatizacion_tareas.rst
    07_comandos_avanzados.rst
    08_NIS.rst

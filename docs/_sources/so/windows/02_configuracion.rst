@@ -290,3 +290,9 @@ Todas estas herramientas pueden abrirse escribiendo su comando en Ejecutar (**Wi
 * **timedate.cpl**: fecha y hora.
 * **intl.cpl**: configuración regional y de idioma.
 * **mmc**: abre una consola de administración vacía.
+
+.. toctree::
+   :hidden:
+
+   02b_ejercicios_configuracion.rst
+   02c_cuestionario_configuracion.rst

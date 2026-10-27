@@ -7,12 +7,9 @@ Windows
    
    01_historia.rst
    02_configuracion.rst
-   02b_ejercicios_configuracion.rst
    03_usuarios_grupos.rst
-   03_ejercicios_usuarios_grupos.rst
    03b_permisos_ntfs.rst
    04_arranque.rst
-   04_ejercicio_servicios_arranque.rst
    05_comandos_dos.rst
    06_powershell.rst
    07_AD_DS.rst

@@ -131,3 +131,8 @@ Ejemplo de uso:
   PS C:\Users\alumno> Restart-Service -Name Spooler
   ADVERTENCIA: Esperando a que se inicie el servicio 'Cola de 
   impresión (Spooler)'...
+
+.. toctree::
+   :hidden:
+
+   04_ejercicio_servicios_arranque.rst
