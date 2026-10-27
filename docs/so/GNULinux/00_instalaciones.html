@@ -651,7 +651,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
 </pre></div>
 </div>
-<p>¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
+<p>¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: <a class="reference internal" href="../particiones.html#area-de-intercambio"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
 </li>
 <li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vean la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>, la IP que has puesto (10.4.X.Y), las particiones del disco duro y la memoria. Para ello abre una terminal, la configuración de red (desde Configuración o directamente desde <img alt="ubuntu_red" src="../../_images/ubuntu_02.png" />, en la parte derecha de la barra superior del escritorio), <strong>Discos</strong> y <strong>Recursos</strong> (el monitor del sistema). Si no te cabe todo en uno, sube los que necesites (<strong>pantallazo</strong><sup>1a</sup>, <strong>pantallazo</strong><sup>1b</sup>…).</p>
 <p>Ejemplo de pantallazo:</p>
@@ -887,7 +887,7 @@ swapon<span class="w"> </span>--show
 <ul class="simple">
 <li><p>¿Qué particiones ha creado el instalador? ¿De qué tamaño son?</p></li>
 <li><p>¿Qué sistema de archivos usa para <code class="docutils literal notranslate"><span class="pre">/</span></code>? ¿Y para <code class="docutils literal notranslate"><span class="pre">/home</span></code>? ¿Están <code class="docutils literal notranslate"><span class="pre">/</span></code> y <code class="docutils literal notranslate"><span class="pre">/home</span></code> en particiones distintas, como en Ubuntu?</p></li>
-<li><p>¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es <strong>zram</strong> (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p></li>
+<li><p>¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es <strong>zram</strong> (ayuda: <a class="reference internal" href="../particiones.html#area-de-intercambio"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p></li>
 </ul>
 </li>
 <li><p>Comprueba que tienes internet con <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c2</span> <span class="pre">8.8.8.8</span></code></p></li>
@@ -1051,7 +1051,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>swapon<span class="w"> </span>--show
 </pre></div>
 </div>
-<p>¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: <a class="reference internal" href="../particiones.html#el-area-de-intercambio-swap"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
+<p>¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: <a class="reference internal" href="../particiones.html#area-de-intercambio"><span class="std std-ref">El área de intercambio (swap)</span></a>)</p>
 </li>
 <li><p>Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre</p></li>
 <li><p>Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y <strong>Añadir al escritorio</strong></p></li>
@@ -1178,12 +1178,52 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 </section>
 <section id="distrowatch">
 <h2>Distrowatch<a class="headerlink" href="#distrowatch" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://distrowatch.com/">https://distrowatch.com/</a> es una web que recoge información de cientos de distribuciones de GNU/Linux (y de otros sistemas libres, como los BSD): en qué distribución se basa cada una, qué escritorios ofrece, qué gestor de paquetes y qué sistema de inicio usa, cada cuánto saca versiones… y publica las novedades de cada una. Es muy conocida por su <strong>clasificación</strong> (<em>Page Hit Ranking</em>), pero hay que tener en cuenta que cuenta las <strong>visitas a la página de cada distribución en DistroWatch</strong>, no los usuarios reales que la usan.</p>
 <p class="rubric">Ejercicio 01</p>
-<p>Ve a la página <a class="reference external" href="https://distrowatch.com/">https://distrowatch.com/</a> y selecciona una distribución de GNU/Linux que no hayamos instalado. Instálala en una máquina virtual y, cuando termine la instalación, iníciala y haz un pantallazo de las particiones que has hecho.</p>
+<ul>
+<li><p>Ve a <a class="reference external" href="https://distrowatch.com/">https://distrowatch.com/</a> y elige una distribución de GNU/Linux que no hayamos instalado</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ten cuidado con distribuciones como <strong>Arch Linux</strong> o <strong>Gentoo</strong>: se instalan casi enteras a mano desde la terminal, así que solo son recomendables si quieres un reto.</p>
+</div>
+</li>
+<li><p>Crea una máquina virtual con las mismas características que en el resto de distribuciones: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo <strong>NAT</strong> y un disco duro de 400 GB reservado dinámicamente. Deja EFI desactivado, salvo que la distribución lo necesite para arrancar</p></li>
+<li><p>Instálala y, cuando termine la instalación, iníciala y rellena la siguiente tabla con la información de DistroWatch y de tu instalación:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pregunta</p></th>
+<th class="head"><p>Tu distribución</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>¿En qué se basa? (Debian, Ubuntu, Fedora, Arch, independiente…)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Gestor de paquetes (APT, dnf, zypper, pacman…)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Escritorio que has elegido</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Sistema de inicio (systemd, SysVinit, OpenRC…)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>¿Tiene versiones fijas, versiones LTS o es <em>rolling release</em>?</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>¿Qué swap usa? (<code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code>)</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vean las particiones que has hecho y la salida de <code class="docutils literal notranslate"><span class="pre">swapon</span> <span class="pre">--show</span></code></p></li>
+</ul>
 <p class="rubric">Ejercicio 02</p>
-<p>Instala un programa y responde a la pregunta: ¿cómo lo has hecho? Sube un pantallazo.</p>
+<p>Instala un programa, con el entorno gráfico o con la línea de comandos, e indica qué gestor de paquetes has usado. Sube el <strong>pantallazo</strong><sup>2</sup>, donde se vea el programa instalado.</p>
 <p class="rubric">Ejercicio 03</p>
-<p>Crea dos usuarios llamados <strong>tunombre_01</strong> y <strong>tunombre_02</strong>, haz un pantallazo y súbelo.</p>
+<p>Crea dos usuarios llamados <strong>tunombre_01</strong> y <strong>tunombre_02</strong> y sube el <strong>pantallazo</strong><sup>3</sup>, donde se vean los dos usuarios.</p>
 <p>Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.</p>
 </section>
 </section>

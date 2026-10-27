@@ -87,7 +87,7 @@ Unos meses después de cada LTS sale la primera *point release*, por ejemplo la 
 
      swapon --show
 
-  ¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: :ref:`El área de intercambio (swap)`)
+  ¿Dónde está el área de intercambio? ¿Es una partición? (ayuda: :ref:`El área de intercambio (swap) <area-de-intercambio>`)
 
 * Sube el **pantallazo**\ :sup:`1`, donde se vean la salida de ``swapon --show``, la IP que has puesto (10.4.X.Y), las particiones del disco duro y la memoria. Para ello abre una terminal, la configuración de red (desde Configuración o directamente desde |ubuntu_red|, en la parte derecha de la barra superior del escritorio), **Discos** y **Recursos** (el monitor del sistema). Si no te cabe todo en uno, sube los que necesites (**pantallazo**\ :sup:`1a`, **pantallazo**\ :sup:`1b`…).
 
@@ -350,7 +350,7 @@ Fedora tiene varias ediciones. La de escritorio es **Fedora Workstation**, con e
 
   * ¿Qué particiones ha creado el instalador? ¿De qué tamaño son?
   * ¿Qué sistema de archivos usa para ``/``? ¿Y para ``/home``? ¿Están ``/`` y ``/home`` en particiones distintas, como en Ubuntu?
-  * ¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es **zram** (ayuda: :ref:`El área de intercambio (swap)`)
+  * ¿Dónde está el área de intercambio? ¿Es una partición, un archivo como en Ubuntu o otra cosa? Busca qué es **zram** (ayuda: :ref:`El área de intercambio (swap) <area-de-intercambio>`)
 
 * Comprueba que tienes internet con ``ip a`` y ``ping -c2 8.8.8.8``
 
@@ -553,7 +553,7 @@ Mint ha desarrollado su propio escritorio, **Cinnamon**, que es el principal, y 
 
      swapon --show
 
-  ¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: :ref:`El área de intercambio (swap)`)
+  ¿Dónde está ahora el área de intercambio? Compara las tres distribuciones que llevamos: ¿cómo es la swap en Ubuntu, en Fedora y en Linux Mint? ¿Qué ventajas tiene cada forma? (ayuda: :ref:`El área de intercambio (swap) <area-de-intercambio>`)
 
 * Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
 * Crea un acceso directo del Analizador de uso de disco en el escritorio: en Inicio / Administración / Analizador de uso de disco, botón derecho del ratón y **Añadir al escritorio**
@@ -695,16 +695,38 @@ Cuando termines los ejercicios y los haya corregido el profesor, borra la máqui
 Distrowatch
 ===========
 
+https://distrowatch.com/ es una web que recoge información de cientos de distribuciones de GNU/Linux (y de otros sistemas libres, como los BSD): en qué distribución se basa cada una, qué escritorios ofrece, qué gestor de paquetes y qué sistema de inicio usa, cada cuánto saca versiones… y publica las novedades de cada una. Es muy conocida por su **clasificación** (*Page Hit Ranking*), pero hay que tener en cuenta que cuenta las **visitas a la página de cada distribución en DistroWatch**, no los usuarios reales que la usan.
+
 .. rubric:: Ejercicio 01
 
-Ve a la página https://distrowatch.com/ y selecciona una distribución de GNU/Linux que no hayamos instalado. Instálala en una máquina virtual y, cuando termine la instalación, iníciala y haz un pantallazo de las particiones que has hecho.
+* Ve a https://distrowatch.com/ y elige una distribución de GNU/Linux que no hayamos instalado
+
+  .. note::
+
+     Ten cuidado con distribuciones como **Arch Linux** o **Gentoo**: se instalan casi enteras a mano desde la terminal, así que solo son recomendables si quieres un reto.
+
+* Crea una máquina virtual con las mismas características que en el resto de distribuciones: 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo **NAT** y un disco duro de 400 GB reservado dinámicamente. Deja EFI desactivado, salvo que la distribución lo necesite para arrancar
+* Instálala y, cuando termine la instalación, iníciala y rellena la siguiente tabla con la información de DistroWatch y de tu instalación:
+
+  ===================================================================  ======================
+  Pregunta                                                             Tu distribución
+  ===================================================================  ======================
+  ¿En qué se basa? (Debian, Ubuntu, Fedora, Arch, independiente…)
+  Gestor de paquetes (APT, dnf, zypper, pacman…)
+  Escritorio que has elegido
+  Sistema de inicio (systemd, SysVinit, OpenRC…)
+  ¿Tiene versiones fijas, versiones LTS o es *rolling release*?
+  ¿Qué swap usa? (``swapon --show``)
+  ===================================================================  ======================
+
+* Sube el **pantallazo**\ :sup:`1`, donde se vean las particiones que has hecho y la salida de ``swapon --show``
 
 .. rubric:: Ejercicio 02
 
-Instala un programa y responde a la pregunta: ¿cómo lo has hecho? Sube un pantallazo.
+Instala un programa, con el entorno gráfico o con la línea de comandos, e indica qué gestor de paquetes has usado. Sube el **pantallazo**\ :sup:`2`, donde se vea el programa instalado.
 
 .. rubric:: Ejercicio 03
 
-Crea dos usuarios llamados **tunombre_01** y **tunombre_02**, haz un pantallazo y súbelo.
+Crea dos usuarios llamados **tunombre_01** y **tunombre_02** y sube el **pantallazo**\ :sup:`3`, donde se vean los dos usuarios.
 
 Cuando termines los ejercicios y los haya corregido el profesor, borra la máquina virtual para dejar espacio en el disco duro.

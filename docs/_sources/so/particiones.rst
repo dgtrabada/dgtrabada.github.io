@@ -90,7 +90,34 @@ Sus características principales son:
 
 Resumen de las dos particiones:
 
-===.. list-table::
+=================  ===========================================  ==========================
+\                  ESP                                          MSR
+=================  ===========================================  ==========================
+Para qué sirve     Arrancar el equipo (cargadores ``.efi``)     Reservada por Windows
+Formato            FAT32                                        Ninguno
+Tamaño             100–550 MiB                                  16 MiB
+Quién la crea      El primer sistema que se instala             El instalador de Windows
+¿Se comparte?      Sí, entre todos los sistemas del disco       No, solo es de Windows
+=================  ===========================================  ==========================
+
+En un arranque dual, Windows y GNU/Linux guardan sus cargadores en la misma ESP, cada uno en su carpeta (por ejemplo ``\EFI\Microsoft\Boot\bootmgfw.efi`` y ``\EFI\ubuntu\grubx64.efi``). Un equipo que arranca con BIOS y MBR no tiene ESP: el código de arranque está en el propio MBR.
+
+.. image:: imagenes/particiones2.png
+
+En la imagen, un disco GPT con 6 particiones primarias (de la sda1 a la sda6): con una tabla MBR no podríamos tener más de 4 primarias, y tendríamos que usar una extendida.
+
+Independientemente de cómo se cree la tabla de particiones, dejaremos una partición para el sistema operativo, otra para los datos y, en el caso de instalar un GNU/Linux, otra para la swap. Para el SO reservaremos ~80 GB en Windows y ~50 GB en GNU/Linux.
+
+.. _area-de-intercambio:
+
+El área de intercambio (swap)
+=============================
+
+El **área de intercambio** (*swap*) es un espacio que el sistema operativo usa como ampliación de la memoria RAM. El *swapping* es el proceso por el que, cuando la RAM se llena, las páginas de memoria que menos se están usando se copian a ese espacio para liberar RAM, y se recuperan cuando se vuelven a necesitar. Como el disco es mucho más lento que la RAM, si el sistema tiene que usar mucho la swap todo va más lento, pero al menos los programas no se cierran por falta de memoria.
+
+La swap puede estar en tres sitios distintos:
+
+.. list-table::
    :header-rows: 1
    :widths: 12 55 33
 
@@ -129,6 +156,7 @@ Si se usa la hibernación   Al menos igual que la RAM
 =========================  ====================================
 
 La **hibernación** guarda todo el contenido de la RAM en la swap y apaga el equipo; al encenderlo, se recupera tal cual estaba. Por eso, si se quiere hibernar, la swap tiene que ser al menos tan grande como la RAM (Ubuntu la trae desactivada por defecto).
+
 
 Organización para GNU/Linux
 ===========================
