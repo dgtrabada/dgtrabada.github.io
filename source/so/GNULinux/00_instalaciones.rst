@@ -25,6 +25,8 @@ Unos meses después de cada LTS sale la primera *point release*, por ejemplo la 
 
 .. rubric:: Ejercicio 02. Instalación
 
+`Vídeo de instalación <https://mediateca.educa.madrid.org/video/c7t44r5l635cmax9>`__
+
 * Descárgate el sistema operativo Ubuntu 26.04 LTS en formato ISO de su página oficial
 * Crea una máquina virtual llamada **MV Ubuntu 26.04** con 6 GB de RAM, 4 procesadores, una memoria de vídeo de 128 MB, un adaptador de red en modo puente y un disco duro de 400 GB reservado dinámicamente. Al ser dinámico, el archivo ``.vdi`` solo ocupa en el anfitrión lo que se va escribiendo (unos 10-15 GB después de instalar), pero puede crecer hasta los 400 GB: si llenas el disco de la máquina virtual, puedes llenar también el del anfitrión
 * Deja **desactivado EFI** (Configuración / Sistema / Placa base / [  ] Habilitar EFI), para que todos tengamos la misma instalación
