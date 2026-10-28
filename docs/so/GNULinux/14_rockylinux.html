@@ -574,7 +574,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-rocky-linux">Caso práctico: Instalación de Rocky Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-con-red-interna">Caso práctico: Cluster con red interna</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-rocky-linux">Servidor Rocky Linux</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-rocky-linux">Cliente Rocky Linux</a></li>
@@ -593,58 +592,52 @@
                   
   <section id="rocky-linux">
 <h1>Rocky Linux<a class="headerlink" href="#rocky-linux" title="Link to this heading">#</a></h1>
-<section id="caso-practico-instalacion-de-rocky-linux">
-<h2>Caso práctico: Instalación de Rocky Linux<a class="headerlink" href="#caso-practico-instalacion-de-rocky-linux" title="Link to this heading">#</a></h2>
+<section id="caso-practico-cluster-con-red-interna">
+<h2>Caso práctico: Cluster con red interna<a class="headerlink" href="#caso-practico-cluster-con-red-interna" title="Link to this heading">#</a></h2>
+<p>Partimos de la máquina virtual <strong>MV Rocky Linux</strong> del <a class="reference internal" href="14_ejercicios_rockylinux.html#ejercicio-1-instalacion-de-rocky-linux"><span class="std std-ref">Ejercicio 1: Instalación de Rocky Linux</span></a>.</p>
 <ul>
-<li><p>Descargate la iso de <a class="reference external" href="https://rockylinux.org/">Rocky Linux</a> Minimal para la arquitectura X86_64</p></li>
-<li><p>Utiliza un disco de 200 GB y 2G de RAM</p></li>
-<li><p>Llama a esta maquina virtual <strong>&quot;MV Rocky Linux&quot;</strong>.</p></li>
-<li><p>Utilizad dos adaptadores de red:
-* Tarjeta red modo &quot;<strong>Puente</strong>&quot; : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
-* Tarjeta de red modo &quot;<strong>Red interna</strong>&quot; : 172.16.0.10/16</p></li>
-<li><p>En el destino de la instalación, selecciona el disco duro si no esta ya seleccionado y deja la configuración de almacenamiento de forma Automática</p></li>
-<li><p>Configura la red en (RED Y NOMBRE DE ANFITRIÓN), haz que el nombre del equipo sea <strong>compute-0-0</strong></p></li>
-<li><p>Crea la contraseña de root</p></li>
-<li><p>Añade en /etc/hosts</p>
+<li><p>Crea dos clones enlazados de &quot;MV Rocky Linux&quot;, generando nuevas direcciones MAC, y llámalos &quot;<strong>compute-0-0</strong>&quot; y &quot;<strong>compute-0-1</strong>&quot;:</p>
+<ul class="simple">
+<li><p><strong>compute-0-0</strong>:</p>
+<ul>
+<li><p>Tarjeta de red modo &quot;<strong>Puente</strong>&quot;: 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
+<li><p>Añade una segunda tarjeta de red en modo &quot;<strong>Red interna</strong>&quot;: 172.16.0.10/16</p></li>
+<li><p>Cambia el nombre por compute-0-0 (<code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>)</p></li>
+<li><p>Haz que el usuario root pueda acceder por ssh sin pedir contraseña</p></li>
+</ul>
+</li>
+<li><p><strong>compute-0-1</strong>:</p>
+<ul>
+<li><p>Deja solo una tarjeta de red en modo &quot;<strong>Red interna</strong>&quot;: 172.16.0.11/16, con puerta de enlace 172.16.0.10 y DNS 8.8.8.8 (tendrá internet a través de compute-0-0). Si el clon conserva la tarjeta de adaptador puente, deshabilítala con <code class="docutils literal notranslate"><span class="pre">nmtui</span></code> (IPv4 &lt;disabled&gt;)</p></li>
+<li><p>Cambia el nombre por compute-0-1 (<code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>)</p></li>
+<li><p>Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña</p></li>
+</ul>
+</li>
+<li><p>Para configurar la red usa el comando <strong>nmtui</strong></p></li>
+</ul>
+</li>
+<li><p>Añade en el <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> de las dos máquinas:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">172</span>.16.0.10<span class="w"> </span>compute-0-0
 <span class="m">172</span>.16.0.11<span class="w"> </span>compute-0-1
 <span class="m">172</span>.16.0.12<span class="w"> </span>compute-0-2
 <span class="m">172</span>.16.0.13<span class="w"> </span>compute-0-3
-
-En<span class="w"> </span>el<span class="w"> </span>caso<span class="w"> </span>de<span class="w"> </span>que<span class="w"> </span>necesites<span class="w"> </span>reconfigurar<span class="w"> </span>la<span class="w"> </span>red<span class="w"> </span>utiliza<span class="w"> </span>el<span class="w"> </span>comando<span class="w"> </span>**nmtui**
 </pre></div>
 </div>
 </li>
-</ul>
-</section>
-<section id="caso-practico-cluster-con-red-interna">
-<h2>Caso práctico: Cluster con red interna<a class="headerlink" href="#caso-practico-cluster-con-red-interna" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Crea dos clones enlazados de &quot;MV Rocky Linux&quot; llámalos &quot;<strong>compute-0-0</strong>&quot; y &quot;<strong>compute-0-1</strong>&quot;</p>
-<ul>
-<li><p><strong>compute-0-0</strong>:</p>
-<ul class="simple">
-<li><p>Tarjeta red modo &quot;Puente&quot; : 10.4.X.Y/8 (DHCP si usas portátil)</p></li>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
-<li><p>Haz que el usuario root pueda acceder por ssh sin pedir contraseña</p></li>
-</ul>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, donde se vea que las dos máquinas se hacen ping.</p></li>
+<li><p>Haz que compute-0-1 tenga internet a través de compute-0-0. Para ello, activa el enrutamiento en compute-0-0:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-j<span class="w"> </span>ACCEPT
+iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">enp0s3</span></code> es la tarjeta de compute-0-0 que tiene salida a internet (compruébalo con <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>). Si tienes algún problema, prueba a deshabilitar el cortafuegos con <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">disable</span> <span class="pre">--now</span> <span class="pre">firewalld</span></code>.</p>
 </li>
-<li><p><strong>compute-0-1</strong></p>
-<ul class="simple">
-<li><p>Deja solo una tarjeta de red en modo &quot;Red interna&quot; : 172.16.0.11/16 (tiene internet a través de compute-0-0), deshabilita la segunda tarjeta nmtui (IPv4 &lt;disabled&gt;)</p></li>
-<li><p>Cambia el nombre por compute-0-1 (/etc/hostname)</p></li>
-<li><p>Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña</p></li>
-</ul>
-</li>
-<li><p>Crea un servicio como hicimos en ubuntu-server, pero haz que el script se ejecute desde:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>2</sup>, donde se vea <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">8.8.8.8</span></code> desde compute-0-1.</p></li>
+<li><p>Para que el enrutamiento no se pierda al reiniciar, crea un servicio como hicimos en Ubuntu Server, pero haz que el script con estos comandos se ejecute desde:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/usr/local/bin/enrutar.sh
-
-<span class="c1">#si tienes algún problema prueba a deshabilitar</span>
-systemctl<span class="w"> </span>disable<span class="w"> </span>firewalld
 </pre></div>
 </div>
-</li>
-</ul>
 </li>
 <li><p>Instala el servidor LDAP en compute-0-0</p></li>
 </ul>
@@ -1030,7 +1023,6 @@ URI<span class="w"> </span>ldap://ldap.tunombre.local
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-instalacion-de-rocky-linux">Caso práctico: Instalación de Rocky Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-con-red-interna">Caso práctico: Cluster con red interna</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#servidor-rocky-linux">Servidor Rocky Linux</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cliente-rocky-linux">Cliente Rocky Linux</a></li>

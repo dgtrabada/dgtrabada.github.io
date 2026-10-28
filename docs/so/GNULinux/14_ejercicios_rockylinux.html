@@ -576,8 +576,6 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-instalacion-de-rocky-linux">Ejercicio 1: Instalación de Rocky Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-usuarios-y-contrasenas">Ejercicio 2: Usuarios y contraseñas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-red-interna">Ejercicio 3: Red interna</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-enrutamiento">Ejercicio 4: Enrutamiento</a></li>
 </ul>
             </nav>
         </div>
@@ -594,8 +592,13 @@
 <section id="ejercicio-1-instalacion-de-rocky-linux">
 <h2>Ejercicio 1: Instalación de Rocky Linux<a class="headerlink" href="#ejercicio-1-instalacion-de-rocky-linux" title="Link to this heading">#</a></h2>
 <ul>
-<li><p>Instala la máquina virtual <strong>MV Rocky Linux</strong> siguiendo el <a class="reference internal" href="14_rockylinux.html#caso-practico-instalacion-de-rocky-linux"><span class="std std-ref">Caso práctico: Instalación de Rocky Linux</span></a>. En el instalador, dale directamente a <strong>Install Rocky Linux</strong>. De momento conecta solo el adaptador puente.</p></li>
-<li><p>Crea la contraseña de root y el usuario <strong>alumno</strong>.</p></li>
+<li><p>Descárgate la ISO de <a class="reference external" href="https://rockylinux.org/">Rocky Linux</a> <strong>Minimal</strong> para la arquitectura x86_64</p></li>
+<li><p>Crea una máquina virtual llamada <strong>&quot;MV Rocky Linux&quot;</strong> con un disco de 200 GB y 2 GB de RAM</p></li>
+<li><p>Utiliza un único adaptador de red en modo &quot;<strong>Puente</strong>&quot;: 10.4.X.Y/8, DNS 8.8.8.8, puerta de enlace 10.0.0.2 (DHCP si usas portátil)</p></li>
+<li><p>En el instalador, dale directamente a <strong>Install Rocky Linux</strong></p></li>
+<li><p>En el destino de la instalación, selecciona el disco duro si no está ya seleccionado y deja la configuración de almacenamiento de forma <strong>automática</strong></p></li>
+<li><p>Configura la red en <strong>Red y nombre de anfitrión</strong>. Si después necesitas cambiarla, utiliza el comando <strong>nmtui</strong></p></li>
+<li><p>Crea la contraseña de root y el usuario <strong>alumno</strong></p></li>
 <li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, con la salida de:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>a
 ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">8</span>.8.8.8
@@ -634,26 +637,6 @@ grep<span class="w"> </span>tunombre<span class="w"> </span>/etc/passwd
 grep<span class="w"> </span>tunombre<span class="w"> </span>/etc/shadow
 </pre></div>
 </div>
-</section>
-<section id="ejercicio-3-red-interna">
-<h2>Ejercicio 3: Red interna<a class="headerlink" href="#ejercicio-3-red-interna" title="Link to this heading">#</a></h2>
-<p>Haz otras dos clonaciones enlazadas de <strong>MV Rocky Linux</strong>, como en el <a class="reference internal" href="14_rockylinux.html#caso-practico-cluster-con-red-interna"><span class="std std-ref">Caso práctico: Cluster con red interna</span></a>:</p>
-<ul class="simple">
-<li><p><strong>compute-0-0</strong>: con las dos tarjetas de red, la de adaptador puente y la de red interna (172.16.0.10/16).</p></li>
-<li><p><strong>compute-0-1</strong>: quítale la tarjeta de adaptador puente y deja solo la de red interna, con la IP 172.16.0.11/16 y la puerta de enlace 172.16.0.10. Cambia el nombre en <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>. Para configurar la red, usa <code class="docutils literal notranslate"><span class="pre">nmtui</span></code>.</p></li>
-</ul>
-<p>Sube el <strong>pantallazo</strong><sup>3</sup>, donde se vea que las dos máquinas se hacen ping.</p>
-</section>
-<section id="ejercicio-4-enrutamiento">
-<h2>Ejercicio 4: Enrutamiento<a class="headerlink" href="#ejercicio-4-enrutamiento" title="Link to this heading">#</a></h2>
-<p>Haz que compute-0-1 tenga internet a través de compute-0-0. Para ello, activa el enrutamiento en compute-0-0:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
-iptables<span class="w"> </span>-A<span class="w"> </span>FORWARD<span class="w"> </span>-j<span class="w"> </span>ACCEPT
-iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>-o<span class="w"> </span>enp0s3<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">enp0s3</span></code> es la tarjeta de compute-0-0 que tiene salida a internet (compruébalo con <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code>). Si tienes algún problema, prueba a deshabilitar el cortafuegos con <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">disable</span> <span class="pre">--now</span> <span class="pre">firewalld</span></code>.</p>
-<p>Sube el <strong>pantallazo</strong><sup>4</sup>, donde se vea <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-c</span> <span class="pre">3</span> <span class="pre">8.8.8.8</span></code> desde compute-0-1.</p>
 </section>
 </section>
 
@@ -706,8 +689,6 @@ iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-instalacion-de-rocky-linux">Ejercicio 1: Instalación de Rocky Linux</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-usuarios-y-contrasenas">Ejercicio 2: Usuarios y contraseñas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-red-interna">Ejercicio 3: Red interna</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-enrutamiento">Ejercicio 4: Enrutamiento</a></li>
 </ul>
   </nav></div>
 

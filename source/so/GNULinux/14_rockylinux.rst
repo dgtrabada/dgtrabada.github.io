@@ -2,54 +2,56 @@
 Rocky Linux
 ***********
 
-Caso práctico: Instalación de Rocky Linux
-*****************************************
+Caso práctico: Cluster con red interna
+**************************************
 
-* Descargate la iso de `Rocky Linux <https://rockylinux.org/>`_ Minimal para la arquitectura X86_64
-* Utiliza un disco de 200 GB y 2G de RAM
-* Llama a esta maquina virtual **"MV Rocky Linux"**.
-* Utilizad dos adaptadores de red:
-  * Tarjeta red modo "**Puente**" : 10.4.X.Y/8 , DNS 8.8.8.8 , Gateway 10.0.0.2. (DHCP si usas portátil)
-  * Tarjeta de red modo "**Red interna**" : 172.16.0.10/16
-* En el destino de la instalación, selecciona el disco duro si no esta ya seleccionado y deja la configuración de almacenamiento de forma Automática
-* Configura la red en (RED Y NOMBRE DE ANFITRIÓN), haz que el nombre del equipo sea **compute-0-0**
-* Crea la contraseña de root
-* Añade en /etc/hosts
+Partimos de la máquina virtual **MV Rocky Linux** del :ref:`Ejercicio 1: Instalación de Rocky Linux`.
+
+* Crea dos clones enlazados de "MV Rocky Linux", generando nuevas direcciones MAC, y llámalos "**compute-0-0**" y "**compute-0-1**":
+
+  * **compute-0-0**:
+
+    * Tarjeta de red modo "**Puente**": 10.4.X.Y/8 (DHCP si usas portátil)
+    * Añade una segunda tarjeta de red en modo "**Red interna**": 172.16.0.10/16
+    * Cambia el nombre por compute-0-0 (``/etc/hostname``)
+    * Haz que el usuario root pueda acceder por ssh sin pedir contraseña
+
+  * **compute-0-1**:
+
+    * Deja solo una tarjeta de red en modo "**Red interna**": 172.16.0.11/16, con puerta de enlace 172.16.0.10 y DNS 8.8.8.8 (tendrá internet a través de compute-0-0). Si el clon conserva la tarjeta de adaptador puente, deshabilítala con ``nmtui`` (IPv4 <disabled>)
+    * Cambia el nombre por compute-0-1 (``/etc/hostname``)
+    * Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña
+
+  * Para configurar la red usa el comando **nmtui**
+
+* Añade en el ``/etc/hosts`` de las dos máquinas:
 
   .. code-block:: bash
-  
+
    172.16.0.10 compute-0-0
    172.16.0.11 compute-0-1
    172.16.0.12 compute-0-2
    172.16.0.13 compute-0-3
-  
-   En el caso de que necesites reconfigurar la red utiliza el comando **nmtui**
 
-Caso práctico: Cluster con red interna
-**************************************
+* Sube el **pantallazo**\ :sup:`1`, donde se vea que las dos máquinas se hacen ping.
 
-* Crea dos clones enlazados de "MV Rocky Linux" llámalos "**compute-0-0**" y "**compute-0-1**"
+* Haz que compute-0-1 tenga internet a través de compute-0-0. Para ello, activa el enrutamiento en compute-0-0:
 
-  * **compute-0-0**:
-  
-    * Tarjeta red modo "Puente" : 10.4.X.Y/8 (DHCP si usas portátil)
-    * Tarjeta de red modo "Red interna" : 172.16.0.10/16
-    * Haz que el usuario root pueda acceder por ssh sin pedir contraseña
-    
-  * **compute-0-1**
-  
-    * Deja solo una tarjeta de red en modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0), deshabilita la segunda tarjeta nmtui (IPv4 <disabled>)
-    * Cambia el nombre por compute-0-1 (/etc/hostname)
-    * Haz que el usuario root pueda acceder desde compute-0-0 por ssh sin pedir contraseña
-    
-  * Crea un servicio como hicimos en ubuntu-server, pero haz que el script se ejecute desde:
-    
-    .. code-block:: bash
+  .. code-block:: bash
+
+   echo "1" > /proc/sys/net/ipv4/ip_forward
+   iptables -A FORWARD -j ACCEPT
+   iptables -t nat -A POSTROUTING -s 172.16.0.0/16 -o enp0s3 -j MASQUERADE
+
+  ``enp0s3`` es la tarjeta de compute-0-0 que tiene salida a internet (compruébalo con ``ip a``). Si tienes algún problema, prueba a deshabilitar el cortafuegos con ``systemctl disable --now firewalld``.
+
+* Sube el **pantallazo**\ :sup:`2`, donde se vea ``ping -c 3 8.8.8.8`` desde compute-0-1.
+
+* Para que el enrutamiento no se pierda al reiniciar, crea un servicio como hicimos en Ubuntu Server, pero haz que el script con estos comandos se ejecute desde:
+
+  .. code-block:: bash
 
      /usr/local/bin/enrutar.sh
-     
-     #si tienes algún problema prueba a deshabilitar
-     systemctl disable firewalld
 
 * Instala el servidor LDAP en compute-0-0
 
