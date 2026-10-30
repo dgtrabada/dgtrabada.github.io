@@ -448,7 +448,9 @@ Consejos adicionales
    :hidden:
 
    01_cuestionario_procesos.rst
+   01_ejercicios_comandos_basicos.rst
    01_cuestionario_comandos_basicos.rst
    01_cuestionario_gestion_particiones.rst
+   01_ejercicios_gestion_particiones.rst
 
   
