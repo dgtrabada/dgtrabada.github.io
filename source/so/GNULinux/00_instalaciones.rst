@@ -427,7 +427,7 @@ Igual que Fedora, usa paquetes **RPM**, pero los gestiona con **zypper** en luga
 .. rubric:: Ejercicio 02
 
 * Una vez hayas respondido a las preguntas, continúa con la instalación
-* Crea el usuario local **alumno** con contraseña **alumno** y deshabilita el inicio de sesión automático
+* Crea el usuario local **tunombre** con contraseña **alumno** y deshabilita el inicio de sesión automático
 * Cambia el fondo del escritorio y crea una carpeta llamada tu_nombre
 * Crea un acceso directo del Monitor del sistema en el escritorio
 * Añade un acceso directo de Firefox en el panel

@@ -401,3 +401,4 @@ Para que se inicie automáticamente utilizamos el sistema systemctl
    :hidden:
 
    06_cuestionario_automatizacion_tareas.rst
+   06_ejercicios_arranque_sistema.rst

@@ -2,8 +2,8 @@
 Ejercicios comandos básicos
 *****************************
 
-Ejercicio 1
-===========
+Ejercicio 1: árbol de directorios
+=================================
 
 Haz el siguiente esquema de directorios; donde pone **tuNombre** haz que aparezca una carpeta con tu nombre:
 
@@ -15,8 +15,8 @@ Si hacemos ``tree H`` obtenemos:
 
 Cuando termines sube un **pantallazo** del comando ``tree H``.
 
-Ejercicio 2
-===========
+Ejercicio 2: link simbólico
+===========================
 
 Crea un link simbólico dentro de **O** hasta la carpeta con **tuNombre**; tiene que aparecer como se ve en la imagen:
 
@@ -24,8 +24,8 @@ Crea un link simbólico dentro de **O** hasta la carpeta con **tuNombre**; tiene
 
 Cuando termines sube un **pantallazo** del comando ``tree H``.
 
-Ejercicio 3
-===========
+Ejercicio 3: mover carpetas con mv
+==================================
 
 Utilizando el comando ``mv`` cambia el orden de las carpetas para que aparezca la siguiente estructura cuando ejecutamos el comando ``tree H``:
 
@@ -33,8 +33,8 @@ Utilizando el comando ``mv`` cambia el orden de las carpetas para que aparezca l
 
 Cuando termines sube un **pantallazo** del comando ``tree H``.
 
-Ejercicio 4
-===========
+Ejercicio 4: caminos a ROMA
+===========================
 
 Utiliza la línea de comandos y ejecuta los siguientes comandos:
 
@@ -56,8 +56,8 @@ Utiliza la línea de comandos y ejecuta los siguientes comandos:
 
 No todos los caminos nos llevan a **ROMA**, ¿cuál o cuáles no nos llevan...?
 
-Ejercicio 5
-===========
+Ejercicio 5: copiar y comparar carpetas
+=======================================
 
 * Crea la carpeta **a1**.
 * Dentro de **a1** tenemos dos carpetas **b** y **c**.
@@ -78,8 +78,8 @@ Ejercicio 5
 
 Escribe un comando que obtenga la diferencia entre estas dos carpetas y sube un **pantallazo** utilizándolo.
 
-Ejercicio 6
-===========
+Ejercicio 6: comando find
+=========================
 
 Comando ``find``. Crea el siguiente árbol de carpetas:
 
@@ -95,8 +95,8 @@ Cuando termines vuelve al principio y busca la carpeta que has creado con tu nom
 
 Sube un **pantallazo** en el que aparezcan el comando ``tree 1`` y el comando que has utilizado para encontrar la carpeta con tu nombre.
 
-Ejercicio 7
-===========
+Ejercicio 7: comando tar
+========================
 
 Crea el archivo **1.tar.gz** a partir de la carpeta **1** y lista los archivos utilizando el comando:
 
