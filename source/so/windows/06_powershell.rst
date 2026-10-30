@@ -951,4 +951,7 @@ Para ser administrador
 .. toctree::
    :hidden:
 
+   06b_ejercicios_powershell_comandos.rst
    06_cuestionario_powershell.rst
+   06c_ejercicios_powershell_usuarios.rst
+   06d_ejercicios_comandos_dos.rst
