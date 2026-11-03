@@ -1,0 +1,1143 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Caso práctico: Active Directory con red NAT y red interna &#8212; dgtrabada</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=40e79d90"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../../_static/translations.js?v=f85f4cfb"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'so/windows/08_Caso_practico_AD_rednat';</script>
+    <link rel="icon" href="../../_static/ico.png"/>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+    <link rel="next" title="Casos prácticos : Active Directory sin GUI" href="09_Caso_practico_AD_sin_GUI.html" />
+    <link rel="prev" title="Casos prácticos : Active Directory con red interna" href="08_Caso_practico_AD_redint.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">dgtrabada</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../historia/index.html">Historia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/Introduccion.html">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/mecanicos.html">Dispositivos mecánicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/electricidad.html">Transición, la electricidad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/1gen.html">Primera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/2gen.html">Segunda generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/3gen.html">Tercera generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/4gen.html">Cuarta generación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../historia/SXXI.html">SXXI</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Sistemas Operativos</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../fundamentos/index.html">Fundamentos de sistemas operativos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/so_evolucion_sistema_operativo.html">Evolución del Sistema Operativo</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/so_licencias.html">Tipos software y licencias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_licencias.html">Cuestionario de licencias</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../fundamentos/sistemas_operativos.html">Sistemas operativos</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_procesos.html">Gestión de procesos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos1.html">Cuestionario gestión de procesos: teoría</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos2.html">Cuestionario gestión de procesos: ejercicios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_procesos3.html">Cuestionario gestión de procesos: ejercicios aleatorios</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_memoria.html">Gestión de memoria</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_memoria.html">Cuestionario gestión de memoria</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/sistema_archivos.html">Sistema de archivos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_archivos.html">Cuestionario gestión de archivos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../fundamentos/gestion_arranque.html">Gestión del arranque</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../fundamentos/cuestionario_gestion_arranque.html">Cuestionario gestión del arranque</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../virtualizacion/index.html">La virtualización</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../virtualizacion/virtualbox.html">VirtualBox</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../virtualizacion/virtualbox_introduccion.html">Ejercicios de clonación y redes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../virtualizacion/virtualbox_particiones.html">Ejercicios de particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../virtualizacion/docker.html">Docker</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../GNULinux/index.html">GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/00_historia.html">Historia GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/00_instalaciones.html">Instalación de distribuciones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/00_cuestionario_instalaciones.html">Cuestionario instalaciones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/01_comandos_basicos.html">Comandos básicos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_procesos.html">Cuestionario gestión de procesos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_ejercicios_comandos_basicos.html">Ejercicios comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_comandos_basicos.html">Cuestionario comandos básicos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_cuestionario_gestion_particiones.html">Cuestionario gestión de particiones</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_ejercicios_gestion_particiones.html">Ejercicios gestión de particiones</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/01_ejercicios_raid_lvm.html">Ejercicios RAID y LVM</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/02_permisos.html">Permisos en GNU/Linux</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/03_usuarios.html">Usuarios y grupos GNU/Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/03_cuestionario_permisos_usuarios_grupos.html">Cuestionario permisos, usuarios y grupos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/03_ejercicios_ubuntu_server.html">Ejercicios Ubuntu Server</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/04_ssh.html">SSH</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/04_ejercicios_ssh.html">Ejercicios SSH y rsync</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/05_samba.html">Samba</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/05_ejercicio_samba.html">Ejercicio Samba</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/05_apache.html">Apache</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/05_ejercicio_apache.html">Ejercicio Apache</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/06_automatizacion_tareas.html">Automatización de tareas y servicios</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/06_cuestionario_automatizacion_tareas.html">Cuestionario automatización de tareas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/06_ejercicios_arranque_sistema.html">Ejercicios arranque del sistema</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/07_comandos_avanzados.html">Comandos avanzados</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/07_cuestionario_comandos_avanzados.html">Cuestionario comandos avanzados</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/08_NIS.html">NIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/09_GNULinux_NFS.html">NFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/10_slurm.html">Slurm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/11_modules.html">Environment modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/13_ldap.html">LDAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/12_ansible.html">Ansible</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/14_rockylinux.html">Rocky Linux</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_ejercicios_rockylinux.html">Ejercicios Rocky Linux</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Windows</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_historia.html">Historia de Windows</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="02_configuracion.html">Configuración Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="02b_ejercicios_configuracion.html">Ejercicios de configuración</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02c_cuestionario_configuracion.html">Cuestionario configuración Windows</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="03_usuarios_grupos.html">Usuarios y grupos Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="03_ejercicios_usuarios_grupos.html">Ejercicio de usuarios y grupos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="03b_permisos_ntfs.html">Permisos NTFS y carpetas compartidas</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="04_arranque.html">Arranque de Windows</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="04_ejercicio_servicios_arranque.html">Ejercicio de servicios y arranque</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="05_comandos_dos.html">Comandos ms-dos</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="05_cuestionario_comandos_dos.html">Cuestionario comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="06_powershell.html">PowerShell</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="06b_ejercicios_powershell_comandos.html">Ejercicios PowerShell comandos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="06_cuestionario_powershell.html">Cuestionario PowerShell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="06c_ejercicios_powershell_usuarios.html">Ejercicios PowerShell gestión de usuarios</a></li>
+<li class="toctree-l4"><a class="reference internal" href="06d_ejercicios_comandos_dos.html">Ejercicios comandos MS-DOS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Caso práctico: Active Directory con red NAT y red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_bat.html">Scripting .bat</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../clonacion.html">Clonación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../hardware/index.html">Hardware</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../teoria/medida_representacion_informacion.html">Medida y representación de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/sistema_anal%C3%B3gico_digital.html">Sistema analógico &amp; digital</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/medida_informacion.html">Medida de la información</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/potencias.html">Cuestionario de potencias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_medida_informacion.html">Cuestionario medida de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../teoria/representacion_informacion.html">Representación de la información</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_numeracion.html">Sistemas de numeración</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_representacion_informacion_1.html">Cuestionario representación de la información</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/cambio_base_decimales.html">Cambio de base con decimales</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_cambio_base_decimales.html">Cuestionario cambio de base con decimales</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/sistemas_codificacion.html">Sistemas de codificación</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_sistemas_codificacion.html">Cuestionario sistemas de codificación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../teoria/imagen_digital.html">Imagen digital</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../teoria/cuestionario_imagen_digital.html">Cuestionario imagen digital</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/mantenimiento.html">Mantenimiento de sistemas informáticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/bios.html">BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/uefi.html">UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diccionario.html">Diccionario de la BIOS/UEFI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/dispositivos_almacenamiento.html">Dispositivos de almacenamiento</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../particiones.html">Particiones</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cuestionario_particiones.html">Cuestionario particiones</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/buses.html">Buses y conectores de datos</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/raid.html">RAID</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_raid.html">Cuestionario RAID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/historia_microprocesador.html">Breve historia del procesador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/microprocesadores.html">Microprocesadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/encapsulados.html">Encapsulados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ventilacion.html">Ventilación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/ram.html">Memoria RAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conceptos_electronicos.html">Conceptos eléctricos - electrónicos y elementos básicos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/fuente_alimentacion.html">Fuentes de Alimentación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores_potencia.html">Cableado y conectores de potencia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/sai.html">Sistemas de alimentación ininterrumpida</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/puertas_logicas.html">Puertas lógicas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_puertas_logicas.html">Cuestionario puertas lógicas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../hardware/arquitectura.html">Arquitectura del ordenador</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../hardware/cuestionario_arquitectura.html">Cuestionario arquitectura Von Neumann</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/carcasa.html">La carcasa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/placa_base.html">La placa base, el “chipset”, la EPROM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/conectores.html">Conectores y buses externos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/tarjetas.html">Tarjetas de expansión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/perifericos.html">Periféricos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/cpd.html">Centro de Proceso de Datos (CPD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hardware/diagnostico.html">Herramientas de diagnóstico</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../redes/index.html">Redes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_comunicacion.html">Sistema de comunicación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/tipos_tecnicas_transmision_datos.html">Tipos y técnicas de transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/sistemas_red.html">Sistemas en red</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/medios_transmision.html">Medios de transmisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/perturbaciones.html">Perturbaciones en la transmisión de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/topologia.html">Topologías de red y modos de conexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/redes_inalambricas.html">Redes inalámbricas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/arquitectura_niveles.html">Arquitecturas basadas en niveles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/transporte_datos_equipos_interconexion.html">Transporte de datos y equipos de interconexión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/Direccionamiento_IP.html">Direccionamiento IP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/casos_practicos.html">Casos prácticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../redes/cableado_estructurado.html">Cableado Estructurado</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../odoo/index.html">Odoo</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/01_ERP-CRM.html">ERP-CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/02_odoo.html">Odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/03_Inf_empresa.html">Información de la empresa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/04_taza_lapiz_camiseta.html">Taza, lápiz y camiseta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/05_Directorio_fotos.html">Directorio Fotos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/06_instalacion_odoo.html">Instalación odoo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/07_Sitio_Web.html">Sitio Web</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/08_copia_seguridad.html">Copia de seguridad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/09_Usuarios_sistema.html">Usuarios del sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/10_empleados.html">Empleados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/11_Inventario.html">Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/12_ventas.html">Ventas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/13_calendario.html">Calendario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/14_proyecto.html">Proyecto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/15_encuestas.html">Encuestas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/16_ausencias.html">Ausencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/17_tableros.html">Tableros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/18_mantenimiento.html">Mantenimiento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/19_notas.html">Notas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/20_crm.html">CRM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/21_flota.html">Flota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/22_punto_venta.html">Punto de venta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/23_restaurante.html">Restaurante</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/24_compra.html">Compra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/25_reparaciones.html">Reparaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/26_eventos.html">Eventos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/27_modulo.html">Crear un módulo/app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/28_crear_campo.html">Crear campo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/29_infomod.html">Información del módulo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/30_selfenvuser.html">self.env.user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/31_menuitem.html">Menuitem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../odoo/32_presentacion.html">Presentación</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/so/windows/08_Caso_practico_AD_rednat.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Caso práctico: Active Directory con red NAT y red interna</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maquinas-virtuales">Máquinas virtuales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritorio-remoto">Escritorio remoto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas">Unidades organizativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-y-grupos">Usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-los-equipos-al-dominio">Unir los equipos al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sacar-un-equipo-del-dominio-y-cambiarle-el-nombre">Sacar un equipo del dominio y cambiarle el nombre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-contrasenas">Directivas de contraseñas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Instalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil obligatorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="caso-practico-active-directory-con-red-nat-y-red-interna">
+<h1>Caso práctico: Active Directory con red NAT y red interna<a class="headerlink" href="#caso-practico-active-directory-con-red-nat-y-red-interna" title="Link to this heading">#</a></h1>
+<p>En este caso práctico vamos a montar el dominio <strong>empresa_tunombre.local</strong> con un controlador de dominio (<strong>SRVtunombre</strong>), tres clientes Windows 11 y un cliente Ubuntu. Antes de empezar repasa la teoría de <a class="reference internal" href="07_AD_DS.html"><span class="doc">Active Directory Domain Services (AD DS)</span></a>. Puedes apoyarte en los vídeos <a class="footnote-reference brackets" href="#v1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p>
+<section id="maquinas-virtuales">
+<h2>Máquinas virtuales<a class="headerlink" href="#maquinas-virtuales" title="Link to this heading">#</a></h2>
+<p>Crea los siguientes clones enlazados:</p>
+<ul class="simple">
+<li><p>Clon enlazado 1 de <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-windows-server-2022"><span class="std std-ref">Windows Server 2022</span></a> llamado <strong>SRVtunombre</strong> (controlador de dominio) con dos tarjetas de red:</p>
+<ul>
+<li><p>Tarjeta de red en modo &quot;Red NAT&quot; <a class="footnote-reference brackets" href="#rednat" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>: 10.0.2.10/24, puerta de enlace 10.0.2.1. Es la que da salida a internet. Para el Escritorio remoto reenvía el puerto <strong>33389</strong> del anfitrión (127.0.0.1:33389) al puerto <strong>3389</strong> del servidor (10.0.2.10:3389).</p></li>
+<li><p>Tarjeta de red en modo &quot;Red interna&quot;: 172.16.0.10/16.</p></li>
+</ul>
+</li>
+<li><p>Clon enlazado 2 de <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-windows-11"><span class="std std-ref">Windows 11</span></a> llamado <strong>WC05tunombre</strong> con una tarjeta de red en modo &quot;Red interna&quot;: 172.16.0.15/16, puerta de enlace 172.16.0.10 y DNS 172.16.0.10.</p></li>
+<li><p>Clon enlazado 3 de <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-windows-11"><span class="std std-ref">Windows 11</span></a> llamado <strong>WC06tunombre</strong> con una tarjeta de red en modo &quot;Red interna&quot;: 172.16.0.16/16, puerta de enlace 172.16.0.10 y DNS 172.16.0.10.</p></li>
+<li><p>Clon enlazado 4 de <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-windows-11"><span class="std std-ref">Windows 11</span></a> llamado <strong>WC07tunombre</strong> con una tarjeta de red en modo &quot;Red interna&quot;: 172.16.0.17/16, puerta de enlace 172.16.0.10 y DNS 172.16.0.10.</p></li>
+<li><p>Clon enlazado 5 de <strong>MV Ubuntu 26.04</strong> llamado <strong>ubuntu01</strong> con una tarjeta de red en modo &quot;Red interna&quot;: 172.16.0.20/16, puerta de enlace 172.16.0.10 y DNS 172.16.0.10.</p></li>
+</ul>
+<p>Fíjate en que la puerta de enlace y el DNS de los clientes son el propio servidor: los clientes están en una red interna sin salida directa, y será el servidor quien les dé acceso al exterior haciendo de router (NAT), además de ser su controlador de dominio y su DNS.</p>
+<p>El servidor debe tener <strong>IP fija</strong> en las dos tarjetas: va a ser el controlador de dominio, el DNS y la puerta de enlace de la red interna, y los clientes lo tienen que localizar siempre en la misma dirección.</p>
+<p>En el servidor, en <strong>Panel de control/Redes e Internet/Conexiones de red</strong> (<code class="docutils literal notranslate"><span class="pre">ncpa.cpl</span></code>), cambia el nombre de las dos tarjetas a <strong>RedNAT</strong> y <strong>RedInterna</strong>: así sabrás en todo momento cuál es cada una cuando el asistente de enrutamiento te pida elegir.</p>
+</section>
+<section id="escritorio-remoto">
+<h2>Escritorio remoto<a class="headerlink" href="#escritorio-remoto" title="Link to this heading">#</a></h2>
+<p>Con la red NAT no podemos llegar desde el anfitrión al servidor directamente, así que reenviamos un puerto del anfitrión al <strong>Escritorio remoto</strong> (RDP, puerto 3389/TCP) del servidor. En <strong>Herramientas/Red/Redes NAT/Reenvío de puertos</strong> de VirtualBox añade la regla:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nombre</p></th>
+<th class="head"><p>Protocolo</p></th>
+<th class="head"><p>IP anfitrión</p></th>
+<th class="head"><p>Puerto anfitrión</p></th>
+<th class="head"><p>IP invitado</p></th>
+<th class="head"><p>Puerto invitado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RDP</p></td>
+<td><p>TCP</p></td>
+<td><p>127.0.0.1</p></td>
+<td><p>33389</p></td>
+<td><p>10.0.2.10</p></td>
+<td><p>3389</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>En el servidor activa el Escritorio remoto en <strong>Configuración/Sistema/Escritorio remoto</strong> o con <code class="docutils literal notranslate"><span class="pre">sconfig</span></code> (opción 7). Al activarlo se abre también la regla del firewall. Con PowerShell:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-ItemProperty</span> <span class="s1">&#39;HKLM:\System\CurrentControlSet\Control\Terminal Server&#39;</span> <span class="n">-Name</span> <span class="n">fDenyTSConnections</span> <span class="n">-Value</span> <span class="n">0</span>
+<span class="nb">Enable-NetFirewallRule</span> <span class="n">-DisplayGroup</span> <span class="s2">&quot;Escritorio remoto&quot;</span>   <span class="c"># &quot;Remote Desktop&quot; si el sistema está en inglés</span>
+</pre></div>
+</div>
+<p>Para conectarte desde el anfitrión:</p>
+<ul class="simple">
+<li><p>Desde Windows: <code class="docutils literal notranslate"><span class="pre">mstsc</span></code> (Conexión a Escritorio remoto), conectando a <code class="docutils literal notranslate"><span class="pre">127.0.0.1:33389</span></code>.</p></li>
+<li><p>Desde GNU/Linux: Remmina o <code class="docutils literal notranslate"><span class="pre">xfreerdp</span> <span class="pre">/v:127.0.0.1:33389</span> <span class="pre">/u:Administrador</span></code>.</p></li>
+</ul>
+</section>
+<section id="configurar-servicio-de-enrutamiento">
+<h2>Configurar servicio de enrutamiento<a class="headerlink" href="#configurar-servicio-de-enrutamiento" title="Link to this heading">#</a></h2>
+<p>Para que los clientes de la red interna tengan internet, el servidor tiene que hacer de router. Para configurar el servicio de enrutamiento vamos a:</p>
+<ul>
+<li><p>Panel / Agregar roles y características</p>
+<p>Seleccionamos nuestro servidor <strong>SRVtunombre</strong></p>
+</li>
+</ul>
+<p>En Roles de servidor marcamos la casilla de:</p>
+<ul class="simple">
+<li><p>[x] Remote Access / <strong>Acceso remoto</strong></p></li>
+</ul>
+<p>En servicios de rol seleccionamos:</p>
+<ul class="simple">
+<li><p>[x] DirectAccess and VPN(RAS)</p></li>
+<li><p>[x] Routing</p></li>
+</ul>
+<p>Para configurar el servicio de <strong>enrutamiento</strong> vamos a <strong>Panel/Herramientas/Enrutamiento y Acceso remoto</strong>, seleccionamos nuestro servidor <strong>SRVtunombre</strong>, pulsamos con el botón derecho del ratón y configuramos y habilitamos el enrutamiento y acceso remoto seleccionando:</p>
+<ul class="simple">
+<li><p>[x] Traducción de direcciones de red (NAT)</p></li>
+</ul>
+<p>Como interfaz pública seleccionamos la tarjeta <strong>RedNAT</strong> (10.0.2.10): es la que da salida a internet.</p>
+<p>Cuando el asistente pregunte por los servicios de nombres y direcciones (DNS/DHCP), elegimos configurarlos más adelante.</p>
+</section>
+<section id="instalacion-y-configuracion-de-active-directory-y-dns">
+<h2>Instalación y configuración de Active Directory y DNS<a class="headerlink" href="#instalacion-y-configuracion-de-active-directory-y-dns" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>En <strong>SRVtunombre</strong> vamos a <strong>Administrador del servidor/Panel/Agregar roles y características/Instalación basada en características o en roles</strong>, seleccionamos un servidor del grupo de servidores, escogemos <strong>SRVtunombre</strong> y marcamos la casilla <strong>Servicios de dominio de Active Directory</strong>.</p></li>
+</ul>
+</section>
+<section id="creacion-de-un-dominio">
+<h2>Creación de un dominio<a class="headerlink" href="#creacion-de-un-dominio" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Partiendo de la ventana Resultados de la instalación de Active Directory, pulsa en <strong>Promover este servidor a controlador de dominio</strong>. (Si se había cerrado la ventana anterior es posible acceder a ella pulsando en el icono de advertencia de la barra de herramientas del Administrador del servidor.)</p>
+<img alt="../../_images/WS_promoverservidorCD.png" src="../../_images/WS_promoverservidorCD.png" />
+</li>
+<li><p>De momento, el servidor SRVtunombre no pertenece a ningún dominio. Tampoco existe un bosque al que agregar un nuevo dominio. Por lo tanto, el primer paso para formar el dominio <strong>empresa_tunombre.local</strong> es crear un nuevo bosque: selecciona la opción <strong>Agregar un nuevo bosque</strong>, escribe el nombre del dominio <strong>empresa_tunombre.local</strong> y pulsa Siguiente.</p></li>
+<li><p>En capacidades del controlador del dominio, el <strong>Servidor de Sistema de nombres de dominio (DNS)</strong> y el <strong>Catálogo global (GC)</strong> deben estar marcados. Como contraseña de <strong>restauración de servicios de directorio (DSRM)</strong> <a class="footnote-reference brackets" href="#dsrm" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> pon <strong>&#64;lumn0DSRM</strong>.</p></li>
+<li><p>Verifica el nombre NetBIOS <a class="footnote-reference brackets" href="#netbios" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> <strong>EMPRESA_TUNOMBRE</strong> y pulsa Siguiente.</p></li>
+<li><p>Si todo ha sido configurado correctamente, haz clic en <strong>Instalar</strong>. El servidor se reiniciará.</p></li>
+</ul>
+<p>Cuando se reinicie, comprueba que el DNS de las dos tarjetas del servidor es él mismo (127.0.0.1): ahora el servidor es el DNS del dominio.</p>
+<p>Por último, habilita las actualizaciones dinámicas para que los clientes puedan registrar automáticamente sus nombres en el DNS: en <strong>Inicio/Herramientas administrativas/DNS</strong>, expande <strong>SRVTUNOMBRE/Zonas de búsqueda directa</strong>, haz clic con el botón derecho del ratón en <strong>empresa_tunombre.local/Propiedades/General</strong> y en la lista <strong>Actualizaciones dinámicas</strong> elige <strong>Sin seguridad y con seguridad</strong>. A continuación haz clic en Aceptar.</p>
+</section>
+<section id="unidades-organizativas">
+<h2>Unidades organizativas<a class="headerlink" href="#unidades-organizativas" title="Link to this heading">#</a></h2>
+<p>La estructura lógica de Windows Server se basa en la utilización de dominios y unidades organizativas. En un dominio se puede crear una jerarquía de unidades organizativas, las cuales pueden contener usuarios, grupos, equipos, impresoras y carpetas compartidas, además de otras unidades organizativas.</p>
+<p>Para crear las unidades organizativas, en <strong>Inicio/Herramientas administrativas/Usuarios y equipos de Active Directory</strong>, dentro del dominio <strong>empresa_tunombre.local</strong> haz clic con el botón derecho del ratón -&gt; Nuevo -&gt; Unidad Organizativa, y crea la siguiente estructura:</p>
+<ul class="simple">
+<li><p>OU=Oficinas</p>
+<ul>
+<li><p>OU=Madrid</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+<li><p>OU=Barcelona</p>
+<ul>
+<li><p>OU=Ventas</p></li>
+<li><p>OU=Marketing</p></li>
+<li><p>OU=Administración</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>OU=Departamentos</p>
+<ul>
+<li><p>OU=Recursos Humanos</p></li>
+<li><p>OU=Finanzas</p></li>
+<li><p>OU=IT</p></li>
+</ul>
+</li>
+<li><p>OU=Usuarios</p>
+<ul>
+<li><p>OU=Empleados</p></li>
+<li><p>OU=Contratistas</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT01.png" src="../../_images/ADINT01.png" />
+<ul class="simple">
+<li><p>La <strong>OU Oficinas</strong> se utiliza para agrupar las unidades organizativas por ubicación geográfica.</p></li>
+<li><p>Las <strong>OU Madrid y Barcelona</strong> se utilizan para agrupar los departamentos dentro de cada oficina.</p></li>
+<li><p>La <strong>OU Departamentos</strong> se utiliza para agrupar las unidades organizativas por función.</p></li>
+<li><p>La <strong>OU Usuarios</strong> se utiliza para agrupar las cuentas de usuario.</p></li>
+</ul>
+<p><strong>Ayuda</strong>: en el caso de querer borrar una OU que está protegida contra el borrado accidental, en propiedades, en la pestaña Objeto, desmarca dicha protección. En el caso de no ver esta pestaña, haz clic en Ver en la barra de menú y selecciona Características avanzadas.</p>
+</section>
+<section id="usuarios-y-grupos">
+<h2>Usuarios y grupos<a class="headerlink" href="#usuarios-y-grupos" title="Link to this heading">#</a></h2>
+<p>Crea el grupo de seguridad de ámbito global (ver <a class="reference internal" href="07_AD_DS.html#grupos-del-dominio"><span class="std std-ref">Grupos del dominio</span></a>) <strong>Empleados</strong> dentro de la UO Empleados y el grupo <strong>Contratistas</strong> dentro de la UO Contratistas.</p>
+<p>Dentro de cada unidad organizativa crea los siguientes usuarios. Para todos ellos:</p>
+<ul class="simple">
+<li><p>Nombre de inicio de sesión del usuario: el nombre del usuario seguido de <strong>&#64;empresa_tunombre.local</strong>, por ejemplo <strong>E01_tunombre&#64;empresa_tunombre.local</strong>.</p></li>
+<li><p>Contraseña: <strong>&#64;lumn0</strong> seguido del código del usuario, por ejemplo <strong>&#64;lumn0E01</strong>.</p></li>
+<li><p>La contraseña nunca expira.</p></li>
+</ul>
+<p>Los usuarios son:</p>
+<ul class="simple">
+<li><p>UO Empleados</p>
+<ul>
+<li><p><strong>E01_tunombre</strong> perteneciente al grupo Empleados</p></li>
+<li><p><strong>E02_tunombre</strong> perteneciente al grupo Empleados</p></li>
+</ul>
+</li>
+<li><p>UO Contratistas</p>
+<ul>
+<li><p><strong>C01_tunombre</strong> perteneciente al grupo Contratistas</p></li>
+<li><p><strong>C02_tunombre</strong> perteneciente al grupo Contratistas</p></li>
+</ul>
+</li>
+</ul>
+<img alt="../../_images/ADINT02.png" src="../../_images/ADINT02.png" />
+</section>
+<section id="unir-los-equipos-al-dominio">
+<h2>Unir los equipos al dominio<a class="headerlink" href="#unir-los-equipos-al-dominio" title="Link to this heading">#</a></h2>
+<p>Vamos a unir <strong>WC05tunombre</strong>, <strong>WC06tunombre</strong> y <strong>WC07tunombre</strong> al dominio empresa_tunombre.local. En cada uno de ellos:</p>
+<ol class="arabic">
+<li><p>Cambiamos el nombre de la máquina (<strong>WC05tunombre</strong>, <strong>WC06tunombre</strong> o <strong>WC07tunombre</strong>).</p></li>
+<li><p>Comprobamos que el servidor DNS es la IP de <strong>SRVtunombre</strong> en la red interna (172.16.0.10): es el requisito imprescindible, porque el cliente localiza el controlador de dominio preguntando a ese DNS. Puedes comprobarlo con <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">empresa_tunombre.local</span></code>.</p></li>
+<li><p>Haz clic derecho en el botón &quot;Inicio&quot; y selecciona &quot;Sistema &gt; Información&quot; en el menú desplegable.</p></li>
+<li><p>En la ventana de &quot;Sistema&quot;, haz clic en &quot;Configuración avanzada del sistema&quot; en el panel izquierdo.</p></li>
+<li><p>Se abrirá la ventana de &quot;Propiedades del sistema&quot;. Haz clic en la pestaña &quot;Nombre de equipo&quot; y luego en el botón &quot;Cambiar&quot;.</p></li>
+<li><p>En la siguiente ventana, verás la opción &quot;Miembro de&quot;. Asegúrate de seleccionar la opción &quot;Dominio&quot; en lugar de &quot;Grupo de trabajo&quot;.</p></li>
+<li><p>Escribe el nombre del dominio <strong>empresa_tunombre.local</strong>.</p>
+<img alt="../../_images/quitar_dominio.png" src="../../_images/quitar_dominio.png" />
+</li>
+<li><p>Al aceptar te pedirá las credenciales de un usuario del dominio con permisos para unir equipos (por ejemplo <strong>Administrador</strong>).</p></li>
+<li><p>Haz clic en &quot;OK&quot; para guardar los cambios. Es posible que se te solicite reiniciar el equipo para aplicar los nuevos ajustes.</p></li>
+<li><p>Para comprobarlo, en la pantalla de inicio de sesión elige &quot;Otro usuario&quot; y entra con una cuenta del dominio, por ejemplo <strong>E01_tunombre&#64;empresa_tunombre.local</strong>. En el servidor, los equipos aparecerán en el contenedor <strong>Computers</strong> de <em>Usuarios y equipos de Active Directory</em>.</p></li>
+</ol>
+</section>
+<section id="sacar-un-equipo-del-dominio-y-cambiarle-el-nombre">
+<h2>Sacar un equipo del dominio y cambiarle el nombre<a class="headerlink" href="#sacar-un-equipo-del-dominio-y-cambiarle-el-nombre" title="Link to this heading">#</a></h2>
+<p>Vamos a ver qué ocurre en el dominio cuando sacamos un equipo, le cambiamos el nombre y lo volvemos a meter. Lo haremos con <strong>WC06tunombre</strong>, que pasará a llamarse <strong>WC08tunombre</strong>:</p>
+<ol class="arabic simple">
+<li><p>Entra en <strong>WC06tunombre</strong> con una cuenta de administrador local: cuando el equipo salga del dominio, las cuentas del dominio dejarán de funcionar en él.</p></li>
+<li><p>En <strong>Propiedades del sistema/Nombre de equipo/Cambiar</strong>, en &quot;Miembro de&quot; selecciona <strong>Grupo de trabajo</strong> y escribe <strong>WORKGROUP</strong>. Te pedirá las credenciales de un usuario del dominio (por ejemplo <strong>Administrador</strong>). Reinicia el equipo.</p></li>
+<li><p>En el servidor, en <strong>Usuarios y equipos de Active Directory</strong>, mira el contenedor <strong>Computers</strong>. ¿Sigue estando <strong>WC06TUNOMBRE</strong>? ¿Qué ha cambiado en su icono?</p></li>
+<li><p>En el cliente, cambia el nombre del equipo a <strong>WC08tunombre</strong> y reinicia.</p></li>
+<li><p>Vuelve a unirlo al dominio <strong>empresa_tunombre.local</strong> como en el apartado anterior y reinicia.</p></li>
+<li><p>En el servidor, comprueba que aparece <strong>WC08TUNOMBRE</strong> en el contenedor <strong>Computers</strong> y, en el DNS, en la zona <strong>empresa_tunombre.local</strong>, su registro con la IP 172.16.0.16.</p></li>
+</ol>
+<p>Responde a las siguientes preguntas:</p>
+<ul class="simple">
+<li><p>¿Qué ha pasado con la cuenta de <strong>WC06TUNOMBRE</strong> al sacar el equipo del dominio? ¿Se ha borrado?</p></li>
+<li><p>Cuando el equipo ha vuelto al dominio con otro nombre, ¿ha reutilizado la cuenta antigua o se ha creado una nueva?</p></li>
+<li><p>¿Qué tendrías que hacer para que en el dominio no queden cuentas de equipos que ya no existen?</p></li>
+</ul>
+<p>Cuando termines, borra la cuenta <strong>WC06TUNOMBRE</strong> del contenedor <strong>Computers</strong> y su registro del DNS si sigue apareciendo: quitar un equipo del dominio no borra su cuenta en el servidor.</p>
+</section>
+<section id="directivas-de-contrasenas">
+<h2>Directivas de contraseñas<a class="headerlink" href="#directivas-de-contrasenas" title="Link to this heading">#</a></h2>
+<p>Vamos a crear una directiva de contraseña específica (PSO, <em>Password Settings Object</em>) sobre los grupos Empleados y Contratistas; este tipo de directivas tiene prioridad sobre la directiva de contraseñas general del dominio. Para ello abre el <strong>Centro de administración de Active Directory</strong> y selecciona <strong>empresa_tunombre (local)/System/Password Settings Container</strong></p>
+<img alt="../../_images/directivaPASS01.jpeg" src="../../_images/directivaPASS01.jpeg" />
+<p>Nuevo/Configuración de contraseña</p>
+<img alt="../../_images/directivaPASS02.jpeg" src="../../_images/directivaPASS02.jpeg" />
+<p>Los campos que nos pide la configuración de contraseña son:</p>
+<ul class="simple">
+<li><p><strong>Nombre</strong>: Es el nombre que le asignas a la política de contraseña para identificarla fácilmente. Puedes darle un nombre descriptivo que refleje los requisitos o el propósito de la política.</p></li>
+<li><p><strong>Precedencia</strong>: La precedencia se refiere al orden en el que se aplican las políticas de contraseña cuando existen múltiples políticas configuradas. Este campo te permite establecer la prioridad o el nivel de precedencia de la política de contraseña en relación con otras políticas. La política con la precedencia más alta tiene prioridad.</p></li>
+<li><p><strong>Longitud mínima</strong>: Especifica la longitud mínima que deben tener las contraseñas para cumplir con la política. Puedes establecer un valor numérico para indicar el número mínimo de caracteres requeridos.</p></li>
+<li><p><strong>Complejidad de la contraseña</strong>: Este campo te permite configurar si las contraseñas deben cumplir con requisitos de complejidad. Puedes habilitar o deshabilitar la complejidad y definir qué elementos se requieren, como letras mayúsculas, letras minúsculas, números y caracteres especiales.</p></li>
+<li><p><strong>Duración máxima de la contraseña</strong>: Aquí puedes especificar el tiempo máximo que una contraseña puede estar en uso antes de que los usuarios deban cambiarla. Puedes establecer una cantidad de días después de los cuales se requiere un cambio de contraseña.</p></li>
+<li><p><strong>Historial de contraseñas</strong>: Este campo define el número de contraseñas anteriores que los usuarios no pueden reutilizar. Por ejemplo, si estableces un historial de contraseñas de 5, los usuarios no podrán usar ninguna de las últimas 5 contraseñas que hayan utilizado.</p></li>
+<li><p><strong>Bloqueo</strong> de cuenta por intentos fallidos: Puedes configurar el número máximo de intentos fallidos de inicio de sesión permitidos antes de que una cuenta de usuario se bloquee temporalmente. Esto ayuda a proteger las cuentas contra ataques de fuerza bruta.</p></li>
+</ul>
+<img alt="../../_images/directivaPASS03.jpeg" src="../../_images/directivaPASS03.jpeg" />
+</section>
+<section id="instalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">
+<h2>Instalar programas y cambiar el fondo de escritorio por GPO<a class="headerlink" href="#instalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo" title="Link to this heading">#</a></h2>
+<p>Vamos a establecer un fondo de pantalla a través de una GPO y a instalar VideoLAN en los ordenadores que se encuentran en la UO <strong>Oficinas/Barcelona/Administración</strong>. En <strong>Usuarios y equipos de Active Directory</strong>, mueve <strong>WC05tunombre</strong> y <strong>WC07tunombre</strong> desde el contenedor <strong>Computers</strong> a esa UO (botón derecho del ratón -&gt; Mover). Esta directiva no se aplicará sobre WC08tunombre (el antiguo WC06tunombre), ya que se queda en el contenedor &quot;Computers&quot;.</p>
+<img alt="../../_images/GPOINT01.png" src="../../_images/GPOINT01.png" />
+<p>En <strong>Inicio/Herramientas administrativas de Windows/Administración de directivas de grupo</strong> creamos una GPO llamada <strong>FondoPantalla</strong> y otra que se llame <strong>Instalar VLC</strong>.</p>
+<img alt="../../_images/GPOINT02.png" src="../../_images/GPOINT02.png" />
+<p>La instalación de software por directivas de grupo solo admite paquetes <code class="docutils literal notranslate"><span class="pre">.msi</span></code> <a class="footnote-reference brackets" href="#msi" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, así que descargamos <a class="reference external" href="https://www.videolan.org/">VideoLAN</a> en formato MSI. Lo guardamos, junto con la imagen del fondo de pantalla, en la carpeta <strong>C:\Windows\SYSVOL</strong> <a class="footnote-reference brackets" href="#sysvol" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>: esta carpeta se comparte de forma predeterminada en los controladores de dominio, lo que permite a los clientes y a otros controladores de dominio acceder a los archivos de políticas de grupo y scripts de inicio y cierre.</p>
+<img alt="../../_images/GPOINT03.png" src="../../_images/GPOINT03.png" />
+<p>En el Objeto de <strong>directiva de grupo (GPO) Instalar VLC</strong>, en la pestaña de <strong>Configuración/Configuración del equipo</strong> vamos a Edición, en <strong>Directivas Instalar VLC/Configuración del equipo/Directivas/Configuración de software/Instalación de software/</strong> creamos un nuevo paquete y especificamos la ubicación del paquete <code class="docutils literal notranslate"><span class="pre">.msi</span></code> con su <strong>ruta de red</strong> (<code class="docutils literal notranslate"><span class="pre">\\SRVtunombre\SYSVOL\...</span></code>), nunca con la ruta local <code class="docutils literal notranslate"><span class="pre">C:\...</span></code>: son los clientes los que tienen que poder descargarlo. Seleccionamos el método de implementación <strong>asignada</strong>: como la hemos puesto en <em>Configuración del equipo</em>, se instala automáticamente cuando el equipo arranca. (La instalación <strong>publicada</strong> solo está disponible en <em>Configuración de usuario</em>: el usuario puede elegir instalarla desde el Panel de control.)</p>
+<img alt="../../_images/GPOINT04.png" src="../../_images/GPOINT04.png" />
+<p>Para cambiar el fondo de pantalla, editamos la directiva FondoPantalla y en <strong>Configuración de usuario/Directivas/Plantillas administrativas/Escritorio/Active Desktop/Tapiz del escritorio</strong> la habilitamos, indicando como nombre del tapiz la <strong>ruta de red</strong> de la imagen (una carpeta compartida a la que los usuarios tengan acceso de lectura).</p>
+<img alt="../../_images/GPOINT05.png" src="../../_images/GPOINT05.png" />
+<p>Por último vamos a <strong>Administración de directivas de grupo/</strong>, buscamos <strong>Oficinas/Barcelona/Administración</strong> y vinculamos las <strong>dos GPO existentes</strong> (botón derecho del ratón -&gt; Vincular un GPO existente).</p>
+<img alt="../../_images/GPOINT06.png" src="../../_images/GPOINT06.png" />
+<p>Los cambios en las directivas de grupo pueden requerir que el cliente se reinicie para que tengan efecto. Si queremos aplicarlas nosotros mismos en los clientes, abre una ventana del símbolo del sistema (cmd) o PowerShell y ejecuta <code class="docutils literal notranslate"><span class="pre">gpupdate</span> <span class="pre">/force</span></code>: esto obligará al equipo a buscar y aplicar las nuevas directivas de grupo. Con <code class="docutils literal notranslate"><span class="pre">gpresult</span> <span class="pre">/r</span></code> puedes ver qué directivas se han aplicado.</p>
+</section>
+<section id="configuracion-de-carpetas-compartidas">
+<h2>Configuración de carpetas compartidas<a class="headerlink" href="#configuracion-de-carpetas-compartidas" title="Link to this heading">#</a></h2>
+<p>Al compartir una carpeta intervienen dos juegos de permisos (ver <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs-y-carpetas-compartidas"><span class="std std-ref">Permisos NTFS y carpetas compartidas</span></a>): los <strong>permisos del recurso compartido</strong>, que solo son tres (<strong>Control total</strong>, <strong>Cambiar</strong> y <strong>Leer</strong>) y solo se aplican al acceder por red, y los <strong>permisos NTFS</strong> de la carpeta. Cuando un usuario accede por red se aplica el más restrictivo de los dos.</p>
+<p>Para compartir una carpeta, con el <strong>botón derecho del ratón</strong> accedemos a sus propiedades, vamos a la pestaña de <strong>Compartir</strong> y, en <strong>Uso compartido avanzado</strong>, seleccionamos <strong>Compartir esta carpeta</strong>. En <strong>Permisos</strong> damos los permisos del recurso compartido y en la pestaña <strong>Seguridad</strong> los permisos NTFS.</p>
+<p>Crea las siguientes carpetas compartidas con los siguientes permisos:</p>
+<ul class="simple">
+<li><p>C:\compartida\empleados\E01_tunombre (E01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\E02_tunombre (E02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\empleados\empleados_compartida (el grupo Empleados tiene permiso de lectura)</p></li>
+<li><p>C:\compartida\contratista\C01_tunombre (C01_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\C02_tunombre (C02_tunombre tiene permisos de lectura y escritura)</p></li>
+<li><p>C:\compartida\contratista\contratista_compartida (el grupo Contratistas tiene permiso de lectura)</p></li>
+</ul>
+<p>Cada carpeta queda compartida en <strong>\\SRVtunombre\nombre_del_recurso</strong>, por ejemplo <strong>\\SRVtunombre\empleados_compartida</strong>.</p>
+</section>
+<section id="mapear-unidades-de-red-a-las-carpetas-compartidas">
+<h2>Mapear unidades de red a las carpetas compartidas<a class="headerlink" href="#mapear-unidades-de-red-a-las-carpetas-compartidas" title="Link to this heading">#</a></h2>
+<p>Queremos que se monte de forma automática la carpeta contratista_compartida en la unidad G: con la etiqueta contratos a los usuarios que están dentro de la OU Contratistas, y la carpeta empleados_compartida en F: con la etiqueta comunicados a los usuarios que están dentro de la OU Empleados.</p>
+<p>En <strong>Inicio/Herramientas administrativas de Windows / Administración de directivas de grupo</strong> creamos una GPO directamente en <strong>&quot;Usuarios / Empleados&quot;</strong> llamada <strong>&quot;Mapeo de unidades de empleados&quot;</strong></p>
+<img alt="../../_images/GPOINT07.png" src="../../_images/GPOINT07.png" />
+<p>Con el botón derecho del ratón abrimos el <strong>&quot;Editor de administración de directivas de grupo / Configuración de usuario / Preferencias / Asignaciones de unidades -&gt; nuevo / unidad asignada&quot;</strong></p>
+<img alt="../../_images/GPOINT08.png" src="../../_images/GPOINT08.png" />
+<p>Seleccionamos la Acción de Crear:</p>
+<img alt="../../_images/GPOINT09.png" src="../../_images/GPOINT09.png" />
+<p>Haz lo mismo para los contratistas con una GPO en <strong>&quot;Usuarios / Contratistas&quot;</strong>. En el cliente tenemos que:</p>
+<img alt="../../_images/GPOINT10.png" src="../../_images/GPOINT10.png" />
+<p>En el caso de que tengamos problemas, <code class="docutils literal notranslate"><span class="pre">gpupdate</span> <span class="pre">/force</span></code> fuerza una actualización de las políticas de grupo en el cliente.</p>
+</section>
+<section id="script-al-inicio-de-la-sesion">
+<h2>Script al inicio de la sesión<a class="headerlink" href="#script-al-inicio-de-la-sesion" title="Link to this heading">#</a></h2>
+<p>Vamos a hacer el mapeo de unidades en red con el siguiente script llamado <strong>montar.bat</strong> guardado en C:\Windows\SYSVOL\sysvol\empresa_tunombre.local\scripts</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>net use h: \\SRVtunombre\contratista_compartida
+net use i: \\SRVtunombre\empleados_compartida
+</pre></div>
+</div>
+<p>Vamos a los usuarios en los que queremos que se monten las unidades, <strong>Usuarios y equipos del AD / Usuarios / Empleados / E02_tunombre / propiedades y en la pestaña de perfil</strong> lo metemos en el Script de inicio de sesión</p>
+<img alt="../../_images/Perfil01.png" src="../../_images/Perfil01.png" />
+</section>
+<section id="perfil-movil">
+<h2>Perfil móvil<a class="headerlink" href="#perfil-movil" title="Link to this heading">#</a></h2>
+<p>Un perfil móvil se guarda en una carpeta compartida del servidor, de modo que el usuario tiene el mismo escritorio, documentos y configuración inicie sesión desde el equipo que inicie (ver <a class="reference internal" href="07_AD_DS.html#tipos-de-perfiles-de-usuario"><span class="std std-ref">Tipos de perfiles de usuario</span></a>).</p>
+<p>Vamos a crear un perfil móvil a los contratistas, para ello primero creamos una carpeta compartida llamada <strong>Perfiles</strong> con acceso de escritura y lectura para todos los usuarios.</p>
+<p>En <strong>Usuarios y equipos de Active Directory</strong>, en la ventana de propiedades de la cuenta, hacemos clic sobre la solapa Perfil. En ella, debemos dar valor al cuadro de texto Ruta de acceso al perfil. El contenido seguirá el siguiente formato: <strong>\\SRVtunombre\Perfiles\C01_tunombre</strong>; de forma más general podríamos cambiar C01_tunombre por <strong>%username%</strong></p>
+<img alt="../../_images/Perfil02.png" src="../../_images/Perfil02.png" />
+<p>Cuando se cierra la sesión, el perfil se actualizará en el servidor:</p>
+<img alt="../../_images/Perfil03.png" src="../../_images/Perfil03.png" />
+</section>
+<section id="aplicar-cuota">
+<h2>Aplicar cuota<a class="headerlink" href="#aplicar-cuota" title="Link to this heading">#</a></h2>
+<p>Vamos a limitar el espacio que puede ocupar cada perfil móvil en el servidor. Lo primero es agregar los roles y características necesarias: en <strong>Administrador del servidor / Agregar roles y características</strong>, en la lista de roles, dentro de <strong>Servidor de archivos y almacenamiento / Servicios de archivos y de iSCSI / Administrador de recursos del servidor de archivos</strong></p>
+<img alt="../../_images/CuotaAD01.png" src="../../_images/CuotaAD01.png" />
+<p>Para activar las cuotas vamos a:</p>
+<img alt="../../_images/CuotaAD02.png" src="../../_images/CuotaAD02.png" />
+<p>Creamos una nueva plantilla llamada <strong>Límite 10MB tunombre</strong>, con Advertencia al 20 y 50%</p>
+<img alt="../../_images/CuotaAD03.png" src="../../_images/CuotaAD03.png" />
+<p>Aplica la plantilla creada en la carpeta compartida en la que se encuentran los perfiles móviles; cuando lo apliques no olvides marcar <strong>Aplica la plantilla aut. y crear cuotas en subcarpetas nuevas y existentes.</strong></p>
+<img alt="../../_images/CuotaAD04.png" src="../../_images/CuotaAD04.png" />
+<p>Inicia la sesión con algún usuario, copia algún archivo para que exceda la cuota, cuando cierres la sesión te dará un error en la sincronización del perfil, vuelve a iniciar sesión con el usuario y abre el visor de eventos:</p>
+<img alt="../../_images/CuotaAD05.png" src="../../_images/CuotaAD05.png" />
+</section>
+<section id="perfil-obligatorio">
+<h2>Perfil obligatorio<a class="headerlink" href="#perfil-obligatorio" title="Link to this heading">#</a></h2>
+<p>Un perfil obligatorio es un perfil móvil de solo lectura: se carga desde el servidor, pero los cambios realizados por el usuario durante la sesión no se guardan entre sesiones.</p>
+<ol class="arabic simple">
+<li><p>Personalizamos en el cliente el perfil móvil que hemos creado; este se guardará en el servidor en C:\Perfiles\C01_tunombre.v6</p></li>
+<li><p>Desde propiedades de la carpeta del perfil vamos a Seguridad / Opciones avanzadas y cambiamos el propietario a Administrador, marcamos la opción de reemplazar en todas las subcarpetas</p></li>
+<li><p>Copiamos la carpeta C01_tunombre.v6 a plantilla.v6 y la compartimos para todos solo con permisos de lectura</p></li>
+<li><p>Hacemos que los usuarios deseados tengan esta carpeta como su perfil: \\SRVtunombre\Perfiles\plantilla (la ruta se escribe <strong>sin</strong> el sufijo .v6, Windows lo añade solo)</p></li>
+<li><p>Entramos en la carpeta plantilla.v6, activamos los elementos ocultos, y si en AppData hay carpetas llamadas Local o LocalLow las eliminamos (esas carpetas no se sincronizan con el servidor; Roaming, en cambio, hay que conservarla).</p></li>
+<li><p>Abrimos el registro (regedit) y seleccionamos HKEY_USERS; en Archivo / Cargar subárbol elegimos el archivo NTUSER.DAT de plantilla.v6, le ponemos un nombre a la clave (por ejemplo, perfilobligatorio) y en sus permisos damos Control total con herencia a los usuarios que van a usar el perfil (por ejemplo, al grupo Contratistas). Finalmente, en Archivo, descargamos el subárbol.</p></li>
+<li><p>En plantilla.v6 renombramos NTUSER.DAT a <strong>NTUSER.MAN</strong>.</p></li>
+</ol>
+</section>
+<section id="unir-un-cliente-ubuntu-al-dominio">
+<h2>Unir un cliente Ubuntu al dominio<a class="headerlink" href="#unir-un-cliente-ubuntu-al-dominio" title="Link to this heading">#</a></h2>
+<p>Un cliente GNU/Linux también puede formar parte del dominio y validar a sus usuarios contra Active Directory. Para ello utilizaremos <strong>realmd</strong> (une la máquina al dominio), <strong>SSSD</strong> (consulta los usuarios y grupos del dominio) y <strong>Kerberos</strong> (autenticación).</p>
+<ul>
+<li><p>Comprueba que <strong>ubuntu01</strong> tiene la IP 172.16.0.20/16 con puerta de enlace y DNS 172.16.0.10 (en <strong>Configuración/Red</strong>).</p></li>
+<li><p>Añade el servidor en <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">172</span>.16.0.10<span class="w">  </span>srvtunombre.empresa_tunombre.local<span class="w">  </span>srvtunombre
+</pre></div>
+</div>
+</li>
+<li><p>Sincroniza la hora de los dos ordenadores: Kerberos rechaza la autenticación si los relojes difieren más de unos minutos.</p></li>
+</ul>
+<p>Instala los paquetes necesarios:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>sssd-ad<span class="w"> </span>sssd-tools<span class="w"> </span>realmd<span class="w"> </span>adcli
+
+apt<span class="w"> </span>install<span class="w"> </span>krb5-user
+<span class="c1">#Reino predeterminado de la versión 5 de Kerberos:</span>
+Reino<span class="w"> </span>de<span class="w"> </span>Kerberos:<span class="w"> </span>EMPRESA_TUNOMBRE.LOCAL
+Servidores<span class="w"> </span>:<span class="w"> </span>srvtunombre.empresa_tunombre.local
+Servidor<span class="w"> </span>administrativo:<span class="w"> </span>srvtunombre.empresa_tunombre.local
+</pre></div>
+</div>
+<p>Deshabilitamos la resolución inversa de DNS (rdns = false) en <code class="docutils literal notranslate"><span class="pre">/etc/krb5.conf</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>head<span class="w"> </span>-3<span class="w">  </span>/etc/krb5.conf
+<span class="o">[</span>libdefaults<span class="o">]</span>
+<span class="w">      </span><span class="nv">default_realm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>EMPRESA_TUNOMBRE.LOCAL
+<span class="w">      </span><span class="nv">rdns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>Añadimos nuestro Ubuntu al dominio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>realm<span class="w"> </span>join<span class="w"> </span>--user<span class="o">=</span>Administrador<span class="w"> </span>-v<span class="w"> </span>empresa_tunombre.local
+realm<span class="w"> </span>list<span class="w">   </span><span class="c1"># comprobamos que estamos en el dominio</span>
+</pre></div>
+</div>
+<p>Para que se cree el home de forma automática cuando el usuario inicia sesión (marcar la opción <em>Create home directory on login</em>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pam-auth-update
+</pre></div>
+</div>
+<p>En el servidor, el equipo <strong>UBUNTU01</strong> aparecerá en el contenedor <strong>Computers</strong> de <em>Usuarios y equipos de Active Directory</em>:</p>
+<img alt="../../_images/ubuntuADSRV_rednat.png" src="../../_images/ubuntuADSRV_rednat.png" />
+<p>Para entrar con un usuario del dominio, en la pantalla de inicio selecciona &quot;¿No está en la lista?&quot; y escribe el usuario con el dominio, por ejemplo <strong>E01_tunombre&#64;empresa_tunombre.local</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/ubuntuAD_rednat.png"><img alt="../../_images/ubuntuAD_rednat.png" height="290" src="../../_images/ubuntuAD_rednat.png" width="393" />
+</a>
+<p>También puedes conectarte por ssh desde otra máquina de la red interna (<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">'e01_tunombre&#64;empresa_tunombre.local'&#64;172.16.0.20</span></code>):</p>
+<a class="reference internal image-reference" href="../../_images/ubuntuADssh_rednat.png"><img alt="../../_images/ubuntuADssh_rednat.png" height="99" src="../../_images/ubuntuADssh_rednat.png" width="404" />
+</a>
+<p>Ayuda: usa <code class="docutils literal notranslate"><span class="pre">kinit</span> <span class="pre">Administrador&#64;EMPRESA_TUNOMBRE.LOCAL</span></code> para comprobar que Kerberos funciona y <code class="docutils literal notranslate"><span class="pre">id</span> <span class="pre">E01_tunombre&#64;empresa_tunombre.local</span></code> para comprobar que el cliente ve los usuarios del dominio. Puedes verificar la configuración DNS en <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code>.</p>
+<p class="rubric">Notas</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="rednat" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Configuración de la red NAT en VirtualBox (<strong>Herramientas/Red/Redes NAT</strong>). La imagen es la del <a class="reference internal" href="../GNULinux/08_NIS.html#caso-practico-nis-con-red-nat-y-red-interna"><span class="std std-ref">Caso práctico: NIS con red NAT y red Interna</span></a>, con la regla del SSH; aquí añadimos la del Escritorio remoto.</p>
+<img alt="../../_images/redNAT.png" src="../../_images/redNAT.png" />
+</aside>
+<aside class="footnote brackets" id="dsrm" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>La contraseña de <strong>DSRM</strong> (<em>Directory Services Restore Mode</em>, modo de restauración de servicios de directorio) es la del administrador local que se utiliza para arrancar el controlador de dominio en modo de recuperación cuando Active Directory no está disponible. No es la contraseña del administrador del dominio.</p>
+</aside>
+<aside class="footnote brackets" id="netbios" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
+<p>NetBIOS (Sistema Básico de Entrada/Salida de Red) es un protocolo de red desarrollado originalmente por IBM en los años 80. Es un protocolo de capa de aplicación que permite la comunicación entre dispositivos en una red local (LAN). Aunque es una tecnología más antigua, todavía se encuentra en uso en algunas redes, especialmente en entornos heredados y redes locales más pequeñas. Las características importantes de NetBIOS:</p>
+<ul class="simple">
+<li><p>Identificación de nombres de red: NetBIOS proporciona un método para que los dispositivos en una red local se identifiquen entre sí mediante nombres de red. Estos nombres NetBIOS son de hasta 15 caracteres alfanuméricos y se utilizan para identificar recursos de red como impresoras, carpetas compartidas y otros dispositivos.</p></li>
+<li><p>Resolución de nombres: NetBIOS también incluye un servicio de resolución de nombres que permite a los dispositivos de la red traducir nombres de recursos NetBIOS en direcciones IP que puedan ser utilizadas para la comunicación en la red.</p></li>
+<li><p>Sesiones NetBIOS: NetBIOS permite establecer sesiones entre dispositivos en la red para la transferencia de datos. Estas sesiones pueden ser utilizadas para la comunicación entre aplicaciones en diferentes dispositivos.</p></li>
+<li><p>Datagramas NetBIOS: Además de las sesiones, NetBIOS también admite la comunicación de datagramas, que son mensajes de longitud fija que pueden ser enviados a todos los dispositivos en la red o a dispositivos específicos.</p></li>
+<li><p>Puertos NetBIOS: NetBIOS utiliza el puerto TCP/UDP 137 para la resolución de nombres, el puerto TCP 139 para las sesiones NetBIOS y el puerto UDP 138 para datagramas NetBIOS.</p></li>
+</ul>
+</aside>
+<aside class="footnote brackets" id="msi" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">4</a><span class="fn-bracket">]</span></span>
+<p>El formato <strong>MSI</strong> es un estándar de instalación utilizado en Windows que proporciona una forma estructurada y coherente de distribuir, administrar y desinstalar aplicaciones. Permite una gestión centralizada, una instalación consistente y confiable, y un mantenimiento y actualización eficientes de las aplicaciones en entornos Windows.</p>
+</aside>
+<aside class="footnote brackets" id="sysvol" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">5</a><span class="fn-bracket">]</span></span>
+<p>SYSVOL significa Volumen del Sistema, y es un directorio compartido utilizado por Active Directory (AD) para almacenar sus datos públicos, como políticas de grupo, scripts y otros datos esenciales. Juega un papel crucial en la replicación de controladores de dominio y en el mantenimiento de la consistencia en todo un dominio.</p>
+<p>Dentro de SYSVOL, encontrarás varias carpetas y archivos, incluidos:</p>
+<ul class="simple">
+<li><p><strong>Policies</strong> (Políticas): Esta carpeta contiene Objetos de Política de Grupo (GPO), que definen varios ajustes y configuraciones para usuarios y computadoras dentro de un dominio.</p></li>
+<li><p><strong>Scripts</strong>: Esta carpeta puede contener scripts de inicio de sesión u otros scripts utilizados para diversas tareas administrativas.</p></li>
+<li><p><strong>Staging</strong> (Escenario): Utilizado durante el proceso de replicación para preparar cambios antes de que se apliquen a otros controladores de dominio.</p></li>
+<li><p><strong>Domain</strong> (Dominio): Contiene información específica del dominio.</p></li>
+<li><p><strong>StarterGPOs</strong>: Contiene Objetos de Política de Grupo Iniciales, que son plantillas para crear nuevos GPO.</p></li>
+</ul>
+</aside>
+<aside class="footnote brackets" id="v1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">6</a><span class="fn-bracket">]</span></span>
+<p>vídeos</p>
+<ul class="simple">
+<li><p>Active Directory con red NAT y red interna (próximamente)</p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/ifaxyhi1amzd8jg3">Active Directory con red interna</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/v7q1diqc4c9ldsg6">Active Directory y DNS con adaptador puente</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/3eeqjzksxsgrpaco">Instalación de software utilizando directivas de grupo</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/rc3ogoh99gwnkmbh">Unir un cliente Ubuntu al dominio</a></p></li>
+</ul>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08_Caso_practico_AD_redint.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Casos prácticos : Active Directory con red interna</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09_Caso_practico_AD_sin_GUI.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Casos prácticos : Active Directory sin GUI</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maquinas-virtuales">Máquinas virtuales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escritorio-remoto">Escritorio remoto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurar-servicio-de-enrutamiento">Configurar servicio de enrutamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-y-configuracion-de-active-directory-y-dns">Instalación y configuración de Active Directory y DNS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creacion-de-un-dominio">Creación de un dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unidades-organizativas">Unidades organizativas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usuarios-y-grupos">Usuarios y grupos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-los-equipos-al-dominio">Unir los equipos al dominio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sacar-un-equipo-del-dominio-y-cambiarle-el-nombre">Sacar un equipo del dominio y cambiarle el nombre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directivas-de-contrasenas">Directivas de contraseñas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instalar-programas-y-cambiar-el-fondo-de-escritorio-por-gpo">Instalar programas y cambiar el fondo de escritorio por GPO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuracion-de-carpetas-compartidas">Configuración de carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapear-unidades-de-red-a-las-carpetas-compartidas">Mapear unidades de red a las carpetas compartidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#script-al-inicio-de-la-sesion">Script al inicio de la sesión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-movil">Perfil móvil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-cuota">Aplicar cuota</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perfil-obligatorio">Perfil obligatorio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unir-un-cliente-ubuntu-al-dominio">Unir un cliente Ubuntu al dominio</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por dgtrabada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

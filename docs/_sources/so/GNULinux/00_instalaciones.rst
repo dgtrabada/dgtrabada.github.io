@@ -332,7 +332,12 @@ Fedora tiene varias ediciones. La de escritorio es **Fedora Workstation**, con e
 * Crea una carpeta en el escritorio con tu nombre. Verás que **no aparece en el escritorio**: el GNOME de Fedora no muestra iconos en el escritorio (Ubuntu sí, porque trae activada una extensión que lo hace). La carpeta existe, pero solo la puedes ver con el navegador de archivos, en **Archivos / Escritorio** (``/home/tunombre/Escritorio``)
 * Para que aparezcan los iconos en el escritorio, instala una **extensión de GNOME**. Las extensiones son pequeños complementos que añaden funciones al escritorio, y son la razón por la que Ubuntu y Fedora se ven distintas aunque las dos usen GNOME:
 
-  * Abre **Software** e instala **Gestor de extensiones** (*Extension Manager*). Viene de Flathub, así que, si te lo pide, activa los repositorios de terceros
+  * Abre **Software** e instala **Gestor de extensiones** (*Extension Manager*). Viene de **Flathub** (un repositorio de aplicaciones que Fedora no trae activado), así que **antes de buscarlo hay que activar Flathub**: pulsa **Activar** en el aviso de repositorios de terceros que sale al abrir Software, o actívalo desde el menú de Software (**☰ / Repositorios de software**). También puedes hacerlo desde una terminal:
+
+    .. code-block:: bash
+
+       flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
 
     .. image:: imagenes/instalaciones/fedora_software_extensiones.png
        :width: 600
