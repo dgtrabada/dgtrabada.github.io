@@ -62,7 +62,7 @@ Partimos de **cuatro máquinas virtuales limpias**, clones enlazados de **MV Ubu
 
 * **compute-0-0** (será el **servidor** del clúster y dará salida a Internet a los demás)
 
-  * Tarjeta red modo "Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080"
+  * Tarjeta red modo "Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080"
   * Tarjeta de red modo "Red interna" : 172.16.0.10/16
 
 * **compute-0-1** (**agente**)
@@ -159,11 +159,20 @@ Ese token son cien caracteres que no apetece copiar a mano de una máquina a otr
 
 El truco está en las **comillas**: el ``$(cat ...)`` va dentro de comillas dobles, así que lo resuelve compute-0-0 **antes** de mandar la orden, y al agente le llega el token ya escrito. Las comillas simples de dentro viajan tal cual y protegen el valor en la otra máquina.
 
-Fíjate en que el servicio aquí se llama **k3s-agent**, no k3s. El registro contra el servidor se ve en su diario:
+Fíjate en que en los agentes el servicio se llama **k3s-agent**, no k3s. En compute-0-0 no existe, así que sale ``inactive``; lo comprobamos en los agentes desde compute-0-0 por ssh, y en su diario se ve el arranque:
 
 .. code-block:: bash
 
-  root@compute-0-1:~# journalctl -u k3s-agent | grep -i "Successfully registered"
+  root@compute-0-0:~# systemctl is-active k3s-agent
+  inactive
+  root@compute-0-0:~# ssh compute-0-1 systemctl is-active k3s-agent
+  active
+  root@compute-0-0:~# ssh compute-0-1 systemctl is-enabled k3s-agent
+  enabled
+  root@compute-0-0:~# ssh compute-0-1 journalctl -u k3s-agent | grep -i "Starting k3s agent"
+  nov 03 18:42:28 compute-0-1 k3s[2441]: time="2026-11-03T18:42:28Z" level=info msg="Starting k3s agent v1.36.5+k3s1 (3dd98cc5)"
+
+En los agentes **no** hay ``kubectl`` ni credenciales: si lo ejecutas ahí da un error de conexión y parece que el clúster está roto cuando no lo está.
 
 Desde el servidor ya tenemos el clúster entero:
 
@@ -193,18 +202,6 @@ Y lo que k3s trae dentro, que debe estar ``Running`` o ``Completed``:
   traefik-...                               1/1     Running     0          2d19h
 
 Estos son los servicios que en una instalación con kubeadm habría que ir montando a mano: **coredns** es el DNS interno del clúster, **traefik** el Ingress con el que publicaremos la aplicación por nombre, **local-path-provisioner** el almacenamiento local que usaremos al final del tema, **metrics-server** el que da los datos a ``kubectl top``, y **svclb-traefik** el repartidor que pone una copia en cada nodo. Los dos ``helm-install`` son tareas de un solo uso: instalaron Traefik al arrancar y por eso salen ``Completed`` y no ``Running``.
-
-En cada **agente**, el servicio se llama ``k3s-agent``:
-
-.. code-block:: bash
-
-  root@compute-0-1:~# systemctl is-active k3s-agent
-  active
-  root@compute-0-1:~# systemctl is-enabled k3s-agent
-  enabled
-  root@compute-0-1:~# journalctl -u k3s-agent | grep -i "Starting k3s agent"
-
-En los agentes **no** hay ``kubectl`` ni credenciales: si lo ejecutas ahí da un error de conexión y parece que el clúster está roto cuando no lo está.
 
 Desplegar y exponer una aplicación
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -272,7 +269,7 @@ Hasta ahora, para publicar una web instalábamos un servidor, copiábamos los fi
         targetPort: 80
         nodePort: 30080
 
-Las **etiquetas** son lo que une las tres piezas: el Deployment pone ``app: web-tunombre`` a cada copia y el Service reparte entre todo lo que lleve esa etiqueta. No hay ninguna lista de máquinas en ningún sitio.
+Las **etiquetas** son lo que une las tres piezas: el Deployment pone ``app: web-tunombre`` a cada copia y el Service reparte entre todo lo que lleve esa etiqueta. Fíjate en que en el fichero no aparece ningún nodo: no decimos en qué máquinas van las copias, eso lo decide el clúster.
 
 .. code-block:: bash
 
@@ -282,6 +279,17 @@ Las **etiquetas** son lo que une las tres piezas: el Deployment pone ``app: web-
   service/web-tunombre created
 
   root@compute-0-0:~# kubectl get pods -o wide
+  NAME                           READY   STATUS              RESTARTS   AGE   IP       NODE
+  web-tunombre-c6bf74bfb-7d9dj   0/1     ContainerCreating   0          7s    <none>   compute-0-2
+  web-tunombre-c6bf74bfb-w45md   0/1     ContainerCreating   0          7s    <none>   compute-0-0
+  web-tunombre-c6bf74bfb-zdzcm   0/1     ContainerCreating   0          7s    <none>   compute-0-1
+  web-tunombre-c6bf74bfb-q8k4n   0/1     ContainerCreating   0          7s    <none>   compute-0-3
+
+Al principio salen en ``ContainerCreating``: cada nodo se está descargando la imagen. Espera unos segundos y repite:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl get pods -o wide
   NAME                           READY   STATUS    RESTARTS   AGE   IP          NODE
   web-tunombre-c6bf74bfb-7d9dj   1/1     Running   0          25s   10.42.2.3   compute-0-2
   web-tunombre-c6bf74bfb-w45md   1/1     Running   0          25s   10.42.0.9   compute-0-0
@@ -289,10 +297,11 @@ Las **etiquetas** son lo que une las tres piezas: el Deployment pone ``app: web-
   web-tunombre-c6bf74bfb-q8k4n   1/1     Running   0          25s   10.42.3.2   compute-0-3
 
   root@compute-0-0:~# kubectl get services
-  NAME           TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
-  web-tunombre   NodePort   10.43.65.96   <none>        80:30080/TCP   26s
+  NAME           TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+  kubernetes     ClusterIP   10.43.0.1     <none>        443/TCP        14m
+  web-tunombre   NodePort    10.43.65.96   <none>        80:30080/TCP   26s
 
-El planificador ha repartido una copia en cada máquina sin que se lo pidamos. Cada **Pod** tiene su propia dirección de la red interna de contenedores (10.42.X.Y), que el clúster crea con flannel por encima de nuestra 172.16.0.0/16.
+El servicio ``kubernetes`` es el de la propia API del clúster y está siempre; el nuestro es ``web-tunombre``. El planificador ha repartido una copia en cada máquina sin que se lo pidamos. Cada **Pod** tiene su propia dirección de la red interna de contenedores (10.42.X.Y), que el clúster crea con flannel por encima de nuestra 172.16.0.0/16.
 
 Con NodePort la aplicación responde en el puerto 30080 de **cualquiera** de los nodos, aunque ahí no haya ninguna copia:
 
@@ -375,7 +384,13 @@ Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el **navegado
 
   http://<ip-del-anfitrión>:30080
 
+.. image:: imagenes/k3s_navegador_30080.png
+
 Eso entra por el **NodePort**, no por el Ingress: es la misma aplicación, pero pedida por IP y puerto en lugar de por nombre. El nombre ``web-tunombre.local`` solo lo entienden los nodos, que son los que lo tienen en su ``/etc/hosts``.
+
+.. note::
+
+   El Ingress sigue siendo totalmente válido, pero Kubernetes ya no le añade funciones nuevas. Su sucesor es la **Gateway API**, que separa la entrada al clúster (**Gateway**) de las reglas de cada aplicación (**HTTPRoute**). Por eso verás un ``httproute.yaml`` en el chart que genera Helm.
 
 Cambiar la página sin entrar en ninguna máquina
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -399,6 +414,12 @@ Escribe la hora, el día y el mes de verdad, por ejemplo ``Cambiado a 13:00 3 se
 
 Y ahora recarga el navegador. **No habrá cambiado todavía**, y eso no es un fallo. El kubelet de cada nodo va refrescando cada poco los ficheros que vienen de un ConfigMap, así que el cambio tarda **hasta un minuto** en aparecer. Comparando la hora que escribiste con la hora en la que sale, se mide exactamente lo que ha tardado. Si recargas a los dos segundos y ves lo de antes, es que has ido más rápido que el clúster.
 
+.. image:: imagenes/k3s_navegador_configmap.png
+
+.. important::
+
+   **Llama al profesor** y enséñaselo funcionando. Sube un **pantallazo**\ :sup:`1` del navegador en el que se vea la página con tu cambio y, a la vez, el día y la hora del equipo, como en la imagen.
+
 Lo importante es lo que ha pasado mientras tanto: han cambiado **las cuatro copias a la vez**, sin reiniciar nada, sin entrar en ninguna máquina y sin que importe en qué nodo esté cada una. Has cambiado un objeto, no unos servidores.
 
 Escalabilidad y autorreparación
@@ -412,7 +433,10 @@ Todo lo que viene ahora se ve mucho mejor **en vivo**, así que abre una **segun
   root@compute-0-0:~# apt install -y /tmp/k9s.deb
 
   root@compute-0-0:~# k9s
-  ... Unable to connect to context ...
+
+Arranca, pero no ve nada: el contexto, el clúster y el usuario salen como ``n/a``.
+
+.. image:: imagenes/k3s_k9s_sin_kubeconfig.png
 
 ``kubectl`` encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero **k9s no**: busca ``~/.kube/config``, que en k3s **no existe**, porque las credenciales están en ``/etc/rancher/k3s/k3s.yaml``. Se lo decimos con la variable ``KUBECONFIG``, y lo dejamos puesto en el ``~/.bashrc`` para no tener que repetirlo:
 
@@ -423,6 +447,10 @@ Todo lo que viene ahora se ve mucho mejor **en vivo**, así que abre una **segun
   root@compute-0-0:~# echo $KUBECONFIG
   /etc/rancher/k3s/k3s.yaml
   root@compute-0-0:~# k9s
+
+Ahora sí se conecta al clúster ``default`` y enseña los cuatro Pods con el nodo en el que está cada uno:
+
+.. image:: imagenes/k3s_k9s_pods.png
 
 Con eso, la máquina queda como cualquier otro cliente de Kubernetes, y la variable vale igual para ``helm`` o para cualquier otra herramienta que necesite las credenciales.
 
@@ -491,10 +519,11 @@ No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero **no
 
 A los **seis minutos** toma la decisión, y a partir de aquí hay que mirar la salida entera, no un recuento:
 
-.. code-block:: bash
+.. image:: imagenes/k3s_nodo_caido_terminating.png
 
-  root@compute-0-0:~# kubectl get pods -o wide
-  ... PENDIENTE: las diez lineas, con los Terminating en compute-0-2 ...
+.. important::
+
+   **Llama al profesor** y enséñaselo. Sube un **pantallazo**\ :sup:`2` como este, con la salida de ``kubectl get pods -o wide``, el recuento por nodos y k9s con compute-0-2 en ``NotReady``. Fíjate en que en el recuento **compute-0-2 sigue apareciendo con 2**: son los dos Pods en ``Terminating``.
 
 Aparecen **diez** Pods donde pediste ocho: ha recreado las dos copias perdidas en las máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como ``Terminating``. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.
 

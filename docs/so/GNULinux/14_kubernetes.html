@@ -309,6 +309,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -675,7 +676,7 @@
 <ul class="simple">
 <li><p><strong>compute-0-0</strong> (será el <strong>servidor</strong> del clúster y dará salida a Internet a los demás)</p>
 <ul>
-<li><p>Tarjeta red modo &quot;Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080&quot;</p></li>
+<li><p>Tarjeta red modo &quot;Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080&quot;</p></li>
 <li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 </ul>
 </li>
@@ -760,10 +761,18 @@ K106e38f07428bc61c0645f6ba3fe0...::server:6e0f...
 </pre></div>
 </div>
 <p>El truco está en las <strong>comillas</strong>: el <code class="docutils literal notranslate"><span class="pre">$(cat</span> <span class="pre">...)</span></code> va dentro de comillas dobles, así que lo resuelve compute-0-0 <strong>antes</strong> de mandar la orden, y al agente le llega el token ya escrito. Las comillas simples de dentro viajan tal cual y protegen el valor en la otra máquina.</p>
-<p>Fíjate en que el servicio aquí se llama <strong>k3s-agent</strong>, no k3s. El registro contra el servidor se ve en su diario:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>k3s-agent<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;Successfully registered&quot;</span>
+<p>Fíjate en que en los agentes el servicio se llama <strong>k3s-agent</strong>, no k3s. En compute-0-0 no existe, así que sale <code class="docutils literal notranslate"><span class="pre">inactive</span></code>; lo comprobamos en los agentes desde compute-0-0 por ssh, y en su diario se ve el arranque:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>k3s-agent
+inactive
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>k3s-agent
+active
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>k3s-agent
+enabled
+root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>k3s-agent<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;Starting k3s agent&quot;</span>
+nov<span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">18</span>:42:28<span class="w"> </span>compute-0-1<span class="w"> </span>k3s<span class="o">[</span><span class="m">2441</span><span class="o">]</span>:<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="s2">&quot;2026-11-03T18:42:28Z&quot;</span><span class="w"> </span><span class="nv">level</span><span class="o">=</span>info<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">&quot;Starting k3s agent v1.36.5+k3s1 (3dd98cc5)&quot;</span>
 </pre></div>
 </div>
+<p>En los agentes <strong>no</strong> hay <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> ni credenciales: si lo ejecutas ahí da un error de conexión y parece que el clúster está roto cuando no lo está.</p>
 <p>Desde el servidor ya tenemos el clúster entero:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
 NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
@@ -787,15 +796,6 @@ traefik-...<span class="w">                               </span><span class="m"
 </pre></div>
 </div>
 <p>Estos son los servicios que en una instalación con kubeadm habría que ir montando a mano: <strong>coredns</strong> es el DNS interno del clúster, <strong>traefik</strong> el Ingress con el que publicaremos la aplicación por nombre, <strong>local-path-provisioner</strong> el almacenamiento local que usaremos al final del tema, <strong>metrics-server</strong> el que da los datos a <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">top</span></code>, y <strong>svclb-traefik</strong> el repartidor que pone una copia en cada nodo. Los dos <code class="docutils literal notranslate"><span class="pre">helm-install</span></code> son tareas de un solo uso: instalaron Traefik al arrancar y por eso salen <code class="docutils literal notranslate"><span class="pre">Completed</span></code> y no <code class="docutils literal notranslate"><span class="pre">Running</span></code>.</p>
-<p>En cada <strong>agente</strong>, el servicio se llama <code class="docutils literal notranslate"><span class="pre">k3s-agent</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-1:~#<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>k3s-agent
-active
-root@compute-0-1:~#<span class="w"> </span>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>k3s-agent
-enabled
-root@compute-0-1:~#<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>k3s-agent<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;Starting k3s agent&quot;</span>
-</pre></div>
-</div>
-<p>En los agentes <strong>no</strong> hay <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> ni credenciales: si lo ejecutas ahí da un error de conexión y parece que el clúster está roto cuando no lo está.</p>
 </section>
 <section id="desplegar-y-exponer-una-aplicacion">
 <h3>Desplegar y exponer una aplicación<a class="headerlink" href="#desplegar-y-exponer-una-aplicacion" title="Link to this heading">#</a></h3>
@@ -861,13 +861,22 @@ root@compute-0-1:~#<span class="w"> </span>journalctl<span class="w"> </span>-u<
 <span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30080</span>
 </pre></div>
 </div>
-<p>Las <strong>etiquetas</strong> son lo que une las tres piezas: el Deployment pone <code class="docutils literal notranslate"><span class="pre">app:</span> <span class="pre">web-tunombre</span></code> a cada copia y el Service reparte entre todo lo que lleve esa etiqueta. No hay ninguna lista de máquinas en ningún sitio.</p>
+<p>Las <strong>etiquetas</strong> son lo que une las tres piezas: el Deployment pone <code class="docutils literal notranslate"><span class="pre">app:</span> <span class="pre">web-tunombre</span></code> a cada copia y el Service reparte entre todo lo que lleve esa etiqueta. Fíjate en que en el fichero no aparece ningún nodo: no decimos en qué máquinas van las copias, eso lo decide el clúster.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>web-tunombre.yml
 configmap/web-tunombre-html<span class="w"> </span>created
 deployment.apps/web-tunombre<span class="w"> </span>created
 service/web-tunombre<span class="w"> </span>created
 
 root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
+NAME<span class="w">                           </span>READY<span class="w">   </span>STATUS<span class="w">              </span>RESTARTS<span class="w">   </span>AGE<span class="w">   </span>IP<span class="w">       </span>NODE
+web-tunombre-c6bf74bfb-7d9dj<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>7s<span class="w">    </span>&lt;none&gt;<span class="w">   </span>compute-0-2
+web-tunombre-c6bf74bfb-w45md<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>7s<span class="w">    </span>&lt;none&gt;<span class="w">   </span>compute-0-0
+web-tunombre-c6bf74bfb-zdzcm<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>7s<span class="w">    </span>&lt;none&gt;<span class="w">   </span>compute-0-1
+web-tunombre-c6bf74bfb-q8k4n<span class="w">   </span><span class="m">0</span>/1<span class="w">     </span>ContainerCreating<span class="w">   </span><span class="m">0</span><span class="w">          </span>7s<span class="w">    </span>&lt;none&gt;<span class="w">   </span>compute-0-3
+</pre></div>
+</div>
+<p>Al principio salen en <code class="docutils literal notranslate"><span class="pre">ContainerCreating</span></code>: cada nodo se está descargando la imagen. Espera unos segundos y repite:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
 NAME<span class="w">                           </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE<span class="w">   </span>IP<span class="w">          </span>NODE
 web-tunombre-c6bf74bfb-7d9dj<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>25s<span class="w">   </span><span class="m">10</span>.42.2.3<span class="w">   </span>compute-0-2
 web-tunombre-c6bf74bfb-w45md<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>25s<span class="w">   </span><span class="m">10</span>.42.0.9<span class="w">   </span>compute-0-0
@@ -875,11 +884,12 @@ web-tunombre-c6bf74bfb-zdzcm<span class="w">   </span><span class="m">1</span>/1
 web-tunombre-c6bf74bfb-q8k4n<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>25s<span class="w">   </span><span class="m">10</span>.42.3.2<span class="w">   </span>compute-0-3
 
 root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>services
-NAME<span class="w">           </span>TYPE<span class="w">       </span>CLUSTER-IP<span class="w">    </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">        </span>AGE
-web-tunombre<span class="w">   </span>NodePort<span class="w">   </span><span class="m">10</span>.43.65.96<span class="w">   </span>&lt;none&gt;<span class="w">        </span><span class="m">80</span>:30080/TCP<span class="w">   </span>26s
+NAME<span class="w">           </span>TYPE<span class="w">        </span>CLUSTER-IP<span class="w">    </span>EXTERNAL-IP<span class="w">   </span>PORT<span class="o">(</span>S<span class="o">)</span><span class="w">        </span>AGE
+kubernetes<span class="w">     </span>ClusterIP<span class="w">   </span><span class="m">10</span>.43.0.1<span class="w">     </span>&lt;none&gt;<span class="w">        </span><span class="m">443</span>/TCP<span class="w">        </span>14m
+web-tunombre<span class="w">   </span>NodePort<span class="w">    </span><span class="m">10</span>.43.65.96<span class="w">   </span>&lt;none&gt;<span class="w">        </span><span class="m">80</span>:30080/TCP<span class="w">   </span>26s
 </pre></div>
 </div>
-<p>El planificador ha repartido una copia en cada máquina sin que se lo pidamos. Cada <strong>Pod</strong> tiene su propia dirección de la red interna de contenedores (10.42.X.Y), que el clúster crea con flannel por encima de nuestra 172.16.0.0/16.</p>
+<p>El servicio <code class="docutils literal notranslate"><span class="pre">kubernetes</span></code> es el de la propia API del clúster y está siempre; el nuestro es <code class="docutils literal notranslate"><span class="pre">web-tunombre</span></code>. El planificador ha repartido una copia en cada máquina sin que se lo pidamos. Cada <strong>Pod</strong> tiene su propia dirección de la red interna de contenedores (10.42.X.Y), que el clúster crea con flannel por encima de nuestra 172.16.0.0/16.</p>
 <p>Con NodePort la aplicación responde en el puerto 30080 de <strong>cualquiera</strong> de los nodos, aunque ahí no haya ninguna copia:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-2:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>http://172.16.0.11:30080
 &lt;!DOCTYPE<span class="w"> </span>html&gt;
@@ -948,7 +958,12 @@ root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span c
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;ip-del-anfitrión&gt;:30080
 </pre></div>
 </div>
+<img alt="../../_images/k3s_navegador_30080.png" src="../../_images/k3s_navegador_30080.png" />
 <p>Eso entra por el <strong>NodePort</strong>, no por el Ingress: es la misma aplicación, pero pedida por IP y puerto en lugar de por nombre. El nombre <code class="docutils literal notranslate"><span class="pre">web-tunombre.local</span></code> solo lo entienden los nodos, que son los que lo tienen en su <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El Ingress sigue siendo totalmente válido, pero Kubernetes ya no le añade funciones nuevas. Su sucesor es la <strong>Gateway API</strong>, que separa la entrada al clúster (<strong>Gateway</strong>) de las reglas de cada aplicación (<strong>HTTPRoute</strong>). Por eso verás un <code class="docutils literal notranslate"><span class="pre">httproute.yaml</span></code> en el chart que genera Helm.</p>
+</div>
 </section>
 <section id="cambiar-la-pagina-sin-entrar-en-ninguna-maquina">
 <h3>Cambiar la página sin entrar en ninguna máquina<a class="headerlink" href="#cambiar-la-pagina-sin-entrar-en-ninguna-maquina" title="Link to this heading">#</a></h3>
@@ -964,6 +979,11 @@ configmap/web-tunombre-html<span class="w"> </span>configured
 </pre></div>
 </div>
 <p>Y ahora recarga el navegador. <strong>No habrá cambiado todavía</strong>, y eso no es un fallo. El kubelet de cada nodo va refrescando cada poco los ficheros que vienen de un ConfigMap, así que el cambio tarda <strong>hasta un minuto</strong> en aparecer. Comparando la hora que escribiste con la hora en la que sale, se mide exactamente lo que ha tardado. Si recargas a los dos segundos y ves lo de antes, es que has ido más rápido que el clúster.</p>
+<img alt="../../_images/k3s_navegador_configmap.png" src="../../_images/k3s_navegador_configmap.png" />
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p><strong>Llama al profesor</strong> y enséñaselo funcionando. Sube un <strong>pantallazo</strong><sup>1</sup> del navegador en el que se vea la página con tu cambio y, a la vez, el día y la hora del equipo, como en la imagen.</p>
+</div>
 <p>Lo importante es lo que ha pasado mientras tanto: han cambiado <strong>las cuatro copias a la vez</strong>, sin reiniciar nada, sin entrar en ninguna máquina y sin que importe en qué nodo esté cada una. Has cambiado un objeto, no unos servidores.</p>
 </section>
 <section id="escalabilidad-y-autorreparacion">
@@ -973,9 +993,10 @@ configmap/web-tunombre-html<span class="w"> </span>configured
 root@compute-0-0:~#<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>/tmp/k9s.deb
 
 root@compute-0-0:~#<span class="w"> </span>k9s
-...<span class="w"> </span>Unable<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>context<span class="w"> </span>...
 </pre></div>
 </div>
+<p>Arranca, pero no ve nada: el contexto, el clúster y el usuario salen como <code class="docutils literal notranslate"><span class="pre">n/a</span></code>.</p>
+<img alt="../../_images/k3s_k9s_sin_kubeconfig.png" src="../../_images/k3s_k9s_sin_kubeconfig.png" />
 <p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> encuentra solo las credenciales del clúster porque es el propio binario de k3s, pero <strong>k9s no</strong>: busca <code class="docutils literal notranslate"><span class="pre">~/.kube/config</span></code>, que en k3s <strong>no existe</strong>, porque las credenciales están en <code class="docutils literal notranslate"><span class="pre">/etc/rancher/k3s/k3s.yaml</span></code>. Se lo decimos con la variable <code class="docutils literal notranslate"><span class="pre">KUBECONFIG</span></code>, y lo dejamos puesto en el <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> para no tener que repetirlo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export KUBECONFIG=/etc/rancher/k3s/k3s.yaml&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 root@compute-0-0:~#<span class="w"> </span>bash
@@ -984,6 +1005,8 @@ root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span cla
 root@compute-0-0:~#<span class="w"> </span>k9s
 </pre></div>
 </div>
+<p>Ahora sí se conecta al clúster <code class="docutils literal notranslate"><span class="pre">default</span></code> y enseña los cuatro Pods con el nodo en el que está cada uno:</p>
+<img alt="../../_images/k3s_k9s_pods.png" src="../../_images/k3s_k9s_pods.png" />
 <p>Con eso, la máquina queda como cualquier otro cliente de Kubernetes, y la variable vale igual para <code class="docutils literal notranslate"><span class="pre">helm</span></code> o para cualquier otra herramienta que necesite las credenciales.</p>
 <p>Dentro de k9s, con unas pocas teclas tienes bastante:</p>
 <ul class="simple">
@@ -1039,9 +1062,10 @@ root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<sp
 </div>
 <p>No es un error: el clúster ha dejado de recibir noticias de ese nodo, pero <strong>no sabe si la máquina está apagada o es la red la que falla</strong>, y arrancar copias nuevas de algo que quizá sigue vivo puede ser peor. Así que espera cinco minutos antes de tocar nada.</p>
 <p>A los <strong>seis minutos</strong> toma la decisión, y a partir de aquí hay que mirar la salida entera, no un recuento:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide
-...<span class="w"> </span>PENDIENTE:<span class="w"> </span>las<span class="w"> </span>diez<span class="w"> </span>lineas,<span class="w"> </span>con<span class="w"> </span>los<span class="w"> </span>Terminating<span class="w"> </span>en<span class="w"> </span>compute-0-2<span class="w"> </span>...
-</pre></div>
+<img alt="../../_images/k3s_nodo_caido_terminating.png" src="../../_images/k3s_nodo_caido_terminating.png" />
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p><strong>Llama al profesor</strong> y enséñaselo. Sube un <strong>pantallazo</strong><sup>2</sup> como este, con la salida de <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">pods</span> <span class="pre">-o</span> <span class="pre">wide</span></code>, el recuento por nodos y k9s con compute-0-2 en <code class="docutils literal notranslate"><span class="pre">NotReady</span></code>. Fíjate en que en el recuento <strong>compute-0-2 sigue apareciendo con 2</strong>: son los dos Pods en <code class="docutils literal notranslate"><span class="pre">Terminating</span></code>.</p>
 </div>
 <p>Aparecen <strong>diez</strong> Pods donde pediste ocho: ha recreado las dos copias perdidas en las máquinas que quedan —vuelven a estar las ocho pedidas— y ha marcado las viejas como <code class="docutils literal notranslate"><span class="pre">Terminating</span></code>. Se quedarán así mientras el nodo no vuelva, porque nadie puede confirmar que se hayan parado.</p>
 <div class="admonition note">
