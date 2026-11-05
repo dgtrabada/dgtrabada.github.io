@@ -1101,6 +1101,7 @@ root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<sp
 <span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">5</span><span class="w"> </span>http://web-tunombre.local
 <span class="w">  </span>sleep<span class="w"> </span><span class="m">0</span>.2
 <span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+<span class="w">    </span><span class="m">300</span><span class="w"> </span><span class="m">200</span>
 </pre></div>
 </div>
 <p>Sin tocar nada contestan las trescientas, como tenía que ser. Ese es el punto de partida: ahora actualizamos la imagen y, <strong>mientras se actualiza</strong>, repetimos exactamente la misma medición desde otra terminal para comparar. <code class="docutils literal notranslate"><span class="pre">rollout</span> <span class="pre">status</span></code> cuenta el proceso:</p>
@@ -1126,30 +1127,47 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </pre></div>
 </div>
 <p>Y aquí está la diferencia. El mismo bucle de antes, lanzado en otra terminal mientras el cambio está en marcha, ya no da lo mismo: con el Deployment tal como lo hemos escrito, el resultado <strong>no es perfecto</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">000</span>
-<span class="m">297</span><span class="w"> </span><span class="m">200</span>
-<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">502</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">000</span>
+<span class="m">295</span><span class="w"> </span><span class="m">200</span>
+<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">502</span>
 </pre></div>
 </div>
-<p>Los <code class="docutils literal notranslate"><span class="pre">502</span></code> son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los <code class="docutils literal notranslate"><span class="pre">000</span></code> conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor <strong>está listo</strong> ni cuándo <strong>ha terminado de atender</strong> lo que tenía entre manos, y hay que decírselo con tres cosas:</p>
+<p>Los <code class="docutils literal notranslate"><span class="pre">502</span></code> son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los <code class="docutils literal notranslate"><span class="pre">000</span></code> conexiones cortadas a medias.</p>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p><strong>Llama al profesor</strong> y enséñale las peticiones perdidas. Sube un <strong>pantallazo</strong><sup>3</sup> en el que se vea el resultado del bucle durante el cambio, con los <code class="docutils literal notranslate"><span class="pre">502</span></code> y los <code class="docutils literal notranslate"><span class="pre">000</span></code>.</p>
+</div>
+<p>Kubernetes no sabe cuándo un contenedor <strong>está listo</strong> ni cuándo <strong>ha terminado de atender</strong> lo que tenía entre manos, y hay que decírselo con tres cosas:</p>
 <ul class="simple">
 <li><p>una <strong>readinessProbe</strong>: hasta que la página no conteste, esa copia no recibe tráfico;</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">maxUnavailable:</span> <span class="pre">0</span></code>: no quites una copia vieja hasta tener una nueva lista;</p></li>
 <li><p>y un <strong>preStop</strong>, una pausa antes de apagar la copia vieja, para que le dé tiempo a salir de la lista de destinos.</p></li>
 </ul>
-<p>Las tres van en el <strong>Deployment de</strong> <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>, que ya tienes escrito: no es un objeto nuevo. <strong>Lo resaltado es lo que hay que añadir o cambiar</strong>; el resto está solo para situar el sitio y la sangría:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, en el Deployment</span>
+<p>Las tres van en el <strong>Deployment de</strong> <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>, que ya tienes escrito: no es un objeto nuevo. Este es el Deployment <strong>entero</strong> tal como queda; <strong>lo resaltado es lo que hay que añadir o cambiar</strong>. El ConfigMap y el Service del mismo fichero no se tocan:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, el Deployment completo</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="hll"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 </span><span class="hll"><span class="w">  </span><span class="nt">strategy</span><span class="p">:</span>
 </span><span class="hll"><span class="w">    </span><span class="nt">rollingUpdate</span><span class="p">:</span>
 </span><span class="hll"><span class="w">      </span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25%</span>
 </span><span class="hll"><span class="w">      </span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
 <span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx:alpine</span>
+<span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 <span class="hll"><span class="w">          </span><span class="nt">readinessProbe</span><span class="p">:</span>
 </span><span class="hll"><span class="w">            </span><span class="nt">httpGet</span><span class="p">:</span>
 </span><span class="hll"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
@@ -1159,7 +1177,14 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </span><span class="hll"><span class="w">            </span><span class="nt">preStop</span><span class="p">:</span>
 </span><span class="hll"><span class="w">              </span><span class="nt">exec</span><span class="p">:</span>
 </span><span class="hll"><span class="w">                </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;sleep&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="p p-Indicator">]</span>
-</span></pre></div>
+</span><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+<span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/share/nginx/html</span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">html</span>
+<span class="w">          </span><span class="nt">configMap</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre-html</span>
+</pre></div>
 </div>
 <p>Y aprovecha para poner las <strong>ocho</strong> réplicas en el fichero: el <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">scale</span></code> de antes cambió el clúster pero no el YAML, así que si lo aplicas tal como está te bajaría otra vez al número viejo. Después, <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">web-tunombre.yml</span></code>, y repitiendo la misma prueba, ahora sí:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">300</span><span class="w"> </span><span class="m">200</span>
@@ -1174,7 +1199,7 @@ deployment.apps/web-tunombre<span class="w"> </span>rolled<span class="w"> </spa
 </thead>
 <tbody>
 <tr class="row-even"><td><p>como está arriba</p></td>
-<td><p>297 <code class="docutils literal notranslate"><span class="pre">200</span></code>, 2 <code class="docutils literal notranslate"><span class="pre">502</span></code>, 1 sin respuesta</p></td>
+<td><p>295 <code class="docutils literal notranslate"><span class="pre">200</span></code>, 3 <code class="docutils literal notranslate"><span class="pre">502</span></code>, 2 sin respuesta</p></td>
 </tr>
 <tr class="row-odd"><td><p>con readinessProbe y maxUnavailable: 0</p></td>
 <td><p>297 <code class="docutils literal notranslate"><span class="pre">200</span></code>, 3 sin respuesta</p></td>
@@ -1320,8 +1345,9 @@ compute-0-3:<span class="w"> </span><span class="m">1</span>
 </div>
 <p>Tenerlos creados no hace nada por sí solo: hay que <strong>inyectarlos como variables de entorno</strong> en el contenedor, y eso se toca donde vive el contenedor, en el Deployment de <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>.</p>
 <p>Y de paso <strong>desaparece</strong> el ConfigMap <code class="docutils literal notranslate"><span class="pre">web-tunombre-html</span></code> con la página y el volumen que lo montaba en <code class="docutils literal notranslate"><span class="pre">/usr/share/nginx/html</span></code>. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además <strong>estorban</strong>: un volumen de ConfigMap se monta en sólo lectura, así que el <code class="docutils literal notranslate"><span class="pre">envsubst</span></code> del arranque no podría escribir ahí el <code class="docutils literal notranslate"><span class="pre">index.html</span></code>. Si te lo dejas puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.</p>
-<p>Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está el fichero <strong>entero</strong> tal como tiene que quedar: de los tres objetos del principio ya solo quedan <strong>dos</strong>, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<p>Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code> <strong>entero</strong> tal como tiene que quedar: de los tres objetos del principio ya solo quedan <strong>dos</strong>, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># web-tunombre.yml, el fichero completo</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web-tunombre</span>
@@ -1504,23 +1530,6 @@ WWW-Authenticate:<span class="w"> </span>Basic<span class="w"> </span><span clas
 <span class="w">    </span>CLAVE:<span class="w">    </span>&lt;<span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="s1">&#39;clave&#39;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>secret<span class="w"> </span><span class="s1">&#39;web-tunombre-secret&#39;</span>&gt;<span class="w">        </span>Optional:<span class="w"> </span><span class="nb">false</span>
 </pre></div>
 </div>
-<p>Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña en <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code> y aplícalo:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
-secret/web-tunombre-secret<span class="w"> </span>configured
-
-root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
-<span class="m">200</span>
-</pre></div>
-</div>
-<p>Sigue entrando con la contraseña <strong>vieja</strong>, aunque el Secret ya tenga la nueva, porque los Pods que están vivos leyeron la suya al arrancar. Hasta que no se recrean no se enteran:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/web-tunombre
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
-
-root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
-<span class="m">401</span>
-</pre></div>
-</div>
-<p>No hace falta reconstruir la imagen ni tocar <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>: eso es justo lo que se gana separando la configuración de la imagen.</p>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>Un Secret <strong>no está cifrado</strong>, solo codificado en base64, y dentro del contenedor la clave está a la vista. Sirve para que no aparezca en los listados ni en el fichero YAML del repositorio, no para guardar algo de verdad importante:</p>
@@ -1536,6 +1545,44 @@ MiClaveSecreta
 </pre></div>
 </div>
 </div>
+<p>Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña a <strong>tuapellido</strong>, y esta vez pásala tú a base64. Saca el valor con <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">-n</span></code>; el <code class="docutils literal notranslate"><span class="pre">-n</span></code> es importante, porque sin él se cuela el salto de línea dentro de la clave:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span>tuapellido<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<span class="nv">dHVhcGVsbGlkbw</span><span class="o">==</span>
+</pre></div>
+</div>
+<p>En <code class="docutils literal notranslate"><span class="pre">config-tunombre.yml</span></code> cambia en el Secret <code class="docutils literal notranslate"><span class="pre">stringData</span></code> por <code class="docutils literal notranslate"><span class="pre">data</span></code> y pon ese valor:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">clave</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dHVhcGVsbGlkbw==&quot;</span>
+</pre></div>
+</div>
+<p>Y aplícalo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>config-tunombre.yml
+secret/web-tunombre-secret<span class="w"> </span>configured
+
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">200</span>
+</pre></div>
+</div>
+<p>Sigue entrando con la contraseña <strong>vieja</strong>, aunque el Secret ya tenga la nueva, porque los Pods que están vivos leyeron la suya al arrancar. Hasta que no se recrean no se enteran:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment/web-tunombre
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/web-tunombre
+
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:MiClaveSecreta<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">401</span>
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:tuapellido<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">200</span>
+root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}\n&quot;</span><span class="w"> </span>-u<span class="w"> </span>tunombre:otracosa<span class="w"> </span>http://web-tunombre.local/privado/
+<span class="m">401</span>
+</pre></div>
+</div>
+<p>No hace falta reconstruir la imagen ni tocar <code class="docutils literal notranslate"><span class="pre">web-tunombre.yml</span></code>: eso es justo lo que se gana separando la configuración de la imagen.</p>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p><strong>Llama al profesor</strong> y enséñale el <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">-n</span> <span class="pre">...</span> <span class="pre">|</span> <span class="pre">base64</span></code> con el que has sacado la clave y los <code class="docutils literal notranslate"><span class="pre">curl</span></code>: <code class="docutils literal notranslate"><span class="pre">200</span></code> con <strong>tuapellido</strong> y <code class="docutils literal notranslate"><span class="pre">401</span></code> con otra contraseña.</p>
+</div>
+<p>Y desde el navegador del anfitrión, en <code class="docutils literal notranslate"><span class="pre">http://&lt;ip-del-anfitrión&gt;:30080/privado/</span></code>, entra con el usuario <strong>tunombre</strong> y la contraseña <strong>tuapellido</strong>. Sube un <strong>pantallazo</strong><sup>4</sup> de la ventana de inicio de sesión y otro de la página que sale después, como estos:</p>
+<img alt="../../_images/k3s_privado_login.png" src="../../_images/k3s_privado_login.png" />
+<img alt="../../_images/k3s_privado_acertado.png" src="../../_images/k3s_privado_acertado.png" />
 </section>
 <section id="almacenamiento-persistente">
 <h3>Almacenamiento persistente<a class="headerlink" href="#almacenamiento-persistente" title="Link to this heading">#</a></h3>

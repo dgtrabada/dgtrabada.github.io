@@ -570,6 +570,7 @@ Cambiar la versión de la aplicación es cambiar la imagen del Deployment, y Kub
     curl -s -o /dev/null -w "%{http_code}\n" --max-time 5 http://web-tunombre.local
     sleep 0.2
   done | sort | uniq -c
+      300 200
 
 Sin tocar nada contestan las trescientas, como tenía que ser. Ese es el punto de partida: ahora actualizamos la imagen y, **mientras se actualiza**, repetimos exactamente la misma medición desde otra terminal para comparar. ``rollout status`` cuenta el proceso:
 
@@ -601,33 +602,51 @@ Y aquí está la diferencia. El mismo bucle de antes, lanzado en otra terminal m
 
 .. code-block:: bash
 
-      1 000
-    297 200
-      2 502
+      2 000
+    295 200
+      3 502
 
-Los ``502`` son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los ``000`` conexiones cortadas a medias. Kubernetes no sabe cuándo un contenedor **está listo** ni cuándo **ha terminado de atender** lo que tenía entre manos, y hay que decírselo con tres cosas:
+Los ``502`` son peticiones que Traefik mandó a una copia que ya se estaba apagando, y los ``000`` conexiones cortadas a medias.
+
+.. important::
+
+   **Llama al profesor** y enséñale las peticiones perdidas. Sube un **pantallazo**\ :sup:`3` en el que se vea el resultado del bucle durante el cambio, con los ``502`` y los ``000``.
+
+Kubernetes no sabe cuándo un contenedor **está listo** ni cuándo **ha terminado de atender** lo que tenía entre manos, y hay que decírselo con tres cosas:
 
 * una **readinessProbe**: hasta que la página no conteste, esa copia no recibe tráfico;
 * ``maxUnavailable: 0``: no quites una copia vieja hasta tener una nueva lista;
 * y un **preStop**, una pausa antes de apagar la copia vieja, para que le dé tiempo a salir de la lista de destinos.
 
-Las tres van en el **Deployment de** ``web-tunombre.yml``, que ya tienes escrito: no es un objeto nuevo. **Lo resaltado es lo que hay que añadir o cambiar**; el resto está solo para situar el sitio y la sangría:
+Las tres van en el **Deployment de** ``web-tunombre.yml``, que ya tienes escrito: no es un objeto nuevo. Este es el Deployment **entero** tal como queda; **lo resaltado es lo que hay que añadir o cambiar**. El ConfigMap y el Service del mismo fichero no se tocan:
 
 .. code-block:: yaml
-  :emphasize-lines: 3-7,13-21
+  :emphasize-lines: 7-11,25-33
 
-  # web-tunombre.yml, en el Deployment
+  # web-tunombre.yml, el Deployment completo
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: web-tunombre
   spec:
     replicas: 8
     strategy:
       rollingUpdate:
         maxSurge: 25%
         maxUnavailable: 0
+    selector:
+      matchLabels:
+        app: web-tunombre
     template:
+      metadata:
+        labels:
+          app: web-tunombre
       spec:
         containers:
           - name: nginx
             image: nginx:alpine
+            ports:
+              - containerPort: 80
             readinessProbe:
               httpGet:
                 path: /
@@ -637,6 +656,13 @@ Las tres van en el **Deployment de** ``web-tunombre.yml``, que ya tienes escrito
               preStop:
                 exec:
                   command: ["sleep", "5"]
+            volumeMounts:
+              - name: html
+                mountPath: /usr/share/nginx/html
+        volumes:
+          - name: html
+            configMap:
+              name: web-tunombre-html
 
 Y aprovecha para poner las **ocho** réplicas en el fichero: el ``kubectl scale`` de antes cambió el clúster pero no el YAML, así que si lo aplicas tal como está te bajaría otra vez al número viejo. Después, ``kubectl apply -f web-tunombre.yml``, y repitiendo la misma prueba, ahora sí:
 
@@ -652,7 +678,7 @@ Merece la pena verlo por pasos, porque explica para qué sirve cada ajuste:
   * - Deployment
     - 300 peticiones durante el cambio
   * - como está arriba
-    - 297 ``200``, 2 ``502``, 1 sin respuesta
+    - 295 ``200``, 3 ``502``, 2 sin respuesta
   * - con readinessProbe y maxUnavailable: 0
     - 297 ``200``, 3 sin respuesta
   * - y además con preStop
@@ -822,11 +848,12 @@ Tenerlos creados no hace nada por sí solo: hay que **inyectarlos como variables
 
 Y de paso **desaparece** el ConfigMap ``web-tunombre-html`` con la página y el volumen que lo montaba en ``/usr/share/nginx/html``. Ya no hacen falta, porque ahora la página la genera la propia imagen al arrancar, y además **estorban**: un volumen de ConfigMap se monta en sólo lectura, así que el ``envsubst`` del arranque no podría escribir ahí el ``index.html``. Si te lo dejas puesto, el Pod arranca pero la página sigue siendo la vieja, y no hay ningún error que te lo diga.
 
-Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está el fichero **entero** tal como tiene que quedar: de los tres objetos del principio ya solo quedan **dos**, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:
+Entre lo que se añade y lo que se va son demasiados cambios para un recorte, así que aquí está ``web-tunombre.yml`` **entero** tal como tiene que quedar: de los tres objetos del principio ya solo quedan **dos**, el Deployment y el Service. Resaltado, lo que es nuevo en este apartado:
 
 .. code-block:: yaml
-  :emphasize-lines: 21-22,25-40
+  :emphasize-lines: 22-23,26-41
 
+  # web-tunombre.yml, el fichero completo
   apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -1025,7 +1052,37 @@ La diferencia entre los dos se ve en ``describe``, que enseña de dónde sale ca
       USUARIO:  <set to the key 'usuario' of config map 'web-tunombre-config'>  Optional: false
       CLAVE:    <set to the key 'clave' in secret 'web-tunombre-secret'>        Optional: false
 
-Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña en ``config-tunombre.yml`` y aplícalo:
+.. warning::
+
+  Un Secret **no está cifrado**, solo codificado en base64, y dentro del contenedor la clave está a la vista. Sirve para que no aparezca en los listados ni en el fichero YAML del repositorio, no para guardar algo de verdad importante:
+
+  .. code-block:: bash
+
+    root@compute-0-0:~# kubectl get secret web-tunombre-secret -o jsonpath='{.data.clave}'
+    TWlDbGF2ZVNlY3JldGE=
+    root@compute-0-0:~# echo TWlDbGF2ZVNlY3JldGE= | base64 -d
+    MiClaveSecreta
+
+    root@compute-0-0:~# kubectl exec web-tunombre-6d9474f456-9qxwz -- printenv TITULO USUARIO CLAVE
+    Hola, soy tunombre
+    tunombre
+    MiClaveSecreta
+
+Y ahora se puede probar de verdad lo de las variables de entorno. Cambia la contraseña a **tuapellido**, y esta vez pásala tú a base64. Saca el valor con ``echo -n``; el ``-n`` es importante, porque sin él se cuela el salto de línea dentro de la clave:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# echo -n tuapellido | base64
+  dHVhcGVsbGlkbw==
+
+En ``config-tunombre.yml`` cambia en el Secret ``stringData`` por ``data`` y pon ese valor:
+
+.. code-block:: yaml
+
+  data:
+    clave: "dHVhcGVsbGlkbw=="
+
+Y aplícalo:
 
 .. code-block:: bash
 
@@ -1044,24 +1101,22 @@ Sigue entrando con la contraseña **vieja**, aunque el Secret ya tenga la nueva,
 
   root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:MiClaveSecreta http://web-tunombre.local/privado/
   401
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:tuapellido http://web-tunombre.local/privado/
+  200
+  root@compute-0-0:~# curl -s -o /dev/null -w "%{http_code}\n" -u tunombre:otracosa http://web-tunombre.local/privado/
+  401
 
 No hace falta reconstruir la imagen ni tocar ``web-tunombre.yml``: eso es justo lo que se gana separando la configuración de la imagen.
 
-.. warning::
+.. important::
 
-  Un Secret **no está cifrado**, solo codificado en base64, y dentro del contenedor la clave está a la vista. Sirve para que no aparezca en los listados ni en el fichero YAML del repositorio, no para guardar algo de verdad importante:
+   **Llama al profesor** y enséñale el ``echo -n ... | base64`` con el que has sacado la clave y los ``curl``: ``200`` con **tuapellido** y ``401`` con otra contraseña.
 
-  .. code-block:: bash
+Y desde el navegador del anfitrión, en ``http://<ip-del-anfitrión>:30080/privado/``, entra con el usuario **tunombre** y la contraseña **tuapellido**. Sube un **pantallazo**\ :sup:`4` de la ventana de inicio de sesión y otro de la página que sale después, como estos:
 
-    root@compute-0-0:~# kubectl get secret web-tunombre-secret -o jsonpath='{.data.clave}'
-    TWlDbGF2ZVNlY3JldGE=
-    root@compute-0-0:~# echo TWlDbGF2ZVNlY3JldGE= | base64 -d
-    MiClaveSecreta
+.. image:: imagenes/k3s_privado_login.png
 
-    root@compute-0-0:~# kubectl exec web-tunombre-6d9474f456-9qxwz -- printenv TITULO USUARIO CLAVE
-    Hola, soy tunombre
-    tunombre
-    MiClaveSecreta
+.. image:: imagenes/k3s_privado_acertado.png
 
 Almacenamiento persistente
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
