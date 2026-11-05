@@ -307,6 +307,50 @@ extensiones.sh
         .. literalinclude:: scripts/extensiones.sh
            :language: shell
 
+puertos.sh
+""""""""""
+
+.. tabs::
+
+    .. tab:: puertos.sh
+
+        Crea un script llamado **puertos.sh** que simule el registro de conexiones de un cortafuegos: cada línea del archivo es una conexión con la IP de origen, el puerto de destino y el protocolo:
+
+        .. code-block:: bash
+
+           10.0.1.4 3389 tcp
+           10.0.1.13 3389 tcp
+           10.0.1.7 3306 tcp
+
+        Tiene que cumplir los siguientes requisitos:
+
+        * Sin argumentos o con una opción que no exista muestra la ayuda (usa una función):
+
+          .. code-block:: bash
+
+             Uso:
+               ./puertos.sh -file <archivo> <N>  crea <archivo> con N conexiones a puertos aleatorios
+               ./puertos.sh -read <archivo>      muestra los puertos ordenados por número de conexiones
+
+        * Opción ``-file <archivo> <N>``: crea el archivo con N líneas con el formato anterior. La IP es aleatoria dentro del rango 10.0.1.0/27 (de 10.0.1.1 a 10.0.1.30), el puerto se escoge al azar entre ``22 80 443 3306 3389 8080`` (usa un array) y el protocolo es siempre ``tcp``. Si no se indica N, tomará 50; si tampoco se indica el archivo, se llamará ``conexiones.dat``.
+
+        * Opción ``-read <archivo>``: muestra cuántas conexiones hay a cada puerto, de mayor a menor. Si el archivo no existe muestra ``Error: el archivo no existe``:
+
+          .. code-block:: bash
+
+             $ ./puertos.sh -read puertos.dat
+                  11 3389
+                  10 3306
+                   8 443
+                   6 22
+                   3 80
+                   2 8080
+
+    .. tab:: Solución
+
+        .. literalinclude:: scripts/puertos.sh
+           :language: shell
+
 menu.sh
 """""""
 
