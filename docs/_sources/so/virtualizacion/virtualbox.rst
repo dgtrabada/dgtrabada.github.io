@@ -109,8 +109,8 @@ Vídeos Ubuntu 26.04:
 
 Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ ,  `Gestión de usuarios <https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq>`_
 
-Caso práctico: clúster Ubuntu
------------------------------
+Caso práctico: clúster Ubuntu Server en red NAT
+-----------------------------------------------
 
 Para los casos prácticos con varias máquinas haz **cuatro clones enlazados** de **MV Ubuntu Server 26.04**, generando nuevas direcciones MAC, con estos nombres y esta red. El usuario **root** de **compute-0-0** tiene que poder conectarse por **ssh sin contraseña** a compute-0-1, compute-0-2 y compute-0-3:
 
