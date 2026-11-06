@@ -109,6 +109,28 @@ Vídeos Ubuntu 26.04:
 
 Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ ,  `Gestión de usuarios <https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq>`_
 
+Caso práctico: clúster Ubuntu
+-----------------------------
+
+Para los casos prácticos con varias máquinas haz **cuatro clones enlazados** de **MV Ubuntu Server 26.04**, generando nuevas direcciones MAC, con estos nombres y esta red. El usuario **root** de **compute-0-0** tiene que poder conectarse por **ssh sin contraseña** a compute-0-1, compute-0-2 y compute-0-3:
+
+* **compute-0-0**
+
+  * Tarjeta red modo "Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión"
+  * Tarjeta de red modo "Red interna" : 172.16.0.10/16
+
+* **compute-0-1**
+
+  * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
+
+* **compute-0-2**
+
+  * Tarjeta de red modo "Red interna" : 172.16.0.12/16 (tiene internet a través de compute-0-0)
+
+* **compute-0-3**
+
+  * Tarjeta de red modo "Red interna" : 172.16.0.13/16 (tiene internet a través de compute-0-0)
+
 Caso práctico: Windows 11
 -------------------------
 
