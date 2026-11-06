@@ -57,6 +57,17 @@ Red interna         Sí         No               No                             
 Solo-anfitrión      Sí         Sí               Sí                               No
 ==================  =========  ===============  ===============================  ========
 
+.. note::
+
+   No confundas la puerta de enlace de los dos modos NAT, aunque los dos usen la red 10.0.2.0/24: en **NAT** es la **10.0.2.2** y en **Red NAT** es la **10.0.2.1**. Para saber cuál está usando una máquina, mira su ruta por defecto:
+
+   .. code-block:: bash
+
+     root@compute-0-0:~# ip route | grep default
+     default via 10.0.2.1 dev enp0s3
+
+   Si sale ``10.0.2.2``, la tarjeta está en modo **NAT** y no en **Red NAT**: tendrá internet, pero no verá a las otras máquinas de la red NAT ni le servirán sus reenvíos de puertos.
+
 
 
 
