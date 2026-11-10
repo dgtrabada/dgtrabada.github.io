@@ -7,10 +7,18 @@ Vídeo de ayuda: `ssh y rsync <https://mediateca.educa.madrid.org/video/6h8aqs9h
 Ejercicio 1: SSH sin contraseña
 ===============================
 
-Haz dos clones enlazados de **MV Ubuntu Server 26.04**, generando nuevas direcciones MAC, y dales las siguientes IPs (con DHCP si usas un portátil):
+Haz dos clones enlazados de **MV Ubuntu Server 26.04**, generando nuevas direcciones MAC, y conéctalos entre sí con una **red interna**:
 
-* Clon enlazado 1: **compute-0-0**, 10.4.X.Y/8
-* Clon enlazado 2: **compute-0-1**, 10.5.X.Y/8
+* Clon enlazado 1: **compute-0-0**
+
+  * Tarjeta de red modo "NAT" : 10.0.2.10/24, tal como viene en **MV Ubuntu Server 26.04**
+  * Añade una segunda tarjeta de red en modo "Red interna" : 172.16.0.10/16
+
+* Clon enlazado 2: **compute-0-1**
+
+  * Cambia su tarjeta de red a modo "Red interna" : 172.16.0.11/16
+
+Las dos máquinas se ven por la red interna (172.16.0.10 y 172.16.0.11). Solo compute-0-0 tiene salida a internet.
 
 Configura las dos máquinas:
 

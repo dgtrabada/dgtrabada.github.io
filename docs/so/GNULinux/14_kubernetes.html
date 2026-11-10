@@ -672,29 +672,10 @@
 <section id="caso-practico-un-cluster-kubernetes-con-k3s">
 <h2>Caso práctico: un clúster Kubernetes con k3s<a class="headerlink" href="#caso-practico-un-cluster-kubernetes-con-k3s" title="Link to this heading">#</a></h2>
 <p>Montamos ahora un clúster de verdad con <strong>k3s</strong>, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de <strong>kubeadm</strong>— pero cabe en una máquina virtual modesta y se instala con una orden.</p>
-<p>Partimos de <strong>cuatro máquinas virtuales limpias</strong>, clones enlazados de <strong>MV Ubuntu Server</strong>, con <strong>4 GB de memoria cada una</strong> y la red de siempre. Con 2 GB el clúster arranca, pero se queda sin sitio en cuanto se le añade algo, así que dáselos ahora y te ahorras rehacerlo a mitad del tema:</p>
+<p>Haz de nuevo las cuatro máquinas del <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-cluster-ubuntu-server-con-nat-y-red-interna"><span class="std std-ref">Caso práctico: clúster Ubuntu Server con NAT y red interna</span></a>, con dos cambios:</p>
 <ul class="simple">
-<li><p><strong>compute-0-0</strong> (será el <strong>servidor</strong> del clúster y dará salida a Internet a los demás)</p>
-<ul>
-<li><p>Tarjeta red modo &quot;Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080&quot;</p></li>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
-</ul>
-</li>
-<li><p><strong>compute-0-1</strong> (<strong>agente</strong>)</p>
-<ul>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.11/16 (tiene internet a través de compute-0-0)</p></li>
-</ul>
-</li>
-<li><p><strong>compute-0-2</strong> (<strong>agente</strong>)</p>
-<ul>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.12/16 (tiene internet a través de compute-0-0)</p></li>
-</ul>
-</li>
-<li><p><strong>compute-0-3</strong> (<strong>agente</strong>)</p>
-<ul>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.13/16 (tiene internet a través de compute-0-0)</p></li>
-</ul>
-</li>
+<li><p>En la tarjeta <strong>NAT</strong> de compute-0-0, además del reenvío del puerto 2222 del anfitrión al 22, añade otro del <strong>30080 del anfitrión al 30080</strong> (con la IP del invitado 10.0.2.10). Por ahí veremos la aplicación desde el navegador del anfitrión.</p></li>
+<li><p><strong>compute-0-0</strong> será el <strong>servidor</strong> del clúster y compute-0-1, compute-0-2 y compute-0-3 los <strong>agentes</strong>.</p></li>
 </ul>
 <section id="el-cluster">
 <h3>El clúster<a class="headerlink" href="#el-cluster" title="Link to this heading">#</a></h3>
@@ -727,7 +708,7 @@ NAME<span class="w">          </span>STATUS<span class="w">   </span>ROLES<span 
 compute-0-0<span class="w">   </span>Ready<span class="w">    </span>control-plane<span class="w">   </span>48s<span class="w">   </span>v1.36.4+k3s1<span class="w">   </span><span class="m">10</span>.0.2.10<span class="w">     </span>Ubuntu<span class="w"> </span><span class="m">26</span>.04.1<span class="w"> </span>LTS
 </pre></div>
 </div>
-<p>k3s ha elegido la <strong>primera tarjeta</strong>, la de la Red NAT, como dirección del nodo: 10.0.2.10. Esa no vale: es una dirección que puede cambiar y que los agentes de la red interna no alcanzan. El clúster tiene que vivir en la <strong>red interna</strong>, así que desinstalamos y repetimos diciéndole por dónde:</p>
+<p>k3s ha elegido la <strong>primera tarjeta</strong>, la que está en modo NAT, como dirección del nodo: 10.0.2.10. Esa no vale: es una dirección que puede cambiar y que los agentes de la red interna no alcanzan. El clúster tiene que vivir en la <strong>red interna</strong>, así que desinstalamos y repetimos diciéndole por dónde:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>/usr/local/bin/k3s-uninstall.sh
 root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="nv">INSTALL_K3S_EXEC</span><span class="o">=</span><span class="s2">&quot;--node-ip 172.16.0.10 --flannel-iface enp0s8&quot;</span><span class="w"> </span>sh<span class="w"> </span>-
@@ -954,7 +935,7 @@ root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-s<span c
 </pre></div>
 </div>
 <p>Ahora la aplicación se pide por su nombre y en el puerto 80, como cualquier web. Y en la misma dirección caben muchas aplicaciones: el Ingress mira la cabecera <code class="docutils literal notranslate"><span class="pre">Host:</span></code> y decide a cuál va cada petición.</p>
-<p>Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el <strong>navegador del anfitrión</strong> también se ve, sin entrar en ninguna máquina, gracias al reenvío de puertos de la Red NAT que pusimos al principio (el 30080 del anfitrión al 30080 de compute-0-0):</p>
+<p>Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el <strong>navegador del anfitrión</strong> también se ve, sin entrar en ninguna máquina, gracias al reenvío de puertos de la tarjeta NAT que pusimos al principio (el 30080 del anfitrión al 30080 de compute-0-0):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;ip-del-anfitrión&gt;:30080
 </pre></div>
 </div>

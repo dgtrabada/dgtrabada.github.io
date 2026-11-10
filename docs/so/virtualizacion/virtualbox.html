@@ -584,7 +584,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-de-virtualbox">Comandos útiles de VirtualBox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-26-04">Caso práctico: MV Ubuntu Server 26.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-ubuntu-server-en-red-nat">Caso práctico: clúster Ubuntu Server en red NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-ubuntu-server-con-nat-y-red-interna">Caso práctico: clúster Ubuntu Server con NAT y red interna</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>
@@ -680,10 +680,10 @@ La red que crea VirtualBox por defecto (<strong>NatNetwork</strong>) es la 10.0.
 <p class="admonition-title">Nota</p>
 <p>No confundas la puerta de enlace de los dos modos NAT, aunque los dos usen la red 10.0.2.0/24: en <strong>NAT</strong> es la <strong>10.0.2.2</strong> y en <strong>Red NAT</strong> es la <strong>10.0.2.1</strong>. Para saber cuál está usando una máquina, mira su ruta por defecto:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>default
-default<span class="w"> </span>via<span class="w"> </span><span class="m">10</span>.0.2.1<span class="w"> </span>dev<span class="w"> </span>enp0s3
+default<span class="w"> </span>via<span class="w"> </span><span class="m">10</span>.0.2.2<span class="w"> </span>dev<span class="w"> </span>enp0s3
 </pre></div>
 </div>
-<p>Si sale <code class="docutils literal notranslate"><span class="pre">10.0.2.2</span></code>, la tarjeta está en modo <strong>NAT</strong> y no en <strong>Red NAT</strong>: tendrá internet, pero no verá a las otras máquinas de la red NAT ni le servirán sus reenvíos de puertos.</p>
+<p>Si sale <code class="docutils literal notranslate"><span class="pre">10.0.2.2</span></code> la tarjeta está en modo <strong>NAT</strong>, que es el que usamos en <strong>MV Ubuntu Server 26.04</strong> y en sus clones. Si la tarjeta está en <strong>Red NAT</strong> y la máquina sigue con la puerta de enlace <code class="docutils literal notranslate"><span class="pre">10.0.2.2</span></code> (o al revés), no tendrá internet.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -709,8 +709,8 @@ default<span class="w"> </span>via<span class="w"> </span><span class="m">10</sp
 <li><p>Descárgate el sistema operativo Ubuntu Server 26.04 LTS en formato (ISO) de su página oficial</p></li>
 <li><p>Utiliza un disco de 200 GB y 4 GB de RAM</p></li>
 <li><p>Iniciamos la máquina y procedemos a la instalación, llama a esta máquina virtual <strong>MV Ubuntu Server 26.04</strong></p></li>
-<li><p>Utiliza un adaptador puente para la red con <strong>IP</strong> 10.4.X.Y/8 (255.0.0.0), donde <strong>X.Y</strong> son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.</p></li>
-<li><p><strong>DNS</strong> 8.8.8.8, <strong>Gateway</strong> 10.0.0.2 y <strong>subred</strong> 10.0.0.0/8</p></li>
+<li><p>Utiliza la red en modo <strong>NAT</strong> con <strong>IP</strong> 10.0.2.10/24, <strong>Gateway</strong> 10.0.2.2, <strong>subred</strong> 10.0.2.0/24 y <strong>DNS</strong> 8.8.8.8</p></li>
+<li><p>Añade un <strong>reenvío de puertos</strong> (Configuración -&gt; Red -&gt; Avanzadas -&gt; Reenvío de puertos) del puerto 2222 del anfitrión al 22 de la máquina, rellenando la IP del invitado: <em>TCP, puerto anfitrión 2222, IP invitado 10.0.2.10, puerto invitado 22</em>. Así podrás entrar desde el anfitrión con <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">-p2222</span> <span class="pre">tunombre&#64;127.0.0.1</span></code>. Si dejas vacía la IP del invitado, VirtualBox reenvía a la 10.0.2.15 que reparte su DHCP y no llegarías a la máquina.</p></li>
 <li><p>Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout</p>
 <img alt="../../_images/MV_Ubuntu_Server_22.04.jpg" src="../../_images/MV_Ubuntu_Server_22.04.jpg" />
 </li>
@@ -725,13 +725,13 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 </ul>
 <p>Vídeos Ubuntu 24.04: <a class="reference external" href="https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz">vídeo de instalación</a> , <a class="reference external" href="https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55">vídeo de configuración ssh server + MobaXterm</a>, <a class="reference external" href="https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm">vídeo ssh-copy.id</a> ,  <a class="reference external" href="https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq">Gestión de usuarios</a></p>
 </section>
-<section id="caso-practico-cluster-ubuntu-server-en-red-nat">
-<h2>Caso práctico: clúster Ubuntu Server en red NAT<a class="headerlink" href="#caso-practico-cluster-ubuntu-server-en-red-nat" title="Link to this heading">#</a></h2>
+<section id="caso-practico-cluster-ubuntu-server-con-nat-y-red-interna">
+<h2>Caso práctico: clúster Ubuntu Server con NAT y red interna<a class="headerlink" href="#caso-practico-cluster-ubuntu-server-con-nat-y-red-interna" title="Link to this heading">#</a></h2>
 <p>Para los casos prácticos con varias máquinas haz <strong>cuatro clones enlazados</strong> de <strong>MV Ubuntu Server 26.04</strong>, generando nuevas direcciones MAC, con estos nombres y esta red. El usuario <strong>root</strong> de <strong>compute-0-0</strong> tiene que poder conectarse por <strong>ssh sin contraseña</strong> a compute-0-1, compute-0-2 y compute-0-3:</p>
 <ul class="simple">
 <li><p><strong>compute-0-0</strong></p>
 <ul>
-<li><p>Tarjeta red modo &quot;Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión&quot;</p></li>
+<li><p>Tarjeta de red modo &quot;NAT&quot; : 10.0.2.10/24 con puerta de enlace 10.0.2.2 y el puerto 2222 del anfitrión reenviado al 22, tal como viene en <strong>MV Ubuntu Server 26.04</strong></p></li>
 <li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 </ul>
 </li>
@@ -751,6 +751,38 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
 </ul>
 </li>
 </ul>
+<p>Para que compute-0-1, compute-0-2 y compute-0-3 tengan internet, <strong>compute-0-0</strong> tiene que hacer de router, reenviando el tráfico de la red interna hacia la tarjeta en modo NAT. Lo hacemos con <strong>nftables</strong>, el sistema de filtrado de paquetes y firewall del kernel de Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>install<span class="w"> </span>nftables
+</pre></div>
+</div>
+<p>Añadimos en <code class="docutils literal notranslate"><span class="pre">/etc/nftables.conf</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>table<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>chain<span class="w"> </span>postrouting<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span>nat<span class="w"> </span>hook<span class="w"> </span>postrouting<span class="w"> </span>priority<span class="w"> </span><span class="m">100</span><span class="p">;</span>
+<span class="w">        </span>oifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>ip<span class="w"> </span>saddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>masquerade
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+table<span class="w"> </span>ip<span class="w"> </span>filter<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>chain<span class="w"> </span>forward<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="nb">type</span><span class="w"> </span>filter<span class="w"> </span>hook<span class="w"> </span>forward<span class="w"> </span>priority<span class="w"> </span><span class="m">0</span><span class="p">;</span>
+<span class="w">        </span>policy<span class="w"> </span>drop<span class="p">;</span>
+<span class="w">        </span>ip<span class="w"> </span>saddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>oifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>accept
+<span class="w">        </span>ip<span class="w"> </span>daddr<span class="w"> </span><span class="m">172</span>.16.0.0/16<span class="w"> </span>ct<span class="w"> </span>state<span class="w"> </span>established,related<span class="w"> </span>accept
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Activamos <code class="docutils literal notranslate"><span class="pre">ip_forward</span></code> para que el servidor enrute, ahora y de forma permanente:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.ip_forward=1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/sysctl.d/99-router.conf
+</pre></div>
+</div>
+<p>Habilitamos el servicio y lo iniciamos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nftables
+systemctl<span class="w"> </span>start<span class="w"> </span>nftables
+</pre></div>
+</div>
 </section>
 <section id="caso-practico-windows-11">
 <h2>Caso práctico: Windows 11<a class="headerlink" href="#caso-practico-windows-11" title="Link to this heading">#</a></h2>
@@ -888,7 +920,7 @@ Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has h
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comandos-utiles-de-virtualbox">Comandos útiles de VirtualBox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-mv-ubuntu-server-26-04">Caso práctico: MV Ubuntu Server 26.04</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-ubuntu-server-en-red-nat">Caso práctico: clúster Ubuntu Server en red NAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-cluster-ubuntu-server-con-nat-y-red-interna">Caso práctico: clúster Ubuntu Server con NAT y red interna</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-11">Caso práctico: Windows 11</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022">Caso práctico: Windows Server 2022</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-practico-windows-server-2022-sin-gui">Caso práctico: Windows Server 2022 sin GUI</a></li>

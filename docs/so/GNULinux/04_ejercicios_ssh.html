@@ -309,6 +309,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -599,11 +600,21 @@
 <p>Vídeo de ayuda: <a class="reference external" href="https://mediateca.educa.madrid.org/video/6h8aqs9h2qu2bw6d">ssh y rsync</a>.</p>
 <section id="ejercicio-1-ssh-sin-contrasena">
 <h2>Ejercicio 1: SSH sin contraseña<a class="headerlink" href="#ejercicio-1-ssh-sin-contrasena" title="Link to this heading">#</a></h2>
-<p>Haz dos clones enlazados de <strong>MV Ubuntu Server 26.04</strong>, generando nuevas direcciones MAC, y dales las siguientes IPs (con DHCP si usas un portátil):</p>
+<p>Haz dos clones enlazados de <strong>MV Ubuntu Server 26.04</strong>, generando nuevas direcciones MAC, y conéctalos entre sí con una <strong>red interna</strong>:</p>
 <ul class="simple">
-<li><p>Clon enlazado 1: <strong>compute-0-0</strong>, 10.4.X.Y/8</p></li>
-<li><p>Clon enlazado 2: <strong>compute-0-1</strong>, 10.5.X.Y/8</p></li>
+<li><p>Clon enlazado 1: <strong>compute-0-0</strong></p>
+<ul>
+<li><p>Tarjeta de red modo &quot;NAT&quot; : 10.0.2.10/24, tal como viene en <strong>MV Ubuntu Server 26.04</strong></p></li>
+<li><p>Añade una segunda tarjeta de red en modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 </ul>
+</li>
+<li><p>Clon enlazado 2: <strong>compute-0-1</strong></p>
+<ul>
+<li><p>Cambia su tarjeta de red a modo &quot;Red interna&quot; : 172.16.0.11/16</p></li>
+</ul>
+</li>
+</ul>
+<p>Las dos máquinas se ven por la red interna (172.16.0.10 y 172.16.0.11). Solo compute-0-0 tiene salida a internet.</p>
 <p>Configura las dos máquinas:</p>
 <ul>
 <li><p>Cambia el nombre de compute-0-1 en <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>.</p></li>

@@ -64,9 +64,9 @@ Solo-anfitrión      Sí         Sí               Sí                          
    .. code-block:: bash
 
      root@compute-0-0:~# ip route | grep default
-     default via 10.0.2.1 dev enp0s3
+     default via 10.0.2.2 dev enp0s3
 
-   Si sale ``10.0.2.2``, la tarjeta está en modo **NAT** y no en **Red NAT**: tendrá internet, pero no verá a las otras máquinas de la red NAT ni le servirán sus reenvíos de puertos.
+   Si sale ``10.0.2.2`` la tarjeta está en modo **NAT**, que es el que usamos en **MV Ubuntu Server 26.04** y en sus clones. Si la tarjeta está en **Red NAT** y la máquina sigue con la puerta de enlace ``10.0.2.2`` (o al revés), no tendrá internet.
 
 
 
@@ -101,9 +101,9 @@ Caso práctico: MV Ubuntu Server 26.04
 
 * Iniciamos la máquina y procedemos a la instalación, llama a esta máquina virtual **MV Ubuntu Server 26.04**
 
-* Utiliza un adaptador puente para la red con **IP** 10.4.X.Y/8 (255.0.0.0), donde **X.Y** son parte de las ips de vuestros equipos, en el caso de que tengas un portátil utiliza DHCP o una Red Nat.
+* Utiliza la red en modo **NAT** con **IP** 10.0.2.10/24, **Gateway** 10.0.2.2, **subred** 10.0.2.0/24 y **DNS** 8.8.8.8
 
-* **DNS** 8.8.8.8, **Gateway** 10.0.0.2 y **subred** 10.0.0.0/8
+* Añade un **reenvío de puertos** (Configuración -> Red -> Avanzadas -> Reenvío de puertos) del puerto 2222 del anfitrión al 22 de la máquina, rellenando la IP del invitado: *TCP, puerto anfitrión 2222, IP invitado 10.0.2.10, puerto invitado 22*. Así podrás entrar desde el anfitrión con ``ssh -p2222 tunombre@127.0.0.1``. Si dejas vacía la IP del invitado, VirtualBox reenvía a la 10.0.2.15 que reparte su DHCP y no llegarías a la máquina.
 
 * Hacemos el siguiente esquema de particiones, para ello selecciona (x) Custom storage layout
 
@@ -120,14 +120,14 @@ Vídeos Ubuntu 26.04:
 
 Vídeos Ubuntu 24.04: `vídeo de instalación <https://mediateca.educa.madrid.org/video/jd2dvobosm9ekzsz>`_ , `vídeo de configuración ssh server + MobaXterm <https://mediateca.educa.madrid.org/video/i2z3z9s487z4jg55>`_, `vídeo ssh-copy.id <https://mediateca.educa.madrid.org/video/d7modxsrdcxzzdnm>`_ ,  `Gestión de usuarios <https://mediateca.educa.madrid.org/video/7koaa9my5wzg1zwq>`_
 
-Caso práctico: clúster Ubuntu Server en red NAT
------------------------------------------------
+Caso práctico: clúster Ubuntu Server con NAT y red interna
+----------------------------------------------------------
 
 Para los casos prácticos con varias máquinas haz **cuatro clones enlazados** de **MV Ubuntu Server 26.04**, generando nuevas direcciones MAC, con estos nombres y esta red. El usuario **root** de **compute-0-0** tiene que poder conectarse por **ssh sin contraseña** a compute-0-1, compute-0-2 y compute-0-3:
 
 * **compute-0-0**
 
-  * Tarjeta red modo "Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión"
+  * Tarjeta de red modo "NAT" : 10.0.2.10/24 con puerta de enlace 10.0.2.2 y el puerto 2222 del anfitrión reenviado al 22, tal como viene en **MV Ubuntu Server 26.04**
   * Tarjeta de red modo "Red interna" : 172.16.0.10/16
 
 * **compute-0-1**
@@ -141,6 +141,46 @@ Para los casos prácticos con varias máquinas haz **cuatro clones enlazados** d
 * **compute-0-3**
 
   * Tarjeta de red modo "Red interna" : 172.16.0.13/16 (tiene internet a través de compute-0-0)
+
+Para que compute-0-1, compute-0-2 y compute-0-3 tengan internet, **compute-0-0** tiene que hacer de router, reenviando el tráfico de la red interna hacia la tarjeta en modo NAT. Lo hacemos con **nftables**, el sistema de filtrado de paquetes y firewall del kernel de Linux:
+
+.. code-block:: bash
+
+  apt install nftables
+
+Añadimos en ``/etc/nftables.conf``:
+
+.. code-block:: bash
+
+  table ip nat {
+      chain postrouting {
+          type nat hook postrouting priority 100;
+          oifname "enp0s3" ip saddr 172.16.0.0/16 masquerade
+      }
+  }
+
+  table ip filter {
+      chain forward {
+          type filter hook forward priority 0;
+          policy drop;
+          ip saddr 172.16.0.0/16 oifname "enp0s3" accept
+          ip daddr 172.16.0.0/16 ct state established,related accept
+      }
+  }
+
+Activamos ``ip_forward`` para que el servidor enrute, ahora y de forma permanente:
+
+.. code-block:: bash
+
+  sysctl -w net.ipv4.ip_forward=1
+  echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/99-router.conf
+
+Habilitamos el servicio y lo iniciamos:
+
+.. code-block:: bash
+
+  systemctl enable nftables
+  systemctl start nftables
 
 Caso práctico: Windows 11
 -------------------------

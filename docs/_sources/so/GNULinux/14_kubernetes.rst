@@ -58,24 +58,10 @@ Caso práctico: un clúster Kubernetes con k3s
 
 Montamos ahora un clúster de verdad con **k3s**, la distribución ligera de Kubernetes de Rancher: un único binario de unos 70 MB que trae dentro el servidor de la API, el planificador, containerd, flannel y un Ingress (Traefik) ya instalados. Es Kubernetes certificado —los comandos y los ficheros YAML son exactamente los mismos que con la instalación completa de **kubeadm**— pero cabe en una máquina virtual modesta y se instala con una orden.
 
-Partimos de **cuatro máquinas virtuales limpias**, clones enlazados de **MV Ubuntu Server**, con **4 GB de memoria cada una** y la red de siempre. Con 2 GB el clúster arranca, pero se queda sin sitio en cuanto se le añade algo, así que dáselos ahora y te ahorras rehacerlo a mitad del tema:
+Haz de nuevo las cuatro máquinas del :ref:`Caso práctico: clúster Ubuntu Server con NAT y red interna`, con dos cambios:
 
-* **compute-0-0** (será el **servidor** del clúster y dará salida a Internet a los demás)
-
-  * Tarjeta red modo "Red Nat 10.0.2.10/24 con puerta de enlace 10.0.2.1, utiliza el puerto 2222 del anfitrión al 22 y el puerto 30080 al 30080"
-  * Tarjeta de red modo "Red interna" : 172.16.0.10/16
-
-* **compute-0-1** (**agente**)
-
-  * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
-
-* **compute-0-2** (**agente**)
-
-  * Tarjeta de red modo "Red interna" : 172.16.0.12/16 (tiene internet a través de compute-0-0)
-
-* **compute-0-3** (**agente**)
-
-  * Tarjeta de red modo "Red interna" : 172.16.0.13/16 (tiene internet a través de compute-0-0)
+* En la tarjeta **NAT** de compute-0-0, además del reenvío del puerto 2222 del anfitrión al 22, añade otro del **30080 del anfitrión al 30080** (con la IP del invitado 10.0.2.10). Por ahí veremos la aplicación desde el navegador del anfitrión.
+* **compute-0-0** será el **servidor** del clúster y compute-0-1, compute-0-2 y compute-0-3 los **agentes**.
 
 El clúster
 ^^^^^^^^^^
@@ -114,7 +100,7 @@ Al cabo de medio minuto ya hay un nodo. Y aquí aparece el primer problema, porq
   NAME          STATUS   ROLES           AGE   VERSION        INTERNAL-IP   OS-IMAGE
   compute-0-0   Ready    control-plane   48s   v1.36.4+k3s1   10.0.2.10     Ubuntu 26.04.1 LTS
 
-k3s ha elegido la **primera tarjeta**, la de la Red NAT, como dirección del nodo: 10.0.2.10. Esa no vale: es una dirección que puede cambiar y que los agentes de la red interna no alcanzan. El clúster tiene que vivir en la **red interna**, así que desinstalamos y repetimos diciéndole por dónde:
+k3s ha elegido la **primera tarjeta**, la que está en modo NAT, como dirección del nodo: 10.0.2.10. Esa no vale: es una dirección que puede cambiar y que los agentes de la red interna no alcanzan. El clúster tiene que vivir en la **red interna**, así que desinstalamos y repetimos diciéndole por dónde:
 
 .. code-block:: bash
 
@@ -378,7 +364,7 @@ Como ``web-tunombre.local`` no existe en ningún DNS, lo añadimos al ``/etc/hos
 
 Ahora la aplicación se pide por su nombre y en el puerto 80, como cualquier web. Y en la misma dirección caben muchas aplicaciones: el Ingress mira la cabecera ``Host:`` y decide a cuál va cada petición.
 
-Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el **navegador del anfitrión** también se ve, sin entrar en ninguna máquina, gracias al reenvío de puertos de la Red NAT que pusimos al principio (el 30080 del anfitrión al 30080 de compute-0-0):
+Hasta aquí hemos entrado siempre desde dentro del clúster. Desde el **navegador del anfitrión** también se ve, sin entrar en ninguna máquina, gracias al reenvío de puertos de la tarjeta NAT que pusimos al principio (el 30080 del anfitrión al 30080 de compute-0-0):
 
 .. code-block:: bash
 

@@ -296,23 +296,19 @@ Ventajas de usar roles
 Caso práctico: compute-0-3
 **************************
 
-Partimos de un cluster formado por:
+Partimos de las máquinas del :ref:`Caso práctico: clúster Ubuntu Server con NAT y red interna`, con un cluster formado por:
 
 * **compute-0-0**:
 
-  * Tarjeta red modo "Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión"
-  * Tarjeta de red modo "Red interna" : 172.16.0.10/16
   * Servidor y cliente **LDAP** con usuarios (tunombre1, tunombre2, tunombre3 y grupo tuapellido)
   * Utiliza NFS y autofs para exportar el home de los usuarios
 
 * **compute-0-1**
 
-  * Tarjeta de red modo "Red interna" : 172.16.0.11/16 (tiene internet a través de compute-0-0)
   * Cliente LDAP y monta el home de los usuarios con autofs
 
 * **compute-0-2**
 
-  * Tarjeta de red modo "Red interna" : 172.16.0.12/16 (tiene internet a través de compute-0-0)
   * Cliente LDAP y monta el home de los usuarios con autofs
 
 Utiliza el gestor de tareas **Slurm** y **modules environment**

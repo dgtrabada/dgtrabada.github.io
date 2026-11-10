@@ -309,6 +309,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../windows/07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../windows/08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../windows/11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -842,25 +843,21 @@ Documentación del rol (uso, variables, descripción, etc.).</p></li>
 </section>
 <section id="caso-practico-compute-0-3">
 <h2>Caso práctico: compute-0-3<a class="headerlink" href="#caso-practico-compute-0-3" title="Link to this heading">#</a></h2>
-<p>Partimos de un cluster formado por:</p>
+<p>Partimos de las máquinas del <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-cluster-ubuntu-server-con-nat-y-red-interna"><span class="std std-ref">Caso práctico: clúster Ubuntu Server con NAT y red interna</span></a>, con un cluster formado por:</p>
 <ul class="simple">
 <li><p><strong>compute-0-0</strong>:</p>
 <ul>
-<li><p>Tarjeta red modo &quot;Red Nat 10.0.2.10/24 utiliza el puerto 2222 del anfitrión&quot;</p></li>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.10/16</p></li>
 <li><p>Servidor y cliente <strong>LDAP</strong> con usuarios (tunombre1, tunombre2, tunombre3 y grupo tuapellido)</p></li>
 <li><p>Utiliza NFS y autofs para exportar el home de los usuarios</p></li>
 </ul>
 </li>
 <li><p><strong>compute-0-1</strong></p>
 <ul>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.11/16 (tiene internet a través de compute-0-0)</p></li>
 <li><p>Cliente LDAP y monta el home de los usuarios con autofs</p></li>
 </ul>
 </li>
 <li><p><strong>compute-0-2</strong></p>
 <ul>
-<li><p>Tarjeta de red modo &quot;Red interna&quot; : 172.16.0.12/16 (tiene internet a través de compute-0-0)</p></li>
 <li><p>Cliente LDAP y monta el home de los usuarios con autofs</p></li>
 </ul>
 </li>
