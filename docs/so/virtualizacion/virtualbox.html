@@ -274,7 +274,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_ejercicios_rockylinux.html">Ejercicios Rocky Linux</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_k3s.html">Caso práctico: un clúster Kubernetes con k3s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_helm.html">Caso práctico: Helm, observabilidad y almacenamiento de objetos</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
@@ -716,10 +720,36 @@ default<span class="w"> </span>via<span class="w"> </span><span class="m">10</sp
 </li>
 <li><p>Usuario: <strong>tunombre</strong> y utiliza de contraseña: <strong>alumno</strong>
 Para el nombre del servidor utiliza <strong>compute-0-0</strong>, si no lo has hecho durante la instalación modifica el archivo <strong>/etc/hostname</strong></p></li>
+<li><p>Cuando termine la instalación, deja la configuración de red en <code class="docutils literal notranslate"><span class="pre">/etc/netplan/00-installer-config.yaml</span></code> así, sin <code class="docutils literal notranslate"><span class="pre">dhcp6</span></code> y sin atar la tarjeta a su <strong>dirección MAC</strong> (<code class="docutils literal notranslate"><span class="pre">match</span></code>, <code class="docutils literal notranslate"><span class="pre">macaddress</span></code> y <code class="docutils literal notranslate"><span class="pre">set-name</span></code>):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enp0s3</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">addresses</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.2.10/24</span>
+<span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">addresses</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.8.8.8</span>
+<span class="w">      </span><span class="nt">routes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">        </span><span class="nt">via</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.2.2</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+<p>Aplica el cambio y comprueba que sigues teniendo red:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>netplan<span class="w"> </span>apply
+root@compute-0-0:~#<span class="w"> </span>ip<span class="w"> </span>-4<span class="w"> </span>a<span class="w"> </span>show<span class="w"> </span>enp0s3
+root@compute-0-0:~#<span class="w"> </span>ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.8.8.8
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p>Hazlo <strong>antes de clonar</strong> la máquina. Los clones enlazados se crean generando <strong>nuevas direcciones MAC</strong>, así que con el <code class="docutils literal notranslate"><span class="pre">match</span></code> del instalador la configuración ya no coincide con la tarjeta del clon y este arranca <strong>sin red</strong>. El <code class="docutils literal notranslate"><span class="pre">dhcp6</span></code> sobra porque no usamos IPv6.</p>
+</div>
+</li>
 </ul>
 <p>Vídeos Ubuntu 26.04:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/isgmaba7o9t7pf7s">Instalar Ubuntu Server 26.04 LTS</a></p></li>
+<li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/juftackhumstdaey">Instalar Ubuntu Server 26.04 LTS</a></p></li>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/ba53lb6igw554eq2">Configuración ssh server Ubuntu Server 26.04 LTS</a></p></li>
 <li><p><a class="reference external" href="https://mediateca.educa.madrid.org/video/abo2552y3rtg5vyn">Exportar OVA</a></p></li>
 </ul>
@@ -782,6 +812,15 @@ table<span class="w"> </span>ip<span class="w"> </span>filter<span class="w"> </
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nftables
 systemctl<span class="w"> </span>start<span class="w"> </span>nftables
 </pre></div>
+</div>
+<p>Vídeo: <a class="reference external" href="https://mediateca.educa.madrid.org/video/jlwnwz9ngv4lo7mc">Clúster Ubuntu Server con NAT y red interna</a></p>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p>Sube al curso un <strong>pantallazo</strong> como el del vídeo, con este comando lanzado desde <strong>compute-0-0</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>ssh<span class="w"> </span>compute-0-1<span class="w"> </span>ping<span class="w"> </span>-c2<span class="w"> </span><span class="m">8</span>.8.8.8
+</pre></div>
+</div>
+<p>Tiene que verse que el <code class="docutils literal notranslate"><span class="pre">ssh</span></code> <strong>no pide contraseña</strong> y que compute-0-1 <strong>tiene internet</strong> a través de compute-0-0.</p>
 </div>
 </section>
 <section id="caso-practico-windows-11">

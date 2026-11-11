@@ -112,9 +112,38 @@ Caso práctico: MV Ubuntu Server 26.04
 * Usuario: **tunombre** y utiliza de contraseña: **alumno**
   Para el nombre del servidor utiliza **compute-0-0**, si no lo has hecho durante la instalación modifica el archivo **/etc/hostname** 
 
+* Cuando termine la instalación, deja la configuración de red en ``/etc/netplan/00-installer-config.yaml`` así, sin ``dhcp6`` y sin atar la tarjeta a su **dirección MAC** (``match``, ``macaddress`` y ``set-name``):
+
+  .. code-block:: yaml
+
+    network:
+      ethernets:
+        enp0s3:
+          addresses:
+          - 10.0.2.10/24
+          nameservers:
+            addresses:
+            - 8.8.8.8
+          routes:
+          - to: default
+            via: 10.0.2.2
+      version: 2
+
+  Aplica el cambio y comprueba que sigues teniendo red:
+
+  .. code-block:: bash
+
+    root@compute-0-0:~# netplan apply
+    root@compute-0-0:~# ip -4 a show enp0s3
+    root@compute-0-0:~# ping -c2 8.8.8.8
+
+  .. important::
+
+     Hazlo **antes de clonar** la máquina. Los clones enlazados se crean generando **nuevas direcciones MAC**, así que con el ``match`` del instalador la configuración ya no coincide con la tarjeta del clon y este arranca **sin red**. El ``dhcp6`` sobra porque no usamos IPv6.
+
 Vídeos Ubuntu 26.04:
 
-* `Instalar Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/isgmaba7o9t7pf7s>`_
+* `Instalar Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/juftackhumstdaey>`_
 * `Configuración ssh server Ubuntu Server 26.04 LTS <https://mediateca.educa.madrid.org/video/ba53lb6igw554eq2>`_
 * `Exportar OVA <https://mediateca.educa.madrid.org/video/abo2552y3rtg5vyn>`_
 
@@ -181,6 +210,18 @@ Habilitamos el servicio y lo iniciamos:
 
   systemctl enable nftables
   systemctl start nftables
+
+Vídeo: `Clúster Ubuntu Server con NAT y red interna <https://mediateca.educa.madrid.org/video/jlwnwz9ngv4lo7mc>`__
+
+.. important::
+
+   Sube al curso un **pantallazo** como el del vídeo, con este comando lanzado desde **compute-0-0**:
+
+   .. code-block:: bash
+
+      root@compute-0-0:~# ssh compute-0-1 ping -c2 8.8.8.8
+
+   Tiene que verse que el ``ssh`` **no pide contraseña** y que compute-0-1 **tiene internet** a través de compute-0-0.
 
 Caso práctico: Windows 11
 -------------------------
