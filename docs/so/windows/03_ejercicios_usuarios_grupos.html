@@ -274,7 +274,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_ejercicios_rockylinux.html">Ejercicios Rocky Linux</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_k3s.html">Caso práctico: un clúster Kubernetes con k3s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_helm.html">Caso práctico: Helm, observabilidad y almacenamiento de objetos</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
@@ -309,6 +313,7 @@
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -585,12 +590,12 @@
                   
   <section id="ejercicio-de-usuarios-y-grupos">
 <h1>Ejercicio de usuarios y grupos<a class="headerlink" href="#ejercicio-de-usuarios-y-grupos" title="Link to this heading">#</a></h1>
-<p>Este ejercicio se hace sobre la máquina virtual de Windows 11. Antes de empezar, consulta <a class="reference internal" href="03_usuarios_grupos.html#usuarios-y-grupos-windows"><span class="std std-ref">Usuarios y grupos Windows</span></a> y <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs"><span class="std std-ref">Permisos NTFS</span></a>.</p>
+<p>Este ejercicio se hace sobre la máquina virtual de Windows 11 Education (<code class="docutils literal notranslate"><span class="pre">lusrmgr.msc</span></code> y <code class="docutils literal notranslate"><span class="pre">secpol.msc</span></code> no existen en Windows 11 Home). Antes de empezar, consulta <a class="reference internal" href="03_usuarios_grupos.html#usuarios-y-grupos-windows"><span class="std std-ref">Usuarios y grupos Windows</span></a> y <a class="reference internal" href="03b_permisos_ntfs.html#permisos-ntfs"><span class="std std-ref">Permisos NTFS</span></a>.</p>
 <p><strong>Primera parte: Grupos y usuarios</strong></p>
 <p>Utiliza <code class="docutils literal notranslate"><span class="pre">lusrmgr.msc</span></code> para:</p>
 <ul class="simple">
 <li><p>Crear los grupos <strong>GA</strong> y <strong>GB</strong>.</p></li>
-<li><p>Crear los usuarios <strong>tunombre_A01</strong>, <strong>tunombre_A02</strong>, <strong>tunombre_B01</strong> y <strong>tunombre_B02</strong>.</p></li>
+<li><p>Crear los usuarios <strong>tunombre_A01</strong>, <strong>tunombre_A02</strong>, <strong>tunombre_B01</strong> y <strong>tunombre_B02</strong>, todos con contraseña: Windows no deja entrar por red a una cuenta sin contraseña.</p></li>
 <li><p>Agregar al grupo GA los usuarios tunombre_A01 y tunombre_A02.</p></li>
 <li><p>Agregar al grupo GB los usuarios tunombre_B01 y tunombre_B02.</p></li>
 </ul>
@@ -615,9 +620,10 @@
 <li><p>Pon la red de la máquina virtual en <strong>adaptador puente</strong> (Configuración / Red / Conectado a: Adaptador puente).</p></li>
 <li><p>Abre el Símbolo del sistema, ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> y apunta la IP.</p></li>
 <li><p>Inicia sesión como tunombre_A01 y crea una carpeta llamada <strong>tunombre</strong> en la unidad E: (el disco que creaste en <a class="reference internal" href="02b_ejercicios_configuracion.html#ejercicios-de-configuracion"><span class="std std-ref">Ejercicios de configuración</span></a>).</p></li>
-<li><p>Haz clic con el botón derecho sobre ella, <strong>Propiedades / Compartir / Compartir…</strong>, y da permisos de <strong>Lectura y escritura</strong> a tunombre_A02 y de <strong>Lectura</strong> a tunombre_B01:</p>
+<li><p>Haz clic con el botón derecho sobre ella, <strong>Propiedades / Compartir / Compartir…</strong>, y da permisos de <strong>Lectura y escritura</strong> al grupo <strong>GA</strong> y de <strong>Lectura</strong> al grupo <strong>GB</strong>. Así no hay que dar permisos usuario a usuario:</p>
 <img alt="../../_images/usuarios_compartir.png" src="../../_images/usuarios_compartir.png" />
 </li>
+<li><p>Si Windows pregunta si quieres activar la detección de redes y el uso compartido de archivos, acepta. Si después no llegas a la carpeta, pon la red como <strong>privada</strong> en Configuración / Red e Internet / Ethernet.</p></li>
 <li><p>Abre la carpeta compartida desde tu ordenador (en Windows <code class="docutils literal notranslate"><span class="pre">\\IP</span></code>; en Linux <code class="docutils literal notranslate"><span class="pre">smb://IP</span></code>) y sube el <strong>pantallazo</strong><sup>3</sup>, donde se vea cómo has iniciado sesión desde tu ordenador, por ejemplo:</p>
 <img alt="../../_images/usuarios_smb.png" src="../../_images/usuarios_smb.png" />
 </li>
@@ -629,6 +635,33 @@
 <li><p><strong>3.3</strong> ¿Y con tunombre_A02?</p></li>
 <li><p><strong>3.4</strong> ¿Y con tunombre_B01?</p></li>
 <li><p><strong>3.5</strong> ¿Y con tunombre_B02?</p></li>
+<li><p><strong>3.6</strong> Si llega un usuario nuevo, tunombre_A03, ¿qué tienes que hacer para que pueda leer y escribir en la carpeta?</p></li>
+</ul>
+<p><strong>Cuarta parte: Directivas de contraseñas</strong></p>
+<p>Consulta el apartado <a class="reference internal" href="03_usuarios_grupos.html#directivas-de-contrasenas-locales"><span class="std std-ref">Directivas de contraseñas locales</span></a>. Inicia sesión con una cuenta de administrador y, con <code class="docutils literal notranslate"><span class="pre">secpol.msc</span></code>, configura:</p>
+<ul class="simple">
+<li><p>Longitud mínima de la contraseña: <strong>8</strong> caracteres.</p></li>
+<li><p>La contraseña debe cumplir los requisitos de complejidad: <strong>Habilitada</strong>.</p></li>
+<li><p>Vigencia máxima de la contraseña: <strong>30</strong> días.</p></li>
+<li><p>Umbral de bloqueo de cuenta: <strong>3</strong> intentos.</p></li>
+<li><p>Duración del bloqueo de cuenta: <strong>5</strong> minutos.</p></li>
+</ul>
+<p>Abre el Símbolo del sistema como administrador, ejecuta <code class="docutils literal notranslate"><span class="pre">net</span> <span class="pre">accounts</span></code> y sube el <strong>pantallazo</strong><sup>4</sup>, donde se vean los valores nuevos.</p>
+<p>En esa misma ventana, intenta cambiar la contraseña de tunombre_B02 por una que no cumpla la directiva:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>net user tunombre_B02 1234
+</pre></div>
+</div>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>4.1</strong> ¿Qué mensaje aparece?</p></li>
+<li><p><strong>4.2</strong> Escribe una contraseña que sí acepte y explica por qué cumple la directiva.</p></li>
+<li><p><strong>4.3</strong> Las contraseñas de tunombre_A01 y tunombre_A02 ya existían. ¿Siguen funcionando? ¿Por qué?</p></li>
+</ul>
+<p>Ahora cierra la sesión e intenta entrar como tunombre_B01 con una contraseña equivocada hasta que la cuenta se bloquee.</p>
+<ul class="simple">
+<li><p><strong>4.4</strong> ¿Qué mensaje aparece cuando la cuenta se bloquea?</p></li>
+<li><p>Entra como administrador y abre las propiedades de tunombre_B01 en <code class="docutils literal notranslate"><span class="pre">lusrmgr.msc</span></code>. Sube el <strong>pantallazo</strong><sup>5</sup>, donde se vea marcada la casilla <strong>La cuenta está bloqueada</strong>.</p></li>
+<li><p>Desbloquea la cuenta. <strong>4.5</strong> ¿Cómo lo has hecho?</p></li>
 </ul>
 </section>
 

@@ -6,7 +6,7 @@ Este ejercicio se hace sobre la máquina virtual de Windows 11. Antes de empezar
 
 **Primera parte: Consulta de servicios**
 
-Abre la consola de servicios (Inicio / Ejecutar / ``services.msc``) y responde:
+Abre la consola de servicios (**Win+R** y escribe ``services.msc``) y responde:
 
 * **1.1** ¿Qué servicio se encarga de las actualizaciones de Windows?
 * **1.2** ¿En qué estado está (en ejecución, detenido…)?

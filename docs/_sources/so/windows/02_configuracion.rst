@@ -24,6 +24,18 @@ Explorador de Windows
 
 * Por fecha de modificación ``fechademodificación:hoy``
 
+* Por fecha de creación ``fechadecreación:``. Al escribirlo aparece un calendario para elegir un día, un intervalo o un periodo ya preparado (ayer, la semana pasada, el mes pasado…).
+
+* Desde una fecha ``fechadecreación:>=01/01/1999``; entre dos fechas ``fechadecreación:01/01/1999..31/12/2020``
+
+* Por tamaño máximo ``tamaño:<=300KB``
+
+* Por el texto que contiene el archivo ``contenido:Multimedia``
+
+* Los filtros se pueden combinar separándolos con un espacio: ``contenido:Screen fechadecreación:>=01/01/1999``
+
+La búsqueda se hace en la carpeta abierta en ese momento y en todas sus subcarpetas.
+
 Administrador de tareas
 =======================
 
@@ -31,7 +43,7 @@ Para ver el Administrador de tareas, haz clic derecho sobre cualquier espacio li
 
 .. image:: imagenes/administrador_tareas.png
 
-Poner más detalles
+En Windows 10 se abre en una vista reducida y hay que pulsar **Más detalles**. En Windows 11 se abre ya completo, con las secciones (Procesos, Rendimiento, Aplicaciones de arranque, Usuarios, Servicios…) en el panel izquierdo.
 
 .. image:: imagenes/administrador_tareas1.png
 
@@ -119,7 +131,7 @@ Por último, debemos tener en cuenta que el panel izquierdo puede contener otros
 
 Algo que puede resultar muy útil es mantener la ventana del Administrador de tareas en primer plano.
 
-Lo conseguimos eligiendo la opción Siempre visible dentro del menú Opciones.
+En Windows 10 lo conseguimos con la opción Siempre visible del menú Opciones; en Windows 11 está en **Configuración** (la rueda dentada de abajo a la izquierda) / Administración de ventanas / **Siempre visible**.
 
 .. image:: imagenes/administrador_tareas_opciones.png
 
@@ -132,6 +144,8 @@ En el caso de que queramos finalizar una tarea con el Administrador de tareas si
 En resumen, la pestaña **Rendimiento** nos permite conocer en tiempo real el consumo de cada uno de los núcleos del procesador, la velocidad de procesado actual, la memoria RAM libre y ocupada, así como la velocidad de trabajo de los discos que tenemos instalados e incluso de la conexión a la red que estemos usando en ese mismo instante.
 
 .. image:: imagenes/administrador_tareas7.png
+
+Para ver con más detalle qué proceso usa cada recurso está el **Monitor de recursos**: se abre desde la pestaña Rendimiento (menú de los tres puntos / Monitor de recursos) o con el comando ``resmon``. Tiene una pestaña para la CPU, la memoria, el disco y la red, y en cada una se pueden filtrar los datos por proceso.
 
 Grupos de trabajo y nombre de equipo
 ====================================
@@ -157,6 +171,33 @@ Cada equipo perteneciente al grupo de trabajo debe disponer de su cuenta de usua
 
 Todos los usuarios de una red local pueden pertenecer a un grupo de trabajo sin necesidad de pedir permiso ni introducir ninguna contraseña. Por lo tanto, cuando compartimos una carpeta hay que configurar de forma adecuada los permisos y los usuarios que tendrán acceso a nuestra carpeta compartida.
 
+Resolución de nombres en Windows
+================================
+
+Los equipos se comunican con direcciones IP, pero las personas usamos nombres. Resolver un nombre es averiguar la IP que le corresponde. La configuración de red, incluidos los servidores DNS, se ve con:
+
+.. code-block:: powershell
+
+ ipconfig /all        # IP, máscara, puerta de enlace, DNS y dirección física
+
+Cuando un programa pide un nombre, Windows lo busca en este orden:
+
+#. El fichero **hosts**, que está en ``C:\Windows\System32\drivers\etc\hosts``. Cada línea tiene una IP y un nombre. Para modificarlo hay que abrir el Bloc de notas como administrador.
+#. La **caché DNS**, donde guarda durante un tiempo los nombres que ya ha resuelto.
+#. Los **servidores DNS** configurados en la tarjeta de red.
+#. Si el nombre no lleva dominio y nadie lo ha resuelto, pregunta a los equipos de la red local.
+
+.. code-block:: powershell
+
+ ping www.educa.madrid.org          # resuelve el nombre como cualquier programa
+ nslookup www.educa.madrid.org      # pregunta al servidor DNS configurado
+ nslookup www.educa.madrid.org 1.1.1.1   # pregunta a otro servidor DNS
+ Resolve-DnsName www.educa.madrid.org    # lo mismo en PowerShell
+ ipconfig /displaydns               # muestra la caché DNS
+ ipconfig /flushdns                 # vacía la caché DNS
+
+``nslookup`` solo pregunta a los servidores DNS: no mira el fichero hosts ni la caché. Por eso un nombre escrito en hosts responde con ``ping`` y no con ``nslookup``.
+
 Administración de discos
 ========================
 
@@ -180,7 +221,7 @@ Copia de seguridad y restauración
 
 Existen dos tipos principales de copias de seguridad:
 
-* **Copia de seguridad de los archivos**. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras. En Windows se hace con el **Historial de archivos** (necesita una unidad externa o de red).
+* **Copia de seguridad de los archivos**. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras. En Windows se hace con el **Historial de archivos** (necesita una unidad distinta de la del sistema: un segundo disco, un disco externo o una carpeta de red).
 
 * **Copia de seguridad del sistema**. La copia de seguridad del sistema te permite crear una copia de todo el sistema operativo Windows que en ese momento tienes en tu ordenador, es decir, de todos los programas, los archivos y los valores de configuración. Se hace creando una **imagen de sistema** (Panel de control → Copia de seguridad y restauración).
 
@@ -198,7 +239,7 @@ El registro de Windows
 
 El registro de Windows es una base de datos donde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura está formada en forma de carpetas:
 
-**Inicio /Ejecutar/RegEdit**
+Se abre con **Win+R** y el comando ``regedit``:
 
 .. image:: imagenes/registro_windows.png
 
@@ -233,8 +274,8 @@ El registro de Windows es una base de datos donde aplicaciones y controladores g
   HKEY correspondiente, y hacemos: Edición / Buscar
 
 * **Limpieza del registro**
-    
-  Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.
+
+  Windows no incluye ninguna herramienta para limpiar el registro y Microsoft desaconseja los limpiadores de otros fabricantes: borrar claves a ciegas puede dejar programas sin funcionar. Si hay que modificarlo, se hace antes una copia.
     
 * **Copia de seguridad del registro**, 
 
@@ -254,7 +295,7 @@ El registro de Windows es una base de datos donde aplicaciones y controladores g
   Para hacer una copia parcial
   
   * Seleccionamos la rama o la clave a guardar
-  * Pulsamos en: Registro /Exportar archivo de registro
+  * Pulsamos en Archivo / Exportar, con la opción **Rama seleccionada** marcada
 
 
 Comandos Panel de Control

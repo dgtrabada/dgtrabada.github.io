@@ -2,7 +2,7 @@
 Ejercicios de configuración
 ****************************
 
-Estos ejercicios se hacen sobre la máquina virtual de Windows 11. En cada pantallazo tiene que aparecer **tunombre**.
+Estos ejercicios se hacen sobre la máquina virtual de Windows 11 Education del :ref:`Caso práctico: Windows 11`. En cada pantallazo tiene que aparecer **tunombre**.
 
 Ejercicio 1: Información del sistema
 ====================================
@@ -13,7 +13,7 @@ Responde a las siguientes preguntas:
 
 * **1.1** Instala VLC y Firefox desde Microsoft Store y ánclalos a la barra de tareas. ¿Cómo lo has hecho?
 * **1.2** Entra en Inicio / Configuración / Sistema / Almacenamiento. ¿Cuántos GB están usados y cuántos están libres?
-* **1.3** Entra en Panel de control / Sistema. ¿Cuánta RAM tiene?
+* **1.3** Entra en Inicio / Configuración / Sistema / Información. ¿Cuánta RAM tiene?
 * **1.4** ¿Cuál es la arquitectura del sistema operativo, x64 o x86 (es decir, 64 bits o 32 bits)?
 
 **Rendimiento de Windows**
@@ -90,11 +90,11 @@ Ejercicio 3: Equipo, usuarios y red
 
 **Cambiar el nombre del equipo**
 
-* Abre una terminal (Inicio / Ejecutar / ``cmd``) y ejecuta el comando ``hostname``.
+* Abre una terminal (**Win+R** y escribe ``cmd``) y ejecuta el comando ``hostname``.
 * Cambia el nombre del equipo por **PC-tuapellido1**:
 
-  * Panel de control / Sistema y seguridad / Sistema
-  * Nombre de equipo / Cambiar el nombre de este equipo
+  * Inicio / Configuración / Sistema / Información
+  * Cambiar el nombre de este equipo
 
 * Reinicia el equipo y vuelve a ejecutar ``hostname``.
 
@@ -104,14 +104,14 @@ Sube el **pantallazo**\ :sup:`1`, en el que se vea el cambio con el comando ``ho
 
 Crea una cuenta local con tu apellido:
 
-* Inicio / Configuración / Cuentas / Familia y otros usuarios.
+* Inicio / Configuración / Cuentas / Otros usuarios, y pulsa **Agregar cuenta**.
 * «No tengo los datos de inicio de sesión de esta persona».
 * «Agregar un usuario sin cuenta Microsoft».
 * Escribe como nombre de usuario **tuapellido**, una contraseña y las preguntas de seguridad, y pulsa Siguiente.
 
 Ahora cambia la cuenta a administrador:
 
-* En Configuración / Cuentas / Familia y otros usuarios, selecciona la cuenta y pulsa **Cambiar el tipo de cuenta**.
+* En Configuración / Cuentas / Otros usuarios, selecciona la cuenta y pulsa **Cambiar el tipo de cuenta**.
 * En Tipo de cuenta, selecciona **Administrador** y Aceptar.
 
   .. image:: imagenes/conf1_cuenta_admin.jpg
@@ -134,7 +134,7 @@ Sube el **pantallazo**\ :sup:`3`, como este:
 
 **Escritorio remoto**
 
-Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Configuración / Sistema / Escritorio remoto.
+Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Configuración / Sistema / Escritorio remoto. Windows 11 Home no admite conexiones de escritorio remoto, y la cuenta con la que te conectes tiene que tener contraseña.
 
 * Si te conectas desde Linux:
 
@@ -157,6 +157,32 @@ Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Conf
   .. image:: imagenes/conf2_ip_ejemplo.png
 
   Es decir, **10.4.X.Y**, siendo **X** e **Y** los números correspondientes a tu IP.
+
+**Resolución de nombres**
+
+Consulta el apartado :ref:`Resolución de nombres en Windows` y responde:
+
+* **3.1** Ejecuta ``ipconfig /all``. ¿Qué servidores DNS tiene configurados tu tarjeta de red?
+* **3.2** Ejecuta ``nslookup www.educa.madrid.org``. ¿Qué servidor ha respondido y qué IP tiene ese nombre?
+* **3.3** Ejecuta ``nslookup www.educa.madrid.org 1.1.1.1``. ¿Qué ha cambiado en la respuesta?
+
+Ahora vas a dar un nombre a tu equipo sin usar el DNS:
+
+* Abre el Bloc de notas como administrador y añade al final del fichero ``C:\Windows\System32\drivers\etc\hosts`` una línea con tu IP y el nombre **tunombre.aula**:
+
+  .. code-block:: text
+
+     10.4.X.Y    tunombre.aula
+
+  Si usas un portátil con DHCP, pon la IP que te muestre ``ipconfig``.
+
+* Ejecuta ``ping tunombre.aula`` y ``nslookup tunombre.aula``.
+* Sube el **pantallazo**\ :sup:`5`, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.
+
+Responde:
+
+* **3.4** ¿Por qué ``ping`` encuentra el nombre y ``nslookup`` no?
+* **3.5** Ejecuta ``ipconfig /displaydns`` y después ``ipconfig /flushdns``. ¿Qué hace cada uno?
 
 Ejercicio 4: Discos y copias de seguridad
 =========================================
@@ -214,7 +240,7 @@ Con la herramienta DISM puedes exportar a una carpeta los controladores instalad
 
 .. note::
 
-   DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía.
+   DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía. Si instalas antes las **Guest Additions** de VirtualBox, aparecerán sus controladores.
 
 Ejercicio 5: Recuperación y registro
 ====================================
@@ -225,7 +251,7 @@ Los puntos de restauración permiten devolver el sistema a una fecha anterior. E
 
 * En el cuadro de búsqueda de la barra de tareas, escribe **Crear un punto de restauración** y selecciónalo.
 * Crea un punto de restauración con el nombre de la fecha actual + tunombre (la primera vez tendrás que activar la protección del sistema).
-* Instala GIMP, descargándolo o desde Microsoft Store.
+* Instala GIMP con el instalador de https://www.gimp.org (no desde Microsoft Store).
 * Crea una carpeta en el escritorio con la fecha y hora actual y tu nombre de usuario.
 * Restaura el punto de restauración que has creado (``rstrui.exe``).
 
@@ -263,6 +289,8 @@ Ahora vamos a añadir un programa al menú contextual (el del botón derecho en 
 * La clave ``command`` tiene un valor **(Predeterminado)**. Haz doble clic sobre él y escribe, entre comillas, la ruta del ``.exe`` del programa:
 
   .. image:: imagenes/conf3_regedit_notepad.png
+
+En Windows 11 la entrada nueva no sale en el menú contextual reducido: pulsa **Mostrar más opciones** (o **Mayús + F10**) para ver el menú completo.
 
 Elige una aplicación distinta de Notepad, crea su entrada en el menú contextual y sube el **pantallazo**\ :sup:`2`, como este:
 

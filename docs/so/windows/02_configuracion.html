@@ -274,7 +274,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_ejercicios_rockylinux.html">Ejercicios Rocky Linux</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_k3s.html">Caso práctico: un clúster Kubernetes con k3s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_helm.html">Caso práctico: Helm, observabilidad y almacenamiento de objetos</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
@@ -309,6 +313,7 @@
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -585,6 +590,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explorador-de-windows">Explorador de Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administrador-de-tareas">Administrador de tareas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-de-trabajo-y-nombre-de-equipo">Grupos de trabajo y nombre de equipo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-de-nombres-en-windows">Resolución de nombres en Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-de-discos">Administración de discos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copia-de-seguridad-y-restauracion">Copia de seguridad y restauración</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-registro-de-windows">El registro de Windows</a></li>
@@ -617,13 +623,19 @@
 <li><p>Solo por extensión <code class="docutils literal notranslate"><span class="pre">*.reg</span></code>; que empiecen por An y acaben por dat <code class="docutils literal notranslate"><span class="pre">&quot;An*dat&quot;</span></code></p></li>
 <li><p>Entre varios tamaños <code class="docutils literal notranslate"><span class="pre">System.Size:</span> <span class="pre">&gt;</span> <span class="pre">100</span> <span class="pre">MB</span> <span class="pre">&lt;</span> <span class="pre">200MB</span></code></p></li>
 <li><p>Por fecha de modificación <code class="docutils literal notranslate"><span class="pre">fechademodificación:hoy</span></code></p></li>
+<li><p>Por fecha de creación <code class="docutils literal notranslate"><span class="pre">fechadecreación:</span></code>. Al escribirlo aparece un calendario para elegir un día, un intervalo o un periodo ya preparado (ayer, la semana pasada, el mes pasado…).</p></li>
+<li><p>Desde una fecha <code class="docutils literal notranslate"><span class="pre">fechadecreación:&gt;=01/01/1999</span></code>; entre dos fechas <code class="docutils literal notranslate"><span class="pre">fechadecreación:01/01/1999..31/12/2020</span></code></p></li>
+<li><p>Por tamaño máximo <code class="docutils literal notranslate"><span class="pre">tamaño:&lt;=300KB</span></code></p></li>
+<li><p>Por el texto que contiene el archivo <code class="docutils literal notranslate"><span class="pre">contenido:Multimedia</span></code></p></li>
+<li><p>Los filtros se pueden combinar separándolos con un espacio: <code class="docutils literal notranslate"><span class="pre">contenido:Screen</span> <span class="pre">fechadecreación:&gt;=01/01/1999</span></code></p></li>
 </ul>
+<p>La búsqueda se hace en la carpeta abierta en ese momento y en todas sus subcarpetas.</p>
 </section>
 <section id="administrador-de-tareas">
 <h2>Administrador de tareas<a class="headerlink" href="#administrador-de-tareas" title="Link to this heading">#</a></h2>
 <p>Para ver el Administrador de tareas, haz clic derecho sobre cualquier espacio libre de la barra de tareas del Escritorio (o sobre el botón Inicio) y elige «Administrador de tareas»; también puedes abrirlo con <strong>Ctrl+Mayús+Esc</strong>.</p>
 <img alt="../../_images/administrador_tareas.png" src="../../_images/administrador_tareas.png" />
-<p>Poner más detalles</p>
+<p>En Windows 10 se abre en una vista reducida y hay que pulsar <strong>Más detalles</strong>. En Windows 11 se abre ya completo, con las secciones (Procesos, Rendimiento, Aplicaciones de arranque, Usuarios, Servicios…) en el panel izquierdo.</p>
 <img alt="../../_images/administrador_tareas1.png" src="../../_images/administrador_tareas1.png" />
 <p>Además, en la solapa Rendimiento obtendremos información gráfica y numérica sobre el uso del procesador, la memoria, el disco y el hardware de red durante el último minuto.</p>
 <p>Información sobre el procesador.</p>
@@ -681,13 +693,14 @@
 <p>Como antes, la parte superior incluye un gráfico que representa la actividad del dispositivo en el último minuto.</p>
 <p>Por último, debemos tener en cuenta que el panel izquierdo puede contener otros elementos, según los dispositivos que tenga nuestro ordenador. En este sentido, es frecuente que incluya entradas para Wi-Fi o Bluetooth.</p>
 <p>Algo que puede resultar muy útil es mantener la ventana del Administrador de tareas en primer plano.</p>
-<p>Lo conseguimos eligiendo la opción Siempre visible dentro del menú Opciones.</p>
+<p>En Windows 10 lo conseguimos con la opción Siempre visible del menú Opciones; en Windows 11 está en <strong>Configuración</strong> (la rueda dentada de abajo a la izquierda) / Administración de ventanas / <strong>Siempre visible</strong>.</p>
 <img alt="../../_images/administrador_tareas_opciones.png" src="../../_images/administrador_tareas_opciones.png" />
 <p>Incluso podemos reducir la ventana para que sólo nos muestre el gráfico que queramos.</p>
 <p>En el caso de que queramos finalizar una tarea con el Administrador de tareas simplemente la seleccionamos y finalizamos tarea.</p>
 <img alt="../../_images/administrador_tareas_finalizar.png" src="../../_images/administrador_tareas_finalizar.png" />
 <p>En resumen, la pestaña <strong>Rendimiento</strong> nos permite conocer en tiempo real el consumo de cada uno de los núcleos del procesador, la velocidad de procesado actual, la memoria RAM libre y ocupada, así como la velocidad de trabajo de los discos que tenemos instalados e incluso de la conexión a la red que estemos usando en ese mismo instante.</p>
 <img alt="../../_images/administrador_tareas7.png" src="../../_images/administrador_tareas7.png" />
+<p>Para ver con más detalle qué proceso usa cada recurso está el <strong>Monitor de recursos</strong>: se abre desde la pestaña Rendimiento (menú de los tres puntos / Monitor de recursos) o con el comando <code class="docutils literal notranslate"><span class="pre">resmon</span></code>. Tiene una pestaña para la CPU, la memoria, el disco y la red, y en cada una se pueden filtrar los datos por proceso.</p>
 </section>
 <section id="grupos-de-trabajo-y-nombre-de-equipo">
 <h2>Grupos de trabajo y nombre de equipo<a class="headerlink" href="#grupos-de-trabajo-y-nombre-de-equipo" title="Link to this heading">#</a></h2>
@@ -701,6 +714,29 @@
 <p>La administración de usuarios y privilegios se hará de forma individual en cada uno de los equipos que forman parte del grupo de trabajo. Cada uno de los equipos pertenecientes a un grupo de trabajo tienen una relación de igual a igual entre ellos y se administran de forma local</p>
 <p>Cada equipo perteneciente al grupo de trabajo debe disponer de su cuenta de usuario local. Por lo tanto, para iniciar la sesión en un equipo perteneciente a un grupo de trabajo debemos disponer de una cuenta de usuario en este equipo.</p>
 <p>Todos los usuarios de una red local pueden pertenecer a un grupo de trabajo sin necesidad de pedir permiso ni introducir ninguna contraseña. Por lo tanto, cuando compartimos una carpeta hay que configurar de forma adecuada los permisos y los usuarios que tendrán acceso a nuestra carpeta compartida.</p>
+</section>
+<section id="resolucion-de-nombres-en-windows">
+<h2>Resolución de nombres en Windows<a class="headerlink" href="#resolucion-de-nombres-en-windows" title="Link to this heading">#</a></h2>
+<p>Los equipos se comunican con direcciones IP, pero las personas usamos nombres. Resolver un nombre es averiguar la IP que le corresponde. La configuración de red, incluidos los servidores DNS, se ve con:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ipconfig</span> <span class="p">/</span><span class="n">all</span>        <span class="c"># IP, máscara, puerta de enlace, DNS y dirección física</span>
+</pre></div>
+</div>
+<p>Cuando un programa pide un nombre, Windows lo busca en este orden:</p>
+<ol class="arabic simple">
+<li><p>El fichero <strong>hosts</strong>, que está en <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32\drivers\etc\hosts</span></code>. Cada línea tiene una IP y un nombre. Para modificarlo hay que abrir el Bloc de notas como administrador.</p></li>
+<li><p>La <strong>caché DNS</strong>, donde guarda durante un tiempo los nombres que ya ha resuelto.</p></li>
+<li><p>Los <strong>servidores DNS</strong> configurados en la tarjeta de red.</p></li>
+<li><p>Si el nombre no lleva dominio y nadie lo ha resuelto, pregunta a los equipos de la red local.</p></li>
+</ol>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">www</span><span class="p">.</span><span class="n">educa</span><span class="p">.</span><span class="n">madrid</span><span class="p">.</span><span class="n">org</span>          <span class="c"># resuelve el nombre como cualquier programa</span>
+<span class="n">nslookup</span> <span class="n">www</span><span class="p">.</span><span class="n">educa</span><span class="p">.</span><span class="n">madrid</span><span class="p">.</span><span class="n">org</span>      <span class="c"># pregunta al servidor DNS configurado</span>
+<span class="n">nslookup</span> <span class="n">www</span><span class="p">.</span><span class="n">educa</span><span class="p">.</span><span class="n">madrid</span><span class="p">.</span><span class="n">org</span> <span class="n">1</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">1</span><span class="p">.</span><span class="n">1</span>   <span class="c"># pregunta a otro servidor DNS</span>
+<span class="nb">Resolve-DnsName</span> <span class="n">www</span><span class="p">.</span><span class="n">educa</span><span class="p">.</span><span class="n">madrid</span><span class="p">.</span><span class="n">org</span>    <span class="c"># lo mismo en PowerShell</span>
+<span class="n">ipconfig</span> <span class="p">/</span><span class="n">displaydns</span>               <span class="c"># muestra la caché DNS</span>
+<span class="n">ipconfig</span> <span class="p">/</span><span class="n">flushdns</span>                 <span class="c"># vacía la caché DNS</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">nslookup</span></code> solo pregunta a los servidores DNS: no mira el fichero hosts ni la caché. Por eso un nombre escrito en hosts responde con <code class="docutils literal notranslate"><span class="pre">ping</span></code> y no con <code class="docutils literal notranslate"><span class="pre">nslookup</span></code>.</p>
 </section>
 <section id="administracion-de-discos">
 <h2>Administración de discos<a class="headerlink" href="#administracion-de-discos" title="Link to this heading">#</a></h2>
@@ -721,7 +757,7 @@
 <h2>Copia de seguridad y restauración<a class="headerlink" href="#copia-de-seguridad-y-restauracion" title="Link to this heading">#</a></h2>
 <p>Existen dos tipos principales de copias de seguridad:</p>
 <ul class="simple">
-<li><p><strong>Copia de seguridad de los archivos</strong>. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras. En Windows se hace con el <strong>Historial de archivos</strong> (necesita una unidad externa o de red).</p></li>
+<li><p><strong>Copia de seguridad de los archivos</strong>. La copia de seguridad de archivos te permite crear una copia de los documentos que tienes guardados en tu PC, ya sea de manera individual o de varios ficheros a la vez, para tenerlos en otro dispositivo y recuperarlos cuando quieras. En Windows se hace con el <strong>Historial de archivos</strong> (necesita una unidad distinta de la del sistema: un segundo disco, un disco externo o una carpeta de red).</p></li>
 <li><p><strong>Copia de seguridad del sistema</strong>. La copia de seguridad del sistema te permite crear una copia de todo el sistema operativo Windows que en ese momento tienes en tu ordenador, es decir, de todos los programas, los archivos y los valores de configuración. Se hace creando una <strong>imagen de sistema</strong> (Panel de control → Copia de seguridad y restauración).</p></li>
 </ul>
 <p>Además, Windows cuenta con los <strong>puntos de restauración</strong> (Restaurar sistema): instantáneas de los archivos del sistema y del registro que se crean automáticamente antes de instalar programas, controladores o actualizaciones. No afectan a los documentos del usuario: solo devuelven el <em>sistema</em> a un estado anterior.</p>
@@ -734,7 +770,7 @@
 <section id="el-registro-de-windows">
 <h2>El registro de Windows<a class="headerlink" href="#el-registro-de-windows" title="Link to this heading">#</a></h2>
 <p>El registro de Windows es una base de datos donde aplicaciones y controladores guardan/buscan la información necesaria para funcionar. Su estructura está formada en forma de carpetas:</p>
-<p><strong>Inicio /Ejecutar/RegEdit</strong></p>
+<p>Se abre con <strong>Win+R</strong> y el comando <code class="docutils literal notranslate"><span class="pre">regedit</span></code>:</p>
 <img alt="../../_images/registro_windows.png" src="../../_images/registro_windows.png" />
 <ul>
 <li><p>Estructura del registro (Jerarquía de carpetas)</p>
@@ -767,7 +803,7 @@
 <p>HKEY correspondiente, y hacemos: Edición / Buscar</p>
 </li>
 <li><p><strong>Limpieza del registro</strong></p>
-<p>Analiza las claves HKEY_CLASSES_ROOT, localiza los valores erróneos y antes de eliminarlos, propone guardarlos en el archivo undo.reg.</p>
+<p>Windows no incluye ninguna herramienta para limpiar el registro y Microsoft desaconseja los limpiadores de otros fabricantes: borrar claves a ciegas puede dejar programas sin funcionar. Si hay que modificarlo, se hace antes una copia.</p>
 </li>
 <li><p><strong>Copia de seguridad del registro</strong>,</p>
 <p>Es aconsejable realizarlos siempre antes que:</p>
@@ -784,7 +820,7 @@
 <p>Para hacer una copia parcial</p>
 <ul class="simple">
 <li><p>Seleccionamos la rama o la clave a guardar</p></li>
-<li><p>Pulsamos en: Registro /Exportar archivo de registro</p></li>
+<li><p>Pulsamos en Archivo / Exportar, con la opción <strong>Rama seleccionada</strong> marcada</p></li>
 </ul>
 </li>
 </ul>
@@ -878,6 +914,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explorador-de-windows">Explorador de Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administrador-de-tareas">Administrador de tareas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grupos-de-trabajo-y-nombre-de-equipo">Grupos de trabajo y nombre de equipo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-de-nombres-en-windows">Resolución de nombres en Windows</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#administracion-de-discos">Administración de discos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copia-de-seguridad-y-restauracion">Copia de seguridad y restauración</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-registro-de-windows">El registro de Windows</a></li>

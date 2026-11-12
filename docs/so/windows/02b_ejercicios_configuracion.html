@@ -274,7 +274,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_ejercicios_rockylinux.html">Ejercicios Rocky Linux</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../GNULinux/14_kubernetes.html">Kubernetes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_k3s.html">Caso práctico: un clúster Kubernetes con k3s</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../GNULinux/14_kubernetes_helm.html">Caso práctico: Helm, observabilidad y almacenamiento de objetos</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_shell_scripting.html">Shell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../GNULinux/15_ejercicios_shell_scripting.html">Ejercicios de shell scripting</a></li>
 </ul>
@@ -309,6 +313,7 @@
 <li class="toctree-l3"><a class="reference internal" href="07_AD_DS.html">Active Directory Domain Services (AD DS)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD.html">Casos prácticos : Active Directory con adaptador puente</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_redint.html">Casos prácticos : Active Directory con red interna</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_Caso_practico_AD_rednat.html">Caso práctico: Active Directory con red NAT y red interna</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_Caso_practico_AD_sin_GUI.html">Casos prácticos : Active Directory sin GUI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_powershell_scripting.html">PowerShell Scripting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="11_ejercicios_powershell.html">Ejercicios de PowerShell</a></li>
@@ -600,7 +605,7 @@
                   
   <section id="ejercicios-de-configuracion">
 <h1>Ejercicios de configuración<a class="headerlink" href="#ejercicios-de-configuracion" title="Link to this heading">#</a></h1>
-<p>Estos ejercicios se hacen sobre la máquina virtual de Windows 11. En cada pantallazo tiene que aparecer <strong>tunombre</strong>.</p>
+<p>Estos ejercicios se hacen sobre la máquina virtual de Windows 11 Education del <a class="reference internal" href="../virtualizacion/virtualbox.html#caso-practico-windows-11"><span class="std std-ref">Caso práctico: Windows 11</span></a>. En cada pantallazo tiene que aparecer <strong>tunombre</strong>.</p>
 <section id="ejercicio-1-informacion-del-sistema">
 <h2>Ejercicio 1: Información del sistema<a class="headerlink" href="#ejercicio-1-informacion-del-sistema" title="Link to this heading">#</a></h2>
 <p><strong>Información del sistema</strong></p>
@@ -608,7 +613,7 @@
 <ul class="simple">
 <li><p><strong>1.1</strong> Instala VLC y Firefox desde Microsoft Store y ánclalos a la barra de tareas. ¿Cómo lo has hecho?</p></li>
 <li><p><strong>1.2</strong> Entra en Inicio / Configuración / Sistema / Almacenamiento. ¿Cuántos GB están usados y cuántos están libres?</p></li>
-<li><p><strong>1.3</strong> Entra en Panel de control / Sistema. ¿Cuánta RAM tiene?</p></li>
+<li><p><strong>1.3</strong> Entra en Inicio / Configuración / Sistema / Información. ¿Cuánta RAM tiene?</p></li>
 <li><p><strong>1.4</strong> ¿Cuál es la arquitectura del sistema operativo, x64 o x86 (es decir, 64 bits o 32 bits)?</p></li>
 </ul>
 <p><strong>Rendimiento de Windows</strong></p>
@@ -678,11 +683,11 @@
 <h2>Ejercicio 3: Equipo, usuarios y red<a class="headerlink" href="#ejercicio-3-equipo-usuarios-y-red" title="Link to this heading">#</a></h2>
 <p><strong>Cambiar el nombre del equipo</strong></p>
 <ul class="simple">
-<li><p>Abre una terminal (Inicio / Ejecutar / <code class="docutils literal notranslate"><span class="pre">cmd</span></code>) y ejecuta el comando <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
+<li><p>Abre una terminal (<strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">cmd</span></code>) y ejecuta el comando <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
 <li><p>Cambia el nombre del equipo por <strong>PC-tuapellido1</strong>:</p>
 <ul>
-<li><p>Panel de control / Sistema y seguridad / Sistema</p></li>
-<li><p>Nombre de equipo / Cambiar el nombre de este equipo</p></li>
+<li><p>Inicio / Configuración / Sistema / Información</p></li>
+<li><p>Cambiar el nombre de este equipo</p></li>
 </ul>
 </li>
 <li><p>Reinicia el equipo y vuelve a ejecutar <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
@@ -691,14 +696,14 @@
 <p><strong>Cuenta local de administrador</strong></p>
 <p>Crea una cuenta local con tu apellido:</p>
 <ul class="simple">
-<li><p>Inicio / Configuración / Cuentas / Familia y otros usuarios.</p></li>
+<li><p>Inicio / Configuración / Cuentas / Otros usuarios, y pulsa <strong>Agregar cuenta</strong>.</p></li>
 <li><p>«No tengo los datos de inicio de sesión de esta persona».</p></li>
 <li><p>«Agregar un usuario sin cuenta Microsoft».</p></li>
 <li><p>Escribe como nombre de usuario <strong>tuapellido</strong>, una contraseña y las preguntas de seguridad, y pulsa Siguiente.</p></li>
 </ul>
 <p>Ahora cambia la cuenta a administrador:</p>
 <ul>
-<li><p>En Configuración / Cuentas / Familia y otros usuarios, selecciona la cuenta y pulsa <strong>Cambiar el tipo de cuenta</strong>.</p></li>
+<li><p>En Configuración / Cuentas / Otros usuarios, selecciona la cuenta y pulsa <strong>Cambiar el tipo de cuenta</strong>.</p></li>
 <li><p>En Tipo de cuenta, selecciona <strong>Administrador</strong> y Aceptar.</p>
 <img alt="../../_images/conf1_cuenta_admin.jpg" src="../../_images/conf1_cuenta_admin.jpg" />
 </li>
@@ -715,7 +720,7 @@
 <p>Sube el <strong>pantallazo</strong><sup>3</sup>, como este:</p>
 <img alt="../../_images/conf1_ip_estatica.jpg" src="../../_images/conf1_ip_estatica.jpg" />
 <p><strong>Escritorio remoto</strong></p>
-<p>Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Configuración / Sistema / Escritorio remoto.</p>
+<p>Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Configuración / Sistema / Escritorio remoto. Windows 11 Home no admite conexiones de escritorio remoto, y la cuenta con la que te conectes tiene que tener contraseña.</p>
 <ul>
 <li><p>Si te conectas desde Linux:</p>
 <img alt="../../_images/conf2_rdp_linux.png" src="../../_images/conf2_rdp_linux.png" />
@@ -732,6 +737,29 @@
 <img alt="../../_images/conf2_ip_ejemplo.png" src="../../_images/conf2_ip_ejemplo.png" />
 <p>Es decir, <strong>10.4.X.Y</strong>, siendo <strong>X</strong> e <strong>Y</strong> los números correspondientes a tu IP.</p>
 </li>
+</ul>
+<p><strong>Resolución de nombres</strong></p>
+<p>Consulta el apartado <a class="reference internal" href="02_configuracion.html#resolucion-de-nombres-en-windows"><span class="std std-ref">Resolución de nombres en Windows</span></a> y responde:</p>
+<ul class="simple">
+<li><p><strong>3.1</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/all</span></code>. ¿Qué servidores DNS tiene configurados tu tarjeta de red?</p></li>
+<li><p><strong>3.2</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span></code>. ¿Qué servidor ha respondido y qué IP tiene ese nombre?</p></li>
+<li><p><strong>3.3</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span> <span class="pre">1.1.1.1</span></code>. ¿Qué ha cambiado en la respuesta?</p></li>
+</ul>
+<p>Ahora vas a dar un nombre a tu equipo sin usar el DNS:</p>
+<ul>
+<li><p>Abre el Bloc de notas como administrador y añade al final del fichero <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32\drivers\etc\hosts</span></code> una línea con tu IP y el nombre <strong>tunombre.aula</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.4.X.Y    tunombre.aula
+</pre></div>
+</div>
+<p>Si usas un portátil con DHCP, pon la IP que te muestre <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>.</p>
+</li>
+<li><p>Ejecuta <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">tunombre.aula</span></code> y <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">tunombre.aula</span></code>.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>5</sup>, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.</p></li>
+</ul>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>3.4</strong> ¿Por qué <code class="docutils literal notranslate"><span class="pre">ping</span></code> encuentra el nombre y <code class="docutils literal notranslate"><span class="pre">nslookup</span></code> no?</p></li>
+<li><p><strong>3.5</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/displaydns</span></code> y después <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/flushdns</span></code>. ¿Qué hace cada uno?</p></li>
 </ul>
 </section>
 <section id="ejercicio-4-discos-y-copias-de-seguridad">
@@ -780,7 +808,7 @@
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía.</p>
+<p>DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía. Si instalas antes las <strong>Guest Additions</strong> de VirtualBox, aparecerán sus controladores.</p>
 </div>
 </section>
 <section id="ejercicio-5-recuperacion-y-registro">
@@ -790,7 +818,7 @@
 <ul class="simple">
 <li><p>En el cuadro de búsqueda de la barra de tareas, escribe <strong>Crear un punto de restauración</strong> y selecciónalo.</p></li>
 <li><p>Crea un punto de restauración con el nombre de la fecha actual + tunombre (la primera vez tendrás que activar la protección del sistema).</p></li>
-<li><p>Instala GIMP, descargándolo o desde Microsoft Store.</p></li>
+<li><p>Instala GIMP con el instalador de <a class="reference external" href="https://www.gimp.org">https://www.gimp.org</a> (no desde Microsoft Store).</p></li>
 <li><p>Crea una carpeta en el escritorio con la fecha y hora actual y tu nombre de usuario.</p></li>
 <li><p>Restaura el punto de restauración que has creado (<code class="docutils literal notranslate"><span class="pre">rstrui.exe</span></code>).</p></li>
 </ul>
@@ -825,6 +853,7 @@
 <img alt="../../_images/conf3_regedit_notepad.png" src="../../_images/conf3_regedit_notepad.png" />
 </li>
 </ul>
+<p>En Windows 11 la entrada nueva no sale en el menú contextual reducido: pulsa <strong>Mostrar más opciones</strong> (o <strong>Mayús + F10</strong>) para ver el menú completo.</p>
 <p>Elige una aplicación distinta de Notepad, crea su entrada en el menú contextual y sube el <strong>pantallazo</strong><sup>2</sup>, como este:</p>
 <img alt="../../_images/conf3_menu_contextual.png" src="../../_images/conf3_menu_contextual.png" />
 <p><strong>Widgets y modo oscuro</strong></p>

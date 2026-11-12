@@ -83,6 +83,40 @@ Se accede mediante la ficha Perfil de la pantalla de Propiedades del usuario:
 
 * Una ruta de acceso local es una ruta a un directorio local privado del usuario. Es el directorio predeterminado en Símbolo de Sistema.
 
+Directivas de contraseñas locales
+=================================
+
+Las directivas de cuenta obligan a todos los usuarios del equipo a cumplir unas normas con sus contraseñas. Se configuran con **secpol.msc** (Directiva de seguridad local), en **Directivas de cuenta**. Esta consola no existe en Windows Home.
+
+**Directiva de contraseñas**
+
+* **Exigir historial de contraseñas**: número de contraseñas anteriores que no se pueden repetir.
+* **Vigencia máxima de la contraseña**: días que puede usarse antes de que Windows obligue a cambiarla.
+* **Vigencia mínima de la contraseña**: días que hay que esperar para volver a cambiarla.
+* **Longitud mínima de la contraseña**: número mínimo de caracteres.
+* **La contraseña debe cumplir los requisitos de complejidad**: no puede contener el nombre del usuario y tiene que mezclar al menos tres de estos cuatro tipos: mayúsculas, minúsculas, números y símbolos.
+
+**Directiva de bloqueo de cuenta**
+
+* **Umbral de bloqueo de cuenta**: intentos fallidos de inicio de sesión que bloquean la cuenta.
+* **Duración del bloqueo de cuenta**: minutos que permanece bloqueada.
+* **Restablecer el recuento de bloqueos de cuenta tras**: minutos que tienen que pasar para que el contador de fallos vuelva a cero.
+
+Los cambios se aplican a las contraseñas nuevas: una contraseña que ya existía sigue valiendo hasta que se cambia. Un administrador desbloquea una cuenta en ``lusrmgr.msc``, en las propiedades del usuario, desmarcando **La cuenta está bloqueada**.
+
+Desde la línea de comandos, como administrador:
+
+.. code-block:: powershell
+
+ net accounts                      # muestra las directivas actuales
+ net accounts /minpwlen:8          # longitud mínima de 8 caracteres
+ net accounts /maxpwage:30         # la contraseña caduca a los 30 días
+ net accounts /uniquepw:3          # no se pueden repetir las 3 últimas
+ net accounts /lockoutthreshold:3  # la cuenta se bloquea al tercer fallo
+ net accounts /lockoutduration:5   # y sigue bloqueada 5 minutos
+
+El requisito de complejidad no se puede cambiar con ``net accounts``; se activa en ``secpol.msc``.
+
 .. toctree::
    :hidden:
 
