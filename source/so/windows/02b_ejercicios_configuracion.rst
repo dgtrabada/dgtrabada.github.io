@@ -134,8 +134,8 @@ Consulta el apartado :ref:`Explorador de Windows` y responde:
 * Restáurala. **2.8** ¿Cuánto espacio disponible tiene la papelera?
 * Vuelve a seleccionar la carpeta con tunombre en el escritorio y pulsa **Mayús + Supr**. **2.9** ¿Puedes volver a restaurarla?
 
-Ejercicio 3: Equipo, usuarios y red
-===================================
+Ejercicio 3: Equipo y red
+=========================
 
 **Cambiar el nombre del equipo**
 
@@ -145,27 +145,7 @@ Ejercicio 3: Equipo, usuarios y red
   * Inicio / Configuración / Sistema / Información
   * Cambiar el nombre de este equipo
 
-* Reinicia el equipo y vuelve a ejecutar ``hostname``.
-
-Sube el **pantallazo**\ :sup:`1`, en el que se vea el cambio con el comando ``hostname``.
-
-**Cuenta local de administrador**
-
-Crea una cuenta local con tu apellido:
-
-* Inicio / Configuración / Cuentas / Otros usuarios, y pulsa **Agregar cuenta**.
-* «No tengo los datos de inicio de sesión de esta persona».
-* «Agregar un usuario sin cuenta Microsoft».
-* Escribe como nombre de usuario **tuapellido**, una contraseña y las preguntas de seguridad, y pulsa Siguiente.
-
-Ahora cambia la cuenta a administrador:
-
-* En Configuración / Cuentas / Otros usuarios, selecciona la cuenta y pulsa **Cambiar el tipo de cuenta**.
-* En Tipo de cuenta, selecciona **Administrador** y Aceptar.
-
-  .. image:: imagenes/conf1_cuenta_admin.jpg
-
-* Inicia sesión con la nueva cuenta y sube el **pantallazo**\ :sup:`2`, en el que se vea que es administrador.
+* Reinicia el equipo y vuelve a ejecutar ``hostname``. El nombre nuevo tiene que verse en el pantallazo del apartado siguiente.
 
 **Dirección IPv4 estática**
 
@@ -177,9 +157,60 @@ Pon la máquina virtual en **adaptador puente** y configura en Windows:
 
 Si usas un portátil, déjalo en DHCP.
 
-Sube el **pantallazo**\ :sup:`3`, como este:
+Comprueba la configuración en la máquina virtual con ``ipconfig``, que tiene salida a internet con ``ping -n 2 www.google.com`` y el nombre del equipo con ``hostname``. En el anfitrión, ejecuta también ``ipconfig``.
 
-.. image:: imagenes/conf1_ip_estatica.jpg
+Sube el **pantallazo**\ :sup:`1`, en el que se vean a la vez el anfitrión y la máquina virtual, como este:
+
+.. image:: imagenes/conf3_ip_estatica.png
+
+Tiene que verse lo que está recuadrado en rojo:
+
+* En el anfitrión, ``ipconfig`` y su dirección IPv4.
+* En la máquina virtual, ``ipconfig`` y su dirección IPv4, el ``ping`` con las respuestas y ``hostname`` con **PC-tuapellido1**.
+* En la configuración de la tarjeta de red de la máquina virtual, la IP, la máscara, la puerta de enlace y el DNS puestos a mano.
+
+**Ping y cortafuegos**
+
+Por defecto, el cortafuegos de Windows no responde al ``ping`` que llega de otros equipos.
+
+* Desde el anfitrión, haz ``ping`` a la IP de la máquina virtual (10.4.X.Y). **3.1** ¿Responde?
+
+En la máquina virtual, crea una regla de entrada en el cortafuegos que permita el ``ping``:
+
+#. Abre el cortafuegos con ``wf.msc``, selecciona **Reglas de entrada** y, a la derecha, pulsa **Nueva regla…** En **Tipo de regla**, elige **Personalizada**:
+
+   .. image:: imagenes/conf3_firewall1.png
+      :scale: 60 %
+
+#. Programa: **Todos los programas**.
+#. Protocolo y puertos: en **Tipo de protocolo** elige **ICMPv4** y pulsa **Personalizar…**; marca **Tipos específicos de ICMP** y, dentro, **Solicitud de eco**:
+
+   .. image:: imagenes/conf3_firewall2.png
+      :scale: 60 %
+
+#. Ámbito: deja **Cualquier dirección IP** en las dos listas.
+#. Acción: **Permitir la conexión**.
+#. Perfil: deja marcados **Dominio**, **Privado** y **Público**.
+#. Nombre: **Ping tunombre**, y pulsa **Finalizar**:
+
+   .. image:: imagenes/conf3_firewall3.png
+      :scale: 60 %
+
+Vuelve a hacer ``ping`` desde el anfitrión y sube el **pantallazo**\ :sup:`2`, en el que se vean el ``ping`` sin respuesta, el ``ping`` con respuesta y la regla **Ping tunombre** en **Reglas de entrada**, como este:
+
+.. image:: imagenes/conf3_firewall_ping.png
+
+* **3.2** Windows ya trae una regla para esto, deshabilitada. Búscala en **Reglas de entrada** de ``wf.msc`` (contiene «ICMPv4» en el nombre). ¿Cómo se llama?
+
+.. note::
+
+   La misma regla se puede crear con un comando, desde el Símbolo del sistema como administrador:
+
+   .. code-block:: bat
+
+      netsh advfirewall firewall add rule name="Ping tunombre" protocol=icmpv4:8,any dir=in action=allow
+
+   ``icmpv4:8`` es el tipo 8 de ICMP, la solicitud de eco que envía ``ping``.
 
 **Escritorio remoto**
 
@@ -189,31 +220,47 @@ Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Conf
 
   .. image:: imagenes/conf2_rdp_linux.png
 
-* Si te conectas desde Windows:
+* Si te conectas desde Windows, abre en el anfitrión el programa **Conexión a Escritorio remoto** de una de estas formas:
 
-  .. image:: imagenes/conf2_rdp_windows.png
+  * Escribe «Conexión a Escritorio remoto» en el menú Inicio.
+  * Pulsa **Win+R** y escribe ``mstsc``.
 
-* Sube el **pantallazo**\ :sup:`4`, en el que se vea que te has conectado, ejecutando ``ipconfig`` y ``query session``:
+  En **Equipo**, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa **Conectar**. Como usuario, pon **tunombre** y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 («Escritorio remoto no se puede conectar al equipo remoto»).
 
-  .. image:: imagenes/conf2_query_session.png
+  **Ayuda**: así se ve el escritorio remoto activado en la máquina virtual y la conexión desde el anfitrión:
 
-* **Ayuda**: para que los dos equipos estén en la misma red, usa la IP estática del apartado anterior en adaptador puente (con un portátil, usa DHCP):
+  .. image:: imagenes/conf3_rdp_windows.png
+     :scale: 60 %
 
-  .. image:: imagenes/conf2_ip_puente.png
+  También puedes abrirlo directamente con la IP: ``mstsc /v:10.4.X.Y``.
 
-  Este sería el caso de que la IP de tu equipo fuese:
+  Si la ventana remota sale demasiado grande, antes de conectar pulsa **Mostrar opciones**, ve a la pestaña **Pantalla** y baja la resolución con el control deslizante. Con la conexión ya abierta, **Ctrl+Alt+Pausa** alterna entre pantalla completa y ventana.
 
-  .. image:: imagenes/conf2_ip_ejemplo.png
+* Dentro de la sesión remota, abre PowerShell y ejecuta ``ipconfig``, ``query session``, ``whoami`` y ``netstat -an | findstr 3389``. En el anfitrión, ejecuta también ``netstat -an | findstr 3389`` e ``ipconfig``.
+* Sube el **pantallazo**\ :sup:`3`, en el que se vean la ventana del escritorio remoto y la terminal del anfitrión, como este:
 
-  Es decir, **10.4.X.Y**, siendo **X** e **Y** los números correspondientes a tu IP.
+  .. image:: imagenes/conf3_rdp_sesion.png
+
+  Tiene que verse lo que está recuadrado en rojo:
+
+  * En el título de la ventana, la IP a la que te has conectado.
+  * En la máquina virtual: su IP; tu sesión ``rdp-tcp#0`` con el usuario tunombre en estado **Activo**; ``whoami`` con el equipo y el usuario, y la conexión **ESTABLISHED** de ``netstat``.
+  * En el anfitrión: la misma conexión **ESTABLISHED** vista desde el otro lado y su IP.
+
+  ``netstat -an`` muestra las conexiones de red del equipo (``-a``, todas; ``-n``, con IP y puerto en número, sin traducir a nombres) y ``findstr 3389`` deja solo las líneas del puerto 3389, que es el del escritorio remoto. Cada línea tiene el protocolo, la dirección local, la dirección remota y el estado:
+
+  * ``0.0.0.0:3389 … LISTENING``: la máquina virtual está **escuchando** en el puerto 3389 en todas sus IP, esperando conexiones.
+  * ``10.4.X.Y:3389  10.2.X.Y:63341  ESTABLISHED``: la conexión **establecida** entre el puerto 3389 de la máquina virtual y un puerto alto del anfitrión, que Windows elige al azar para cada conexión.
+  * En el anfitrión aparece la misma conexión al revés: su dirección local es la del puerto alto y la remota es la de la máquina virtual con el puerto 3389.
+  * Las líneas ``UDP`` son porque el escritorio remoto también usa UDP en el puerto 3389 para ir más fluido.
 
 **Resolución de nombres**
 
 Consulta el apartado :ref:`Resolución de nombres en Windows` y responde:
 
-* **3.1** Ejecuta ``ipconfig /all``. ¿Qué servidores DNS tiene configurados tu tarjeta de red?
-* **3.2** Ejecuta ``nslookup www.educa.madrid.org``. ¿Qué servidor ha respondido y qué IP tiene ese nombre?
-* **3.3** Ejecuta ``nslookup www.educa.madrid.org 1.1.1.1``. ¿Qué ha cambiado en la respuesta?
+* **3.3** Ejecuta ``ipconfig /all``. ¿Qué servidores DNS tiene configurados tu tarjeta de red?
+* **3.4** Ejecuta ``nslookup www.educa.madrid.org``. ¿Qué servidor ha respondido y qué IP tiene ese nombre?
+* **3.5** Ejecuta ``nslookup www.educa.madrid.org 1.1.1.1``. ¿Qué ha cambiado en la respuesta?
 
 Ahora vas a dar un nombre a tu equipo sin usar el DNS:
 
@@ -226,12 +273,151 @@ Ahora vas a dar un nombre a tu equipo sin usar el DNS:
   Si usas un portátil con DHCP, pon la IP que te muestre ``ipconfig``.
 
 * Ejecuta ``ping tunombre.aula`` y ``nslookup tunombre.aula``.
-* Sube el **pantallazo**\ :sup:`5`, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.
+* Sube el **pantallazo**\ :sup:`4`, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.
 
 Responde:
 
-* **3.4** ¿Por qué ``ping`` encuentra el nombre y ``nslookup`` no?
-* **3.5** Ejecuta ``ipconfig /displaydns`` y después ``ipconfig /flushdns``. ¿Qué hace cada uno?
+* **3.6** ¿Por qué ``ping`` encuentra el nombre y ``nslookup`` no?
+* **3.7** Ejecuta ``ipconfig /displaydns`` y después ``ipconfig /flushdns``. ¿Qué hace cada uno?
+
+**NAT y reenvío de puertos**
+
+Hasta ahora la máquina virtual estaba en **adaptador puente**, como un equipo más de la red de clase, y por eso el anfitrión llegaba a ella directamente. Ahora la vas a poner en **NAT**: VirtualBox coloca un router entre la máquina virtual y la red, así que la máquina virtual sale a internet, pero desde fuera (incluido el anfitrión) no se puede llegar a ella. Para eso está el **reenvío de puertos**: lo que llega a un puerto del anfitrión se redirige a un puerto de la máquina virtual. Consulta los modos de red en :ref:`VirtualBox`.
+
+Cambia la red a NAT:
+
+* Antes de nada, abre el Bloc de notas como administrador y borra del fichero ``C:\Windows\System32\drivers\etc\hosts`` la línea de **tunombre.aula** que añadiste en el apartado anterior: con NAT la máquina virtual va a cambiar de IP y esa línea dejaría de ser correcta.
+* En VirtualBox, en Configuración / Red / Adaptador 1, cambia **Conectado a** por **NAT**. Se puede hacer con la máquina encendida.
+* En Windows, la IP fija 10.4.X.Y ya no sirve: en Configuración / Red e Internet / Ethernet, pon **Asignación de IP** y **Asignación de servidor DNS** en **Automático (DHCP)**.
+* Ejecuta ``ipconfig /all`` y ``ping -n 2 www.google.com``.
+
+Responde:
+
+* **3.8** ¿Qué IP, puerta de enlace y servidor DNS tiene ahora la máquina virtual? ¿Quién se los ha dado?
+* **3.9** Desde el anfitrión, haz ``ping`` a la IP de la máquina virtual. ¿Responde? ¿Y el ``ping`` a internet desde la máquina virtual?
+
+Ahora crea el reenvío de puertos para el escritorio remoto. En VirtualBox, en Configuración / Red / Adaptador 1 / **Avanzadas** / **Reenvío de puertos**, añade esta regla:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Nombre
+     - Protocolo
+     - IP anfitrión
+     - Puerto anfitrión
+     - IP invitado
+     - Puerto invitado
+   * - RDP
+     - TCP
+     - 127.0.0.1
+     - 33389
+     - 10.0.2.15
+     - 3389
+
+Es decir, lo que llegue al puerto 33389 del anfitrión se manda al puerto 3389 (escritorio remoto) de la máquina virtual. No se usa el 3389 en el anfitrión porque puede estar ocupado por su propio escritorio remoto.
+
+* Conéctate desde el anfitrión con **Conexión a Escritorio remoto**, poniendo en **Equipo** ``127.0.0.1:33389``:
+
+  .. image:: imagenes/conf3_nat_mstsc.png
+
+* Dentro de la sesión remota, ejecuta ``ipconfig`` y ``netstat -an | findstr 3389``. En el anfitrión, ejecuta también ``netstat -an | findstr 3389``, que muestra tanto el puerto 3389 como el 33389.
+* Sube el **pantallazo**\ :sup:`5`, como este:
+
+  .. image:: imagenes/conf3_nat_rdp.png
+
+  Tiene que verse lo que está recuadrado en rojo:
+
+  * En el título de la ventana, la conexión a ``127.0.0.1:33389``.
+  * En la máquina virtual: su IP 10.0.2.15, la puerta de enlace 10.0.2.2 y la conexión **ESTABLISHED** al puerto 3389. Fíjate en que la conexión no llega desde la IP del anfitrión, sino desde la **10.0.2.2**: es el router de VirtualBox, que recibe la conexión en el puerto 33389 del anfitrión y la abre de nuevo hacia la máquina virtual en su nombre. La máquina virtual nunca ve al anfitrión directamente; solo ve a su router.
+  * En el anfitrión: el puerto 33389 en **LISTENING** (es VirtualBox, esperando para reenviar) y la conexión **ESTABLISHED** de ``mstsc`` contra él.
+  * En VirtualBox, la regla de reenvío de puertos.
+
+**Ayuda**: al cambiar de red, Windows puede considerarla una red nueva y ponerla como **pública**. Si no conecta, pon la red como **privada** en Configuración / Red e Internet / Ethernet.
+
+**SSH por el puerto 2222**
+
+Vas a añadir un segundo reenvío de puertos, esta vez para conectarte a la máquina virtual por ``ssh``. Windows 11 trae el cliente de ``ssh``, pero el **servidor OpenSSH** hay que instalarlo.
+
+*Instalar el servidor OpenSSH en la máquina virtual*
+
+#. Inicio / Configuración / Sistema / **Características opcionales** y pulsa **Ver características**.
+#. Busca **Servidor OpenSSH**, márcalo y pulsa **Siguiente** e **Instalar**. Tarda un poco, porque lo descarga de internet:
+
+   .. image:: imagenes/conf3_openssh.png
+      :scale: 60 %
+
+Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa **Win+R** y escribe ``wf.msc``, o busca «Windows Defender Firewall con seguridad avanzada» en el menú Inicio) y, en **Reglas de entrada**, busca la de OpenSSH. Si después no puedes conectarte, mira su columna **Perfil**: si no incluye **Público**, haz doble clic en la regla (**OpenSSH SSH Server (sshd)**) y márcalo en la pestaña **Opciones avanzadas**:
+
+.. image:: imagenes/conf3_sshd_cortafuegos.png
+   :scale: 60 %
+
+*Arrancar el servidor*
+
+El servidor de ``ssh`` es un servicio de Windows, **sshd**, que se instala detenido. Arráncalo desde la consola de servicios:
+
+#. Pulsa **Win+R** y escribe ``services.msc``.
+#. Busca **OpenSSH SSH Server** y haz doble clic sobre él.
+#. En **Tipo de inicio**, elige **Automático**, para que arranque solo con Windows.
+#. Pulsa **Iniciar** y después **Aceptar**. En la lista, su estado tiene que ser **En ejecución**:
+
+   .. image:: imagenes/conf3_sshd_servicio.png
+      :scale: 60 %
+
+*Reenvío de puertos y conexión*
+
+* En VirtualBox, en Configuración / Red / Adaptador 1 / **Avanzadas** / **Reenvío de puertos**, añade una segunda regla:
+
+  .. list-table::
+     :header-rows: 1
+
+     * - Nombre
+       - Protocolo
+       - IP anfitrión
+       - Puerto anfitrión
+       - IP invitado
+       - Puerto invitado
+     * - SSH
+       - TCP
+       - 127.0.0.1
+       - 2222
+       - 10.0.2.15
+       - 22
+
+* Desde una terminal del anfitrión (sirve igual en Windows y en Linux), conéctate con el usuario tunombre y su contraseña. La primera vez te preguntará si confías en la huella del servidor: responde ``yes``.
+
+  .. code-block:: bat
+
+     ssh -p 2222 tunombre@127.0.0.1
+
+  **Ayuda**: puede que en vez de pedirte la contraseña salga ``WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!`` y ``Host key verification failed``:
+
+  .. image:: imagenes/conf3_ssh_huella.png
+
+  Qué pasa: la primera vez que te conectas a un servidor, ``ssh`` guarda su **huella** (la clave pública con la que se identifica el servidor) en el fichero ``known_hosts`` de tu usuario (``C:\Users\tuusuario\.ssh\known_hosts``), asociada a la IP y al puerto. En las conexiones siguientes la compara, y si no coincide se niega a conectar: podría ser otra máquina haciéndose pasar por el servidor para robarte la contraseña (un ataque *man-in-the-middle*). Aquí no es un ataque: en ``127.0.0.1`` y el puerto 2222 antes respondía otra máquina (por ejemplo, Ubuntu Server de los ejercicios de VirtualBox) y ahora responde Windows.
+
+  Cómo se corrige: borra la huella antigua con ``ssh-keygen -R``. Te dice en qué línea estaba y guarda una copia del fichero como ``known_hosts.old``:
+
+  .. code-block:: bat
+
+     ssh-keygen -R "[127.0.0.1]:2222"
+
+  Vuelve a conectarte: como ya no tiene huella guardada, te pregunta si confías en la nueva; responde ``yes`` y escribe la contraseña.
+
+* Dentro de la sesión de ``ssh``, ejecuta ``hostname`` y ``netstat -an | findstr :22``.
+* Sube el **pantallazo**\ :sup:`6`, como este:
+
+  .. image:: imagenes/conf3_ssh_sesion.png
+
+  Tiene que verse lo que está recuadrado en rojo:
+
+  * El comando ``ssh`` con el puerto 2222 y la respuesta ``yes`` a la huella.
+  * El indicador ``tunombre@PC-tuapellido1`` y la salida de ``hostname``, que demuestran que estás dentro de la máquina virtual.
+  * La conexión **ESTABLISHED** al puerto 22.
+
+Responde:
+
+* **3.10** En el ``netstat`` de la máquina virtual, ¿desde qué IP y a qué puerto llega la conexión de ``ssh``? ¿Por qué es el 22 y no el 2222?
+* **3.11** ¿Qué diferencia hay entre conectarte por escritorio remoto y por ``ssh``?
 
 Ejercicio 4: Discos y copias de seguridad
 =========================================

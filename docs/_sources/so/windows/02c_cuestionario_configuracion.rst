@@ -44,7 +44,7 @@ Cuestionario configuración Windows
         ( ) Se mueve a la unidad E:
         ( ) Se oculta, pero no se borra
 
-   3. Equipo, usuarios y red:
+   3. Equipo y red:
       - 1. ¿Qué comando muestra el nombre del equipo?
         = hostname
       - 2. ¿Qué hay que hacer después de cambiar el nombre del equipo para que se aplique?

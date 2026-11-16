@@ -588,7 +588,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-informacion-del-sistema">Ejercicio 1: Información del sistema</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-escritorio-y-explorador">Ejercicio 2: Escritorio y explorador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-equipo-usuarios-y-red">Ejercicio 3: Equipo, usuarios y red</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-equipo-y-red">Ejercicio 3: Equipo y red</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-discos-y-copias-de-seguridad">Ejercicio 4: Discos y copias de seguridad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-recuperacion-y-registro">Ejercicio 5: Recuperación y registro</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuestionario-de-configuracion">Cuestionario de configuración</a></li>
@@ -720,8 +720,8 @@
 <li><p>Vuelve a seleccionar la carpeta con tunombre en el escritorio y pulsa <strong>Mayús + Supr</strong>. <strong>2.9</strong> ¿Puedes volver a restaurarla?</p></li>
 </ul>
 </section>
-<section id="ejercicio-3-equipo-usuarios-y-red">
-<h2>Ejercicio 3: Equipo, usuarios y red<a class="headerlink" href="#ejercicio-3-equipo-usuarios-y-red" title="Link to this heading">#</a></h2>
+<section id="ejercicio-3-equipo-y-red">
+<h2>Ejercicio 3: Equipo y red<a class="headerlink" href="#ejercicio-3-equipo-y-red" title="Link to this heading">#</a></h2>
 <p><strong>Cambiar el nombre del equipo</strong></p>
 <ul class="simple">
 <li><p>Abre una terminal (<strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">cmd</span></code>) y ejecuta el comando <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
@@ -731,24 +731,7 @@
 <li><p>Cambiar el nombre de este equipo</p></li>
 </ul>
 </li>
-<li><p>Reinicia el equipo y vuelve a ejecutar <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
-</ul>
-<p>Sube el <strong>pantallazo</strong><sup>1</sup>, en el que se vea el cambio con el comando <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p>
-<p><strong>Cuenta local de administrador</strong></p>
-<p>Crea una cuenta local con tu apellido:</p>
-<ul class="simple">
-<li><p>Inicio / Configuración / Cuentas / Otros usuarios, y pulsa <strong>Agregar cuenta</strong>.</p></li>
-<li><p>«No tengo los datos de inicio de sesión de esta persona».</p></li>
-<li><p>«Agregar un usuario sin cuenta Microsoft».</p></li>
-<li><p>Escribe como nombre de usuario <strong>tuapellido</strong>, una contraseña y las preguntas de seguridad, y pulsa Siguiente.</p></li>
-</ul>
-<p>Ahora cambia la cuenta a administrador:</p>
-<ul>
-<li><p>En Configuración / Cuentas / Otros usuarios, selecciona la cuenta y pulsa <strong>Cambiar el tipo de cuenta</strong>.</p></li>
-<li><p>En Tipo de cuenta, selecciona <strong>Administrador</strong> y Aceptar.</p>
-<img alt="../../_images/conf1_cuenta_admin.jpg" src="../../_images/conf1_cuenta_admin.jpg" />
-</li>
-<li><p>Inicia sesión con la nueva cuenta y sube el <strong>pantallazo</strong><sup>2</sup>, en el que se vea que es administrador.</p></li>
+<li><p>Reinicia el equipo y vuelve a ejecutar <code class="docutils literal notranslate"><span class="pre">hostname</span></code>. El nombre nuevo tiene que verse en el pantallazo del apartado siguiente.</p></li>
 </ul>
 <p><strong>Dirección IPv4 estática</strong></p>
 <p>Pon la máquina virtual en <strong>adaptador puente</strong> y configura en Windows:</p>
@@ -758,33 +741,94 @@
 <li><p>DNS: 8.8.8.8</p></li>
 </ul>
 <p>Si usas un portátil, déjalo en DHCP.</p>
-<p>Sube el <strong>pantallazo</strong><sup>3</sup>, como este:</p>
-<img alt="../../_images/conf1_ip_estatica.jpg" src="../../_images/conf1_ip_estatica.jpg" />
+<p>Comprueba la configuración en la máquina virtual con <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>, que tiene salida a internet con <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">2</span> <span class="pre">www.google.com</span></code> y el nombre del equipo con <code class="docutils literal notranslate"><span class="pre">hostname</span></code>. En el anfitrión, ejecuta también <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>.</p>
+<p>Sube el <strong>pantallazo</strong><sup>1</sup>, en el que se vean a la vez el anfitrión y la máquina virtual, como este:</p>
+<img alt="../../_images/conf3_ip_estatica.png" src="../../_images/conf3_ip_estatica.png" />
+<p>Tiene que verse lo que está recuadrado en rojo:</p>
+<ul class="simple">
+<li><p>En el anfitrión, <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> y su dirección IPv4.</p></li>
+<li><p>En la máquina virtual, <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> y su dirección IPv4, el <code class="docutils literal notranslate"><span class="pre">ping</span></code> con las respuestas y <code class="docutils literal notranslate"><span class="pre">hostname</span></code> con <strong>PC-tuapellido1</strong>.</p></li>
+<li><p>En la configuración de la tarjeta de red de la máquina virtual, la IP, la máscara, la puerta de enlace y el DNS puestos a mano.</p></li>
+</ul>
+<p><strong>Ping y cortafuegos</strong></p>
+<p>Por defecto, el cortafuegos de Windows no responde al <code class="docutils literal notranslate"><span class="pre">ping</span></code> que llega de otros equipos.</p>
+<ul class="simple">
+<li><p>Desde el anfitrión, haz <code class="docutils literal notranslate"><span class="pre">ping</span></code> a la IP de la máquina virtual (10.4.X.Y). <strong>3.1</strong> ¿Responde?</p></li>
+</ul>
+<p>En la máquina virtual, crea una regla de entrada en el cortafuegos que permita el <code class="docutils literal notranslate"><span class="pre">ping</span></code>:</p>
+<ol class="arabic">
+<li><p>Abre el cortafuegos con <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code>, selecciona <strong>Reglas de entrada</strong> y, a la derecha, pulsa <strong>Nueva regla…</strong> En <strong>Tipo de regla</strong>, elige <strong>Personalizada</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_firewall1.png"><img alt="../../_images/conf3_firewall1.png" height="349" src="../../_images/conf3_firewall1.png" width="605" />
+</a>
+</li>
+<li><p>Programa: <strong>Todos los programas</strong>.</p></li>
+<li><p>Protocolo y puertos: en <strong>Tipo de protocolo</strong> elige <strong>ICMPv4</strong> y pulsa <strong>Personalizar…</strong>; marca <strong>Tipos específicos de ICMP</strong> y, dentro, <strong>Solicitud de eco</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_firewall2.png"><img alt="../../_images/conf3_firewall2.png" height="247" src="../../_images/conf3_firewall2.png" width="425" />
+</a>
+</li>
+<li><p>Ámbito: deja <strong>Cualquier dirección IP</strong> en las dos listas.</p></li>
+<li><p>Acción: <strong>Permitir la conexión</strong>.</p></li>
+<li><p>Perfil: deja marcados <strong>Dominio</strong>, <strong>Privado</strong> y <strong>Público</strong>.</p></li>
+<li><p>Nombre: <strong>Ping tunombre</strong>, y pulsa <strong>Finalizar</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_firewall3.png"><img alt="../../_images/conf3_firewall3.png" height="332" src="../../_images/conf3_firewall3.png" width="427" />
+</a>
+</li>
+</ol>
+<p>Vuelve a hacer <code class="docutils literal notranslate"><span class="pre">ping</span></code> desde el anfitrión y sube el <strong>pantallazo</strong><sup>2</sup>, en el que se vean el <code class="docutils literal notranslate"><span class="pre">ping</span></code> sin respuesta, el <code class="docutils literal notranslate"><span class="pre">ping</span></code> con respuesta y la regla <strong>Ping tunombre</strong> en <strong>Reglas de entrada</strong>, como este:</p>
+<img alt="../../_images/conf3_firewall_ping.png" src="../../_images/conf3_firewall_ping.png" />
+<ul class="simple">
+<li><p><strong>3.2</strong> Windows ya trae una regla para esto, deshabilitada. Búscala en <strong>Reglas de entrada</strong> de <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code> (contiene «ICMPv4» en el nombre). ¿Cómo se llama?</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La misma regla se puede crear con un comando, desde el Símbolo del sistema como administrador:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>netsh advfirewall firewall add rule name=<span class="s2">&quot;Ping tunombre&quot;</span> protocol=icmpv4:8,any dir=in action=allow
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">icmpv4:8</span></code> es el tipo 8 de ICMP, la solicitud de eco que envía <code class="docutils literal notranslate"><span class="pre">ping</span></code>.</p>
+</div>
 <p><strong>Escritorio remoto</strong></p>
 <p>Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Configuración / Sistema / Escritorio remoto. Windows 11 Home no admite conexiones de escritorio remoto, y la cuenta con la que te conectes tiene que tener contraseña.</p>
 <ul>
 <li><p>Si te conectas desde Linux:</p>
 <img alt="../../_images/conf2_rdp_linux.png" src="../../_images/conf2_rdp_linux.png" />
 </li>
-<li><p>Si te conectas desde Windows:</p>
-<img alt="../../_images/conf2_rdp_windows.png" src="../../_images/conf2_rdp_windows.png" />
+<li><p>Si te conectas desde Windows, abre en el anfitrión el programa <strong>Conexión a Escritorio remoto</strong> de una de estas formas:</p>
+<ul class="simple">
+<li><p>Escribe «Conexión a Escritorio remoto» en el menú Inicio.</p></li>
+<li><p>Pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">mstsc</span></code>.</p></li>
+</ul>
+<p>En <strong>Equipo</strong>, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa <strong>Conectar</strong>. Como usuario, pon <strong>tunombre</strong> y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 («Escritorio remoto no se puede conectar al equipo remoto»).</p>
+<p><strong>Ayuda</strong>: así se ve el escritorio remoto activado en la máquina virtual y la conexión desde el anfitrión:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_rdp_windows.png"><img alt="../../_images/conf3_rdp_windows.png" height="367" src="../../_images/conf3_rdp_windows.png" width="516" />
+</a>
+<p>También puedes abrirlo directamente con la IP: <code class="docutils literal notranslate"><span class="pre">mstsc</span> <span class="pre">/v:10.4.X.Y</span></code>.</p>
+<p>Si la ventana remota sale demasiado grande, antes de conectar pulsa <strong>Mostrar opciones</strong>, ve a la pestaña <strong>Pantalla</strong> y baja la resolución con el control deslizante. Con la conexión ya abierta, <strong>Ctrl+Alt+Pausa</strong> alterna entre pantalla completa y ventana.</p>
 </li>
-<li><p>Sube el <strong>pantallazo</strong><sup>4</sup>, en el que se vea que te has conectado, ejecutando <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> y <code class="docutils literal notranslate"><span class="pre">query</span> <span class="pre">session</span></code>:</p>
-<img alt="../../_images/conf2_query_session.png" src="../../_images/conf2_query_session.png" />
-</li>
-<li><p><strong>Ayuda</strong>: para que los dos equipos estén en la misma red, usa la IP estática del apartado anterior en adaptador puente (con un portátil, usa DHCP):</p>
-<img alt="../../_images/conf2_ip_puente.png" src="../../_images/conf2_ip_puente.png" />
-<p>Este sería el caso de que la IP de tu equipo fuese:</p>
-<img alt="../../_images/conf2_ip_ejemplo.png" src="../../_images/conf2_ip_ejemplo.png" />
-<p>Es decir, <strong>10.4.X.Y</strong>, siendo <strong>X</strong> e <strong>Y</strong> los números correspondientes a tu IP.</p>
+<li><p>Dentro de la sesión remota, abre PowerShell y ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>, <code class="docutils literal notranslate"><span class="pre">query</span> <span class="pre">session</span></code>, <code class="docutils literal notranslate"><span class="pre">whoami</span></code> y <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">3389</span></code>. En el anfitrión, ejecuta también <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">3389</span></code> e <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>3</sup>, en el que se vean la ventana del escritorio remoto y la terminal del anfitrión, como este:</p>
+<img alt="../../_images/conf3_rdp_sesion.png" src="../../_images/conf3_rdp_sesion.png" />
+<p>Tiene que verse lo que está recuadrado en rojo:</p>
+<ul class="simple">
+<li><p>En el título de la ventana, la IP a la que te has conectado.</p></li>
+<li><p>En la máquina virtual: su IP; tu sesión <code class="docutils literal notranslate"><span class="pre">rdp-tcp#0</span></code> con el usuario tunombre en estado <strong>Activo</strong>; <code class="docutils literal notranslate"><span class="pre">whoami</span></code> con el equipo y el usuario, y la conexión <strong>ESTABLISHED</strong> de <code class="docutils literal notranslate"><span class="pre">netstat</span></code>.</p></li>
+<li><p>En el anfitrión: la misma conexión <strong>ESTABLISHED</strong> vista desde el otro lado y su IP.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span></code> muestra las conexiones de red del equipo (<code class="docutils literal notranslate"><span class="pre">-a</span></code>, todas; <code class="docutils literal notranslate"><span class="pre">-n</span></code>, con IP y puerto en número, sin traducir a nombres) y <code class="docutils literal notranslate"><span class="pre">findstr</span> <span class="pre">3389</span></code> deja solo las líneas del puerto 3389, que es el del escritorio remoto. Cada línea tiene el protocolo, la dirección local, la dirección remota y el estado:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0.0.0.0:3389</span> <span class="pre">…</span> <span class="pre">LISTENING</span></code>: la máquina virtual está <strong>escuchando</strong> en el puerto 3389 en todas sus IP, esperando conexiones.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">10.4.X.Y:3389</span>&#160; <span class="pre">10.2.X.Y:63341</span>&#160; <span class="pre">ESTABLISHED</span></code>: la conexión <strong>establecida</strong> entre el puerto 3389 de la máquina virtual y un puerto alto del anfitrión, que Windows elige al azar para cada conexión.</p></li>
+<li><p>En el anfitrión aparece la misma conexión al revés: su dirección local es la del puerto alto y la remota es la de la máquina virtual con el puerto 3389.</p></li>
+<li><p>Las líneas <code class="docutils literal notranslate"><span class="pre">UDP</span></code> son porque el escritorio remoto también usa UDP en el puerto 3389 para ir más fluido.</p></li>
+</ul>
 </li>
 </ul>
 <p><strong>Resolución de nombres</strong></p>
 <p>Consulta el apartado <a class="reference internal" href="02_configuracion.html#resolucion-de-nombres-en-windows"><span class="std std-ref">Resolución de nombres en Windows</span></a> y responde:</p>
 <ul class="simple">
-<li><p><strong>3.1</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/all</span></code>. ¿Qué servidores DNS tiene configurados tu tarjeta de red?</p></li>
-<li><p><strong>3.2</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span></code>. ¿Qué servidor ha respondido y qué IP tiene ese nombre?</p></li>
-<li><p><strong>3.3</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span> <span class="pre">1.1.1.1</span></code>. ¿Qué ha cambiado en la respuesta?</p></li>
+<li><p><strong>3.3</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/all</span></code>. ¿Qué servidores DNS tiene configurados tu tarjeta de red?</p></li>
+<li><p><strong>3.4</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span></code>. ¿Qué servidor ha respondido y qué IP tiene ese nombre?</p></li>
+<li><p><strong>3.5</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">www.educa.madrid.org</span> <span class="pre">1.1.1.1</span></code>. ¿Qué ha cambiado en la respuesta?</p></li>
 </ul>
 <p>Ahora vas a dar un nombre a tu equipo sin usar el DNS:</p>
 <ul>
@@ -795,12 +839,144 @@
 <p>Si usas un portátil con DHCP, pon la IP que te muestre <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code>.</p>
 </li>
 <li><p>Ejecuta <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">tunombre.aula</span></code> y <code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">tunombre.aula</span></code>.</p></li>
-<li><p>Sube el <strong>pantallazo</strong><sup>5</sup>, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>4</sup>, donde se vean el contenido del fichero hosts y el resultado de los dos comandos.</p></li>
 </ul>
 <p>Responde:</p>
 <ul class="simple">
-<li><p><strong>3.4</strong> ¿Por qué <code class="docutils literal notranslate"><span class="pre">ping</span></code> encuentra el nombre y <code class="docutils literal notranslate"><span class="pre">nslookup</span></code> no?</p></li>
-<li><p><strong>3.5</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/displaydns</span></code> y después <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/flushdns</span></code>. ¿Qué hace cada uno?</p></li>
+<li><p><strong>3.6</strong> ¿Por qué <code class="docutils literal notranslate"><span class="pre">ping</span></code> encuentra el nombre y <code class="docutils literal notranslate"><span class="pre">nslookup</span></code> no?</p></li>
+<li><p><strong>3.7</strong> Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/displaydns</span></code> y después <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/flushdns</span></code>. ¿Qué hace cada uno?</p></li>
+</ul>
+<p><strong>NAT y reenvío de puertos</strong></p>
+<p>Hasta ahora la máquina virtual estaba en <strong>adaptador puente</strong>, como un equipo más de la red de clase, y por eso el anfitrión llegaba a ella directamente. Ahora la vas a poner en <strong>NAT</strong>: VirtualBox coloca un router entre la máquina virtual y la red, así que la máquina virtual sale a internet, pero desde fuera (incluido el anfitrión) no se puede llegar a ella. Para eso está el <strong>reenvío de puertos</strong>: lo que llega a un puerto del anfitrión se redirige a un puerto de la máquina virtual. Consulta los modos de red en <a class="reference internal" href="../virtualizacion/virtualbox.html#virtualbox"><span class="std std-ref">VirtualBox</span></a>.</p>
+<p>Cambia la red a NAT:</p>
+<ul class="simple">
+<li><p>Antes de nada, abre el Bloc de notas como administrador y borra del fichero <code class="docutils literal notranslate"><span class="pre">C:\Windows\System32\drivers\etc\hosts</span></code> la línea de <strong>tunombre.aula</strong> que añadiste en el apartado anterior: con NAT la máquina virtual va a cambiar de IP y esa línea dejaría de ser correcta.</p></li>
+<li><p>En VirtualBox, en Configuración / Red / Adaptador 1, cambia <strong>Conectado a</strong> por <strong>NAT</strong>. Se puede hacer con la máquina encendida.</p></li>
+<li><p>En Windows, la IP fija 10.4.X.Y ya no sirve: en Configuración / Red e Internet / Ethernet, pon <strong>Asignación de IP</strong> y <strong>Asignación de servidor DNS</strong> en <strong>Automático (DHCP)</strong>.</p></li>
+<li><p>Ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span> <span class="pre">/all</span></code> y <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">-n</span> <span class="pre">2</span> <span class="pre">www.google.com</span></code>.</p></li>
+</ul>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>3.8</strong> ¿Qué IP, puerta de enlace y servidor DNS tiene ahora la máquina virtual? ¿Quién se los ha dado?</p></li>
+<li><p><strong>3.9</strong> Desde el anfitrión, haz <code class="docutils literal notranslate"><span class="pre">ping</span></code> a la IP de la máquina virtual. ¿Responde? ¿Y el <code class="docutils literal notranslate"><span class="pre">ping</span></code> a internet desde la máquina virtual?</p></li>
+</ul>
+<p>Ahora crea el reenvío de puertos para el escritorio remoto. En VirtualBox, en Configuración / Red / Adaptador 1 / <strong>Avanzadas</strong> / <strong>Reenvío de puertos</strong>, añade esta regla:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nombre</p></th>
+<th class="head"><p>Protocolo</p></th>
+<th class="head"><p>IP anfitrión</p></th>
+<th class="head"><p>Puerto anfitrión</p></th>
+<th class="head"><p>IP invitado</p></th>
+<th class="head"><p>Puerto invitado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RDP</p></td>
+<td><p>TCP</p></td>
+<td><p>127.0.0.1</p></td>
+<td><p>33389</p></td>
+<td><p>10.0.2.15</p></td>
+<td><p>3389</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Es decir, lo que llegue al puerto 33389 del anfitrión se manda al puerto 3389 (escritorio remoto) de la máquina virtual. No se usa el 3389 en el anfitrión porque puede estar ocupado por su propio escritorio remoto.</p>
+<ul>
+<li><p>Conéctate desde el anfitrión con <strong>Conexión a Escritorio remoto</strong>, poniendo en <strong>Equipo</strong> <code class="docutils literal notranslate"><span class="pre">127.0.0.1:33389</span></code>:</p>
+<img alt="../../_images/conf3_nat_mstsc.png" src="../../_images/conf3_nat_mstsc.png" />
+</li>
+<li><p>Dentro de la sesión remota, ejecuta <code class="docutils literal notranslate"><span class="pre">ipconfig</span></code> y <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">3389</span></code>. En el anfitrión, ejecuta también <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">3389</span></code>, que muestra tanto el puerto 3389 como el 33389.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>5</sup>, como este:</p>
+<img alt="../../_images/conf3_nat_rdp.png" src="../../_images/conf3_nat_rdp.png" />
+<p>Tiene que verse lo que está recuadrado en rojo:</p>
+<ul class="simple">
+<li><p>En el título de la ventana, la conexión a <code class="docutils literal notranslate"><span class="pre">127.0.0.1:33389</span></code>.</p></li>
+<li><p>En la máquina virtual: su IP 10.0.2.15, la puerta de enlace 10.0.2.2 y la conexión <strong>ESTABLISHED</strong> al puerto 3389. Fíjate en que la conexión no llega desde la IP del anfitrión, sino desde la <strong>10.0.2.2</strong>: es el router de VirtualBox, que recibe la conexión en el puerto 33389 del anfitrión y la abre de nuevo hacia la máquina virtual en su nombre. La máquina virtual nunca ve al anfitrión directamente; solo ve a su router.</p></li>
+<li><p>En el anfitrión: el puerto 33389 en <strong>LISTENING</strong> (es VirtualBox, esperando para reenviar) y la conexión <strong>ESTABLISHED</strong> de <code class="docutils literal notranslate"><span class="pre">mstsc</span></code> contra él.</p></li>
+<li><p>En VirtualBox, la regla de reenvío de puertos.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Ayuda</strong>: al cambiar de red, Windows puede considerarla una red nueva y ponerla como <strong>pública</strong>. Si no conecta, pon la red como <strong>privada</strong> en Configuración / Red e Internet / Ethernet.</p>
+<p><strong>SSH por el puerto 2222</strong></p>
+<p>Vas a añadir un segundo reenvío de puertos, esta vez para conectarte a la máquina virtual por <code class="docutils literal notranslate"><span class="pre">ssh</span></code>. Windows 11 trae el cliente de <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, pero el <strong>servidor OpenSSH</strong> hay que instalarlo.</p>
+<p><em>Instalar el servidor OpenSSH en la máquina virtual</em></p>
+<ol class="arabic">
+<li><p>Inicio / Configuración / Sistema / <strong>Características opcionales</strong> y pulsa <strong>Ver características</strong>.</p></li>
+<li><p>Busca <strong>Servidor OpenSSH</strong>, márcalo y pulsa <strong>Siguiente</strong> e <strong>Instalar</strong>. Tarda un poco, porque lo descarga de internet:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_openssh.png"><img alt="../../_images/conf3_openssh.png" height="244" src="../../_images/conf3_openssh.png" width="623" />
+</a>
+</li>
+</ol>
+<p>Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code>, o busca «Windows Defender Firewall con seguridad avanzada» en el menú Inicio) y, en <strong>Reglas de entrada</strong>, busca la de OpenSSH. Si después no puedes conectarte, mira su columna <strong>Perfil</strong>: si no incluye <strong>Público</strong>, haz doble clic en la regla (<strong>OpenSSH SSH Server (sshd)</strong>) y márcalo en la pestaña <strong>Opciones avanzadas</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_sshd_cortafuegos.png"><img alt="../../_images/conf3_sshd_cortafuegos.png" height="376" src="../../_images/conf3_sshd_cortafuegos.png" width="502" />
+</a>
+<p><em>Arrancar el servidor</em></p>
+<p>El servidor de <code class="docutils literal notranslate"><span class="pre">ssh</span></code> es un servicio de Windows, <strong>sshd</strong>, que se instala detenido. Arráncalo desde la consola de servicios:</p>
+<ol class="arabic">
+<li><p>Pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">services.msc</span></code>.</p></li>
+<li><p>Busca <strong>OpenSSH SSH Server</strong> y haz doble clic sobre él.</p></li>
+<li><p>En <strong>Tipo de inicio</strong>, elige <strong>Automático</strong>, para que arranque solo con Windows.</p></li>
+<li><p>Pulsa <strong>Iniciar</strong> y después <strong>Aceptar</strong>. En la lista, su estado tiene que ser <strong>En ejecución</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf3_sshd_servicio.png"><img alt="../../_images/conf3_sshd_servicio.png" height="430" src="../../_images/conf3_sshd_servicio.png" width="483" />
+</a>
+</li>
+</ol>
+<p><em>Reenvío de puertos y conexión</em></p>
+<ul>
+<li><p>En VirtualBox, en Configuración / Red / Adaptador 1 / <strong>Avanzadas</strong> / <strong>Reenvío de puertos</strong>, añade una segunda regla:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nombre</p></th>
+<th class="head"><p>Protocolo</p></th>
+<th class="head"><p>IP anfitrión</p></th>
+<th class="head"><p>Puerto anfitrión</p></th>
+<th class="head"><p>IP invitado</p></th>
+<th class="head"><p>Puerto invitado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SSH</p></td>
+<td><p>TCP</p></td>
+<td><p>127.0.0.1</p></td>
+<td><p>2222</p></td>
+<td><p>10.0.2.15</p></td>
+<td><p>22</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Desde una terminal del anfitrión (sirve igual en Windows y en Linux), conéctate con el usuario tunombre y su contraseña. La primera vez te preguntará si confías en la huella del servidor: responde <code class="docutils literal notranslate"><span class="pre">yes</span></code>.</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>ssh -p 2222 tunombre@127.0.0.1
+</pre></div>
+</div>
+<p><strong>Ayuda</strong>: puede que en vez de pedirte la contraseña salga <code class="docutils literal notranslate"><span class="pre">WARNING:</span> <span class="pre">REMOTE</span> <span class="pre">HOST</span> <span class="pre">IDENTIFICATION</span> <span class="pre">HAS</span> <span class="pre">CHANGED!</span></code> y <code class="docutils literal notranslate"><span class="pre">Host</span> <span class="pre">key</span> <span class="pre">verification</span> <span class="pre">failed</span></code>:</p>
+<img alt="../../_images/conf3_ssh_huella.png" src="../../_images/conf3_ssh_huella.png" />
+<p>Qué pasa: la primera vez que te conectas a un servidor, <code class="docutils literal notranslate"><span class="pre">ssh</span></code> guarda su <strong>huella</strong> (la clave pública con la que se identifica el servidor) en el fichero <code class="docutils literal notranslate"><span class="pre">known_hosts</span></code> de tu usuario (<code class="docutils literal notranslate"><span class="pre">C:\Users\tuusuario\.ssh\known_hosts</span></code>), asociada a la IP y al puerto. En las conexiones siguientes la compara, y si no coincide se niega a conectar: podría ser otra máquina haciéndose pasar por el servidor para robarte la contraseña (un ataque <em>man-in-the-middle</em>). Aquí no es un ataque: en <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> y el puerto 2222 antes respondía otra máquina (por ejemplo, Ubuntu Server de los ejercicios de VirtualBox) y ahora responde Windows.</p>
+<p>Cómo se corrige: borra la huella antigua con <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span> <span class="pre">-R</span></code>. Te dice en qué línea estaba y guarda una copia del fichero como <code class="docutils literal notranslate"><span class="pre">known_hosts.old</span></code>:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>ssh-keygen -R <span class="s2">&quot;[127.0.0.1]:2222&quot;</span>
+</pre></div>
+</div>
+<p>Vuelve a conectarte: como ya no tiene huella guardada, te pregunta si confías en la nueva; responde <code class="docutils literal notranslate"><span class="pre">yes</span></code> y escribe la contraseña.</p>
+</li>
+<li><p>Dentro de la sesión de <code class="docutils literal notranslate"><span class="pre">ssh</span></code>, ejecuta <code class="docutils literal notranslate"><span class="pre">hostname</span></code> y <code class="docutils literal notranslate"><span class="pre">netstat</span> <span class="pre">-an</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">:22</span></code>.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>6</sup>, como este:</p>
+<img alt="../../_images/conf3_ssh_sesion.png" src="../../_images/conf3_ssh_sesion.png" />
+<p>Tiene que verse lo que está recuadrado en rojo:</p>
+<ul class="simple">
+<li><p>El comando <code class="docutils literal notranslate"><span class="pre">ssh</span></code> con el puerto 2222 y la respuesta <code class="docutils literal notranslate"><span class="pre">yes</span></code> a la huella.</p></li>
+<li><p>El indicador <code class="docutils literal notranslate"><span class="pre">tunombre&#64;PC-tuapellido1</span></code> y la salida de <code class="docutils literal notranslate"><span class="pre">hostname</span></code>, que demuestran que estás dentro de la máquina virtual.</p></li>
+<li><p>La conexión <strong>ESTABLISHED</strong> al puerto 22.</p></li>
+</ul>
+</li>
+</ul>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>3.10</strong> En el <code class="docutils literal notranslate"><span class="pre">netstat</span></code> de la máquina virtual, ¿desde qué IP y a qué puerto llega la conexión de <code class="docutils literal notranslate"><span class="pre">ssh</span></code>? ¿Por qué es el 22 y no el 2222?</p></li>
+<li><p><strong>3.11</strong> ¿Qué diferencia hay entre conectarte por escritorio remoto y por <code class="docutils literal notranslate"><span class="pre">ssh</span></code>?</p></li>
 </ul>
 </section>
 <section id="ejercicio-4-discos-y-copias-de-seguridad">
@@ -973,7 +1149,7 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-informacion-del-sistema">Ejercicio 1: Información del sistema</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-escritorio-y-explorador">Ejercicio 2: Escritorio y explorador</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-equipo-usuarios-y-red">Ejercicio 3: Equipo, usuarios y red</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-equipo-y-red">Ejercicio 3: Equipo y red</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-discos-y-copias-de-seguridad">Ejercicio 4: Discos y copias de seguridad</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-recuperacion-y-registro">Ejercicio 5: Recuperación y registro</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuestionario-de-configuracion">Cuestionario de configuración</a></li>
