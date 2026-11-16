@@ -9,46 +9,86 @@ Ejercicio 1: Información del sistema
 
 **Información del sistema**
 
-Responde a las siguientes preguntas:
+* Crea en el escritorio una carpeta con **tunombre**.
+* Instala Firefox desde Microsoft Store y ánclalo a la barra de tareas.
+* Haz que Firefox sea el navegador predeterminado:
 
-* **1.1** Instala VLC y Firefox desde Microsoft Store y ánclalos a la barra de tareas. ¿Cómo lo has hecho?
-* **1.2** Entra en Inicio / Configuración / Sistema / Almacenamiento. ¿Cuántos GB están usados y cuántos están libres?
-* **1.3** Entra en Inicio / Configuración / Sistema / Información. ¿Cuánta RAM tiene?
-* **1.4** ¿Cuál es la arquitectura del sistema operativo, x64 o x86 (es decir, 64 bits o 32 bits)?
+  * Inicio / Configuración / Aplicaciones / Aplicaciones predeterminadas.
+  * Busca **Firefox** en la lista y selecciónalo.
+  * Pulsa **Establecer predeterminado**.
+
+* Abre Firefox, entra en **Ajustes / Inicio** y desmarca **Accesos directos**, **Widgets**, **Historias** y **Apoyar a Firefox**, para que la página de inicio quede limpia.
+* Configura Firefox para que no ofrezca traducir las páginas:
+
+  * Abre **Ajustes / Idiomas**.
+  * Desmarca **Ofrecer traducción de página completa**.
+  * **Ayuda**: si no lo encuentras, es esta casilla:
+
+    .. image:: imagenes/conf1_firefox_traduccion.png
+
+* Entra en Inicio / Configuración / Sistema / Información, donde aparecen el almacenamiento usado y la RAM instalada.
+
+Sube el **pantallazo**\ :sup:`1`, en el que se vea lo que está recuadrado en rojo en este: la carpeta con tunombre, Firefox en la barra de tareas, el almacenamiento y la RAM.
+
+.. image:: imagenes/conf1_informacion.png
 
 **Rendimiento de Windows**
 
 Consulta el apartado :ref:`Administrador de tareas` y sube:
 
-* El **pantallazo**\ :sup:`1`, con el rendimiento de tu CPU.
-* El **pantallazo**\ :sup:`2`, con los procesos que se están ejecutando, con el botón **Finalizar tarea** a la vista.
-* El **pantallazo**\ :sup:`3`, con el Monitor de recursos.
+* El **pantallazo**\ :sup:`2`, con el rendimiento de tu CPU.
+* El **pantallazo**\ :sup:`3`, con los procesos que se están ejecutando, con el botón **Finalizar tarea** a la vista.
+* El **pantallazo**\ :sup:`4`, con el Monitor de recursos.
 
 **Hardware y software**
 
-* **1.5** Abre la información del sistema con el comando ``msinfo32`` y escribe:
+* **1.1** Abre la información del sistema con el comando ``msinfo32``. Esta herramienta muestra un resumen del equipo (sistema operativo, procesador, BIOS, memoria) y, en el árbol de la izquierda, el detalle de los recursos de hardware, los componentes y el entorno de software. Escribe:
 
   * El procesador.
   * La versión y fecha de la BIOS.
   * La memoria física total.
 
-* **1.6** Abre la herramienta de diagnóstico de DirectX con el comando ``dxdiag``. Si te pregunta si quieres comprobar las firmas de los controladores, pulsa **No**. Esta herramienta informa de los componentes y controladores de DirectX instalados. ¿Qué versión de DirectX está instalada?
+* **1.2** Abre la herramienta de diagnóstico de DirectX con el comando ``dxdiag``. Si te pregunta si quieres comprobar las firmas de los controladores, pulsa **No**. Esta herramienta informa de los componentes y controladores de DirectX instalados. Busca y escribe:
+
+  * En la pestaña **Sistema**, la versión de DirectX.
+  * En la pestaña **Sistema**, la arquitectura del sistema operativo: x64 o x86 (es decir, 64 bits o 32 bits).
+  * En la pestaña **Pantalla**, el nombre del adaptador.
 
 **CPU-Z**
 
 `CPU-Z <https://www.cpuid.com/softwares/cpu-z.html>`__ es una aplicación gratuita para Windows que muestra información del procesador, la memoria y la placa base: nombre, número y nombre en clave del procesador, etc.
 
-Descárgala, haz un **Bench CPU** y sube el **pantallazo**\ :sup:`4`, como este:
+No está en Microsoft Store: descárgala de su página web e instálala. Ábrela dos veces para tener a la vista la pestaña **CPU** y la pestaña **Bench**, y pulsa **Bench CPU**.
 
-.. image:: imagenes/conf2_cpuz.jpg
+**Ayuda**: la página de descarga es un poco liosa y tiene mucha publicidad. Elige el instalador en inglés (*setup · english*), pulsa el botón **DOWNLOAD NOW!** e instálalo con las opciones por defecto:
+
+.. image:: imagenes/conf1_cpuz_descarga.png
+
+Sube el **pantallazo**\ :sup:`5`, en el que se vean los datos de la CPU, el resultado del *benchmark* y la carpeta con tunombre, como este:
+
+.. image:: imagenes/conf1_cpuz.png
+
+Cuando hayas subido el pantallazo, desinstala CPU-Z:
+
+* Inicio / Configuración / Aplicaciones / Aplicaciones instaladas.
+* Busca **CPUID CPU-Z** en la lista, pulsa los tres puntos (**…**) de su derecha y elige **Desinstalar**.
+
+Sube el **pantallazo**\ :sup:`6`, justo antes de pulsar **Desinstalar**, en el que se vea tunombre en la cuenta de usuario, como este:
+
+.. image:: imagenes/conf1_cpuz_desinstalar.png
 
 **WinDirStat**
 
-WinDirStat (https://windirstat.net/) analiza qué es lo que más ocupa en las unidades de disco. Descárgalo, analiza el disco duro y responde:
+WinDirStat (https://windirstat.net/) analiza qué es lo que más ocupa en las unidades de disco. Descárgalo y analiza el disco duro.
 
-* **1.7** ¿Bajo qué licencia está publicado?
-* **1.8** ¿Existe una versión para Linux y macOS?
-* **1.9** ¿Cuál es el archivo más grande que ha encontrado?
+Sube el **pantallazo**\ :sup:`7`, con el resultado del análisis y tu carpeta de usuario (``C:\Users\tunombre``) seleccionada, como este:
+
+.. image:: imagenes/conf1_windirstat.png
+
+Responde:
+
+* **1.3** ¿Bajo qué licencia está publicado?
+* **1.4** ¿Existe una versión para Linux y macOS?
 
 Ejercicio 2: Escritorio y explorador
 ====================================
@@ -61,29 +101,38 @@ Ejercicio 2: Escritorio y explorador
 **Opciones de Windows**
 
 * **2.1** Cambia el protector de pantalla y configúralo para que el monitor se apague a los 15 minutos y los discos duros no se apaguen nunca. ¿Cómo lo has hecho?
-* **2.2** ¿Cómo consigues que se vean los archivos ocultos?
-* **2.3** ¿Qué pasos sigues para comprimir una carpeta que está en el escritorio?
+* Haz que se vean los archivos ocultos.
+* Comprime la carpeta con tunombre que tienes en el escritorio.
+* Abre el explorador y ve a ``C:\Usuarios\tunombre``.
+
+Sube el **pantallazo**\ :sup:`2`, en el que se vea lo que está recuadrado en rojo en este: la carpeta comprimida en el escritorio, la ruta, y la carpeta ``AppData`` y el fichero ``NTUSER.DAT``, que están ocultos.
+
+.. image:: imagenes/conf2_ocultos.png
 
 **Búsquedas**
 
 Consulta el apartado :ref:`Explorador de Windows` y responde:
 
-* **2.4** Busca todos los archivos de C: que empiecen por **no** y acaben por **exe**. ¿Cómo lo has hecho?
-* **2.5** ¿Cómo buscarías todos los ficheros de ``C:\Windows`` (incluidas las subcarpetas) que empiecen por **M**, con cualquier extensión?
-* **2.6** ¿Cómo buscarías todos los ficheros creados hace un mes?
-* **2.7** ¿Cómo buscarías todos los ficheros de ``C:\Windows`` (incluidas las subcarpetas) que contengan la palabra **Multimedia**?
-* **2.8** ¿Cómo buscarías todos los ficheros creados entre el 1 de enero de 1999 y hoy que contengan la palabra **Screen**?
-* **2.9** ¿Cómo buscarías todos los ficheros con un tamaño máximo de 300 KB?
+* **2.2** Busca todos los archivos de C: que empiecen por **no** y acaben por **exe**. ¿Cómo lo has hecho?
+* **2.3** ¿Cómo buscarías todos los ficheros de ``C:\Windows`` (incluidas las subcarpetas) que empiecen por **M**, con cualquier extensión?
+* **2.4** ¿Cómo buscarías todos los ficheros creados hace un mes?
+* **2.5** ¿Cómo buscarías todos los ficheros de ``C:\Windows`` (incluidas las subcarpetas) que contengan la palabra **Multimedia**?
+* **2.6** ¿Cómo buscarías todos los ficheros creados entre el 1 de enero de 1999 y hoy que contengan la palabra **Screen**?
+* **2.7** ¿Cómo buscarías todos los ficheros con un tamaño máximo de 300 KB?
 
 **La papelera**
 
-* Crea la carpeta A01 en el escritorio con la siguiente estructura:
+* Dentro de la carpeta con tunombre que tienes en el escritorio, crea la siguiente estructura de carpetas:
 
-  .. image:: imagenes/conf2_carpeta_A01.png
+  .. image:: imagenes/conf2_carpeta_tunombre.png
 
-* Selecciónala con el ratón y pulsa **Supr**.
-* Abre la papelera y restáurala. **2.10** ¿Cuánto espacio disponible tiene la papelera?
-* Vuelve a seleccionar la carpeta A01 en el escritorio y pulsa **Mayús + Supr**. **2.11** ¿Puedes volver a restaurarla?
+* Selecciona la carpeta con tunombre con el ratón y pulsa **Supr**.
+* Abre la papelera y sube el **pantallazo**\ :sup:`3`, antes de restaurarla, en el que se vean la carpeta con tunombre, su **Ubicación original** y su **Fecha eliminación**, como este:
+
+  .. image:: imagenes/conf2_papelera.png
+
+* Restáurala. **2.8** ¿Cuánto espacio disponible tiene la papelera?
+* Vuelve a seleccionar la carpeta con tunombre en el escritorio y pulsa **Mayús + Supr**. **2.9** ¿Puedes volver a restaurarla?
 
 Ejercicio 3: Equipo, usuarios y red
 ===================================
