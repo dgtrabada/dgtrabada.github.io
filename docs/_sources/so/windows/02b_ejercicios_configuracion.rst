@@ -200,7 +200,7 @@ Vuelve a hacer ``ping`` desde el anfitrión y sube el **pantallazo**\ :sup:`2`, 
 
 .. image:: imagenes/conf3_firewall_ping.png
 
-* **3.2** Windows ya trae una regla para esto, deshabilitada. Búscala en **Reglas de entrada** de ``wf.msc`` (contiene «ICMPv4» en el nombre). ¿Cómo se llama?
+* **3.2** Windows ya trae una regla para esto, deshabilitada. Búscala en **Reglas de entrada** de ``wf.msc`` (contiene "ICMPv4" en el nombre). ¿Cómo se llama?
 
 .. note::
 
@@ -222,10 +222,10 @@ Conéctate a Windows por escritorio remoto. Antes tienes que habilitarlo en Conf
 
 * Si te conectas desde Windows, abre en el anfitrión el programa **Conexión a Escritorio remoto** de una de estas formas:
 
-  * Escribe «Conexión a Escritorio remoto» en el menú Inicio.
+  * Escribe "Conexión a Escritorio remoto" en el menú Inicio.
   * Pulsa **Win+R** y escribe ``mstsc``.
 
-  En **Equipo**, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa **Conectar**. Como usuario, pon **tunombre** y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 («Escritorio remoto no se puede conectar al equipo remoto»).
+  En **Equipo**, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa **Conectar**. Como usuario, pon **tunombre** y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 ("Escritorio remoto no se puede conectar al equipo remoto").
 
   **Ayuda**: así se ve el escritorio remoto activado en la máquina virtual y la conexión desde el anfitrión:
 
@@ -346,7 +346,7 @@ Vas a añadir un segundo reenvío de puertos, esta vez para conectarte a la máq
    .. image:: imagenes/conf3_openssh.png
       :scale: 60 %
 
-Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa **Win+R** y escribe ``wf.msc``, o busca «Windows Defender Firewall con seguridad avanzada» en el menú Inicio) y, en **Reglas de entrada**, busca la de OpenSSH. Si después no puedes conectarte, mira su columna **Perfil**: si no incluye **Público**, haz doble clic en la regla (**OpenSSH SSH Server (sshd)**) y márcalo en la pestaña **Opciones avanzadas**:
+Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa **Win+R** y escribe ``wf.msc``, o busca "Windows Defender Firewall con seguridad avanzada" en el menú Inicio) y, en **Reglas de entrada**, busca la de OpenSSH. Si después no puedes conectarte, mira su columna **Perfil**: si no incluye **Público**, haz doble clic en la regla (**OpenSSH SSH Server (sshd)**) y márcalo en la pestaña **Opciones avanzadas**:
 
 .. image:: imagenes/conf3_sshd_cortafuegos.png
    :scale: 60 %
@@ -424,38 +424,128 @@ Ejercicio 4: Discos y copias de seguridad
 
 **Disco duro nuevo**
 
-* Con la máquina de Windows 11 apagada, en Configuración / Almacenamiento añade un disco nuevo de 50 GB reservado dinámicamente.
-* Selecciónalo y marca **Conectable en caliente**.
-* Arranca Windows y busca en Inicio **Crear y formatear particiones del disco duro**.
-* Dale formato NTFS, con la etiqueta «tunombre tuapellido1», y móntalo en la unidad **E:**. Sube el **pantallazo**\ :sup:`1`, como este:
+* Con la máquina de Windows 11 apagada, en Configuración / Almacenamiento añade un disco nuevo de **100 GB** reservado dinámicamente.
+* Llámalo ``tunombre.vdi``, selecciónalo y marca **Conectable en caliente**:
 
-  .. image:: imagenes/conf2_disco_E.png
+  .. image:: imagenes/conf4_disco_virtualbox.png
+     :scale: 60 %
+
+  Fíjate en que el disco es de 100 GB (**Virtual size**), pero el fichero solo ocupa 2 MB en el anfitrión (**Actual size**).
+* Arranca Windows y busca en Inicio **Crear y formatear particiones del disco duro** (es ``diskmgmt.msc``, consulta :ref:`Administración de discos`).
+* Al abrirlo, Windows detecta el disco nuevo y pide inicializarlo: elige **GPT (tabla de particiones GUID)**.
+* Haz clic con el botón derecho en el espacio **No asignado** del disco nuevo, **Nuevo volumen simple…**, usa todo el tamaño, asígnale la letra **E:** y dale formato NTFS con la etiqueta "tunombre".
+* Sube el **pantallazo**\ :sup:`1`, como este:
+
+  .. image:: imagenes/conf4_disco_E.png
+     :scale: 60 %
+
+  Tiene que verse lo que está recuadrado en rojo: el volumen **tunombre (E:)** de unos 100 GB en NTFS, en la lista y en el **Disco 1**.
+
+Algunas explicaciones:
+
+* **GPT o MBR**: MBR es el formato antiguo y solo admite discos de hasta 2 TB y 4 particiones primarias; GPT admite discos mucho más grandes y hasta 128 particiones, y es el que usan los equipos con UEFI.
+* **Reservado dinámicamente**: el fichero ``.vdi`` del anfitrión empieza casi vacío y crece a medida que se escriben datos, hasta los 100 GB como máximo.
+* **Conectable en caliente**: el disco se puede conectar y desconectar con la máquina virtual encendida, como un disco USB.
+
+**Reducir y extender un volumen**
+
+Un volumen se puede hacer más pequeño o más grande sin perder lo que tiene dentro. Antes de empezar, crea en E: un archivo ``tunombre.txt`` y escribe dentro la fecha, la hora y tunombre, por ejemplo:
+
+.. image:: imagenes/conf4_tunombre_txt.png
+   :scale: 60 %
+
+* En ``diskmgmt.msc``, haz clic con el botón derecho en E:, **Reducir volumen…**, y redúcelo en **10240** MB (10 GB). Al final del disco quedan 10 GB **No asignados**.
+* En ese espacio, crea un **Nuevo volumen simple** de **5120** MB (5 GB), con la letra **F:**, formato NTFS y la etiqueta "tunombre F".
+* Haz clic con el botón derecho en F:, **Extender volumen…**, y añádele los 5 GB que quedan libres. F: tiene que quedar con 10 GB.
+* Abre ``E:\tunombre.txt`` y comprueba que sigue ahí.
+* Sube el **pantallazo**\ :sup:`2`, como este:
+
+  .. image:: imagenes/conf4_reducir_extender.png
+     :scale: 60 %
+
+  Tiene que verse lo que está recuadrado en rojo:
+
+  * En ``diskmgmt.msc``, los volúmenes **E:** (unos 90 GB) y **F:** (10 GB), en la lista y en el **Disco 1**.
+  * ``tunombre.txt`` en E: y su contenido, con la fecha y la hora en que lo creaste: está creado antes de reducir E: y sigue ahí.
+
+Al reducir E: no se pierde nada, porque solo se quita espacio libre del final del volumen. En cambio, E: ya no se podría extender: Windows solo extiende un volumen con espacio **No asignado** que esté justo detrás de él, y detrás de E: está F:.
 
 **Historial de archivos**
 
-Vamos a hacer una copia de seguridad con el **Historial de archivos** (escribe «Historial de archivos» en el menú Inicio).
+El **Historial de archivos** copia cada cierto tiempo las carpetas de tu usuario (Escritorio, Documentos, Imágenes…) en otra unidad y guarda **varias versiones** de cada archivo. Así puedes recuperar un archivo borrado o volver a una versión anterior de un archivo que has cambiado. Consulta :ref:`Copia de seguridad y restauración`.
 
-* Activa el Historial de archivos:
+Ábrelo: escribe "Historial de archivos" en el menú Inicio (se abre en el Panel de control).
 
-  .. image:: imagenes/conf2_historial1.png
+* Crea en el **escritorio** un archivo ``tunombre_escritorio.txt`` con la fecha, la hora, tunombre y "versión 1" (por ejemplo, "Archivo creado en el escritorio 17/11/2026 12:13 por tunombre versión 1"). Se crea en el escritorio y no en E: porque el Historial de archivos solo copia las carpetas de tu usuario (Bibliotecas, Escritorio, Contactos y Favoritos), no la unidad E:, que es donde guarda las copias.
+* A la izquierda, pulsa **Seleccionar unidad**, elige la unidad E: que has creado en el apartado anterior y acepta. Después pulsa **Activar** y, cuando ponga **Historial de archivos activado**, pulsa **Ejecutar ahora** para hacer la primera copia:
 
-* Selecciona la unidad E: que has creado en el apartado anterior:
+  .. image:: imagenes/conf4_historial.png
+     :scale: 60 %
 
-  .. image:: imagenes/conf2_historial2.png
+* En **Configuración avanzada**, mira cada cuánto guarda las copias y cuánto tiempo las conserva.
+* Espera un minuto, para que cada copia tenga una hora distinta. Cambia el texto de ``tunombre_escritorio.txt`` por "versión 2", con la fecha y la hora nuevas, guárdalo y vuelve a pulsar **Ejecutar ahora**.
+* Espera otro minuto y haz lo mismo con "versión 3": cambia el texto, guárdalo y pulsa **Ejecutar ahora**. Ya tienes tres copias, cada una con una versión del archivo.
+* Borra ``tunombre_escritorio.txt`` de forma permanente (**Mayús+Supr**), para que no esté ni en la papelera.
 
-* Ejecuta ahora la copia de seguridad:
+Recupera la última versión (la 3):
 
-  .. image:: imagenes/conf2_historial3.png
+* En el Historial de archivos, pulsa **Restaurar archivos personales**. Se abre en la copia más reciente; arriba se ven su fecha y su hora y cuál es (por ejemplo, "4 de 4").
+* Entra en **Escritorio**, selecciona ``tunombre_escritorio.txt`` y pulsa el botón verde:
 
-* Cuando termine, borra de forma permanente algunos archivos del escritorio y pulsa **Restaurar archivos personales**:
+  .. image:: imagenes/conf4_historial_restaurar.png
+     :scale: 60 %
 
-  .. image:: imagenes/conf2_restaurar1.png
+* Abre ``tunombre_escritorio.txt`` en el escritorio: tiene que poner "versión 3".
 
-Sube el **pantallazo**\ :sup:`2`, del proceso de restauración, como estos:
+Ahora recupera una versión anterior (la 2):
 
-.. image:: imagenes/conf2_restaurar2.png
+#. Pulsa otra vez **Restaurar archivos personales**, entra en **Escritorio** y haz doble clic en ``tunombre_escritorio.txt``. Se abre una vista previa con su contenido, sin restaurarlo. Arriba pone cuántas versiones distintas del archivo hay guardadas ("3 de 3" es la última):
 
-.. image:: imagenes/conf2_restaurar3.png
+   .. image:: imagenes/conf4_historial_v3.png
+      :scale: 60 %
+
+#. Pulsa la flecha de la izquierda hasta que el contenido ponga "versión 2" y pulsa el botón verde.
+#. Como el archivo ya existe en el escritorio, Windows pregunta qué hacer: elige **Reemplazar el archivo en el destino**.
+#. Abre ``tunombre_escritorio.txt`` en el escritorio: ahora tiene que poner "versión 2".
+
+Sube el **pantallazo**\ :sup:`3`, como este:
+
+.. image:: imagenes/conf4_historial_v2.png
+   :scale: 60 %
+
+Tiene que verse lo que está recuadrado en rojo: la fecha y la hora de la copia con "2 de 3", el contenido con "versión 2", la flecha con la que has retrocedido y el botón verde para restaurarla.
+
+Responde:
+
+* **4.1** ¿Cada cuánto hace la copia y cuánto tiempo la conserva, según la **Configuración avanzada**?
+* **4.2** Busca en E: dónde guarda las copias. ¿En qué carpeta están?
+
+**Imagen del sistema**
+
+El Historial de archivos solo copia tus archivos. La **imagen del sistema** copia los volúmenes enteros que necesita Windows para arrancar (el sistema, los programas, la configuración y tus archivos), y sirve para dejar el equipo como estaba aunque el disco se estropee.
+
+Crea la imagen:
+
+* Abre el Panel de control (**Win+R** y escribe ``control``) y ve a **Sistema y seguridad / Copia de seguridad y restauración (Windows 7)**.
+* A la izquierda, pulsa **Crear una imagen del sistema**.
+* En **¿Dónde desea guardar la copia de seguridad?**, elige **En un disco duro** y la unidad E:.
+* Fíjate en qué unidades se incluyen (no se pueden quitar las que hacen falta para arrancar Windows) y pulsa **Iniciar copia de seguridad**. Tarda un rato.
+* Al terminar pregunta si quieres crear un disco de reparación del sistema: di que **No**.
+* Sube el **pantallazo**\ :sup:`4`, donde se vea el contenido de ``E:\WindowsImageBackup`` y, en sus propiedades, cuánto ocupa.
+
+Restaura la imagen:
+
+* Antes, haz una **instantánea** de la máquina virtual en VirtualBox, por si algo sale mal.
+* Crea en el escritorio una carpeta llamada ``tunombre_despues``.
+* Entra en el entorno de recuperación: **Configuración / Sistema / Recuperación / Inicio avanzado / Reiniciar ahora**.
+* Ve a **Solucionar problemas / Opciones avanzadas / Ver más opciones de recuperación / Recuperación de imagen del sistema**, elige la imagen de E: y sigue el asistente sin formatear ningún disco.
+* Cuando Windows arranque, mira el escritorio.
+
+Responde:
+
+* **4.3** ¿Qué ha pasado con la carpeta ``tunombre_despues``? ¿Por qué?
+* **4.4** ¿Qué diferencia hay entre la imagen del sistema, el Historial de archivos y un punto de restauración?
+* **4.5** ¿Por qué la imagen no puede guardarse en la unidad C:?
 
 **Copia de seguridad de los controladores**
 
@@ -469,13 +559,46 @@ Con la herramienta DISM puedes exportar a una carpeta los controladores instalad
 
       dism /online /export-driver /destination:e:\Controladores
 
-#. Sube el **pantallazo**\ :sup:`3`, en el que se vea la carpeta ``E:\Controladores``, por ejemplo:
+#. Sube el **pantallazo**\ :sup:`5`, en el que se vea la carpeta ``E:\Controladores``, por ejemplo:
 
    .. image:: imagenes/conf2_controladores.png
 
 .. note::
 
    DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía. Si instalas antes las **Guest Additions** de VirtualBox, aparecerán sus controladores.
+
+Ahora vamos a comprobar que la copia sirve, como si hubieras reinstalado Windows:
+
+#. Quita la impresora en **Configuración / Bluetooth y dispositivos / Impresoras y escáneres**.
+#. Quita también su controlador: en esa misma pantalla, **Propiedades del servidor de impresión**, pestaña **Controladores**, selecciónalo y pulsa **Quitar…** (elige **Quitar el controlador y el paquete de controladores**).
+#. Vuelve a instalarlo desde la copia, en el Símbolo del sistema como administrador:
+
+   .. code-block:: bat
+
+      pnputil /add-driver e:\Controladores\*.inf /subdirs /install
+
+   ``pnputil`` añade al sistema los controladores de los ficheros ``.inf``; ``/subdirs`` busca también en las subcarpetas (DISM guarda cada controlador en una) e ``/install`` los instala.
+
+#. Sube el **pantallazo**\ :sup:`6`, donde se vea la salida de ``pnputil`` con el número de paquetes agregados.
+
+* **4.6** Vuelve a añadir la impresora. ¿Te deja elegir el controlador sin descargarlo de nuevo?
+
+**Cifrado con BitLocker**
+
+**BitLocker** cifra una unidad entera. Los permisos NTFS solo funcionan dentro de Windows: si alguien saca el disco y lo conecta a otro equipo, puede leerlo todo. Con BitLocker, sin la contraseña o la clave de recuperación solo ve datos cifrados. Lo vamos a usar en F:.
+
+* En el Explorador, haz clic con el botón derecho en F:, **Mostrar más opciones / Activar BitLocker** (también está en Panel de control / Sistema y seguridad / Cifrado de unidad BitLocker).
+* Marca **Usar una contraseña para desbloquear la unidad** y escribe una contraseña.
+* Guarda la **clave de recuperación** en un archivo, en E: (no te deja guardarla en la misma unidad que cifras).
+* Elige **Cifrar solo el espacio en disco utilizado** y el modo **Compatible**, y pulsa **Iniciar cifrado**.
+* Copia un archivo en F: y reinicia Windows.
+* Abre el Explorador: F: aparece con un candado. Haz doble clic y desbloquéala con la contraseña.
+* Sube el **pantallazo**\ :sup:`7`, donde se vean F: bloqueada con el candado y la ventana que pide la contraseña.
+
+Responde:
+
+* **4.7** ¿Qué pasa si olvidas la contraseña? Abre el archivo de la clave de recuperación: ¿cuántos dígitos tiene la clave?
+* **4.8** ¿Por qué no hay que guardar la clave de recuperación en la misma unidad que se cifra?
 
 Ejercicio 5: Recuperación y registro
 ====================================

@@ -777,7 +777,7 @@
 <p>Vuelve a hacer <code class="docutils literal notranslate"><span class="pre">ping</span></code> desde el anfitrión y sube el <strong>pantallazo</strong><sup>2</sup>, en el que se vean el <code class="docutils literal notranslate"><span class="pre">ping</span></code> sin respuesta, el <code class="docutils literal notranslate"><span class="pre">ping</span></code> con respuesta y la regla <strong>Ping tunombre</strong> en <strong>Reglas de entrada</strong>, como este:</p>
 <img alt="../../_images/conf3_firewall_ping.png" src="../../_images/conf3_firewall_ping.png" />
 <ul class="simple">
-<li><p><strong>3.2</strong> Windows ya trae una regla para esto, deshabilitada. Búscala en <strong>Reglas de entrada</strong> de <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code> (contiene «ICMPv4» en el nombre). ¿Cómo se llama?</p></li>
+<li><p><strong>3.2</strong> Windows ya trae una regla para esto, deshabilitada. Búscala en <strong>Reglas de entrada</strong> de <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code> (contiene &quot;ICMPv4&quot; en el nombre). ¿Cómo se llama?</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
@@ -795,10 +795,10 @@
 </li>
 <li><p>Si te conectas desde Windows, abre en el anfitrión el programa <strong>Conexión a Escritorio remoto</strong> de una de estas formas:</p>
 <ul class="simple">
-<li><p>Escribe «Conexión a Escritorio remoto» en el menú Inicio.</p></li>
+<li><p>Escribe &quot;Conexión a Escritorio remoto&quot; en el menú Inicio.</p></li>
 <li><p>Pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">mstsc</span></code>.</p></li>
 </ul>
-<p>En <strong>Equipo</strong>, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa <strong>Conectar</strong>. Como usuario, pon <strong>tunombre</strong> y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 («Escritorio remoto no se puede conectar al equipo remoto»).</p>
+<p>En <strong>Equipo</strong>, escribe la IP de la máquina virtual (10.4.X.Y), no su nombre, y pulsa <strong>Conectar</strong>. Como usuario, pon <strong>tunombre</strong> y su contraseña. Fíjate bien en la IP: si te equivocas, sale el error 0x204 (&quot;Escritorio remoto no se puede conectar al equipo remoto&quot;).</p>
 <p><strong>Ayuda</strong>: así se ve el escritorio remoto activado en la máquina virtual y la conexión desde el anfitrión:</p>
 <a class="reference internal image-reference" href="../../_images/conf3_rdp_windows.png"><img alt="../../_images/conf3_rdp_windows.png" height="367" src="../../_images/conf3_rdp_windows.png" width="516" />
 </a>
@@ -910,7 +910,7 @@
 </a>
 </li>
 </ol>
-<p>Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code>, o busca «Windows Defender Firewall con seguridad avanzada» en el menú Inicio) y, en <strong>Reglas de entrada</strong>, busca la de OpenSSH. Si después no puedes conectarte, mira su columna <strong>Perfil</strong>: si no incluye <strong>Público</strong>, haz doble clic en la regla (<strong>OpenSSH SSH Server (sshd)</strong>) y márcalo en la pestaña <strong>Opciones avanzadas</strong>:</p>
+<p>Al instalarlo, Windows crea también la regla del cortafuegos que abre el puerto 22. Para verla, abre el cortafuegos (pulsa <strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">wf.msc</span></code>, o busca &quot;Windows Defender Firewall con seguridad avanzada&quot; en el menú Inicio) y, en <strong>Reglas de entrada</strong>, busca la de OpenSSH. Si después no puedes conectarte, mira su columna <strong>Perfil</strong>: si no incluye <strong>Público</strong>, haz doble clic en la regla (<strong>OpenSSH SSH Server (sshd)</strong>) y márcalo en la pestaña <strong>Opciones avanzadas</strong>:</p>
 <a class="reference internal image-reference" href="../../_images/conf3_sshd_cortafuegos.png"><img alt="../../_images/conf3_sshd_cortafuegos.png" height="376" src="../../_images/conf3_sshd_cortafuegos.png" width="502" />
 </a>
 <p><em>Arrancar el servidor</em></p>
@@ -983,32 +983,114 @@
 <h2>Ejercicio 4: Discos y copias de seguridad<a class="headerlink" href="#ejercicio-4-discos-y-copias-de-seguridad" title="Link to this heading">#</a></h2>
 <p><strong>Disco duro nuevo</strong></p>
 <ul>
-<li><p>Con la máquina de Windows 11 apagada, en Configuración / Almacenamiento añade un disco nuevo de 50 GB reservado dinámicamente.</p></li>
-<li><p>Selecciónalo y marca <strong>Conectable en caliente</strong>.</p></li>
-<li><p>Arranca Windows y busca en Inicio <strong>Crear y formatear particiones del disco duro</strong>.</p></li>
-<li><p>Dale formato NTFS, con la etiqueta «tunombre tuapellido1», y móntalo en la unidad <strong>E:</strong>. Sube el <strong>pantallazo</strong><sup>1</sup>, como este:</p>
-<img alt="../../_images/conf2_disco_E.png" src="../../_images/conf2_disco_E.png" />
+<li><p>Con la máquina de Windows 11 apagada, en Configuración / Almacenamiento añade un disco nuevo de <strong>100 GB</strong> reservado dinámicamente.</p></li>
+<li><p>Llámalo <code class="docutils literal notranslate"><span class="pre">tunombre.vdi</span></code>, selecciónalo y marca <strong>Conectable en caliente</strong>:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_disco_virtualbox.png"><img alt="../../_images/conf4_disco_virtualbox.png" height="311" src="../../_images/conf4_disco_virtualbox.png" width="491" />
+</a>
+<p>Fíjate en que el disco es de 100 GB (<strong>Virtual size</strong>), pero el fichero solo ocupa 2 MB en el anfitrión (<strong>Actual size</strong>).</p>
+</li>
+<li><p>Arranca Windows y busca en Inicio <strong>Crear y formatear particiones del disco duro</strong> (es <code class="docutils literal notranslate"><span class="pre">diskmgmt.msc</span></code>, consulta <a class="reference internal" href="02_configuracion.html#administracion-de-discos"><span class="std std-ref">Administración de discos</span></a>).</p></li>
+<li><p>Al abrirlo, Windows detecta el disco nuevo y pide inicializarlo: elige <strong>GPT (tabla de particiones GUID)</strong>.</p></li>
+<li><p>Haz clic con el botón derecho en el espacio <strong>No asignado</strong> del disco nuevo, <strong>Nuevo volumen simple…</strong>, usa todo el tamaño, asígnale la letra <strong>E:</strong> y dale formato NTFS con la etiqueta &quot;tunombre&quot;.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>1</sup>, como este:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_disco_E.png"><img alt="../../_images/conf4_disco_E.png" height="553" src="../../_images/conf4_disco_E.png" width="714" />
+</a>
+<p>Tiene que verse lo que está recuadrado en rojo: el volumen <strong>tunombre (E:)</strong> de unos 100 GB en NTFS, en la lista y en el <strong>Disco 1</strong>.</p>
 </li>
 </ul>
-<p><strong>Historial de archivos</strong></p>
-<p>Vamos a hacer una copia de seguridad con el <strong>Historial de archivos</strong> (escribe «Historial de archivos» en el menú Inicio).</p>
+<p>Algunas explicaciones:</p>
+<ul class="simple">
+<li><p><strong>GPT o MBR</strong>: MBR es el formato antiguo y solo admite discos de hasta 2 TB y 4 particiones primarias; GPT admite discos mucho más grandes y hasta 128 particiones, y es el que usan los equipos con UEFI.</p></li>
+<li><p><strong>Reservado dinámicamente</strong>: el fichero <code class="docutils literal notranslate"><span class="pre">.vdi</span></code> del anfitrión empieza casi vacío y crece a medida que se escriben datos, hasta los 100 GB como máximo.</p></li>
+<li><p><strong>Conectable en caliente</strong>: el disco se puede conectar y desconectar con la máquina virtual encendida, como un disco USB.</p></li>
+</ul>
+<p><strong>Reducir y extender un volumen</strong></p>
+<p>Un volumen se puede hacer más pequeño o más grande sin perder lo que tiene dentro. Antes de empezar, crea en E: un archivo <code class="docutils literal notranslate"><span class="pre">tunombre.txt</span></code> y escribe dentro la fecha, la hora y tunombre, por ejemplo:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_tunombre_txt.png"><img alt="../../_images/conf4_tunombre_txt.png" height="277" src="../../_images/conf4_tunombre_txt.png" width="524" />
+</a>
 <ul>
-<li><p>Activa el Historial de archivos:</p>
-<img alt="../../_images/conf2_historial1.png" src="../../_images/conf2_historial1.png" />
-</li>
-<li><p>Selecciona la unidad E: que has creado en el apartado anterior:</p>
-<img alt="../../_images/conf2_historial2.png" src="../../_images/conf2_historial2.png" />
-</li>
-<li><p>Ejecuta ahora la copia de seguridad:</p>
-<img alt="../../_images/conf2_historial3.png" src="../../_images/conf2_historial3.png" />
-</li>
-<li><p>Cuando termine, borra de forma permanente algunos archivos del escritorio y pulsa <strong>Restaurar archivos personales</strong>:</p>
-<img alt="../../_images/conf2_restaurar1.png" src="../../_images/conf2_restaurar1.png" />
+<li><p>En <code class="docutils literal notranslate"><span class="pre">diskmgmt.msc</span></code>, haz clic con el botón derecho en E:, <strong>Reducir volumen…</strong>, y redúcelo en <strong>10240</strong> MB (10 GB). Al final del disco quedan 10 GB <strong>No asignados</strong>.</p></li>
+<li><p>En ese espacio, crea un <strong>Nuevo volumen simple</strong> de <strong>5120</strong> MB (5 GB), con la letra <strong>F:</strong>, formato NTFS y la etiqueta &quot;tunombre F&quot;.</p></li>
+<li><p>Haz clic con el botón derecho en F:, <strong>Extender volumen…</strong>, y añádele los 5 GB que quedan libres. F: tiene que quedar con 10 GB.</p></li>
+<li><p>Abre <code class="docutils literal notranslate"><span class="pre">E:\tunombre.txt</span></code> y comprueba que sigue ahí.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>2</sup>, como este:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_reducir_extender.png"><img alt="../../_images/conf4_reducir_extender.png" height="428" src="../../_images/conf4_reducir_extender.png" width="505" />
+</a>
+<p>Tiene que verse lo que está recuadrado en rojo:</p>
+<ul class="simple">
+<li><p>En <code class="docutils literal notranslate"><span class="pre">diskmgmt.msc</span></code>, los volúmenes <strong>E:</strong> (unos 90 GB) y <strong>F:</strong> (10 GB), en la lista y en el <strong>Disco 1</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tunombre.txt</span></code> en E: y su contenido, con la fecha y la hora en que lo creaste: está creado antes de reducir E: y sigue ahí.</p></li>
+</ul>
 </li>
 </ul>
-<p>Sube el <strong>pantallazo</strong><sup>2</sup>, del proceso de restauración, como estos:</p>
-<img alt="../../_images/conf2_restaurar2.png" src="../../_images/conf2_restaurar2.png" />
-<img alt="../../_images/conf2_restaurar3.png" src="../../_images/conf2_restaurar3.png" />
+<p>Al reducir E: no se pierde nada, porque solo se quita espacio libre del final del volumen. En cambio, E: ya no se podría extender: Windows solo extiende un volumen con espacio <strong>No asignado</strong> que esté justo detrás de él, y detrás de E: está F:.</p>
+<p><strong>Historial de archivos</strong></p>
+<p>El <strong>Historial de archivos</strong> copia cada cierto tiempo las carpetas de tu usuario (Escritorio, Documentos, Imágenes…) en otra unidad y guarda <strong>varias versiones</strong> de cada archivo. Así puedes recuperar un archivo borrado o volver a una versión anterior de un archivo que has cambiado. Consulta <a class="reference internal" href="02_configuracion.html#copia-de-seguridad-y-restauracion"><span class="std std-ref">Copia de seguridad y restauración</span></a>.</p>
+<p>Ábrelo: escribe &quot;Historial de archivos&quot; en el menú Inicio (se abre en el Panel de control).</p>
+<ul>
+<li><p>Crea en el <strong>escritorio</strong> un archivo <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> con la fecha, la hora, tunombre y &quot;versión 1&quot; (por ejemplo, &quot;Archivo creado en el escritorio 17/11/2026 12:13 por tunombre versión 1&quot;). Se crea en el escritorio y no en E: porque el Historial de archivos solo copia las carpetas de tu usuario (Bibliotecas, Escritorio, Contactos y Favoritos), no la unidad E:, que es donde guarda las copias.</p></li>
+<li><p>A la izquierda, pulsa <strong>Seleccionar unidad</strong>, elige la unidad E: que has creado en el apartado anterior y acepta. Después pulsa <strong>Activar</strong> y, cuando ponga <strong>Historial de archivos activado</strong>, pulsa <strong>Ejecutar ahora</strong> para hacer la primera copia:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_historial.png"><img alt="../../_images/conf4_historial.png" height="355" src="../../_images/conf4_historial.png" width="469" />
+</a>
+</li>
+<li><p>En <strong>Configuración avanzada</strong>, mira cada cuánto guarda las copias y cuánto tiempo las conserva.</p></li>
+<li><p>Espera un minuto, para que cada copia tenga una hora distinta. Cambia el texto de <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> por &quot;versión 2&quot;, con la fecha y la hora nuevas, guárdalo y vuelve a pulsar <strong>Ejecutar ahora</strong>.</p></li>
+<li><p>Espera otro minuto y haz lo mismo con &quot;versión 3&quot;: cambia el texto, guárdalo y pulsa <strong>Ejecutar ahora</strong>. Ya tienes tres copias, cada una con una versión del archivo.</p></li>
+<li><p>Borra <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> de forma permanente (<strong>Mayús+Supr</strong>), para que no esté ni en la papelera.</p></li>
+</ul>
+<p>Recupera la última versión (la 3):</p>
+<ul>
+<li><p>En el Historial de archivos, pulsa <strong>Restaurar archivos personales</strong>. Se abre en la copia más reciente; arriba se ven su fecha y su hora y cuál es (por ejemplo, &quot;4 de 4&quot;).</p></li>
+<li><p>Entra en <strong>Escritorio</strong>, selecciona <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> y pulsa el botón verde:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_historial_restaurar.png"><img alt="../../_images/conf4_historial_restaurar.png" height="304" src="../../_images/conf4_historial_restaurar.png" width="451" />
+</a>
+</li>
+<li><p>Abre <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> en el escritorio: tiene que poner &quot;versión 3&quot;.</p></li>
+</ul>
+<p>Ahora recupera una versión anterior (la 2):</p>
+<ol class="arabic">
+<li><p>Pulsa otra vez <strong>Restaurar archivos personales</strong>, entra en <strong>Escritorio</strong> y haz doble clic en <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code>. Se abre una vista previa con su contenido, sin restaurarlo. Arriba pone cuántas versiones distintas del archivo hay guardadas (&quot;3 de 3&quot; es la última):</p>
+<a class="reference internal image-reference" href="../../_images/conf4_historial_v3.png"><img alt="../../_images/conf4_historial_v3.png" height="307" src="../../_images/conf4_historial_v3.png" width="464" />
+</a>
+</li>
+<li><p>Pulsa la flecha de la izquierda hasta que el contenido ponga &quot;versión 2&quot; y pulsa el botón verde.</p></li>
+<li><p>Como el archivo ya existe en el escritorio, Windows pregunta qué hacer: elige <strong>Reemplazar el archivo en el destino</strong>.</p></li>
+<li><p>Abre <code class="docutils literal notranslate"><span class="pre">tunombre_escritorio.txt</span></code> en el escritorio: ahora tiene que poner &quot;versión 2&quot;.</p></li>
+</ol>
+<p>Sube el <strong>pantallazo</strong><sup>3</sup>, como este:</p>
+<a class="reference internal image-reference" href="../../_images/conf4_historial_v2.png"><img alt="../../_images/conf4_historial_v2.png" height="306" src="../../_images/conf4_historial_v2.png" width="461" />
+</a>
+<p>Tiene que verse lo que está recuadrado en rojo: la fecha y la hora de la copia con &quot;2 de 3&quot;, el contenido con &quot;versión 2&quot;, la flecha con la que has retrocedido y el botón verde para restaurarla.</p>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>4.1</strong> ¿Cada cuánto hace la copia y cuánto tiempo la conserva, según la <strong>Configuración avanzada</strong>?</p></li>
+<li><p><strong>4.2</strong> Busca en E: dónde guarda las copias. ¿En qué carpeta están?</p></li>
+</ul>
+<p><strong>Imagen del sistema</strong></p>
+<p>El Historial de archivos solo copia tus archivos. La <strong>imagen del sistema</strong> copia los volúmenes enteros que necesita Windows para arrancar (el sistema, los programas, la configuración y tus archivos), y sirve para dejar el equipo como estaba aunque el disco se estropee.</p>
+<p>Crea la imagen:</p>
+<ul class="simple">
+<li><p>Abre el Panel de control (<strong>Win+R</strong> y escribe <code class="docutils literal notranslate"><span class="pre">control</span></code>) y ve a <strong>Sistema y seguridad / Copia de seguridad y restauración (Windows 7)</strong>.</p></li>
+<li><p>A la izquierda, pulsa <strong>Crear una imagen del sistema</strong>.</p></li>
+<li><p>En <strong>¿Dónde desea guardar la copia de seguridad?</strong>, elige <strong>En un disco duro</strong> y la unidad E:.</p></li>
+<li><p>Fíjate en qué unidades se incluyen (no se pueden quitar las que hacen falta para arrancar Windows) y pulsa <strong>Iniciar copia de seguridad</strong>. Tarda un rato.</p></li>
+<li><p>Al terminar pregunta si quieres crear un disco de reparación del sistema: di que <strong>No</strong>.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>4</sup>, donde se vea el contenido de <code class="docutils literal notranslate"><span class="pre">E:\WindowsImageBackup</span></code> y, en sus propiedades, cuánto ocupa.</p></li>
+</ul>
+<p>Restaura la imagen:</p>
+<ul class="simple">
+<li><p>Antes, haz una <strong>instantánea</strong> de la máquina virtual en VirtualBox, por si algo sale mal.</p></li>
+<li><p>Crea en el escritorio una carpeta llamada <code class="docutils literal notranslate"><span class="pre">tunombre_despues</span></code>.</p></li>
+<li><p>Entra en el entorno de recuperación: <strong>Configuración / Sistema / Recuperación / Inicio avanzado / Reiniciar ahora</strong>.</p></li>
+<li><p>Ve a <strong>Solucionar problemas / Opciones avanzadas / Ver más opciones de recuperación / Recuperación de imagen del sistema</strong>, elige la imagen de E: y sigue el asistente sin formatear ningún disco.</p></li>
+<li><p>Cuando Windows arranque, mira el escritorio.</p></li>
+</ul>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>4.3</strong> ¿Qué ha pasado con la carpeta <code class="docutils literal notranslate"><span class="pre">tunombre_despues</span></code>? ¿Por qué?</p></li>
+<li><p><strong>4.4</strong> ¿Qué diferencia hay entre la imagen del sistema, el Historial de archivos y un punto de restauración?</p></li>
+<li><p><strong>4.5</strong> ¿Por qué la imagen no puede guardarse en la unidad C:?</p></li>
+</ul>
 <p><strong>Copia de seguridad de los controladores</strong></p>
 <p>Con la herramienta DISM puedes exportar a una carpeta los controladores instalados. Si reinstalas Windows, puedes volver a instalarlos desde esa carpeta (en otra partición, un USB o un disco externo) sin programas de terceros.</p>
 <ol class="arabic">
@@ -1019,7 +1101,7 @@
 </pre></div>
 </div>
 </li>
-<li><p>Sube el <strong>pantallazo</strong><sup>3</sup>, en el que se vea la carpeta <code class="docutils literal notranslate"><span class="pre">E:\Controladores</span></code>, por ejemplo:</p>
+<li><p>Sube el <strong>pantallazo</strong><sup>5</sup>, en el que se vea la carpeta <code class="docutils literal notranslate"><span class="pre">E:\Controladores</span></code>, por ejemplo:</p>
 <img alt="../../_images/conf2_controladores.png" src="../../_images/conf2_controladores.png" />
 </li>
 </ol>
@@ -1027,6 +1109,37 @@
 <p class="admonition-title">Nota</p>
 <p>DISM solo exporta los controladores de terceros, no los de Microsoft. VirtualBox usa controladores genéricos de Microsoft, por eso, si usas una máquina virtual, la carpeta puede quedar vacía. Si instalas antes las <strong>Guest Additions</strong> de VirtualBox, aparecerán sus controladores.</p>
 </div>
+<p>Ahora vamos a comprobar que la copia sirve, como si hubieras reinstalado Windows:</p>
+<ol class="arabic">
+<li><p>Quita la impresora en <strong>Configuración / Bluetooth y dispositivos / Impresoras y escáneres</strong>.</p></li>
+<li><p>Quita también su controlador: en esa misma pantalla, <strong>Propiedades del servidor de impresión</strong>, pestaña <strong>Controladores</strong>, selecciónalo y pulsa <strong>Quitar…</strong> (elige <strong>Quitar el controlador y el paquete de controladores</strong>).</p></li>
+<li><p>Vuelve a instalarlo desde la copia, en el Símbolo del sistema como administrador:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>pnputil /add-driver e:\Controladores\*.inf /subdirs /install
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pnputil</span></code> añade al sistema los controladores de los ficheros <code class="docutils literal notranslate"><span class="pre">.inf</span></code>; <code class="docutils literal notranslate"><span class="pre">/subdirs</span></code> busca también en las subcarpetas (DISM guarda cada controlador en una) e <code class="docutils literal notranslate"><span class="pre">/install</span></code> los instala.</p>
+</li>
+<li><p>Sube el <strong>pantallazo</strong><sup>6</sup>, donde se vea la salida de <code class="docutils literal notranslate"><span class="pre">pnputil</span></code> con el número de paquetes agregados.</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>4.6</strong> Vuelve a añadir la impresora. ¿Te deja elegir el controlador sin descargarlo de nuevo?</p></li>
+</ul>
+<p><strong>Cifrado con BitLocker</strong></p>
+<p><strong>BitLocker</strong> cifra una unidad entera. Los permisos NTFS solo funcionan dentro de Windows: si alguien saca el disco y lo conecta a otro equipo, puede leerlo todo. Con BitLocker, sin la contraseña o la clave de recuperación solo ve datos cifrados. Lo vamos a usar en F:.</p>
+<ul class="simple">
+<li><p>En el Explorador, haz clic con el botón derecho en F:, <strong>Mostrar más opciones / Activar BitLocker</strong> (también está en Panel de control / Sistema y seguridad / Cifrado de unidad BitLocker).</p></li>
+<li><p>Marca <strong>Usar una contraseña para desbloquear la unidad</strong> y escribe una contraseña.</p></li>
+<li><p>Guarda la <strong>clave de recuperación</strong> en un archivo, en E: (no te deja guardarla en la misma unidad que cifras).</p></li>
+<li><p>Elige <strong>Cifrar solo el espacio en disco utilizado</strong> y el modo <strong>Compatible</strong>, y pulsa <strong>Iniciar cifrado</strong>.</p></li>
+<li><p>Copia un archivo en F: y reinicia Windows.</p></li>
+<li><p>Abre el Explorador: F: aparece con un candado. Haz doble clic y desbloquéala con la contraseña.</p></li>
+<li><p>Sube el <strong>pantallazo</strong><sup>7</sup>, donde se vean F: bloqueada con el candado y la ventana que pide la contraseña.</p></li>
+</ul>
+<p>Responde:</p>
+<ul class="simple">
+<li><p><strong>4.7</strong> ¿Qué pasa si olvidas la contraseña? Abre el archivo de la clave de recuperación: ¿cuántos dígitos tiene la clave?</p></li>
+<li><p><strong>4.8</strong> ¿Por qué no hay que guardar la clave de recuperación en la misma unidad que se cifra?</p></li>
+</ul>
 </section>
 <section id="ejercicio-5-recuperacion-y-registro">
 <h2>Ejercicio 5: Recuperación y registro<a class="headerlink" href="#ejercicio-5-recuperacion-y-registro" title="Link to this heading">#</a></h2>
