@@ -6,14 +6,14 @@ Kubernetes
 
 Con Docker arrancamos contenedores en **una** máquina. En cuanto hay varias máquinas aparecen preguntas que Docker solo no contesta: en cuál arranca cada contenedor, qué pasa si esa máquina se apaga, cómo se reparten las peticiones entre diez copias de la misma aplicación o cómo se cambia de versión sin cortar el servicio. A eso se le llama **orquestar** contenedores, y es lo que hace Kubernetes.
 
-La idea central es el **estado deseado**: no le decimos a Kubernetes *qué hacer* («arranca un contenedor aquí»), sino *cómo queremos que estén las cosas* («quiero tres copias de esta aplicación»). Kubernetes compara continuamente lo que hay con lo que se ha pedido y corrige la diferencia: si una copia muere, crea otra; si sobra una, la quita.
+La idea central es el **estado deseado**: no le decimos a Kubernetes *qué hacer* ("arranca un contenedor aquí"), sino *cómo queremos que estén las cosas* ("quiero tres copias de esta aplicación"). Kubernetes compara continuamente lo que hay con lo que se ha pedido y corrige la diferencia: si una copia muere, crea otra; si sobra una, la quita.
 
 Arquitectura de un clúster
 --------------------------
 
 Un **clúster** de Kubernetes es un conjunto de máquinas, llamadas **nodos**, que trabajan como una sola. Hay dos papeles:
 
-* El **plano de control** (*control plane*, antes «nodo maestro») toma las decisiones. Lo forman:
+* El **plano de control** (*control plane*, antes "nodo maestro") toma las decisiones. Lo forman:
 
   * **kube-apiserver**: la API del clúster. Todo pasa por ella: ``kubectl``, los nodos y los demás componentes solo hablan con el servidor de la API (puerto 6443).
   * **etcd**: la base de datos clave-valor donde se guarda el estado del clúster, es decir, todos los objetos que hemos creado. Si se pierde etcd, se pierde el clúster.
@@ -161,7 +161,9 @@ Ingress
 
 Un Service de tipo NodePort o LoadBalancer publica **una** aplicación por un puerto. Un **Ingress** publica **muchas** por el mismo puerto 80 o 443, repartiéndolas por **nombre de host** o por **ruta** (``tienda.ejemplo.com``, ``ejemplo.com/blog``), y puede encargarse también del HTTPS. Trabaja en la capa HTTP: es el equivalente a los *virtual hosts* de Apache.
 
-El Ingress es solo la regla. Quien la aplica es un **controlador de Ingress**, un proxy inverso que corre dentro del clúster (Traefik, NGINX, HAProxy...) y que hay que tener instalado; k3s trae Traefik. Su sucesor es la **Gateway API**, que reparte esas mismas funciones en varios objetos.
+El Ingress es solo la regla. Quien la aplica es un **controlador de Ingress**, un proxy inverso que corre dentro del clúster (Traefik, NGINX, HAProxy...) y que hay que tener instalado; k3s trae Traefik.
+
+El Ingress **no está obsoleto**: su API es estable y sigue funcionando, aunque Kubernetes ya no le añade funciones nuevas. Su sucesor, recomendado para lo nuevo, es la **Gateway API**, que reparte esas mismas funciones en varios objetos. Lo que sí se ha retirado es un controlador concreto, **ingress-nginx**, el que mantenía la propia comunidad de Kubernetes (anunciado en noviembre de 2025, con mantenimiento hasta marzo de 2026). No hay que confundir las dos cosas: quien lo usaba tiene que cambiar de controlador, pero sus objetos ``Ingress`` siguen valiendo con Traefik, HAProxy u otro.
 
 Configuración: ConfigMap y Secret
 ---------------------------------
@@ -179,7 +181,7 @@ Almacenamiento
 El sistema de archivos de un contenedor desaparece con él. Para guardar datos se monta un **volumen**, y si los datos tienen que sobrevivir al Pod, un volumen **persistente**, que se describe con tres objetos:
 
 * **PersistentVolume (PV)**: un trozo de almacenamiento real (una exportación NFS, un disco de la nube...). Lo da de alta el administrador.
-* **PersistentVolumeClaim (PVC)**: la petición de una aplicación («necesito 1 GiB en el que puedan escribir varios Pods»). Kubernetes la **enlaza** (*Bound*) con un PV que la cumpla, y el Pod monta el PVC sin saber qué hay detrás.
+* **PersistentVolumeClaim (PVC)**: la petición de una aplicación ("necesito 1 GiB en el que puedan escribir varios Pods"). Kubernetes la **enlaza** (*Bound*) con un PV que la cumpla, y el Pod monta el PVC sin saber qué hay detrás.
 * **StorageClass**: un tipo de almacenamiento capaz de crear los PV él solo cuando llega un PVC (aprovisionamiento dinámico), sin que el administrador los prepare uno a uno.
 
 Los **modos de acceso** dicen cuántos nodos pueden montar el volumen a la vez: ``ReadWriteOnce`` (uno solo) o ``ReadWriteMany`` (varios, como permite un NFS).
@@ -194,7 +196,7 @@ Formas de instalar Kubernetes
 
 Kubernetes es un conjunto de componentes, y hay muchas maneras de juntarlos:
 
-* **kubeadm**: la herramienta oficial para montar un clúster en nuestras máquinas. Es la instalación «completa»: hay que preparar cada nodo a mano.
+* **kubeadm**: la herramienta oficial para montar un clúster en nuestras máquinas. Es la instalación "completa": hay que preparar cada nodo a mano.
 * **k3s**: una distribución ligera y certificada, en un solo binario, que trae ya el motor de contenedores, la red y un Ingress. Es la que usamos en el caso práctico.
 * **minikube** y **kind**: un clúster dentro de una sola máquina, para aprender y para desarrollar.
 * **Kubernetes gestionado**: el proveedor de nube lleva el plano de control y nosotros solo ponemos los nodos (GKE de Google, EKS de Amazon, AKS de Microsoft).

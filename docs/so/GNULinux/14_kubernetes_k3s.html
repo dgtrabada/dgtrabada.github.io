@@ -617,7 +617,7 @@
 </ul>
 <section id="el-cluster">
 <h2>El clúster<a class="headerlink" href="#el-cluster" title="Link to this heading">#</a></h2>
-<p>La instalación «oficial» de Kubernetes, con <strong>kubeadm</strong>, exige además desactivar la swap, cargar el módulo <code class="docutils literal notranslate"><span class="pre">br_netfilter</span></code>, activar el enrutado IP y configurar containerd a mano. Con k3s no hace falta nada de eso: el enrutado IP ya está puesto desde que compute-0-0 hace de router para la red interna, el módulo <code class="docutils literal notranslate"><span class="pre">br_netfilter</span></code> lo carga el propio instalador, y ni siquiera hay que quitar la swap, porque su kubelet no la rechaza.</p>
+<p>La instalación &quot;oficial&quot; de Kubernetes, con <strong>kubeadm</strong>, exige además desactivar la swap, cargar el módulo <code class="docutils literal notranslate"><span class="pre">br_netfilter</span></code>, activar el enrutado IP y configurar containerd a mano. Con k3s no hace falta nada de eso: el enrutado IP ya está puesto desde que compute-0-0 hace de router para la red interna, el módulo <code class="docutils literal notranslate"><span class="pre">br_netfilter</span></code> lo carga el propio instalador, y ni siquiera hay que quitar la swap, porque su kubelet no la rechaza.</p>
 <p>En <strong>compute-0-0</strong> instalamos el servidor. El instalador descarga el binario, crea los enlaces a <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>, <code class="docutils literal notranslate"><span class="pre">crictl</span></code> y <code class="docutils literal notranslate"><span class="pre">ctr</span></code>, y deja un servicio de systemd arrancado y habilitado:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>curl<span class="w"> </span>-sfL<span class="w"> </span>https://get.k3s.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-
 <span class="o">[</span>INFO<span class="o">]</span><span class="w">  </span>Finding<span class="w"> </span>release<span class="w"> </span><span class="k">for</span><span class="w"> </span>channel<span class="w"> </span>stable
@@ -830,7 +830,7 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>web-tunombre-c6bf74bf
 </section>
 <section id="publicar-con-un-nombre-el-ingress">
 <h2>Publicar con un nombre: el Ingress<a class="headerlink" href="#publicar-con-un-nombre-el-ingress" title="Link to this heading">#</a></h2>
-<p>Acceder por «la IP de un nodo y el puerto 30080» no es como se publica un servicio de verdad. Un <strong>Ingress</strong> publica la aplicación por <strong>nombre</strong> en el puerto 80, y k3s ya trae instalado el controlador que lo hace, <strong>Traefik</strong>:</p>
+<p>Acceder por &quot;la IP de un nodo y el puerto 30080&quot; no es como se publica un servicio de verdad. Un <strong>Ingress</strong> publica la aplicación por <strong>nombre</strong> en el puerto 80, y k3s ya trae instalado el controlador que lo hace, <strong>Traefik</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>traefik
 NAME<span class="w">      </span>TYPE<span class="w">           </span>CLUSTER-IP<span class="w">     </span>EXTERNAL-IP<span class="w">                           </span>PORT<span class="o">(</span>S<span class="o">)</span>
 traefik<span class="w">   </span>LoadBalancer<span class="w">   </span><span class="m">10</span>.43.84.167<span class="w">   </span><span class="m">172</span>.16.0.10,172.16.0.11,172.16.0.12<span class="w">   </span><span class="m">80</span>:32524/TCP,443:30869/TCP
@@ -1684,7 +1684,25 @@ root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<sp
 <p>Las réplicas quedan repartidas entre los cinco nodos. Por defecto el planificador <strong>tiende</strong> a repartirlas, pero no lo garantiza: si hay que asegurarlo, el Deployment admite <code class="docutils literal notranslate"><span class="pre">topologySpreadConstraints</span></code>, que impiden que un nodo tenga más réplicas que otro.</p>
 <p><strong>Sacar un nodo</strong> para mantenimiento, sin que se caiga nada: <code class="docutils literal notranslate"><span class="pre">drain</span></code> mueve sus Pods al resto y <code class="docutils literal notranslate"><span class="pre">cordon</span></code> impide que le manden más trabajo.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>drain<span class="w"> </span>compute-0-2<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
-root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>uncordon<span class="w"> </span>compute-0-2<span class="w">      </span><span class="c1"># al volver</span>
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">          </span>STATUS<span class="w">                     </span>ROLES<span class="w">           </span>AGE<span class="w">     </span>VERSION
+compute-0-0<span class="w">   </span>Ready<span class="w">                      </span>control-plane<span class="w">   </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-1<span class="w">   </span>Ready<span class="w">                      </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-2<span class="w">   </span>Ready,SchedulingDisabled<span class="w">   </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-3<span class="w">   </span>Ready<span class="w">                      </span>&lt;none&gt;<span class="w">          </span>2d4h<span class="w">    </span>v1.36.4+k3s1
+compute-0-4<span class="w">   </span>Ready<span class="w">                      </span>&lt;none&gt;<span class="w">          </span>15m<span class="w">     </span>v1.36.4+k3s1
+
+root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>NODO:.spec.nodeName<span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c
+</pre></div>
+</div>
+<p>El nodo sigue encendido y <code class="docutils literal notranslate"><span class="pre">Ready</span></code>, pero marcado con <code class="docutils literal notranslate"><span class="pre">SchedulingDisabled</span></code>: el planificador no le manda nada. En el recuento compute-0-2 ya no aparece, porque sus Pods se han recreado en los demás nodos, y la página ha seguido respondiendo todo el rato.</p>
+<div class="admonition important">
+<p class="admonition-title">Importante</p>
+<p><strong>Llama al profesor</strong> y enséñaselo antes de devolver el nodo al clúster. Sube un <strong>pantallazo</strong><sup>6</sup> en el que se vean el <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">nodes</span></code> con los cinco nodos, compute-0-4 en <code class="docutils literal notranslate"><span class="pre">Ready</span></code> y compute-0-2 en <code class="docutils literal notranslate"><span class="pre">Ready,SchedulingDisabled</span></code>, y el recuento de Pods por nodo, con Pods en compute-0-4 y ninguno en compute-0-2.</p>
+</div>
+<p>Cuando termina el mantenimiento, <code class="docutils literal notranslate"><span class="pre">uncordon</span></code> vuelve a admitir trabajo en el nodo. Igual que al añadir compute-0-4, los Pods que ya están funcionando no vuelven solos a él:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@compute-0-0:~#<span class="w"> </span>kubectl<span class="w"> </span>uncordon<span class="w"> </span>compute-0-2
 </pre></div>
 </div>
 <p><strong>Ver el clúster por dentro</strong> cuando algo no va:</p>

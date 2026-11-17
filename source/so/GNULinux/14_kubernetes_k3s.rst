@@ -12,7 +12,7 @@ Haz de nuevo las cuatro máquinas del :ref:`Caso práctico: clúster Ubuntu Serv
 El clúster
 ==========
 
-La instalación «oficial» de Kubernetes, con **kubeadm**, exige además desactivar la swap, cargar el módulo ``br_netfilter``, activar el enrutado IP y configurar containerd a mano. Con k3s no hace falta nada de eso: el enrutado IP ya está puesto desde que compute-0-0 hace de router para la red interna, el módulo ``br_netfilter`` lo carga el propio instalador, y ni siquiera hay que quitar la swap, porque su kubelet no la rechaza.
+La instalación "oficial" de Kubernetes, con **kubeadm**, exige además desactivar la swap, cargar el módulo ``br_netfilter``, activar el enrutado IP y configurar containerd a mano. Con k3s no hace falta nada de eso: el enrutado IP ya está puesto desde que compute-0-0 hace de router para la red interna, el módulo ``br_netfilter`` lo carga el propio instalador, y ni siquiera hay que quitar la swap, porque su kubelet no la rechaza.
 
 En **compute-0-0** instalamos el servidor. El instalador descarga el binario, crea los enlaces a ``kubectl``, ``crictl`` y ``ctr``, y deja un servicio de systemd arrancado y habilitado:
 
@@ -260,7 +260,7 @@ Para ver qué está pasando, tres comandos que usarás constantemente:
 Publicar con un nombre: el Ingress
 ==================================
 
-Acceder por «la IP de un nodo y el puerto 30080» no es como se publica un servicio de verdad. Un **Ingress** publica la aplicación por **nombre** en el puerto 80, y k3s ya trae instalado el controlador que lo hace, **Traefik**:
+Acceder por "la IP de un nodo y el puerto 30080" no es como se publica un servicio de verdad. Un **Ingress** publica la aplicación por **nombre** en el puerto 80, y k3s ya trae instalado el controlador que lo hace, **Traefik**:
 
 .. code-block:: bash
 
@@ -1259,7 +1259,28 @@ Las réplicas quedan repartidas entre los cinco nodos. Por defecto el planificad
 .. code-block:: bash
 
   root@compute-0-0:~# kubectl drain compute-0-2 --ignore-daemonsets --delete-emptydir-data
-  root@compute-0-0:~# kubectl uncordon compute-0-2      # al volver
+
+  root@compute-0-0:~# kubectl get nodes
+  NAME          STATUS                     ROLES           AGE     VERSION
+  compute-0-0   Ready                      control-plane   2d4h    v1.36.4+k3s1
+  compute-0-1   Ready                      <none>          2d4h    v1.36.4+k3s1
+  compute-0-2   Ready,SchedulingDisabled   <none>          2d4h    v1.36.4+k3s1
+  compute-0-3   Ready                      <none>          2d4h    v1.36.4+k3s1
+  compute-0-4   Ready                      <none>          15m     v1.36.4+k3s1
+
+  root@compute-0-0:~# kubectl get pods -o custom-columns=NODO:.spec.nodeName --no-headers | sort | uniq -c
+
+El nodo sigue encendido y ``Ready``, pero marcado con ``SchedulingDisabled``: el planificador no le manda nada. En el recuento compute-0-2 ya no aparece, porque sus Pods se han recreado en los demás nodos, y la página ha seguido respondiendo todo el rato.
+
+.. important::
+
+   **Llama al profesor** y enséñaselo antes de devolver el nodo al clúster. Sube un **pantallazo**\ :sup:`6` en el que se vean el ``kubectl get nodes`` con los cinco nodos, compute-0-4 en ``Ready`` y compute-0-2 en ``Ready,SchedulingDisabled``, y el recuento de Pods por nodo, con Pods en compute-0-4 y ninguno en compute-0-2.
+
+Cuando termina el mantenimiento, ``uncordon`` vuelve a admitir trabajo en el nodo. Igual que al añadir compute-0-4, los Pods que ya están funcionando no vuelven solos a él:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl uncordon compute-0-2
 
 **Ver el clúster por dentro** cuando algo no va:
 

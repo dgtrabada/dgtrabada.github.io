@@ -2,9 +2,257 @@
 Caso práctico: Helm, observabilidad y almacenamiento de objetos
 ***************************************************************
 
-Seguimos sobre **el mismo clúster** del :doc:`caso anterior <14_kubernetes_k3s>`, sin borrar ni reinstalar nada: los nodos que ya tenemos, el NFS de compute-0-0 y la aplicación ``web-tunombre`` desplegada con su imagen propia. Lo que cambia es la forma de trabajar. Hasta ahora hemos escrito los YAML a mano y hemos mirado el clúster con ``kubectl`` y ``k9s``, que enseña lo que pasa **ahora mismo**. Un administrador de verdad hace otras dos cosas: **instala software empaquetado** en lugar de escribirlo, y **guarda el histórico** de lo que ha pasado para poder mirarlo después.
+Este caso **no continúa** el clúster del :doc:`caso anterior <14_kubernetes_k3s>`: se empieza con las máquinas limpias y se vuelve a montar lo necesario. Ya lo has hecho una vez; ahora se trata de hacerlo sabiendo para qué sirve cada pieza. Lo que cambia es la forma de trabajar. Hasta ahora hemos escrito los YAML a mano y hemos mirado el clúster con ``kubectl`` y ``k9s``, que enseña lo que pasa **ahora mismo**. Un administrador de verdad hace otras dos cosas: **instala software empaquetado** en lugar de escribirlo, y **guarda el histórico** de lo que ha pasado para poder mirarlo después.
 
-Vamos a montar tres piezas encima de lo que ya hay:
+Punto de partida
+================
+
+Parte de las cuatro máquinas limpias, **compute-0-0** … **compute-0-3**, tal como quedan en el :ref:`Caso práctico: clúster Ubuntu Server con NAT y red interna`, con el reenvío del puerto 30080 en compute-0-0.
+
+Todo lo que necesita el caso se monta aquí mismo, con los comandos ya en su versión buena y sin los tropiezos del caso anterior. Si quieres repasar por qué es cada cosa, está explicado en :ref:`El clúster`, :ref:`Publicar con un nombre: el Ingress`, :ref:`Una imagen propia: Dockerfile, ConfigMap y Secret` y :ref:`Almacenamiento persistente`.
+
+El **servidor** en compute-0-0, ya en la red interna (comprueba con ``ip a`` que tu tarjeta interna se llama **enp0s8**):
+
+.. code-block:: bash
+
+  root@compute-0-0:~# curl -sfL https://get.k3s.io | \
+    INSTALL_K3S_EXEC="--node-ip 172.16.0.10 --flannel-iface enp0s8" sh -
+
+Al instalarse, k3s se lleva por delante el **masquerade**, y sin él los agentes no pueden descargarse el instalador. Se recupera así:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# systemctl restart nftables
+  root@compute-0-0:~# nft list table ip nat | grep masquerade
+    oifname "enp0s3" ip saddr 172.16.0.0/16 masquerade
+
+Los tres **agentes**, desde compute-0-0 por ssh:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# for n in compute-0-1 compute-0-2 compute-0-3; do
+      ssh -n $n "curl -fL https://get.k3s.io | \
+        K3S_URL=https://172.16.0.10:6443 \
+        K3S_TOKEN='$(cat /var/lib/rancher/k3s/server/node-token)' sh -"
+    done
+
+La variable ``KUBECONFIG``, que necesitan k9s y Helm, y **k9s** para tener una segunda terminal mirando el clúster:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+  root@compute-0-0:~# bash
+  root@compute-0-0:~# curl -sL https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.deb -o /tmp/k9s.deb
+  root@compute-0-0:~# apt install -y /tmp/k9s.deb
+
+Si arrancas k9s ahora **no vas a ver nada**: arranca en el *namespace* ``default``, que todavía está vacío, y la lista de Pods sale en blanco. No es que la variable ``KUBECONFIG`` esté mal; si lo estuviera, el contexto, el clúster y el usuario saldrían como ``n/a``. Pulsa ``0`` para ver todos los *namespaces* y aparecerán los Pods de ``kube-system``.
+
+Y el nombre ``web-tunombre.local`` en el ``/etc/hosts`` de **los cuatro nodos**:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# echo "172.16.0.10 web-tunombre.local" >> /etc/hosts
+  root@compute-0-0:~# for n in compute-0-1 compute-0-2 compute-0-3; do
+      ssh -n $n 'echo "172.16.0.10 web-tunombre.local" >> /etc/hosts'
+    done
+
+  root@compute-0-0:~# curl -s http://web-tunombre.local
+  404 page not found
+
+Ese **404** es lo que tiene que salir: el nombre se resuelve y Traefik contesta en el puerto 80, pero todavía no hay ninguna regla de Ingress que lleve ese nombre a una aplicación. La pondrá Helm. Si sale ``Could not resolve host``, falla el ``/etc/hosts``; si sale ``Connection refused``, falla Traefik.
+
+La **imagen propia**. Kubernetes no construye imágenes, así que se instala Docker en compute-0-0 y se crean estos ficheros, cada uno con exactamente lo que se ve aquí, ni una línea más:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# apt install -y docker.io
+  root@compute-0-0:~# mkdir -p imagen/privado
+
+  imagen/
+  ├── Dockerfile
+  ├── index.html.template
+  ├── default.conf
+  ├── 20-titulo.sh
+  └── privado/
+      └── index.html
+
+``imagen/index.html.template``:
+
+.. code-block:: html
+
+  <!DOCTYPE html>
+  <html>
+  <head><title>${TITULO}</title></head>
+  <body>
+    <h1>${TITULO}</h1>
+    <p>Imagen propia de tunombre construida con Dockerfile</p>
+    <p><a href="/privado/">Zona privada</a></p>
+  </body>
+  </html>
+
+``imagen/privado/index.html``:
+
+.. code-block:: html
+
+  <!DOCTYPE html>
+  <html>
+  <head><title>Zona privada</title></head>
+  <body>
+    <h1>Has acertado la clave</h1>
+  </body>
+  </html>
+
+``imagen/default.conf``:
+
+.. code-block:: nginx
+
+  server {
+      listen 80;
+      root /usr/share/nginx/html;
+      index index.html;
+
+      location /privado/ {
+          auth_basic "Zona privada";
+          auth_basic_user_file /etc/nginx/.htpasswd;
+      }
+  }
+
+``imagen/20-titulo.sh``:
+
+.. code-block:: bash
+
+  #!/bin/sh
+  # la imagen nginx ejecuta al arrancar todo lo que encuentre en /docker-entrypoint.d/
+  envsubst "\$TITULO" < /plantilla/index.html.template > /usr/share/nginx/html/index.html
+  htpasswd -bc /etc/nginx/.htpasswd "$USUARIO" "$CLAVE"
+
+``imagen/Dockerfile``:
+
+.. code-block:: docker
+
+  FROM nginx:alpine
+  # envsubst viene en gettext; htpasswd, en apache2-utils
+  RUN apk add --no-cache gettext apache2-utils
+  ENV TITULO="sin titulo" USUARIO="nadie" CLAVE="sin clave"
+  COPY index.html.template /plantilla/index.html.template
+  COPY privado /usr/share/nginx/html/privado
+  COPY default.conf /etc/nginx/conf.d/default.conf
+  COPY 20-titulo.sh /docker-entrypoint.d/20-titulo.sh
+  RUN chmod +x /docker-entrypoint.d/20-titulo.sh
+
+Se construye y se lleva al containerd de **los cuatro nodos**, porque k3s no usa Docker y cada nodo tiene su propio almacén. El ``.tar`` se queda en ``/root``: hará falta otra vez al final, cuando se añada un nodo.
+
+.. code-block:: bash
+
+  root@compute-0-0:~# docker build -t web-tunombre:1.0 imagen/
+  root@compute-0-0:~# docker save web-tunombre:1.0 -o web-tunombre-1.0.tar
+  root@compute-0-0:~# k3s ctr images import web-tunombre-1.0.tar
+  root@compute-0-0:~# for n in 1 2 3; do
+    scp web-tunombre-1.0.tar 172.16.0.1$n:/root/
+    ssh 172.16.0.1$n "k3s ctr images import /root/web-tunombre-1.0.tar"
+  done
+
+El **NFS**: el servidor en compute-0-0, el cliente en los agentes y el directorio exportado a la red interna:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# apt install -y nfs-kernel-server
+  root@compute-0-0:~# for n in 1 2 3; do ssh -n 172.16.0.1$n "apt install -y nfs-common"; done
+  root@compute-0-0:~# mkdir -p /srv/tunombre && chmod 777 /srv/tunombre
+  root@compute-0-0:~# echo "/srv/tunombre 172.16.0.0/16(rw,sync,no_subtree_check,no_root_squash)" >> /etc/exports
+  root@compute-0-0:~# exportfs -ra && exportfs -v
+  /srv/tunombre 	172.16.0.0/16(sync,wdelay,hide,no_subtree_check,sec=sys,rw,secure,no_root_squash,no_all_squash)
+
+Y el **PersistentVolume** y el **PersistentVolumeClaim** que lo ofrecen al clúster, en ``nfs-tunombre.yml``:
+
+.. code-block:: yaml
+
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: pv-tunombre
+  spec:
+    capacity:
+      storage: 1Gi
+    accessModes:
+      - ReadWriteMany
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-tunombre
+    nfs:
+      server: 172.16.0.10
+      path: /srv/tunombre
+  ---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: pvc-tunombre
+  spec:
+    accessModes:
+      - ReadWriteMany
+    storageClassName: nfs-tunombre
+    resources:
+      requests:
+        storage: 1Gi
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl apply -f nfs-tunombre.yml
+  persistentvolume/pv-tunombre created
+  persistentvolumeclaim/pvc-tunombre created
+
+Lo que **no** tienes que crear es la aplicación: ni el Deployment, ni el Service, ni el Ingress, ni el ConfigMap, ni el Secret. Esos cinco objetos los va a instalar Helm de una vez, y esa es la comparación que buscamos.
+
+Antes de seguir, comprueba que el punto de partida está completo: los cuatro nodos, la imagen en los cuatro containerd, que la imagen **funciona** (se prueba con Docker, sin Kubernetes de por medio), que un agente puede escribir en el NFS, el PV y el PVC enlazados, y que todavía no hay aplicación. Sube un **pantallazo**\ :sup:`1` con la salida de estos comandos, que tiene que ser como esta:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# kubectl get nodes
+  NAME          STATUS   ROLES           AGE   VERSION
+  compute-0-0   Ready    control-plane   61m   v1.37.2+k3s1
+  compute-0-1   Ready    <none>          58m   v1.37.2+k3s1
+  compute-0-2   Ready    <none>          57m   v1.37.2+k3s1
+  compute-0-3   Ready    <none>          57m   v1.37.2+k3s1
+
+  root@compute-0-0:~# for n in 0 1 2 3; do
+      echo -n "compute-0-$n: "; ssh 172.16.0.1$n "k3s ctr images ls | grep -c web-tunombre"
+    done
+  compute-0-0: 1
+  compute-0-1: 1
+  compute-0-2: 1
+  compute-0-3: 1
+
+  root@compute-0-0:~# docker run -d --name prueba -p 8080:80 -e TITULO="Prueba" web-tunombre:1.0
+  df3d108ffc4984a06d52f8b641293c0bb2c56046e4ecbd2561feaeb39e93890d
+  root@compute-0-0:~# curl -s localhost:8080 | grep tunombre
+    <p>Imagen propia de tunombre construida con Dockerfile</p>
+  root@compute-0-0:~# docker rm -f prueba
+  prueba
+
+  root@compute-0-0:~# ssh compute-0-1 "mount -t nfs 172.16.0.10:/srv/tunombre /mnt && touch /mnt/desde-compute-0-1 && umount /mnt"
+  root@compute-0-0:~# ls /srv/tunombre
+  desde-compute-0-1
+
+  root@compute-0-0:~# kubectl get pv,pvc
+  NAME                           CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                  STORAGECLASS
+  persistentvolume/pv-tunombre   1Gi        RWX            Retain           Bound    default/pvc-tunombre   nfs-tunombre
+
+  NAME                                 STATUS   VOLUME        CAPACITY   ACCESS MODES   STORAGECLASS
+  persistentvolumeclaim/pvc-tunombre   Bound    pv-tunombre   1Gi        RWX            nfs-tunombre
+
+  root@compute-0-0:~# kubectl get deployments,ingress
+  No resources found in default namespace.
+
+Este último tiene que salir **vacío**. Si te aparece un Ingress ``web-tunombre`` es que has aplicado el ``ingress-tunombre.yml`` del caso anterior al poner el nombre en el ``/etc/hosts``; bórralo con ``kubectl delete ingress web-tunombre``, porque Helm se niega a crear un objeto que ya existe y no es suyo, y el ``helm install`` fallaría con ``exists and cannot be imported into the current release``.
+
+Si el ``curl`` no devuelve nada, mira qué ha pasado con ``docker logs prueba`` antes del ``docker rm``: casi siempre es que se ha colado algo en ``20-titulo.sh``. Si el ``mount`` del agente se queda parado o da ``access denied by server``, el NFS de compute-0-0 no está exportando: repasa ``/etc/exports`` y ``exportfs -ra``; si da ``bad option``, al agente le falta ``nfs-common``.
+
+Los ficheros de este caso los guardamos en un directorio propio:
+
+.. code-block:: bash
+
+  root@compute-0-0:~# mkdir ~/09 && cd ~/09
+
+Sobre ese punto de partida vamos a montar tres piezas:
 
 * **Helm**, el gestor de paquetes de Kubernetes: lo que ``apt`` es a Ubuntu.
 * **Prometheus y Grafana**, para ver el clúster con gráficas y con histórico.
@@ -278,17 +526,9 @@ Dos comprobaciones antes de tocar el clúster. ``helm lint`` revisa el paquete y
 
 Fíjate en que al llamar a la *release* ``prueba``, **todos** los objetos han pasado a llamarse ``prueba-...``. Eso es lo que permite instalar el mismo chart dos veces en el mismo clúster sin que choquen.
 
-Como la aplicación del caso anterior sigue desplegada, la quitamos primero para no chocar con el mismo NodePort y el mismo Ingress. El PersistentVolume y su PVC **no se tocan**: los queremos:
+En el clúster no hay nada de la aplicación, solo el PersistentVolume y el PVC del punto de partida, que el chart usa pero **no crea**. Lo instalamos:
 
 .. code-block:: bash
-
-  root@compute-0-0:~/09# kubectl delete -f web-tunombre.yml -f ingress-tunombre.yml -f config-tunombre.yml
-  deployment.apps "web-tunombre" deleted from default namespace
-  service "web-tunombre" deleted from default namespace
-  ingress.networking.k8s.io "web-tunombre" deleted from default namespace
-  configmap "web-tunombre-config" deleted from default namespace
-  secret "web-tunombre-secret" deleted from default namespace
-  secret "web-tunombre-secret" deleted from default namespace
 
   root@compute-0-0:~/09# helm install web-tunombre ./web-tunombre-chart
   NAME: web-tunombre
@@ -315,9 +555,9 @@ Como la aplicación del caso anterior sigue desplegada, la quitamos primero para
   <head><title>Hola, soy tunombre</title></head>
   <body>
     <h1>Hola, soy tunombre</h1>
-    <p>Imagen propia construida con Dockerfile</p>
+    <p>Imagen propia de tunombre construida con Dockerfile</p>
 
-Seis objetos, un comando, y la misma página de antes. Y ahora lo importante: **todo lo que hicimos a mano en el caso anterior, Helm lo hace sobre el paquete entero**, no objeto a objeto.
+Cinco objetos, un comando, y la página de tu imagen propia. Y ahora lo importante: **todo lo que hicimos a mano en el caso anterior, Helm lo hace sobre el paquete entero**, no objeto a objeto.
 
 .. code-block:: bash
 
@@ -454,7 +694,7 @@ El nombre nuevo hay que añadirlo al ``/etc/hosts`` de todos los nodos. Ojo con 
 .. code-block:: bash
 
   root@compute-0-0:~/09# echo "172.16.0.10 minio-tunombre.local grafana-tunombre.local" >> /etc/hosts
-  root@compute-0-0:~/09# for n in 1 2 3 4; do
+  root@compute-0-0:~/09# for n in 1 2 3; do
       ssh -n 172.16.0.1$n "echo '172.16.0.10 minio-tunombre.local grafana-tunombre.local' >> /etc/hosts"
     done
 
@@ -638,7 +878,7 @@ Un sistema de monitorización sirve de poco si solo mira al propio Kubernetes. M
 
 .. warning::
 
-  Hacen falta **las dos líneas**. La plantilla del chart empieza con ``{{- if and .Values.metrics.serviceMonitor.enabled .Values.metrics.serviceMonitor.includeNode }}``, así que con solo ``enabled: true`` no se crea nada, sin ningún error y sin ninguna pista. Cuando un chart ajeno «no hace caso» a un valor, la respuesta está en su plantilla: ``helm pull minio/minio --untar`` la descarga para poder leerla.
+  Hacen falta **las dos líneas**. La plantilla del chart empieza con ``{{- if and .Values.metrics.serviceMonitor.enabled .Values.metrics.serviceMonitor.includeNode }}``, así que con solo ``enabled: true`` no se crea nada, sin ningún error y sin ninguna pista. Cuando un chart ajeno "no hace caso" a un valor, la respuesta está en su plantilla: ``helm pull minio/minio --untar`` la descarga para poder leerla.
 
 .. code-block:: bash
 
@@ -667,7 +907,7 @@ Copia de seguridad del NFS contra MinIO
 
 Cerramos el círculo. En la tarea de **cron y systemd** montamos copias de seguridad que se ejecutaban en una máquina: si esa máquina estaba apagada a su hora, esa noche no había copia. Aquí la copia la mantiene el clúster: un **CronJob** es un Job que se lanza según un horario, y lo arranca **cualquier nodo que esté vivo**.
 
-Lo que copiamos es el NFS ``/srv/tunombre`` del caso anterior, que ya tenemos en el ``pvc-tunombre``, contra el bucket de MinIO. La herramienta es ``mc mirror``, y las credenciales **no van escritas en el YAML**: van en un Secret, como aprendimos con la clave de la página.
+Lo que copiamos es el NFS ``/srv/tunombre`` del punto de partida, que ya tenemos en el ``pvc-tunombre``, contra el bucket de MinIO. La herramienta es ``mc mirror``, y las credenciales **no van escritas en el YAML**: van en un Secret, como aprendimos con la clave de la página.
 
 ``backup-tunombre.yml``:
 
@@ -783,13 +1023,13 @@ Y la prueba que de verdad importa, la que en la tarea de cron no se podía hacer
 Un nodo nuevo en un clúster que ya tiene cosas
 ==============================================
 
-Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se apaña solo y qué no. Creamos una sexta máquina, **compute-0-5**, clon enlazado de **MV Ubuntu Server** con 4 GB de memoria y la tarjeta en "Red interna" : 172.16.0.15/16. Para poder llamarla por su nombre desde compute-0-0, como a las demás, la añadimos a su ``/etc/hosts`` (si no la tienes ya), y la unimos con el mismo comando de siempre, lanzado desde compute-0-0:
+Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se apaña solo y qué no. Creamos una quinta máquina, **compute-0-4**, clon enlazado de **MV Ubuntu Server** con 4 GB de memoria y la tarjeta en "Red interna" : 172.16.0.14/16. Para poder llamarla por su nombre desde compute-0-0, como a las demás, la añadimos a su ``/etc/hosts`` (si no la tienes ya), y la unimos con el mismo comando de siempre, lanzado desde compute-0-0:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# echo "172.16.0.15 compute-0-5" >> /etc/hosts
+  root@compute-0-0:~# echo "172.16.0.14 compute-0-4" >> /etc/hosts
 
-  root@compute-0-0:~# ssh -n compute-0-5 "curl -fL https://get.k3s.io | \
+  root@compute-0-0:~# ssh -n compute-0-4 "curl -fL https://get.k3s.io | \
       K3S_URL=https://172.16.0.10:6443 \
       K3S_TOKEN='$(cat /var/lib/rancher/k3s/server/node-token)' sh -"
   [INFO]  systemd: Enabling k3s-agent unit
@@ -801,35 +1041,34 @@ Merece la pena añadir un nodo **ahora**, con el clúster lleno, y ver qué se a
   compute-0-1   Ready    <none>          6d22h   v1.36.4+k3s1
   compute-0-2   Ready    <none>          6d22h   v1.36.4+k3s1
   compute-0-3   Ready    <none>          6d22h   v1.36.4+k3s1
-  compute-0-4   Ready    <none>          6d21h   v1.36.4+k3s1
-  compute-0-5   Ready    <none>          54s     v1.36.4+k3s1
+  compute-0-4   Ready    <none>          54s     v1.36.4+k3s1
 
 **Lo que se arregla solo**, sin que nadie lo pida:
 
 * el **DaemonSet** de node-exporter le pone su copia y Prometheus empieza a recogerlo;
-* el **svclb** de Traefik hace lo mismo, y los tres Ingress pasan a anunciar seis direcciones.
+* el **svclb** de Traefik hace lo mismo, y los tres Ingress pasan a anunciar cinco direcciones.
 
 Se ve pidiendo los Pods de ese nodo:
 
 .. code-block:: bash
 
-  root@compute-0-0:~# kubectl get pods -A -o wide --field-selector spec.nodeName=compute-0-5
+  root@compute-0-0:~# kubectl get pods -A -o wide --field-selector spec.nodeName=compute-0-4
 
-**Lo que no** se arregla solo es nuestra aplicación: en compute-0-5 no hay **ningún** Pod de ``web-tunombre``. El planificador solo decide dónde va un Pod **cuando se crea**, y los que ya estaban funcionando en los otros cinco nodos se quedan donde están. Kubernetes no los mueve para repartir la carga.
+**Lo que no** se arregla solo es nuestra aplicación: en compute-0-4 no hay **ningún** Pod de ``web-tunombre``. El planificador solo decide dónde va un Pod **cuando se crea**, y los que ya estaban funcionando en los otros cuatro nodos se quedan donde están. Kubernetes no los mueve para repartir la carga.
 
-Para que la aplicación use el nodo nuevo hay que **recrear los Pods**, pero antes hay que preparar el nodo, porque le faltan justo las dos cosas que ya sabemos del caso anterior:
+Para que la aplicación use el nodo nuevo hay que **recrear los Pods**, pero antes hay que preparar el nodo, porque le faltan justo las dos cosas que tuviste que preparar en el punto de partida:
 
 * La **imagen propia** no está en su containerd, porque cada nodo tiene su propio almacén: hay que llevársela con ``scp`` e importarla con ``k3s ctr images import``, como hicimos con los demás.
 * El **cliente de NFS** tampoco está: sin ``nfs-common`` el Pod se quedaría en ``ContainerCreating`` con el ``exit status 32`` de la sección de almacenamiento persistente.
 
 .. code-block:: bash
 
-  root@compute-0-0:~# scp web-tunombre-1.0.tar compute-0-5:/root/
-  root@compute-0-0:~# ssh compute-0-5 "k3s ctr images import /root/web-tunombre-1.0.tar"
-  root@compute-0-0:~# ssh compute-0-5 "k3s ctr images ls | grep web-tunombre"
-  root@compute-0-0:~# ssh compute-0-5 "apt install -y nfs-common"
+  root@compute-0-0:~# scp web-tunombre-1.0.tar compute-0-4:/root/
+  root@compute-0-0:~# ssh compute-0-4 "k3s ctr images import /root/web-tunombre-1.0.tar"
+  root@compute-0-0:~# ssh compute-0-4 "k3s ctr images ls | grep web-tunombre"
+  root@compute-0-0:~# ssh compute-0-4 "apt install -y nfs-common"
 
-Ahora sí, recreamos los Pods. ``rollout restart`` crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-5:
+Ahora sí, recreamos los Pods. ``rollout restart`` crea Pods nuevos uno a uno y va borrando los viejos, sin cortar el servicio, y como son nuevos el planificador ya cuenta con compute-0-4:
 
 .. code-block:: bash
 
@@ -841,7 +1080,7 @@ Ahora sí, recreamos los Pods. ``rollout restart`` crea Pods nuevos uno a uno y 
 
   root@compute-0-0:~# kubectl get pods -o wide
 
-Por defecto el planificador **tiende** a repartir las réplicas entre los nodos, pero no lo garantiza: a compute-0-5 le puede tocar una, dos o, alguna vez, ninguna. Si hay que asegurar el reparto, el Deployment admite ``topologySpreadConstraints``, que impiden que un nodo tenga más réplicas que otro.
+Por defecto el planificador **tiende** a repartir las réplicas entre los nodos, pero no lo garantiza: a compute-0-4 le puede tocar una, dos o, alguna vez, ninguna. Si hay que asegurar el reparto, el Deployment admite ``topologySpreadConstraints``, que impiden que un nodo tenga más réplicas que otro.
 
 Esa es la diferencia entre lo que **Kubernetes** mantiene —los Pods, los servicios, la monitorización— y lo que sigue siendo **administración de sistemas** de toda la vida: los paquetes y las imágenes de cada máquina. Un nodo recién añadido está en el clúster desde el primer minuto, pero no sirve para todo hasta que alguien lo prepara. En un sistema de verdad eso se resuelve con un registro de imágenes y con el Ansible de la tarea 08.
 

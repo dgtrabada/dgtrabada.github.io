@@ -613,12 +613,12 @@
 <h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading">#</a></h1>
 <p><strong>Kubernetes</strong>, también conocido como <strong>K8s</strong>, es un sistema de código abierto para automatizar el despliegue, el escalado y la gestión de aplicaciones en contenedores. Lo desarrolló Google a partir de su experiencia con su sistema interno Borg, lo liberó en 2014 y hoy lo mantiene la Cloud Native Computing Foundation (CNCF).</p>
 <p>Con Docker arrancamos contenedores en <strong>una</strong> máquina. En cuanto hay varias máquinas aparecen preguntas que Docker solo no contesta: en cuál arranca cada contenedor, qué pasa si esa máquina se apaga, cómo se reparten las peticiones entre diez copias de la misma aplicación o cómo se cambia de versión sin cortar el servicio. A eso se le llama <strong>orquestar</strong> contenedores, y es lo que hace Kubernetes.</p>
-<p>La idea central es el <strong>estado deseado</strong>: no le decimos a Kubernetes <em>qué hacer</em> («arranca un contenedor aquí»), sino <em>cómo queremos que estén las cosas</em> («quiero tres copias de esta aplicación»). Kubernetes compara continuamente lo que hay con lo que se ha pedido y corrige la diferencia: si una copia muere, crea otra; si sobra una, la quita.</p>
+<p>La idea central es el <strong>estado deseado</strong>: no le decimos a Kubernetes <em>qué hacer</em> (&quot;arranca un contenedor aquí&quot;), sino <em>cómo queremos que estén las cosas</em> (&quot;quiero tres copias de esta aplicación&quot;). Kubernetes compara continuamente lo que hay con lo que se ha pedido y corrige la diferencia: si una copia muere, crea otra; si sobra una, la quita.</p>
 <section id="arquitectura-de-un-cluster">
 <h2>Arquitectura de un clúster<a class="headerlink" href="#arquitectura-de-un-cluster" title="Link to this heading">#</a></h2>
 <p>Un <strong>clúster</strong> de Kubernetes es un conjunto de máquinas, llamadas <strong>nodos</strong>, que trabajan como una sola. Hay dos papeles:</p>
 <ul class="simple">
-<li><p>El <strong>plano de control</strong> (<em>control plane</em>, antes «nodo maestro») toma las decisiones. Lo forman:</p>
+<li><p>El <strong>plano de control</strong> (<em>control plane</em>, antes &quot;nodo maestro&quot;) toma las decisiones. Lo forman:</p>
 <ul>
 <li><p><strong>kube-apiserver</strong>: la API del clúster. Todo pasa por ella: <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>, los nodos y los demás componentes solo hablan con el servidor de la API (puerto 6443).</p></li>
 <li><p><strong>etcd</strong>: la base de datos clave-valor donde se guarda el estado del clúster, es decir, todos los objetos que hemos creado. Si se pierde etcd, se pierde el clúster.</p></li>
@@ -768,7 +768,8 @@ cualquier nodo y ese puerto</p></td>
 <section id="ingress">
 <h2>Ingress<a class="headerlink" href="#ingress" title="Link to this heading">#</a></h2>
 <p>Un Service de tipo NodePort o LoadBalancer publica <strong>una</strong> aplicación por un puerto. Un <strong>Ingress</strong> publica <strong>muchas</strong> por el mismo puerto 80 o 443, repartiéndolas por <strong>nombre de host</strong> o por <strong>ruta</strong> (<code class="docutils literal notranslate"><span class="pre">tienda.ejemplo.com</span></code>, <code class="docutils literal notranslate"><span class="pre">ejemplo.com/blog</span></code>), y puede encargarse también del HTTPS. Trabaja en la capa HTTP: es el equivalente a los <em>virtual hosts</em> de Apache.</p>
-<p>El Ingress es solo la regla. Quien la aplica es un <strong>controlador de Ingress</strong>, un proxy inverso que corre dentro del clúster (Traefik, NGINX, HAProxy...) y que hay que tener instalado; k3s trae Traefik. Su sucesor es la <strong>Gateway API</strong>, que reparte esas mismas funciones en varios objetos.</p>
+<p>El Ingress es solo la regla. Quien la aplica es un <strong>controlador de Ingress</strong>, un proxy inverso que corre dentro del clúster (Traefik, NGINX, HAProxy...) y que hay que tener instalado; k3s trae Traefik.</p>
+<p>El Ingress <strong>no está obsoleto</strong>: su API es estable y sigue funcionando, aunque Kubernetes ya no le añade funciones nuevas. Su sucesor, recomendado para lo nuevo, es la <strong>Gateway API</strong>, que reparte esas mismas funciones en varios objetos. Lo que sí se ha retirado es un controlador concreto, <strong>ingress-nginx</strong>, el que mantenía la propia comunidad de Kubernetes (anunciado en noviembre de 2025, con mantenimiento hasta marzo de 2026). No hay que confundir las dos cosas: quien lo usaba tiene que cambiar de controlador, pero sus objetos <code class="docutils literal notranslate"><span class="pre">Ingress</span></code> siguen valiendo con Traefik, HAProxy u otro.</p>
 </section>
 <section id="configuracion-configmap-y-secret">
 <h2>Configuración: ConfigMap y Secret<a class="headerlink" href="#configuracion-configmap-y-secret" title="Link to this heading">#</a></h2>
@@ -784,7 +785,7 @@ cualquier nodo y ese puerto</p></td>
 <p>El sistema de archivos de un contenedor desaparece con él. Para guardar datos se monta un <strong>volumen</strong>, y si los datos tienen que sobrevivir al Pod, un volumen <strong>persistente</strong>, que se describe con tres objetos:</p>
 <ul class="simple">
 <li><p><strong>PersistentVolume (PV)</strong>: un trozo de almacenamiento real (una exportación NFS, un disco de la nube...). Lo da de alta el administrador.</p></li>
-<li><p><strong>PersistentVolumeClaim (PVC)</strong>: la petición de una aplicación («necesito 1 GiB en el que puedan escribir varios Pods»). Kubernetes la <strong>enlaza</strong> (<em>Bound</em>) con un PV que la cumpla, y el Pod monta el PVC sin saber qué hay detrás.</p></li>
+<li><p><strong>PersistentVolumeClaim (PVC)</strong>: la petición de una aplicación (&quot;necesito 1 GiB en el que puedan escribir varios Pods&quot;). Kubernetes la <strong>enlaza</strong> (<em>Bound</em>) con un PV que la cumpla, y el Pod monta el PVC sin saber qué hay detrás.</p></li>
 <li><p><strong>StorageClass</strong>: un tipo de almacenamiento capaz de crear los PV él solo cuando llega un PVC (aprovisionamiento dinámico), sin que el administrador los prepare uno a uno.</p></li>
 </ul>
 <p>Los <strong>modos de acceso</strong> dicen cuántos nodos pueden montar el volumen a la vez: <code class="docutils literal notranslate"><span class="pre">ReadWriteOnce</span></code> (uno solo) o <code class="docutils literal notranslate"><span class="pre">ReadWriteMany</span></code> (varios, como permite un NFS).</p>
@@ -797,7 +798,7 @@ cualquier nodo y ese puerto</p></td>
 <h2>Formas de instalar Kubernetes<a class="headerlink" href="#formas-de-instalar-kubernetes" title="Link to this heading">#</a></h2>
 <p>Kubernetes es un conjunto de componentes, y hay muchas maneras de juntarlos:</p>
 <ul class="simple">
-<li><p><strong>kubeadm</strong>: la herramienta oficial para montar un clúster en nuestras máquinas. Es la instalación «completa»: hay que preparar cada nodo a mano.</p></li>
+<li><p><strong>kubeadm</strong>: la herramienta oficial para montar un clúster en nuestras máquinas. Es la instalación &quot;completa&quot;: hay que preparar cada nodo a mano.</p></li>
 <li><p><strong>k3s</strong>: una distribución ligera y certificada, en un solo binario, que trae ya el motor de contenedores, la red y un Ingress. Es la que usamos en el caso práctico.</p></li>
 <li><p><strong>minikube</strong> y <strong>kind</strong>: un clúster dentro de una sola máquina, para aprender y para desarrollar.</p></li>
 <li><p><strong>Kubernetes gestionado</strong>: el proveedor de nube lleva el plano de control y nosotros solo ponemos los nodos (GKE de Google, EKS de Amazon, AKS de Microsoft).</p></li>
